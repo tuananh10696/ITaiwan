@@ -116,7 +116,7 @@
   ],
   "functions": {
     "api/index.js": {
-      "includeFiles": "public/data/{giaotrinh,hsk,luyentap,dich,thi}/**"
+      "includeFiles": "public/data/{giaotrinh,luyentap,thi,tocfl}/**"
     }
   },
   "crons": [

@@ -5,10 +5,10 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { AN_HSK } from '../shared/an-hsk.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const SITE = 'https://taiwanese-mu.vercel.app';
+// Tên miền thật của trung tâm — đặt qua biến môi trường SITE_URL khi deploy.
+const SITE = (process.env.SITE_URL || 'https://itaiwan.vn').replace(/\/+$/, '');
 
 // Trang chưa có nội dung thật thì không đưa vào sitemap (tránh Google index màn "Sắp ra mắt")
 const src = fs.readFileSync(path.join(ROOT, 'src/main.js'), 'utf8');
@@ -31,7 +31,6 @@ const KHONG_VAO_SITEMAP = new Set([
   // và đó là trang đáng để Google lập chỉ mục nhất trong nhóm này (4.41).
   'account-profile', 'account-settings', 'account-notifications',
   // Khu HSK đang ẩn — hai trang này có `id` nên vốn tự vào sitemap từ navConfig.
-  ...(AN_HSK ? ['hsk-vocab', 'hsk-exam'] : []),
 ]);
 
 let currentParent = '';
@@ -56,28 +55,6 @@ function isTopLevel(nav, id) {
   return re.test(nav);
 }
 
-// Bài con Giáo trình Đương đại — mỗi bài là 1 URL nội dung thật, rất đáng index.
-// Import thẳng module dữ liệu (thuần ESM, không import CSS) thay vì bóc regex: từ 2026-09-04 có
-// 4 quyển, id bài cha là chuỗi ('5' / '2-5') và URL quyển 2-4 có thêm đoạn /quyen-N.
-// Chỉ đưa bài ĐÃ CÓ từ vựng (count > 0) — quyển 2-4 chưa có dữ liệu thì không vào sitemap.
-const ddBase = urls.find(u => u.id === 'tocfl-duongdai');
-if (ddBase) {
-  const { duongdaiLessons, duongdaiSubLessons, ddSubSegs } =
-    await import(pathToFileURL(path.join(ROOT, 'src/data/duongdaiData.js')).href);
-  for (const s of duongdaiSubLessons) {
-    if (s.count > 0) urls.push({ id: 'dd-' + s.id, loc: `${ddBase.loc}/${ddSubSegs(s.id).join('/')}/tu-vung` });
-  }
-  // Mục "Văn Hóa Trung Hoa" — chỉ URL của bài THỰC SỰ có bài đọc văn hoá (onllang-culture.json),
-  // KHÔNG phải bài có từ vựng: quyển 2-4 giờ có từ vựng cho mọi bài nhưng văn hoá mới clone
-  // được bài 1 quyển 2. Đưa trang văn hoá rỗng vào sitemap là soft-404, Google phạt.
-  let culture = {};
-  try { culture = JSON.parse(fs.readFileSync(path.join(ROOT, 'public/data/onllang-culture.json'), 'utf8')); } catch {}
-  for (const l of duongdaiLessons) {
-    const c = culture[l.id];
-    if (c && !c.error && (c.sections?.length)) urls.push({ id: 'dd-vh-' + l.id, loc: `${ddBase.loc}/${ddSubSegs(l.id + '.vh').join('/')}` });
-  }
-}
-
 // Bài con Giáo trình Thời Đại — cùng nguyên tắc: chỉ bài ĐÃ CÓ từ vựng. Số phần mỗi bài không
 // cố định (quyển 1 có 3 phần) nên duyệt thẳng thoidaiSubLessons chứ đừng giả định x.1/x.2.
 const tdBase = urls.find(u => u.id === 'tocfl-thoidai');
@@ -86,28 +63,6 @@ if (tdBase) {
     await import(pathToFileURL(path.join(ROOT, 'src/data/thoidaiData.js')).href);
   for (const s of thoidaiSubLessons) {
     if (s.count > 0) urls.push({ id: 'td-' + s.id, loc: `${tdBase.loc}/${tdSubSegs(s.id).join('/')}/tu-vung` });
-  }
-}
-
-// Bài HSK — 111 bài, mỗi bài một URL nội dung thật. Import thẳng hskBooks.js (nhẹ, chỉ đọc
-// hsk-manifest) chứ KHÔNG import dữ liệu 5.456 từ; danh mục bài đã nằm sẵn trong manifest.
-// ⚠️ `hsk-30` KHÔNG còn là một mục trong navConfig từ 2026-09-08 (sáu cấp HSK giờ đứng thẳng ở
-// cấp 2 và chỉ là LINK tới trang này, xem CLAUDE.md 4.34). Nên `urls` — vốn dựng từ navConfig —
-// không có nó nữa, và sitemap tụt từ 112 URL HSK xuống 2 mà không báo lỗi gì. Tự thêm mục gốc.
-// ⚠️ Khu HSK đang ẩn (shared/an-hsk.js): 112 URL này phải RA KHỎI sitemap, nếu không Google đi
-// index rồi người dùng bấm vào lại rơi vào trang 404 — đúng loại soft-404 đã cảnh báo ở 4.2.
-const HSK_BASE = '/hsk/hsk-3-0';
-if (!AN_HSK && !urls.some(u => u.id === 'hsk-30')) {
-  urls.push({ id: 'hsk-30', loc: SITE + HSK_BASE });
-}
-const hskBase = AN_HSK ? null : urls.find(u => u.id === 'hsk-30');
-if (hskBase) {
-  const { hskSubLessons } =
-    await import(pathToFileURL(path.join(ROOT, 'src/data/giaotrinh-index.js')).href);
-  const { hskSubSegs } =
-    await import(pathToFileURL(path.join(ROOT, 'src/data/hskBooks.js')).href);
-  for (const s of hskSubLessons) {
-    if (s.count > 0) urls.push({ id: 'hsk-' + s.id, loc: `${hskBase.loc}/${hskSubSegs(s.id).join('/')}/tu-vung` });
   }
 }
 
