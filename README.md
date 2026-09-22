@@ -235,6 +235,20 @@ build** (không chạy ở dev, không chạy trong app native).
 
 ## 9. Deploy
 
+**Bản đang chạy:** https://itaiwan-edu.vercel.app — project Vercel `itaiwan-edu`
+(tài khoản `tuananh10696`), nối thẳng với repo `tuananh10696/ITaiwan`.
+**Deploy = push lên `main`**, Vercel tự dựng. Đừng chạy `vercel --prod`: free plan có trần
+5.000 file upload/24h mà repo này 9.000 file, chạm trần là bị khoá deploy 24 giờ.
+
+Commit được deploy phải mang author `90953946+tuananh10696@users.noreply.github.com`
+(đã đặt sẵn ở `git config` cấp repo). Email khác → GitHub phân giải sang tài khoản khác →
+Vercel Hobby bỏ qua build, không báo lỗi rõ ràng.
+
+⚠️ **Vercel chốt biến môi trường vào lúc BUILD.** Sửa biến trên dashboard không ảnh hưởng bản
+đang chạy — phải deploy lại mới có hiệu lực.
+
+### Dựng từ đầu
+
 1. Tạo DB MySQL (Aiven hoặc nhà cung cấp khác). SSL tự bật khi có biến `VERCEL` hoặc
    `DB_SSL=true`; khi đó đặt CA cert qua biến **`DB_CA_CERT`** (dán nội dung file, xuống dòng
    ghi bằng `\n`), hoặc để file tại `server/config/ca.pem`. Repo cố ý KHÔNG kèm sẵn ca.pem —
