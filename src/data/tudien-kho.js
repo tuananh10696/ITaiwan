@@ -137,7 +137,7 @@ export const coChuHan = (s) => CO_HAN.test(String(s || ''));
 // ------------------------------------------------------------------ audio
 
 const THU_MUC_AUDIO = {
-  d: '/audio/dangdai/', h: '/audio/hsk-tu/', w: '/audio/thoidai-tu/',
+  w: '/audio/thoidai-tu/',
   t: '/audio/tts-vi/', b: '/audio/baikhoa/', p: '/audio/pron/',
 };
 
@@ -154,25 +154,19 @@ export function tdAudio(ma) {
 
 /**
  * Giải mã nhãn nguồn gọn của `kho.json`:
- *   t3      -> TOCFL cấp 3          H2-8   -> HSK cấp 2, bài hsk2-8
- *   D2-5    -> Đương đại bài 2-5    Wtd3-7 -> Thời Đại bài td3-7
+ *   t3      -> TOCFL cấp 3          Wtd3-7 -> Thời Đại bài td3-7
  * Trả `null` nếu nhãn không nhận ra (dữ liệu cũ) — nơi gọi bỏ qua chứ đừng hiện chuỗi thô.
  */
 export function tdGiaiNhan(tag) {
   const s = String(tag || '');
   if (/^t[0-5]$/.test(s)) return { bo: 'tocfl', cap: s.slice(1), bai: '' };
-  let m = s.match(/^H(\d)-(\d+)$/);
-  if (m) return { bo: 'hsk', cap: m[1], bai: `hsk${m[1]}-${m[2]}` };
-  if (s[0] === 'D') return { bo: 'duongdai', cap: (s.slice(1).match(/^(\d+)-/) || [, '1'])[1], bai: s.slice(1) };
   if (s[0] === 'W') return { bo: 'thoidai', cap: (s.slice(1).match(/^td(\d+)-/) || [, '1'])[1], bai: s.slice(1) };
   return null;
 }
 
-/** Bốn bộ nguồn, dùng cho thanh lọc của trang Kho từ vựng. */
+/** Bộ nguồn của kho tra cứu. */
 export const TD_BO = [
   { id: 'tocfl', ten: 'TOCFL 8000', chu: '華語八千詞', mau: 'primary' },
-  { id: 'hsk', ten: 'HSK 3.0', chu: 'HSK 三级九等', mau: 'seal' },
-  { id: 'duongdai', ten: 'Đương đại', chu: '當代中文課程', mau: 'success' },
   { id: 'thoidai', ten: 'Thời Đại', chu: '時代華語', mau: 'warning' },
 ];
 

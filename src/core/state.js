@@ -25,26 +25,8 @@ export const state = {
       email: stored.email || '',
     } : { name: 'Học viên', level: 'Tân Sinh · Lv1', avatar: 'U', streak: 0, points: 0, wordsToReview: 0, avatarUrl: null };
   })(),
-  // Flashcard state
-  fc: { currentIndex: 0, flipped: false, selectedLesson: 'all', scores: { again: 0, hard: 0, good: 0, easy: 0 } },
-  // NGUỒN TỪ VỰNG dùng chung cho Flashcard + Trắc nghiệm (2026-09-16).
-  // Trước đây hai trang chạy trên 40 từ mock của mockData.js, trong khi repo đã có 7.517 từ TOCFL,
-  // 5.456 từ HSK và 10.562 từ giáo trình. Mặc định TOCFL cấp Chuẩn bị: công khai (khách chưa đăng
-  // nhập vẫn học được) và là cấp thấp nhất nên hợp với người mới.
-  luyen: { nguon: 'tocfl:L0', tu: [], dangNap: false, khoa: false, loi: '' },
-  // Quiz state
-  // order: thứ tự từ đã TRỘN cho lượt làm bài này · opts/correctIdx: đáp án của CÂU HIỆN TẠI,
-  // cache lại để mỗi lần render không sinh lại bộ đáp án mới (xem renderQuiz).
-  quiz: { currentIndex: 0, score: 0, wrong: 0, answered: false, selectedOption: -1, order: null, opts: null, correctIdx: -1 },
-  // Writing state
   // Exam state
   exam: { active: false, currentQ: 0, answers: [], timer: 0, timerInterval: null, skill: 'both', charType: 'traditional', questions: [], examBand: null, examDe: null, examSkill: 'both' },
-  // Dialogue state
-  // Hội thoại (viết lại 2026-09-16): nay chạy trên 324 bài hội thoại THẬT của 3 bộ giáo trình
-  // (11.405 câu, mỗi bài kèm bản thu gốc của sách và mốc thời gian từng câu), thay cho 3 bài
-  // mock 18 câu. `baiId` dạng 'duongdai:1.1'; `bai` là dữ liệu đã nạp.
-  dialogue: { baiId: 'duongdai:1.1', bai: null, dangNap: false, khoa: false,
-              showPinyin: true, showTrans: true, playing: false, currentLine: -1, timer: null },
   // Dictionary state
   // Sổ tay từ vựng nay nằm ở `soTay` (Map khoá theo chữ Hán) trong section TỪ VỰNG & HÁN TỰ,
   // không còn là mảng id số trong state — xem 4.37.
@@ -65,12 +47,6 @@ export const state = {
 // TRƯỚC khi trang được render (quy ước 4.2: đọc tham số → render → ghi URL), tức trước cả khi
 // module trang nạp động được tải về. Vì vậy chúng phải nằm ở LÕI, không nằm trong module trang.
 // Module trang import lại chính các object này nên hai bên dùng chung một tham chiếu.
-
-export const kvState = {
-  tab: 'list', bo: 'all', cap: 'all', loai: 'all', tim: '', trang: 1,
-  fcIdx: 0, fcLat: false, order: null, quiz: null,
-};
-
 
 export const tdxState = { tim: '', tu: null, kq: null, dangTim: false, chiTiet: null, lienQuan: null };
 
@@ -106,16 +82,6 @@ export const tkState = {
 };
 
 
-export const cdState = {
-  tab: 'all', chuDe: 'all', tim: '', trang: 1,
-  ds: null, tong: 0,
-  moBai: null,          // id bài đang mở chi tiết
-  chiTiet: null, binhLuan: [],
-  soan: null,           // { loai, id? } — đang mở form viết/sửa
-  traLoi: null,         // id bình luận đang trả lời
-  kiemDuyet: null,
-  hocBong: null, hbSoan: null,
-};
 
 
 /**

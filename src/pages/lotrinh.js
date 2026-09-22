@@ -5,14 +5,10 @@
 // phải chạy trên mọi trang chứ không riêng khu này.
 
 import { app } from '../core/app.js';
-import { AN_HSK } from '../../shared/an-hsk.js';
 import { state } from '../core/state.js';
 import { tdEsc, tdNhay, toast, twPlayEnter, openDialog, closeDialog, khungXuongTrang as ltSkeleton } from '../core/ui.js';
 import api from '../api/client.js';
-import {
-  duongdaiSubLessons, thoidaiSubLessons, hskSubLessons, ddBookOf,
-  duongdaiBooks, thoidaiBooks, hskBooks,
-} from '../data/giaotrinh-index.js';
+import { thoidaiSubLessons, thoidaiBooks, tdBookOf } from '../data/giaotrinh-index.js';
 
 // --- cầu nối tới phần còn nằm trong main.js ---
 const navigate = (...a) => app.navigate(...a);
@@ -122,10 +118,8 @@ const ltNhanBai = (lessonId) => notifLessonName(lessonId);
 function ltTienDoBo(daHoc) {
   const tap = new Set(daHoc || []);
   return [
-    { id: 'duongdai', ten: 'Đương đại', han: '當代中文課程', page: 'tocfl-duongdai', subs: duongdaiSubLessons },
     { id: 'thoidai', ten: 'Thời Đại', han: '時代華語', page: 'tocfl-thoidai', subs: thoidaiSubLessons },
-    { id: 'hsk', ten: 'HSK 3.0', han: 'HSK 三级九等', page: 'hsk-30', subs: hskSubLessons },
-  ].filter((b) => !(AN_HSK && b.id === 'hsk')).map((b) => {
+  ].map((b) => {
     const xong = b.subs.filter((s) => tap.has(s.id)).length;
     return { ...b, xong, tong: b.subs.length, pt: b.subs.length ? Math.round((xong / b.subs.length) * 100) : 0 };
   });
@@ -143,19 +137,11 @@ function ltTienDoBo(daHoc) {
  */
 const CC_NGUONG = 60;
 
-/** Quyển/cấp của một bài con. Suy từ chính id vì mỗi bộ có một cách đánh số riêng (4.25/4.27/4.34). */
+/** Quyển của một bài con. Suy từ chính id bài ('td2-5.1' -> quyển 2). */
 function ccQuyenCua(subId) {
   if (!subId || subId.includes(':')) return null;
-  if (subId.startsWith('hsk')) {                       // hsk3-5.1 -> cấp 3
-    const m = subId.match(/^hsk(\d+)-/);
-    return m ? { bo: 'hsk', quyen: Number(m[1]) } : null;
-  }
-  if (subId.startsWith('td')) {                        // td2-5.1 -> quyển 2
-    const m = subId.match(/^td(\d+)-/);
-    return m ? { bo: 'thoidai', quyen: Number(m[1]) } : null;
-  }
-  const m = subId.match(/^(\d+)-/);                    // 2-5.1 -> quyển 2 · 5.2 -> quyển 1
-  return { bo: 'duongdai', quyen: m ? Number(m[1]) : 1 };
+  const m = String(subId).match(/^td(\d+)-/);
+  return m ? { bo: 'thoidai', quyen: Number(m[1]) } : null;
 }
 
 /** Danh sách quyển kèm tiến độ + trạng thái chứng chỉ. */
@@ -163,10 +149,8 @@ function ltChungChi(daHoc, diemBai) {
   const diem = diemBai || {};
   const tap = new Set(daHoc || []);
   const BO = [
-    { id: 'duongdai', ten: 'Giáo trình Đương đại', han: '當代中文課程', subs: duongdaiSubLessons, sach: duongdaiBooks },
     { id: 'thoidai', ten: 'Giáo trình Thời Đại', han: '時代華語', subs: thoidaiSubLessons, sach: thoidaiBooks },
-    { id: 'hsk', ten: 'HSK 3.0', han: 'HSK 三级九等', subs: hskSubLessons, sach: hskBooks },
-  ].filter((b) => !(AN_HSK && b.id === 'hsk'));
+  ];
   const ds = [];
   for (const b of BO) {
     const theoQuyen = new Map();
@@ -209,14 +193,7 @@ function ccMaXacThuc(userId, bo, quyen) {
 /** Bài con KẾ TIẾP chưa nộp bài tập của bộ đang học dở — ruột của gợi ý "học tiếp". */
 function ltBaiKeTiep(daLam, ganDay) {
   const tap = new Set(daLam || []);
-  // Ưu tiên bộ mà học viên vừa động vào gần nhất; chưa học gì thì mặc định Đương đại.
-  const bo = (() => {
-    const id = (ganDay || []).map((r) => r.lesson_id).find((x) => x && !x.includes(':'));
-    if (!id) return { subs: duongdaiSubLessons, page: 'tocfl-duongdai', ten: 'Đương đại' };
-    if (id.startsWith('hsk')) return { subs: hskSubLessons, page: 'hsk-30', ten: 'HSK 3.0' };
-    if (id.startsWith('td')) return { subs: thoidaiSubLessons, page: 'tocfl-thoidai', ten: 'Thời Đại' };
-    return { subs: duongdaiSubLessons, page: 'tocfl-duongdai', ten: 'Đương đại' };
-  })();
+  const bo = { subs: thoidaiSubLessons, page: 'tocfl-thoidai', ten: 'Thời Đại' };
   const sub = bo.subs.find((s) => !tap.has(s.id));
   return sub ? { ...bo, sub } : null;
 }
@@ -487,7 +464,7 @@ function _ltVeHomNay(el, d) {
     mo: 'Luyện phát âm hoặc chơi game từ vựng — đủ để giữ chuỗi ngày',
     xong: false,
     nut: `<button class="btn btn-sm" onclick="window.app.navigate('pron-thanhdieu')">Phát âm</button>
-          <button class="btn btn-sm" onclick="window.app.navigate('tocfl-duongdai')">Game từ vựng</button>`,
+          <button class="btn btn-sm" onclick="window.app.navigate('tocfl-thoidai')">Game từ vựng</button>`,
   });
 
   const h = d.hom_nay;
@@ -1126,7 +1103,7 @@ function ccTai(ten, bo, quyen) {
  */
 function _ltHuyHieu(d) {
   const bo = ltTienDoBo(d.da_hoc);
-  const q1 = duongdaiSubLessons.filter((s) => ddBookOf(s.id) === 1);
+  const q1 = thoidaiSubLessons.filter((s) => tdBookOf(s.id) === 1);
   const xongQ1 = q1.filter((s) => (d.da_hoc || []).includes(s.id)).length;
   const gio = Math.floor(d.bai.giay / 3600);
   const nhom = [

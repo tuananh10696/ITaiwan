@@ -10,7 +10,7 @@
 //     thành tên cục bộ ngay bên dưới để phần thân module không phải sửa một dòng nào.
 
 import { app } from '../core/app.js';
-import { state, kvState, tdxState, stState, btState } from '../core/state.js';
+import { state, tdxState, stState, btState } from '../core/state.js';
 import {
   tdEsc, tdNhay, toast, twPlayEnter, openDialog, closeDialog,
 } from '../core/ui.js';
@@ -23,7 +23,7 @@ import {
   daNap, layNgay, tdKhongDau, coChuHan, tdAudio, tdGiaiNhan, tdNhomTuLoai,
   tdTimTrong, tdTraTu, tdTuBatDau, tdManhSangHang,
 } from '../data/tudien-kho.js';
-import { generateQuiz } from '../data/duongdaiExercise.js';
+import { generateQuiz } from '../data/sinh-de-trac-nghiem.js';
 import { tronMang } from '../utils/tron-de.js';
 
 // --- cầu nối tới phần còn nằm trong main.js ---
@@ -45,53 +45,6 @@ const ddMoveTabInk = (...a) => app.ddMoveTabInk(...a);
 const toggleCharMode = (...a) => app.toggleCharMode(...a);
 const napHanziWriter = (...a) => app.napHanziWriter(...a);
 
-// ============================================================
-// KHU "TỪ VỰNG & HÁN TỰ" — 4 trang dùng chung một kho tra cứu (2026-09-08)
-// ============================================================
-// Kho từ vựng · Từ điển Trung-Việt · Sổ tay từ vựng · Bộ thủ Hán tự.
-//
-// Trước 2026-09-08 cả bốn trang chạy trên 40 từ của `src/data/mockData.js`: từ điển tra trong
-// đúng 40 từ đó, sổ tay chỉ lưu được 40 từ đó (khoá ngoại vào bảng `vocabulary`), bộ thủ có
-// 16/214 bộ và không bấm vào được. Nay cả bốn đọc dữ liệu do `npm run tudien:build` sinh ra
-// qua `src/data/tudien-kho.js` — xem CLAUDE.md 4.37 để biết cách đóng gói và vì sao chia file
-// như vậy.
-//
-// ⚠️ QUY TẮC NẠP (đừng gộp cho tiện): trang Kho từ vựng cần `kho.json` (578 KB gzip), trang
-//    Bộ thủ cần `bothu.json` (7 KB) rồi mới tới `chu.json` khi mở một bộ, còn trang Từ điển
-//    khi tra bằng CHỮ HÁN thì đi thẳng vào mảnh 61 KB mà KHÔNG nạp chỉ mục nào. Nạp sẵn hết
-//    là bắt người chỉ muốn tra một chữ tải gần 1 MB.
-
-const KV_MOI_TRANG = 50;      // số từ mỗi trang của Kho từ vựng
-const KV_SO_CAU = 20;         // số câu mỗi lượt trắc nghiệm
-
-/** Kho từ vựng gộp 4 bộ. */
-// `kvState` nằm ở `core/state.js` — `PAGE_PARAMS` của main.js đọc/ghi nó TRƯỚC khi
-// module này được nạp, nên nó không thể nằm trong đây (xem 4.40).
-
-/** Từ điển Trung-Việt. `tu` = chữ Hán đang mở (không phải id số như bản cũ). */
-// `tdxState` nằm ở `core/state.js` — `PAGE_PARAMS` của main.js đọc/ghi nó TRƯỚC khi
-// module này được nạp, nên nó không thể nằm trong đây (xem 4.40).
-
-/** Sổ tay. */
-// `stState` nằm ở `core/state.js` — `PAGE_PARAMS` của main.js đọc/ghi nó TRƯỚC khi
-// module này được nạp, nên nó không thể nằm trong đây (xem 4.40).
-
-/** Bộ thủ. `chon` = số bộ (1..214) đang mở, null = đang ở lưới. */
-// `btState` nằm ở `core/state.js` — `PAGE_PARAMS` của main.js đọc/ghi nó TRƯỚC khi
-// module này được nạp, nên nó không thể nằm trong đây (xem 4.40).
-
-// ------------------------------------------------------------------ tiện ích chung
-
-/** Một hàng mảng của kho.json -> object dễ đọc. Mọi renderer dưới đây chỉ làm việc với dạng này. */
-function tdTu(w) {
-  if (!w) return null;
-  return {
-    han: w[K.HAN], gian: w[K.GIAN] || '', py: w[K.PY] || '', hv: w[K.HV] || '',
-    nghia: w[K.NGHIA] || '', loai: w[K.LOAI] || '', nhan: w[K.NHAN] || [],
-    audio: tdAudio(w[K.AUDIO]), tts: tdAudio(w[K.TTS]),
-    mayDich: w[K.NGUON] === 1, en: w[K.NGHIA_EN] || '',
-  };
-}
 
 /** Bản chụp để lưu vào sổ tay. */
 const tdChup = (t) => ({
@@ -204,210 +157,9 @@ function tdLoiHtml(trang) {
     </div>`;
 }
 
-// ============================================================
-// 1. KHO TỪ VỰNG — gộp 4 bộ giáo trình (10.977 từ)
-// ============================================================
-
-function renderVocabulary(el) {
-  if (daNap('kho.json')) return _kvRender(el);
-  el.innerHTML = tdSkeletonHtml();
-  napKho().then(() => {
-    if (state.currentPage !== 'vocabulary') return;      // người dùng đã sang trang khác
-    const now = document.getElementById('page-content');
-    if (now) { _kvRender(now); twPlayEnter(now, 'tw-entering'); }
-  }).catch(() => {
-    const now = document.getElementById('page-content');
-    if (now && state.currentPage === 'vocabulary') now.innerHTML = tdLoiHtml('vocabulary');
-  });
-}
-
-/** Danh sách sau khi áp bộ lọc + tìm kiếm. */
-function _kvLoc() {
-  const kho = layNgay('kho.json') || [];
-  let ds = kho;
-  if (kvState.bo !== 'all') {
-    ds = ds.filter((w) => (w[K.NHAN] || []).some((tag) => {
-      const g = tdGiaiNhan(tag);
-      return g && g.bo === kvState.bo && (kvState.cap === 'all' || g.cap === kvState.cap);
-    }));
-  }
-  if (kvState.loai !== 'all') ds = ds.filter((w) => tdNhomTuLoai(w[K.LOAI]) === kvState.loai);
-  if (kvState.tim.trim()) ds = tdTimTrong(ds, kvState.tim, 500);
-  return ds;
-}
-
-/** Các cấp/quyển có thật trong bộ đang chọn — không bao giờ hiện một mục lọc rỗng. */
-function _kvCapCua(bo) {
-  const kho = layNgay('kho.json') || [];
-  const s = new Set();
-  for (const w of kho) for (const tag of w[K.NHAN] || []) {
-    const g = tdGiaiNhan(tag);
-    if (g && g.bo === bo) s.add(g.cap);
-  }
-  return [...s].sort();
-}
-
-function _kvHeroHtml(tong, hien) {
-  return `
-    <div class="tv-hero kv-hero">
-      <div class="tv-hero-text">
-        <span class="tv-hero-badge"><i class="fa-solid fa-layer-group"></i> 4 bộ giáo trình</span>
-        <h1>Kho từ vựng</h1>
-        <p>Toàn bộ <strong>${tong.toLocaleString('vi-VN')} từ</strong> của TOCFL 8000, HSK 3.0,
-           Đương đại và Thời Đại gộp lại một chỗ — mỗi từ kèm <strong>âm Hán Việt</strong>,
-           phát âm và cho biết nó thuộc bộ nào, cấp nào.</p>
-      </div>
-      <div class="tv-hero-mark font-tc" aria-hidden="true">詞</div>
-    </div>`;
-}
-
-function _kvToolbarHtml(soHien, tong) {
-  const caps = kvState.bo === 'all' ? [] : _kvCapCua(kvState.bo);
-  const tenCap = { tocfl: 'Cấp', hsk: 'Cấp', duongdai: 'Quyển', thoidai: 'Quyển' };
-  return `
-    <div class="kv-bo-tabs">
-      <button class="lesson-tab${kvState.bo === 'all' ? ' active' : ''}" onclick="window.app.kvBo('all')">Tất cả</button>
-      ${TD_BO.map((b) => `<button class="lesson-tab${kvState.bo === b.id ? ' active' : ''}"
-        onclick="window.app.kvBo('${b.id}')">${b.ten}</button>`).join('')}
-    </div>
-    <div class="tv-toolbar">
-      <div class="tv-search">
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <input id="kv-tim" type="search" placeholder="Tìm chữ Hán, phiên âm, âm Hán Việt hoặc nghĩa…"
-               value="${tdEsc(kvState.tim)}" oninput="window.app.kvTim(this.value)" autocomplete="off">
-        ${kvState.tim ? '<button class="tv-search-clear" onclick="window.app.kvTim(\'\')" title="Xoá tìm kiếm"><i class="fa-solid fa-xmark"></i></button>' : ''}
-      </div>
-      ${caps.length ? `<select class="tv-select" onchange="window.app.kvCap(this.value)" aria-label="Lọc theo cấp">
-        <option value="all"${kvState.cap === 'all' ? ' selected' : ''}>Mọi ${tenCap[kvState.bo].toLowerCase()}</option>
-        ${caps.map((c) => `<option value="${c}"${kvState.cap === c ? ' selected' : ''}>${tenCap[kvState.bo]} ${c}</option>`).join('')}
-      </select>` : ''}
-      <select class="tv-select" onchange="window.app.kvLoai(this.value)" aria-label="Lọc theo từ loại">
-        <option value="all"${kvState.loai === 'all' ? ' selected' : ''}>Mọi từ loại</option>
-        ${TD_TU_LOAI.map((p) => `<option value="${p.id}"${kvState.loai === p.id ? ' selected' : ''}>${p.ten}</option>`).join('')}
-      </select>
-      <button class="tv-char-toggle" onclick="window.app.toggleCharMode()" title="Chuyển giữa phồn thể và giản thể">
-        <span class="font-tc">${state.charMode === 'simplified' ? '简' : '繁'}</span>
-      </button>
-    </div>
-    <div class="tv-result">
-      ${soHien === tong
-        ? `<span><strong>${tong.toLocaleString('vi-VN')}</strong> từ</span>`
-        : `<span>Tìm thấy <strong>${soHien.toLocaleString('vi-VN')}</strong> / ${tong.toLocaleString('vi-VN')} từ</span>`}
-      ${soTay.size ? `<span class="kv-sotay-link" onclick="window.app.navigate('notebook')">
-        <i class="fa-solid fa-bookmark"></i> Sổ tay: ${soTay.size} từ</span>` : ''}
-    </div>`;
-}
-
-function _kvPagerHtml(tong, ns) {
-  const soTrang = Math.max(1, Math.ceil(tong / KV_MOI_TRANG));
-  if (soTrang <= 1) return '';
-  const t = kvState.trang;
-  const nums = [];
-  for (let i = Math.max(1, t - 2); i <= Math.min(soTrang, t + 2); i++) nums.push(i);
-  const nut = (n, nhan, tat) => `<button class="tv-pg${n === t ? ' active' : ''}"${tat ? ' disabled' : ''}
-      onclick="window.app.kvTrang(${n})">${nhan}</button>`;
-  return `<div class="tv-pager">
-      ${nut(t - 1, '<i class="fa-solid fa-chevron-left"></i>', t <= 1)}
-      ${t > 3 ? nut(1, '1') + (t > 4 ? '<span class="tv-pg-gap">…</span>' : '') : ''}
-      ${nums.map((n) => nut(n, String(n))).join('')}
-      ${t < soTrang - 2 ? (t < soTrang - 3 ? '<span class="tv-pg-gap">…</span>' : '') + nut(soTrang, String(soTrang)) : ''}
-      ${nut(t + 1, '<i class="fa-solid fa-chevron-right"></i>', t >= soTrang)}
-    </div>`;
-}
-
-function _kvRender(el) {
-  const kho = layNgay('kho.json') || [];
-  el.innerHTML = `
-    <div class="kv-page">
-      ${_kvHeroHtml(kho.length)}
-      ${_kvToolbarHtml(_kvLoc().length, kho.length)}
-      ${luyTabBarHtml('kv', kvState.tab)}
-      <div id="kv-tab-content"></div>
-    </div>`;
-  kvVeTab();
-}
-
-/** Vẽ lại RIÊNG nội dung tab — giữ nguyên thanh công cụ để không mất con trỏ trong ô tìm. */
-function kvVeTab() {
-  const el = document.getElementById('kv-tab-content');
-  if (!el) return;
-  const ds = _kvLoc();
-  if (kvState.tab === 'flashcard') luyRenderFc(el, ds, 'kv');
-  else if (kvState.tab === 'quiz') luyRenderQuiz(el, ds, 'kv');
-  else _kvRenderList(el, ds);
-  ddMoveTabInk();
-}
-
-function _kvRenderList(el, ds) {
-  const soTrang = Math.max(1, Math.ceil(ds.length / KV_MOI_TRANG));
-  if (kvState.trang > soTrang) kvState.trang = soTrang;
-  const dau = (kvState.trang - 1) * KV_MOI_TRANG;
-  const trang = ds.slice(dau, dau + KV_MOI_TRANG);
-  if (!ds.length) {
-    el.innerHTML = `<div class="tv-empty"><i class="fa-solid fa-magnifying-glass"></i>
-      <p>Không có từ nào khớp bộ lọc hiện tại.</p>
-      <button class="btn btn-primary" onclick="window.app.kvXoaLoc()">Xoá bộ lọc</button></div>`;
-    return;
-  }
-  const tuTrang = trang.map(tdTu);
-  napTruocAudioTu(tuTrang);
-  datDsDoc(tdDsDoc(tuTrang));
-  el.innerHTML = `
-    <div class="dd-vocab-header">
-      <span class="dd-vocab-count"><i class="fa-solid fa-list"></i>
-        Trang ${kvState.trang}/${soTrang} · từ ${dau + 1}–${Math.min(dau + KV_MOI_TRANG, ds.length)}</span>
-      ${nutDocHtml()}
-    </div>
-    <div class="dd-vocab-list">${tuTrang.map((t, i) => tdTheTuHtml(t, dau + i + 1, 'kv')).join('')}</div>
-    ${_kvPagerHtml(ds.length)}
-    <p class="dd-vocab-credit"><i class="fa-solid fa-circle-info"></i>
-      <span>Bấm vào một từ để mở trang <strong>Từ điển</strong> xem nghĩa đầy đủ, cách viết và
-      các từ ghép chứa nó.</span></p>`;
-}
-
 // ---------- handler (phải khai đủ trong window.app) ----------
 
 let _kvTimer = null;
-function kvTim(v) {
-  kvState.tim = v; kvState.trang = 1; kvState.fcIdx = 0; kvState.order = null;
-  clearTimeout(_kvTimer);
-  _kvTimer = setTimeout(() => {
-    updateUrl();
-    kvVeTab();
-    // Vẽ lại làm mất con trỏ trong ô -> trả lại ngay, nếu không phải bấm lại sau mỗi chữ.
-    const o = document.getElementById('kv-tim');
-    if (o && document.activeElement !== o) { o.focus(); o.setSelectionRange(o.value.length, o.value.length); }
-  }, 220);
-}
-
-function kvBo(bo) {
-  kvState.bo = bo; kvState.cap = 'all'; kvState.trang = 1; kvState.fcIdx = 0;
-  kvState.order = null; kvState.quiz = null;
-  updateUrl();
-  _kvRender(document.getElementById('page-content'));
-}
-function kvCap(c) {
-  kvState.cap = c; kvState.trang = 1; kvState.fcIdx = 0; kvState.order = null; kvState.quiz = null;
-  updateUrl();
-  _kvRender(document.getElementById('page-content'));
-}
-function kvLoai(v) {
-  kvState.loai = v; kvState.trang = 1; kvState.fcIdx = 0; kvState.order = null; kvState.quiz = null;
-  updateUrl();
-  _kvRender(document.getElementById('page-content'));
-}
-function kvXoaLoc() {
-  kvState.bo = 'all'; kvState.cap = 'all'; kvState.loai = 'all'; kvState.tim = ''; kvState.trang = 1;
-  updateUrl();
-  _kvRender(document.getElementById('page-content'));
-}
-function kvTrang(n) {
-  const soTrang = Math.max(1, Math.ceil(_kvLoc().length / KV_MOI_TRANG));
-  kvState.trang = Math.min(Math.max(1, n), soTrang);
-  updateUrl();
-  kvVeTab();
-  document.getElementById('page-content')?.scrollIntoView({ block: 'start', behavior: 'smooth' });
-}
 
 // ============================================================
 // 2. TỪ ĐIỂN TRUNG-VIỆT — 122.596 mục (CVDICT, CC BY-SA)
@@ -1134,7 +886,7 @@ function btNet(v) { btState.net = v; updateUrl(); _btRenderLuoi(document.getElem
 // Một bộ hàm, hai trang gọi — `ns` ('kv' | 'st') cho biết đang ở trang nào. Viết hai bản là
 // hai chỗ phải sửa mỗi lần đổi giao diện thẻ.
 
-const LUY_STATE = { kv: () => kvState, st: () => stState };
+const LUY_STATE = { st: () => stState };
 const LUY_VE = { kv: () => kvVeTab(), st: () => stVeTab() };
 const _luyDs = (ns) => (ns === 'kv' ? _kvLoc() : _stLoc());
 
@@ -1378,7 +1130,6 @@ async function luyNop(ns) {
 //   lỗi chỉ hiện ở console (đúng cái bẫy quy ước 4.4 đã dặn).
 
 export const render = {
-  vocabulary: renderVocabulary,
   dictionary: renderDictionary,
   notebook: renderNotebook,
   radicals: renderRadicals,
@@ -1386,7 +1137,6 @@ export const render = {
 
 export const handlers = {
   dictPageSearch, tdMoTu, tdxVietLai, tdLuuTu,
-  kvTim, kvBo, kvCap, kvLoai, kvXoaLoc, kvTrang,
   stTim, stLoc, stSap, stXuatCsv,
   btMo, btVe, btTim, btNet,
   luyTab, luyLat, luyNav, luyXao, luyBatDau, luyChon, luyQNav, luyThoat, luyNop,

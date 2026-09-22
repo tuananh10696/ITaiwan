@@ -5,8 +5,6 @@
 // 324 bài hội thoại thật của giáo trình. `vocabularyData`/`dialogueData` vẫn import làm bản dự
 // phòng cho vài chỗ cũ, nhưng 4 trang khu Luyện tập KHÔNG còn đọc chúng nữa.
 import { vocabularyData as _mockVocab, dialogueData as _mockDialogue, examData as _mockExam, leaderboardData as _mockLeaderboard, blogData as _mockBlog } from './data/mockData.js';
-import { nguonTuVung, napTuVung, napHoiThoai, nguonHoiThoai, tenNguon, quenKhoLuyenTap } from './utils/kho-luyen-tap.js';
-import { coNhanDang, ngheDoc, tiLeKhop, soTungChu, LOI_NOI } from './utils/noi.js';
 import { tocflExams, getTocflQuestions, napExam } from './data/exam-lazy.js';
 import { tronMang, tronDe } from './utils/tron-de.js';
 import { assetUrl } from './utils/cdn.js';
@@ -45,7 +43,7 @@ import { laNative, apiBase } from './utils/env.js';
 // ---- LÕI dùng chung (4.40) ----
 // Tách khỏi main.js để module trang nạp động dùng lại được mà không sinh vòng import.
 import { dangKy } from './core/app.js';
-import { state, kvState, tdxState, stState, btState, cdState, tkState } from './core/state.js';
+import { state, tdxState, stState, btState, tkState } from './core/state.js';
 import {
   tdEsc, tdNhay, toast, twPlayEnter, twFocusMode,
   openModal, closeModal, openDialog, closeDialog, khungXuongTrang,
@@ -1024,29 +1022,6 @@ const PAGE_PARAMS = {
     },
   },
 
-  // Bốn trang cộng đồng dùng CHUNG một spec: mở bài = segment id, lọc = query string.
-  // ⚠️ `/cong-dong/blog/<id>` phải giữ nguyên — nó đã nằm trong sitemap và đã được chia sẻ.
-  //    Migration cố ý giữ nguyên id khi chuyển 6 bài blog cũ sang bảng mới, nên link cũ vẫn
-  //    mở đúng bài (tham số `?chuyen-muc=` của bản cũ thì bỏ, giờ lọc bằng `chu-de`).
-  ...Object.fromEntries(['blog', 'community-forum', 'community-vlog', 'community-news'].map((p) => [p, {
-    read(segs, query) {
-      const id = parseInt(segs[0], 10);
-      cdState.moBai = Number.isInteger(id) && id > 0 ? id : null;
-      if (!cdState.moBai) cdState.chiTiet = null;
-      cdState.chuDe = query.get('chu-de') || 'all';
-      cdState.tim = query.get('tim') || '';
-      cdState.tab = query.get('loai') || 'all';
-      cdState.trang = Math.max(1, parseInt(query.get('trang'), 10) || 1);
-    },
-    write() {
-      const q = {};
-      if (cdState.chuDe !== 'all') q['chu-de'] = cdState.chuDe;
-      if (cdState.tim) q.tim = cdState.tim;
-      if (cdState.tab !== 'all') q.loai = cdState.tab;
-      if (cdState.trang > 1) q.trang = String(cdState.trang);
-      return { segs: cdState.moBai ? [String(cdState.moBai)] : [], query: q };
-    },
-  }])),
 
   'exam': {
     // When URL has segs like /tocfl/thi-thu/band-a/de-1/doc -> auto-start that exam
@@ -1524,7 +1499,6 @@ function navigate(page, params, opts) {
 
   // Dọn dẹp trang trước
   if (state.exam.timerInterval) clearInterval(state.exam.timerInterval);
-  htDungKaraoke();   // rời trang -> dừng bản thu, đừng để nhạc chạy tiếp ở trang khác
   if (typeof pronStopSequence === 'function') pronStopSequence();
   // Rời hẳn trang cũng phải dừng game, nếu không timer vẫn chạy nền sau lưng.
   if (typeof _ddGameStopAll === 'function') _ddGameStopAll();
@@ -1623,25 +1597,17 @@ function navigate(page, params, opts) {
 
   switch (page) {
     case 'dashboard': renderDashboard(content); break;
-    case 'flashcard': renderFlashcard(content); break;
     case 'exam': renderExamSetup(content); break;
     case 'exam-taking': renderExamTaking(content); break;
-    // 3 trang này KHÔNG nằm trong module nạp động — chúng vốn xen giữa 'vocabulary' và
-    // 'dictionary' trong switch cũ, và đã bị cắt nhầm lúc gom 14 case lại (4.40). Hậu quả:
-    // rơi vào `default: renderDashboard`, tức mở /luyen-tap/trac-nghiem ra lại thấy trang chủ
-    // mà URL vẫn đúng nên không ai nhận ra. Đừng gộp chúng vào veTrangNapDong().
-    case 'quiz': renderQuiz(content); break;
-    case 'dialogue': renderDialogue(content); break;
-    case 'shadowing': renderShadowing(content); break;
-    // 18 trang dưới đây nằm ở module NẠP ĐỘNG (4.40 · 4.42) — `veTrangNapDong` vẽ khung xương,
-    // await import, gắn handler vào window.app rồi mới render.
-    case 'vocabulary': case 'dictionary': case 'notebook': case 'radicals':
+    // Các trang dưới đây nằm ở module NẠP ĐỘNG — `veTrangNapDong` vẽ khung xương, await
+    // import, gắn handler vào window.app rồi mới render. Thêm trang nạp động mới thì phải
+    // khai cả ở đây VÀ ở MODULE_TRANG: thiếu case là rơi vào `default: renderDashboard`,
+    // tức mở đúng URL ra lại thấy trang chủ mà không có lỗi nào hiện ra.
+    case 'dictionary': case 'notebook': case 'radicals':
     case 'path-overview': case 'path-today': case 'path-homework':
     case 'path-progress': case 'path-achievements':
-    case 'blog': case 'community-forum': case 'community-vlog':
-    case 'community-news': case 'community-scholarship':
     case 'account-profile': case 'account-settings':
-    case 'account-notifications': case 'account-membership':
+    case 'account-notifications':
     case 'account-duhoc':
     case 'path-kiemtra':
       veTrangNapDong(page, content); break;
@@ -1649,15 +1615,8 @@ function navigate(page, params, opts) {
     case 'pron-thanhmau': renderPronInitials(content); break;
     case 'pron-thanhdieu': renderPronTones(content); break;
     case 'pron-bangphienam': renderPinyinChart(content); break;
-    // Bài con + tab đã được PAGE_PARAMS[...].read() nạp vào ddState ở trên; BA bộ giáo trình
-    // dùng chung renderer, phân biệt bằng ddState.tb (đặt ở đầu navigate()).
-    case 'tocfl-duongdai':
-    case 'tocfl-thoidai':
-    // Ba trang HSK: khi đang ẩn thì `navigate()` đã đổi `page` thành 'not-found' từ đầu hàm,
-    // nên ba nhánh này chỉ chạy khi bật lại.
-    case 'hsk-30': renderDuongdai(content); break;
-    case 'hsk-vocab': renderHskVocab(content); break;
-    case 'hsk-exam': renderHskExam(content); break;
+    // Bài con + tab đã được PAGE_PARAMS[...].read() nạp vào ddState ở trên.
+    case 'tocfl-thoidai': renderDuongdai(content); break;
     case 'tocfl-vocab': renderTocflVocab(content); break;
     case 'not-found': renderNotFound(content); break;
     default:
@@ -2783,107 +2742,6 @@ function veBaiCoGiao(box, list) {
 // TÀI KHOẢN — THÔNG TIN CÁ NHÂN (đổi thông tin + đổi mật khẩu)
 // ============================================================
 const accountProfileState = { saving: false, changingPw: false };
-
-// Bốn trang khu TÀI KHOẢN đã chuyển sang `src/pages/taikhoan.js` (module nạp động, 4.42).
-// Phần TẢI ẢNH ĐẠI DIỆN vẫn ở file này vì nó gắn với menu người dùng trên thanh tiêu đề.
-
-
-
-
-
-/** Người nói THỨ HAI trong bài — để dựng bong bóng chat hai phía. */
-function htNguoiThuHai(cues) {
-  const ten = [];
-  for (const c of cues) {
-    const m = /^([^:：]{1,14})[:：]/.exec(c.vi || '');
-    if (m && !ten.includes(m[1].trim())) ten.push(m[1].trim());
-    if (ten.length >= 2) break;
-  }
-  return ten[1] || '';
-}
-
-function htKhungHtml() {
-  return `${htThanhChonHtml()}<div class="tv-empty"><i class="fa-solid fa-spinner fa-spin"></i><p>Đang tải hội thoại…</p></div>`;
-}
-
-/** Thanh chọn bài: gom theo bộ rồi theo quyển để 324 bài không thành một danh sách vô tận. */
-function htThanhChonHtml() {
-  const ds = nguonHoiThoai();
-  const nhom = [...new Set(ds.map((x) => x.boTen))];
-  return `
-    <div class="luy-nguon">
-      <label for="ht-chon"><i class="fa-solid fa-comments"></i> Bài hội thoại</label>
-      <select id="ht-chon" onchange="window.app.htChonBai(this.value)">
-        ${nhom.map((g) => `<optgroup label="${tdEsc(g)}">
-          ${ds.filter((x) => x.boTen === g).map((x) => `
-            <option value="${x.id}" ${x.id === state.dialogue.baiId ? 'selected' : ''}>${tdEsc(x.ten)}</option>`).join('')}
-        </optgroup>`).join('')}
-      </select>
-      <span class="luy-dem">${ds.length} bài</span>
-    </div>`;
-}
-
-async function htChonBai(baiId) {
-  state.dialogue.baiId = baiId;
-  htDungKaraoke();
-  await htNapBai(baiId);
-}
-
-async function htNapBai(baiId) {
-  const [bo, sub] = String(baiId).split(':');
-  const st = state.dialogue;
-  st.dangNap = true; st.khoa = false; st.bai = null; st.currentLine = -1;
-  const el = document.getElementById('page-content');
-  if (el && state.currentPage === 'dialogue') el.innerHTML = htKhungHtml();
-  try {
-    const d = await napHoiThoai(bo, sub);
-    if (st.baiId !== baiId) return;            // đã đổi bài khác trong lúc chờ
-    st.khoa = !!d.khoa;
-    st.bai = d.khoa ? null : d;
-  } finally {
-    if (st.baiId === baiId) {
-      st.dangNap = false;
-      if (state.currentPage === 'dialogue') renderDialogue(document.getElementById('page-content'));
-    }
-  }
-}
-
-/** Bấm một câu -> tua bản thu tới đúng mốc câu đó rồi phát. */
-function htNgheCau(i) {
-  const c = state.dialogue.bai?.cues?.[i];
-  if (!c) return;
-  const a = document.getElementById('ht-audio');
-  if (a && c.start != null) {
-    a.currentTime = Math.max(0, c.start - 0.15);   // lùi một chút cho khỏi cụt âm đầu
-    a.play().catch(() => {});
-    return;
-  }
-  // Bài không có audio (hoặc câu thiếu mốc) thì đọc bằng giọng máy — vẫn nghe được, chỉ kém hơn.
-  ddSpeakWord(c.text);
-}
-
-/** Tô sáng câu đang đọc theo THỜI GIAN THẬT của bản thu, không phải timeout đoán chừng. */
-function htTheoDoi() {
-  const a = document.getElementById('ht-audio');
-  const cues = state.dialogue.bai?.cues || [];
-  if (!a || !cues.length) return;
-  const t = a.currentTime;
-  const i = cues.findIndex((c) => c.start != null && c.end != null && t >= c.start - 0.2 && t <= c.end + 0.2);
-  if (i === state.dialogue.currentLine) return;
-  state.dialogue.currentLine = i;
-  // Chỉ đổi class, KHÔNG render lại cả trang: render lại giữa lúc audio chạy sẽ dựng lại thẻ
-  // <audio> và nhạc đứt quãng.
-  document.querySelectorAll('#dialogue-container .dialogue-row').forEach((el, k) => {
-    el.classList.toggle('karaoke-active', k === i);
-  });
-  if (i >= 0) document.getElementById(`ht-c${i}`)?.scrollIntoView({ block: 'center', behavior: 'smooth' });
-}
-
-function htDungKaraoke() {
-  const a = document.getElementById('ht-audio');
-  if (a) { try { a.pause(); } catch (_) { /* chưa dựng */ } }
-  state.dialogue.currentLine = -1;
-}
 
 
 // ============================================================
@@ -4032,102 +3890,8 @@ function getDisplayText(traditional, simplified) {
 /** Tên ngắn của `getDisplayText` — dùng trong template chữ Hán cho đỡ dài dòng. */
 const H = (traditional, simplified) => getDisplayText(traditional, simplified);
 
-/**
- * Danh sách từ đang luyện (Flashcard + Trắc nghiệm).
- *
- * Trước 2026-09-16 hàm này trả `vocabularyData` — 40 từ mock trong `mockData.js`, lọc theo trường
- * `lesson` mà chỉ 40 từ đó mới có. Hai trang luyện tập vì thế là bản demo trong một hệ thống đang
- * có 23.535 mục từ. Nay đọc từ `state.luyen.tu`, nạp qua `src/utils/kho-luyen-tap.js`.
- */
-function getFilteredVocab() {
-  return state.luyen.tu || [];
-}
 
-/** Nạp một nguồn từ vựng rồi vẽ lại trang đang mở. */
-async function luyenChonNguon(nguonId) {
-  if (!nguonId) return;
-  state.luyen.nguon = nguonId;
-  state.luyen.dangNap = true;
-  state.luyen.khoa = false;
-  state.luyen.loi = '';
-  // Đổi nguồn là đổi cả bộ thẻ -> đưa cả hai trang về đầu, nếu không thì chỉ số cũ trỏ vào giữa
-  // danh sách mới và học viên tưởng mình đã học được nửa bộ.
-  state.fc.currentIndex = 0;
-  state.fc.flipped = false;
-  state.quiz.order = null;
-  state.quiz.currentIndex = 0;
-  state.quiz.opts = null;
-  state.quiz.answered = false;
-  _luyenVeLai();
 
-  try {
-    const r = await napTuVung(nguonId, { soTay: [...soTay.values()] });
-    if (state.luyen.nguon !== nguonId) return;   // người dùng đã đổi nguồn khác trong lúc chờ
-    state.luyen.tu = r.tu || [];
-    state.luyen.khoa = !!r.khoa;
-    state.luyen.loi = r.loi || '';
-  } catch (e) {
-    if (state.luyen.nguon !== nguonId) return;
-    state.luyen.tu = [];
-    state.luyen.loi = 'Không tải được từ vựng. Thử lại nhé.';
-  } finally {
-    if (state.luyen.nguon === nguonId) {
-      state.luyen.dangNap = false;
-      _luyenVeLai();
-    }
-  }
-}
-
-function _luyenVeLai() {
-  const el = document.getElementById('page-content');
-  if (!el) return;
-  if (state.currentPage === 'flashcard') renderFlashcard(el);
-  else if (state.currentPage === 'quiz') renderQuiz(el);
-}
-
-/** Thanh chọn nguồn, dùng chung cho Flashcard và Trắc nghiệm. */
-function luyenThanhNguonHtml() {
-  const ds = nguonTuVung();
-  const nhom = [...new Set(ds.map((n) => n.nhom))];
-  const hien = state.luyen.nguon;
-  return `
-    <div class="luy-nguon">
-      <label for="luy-chon"><i class="fa-solid fa-layer-group"></i> Bộ từ đang luyện</label>
-      <select id="luy-chon" onchange="window.app.luyenChonNguon(this.value)">
-        ${nhom.map((g) => `<optgroup label="${tdEsc(g)}">
-          ${ds.filter((n) => n.nhom === g).map((n) => `
-            <option value="${n.id}" ${n.id === hien ? 'selected' : ''}>${tdEsc(n.ten)}</option>`).join('')}
-        </optgroup>`).join('')}
-      </select>
-      <span class="luy-dem">${state.luyen.dangNap ? 'đang tải…' : `${(state.luyen.tu || []).length} từ`}</span>
-    </div>`;
-}
-
-/** Màn hình thay thế khi chưa có từ để học — nói rõ VÌ SAO thay vì để trang trống. */
-function luyenTrongHtml() {
-  const s = state.luyen;
-  if (s.dangNap) return `${luyenThanhNguonHtml()}<div class="tv-empty"><i class="fa-solid fa-spinner fa-spin"></i><p>Đang tải bộ từ…</p></div>`;
-  if (s.khoa) {
-    return `${luyenThanhNguonHtml()}
-      <div class="tv-empty">
-        <i class="fa-solid fa-lock"></i>
-        <p>Bộ từ này thuộc giáo trình bạn chưa mua.</p>
-        <span>Chọn <b>TOCFL</b> hoặc <b>HSK</b> ở trên để luyện miễn phí, hoặc xem gói học.</span>
-        <button class="btn btn-primary" onclick="window.app.navigate('account-membership')">Xem gói học</button>
-      </div>`;
-  }
-  if (s.loi) {
-    return `${luyenThanhNguonHtml()}<div class="tv-empty"><i class="fa-solid fa-triangle-exclamation"></i>
-      <p>${tdEsc(s.loi)}</p>
-      <button class="btn btn-primary" onclick="window.app.luyenChonNguon('${tdNhay(s.nguon)}')">Thử lại</button></div>`;
-  }
-  if (s.nguon === 'so-tay') {
-    return `${luyenThanhNguonHtml()}<div class="tv-empty"><i class="fa-solid fa-bookmark"></i>
-      <p>Sổ tay của bạn chưa có từ nào.</p>
-      <span>Bấm dấu lưu ở bất kỳ thẻ từ nào trong bài học để thêm vào sổ tay.</span></div>`;
-  }
-  return `${luyenThanhNguonHtml()}<div class="tv-empty"><i class="fa-solid fa-inbox"></i><p>Bộ từ này chưa có dữ liệu.</p></div>`;
-}
 
 function formatTime(seconds) {
   const m = Math.floor(seconds / 60);
@@ -4137,24 +3901,6 @@ function formatTime(seconds) {
 
 function emptyState(msg) {
   return `<div class="empty-state"><i class="fa-solid fa-inbox"></i><h3>${msg}</h3><p>Hãy thử lại sau.</p></div>`;
-}
-
-
-
-
-// -- Hội thoại --
-// `selectDialogue` / `toggleDialoguePlay` / `dialogueClickLine` của bản mock đã BỎ (2026-09-16):
-// chúng đi theo `dialogueData` 3 bài và chạy karaoke bằng `setInterval(2500)` — đoán mỗi câu
-// đúng 2,5 giây, không liên quan gì tới bản thu thật. Nay dùng htChonBai / htNgheCau / htTheoDoi.
-
-function toggleDialoguePinyin() {
-  state.dialogue.showPinyin = !state.dialogue.showPinyin;
-  renderDialogue(document.getElementById('page-content'));
-}
-
-function toggleDialogueTrans() {
-  state.dialogue.showTrans = !state.dialogue.showTrans;
-  renderDialogue(document.getElementById('page-content'));
 }
 
 // -- Exam --
@@ -5304,15 +5050,6 @@ document.addEventListener('keydown', (e) => {
       if (e.code === 'Space') { e.preventDefault(); window.app.luyLat(nsLuy); }
     }
   }
-  if (state.currentPage === 'flashcard') {
-    if (e.code === 'Space') { e.preventDefault(); fcFlip(); }
-    if (state.fc.flipped) {
-      if (e.key === '1') fcRate('again');
-      if (e.key === '2') fcRate('hard');
-      if (e.key === '3') fcRate('good');
-      if (e.key === '4') fcRate('easy');
-    }
-  }
 });
 
 // ============================================================
@@ -5518,13 +5255,6 @@ function ddSelectSub(subId) {
   ddState.order = null;
   ddState.mobileListOpen = false;
   ddState.writing = { idx: 0, mode: 0, completed: new Set() };
-  if (ddState.translate) {
-    ddState.translate.phase = 'input';
-    ddState.translate.answers = {};
-    ddState.translate.revealed = new Set();
-    ddState.translate.allRevealed = false;
-    ddState.translate.submission = null;
-  }
   updateUrl({ push: true });
   const el = document.getElementById('page-content');
   if (el) renderDuongdai(el);
@@ -6056,7 +5786,6 @@ function ddRenderTabContent() {
   else if (ddState.activeTab === 'exercise') (ddState.onllang.open ? ddRenderOnllangEx : ddRenderExercise)(el);
   else if (ddState.activeTab === 'grammar') ddRenderGrammar(el);
   else if (ddState.activeTab === 'writing') ddRenderWriting(el);
-  else if (ddState.activeTab === 'translate') ddRenderTranslate(el);
   else if (ddState.activeTab === 'game') ddRenderGame(el);
 }
 
@@ -6749,53 +6478,6 @@ const _ddCulEsc = (s) => String(s == null ? '' : s)
 const _ddCulChuan = (s) => String(s || '').toLowerCase().replace(/[\s:：.,!?]+/g, ' ').trim();
 
 
-// ============================================================
-// DỊCH TRUNG-VIỆT / VIỆT-TRUNG
-//
-// Luồng làm bài (đổi 2026-09-04 theo yêu cầu chủ dự án):
-//   gõ 1 câu -> bấm "Nộp câu này" -> hiện đáp án NGAY câu đó
-//   -> khối shadowing: nghe mẫu câu tiếng Trung rồi tự đọc theo
-//   -> làm hết bài mới gửi MỘT bản ghi lên server cho giáo viên chấm.
-//
-// Trước đây nộp CẢ BÀI một lần rồi mới lật đáp án hàng loạt (phase input/review) —
-// học viên dịch 20 câu liền mà không biết đúng sai câu nào, hết cả bài mới thấy.
-//
-// Chiều dịch:
-//   - Bài 1.1 -> 5.1: CHỈ Trung -> Việt, ẩn hẳn thanh đổi chiều.
-//   - Bài 5.2 trở đi: 2 chiều tách bạch, mỗi chiều 2 phần (Dịch câu + Dịch đoạn văn).
-//     Phần nào chưa có dữ liệu thì ẩn hẳn — 11 bài (10.1, 10.2, 11.1, 12.1..15.2) hiện
-//     chưa có đoạn văn, hiện mục rỗng chỉ làm học viên tưởng trang bị lỗi.
-//
-// KHÔNG có ghi âm ở đây: shadowing = nghe TTS rồi tự đọc theo, đúng như trang
-// "Luyện nói (Shadowing)" đang làm. (Đã cân nhắc thu âm gửi giáo viên 2026-09-04
-// rồi bỏ — không dựng thêm hạ tầng lưu file cho việc này.)
-// ============================================================
-/**
- * Tải đề dịch của MỘT bài con — `public/data/dich/<subId>.json` (tách 2026-09-06 bởi
- * scripts/gen-tach-data.mjs). Trước đây mỗi lần mở tab phải tải cả 0,5 MB của 146 bài.
- * Bài chưa có đề -> null, nơi gọi tự hiện "chưa có nội dung".
- */
-const _ddTrCache = new Map();
-
-if (!ddState.translate) {
-  ddState.translate = {
-    mode: 'zh-vi',
-    answers: {},          // idx -> câu dịch học viên đang gõ
-    done: new Set(),      // idx đã bấm "Nộp câu này" (đã lật đáp án)
-    shadowed: new Set(),  // idx đã bấm "Đã đọc xong"
-    submission: null,     // kết quả POST /exercise/translate/submit (cả bài)
-    saving: false,
-    loi: null,            // lỗi lúc lưu bài, để hiện cho học viên biết
-  };
-}
-
-// Ngữ cảnh lượt làm bài hiện tại — các hàm gọi từ onclick chỉ nhận idx nên phải tra
-// nội dung câu ở đây (không nhét chữ Hán vào chuỗi onclick: dấu nháy trong câu sẽ vỡ HTML).
-let _ddTrCtx = { subId: null, mode: 'zh-vi', items: [], soCau: 0 };
-
-const _ddTrEsc = (s) => String(s == null ? '' : s)
-  .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-const _ddTrNl2br = (s) => _ddTrEsc(s).split('\n').join('<br>');
 
 
 // ============================================================
@@ -7376,80 +7058,10 @@ function ddGramItemHtml(item, i) {
 }
 
 
-/**
- * Thời lượng thi THẬT của từng cấp HSK, tính bằng phút (theo quy định của Hanban: phần nghe +
- * phần đọc + phần viết, đã gồm thời gian điền phiếu).
- *
- * Luyện đề mà không có áp lực thời gian thì không biết mình có kịp hay không — đó là thứ trượt
- * nhiều nhất ở phòng thi thật. Nhưng KHÔNG ép: học viên bật/tắt được, vì lần đầu làm quen đề thì
- * dừng lại tra từ mới là cách học đúng.
- */
-const HSKE_PHUT = { 1: 40, 2: 55, 3: 90, 4: 105, 5: 125, 6: 140, '7-9': 210 };
 
-const HSKE_TEN_KN = { nghe: 'Nghe hiểu', doc: 'Đọc hiểu', viet: 'Viết' };
-const HSKE_IC_KN = { nghe: 'fa-headphones', doc: 'fa-book-open', viet: 'fa-pen' };
-
-
-
-/**
- * Phân tích kết quả THEO KỸ NĂNG (2026-09-16).
- *
- * Trước đây nộp bài xong chỉ ra một con số phần trăm. Với người luyện thi, con số đó gần như vô
- * dụng: điều họ cần biết là "mình yếu phần nào" để dành thời gian đúng chỗ. Cùng 60% nhưng
- * nghe 30% / đọc 90% là một chiến lược ôn hoàn toàn khác với nghe 90% / đọc 30%.
- *
- * Nhóm kỹ năng suy từ chính dữ liệu đề (`nghe` / `dang: 'viet'`), không cần thêm trường nào.
- */
-function _hskePhanTichHtml(d, cham) {
-  const nhom = {};
-  for (const c of cham) {
-    const k = hskeKyNang(c);
-    nhom[k] ??= { tong: 0, dung: 0, bo: 0 };
-    nhom[k].tong++;
-    const tl = hskExamState.dapAn[c.so];
-    const daLam = c.dang === 'viet' ? !!String(tl || '').trim() : !!tl;
-    if (!daLam) nhom[k].bo++;
-    else if (hskCauDung(c, tl)) nhom[k].dung++;
-  }
-  const ds = Object.entries(nhom).filter(([, v]) => v.tong > 0);
-  // Đề chỉ có một kỹ năng thì bảng "phân tích" chẳng phân tích gì — bỏ hẳn cho gọn.
-  if (ds.length < 2) return '';
-
-  const pt = (v) => Math.round((v.dung / v.tong) * 100);
-  const yeu = ds.slice().sort((a, b) => pt(a[1]) - pt(b[1]))[0];
-  const manh = ds.slice().sort((a, b) => pt(b[1]) - pt(a[1]))[0];
-  // Chỉ nói "yếu phần X" khi thật sự có khoảng cách. Chênh 5% là nhiễu, khuyên theo đó là khuyên bừa.
-  const dangKe = pt(yeu[1]) + 15 <= pt(manh[1]);
-
-  return `
-    <div class="hske-phantich">
-      <h4><i class="fa-solid fa-chart-simple"></i> Kết quả theo kỹ năng</h4>
-      <div class="hske-kn-ds">
-        ${ds.map(([k, v]) => `
-          <div class="hske-kn">
-            <div class="hske-kn-dau">
-              <i class="fa-solid ${HSKE_IC_KN[k]}"></i>
-              <span>${HSKE_TEN_KN[k]}</span>
-              <b class="${pt(v) >= 80 ? 'is-tot' : pt(v) >= 50 ? 'is-vua' : 'is-kem'}">${pt(v)}%</b>
-            </div>
-            <div class="tw-bar"><i style="width:${pt(v)}%"></i></div>
-            <div class="hske-kn-chi">${v.dung}/${v.tong} câu đúng${v.bo ? ` · bỏ trống ${v.bo}` : ''}</div>
-          </div>`).join('')}
-      </div>
-      ${dangKe ? `
-        <p class="hske-kn-loi"><i class="fa-solid fa-lightbulb"></i>
-          <span>Phần <strong>${HSKE_TEN_KN[yeu[0]]}</strong> đang thấp hơn hẳn
-          (${pt(yeu[1])}% so với ${pt(manh[1])}% ở ${HSKE_TEN_KN[manh[0]]}) — nên dành thời gian ôn phần này trước.</span></p>`
-        : `<p class="hske-kn-loi"><i class="fa-solid fa-circle-info"></i>
-          <span>Các kỹ năng đang khá đều nhau. Cứ luyện tiếp theo lịch hiện tại.</span></p>`}
-    </div>`;
-}
 
 function ddRenderGrammar(el) {
   const items = TB().grammar[ddState.selectedSub] || [];
-  // HSK có renderer riêng: dữ liệu là danh mục điểm ngữ pháp + danh sách từ, không phải bài
-  // giảng có ví dụ như hai bộ giáo trình. Nhận ra bằng chính trường `nhom` mà chỉ HSK mới có.
-  if (items.length && items[0].nhom) return ddRenderGrammarHsk(el, items);
   if (!items.length) {
     el.innerHTML = '<p class="dd-empty">Bài này không có mục ngữ pháp riêng — nội dung ngữ pháp đã được gộp vào bài liền kề.</p>';
     return;
@@ -8030,7 +7642,7 @@ let _ddOnllangTone = null;
 async function _ddOnllangToneLoad() {
   if (_ddOnllangTone) return _ddOnllangTone;
   try {
-    // Qua API có kiểm quyền (2026-09-15) — xem _ddCultureLoad.
+   
     _ddOnllangTone = await napGopTheoQuyen('/noi-dung/tone-hints');
   } catch (e) {
     _ddOnllangTone = {};
@@ -10346,27 +9958,16 @@ function ddSkeletonHtml() {
 }
 
 function ddRenderNgay(el) {
-  // Hai chế độ dùng CHUNG khung sidebar nhưng khác hẳn nửa bên phải:
-  //   'normal'  — bài con x.1/x.2: có thanh tab + nội dung tab
-  //   'culture' — mục "Văn Hóa Trung Hoa" (id "5.vh"): chỉ có bài đọc, KHÔNG có thanh tab
-  // Đánh dấu bằng container.dataset.mode để nhánh cập-nhật-tại-chỗ bên dưới biết lúc nào
-  // buộc phải dựng lại DOM. Thiếu dấu này thì đổi qua lại giữa 2 chế độ chỉ đổi nội dung
-  // bên trong mà khung cũ vẫn nguyên — sang bài văn hoá vẫn thấy thanh tab của bài trước.
-  const cultureId = ddCultureLesson();
-  const mode = cultureId ? 'culture' : 'normal';
-  const cultureSub = cultureId ? TB().culture.find(c => c.parentId === cultureId) : null;
-  const currentSub = cultureSub
-    || TB().subs.find(s => s.id === ddState.selectedSub)
-    || TB().subs[0];
-  const parentLessonId = cultureId || ddParentKey(currentSub.id);
+  const currentSub = TB().subs.find(s => s.id === ddState.selectedSub) || TB().subs[0];
+  const parentLessonId = ddParentKey(currentSub.id);
   if (parentLessonId) ddState.openLessons.add(parentLessonId);
   const book = TB().bookOf(currentSub.book) || TB().books[0];
   const bookLessons = TB().lessons.filter(l => l.book === book.id);
 
   // Đổi QUYỂN (hoặc đổi BỘ giáo trình) thì danh sách bài bên trái khác hẳn -> phải dựng lại DOM,
-  // không cập nhật tại chỗ. Thiếu data-tb thì sang Thời Đại vẫn thấy danh sách bài Đương đại.
+  // không cập nhật tại chỗ.
   const container = el.querySelector('.dd-container');
-  if (container && container.dataset.mode === mode && container.dataset.book === String(book.id)
+  if (container && container.dataset.book === String(book.id)
       && container.dataset.tb === ddState.tb) {
     const sb = container.querySelector('.dd-sidebar');
     if (sb) sb.classList.toggle('open', !!ddState.mobileListOpen);
@@ -10392,12 +9993,11 @@ function ddRenderNgay(el) {
     });
 
     const mainTitle = container.querySelector('.dd-main-title');
-    if (mainTitle) mainTitle.textContent = cultureId ? `Văn Hóa Trung Hoa — ${tbLabel(cultureId)}` : currentSub.title;
+    if (mainTitle) mainTitle.textContent = currentSub.title;
     const mainRange = container.querySelector('.dd-main-range');
     if (mainRange) {
-      mainRange.textContent = cultureId
-        ? 'Bài đọc văn hóa'
-        : (currentSub.count ? `Từ ${currentSub.from} → ${currentSub.to} (${currentSub.count} từ)` : 'Đang biên soạn');
+      mainRange.textContent = currentSub.count
+        ? `Từ ${currentSub.from} → ${currentSub.to} (${currentSub.count} từ)` : 'Đang biên soạn';
     }
 
     container.querySelectorAll('.dd-tab-btn').forEach(btn => {
@@ -10407,8 +10007,7 @@ function ddRenderNgay(el) {
     el.scrollTop = 0;
     const pcUp = document.getElementById('page-content');
     if (pcUp) pcUp.scrollTop = 0;
-    if (cultureId) ddRenderCulture(container.querySelector('#dd-tab-content'));
-    else ddRenderTabContent();
+    ddRenderTabContent();
 
     updateNavBooks();
     requestAnimationFrame(() => {
@@ -10418,7 +10017,7 @@ function ddRenderNgay(el) {
   }
 
   el.innerHTML = `
-    <div class="dd-container" data-mode="${mode}" data-book="${book.id}" data-tb="${ddState.tb}">
+    <div class="dd-container" data-book="${book.id}" data-tb="${ddState.tb}">
       <!-- Sidebar: Lesson list -->
       <div class="dd-sidebar ${ddState.mobileListOpen ? 'open' : ''}">
         <button class="dd-sidebar-header" onclick="window.app.ddToggleMobileList()">
@@ -10504,11 +10103,10 @@ function ddRenderNgay(el) {
       <div class="dd-main">
         <div class="dd-main-header">
           <span class="dd-book-badge" title="${book.title}"><i class="fa-solid fa-book"></i> ${book.label} · ${book.level}</span>
-          <h2 class="dd-main-title">${cultureId ? `Văn Hóa Trung Hoa — ${tbLabel(cultureId)}` : currentSub.title}</h2>
-          <span class="dd-main-range">${cultureId ? 'Bài đọc văn hóa' : (currentSub.count ? `Từ ${currentSub.from} → ${currentSub.to} (${currentSub.count} từ)` : 'Đang biên soạn')}</span>
+          <h2 class="dd-main-title">${currentSub.title}</h2>
+          <span class="dd-main-range">${currentSub.count ? `Từ ${currentSub.from} → ${currentSub.to} (${currentSub.count} từ)` : 'Đang biên soạn'}</span>
         </div>
 
-        ${cultureId ? '' : `
         <!-- Thanh tab. Lớp bọc .dd-tab-wrap là chỗ neo khi cuộn VÀ là nơi vẽ dải mờ báo "còn tab
              bên phải" — trên màn hẹp thanh tab là một hàng cuộn ngang, dải mờ đặt bên trong vùng
              cuộn sẽ trôi theo nội dung rồi biến mất ngay khi vuốt. -->
@@ -10522,15 +10120,14 @@ function ddRenderNgay(el) {
                 <span>${tab.label}</span>
               </button>`).join('')}
           </div>
-        </div>`}
+        </div>
 
         <!-- Tab content -->
         <div id="dd-tab-content" class="dd-tab-content"></div>
       </div>
     </div>`;
 
-  if (cultureId) ddRenderCulture(el.querySelector('#dd-tab-content'));
-  else ddRenderTabContent();
+  ddRenderTabContent();
 
   updateNavBooks();
   setTimeout(() => {
@@ -10569,22 +10166,10 @@ dangKy({
 });
 
 window.app = {
-  // ⚠️ 55 handler của ba khu NẠP ĐỘNG (Từ vựng & Hán tự · Lộ trình · Cộng đồng) KHÔNG nằm ở
+  // ⚠️ Handler của các khu NẠP ĐỘNG (Từ vựng & Hán tự · Lộ trình · Tài khoản) KHÔNG nằm ở
   //    đây — chúng được `napModuleTrang()` gắn thêm vào `window.app` ngay khi module tải xong
   //    (xem `handlers` ở cuối mỗi file trong src/pages/). Thêm tay vào đây là ReferenceError.
   ddDocTatCa,
-
-  // HSK — thi thử (4.34c)
-  hskExamMoDe, hskExamChon, hskExamViet, hskExamNop, hskExamVeChonDe, hskExamLoc,
-  luyenChonNguon,
-  lnNoiThu,
-  hskExamHenGio,
-
-  // HSK — ngữ pháp (4.34)
-  hskGramLoc, hskGramSpeak,
-
-  // HSK — trang tra cứu từ vựng theo cấp (4.34)
-  hskVocabSetCap, hskVocabTim, hskVocabSetPos, hskVocabThuLai,
 
   // TOCFL — từ vựng theo cấp (華語八千詞)
   tvMoCap, tvVeChonCap, tvSelectTab, tvTim, tvLoai, tvTrang, tvDoiChu, tvToggle,
@@ -10623,30 +10208,12 @@ window.app = {
   ddSubmitTeacherReview,
   // Audio TTS
   speakWord,
-  // Flashcard
-  fcFlip,
-  fcRate,
-  fcSelectLesson,
-  // Quiz
-  quizAnswer,
-  quizNext,
-  // Writing
-  // Hội thoại (viết lại 2026-09-16 — chạy trên 324 bài thật, xem renderDialogue)
-  toggleDialoguePinyin,
-  toggleDialogueTrans,
-  htChonBai,
-  htNgheCau,
-  htTheoDoi,
-  // Luyện nói
-  lnChonBai,
-  lnNgheCau,
   // Exam
   examAnswer,
   examNext,
   examPrev,
   endExam,
   tdLuuNhanh,
-  // Shadowing
   // Học phát âm
   pronPlay,
   pronPlayToneSet,
@@ -10662,16 +10229,13 @@ window.app = {
   userMenuAuthAction,
   triggerAvatarUpload,
   handleAvatarFileChange,
-  // Blog
-  // Giáo trình đương đại
+  // Giáo trình
   ddToggleLesson,
   ddSelectSub,
   ddSelectBook,
   // Tường nội dung trả phí (2026-09-09)
   moBangGia, ddVeBaiMo,
   ddGoBook,
-  ddCultureSpeak,
-  ddCultureJump,
   ddSelectTab,
   ddToggleVocab,
   ddFcFlip,
@@ -10680,7 +10244,7 @@ window.app = {
   ddToggleMobileList,
   ddScrollSidebarToActive,
   ddSpeakWord,
-  // Hội thoại đương đại
+  // Hội thoại trong bài
   ddDlgTogglePlay,
   ddDlgGoCue,
   ddDlgPrevCue,
@@ -10689,7 +10253,7 @@ window.app = {
   ddDlgTogglePinyin,
   ddDlgToggleTrans,
   ddDlgSetSpeed,
-  // Bài tập đương đại
+  // Bài tập
   ddExStart,
   ddExSelect,
   ddExSubmit,
@@ -10705,15 +10269,7 @@ window.app = {
   ddOnllangGhep,
   ddOnllangGhepChon,
   ddOnllangNopTatCa,
-  // Dịch Trung-Việt
-  ddTranslateSetMode,
-  ddTranslateSaveAnswer,
-  ddTranslateNopCau,
-  ddTranslateNgheMau,
-  ddTranslateDaDoc,
-  ddTranslateLuuLai,
-  ddTranslateReset,
-  // Luyện viết đương đại
+  // Luyện viết
   ddWriteMode,
   ddWriteNav,
   ddWriteGoTo,

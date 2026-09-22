@@ -1,12 +1,9 @@
 // ============================================================
 // ADMIN PANEL — Tẻn (SPA Controller)
 // ============================================================
-// Danh mục 4 quyển Đương đại + helper id/URL — module thuần dữ liệu, dùng chung với main.js
-// (xem CLAUDE.md 4.25). Không import duongdaiData.js: file đó kéo theo 1.600 dòng từ vựng.
-import { duongdaiBooks, ddLessonKey, ddLessonLabel, ddSubSegs } from './data/duongdaiBooks.js';
+// Danh mục quyển + helper id/URL — module thuần dữ liệu, dùng chung với main.js.
+// Không import thoidaiData.js: file đó kéo theo toàn bộ từ vựng.
 import { thoidaiBooks, tdLessonKey, tdLessonLabel, tdSubSegs, tdParseLessonId } from './data/thoidaiBooks.js';
-import { hskBooks, hskLessonKey, hskLessonLabel, hskSubSegs } from './data/hskBooks.js';
-import { AN_HSK } from '../shared/an-hsk.js';
 
 // Ba khu vận hành trung tâm (sổ thu chi · ký túc xá · đề bài) — tách ra file riêng vì file này
 // đã 5.400 dòng. Cầu nối MỘT CHIỀU `dangKyTrungTam` ở cuối file: module chỉ đọc, không import
@@ -16,17 +13,12 @@ import {
   quyHandlers, ktxHandlers, deHandlers,
 } from './admin-trungtam.js';
 
-// BA bộ cùng cấu trúc; phân biệt bằng chính id bài (Thời Đại có tiền tố 'td', HSK có 'hsk').
-// Cũng KHÔNG import thoidaiData.js/duongdaiData.js ở đây — chúng kéo theo toàn bộ từ vựng.
-// hskBooks.js chỉ đọc hsk-manifest.js (10 KB), an toàn.
 const _khongNs = (id) => String(id || '').replace(/^[a-z]+(?::[a-z]+)?:/, '');
-const laThoiDai = (id) => /^td\d+-/.test(_khongNs(id));
-const laHsk = (id) => /^hsk\d+-/.test(_khongNs(id));
-/** Nhãn bài cho MỌI id của cả ba bộ. */
-const tbLabel = (id) => (laHsk(id) ? hskLessonLabel(id) : laThoiDai(id) ? tdLessonLabel(id) : ddLessonLabel(id));
+/** Nhãn bài cho mọi id bài. */
+const tbLabel = (id) => tdLessonLabel(id);
 /** Đoạn URL + trang tương ứng để mở bài đó bên user portal. */
-const tbSlug = (id) => (laHsk(id) ? hskSubSegs(String(id)) : laThoiDai(id) ? tdSubSegs(String(id)) : ddSubSegs(String(id))).join('/');
-const tbPage = (id) => (laHsk(id) ? 'hsk-3-0' : laThoiDai(id) ? 'giao-trinh-thoi-dai' : 'giao-trinh-duong-dai');
+const tbSlug = (id) => tdSubSegs(String(id)).join('/');
+const tbPage = () => 'giao-trinh-thoi-dai';
 
 const API = '/api';
 
@@ -511,16 +503,9 @@ function renderCurrentSection() {
 
   const content = document.getElementById('admin-content');
   switch (currentSection) {
-    case 'vocabulary': renderVocabulary(content); break;
-    case 'exam': renderExam(content); break;
-    case 'dialogues': renderDialogues(content); break;
-    case 'blog': renderBlog(content); break;
     case 'users': renderUsers(content); break;
     case 'teachers': renderTeachers(content); break;
     case 'classes': renderClasses(content); break;
-    case 'to-chuc': renderToChuc(content); break;
-    case 'quyen-hoc': renderQuyenHoc(content); break;
-    case 'thanh-toan': renderThanhToan(content); break;
     case 'thiet-bi': renderThietBi(content); break;
     case 'du-hoc': renderDuHoc(content); break;
     case 'quy': renderQuy(content); break;
@@ -668,145 +653,7 @@ const _ngay = (d) => (d ? new Date(d).toLocaleDateString('vi-VN') : '—');
 // chuỗi — ra "12000000₫" thay vì "12.000.000₫". Không lỗi nào hiện ra, chỉ nhìn ảnh mới thấy.
 const _tien = (n) => (Number(n) || 0).toLocaleString('vi-VN') + '₫';
 
-/** Hợp đồng còn bao nhiêu ngày — số âm nghĩa là đã hết hạn. */
-function _conLai(hetHan) {
-  if (!hetHan) return null;
-  return Math.ceil((new Date(hetHan) - new Date()) / 86400000);
-}
-
-function _chipHopDong(o) {
-  if (o.trang_thai === 'tam-dung') return '<span class="badge badge-danger">Tạm dừng</span>';
-  const con = _conLai(o.het_han);
-  if (con === null) return '<span class="badge badge-success">Không thời hạn</span>';
-  if (con < 0) return `<span class="badge badge-danger">Hết hạn ${Math.abs(con)} ngày</span>`;
-  // Dưới 30 ngày là mốc cần gọi gia hạn — để đến lúc hết hạn mới biết thì trung tâm đã mất
-  // quyền truy cập giữa kỳ học, đó là cách nhanh nhất để mất khách.
-  if (con <= 30) return `<span class="badge badge-warning">Còn ${con} ngày</span>`;
-  return `<span class="badge badge-success">Còn ${con} ngày</span>`;
-}
-
-async function renderToChuc(el) {
-  el.innerHTML = '<div style="text-align:center;padding:40px;color:var(--admin-text-muted)"><i class="fa-solid fa-spinner fa-spin" style="font-size:24px"></i></div>';
-  try {
-    const { to_chuc } = await apiGet('/admin/to-chuc');
-    const sapHetHan = to_chuc.filter((o) => {
-      const c = _conLai(o.het_han);
-      return o.loai === 'trung-tam' && c !== null && c <= 30;
-    });
-    el.innerHTML = `
-      ${sapHetHan.length ? `<div class="alert alert-warning" style="margin-bottom:14px">
-        <i class="fa-solid fa-triangle-exclamation"></i>
-        <span>${sapHetHan.length} trung tâm sắp hết hạn hoặc đã hết hạn hợp đồng:
-        <b>${sapHetHan.map((o) => _escHtml(o.ten)).join(', ')}</b></span></div>` : ''}
-      <div class="data-table-wrapper">
-        <div class="table-toolbar">
-          <h3 style="font-size:14px;font-weight:700;flex:1">${to_chuc.length} tổ chức</h3>
-          <button class="btn btn-sm btn-primary" onclick="adminApp.moFormToChuc()"><i class="fa-solid fa-plus"></i> Thêm trung tâm</button>
-        </div>
-        <table class="data-table">
-          <thead><tr><th>Tổ chức</th><th style="width:110px">Gói</th><th style="width:150px">Hợp đồng</th>
-            <th style="width:90px">Học viên</th><th style="width:90px">Giáo viên</th><th style="width:70px">Lớp</th>
-            <th style="width:110px">Thao tác</th></tr></thead>
-          <tbody>
-            ${to_chuc.map((o) => `
-              <tr>
-                <td>
-                  <div style="font-weight:700">${_escHtml(o.ten)}
-                    ${o.loai === 'nen-tang' ? '<span class="badge badge-success" style="margin-left:6px">Nền tảng</span>' : ''}</div>
-                  <div style="font-size:11px;color:var(--admin-text-muted)">${_escHtml(o.ma)}${o.lien_he_phone ? ' · ' + _escHtml(o.lien_he_phone) : ''}</div>
-                </td>
-                <td>${_escHtml(o.goi)}</td>
-                <td>${_chipHopDong(o)}<div style="font-size:11px;color:var(--admin-text-muted)">${_ngay(o.het_han)}</div></td>
-                <td>${o.so_hoc_vien}${o.gioi_han_hoc_vien ? `<span style="color:var(--admin-text-muted)">/${o.gioi_han_hoc_vien}</span>` : ''}</td>
-                <td>${o.so_giao_vien}${o.gioi_han_giao_vien ? `<span style="color:var(--admin-text-muted)">/${o.gioi_han_giao_vien}</span>` : ''}</td>
-                <td>${o.so_lop}</td>
-                <td>
-                  <button class="btn btn-sm btn-outline" onclick="adminApp.moFormToChuc(${o.id})"><i class="fa-solid fa-pen"></i></button>
-                  ${o.loai === 'trung-tam' ? `<button class="btn btn-sm btn-outline" title="Cấp quyền học cho cả trung tâm"
-                     onclick="adminApp.moFormCapQuyen(null, ${o.id}, '${_escAttr(o.ten)}')"><i class="fa-solid fa-key"></i></button>` : ''}
-                </td>
-              </tr>`).join('')}
-          </tbody>
-        </table>
-      </div>`;
-    _toChucCache = to_chuc;
-  } catch (err) {
-    el.innerHTML = `<div class="empty-state"><h3>Lỗi</h3><p>${_escHtml(err.message)}</p></div>`;
-  }
-}
-
 let _toChucCache = [];
-
-function moFormToChuc(id = null) {
-  const o = id ? _toChucCache.find((x) => x.id === id) : null;
-  const sua = !!o;
-  openModal(sua ? `Sửa: ${o.ten}` : 'Thêm trung tâm', `
-    ${sua ? '' : `<p style="font-size:12.5px;color:var(--admin-text-muted);margin-bottom:14px">
-      Tạo trung tâm kèm LUÔN tài khoản quản trị đầu tiên của họ — không có ai đăng nhập được thì
-      bản ghi trung tâm không dùng vào việc gì. Mật khẩu mặc định <b>tentrungtam68</b>, hệ thống
-      gửi mail báo cho họ.</p>`}
-    <div class="form-group"><label>Tên trung tâm <span style="color:#EF4444">*</span></label>
-      <input type="text" id="f-tc-ten" value="${sua ? _escAttr(o.ten) : ''}"></div>
-    ${sua ? '' : `<div class="form-group"><label>Mã (chữ thường, không dấu) <span style="color:#EF4444">*</span></label>
-      <input type="text" id="f-tc-ma" placeholder="vd: ttnn-abc"></div>`}
-    <div class="form-group"><label>Gói thuê</label>
-      <input type="text" id="f-tc-goi" value="${sua ? _escAttr(o.goi) : 'co-ban'}" placeholder="dung-thu | co-ban | nang-cao | mua-dut"></div>
-    <div class="form-group"><label>Hết hạn hợp đồng <span style="font-weight:400;color:var(--admin-text-muted)">(để trống = không thời hạn, dùng cho khách mua đứt)</span></label>
-      <input type="date" id="f-tc-het-han" value="${sua && o.het_han ? String(o.het_han).slice(0, 10) : ''}"></div>
-    <div class="form-group" style="display:flex;gap:10px">
-      <div style="flex:1"><label>Giới hạn học viên</label>
-        <input type="number" id="f-tc-gh-hv" value="${sua && o.gioi_han_hoc_vien ? o.gioi_han_hoc_vien : ''}" placeholder="trống = không giới hạn"></div>
-      <div style="flex:1"><label>Giới hạn giáo viên</label>
-        <input type="number" id="f-tc-gh-gv" value="${sua && o.gioi_han_giao_vien ? o.gioi_han_giao_vien : ''}" placeholder="trống = không giới hạn"></div>
-    </div>
-    ${sua ? `<div class="form-group"><label>Trạng thái</label>
-      <select id="f-tc-trang-thai">
-        <option value="hoat-dong" ${o.trang_thai === 'hoat-dong' ? 'selected' : ''}>Hoạt động</option>
-        <option value="tam-dung" ${o.trang_thai === 'tam-dung' ? 'selected' : ''}>Tạm dừng</option>
-      </select></div>` : `
-    <div class="form-group"><label>Email quản trị của trung tâm</label>
-      <input type="email" id="f-tc-qt-email" placeholder="quantri@trungtam.com"></div>
-    <div class="form-group"><label>Tên người quản trị</label>
-      <input type="text" id="f-tc-qt-ten"></div>`}
-    <div class="form-group"><label>Điện thoại liên hệ</label>
-      <input type="text" id="f-tc-phone" value="${sua && o.lien_he_phone ? _escAttr(o.lien_he_phone) : ''}"></div>
-  `, `<button class="btn btn-outline" onclick="adminApp.closeModal()">Huỷ</button>
-      <button class="btn btn-primary" onclick="adminApp.luuToChuc(${id || 'null'}, this)">Lưu</button>`);
-}
-
-async function luuToChuc(id, btn) {
-  const v = (x) => (document.getElementById(x)?.value || '').trim();
-  const body = {
-    ten: v('f-tc-ten'), goi: v('f-tc-goi'),
-    het_han: v('f-tc-het-han') || null,
-    gioi_han_hoc_vien: v('f-tc-gh-hv') || null,
-    gioi_han_giao_vien: v('f-tc-gh-gv') || null,
-    lien_he_phone: v('f-tc-phone') || null,
-  };
-  if (!body.ten) return toast('Vui lòng nhập tên trung tâm.', 'error');
-  btn.disabled = true;
-  try {
-    if (id) {
-      body.trang_thai = v('f-tc-trang-thai') || 'hoat-dong';
-      await apiPut(`/admin/to-chuc/${id}`, body);
-      toast('Đã cập nhật trung tâm.');
-    } else {
-      body.ma = v('f-tc-ma');
-      body.quan_tri_email = v('f-tc-qt-email');
-      body.quan_tri_ten = v('f-tc-qt-ten');
-      if (!body.ma) { btn.disabled = false; return toast('Vui lòng nhập mã trung tâm.', 'error'); }
-      const r = await apiPost('/admin/to-chuc', body);
-      toast(r.quan_tri
-        ? `Đã tạo. Tài khoản quản trị: ${r.quan_tri.email} / ${r.quan_tri.mat_khau}`
-        : 'Đã tạo trung tâm.');
-    }
-    closeModal();
-    renderCurrentSection();
-  } catch (err) {
-    btn.disabled = false;
-    toast(err.message, 'error');
-  }
-}
 
 // ------------------------------------------------------------------ QUYỀN HỌC
 // ============================================================
@@ -833,361 +680,7 @@ const _gio = (d) => (d ? new Date(d).toLocaleString('vi-VN', {
   day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit',
 }) : '—');
 
-async function renderThanhToan(el) {
-  el.innerHTML = '<div style="text-align:center;padding:40px;color:var(--admin-text-muted)"><i class="fa-solid fa-spinner fa-spin" style="font-size:24px"></i></div>';
-  try {
-    const [ds, cf] = await Promise.all([
-      apiGet(`/admin/thanh-toan?trang_thai=${encodeURIComponent(ttLoc)}`),
-      apiGet('/admin/thanh-toan-cau-hinh').catch(() => ({ cau_hinh: {} })),
-    ]);
-    ttDs = ds.don || [];
-    _ttVe(el, ds.dem || {}, cf.cau_hinh || {});
-    _ttCapNhatBadge(ds.dem?.cho_duyet || 0);
-  } catch (err) {
-    el.innerHTML = `<div class="empty-state"><p>${_escHtml(err.message || 'Lỗi tải danh sách đơn.')}</p></div>`;
-  }
-}
-
-function _ttVe(el, dem, cf) {
-  const chuaCauHinh = !cf.bank_stk || !cf.bank_bin;
-  const tabs = [
-    ['cho', `Chờ duyệt${dem.cho_duyet ? ` (${dem.cho_duyet})` : ''}`],
-    ['thanh-cong', 'Đã duyệt'], ['tu-choi', 'Từ chối'], ['that-bai', 'Đã huỷ'], ['tat-ca', 'Tất cả'],
-  ].map(([k, v]) => `<button class="btn btn-sm ${ttLoc === k ? 'btn-primary' : 'btn-outline'}"
-      onclick="adminApp.ttDoiLoc('${k}')">${v}</button>`).join(' ');
-
-  el.innerHTML = `
-    ${chuaCauHinh ? `
-      <div class="alert alert-warning" style="margin-bottom:16px">
-        <i class="fa-solid fa-triangle-exclamation"></i>
-        <span><b>Chưa cấu hình tài khoản nhận tiền.</b>
-          Học viên mở trang Gói thành viên sẽ không thấy mã QR mà chỉ thấy lời mời liên hệ bạn.
-          Bấm <b>Cấu hình nhận tiền</b> để điền số tài khoản.</span>
-      </div>` : ''}
-
-    <div class="data-table-wrapper">
-      <div class="table-toolbar" style="gap:8px;flex-wrap:wrap">
-        <div style="display:flex;gap:6px;flex-wrap:wrap;flex:1">${tabs}</div>
-        <button class="btn btn-sm btn-outline" onclick="adminApp.ttMoCauHinh()">
-          <i class="fa-solid fa-gear"></i> Cấu hình nhận tiền</button>
-      </div>
-
-      <table class="data-table">
-        <thead><tr>
-          <th style="width:210px">Nội dung CK</th><th>Học viên</th><th>Khoá học</th>
-          <th style="width:110px">Số tiền</th><th style="width:130px">Biên lai</th>
-          <th style="width:110px">Trạng thái</th><th style="width:170px">Thao tác</th>
-        </tr></thead>
-        <tbody>
-          ${ttDs.length === 0 ? `<tr><td colspan="7"><div class="empty-state" style="padding:26px">
-            <p>${ttLoc === 'cho' ? 'Không có đơn nào đang chờ duyệt.' : 'Không có đơn nào.'}</p>
-          </div></td></tr>` : ''}
-          ${ttDs.map((d) => `
-            <tr>
-              <td>
-                <div style="font-weight:700;font-size:12px;word-break:break-all">${_escHtml(d.ma_giao_dich || '—')}</div>
-                <div style="font-size:11px;color:var(--admin-text-muted)">${_gio(d.created_at)}</div>
-              </td>
-              <td>
-                <div style="font-weight:600">${_escHtml(d.hoc_vien || '')}</div>
-                <div style="font-size:11px;color:var(--admin-text-muted)">${_escHtml(d.email || '')}${
-                  d.phone ? ' · ' + _escHtml(d.phone) : ''}</div>
-              </td>
-              <td style="font-size:12.5px">${_escHtml(d.san_pham_ten || d.product_ma || '')}</td>
-              <td style="font-weight:700">${_tien(d.so_tien)}</td>
-              <td>${d.co_anh
-                ? `<button class="btn btn-sm btn-outline" onclick="adminApp.ttXemAnh(${d.id})">
-                     <i class="fa-solid fa-image"></i> Xem ảnh</button>`
-                : '<span style="font-size:12px;color:var(--admin-text-muted)">chưa gửi</span>'}</td>
-              <td><span class="badge ${TT_MAU[d.trang_thai] || ''}">${TT_CHU[d.trang_thai] || d.trang_thai}</span>
-                ${d.duyet_boi_ten ? `<div style="font-size:10.5px;color:var(--admin-text-muted);margin-top:3px">
-                  bởi ${_escHtml(d.duyet_boi_ten)}</div>` : ''}</td>
-              <td>${d.trang_thai === 'cho' ? `
-                <button class="btn btn-sm btn-primary" onclick="adminApp.ttDuyet(${d.id})">
-                  <i class="fa-solid fa-check"></i> Duyệt</button>
-                <button class="btn btn-sm btn-danger" onclick="adminApp.ttTuChoi(${d.id})">Từ chối</button>`
-                : `<span style="font-size:11px;color:var(--admin-text-muted)">${_gio(d.duyet_luc)}</span>`}
-                ${d.trang_thai === 'tu-choi' && d.ghi_chu
-                  ? `<div style="font-size:11px;color:var(--admin-text-muted);margin-top:4px">${_escHtml(d.ghi_chu)}</div>` : ''}
-              </td>
-            </tr>`).join('')}
-        </tbody>
-      </table>
-    </div>
-
-    <p style="margin-top:14px;font-size:12.5px;color:var(--admin-text-muted);line-height:1.7">
-      <i class="fa-solid fa-circle-info"></i>
-      Đối chiếu <b>số tiền</b> và <b>nội dung chuyển khoản</b> (email + tên khoá) với app ngân hàng trước khi duyệt.
-      App ngân hàng có thể đã lược dấu <b>@</b> và <b>.</b> khỏi email — phần chữ còn lại vẫn đủ để nhận ra người mua.
-      Ảnh biên lai chỉ để tra cho nhanh — ảnh có thể bị làm giả, nên đừng duyệt chỉ vì thấy ảnh.
-    </p>`;
-}
-
-/** Chấm số trên mục sidebar — nhìn phát biết có đơn đang chờ hay không. */
-function _ttCapNhatBadge(n) {
-  const b = document.getElementById('tt-badge');
-  if (!b) return;
-  b.textContent = n > 99 ? '99+' : String(n);
-  b.hidden = !n;
-}
-
-function ttDoiLoc(k) {
-  ttLoc = k;
-  renderThanhToan(document.getElementById('admin-content'));
-}
-
-async function ttXemAnh(id) {
-  const d = ttDs.find((x) => x.id === id);
-  openModal(`Biên lai — ${d ? _escHtml(d.ma_giao_dich) : ''}`,
-    '<div style="text-align:center;padding:30px"><i class="fa-solid fa-spinner fa-spin"></i></div>');
-  try {
-    const { anh } = await apiGet(`/admin/thanh-toan/${id}/anh`);
-    const than = document.querySelector('.admin-modal-overlay .modal-body');
-    if (!than) return;
-    than.innerHTML = `
-      ${d ? `<div style="margin-bottom:12px;font-size:13px;line-height:1.8">
-        <div><b>Số tiền cần nhận:</b> <span style="font-size:16px;font-weight:800">${_tien(d.so_tien)}</span></div>
-        <div><b>Nội dung chuyển khoản:</b> <span style="letter-spacing:.04em;font-weight:700">${_escHtml(d.ma_giao_dich)}</span></div>
-        <div style="color:var(--admin-text-muted)">Học viên: ${_escHtml(d.hoc_vien)} · ${_escHtml(d.email)}</div>
-      </div>` : ''}
-      <img src="${anh}" alt="Ảnh biên lai" style="width:100%;border-radius:8px;border:1px solid var(--admin-border,#e2e8f0)">`;
-  } catch (err) {
-    const than = document.querySelector('.admin-modal-overlay .modal-body');
-    if (than) than.innerHTML = `<p style="color:#c0392b">${_escHtml(err.message || 'Không tải được ảnh.')}</p>`;
-  }
-}
-
-async function ttDuyet(id) {
-  const d = ttDs.find((x) => x.id === id);
-  if (!d) return;
-  // Xác nhận bằng lời văn nhắc đúng việc phải làm — duyệt là cấp quyền vĩnh viễn, không lùi lại
-  // được bằng một cú bấm (phải sang khu Quyền học thu hồi).
-  openModal('Xác nhận đã nhận tiền?', `
-    <p style="line-height:1.75">Bạn đã kiểm tra trong app ngân hàng và <b>đã thực nhận</b>
-      <b style="font-size:16px">${_tien(d.so_tien)}</b> với nội dung
-      <b style="letter-spacing:.04em">${_escHtml(d.ma_giao_dich)}</b>?</p>
-    <p style="line-height:1.75;color:var(--admin-text-muted);font-size:13px">
-      Duyệt xong, <b>${_escHtml(d.hoc_vien)}</b> được mở khoá
-      <b>${_escHtml(d.san_pham_ten || d.product_ma)}</b> vĩnh viễn và nhận thông báo ngay.</p>`,
-    `<button class="btn btn-outline" onclick="adminApp.closeModal()">Chưa, để tôi kiểm lại</button>
-     <button class="btn btn-primary" onclick="adminApp.ttDuyetThat(${id})">
-       <i class="fa-solid fa-check"></i> Đã nhận tiền, duyệt</button>`);
-}
-
-async function ttDuyetThat(id) {
-  closeModal();
-  try {
-    await apiPost(`/admin/thanh-toan/${id}/duyet`, {});
-    toast('Đã duyệt và mở khoá cho học viên.');
-    renderThanhToan(document.getElementById('admin-content'));
-  } catch (err) {
-    toast(err.message || 'Không duyệt được đơn.', 'error');
-  }
-}
-
-function ttTuChoi(id) {
-  const d = ttDs.find((x) => x.id === id);
-  openModal('Từ chối đơn', `
-    <p style="line-height:1.7;font-size:13px">Đơn <b>${_escHtml(d?.ma_giao_dich || '')}</b>
-      của ${_escHtml(d?.hoc_vien || '')}.</p>
-    <div class="form-group">
-      <label>Lý do (học viên sẽ đọc được)</label>
-      <textarea id="tt-ly-do" rows="3"
-        placeholder="VD: Chưa thấy tiền vào tài khoản. Bạn kiểm tra lại giúp mình nhé."></textarea>
-    </div>`,
-    `<button class="btn btn-outline" onclick="adminApp.closeModal()">Huỷ</button>
-     <button class="btn btn-danger" onclick="adminApp.ttTuChoiThat(${id})">Từ chối đơn</button>`);
-}
-
-async function ttTuChoiThat(id) {
-  const lyDo = (document.getElementById('tt-ly-do')?.value || '').trim();
-  if (!lyDo) { toast('Vui lòng ghi lý do để học viên biết cần làm gì.', 'error'); return; }
-  closeModal();
-  try {
-    await apiPost(`/admin/thanh-toan/${id}/tu-choi`, { ly_do: lyDo });
-    toast('Đã từ chối đơn.');
-    renderThanhToan(document.getElementById('admin-content'));
-  } catch (err) {
-    toast(err.message || 'Không từ chối được đơn.', 'error');
-  }
-}
-
-async function ttMoCauHinh() {
-  let cf = {};
-  try { cf = (await apiGet('/admin/thanh-toan-cau-hinh')).cau_hinh || {}; } catch { /* để trống */ }
-  openModal('Cấu hình tài khoản nhận tiền', `
-    <p style="font-size:12.5px;line-height:1.7;color:var(--admin-text-muted);margin-bottom:14px">
-      Thông tin này hiện trên trang Gói thành viên và được dùng để sinh mã QR chuyển khoản.
-      Bỏ trống thì học viên chỉ thấy lời mời liên hệ bạn.</p>
-    <div class="form-group">
-      <label>Mã BIN ngân hàng (6 số)</label>
-      <input id="cf-bin" value="${_escHtml(cf.bank_bin || '')}" placeholder="970436">
-      <small style="font-size:11.5px;color:var(--admin-text-muted)">
-        Vietcombank 970436 · Techcombank 970407 · MB 970422 · ACB 970416 · BIDV 970418 ·
-        VietinBank 970415 · TPBank 970423 · VPBank 970432 · Sacombank 970403 · Agribank 970405</small>
-    </div>
-    <div class="form-group">
-      <label>Tên ngân hàng</label>
-      <input id="cf-ten" value="${_escHtml(cf.bank_ten || '')}" placeholder="Vietcombank">
-    </div>
-    <div class="form-group">
-      <label>Số tài khoản</label>
-      <input id="cf-stk" value="${_escHtml(cf.bank_stk || '')}" placeholder="0123456789">
-    </div>
-    <div class="form-group">
-      <label>Chủ tài khoản</label>
-      <input id="cf-chu" value="${_escHtml(cf.bank_chu_tk || '')}" placeholder="NGUYEN VAN A">
-      <small style="font-size:11.5px;color:var(--admin-text-muted)">Viết IN HOA không dấu, đúng như trên app ngân hàng.</small>
-    </div>
-    <div class="form-group">
-      <label>Link liên hệ hỗ trợ</label>
-      <input id="cf-lh" value="${_escHtml(cf.lien_he_admin || '')}" placeholder="https://www.facebook.com/...">
-    </div>`,
-    `<button class="btn btn-outline" onclick="adminApp.closeModal()">Huỷ</button>
-     <button class="btn btn-primary" onclick="adminApp.ttLuuCauHinh()">Lưu</button>`);
-}
-
-async function ttLuuCauHinh() {
-  const v = {
-    bank_bin: document.getElementById('cf-bin').value.trim(),
-    bank_ten: document.getElementById('cf-ten').value.trim(),
-    bank_stk: document.getElementById('cf-stk').value.trim(),
-    bank_chu_tk: document.getElementById('cf-chu').value.trim(),
-    lien_he_admin: document.getElementById('cf-lh').value.trim(),
-  };
-  try {
-    await apiPut('/admin/thanh-toan-cau-hinh', v);
-    closeModal();
-    toast('Đã lưu cấu hình nhận tiền.');
-    renderThanhToan(document.getElementById('admin-content'));
-  } catch (err) {
-    toast(err.message || 'Không lưu được cấu hình.', 'error');
-  }
-}
-
-async function renderQuyenHoc(el) {
-  el.innerHTML = '<div style="text-align:center;padding:40px;color:var(--admin-text-muted)"><i class="fa-solid fa-spinner fa-spin" style="font-size:24px"></i></div>';
-  try {
-    const [{ quyen }, { san_pham }] = await Promise.all([
-      apiGet('/admin/quyen-hoc'),
-      apiGet('/admin/quyen-hoc/san-pham'),
-    ]);
-    _sanPhamCache = san_pham;
-    const chiXem = !laAdmin();
-    el.innerHTML = `
-      <div class="data-table-wrapper">
-        <div class="table-toolbar">
-          <h3 style="font-size:14px;font-weight:700;flex:1">${quyen.length} quyền đã cấp</h3>
-          ${chiXem ? `<span style="font-size:12px;color:var(--admin-text-muted)">
-            Chỉ xem — liên hệ quản trị hệ thống để cấp thêm quyền cho học viên.</span>`
-          : `<button class="btn btn-sm btn-primary" onclick="adminApp.moFormCapQuyen()"><i class="fa-solid fa-plus"></i> Cấp quyền</button>`}
-        </div>
-        <table class="data-table">
-          <thead><tr><th>Cấp cho</th><th>Sản phẩm</th><th style="width:110px">Nguồn</th>
-            <th style="width:150px">Hiệu lực</th><th style="width:100px">Trạng thái</th>
-            ${chiXem ? '' : '<th style="width:80px">Thao tác</th>'}</tr></thead>
-          <tbody>
-            ${quyen.length === 0 ? `<tr><td colspan="${chiXem ? 5 : 6}"><div class="empty-state" style="padding:26px">
-              <p>Chưa cấp quyền học cho ai.</p>
-              <p style="font-size:12px">Học viên chưa có quyền vẫn học được ${SO_BAI_MO_UI} bài đầu của mỗi quyển/cấp.</p>
-            </div></td></tr>` : ''}
-            ${quyen.map((q) => {
-              const con = _conLai(q.het_han);
-              const hetHan = q.trang_thai === 'huy' ? '<span class="badge badge-danger">Đã thu hồi</span>'
-                : con === null ? '<span class="badge badge-success">Vĩnh viễn</span>'
-                : con < 0 ? '<span class="badge badge-danger">Hết hạn</span>'
-                : `<span class="badge badge-success">Còn ${con} ngày</span>`;
-              return `
-              <tr${q.trang_thai === 'huy' ? ' style="opacity:.55"' : ''}>
-                <td>
-                  <div style="font-weight:700">${q.org_id
-                    ? '🏢 ' + _escHtml(q.to_chuc_ten || 'Trung tâm')
-                    : _escHtml(q.hoc_vien || '(tài khoản đã xoá)')}</div>
-                  <div style="font-size:11px;color:var(--admin-text-muted)">${q.org_id
-                    ? 'cả trung tâm — mọi học viên đều được' : _escHtml(q.hoc_vien_email || '')}</div>
-                </td>
-                <td>${_escHtml(q.san_pham_ten)}</td>
-                <td>${_escHtml(q.nguon)}</td>
-                <td>${_ngay(q.bat_dau)} → ${_ngay(q.het_han)}</td>
-                <td>${hetHan}</td>
-                ${chiXem ? '' : `<td>${q.trang_thai === 'hoat-dong'
-                  ? `<button class="btn btn-icon btn-outline" title="Thu hồi" onclick="adminApp.thuHoiQuyen(${q.id})"><i class="fa-solid fa-ban"></i></button>`
-                  : ''}</td>`}
-              </tr>`;
-            }).join('')}
-          </tbody>
-        </table>
-      </div>`;
-  } catch (err) {
-    el.innerHTML = `<div class="empty-state"><h3>Lỗi</h3><p>${_escHtml(err.message)}</p></div>`;
-  }
-}
-
 let _sanPhamCache = [];
-
-function moFormCapQuyen(userId = null, orgId = null, tenOrg = '') {
-  const ds = _sanPhamCache.filter((p) => p.is_active);
-  openModal('Cấp quyền học', `
-    <p style="font-size:12.5px;color:var(--admin-text-muted);margin-bottom:14px">
-      Cấp cho <b>một học viên</b> (nhập id tài khoản) hoặc cho <b>cả một trung tâm</b> — cấp cho
-      trung tâm thì mọi học viên của họ đều được, và mất cùng lúc khi hợp đồng hết hạn.
-    </p>
-    ${orgId ? `<div class="form-group"><label>Trung tâm</label>
-      <input type="text" value="${_escAttr(tenOrg)}" disabled>
-      <input type="hidden" id="f-q-org" value="${orgId}"></div>`
-    : `<div class="form-group"><label>ID tài khoản học viên</label>
-        <input type="number" id="f-q-user" value="${userId || ''}" placeholder="xem ở mục Học viên & tài khoản"></div>`}
-    <div class="form-group"><label>Sản phẩm <span style="color:#EF4444">*</span></label>
-      <select id="f-q-sp">${ds.map((p) => `<option value="${p.ma}">${_escHtml(p.ten)} — ${_tien(p.gia)}${p.so_ngay ? ` (${p.so_ngay} ngày)` : ' (trọn đời)'}</option>`).join('')}</select></div>
-    <div class="form-group"><label>Số ngày <span style="font-weight:400;color:var(--admin-text-muted)">(để trống = theo sản phẩm)</span></label>
-      <input type="number" id="f-q-ngay" placeholder="vd 30"></div>
-    <div class="form-group"><label>Nguồn</label>
-      <select id="f-q-nguon">
-        <option value="mua">Học viên đã trả tiền</option>
-        <option value="trung-tam">Trung tâm mua</option>
-        <option value="khuyen-mai">Khuyến mãi</option>
-        <option value="dung-thu">Cho dùng thử</option>
-        <option value="admin" selected>Admin cấp tay</option>
-      </select></div>
-    <div class="form-group"><label>Ghi chú</label>
-      <input type="text" id="f-q-ghi-chu" placeholder="vd: chuyển khoản 12/09, mã GD ..."></div>
-  `, `<button class="btn btn-outline" onclick="adminApp.closeModal()">Huỷ</button>
-      <button class="btn btn-primary" onclick="adminApp.luuCapQuyen(this)">Cấp quyền</button>`);
-}
-
-async function luuCapQuyen(btn) {
-  const v = (x) => (document.getElementById(x)?.value || '').trim();
-  const body = {
-    user_id: v('f-q-user') || null,
-    org_id: v('f-q-org') || null,
-    product_ma: v('f-q-sp'),
-    so_ngay: v('f-q-ngay') || undefined,
-    nguon: v('f-q-nguon'),
-    ghi_chu: v('f-q-ghi-chu') || null,
-  };
-  if (!body.user_id && !body.org_id) return toast('Nhập id học viên hoặc chọn trung tâm.', 'error');
-  btn.disabled = true;
-  try {
-    await apiPost('/admin/quyen-hoc', body);
-    toast('Đã cấp quyền học.');
-    closeModal();
-    navigate('quyen-hoc');
-  } catch (err) {
-    btn.disabled = false;
-    toast(err.message, 'error');
-  }
-}
-
-async function thuHoiQuyen(id) {
-  if (!confirm('Thu hồi quyền học này? Học viên sẽ mất quyền ngay (chậm nhất sau 1 phút).')) return;
-  try {
-    await apiDel(`/admin/quyen-hoc/${id}`);
-    toast('Đã thu hồi.');
-    renderCurrentSection();
-  } catch (err) {
-    toast(err.message, 'error');
-  }
-}
 
 function renderTeachers(el) {
   return _gvDangXem ? renderTeacherDetail(el, _gvDangXem) : renderTeacherList(el);
@@ -1585,622 +1078,13 @@ let vocabSearch = '';
 let vocabSortBy = 'sort_order';
 let vocabSortDir = 'ASC';
 
-function vocabSortFn(col) {
-  if (vocabSortBy === col) vocabSortDir = vocabSortDir === 'ASC' ? 'DESC' : 'ASC';
-  else { vocabSortBy = col; vocabSortDir = 'ASC'; }
-  vocabPage = 1;
-  syncAdminUrl(true); // đổi lọc/phân trang -> thay thế entry, Back không phải bấm qua từng trang
-  renderVocabulary(document.getElementById('admin-content'));
-}
-
-function sortIcon(col, activeCol, activeDir) {
-  if (col !== activeCol) return '<i class="fa-solid fa-sort" style="opacity:0.3;margin-left:4px"></i>';
-  return activeDir === 'ASC'
-    ? '<i class="fa-solid fa-sort-up" style="color:var(--admin-primary);margin-left:4px"></i>'
-    : '<i class="fa-solid fa-sort-down" style="color:var(--admin-primary);margin-left:4px"></i>';
-}
-
-async function renderVocabulary(el) {
-  el.innerHTML = '<div style="text-align:center;padding:40px;color:var(--admin-text-muted)"><i class="fa-solid fa-spinner fa-spin" style="font-size:24px"></i></div>';
-
-  try {
-    const qs = `?page=${vocabPage}&limit=20&sortBy=${vocabSortBy}&sortDir=${vocabSortDir}${vocabSearch ? '&search=' + encodeURIComponent(vocabSearch) : ''}`;
-    const data = await apiGet('/admin/vocabulary' + qs);
-
-    el.innerHTML = `
-      <div class="data-table-wrapper">
-        <div class="table-toolbar">
-          <input class="search-input" placeholder="Tìm kiếm từ vựng..." value="${vocabSearch}" onkeydown="if(event.key==='Enter'){adminApp.vocabSearchFn(this.value)}" id="vocab-search-input">
-          <button class="btn btn-sm btn-outline" onclick="adminApp.vocabSearchFn(document.getElementById('vocab-search-input').value)"><i class="fa-solid fa-search"></i></button>
-          <button class="btn btn-sm btn-primary" onclick="adminApp.openVocabForm()"><i class="fa-solid fa-plus"></i> Thêm từ</button>
-        </div>
-        <table class="data-table">
-          <thead><tr>
-            <th style="width:36px"></th>
-            <th style="cursor:pointer" onclick="adminApp.vocabSortFn('id')">ID ${sortIcon('id', vocabSortBy, vocabSortDir)}</th>
-            <th style="cursor:pointer" onclick="adminApp.vocabSortFn('hanzi')">Hán tự ${sortIcon('hanzi', vocabSortBy, vocabSortDir)}</th>
-            <th>Giản thể</th>
-            <th style="cursor:pointer" onclick="adminApp.vocabSortFn('pinyin')">Pinyin ${sortIcon('pinyin', vocabSortBy, vocabSortDir)}</th>
-            <th>Nghĩa</th>
-            <th style="cursor:pointer" onclick="adminApp.vocabSortFn('level')">Level ${sortIcon('level', vocabSortBy, vocabSortDir)}</th>
-            <th style="cursor:pointer" onclick="adminApp.vocabSortFn('lesson')">Bài ${sortIcon('lesson', vocabSortBy, vocabSortDir)}</th>
-            <th style="cursor:pointer" onclick="adminApp.vocabSortFn('sort_order')">Thứ tự ${sortIcon('sort_order', vocabSortBy, vocabSortDir)}</th>
-            <th style="width:120px">Thao tác</th>
-          </tr></thead>
-          <tbody>
-            ${data.vocabulary.length === 0 ? '<tr><td colspan="10"><div class="empty-state"><p>Không có từ vựng nào.</p></div></td></tr>' : ''}
-            ${data.vocabulary.map((w, idx) => `
-              <tr draggable="true" data-idx="${idx}">
-                <td class="drag-handle" title="Kéo thả để sắp xếp"><i class="fa-solid fa-grip-vertical"></i></td>
-                <td>#${w.id}</td>
-                <td class="hanzi-cell">${w.hanzi}</td>
-                <td class="hanzi-cell">${w.simplified}</td>
-                <td>${w.pinyin}</td>
-                <td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${w.meaning}</td>
-                <td><span class="badge badge-primary">${w.level}</span></td>
-                <td>${w.lesson}</td>
-                <td style="text-align:center;font-weight:600;color:var(--admin-text-muted)">${w.sort_order || 0}</td>
-                <td>
-                  <div class="table-actions">
-                    <button class="btn btn-icon btn-outline" onclick="adminApp.moveItem('vocabulary', ${w.id}, 'up', ${idx})" title="Lên" ${idx === 0 ? 'disabled' : ''}><i class="fa-solid fa-arrow-up"></i></button>
-                    <button class="btn btn-icon btn-outline" onclick="adminApp.moveItem('vocabulary', ${w.id}, 'down', ${idx})" title="Xuống" ${idx === data.vocabulary.length - 1 ? 'disabled' : ''}><i class="fa-solid fa-arrow-down"></i></button>
-                    <button class="btn btn-icon btn-outline" onclick="adminApp.openVocabForm(${w.id})" title="Sửa"><i class="fa-solid fa-pen"></i></button>
-                    <button class="btn btn-icon btn-outline" onclick="adminApp.deleteVocab(${w.id}, '${w.hanzi}')" title="Xóa" style="color:var(--admin-danger)"><i class="fa-solid fa-trash"></i></button>
-                  </div>
-                </td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
-        <div class="table-pagination">
-          <span>Trang ${data.page} · ${data.total} từ vựng</span>
-          <div style="display:flex;gap:6px">
-            <button class="btn btn-sm btn-outline" ${data.page <= 1 ? 'disabled' : ''} onclick="adminApp.vocabPageFn(${data.page - 1})">← Trước</button>
-            <button class="btn btn-sm btn-outline" ${data.page * data.limit >= data.total ? 'disabled' : ''} onclick="adminApp.vocabPageFn(${data.page + 1})">Sau →</button>
-          </div>
-        </div>
-      </div>
-    `;
-    initDragDrop('vocabulary', data.vocabulary);
-  } catch (err) {
-    el.innerHTML = `<div class="empty-state"><i class="fa-solid fa-exclamation-triangle"></i><h3>Lỗi</h3><p>${err.message}</p></div>`;
-  }
-}
-
-function vocabSearchFn(val) {
-  vocabSearch = val;
-  vocabPage = 1;
-  syncAdminUrl(true); // đổi lọc/phân trang -> thay thế entry, Back không phải bấm qua từng trang
-  renderVocabulary(document.getElementById('admin-content'));
-}
-
-function vocabPageFn(p) {
-  vocabPage = p;
-  syncAdminUrl(true); // đổi trang -> thay thế entry, Back không phải bấm qua từng trang
-  renderVocabulary(document.getElementById('admin-content'));
-}
-
-async function openVocabForm(id) {
-  let word = { hanzi: '', simplified: '', pinyin: '', meaning: '', level: 'TOCFL 1', lesson: 'Bài 1', category: '', example_hanzi: '', example_meaning: '' };
-  if (id) {
-    try {
-      const data = await apiGet(`/admin/vocabulary?search=&page=1&limit=100`);
-      word = data.vocabulary.find(v => v.id === id) || word;
-    } catch (e) {}
-  }
-
-  openModal(id ? `Sửa từ #${id}` : 'Thêm từ vựng mới', `
-    <div class="form-row">
-      <div class="form-group"><label>Hán tự (Phồn thể) *</label><input id="f-hanzi" value="${word.hanzi}"></div>
-      <div class="form-group"><label>Giản thể</label><input id="f-simplified" value="${word.simplified}"></div>
-    </div>
-    <div class="form-row">
-      <div class="form-group"><label>Pinyin *</label><input id="f-pinyin" value="${word.pinyin}"></div>
-      <div class="form-group"><label>Nghĩa tiếng Việt *</label><input id="f-meaning" value="${word.meaning}"></div>
-    </div>
-    <div class="form-row">
-      <div class="form-group"><label>Cấp độ *</label>
-        <select id="f-level">
-          ${['TOCFL 1','TOCFL 2','TOCFL 3','TOCFL 4','TOCFL 5'].map(l => `<option ${word.level === l ? 'selected' : ''}>${l}</option>`).join('')}
-        </select>
-      </div>
-      <div class="form-group"><label>Bài *</label>
-        <select id="f-lesson">
-          ${Array.from({length:20}, (_,i) => `Bài ${i+1}`).map(l => `<option ${word.lesson === l ? 'selected' : ''}>${l}</option>`).join('')}
-        </select>
-      </div>
-    </div>
-    <div class="form-group"><label>Phân loại</label><input id="f-category" value="${word.category || ''}" placeholder="vd: Chào hỏi, Ăn uống..."></div>
-    <div class="form-group"><label>Câu ví dụ (Hán tự)</label><input id="f-example-hanzi" value="${word.example_hanzi || ''}"></div>
-    <div class="form-group"><label>Nghĩa câu ví dụ</label><input id="f-example-meaning" value="${word.example_meaning || ''}"></div>
-  `,
-  `<button class="btn btn-outline" onclick="adminApp.closeModal()">Hủy</button>
-   <button class="btn btn-primary" onclick="adminApp.saveVocab(${id || 'null'})">${id ? 'Cập nhật' : 'Thêm mới'}</button>`
-  );
-}
-
-async function saveVocab(id) {
-  const body = {
-    hanzi: document.getElementById('f-hanzi').value,
-    simplified: document.getElementById('f-simplified').value,
-    pinyin: document.getElementById('f-pinyin').value,
-    meaning: document.getElementById('f-meaning').value,
-    level: document.getElementById('f-level').value,
-    lesson: document.getElementById('f-lesson').value,
-    category: document.getElementById('f-category').value,
-    example_hanzi: document.getElementById('f-example-hanzi').value,
-    example_meaning: document.getElementById('f-example-meaning').value,
-  };
-
-  try {
-    if (id) {
-      await apiPut(`/admin/vocabulary/${id}`, body);
-      toast('Cập nhật từ vựng thành công!');
-    } else {
-      await apiPost('/admin/vocabulary', body);
-      toast('Thêm từ vựng thành công!');
-    }
-    closeModal();
-    renderVocabulary(document.getElementById('admin-content'));
-  } catch (err) {
-    toast(err.message, 'error');
-  }
-}
-
-function deleteVocab(id, name) {
-  confirmDialog('Xóa từ vựng', `Bạn có chắc muốn xóa từ "${name}"? Hành động này không thể hoàn tác.`, async () => {
-    try {
-      await apiDel(`/admin/vocabulary/${id}`);
-      toast('Đã xóa từ vựng.');
-      renderVocabulary(document.getElementById('admin-content'));
-    } catch (err) { toast(err.message, 'error'); }
-  });
-}
-
-// ============================================================
-// EXAM QUESTIONS MANAGEMENT
-// ============================================================
-async function renderExam(el) {
-  el.innerHTML = '<div style="text-align:center;padding:40px;color:var(--admin-text-muted)"><i class="fa-solid fa-spinner fa-spin" style="font-size:24px"></i></div>';
-
-  try {
-    const data = await apiGet('/admin/exam-questions');
-    el.innerHTML = `
-      <div class="data-table-wrapper">
-        <div class="table-toolbar">
-          <h3 style="font-size:14px;font-weight:700;flex:1">${data.total} câu hỏi</h3>
-          <button class="btn btn-sm btn-primary" onclick="adminApp.openExamForm()"><i class="fa-solid fa-plus"></i> Thêm câu hỏi</button>
-        </div>
-        <table class="data-table">
-          <thead><tr>
-            <th>ID</th><th>Loại</th><th>Level</th><th>Câu hỏi</th><th>Đáp án đúng</th><th style="width:100px">Thao tác</th>
-          </tr></thead>
-          <tbody>
-            ${data.questions.map(q => `
-              <tr>
-                <td>#${q.id}</td>
-                <td><span class="badge ${q.type === 'reading' ? 'badge-primary' : 'badge-warning'}">${q.type === 'reading' ? '📖 Đọc' : '🎧 Nghe'}</span></td>
-                <td><span class="badge badge-gray">${q.level}</span></td>
-                <td style="max-width:250px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${q.question}</td>
-                <td>${['A','B','C','D'][q.correct_option]}</td>
-                <td>
-                  <div class="table-actions">
-                    <button class="btn btn-icon btn-outline" onclick="adminApp.openExamForm(${q.id})" title="Sửa"><i class="fa-solid fa-pen"></i></button>
-                    <button class="btn btn-icon btn-outline" onclick="adminApp.deleteExam(${q.id})" title="Xóa" style="color:var(--admin-danger)"><i class="fa-solid fa-trash"></i></button>
-                  </div>
-                </td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
-      </div>
-    `;
-  } catch (err) {
-    el.innerHTML = `<div class="empty-state"><h3>Lỗi</h3><p>${err.message}</p></div>`;
-  }
-}
-
-async function openExamForm(id) {
-  let q = { type: 'reading', level: 'Band A', passage: '', audio_desc: '', question: '', question_meaning: '', option_a: '', option_b: '', option_c: '', option_d: '', option_a_meaning: '', option_b_meaning: '', option_c_meaning: '', option_d_meaning: '', correct_option: 0 };
-  if (id) {
-    try {
-      const data = await apiGet('/admin/exam-questions');
-      q = data.questions.find(x => x.id === id) || q;
-    } catch (e) {}
-  }
-
-  openModal(id ? `Sửa câu hỏi #${id}` : 'Thêm câu hỏi mới', `
-    <div class="form-row">
-      <div class="form-group"><label>Loại *</label>
-        <select id="f-type"><option value="reading" ${q.type==='reading'?'selected':''}>Đọc hiểu</option><option value="listening" ${q.type==='listening'?'selected':''}>Nghe hiểu</option></select>
-      </div>
-      <div class="form-group"><label>Cấp độ *</label>
-        <select id="f-level"><option ${q.level==='Band A'?'selected':''}>Band A</option><option ${q.level==='Band B'?'selected':''}>Band B</option><option ${q.level==='Band C'?'selected':''}>Band C</option></select>
-      </div>
-    </div>
-    <div class="form-group"><label>Bài đọc / Passage</label><textarea id="f-passage" rows="3">${q.passage || ''}</textarea></div>
-    <div class="form-group"><label>Mô tả audio (cho Listening)</label><input id="f-audio" value="${q.audio_desc || ''}"></div>
-    <div class="form-group"><label>Câu hỏi *</label><input id="f-question" value="${q.question}"></div>
-    <div class="form-group"><label>Nghĩa câu hỏi (TV)</label><input id="f-qmeaning" value="${q.question_meaning || ''}"></div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-      <div class="form-group"><label>Đáp án A *</label><input id="f-oa" value="${q.option_a}"></div>
-      <div class="form-group"><label>Nghĩa A</label><input id="f-oam" value="${q.option_a_meaning || ''}"></div>
-      <div class="form-group"><label>Đáp án B *</label><input id="f-ob" value="${q.option_b}"></div>
-      <div class="form-group"><label>Nghĩa B</label><input id="f-obm" value="${q.option_b_meaning || ''}"></div>
-      <div class="form-group"><label>Đáp án C *</label><input id="f-oc" value="${q.option_c}"></div>
-      <div class="form-group"><label>Nghĩa C</label><input id="f-ocm" value="${q.option_c_meaning || ''}"></div>
-      <div class="form-group"><label>Đáp án D *</label><input id="f-od" value="${q.option_d}"></div>
-      <div class="form-group"><label>Nghĩa D</label><input id="f-odm" value="${q.option_d_meaning || ''}"></div>
-    </div>
-    <div class="form-group"><label>Đáp án đúng *</label>
-      <select id="f-correct">
-        <option value="0" ${q.correct_option===0?'selected':''}>A</option>
-        <option value="1" ${q.correct_option===1?'selected':''}>B</option>
-        <option value="2" ${q.correct_option===2?'selected':''}>C</option>
-        <option value="3" ${q.correct_option===3?'selected':''}>D</option>
-      </select>
-    </div>
-  `,
-  `<button class="btn btn-outline" onclick="adminApp.closeModal()">Hủy</button>
-   <button class="btn btn-primary" onclick="adminApp.saveExam(${id || 'null'})">${id ? 'Cập nhật' : 'Thêm mới'}</button>`
-  );
-}
-
-async function saveExam(id) {
-  const body = {
-    type: document.getElementById('f-type').value,
-    level: document.getElementById('f-level').value,
-    passage: document.getElementById('f-passage').value,
-    audio_desc: document.getElementById('f-audio').value,
-    question: document.getElementById('f-question').value,
-    question_meaning: document.getElementById('f-qmeaning').value,
-    option_a: document.getElementById('f-oa').value,
-    option_b: document.getElementById('f-ob').value,
-    option_c: document.getElementById('f-oc').value,
-    option_d: document.getElementById('f-od').value,
-    option_a_meaning: document.getElementById('f-oam').value,
-    option_b_meaning: document.getElementById('f-obm').value,
-    option_c_meaning: document.getElementById('f-ocm').value,
-    option_d_meaning: document.getElementById('f-odm').value,
-    correct_option: parseInt(document.getElementById('f-correct').value),
-  };
-
-  try {
-    if (id) { await apiPut(`/admin/exam-questions/${id}`, body); toast('Cập nhật câu hỏi thành công!'); }
-    else { await apiPost('/admin/exam-questions', body); toast('Thêm câu hỏi thành công!'); }
-    closeModal();
-    renderExam(document.getElementById('admin-content'));
-  } catch (err) { toast(err.message, 'error'); }
-}
-
-function deleteExam(id) {
-  confirmDialog('Xóa câu hỏi', 'Bạn có chắc muốn xóa câu hỏi này?', async () => {
-    try { await apiDel(`/admin/exam-questions/${id}`); toast('Đã xóa câu hỏi.'); renderExam(document.getElementById('admin-content')); }
-    catch (err) { toast(err.message, 'error'); }
-  });
-}
-
-// ============================================================
-// DIALOGUES MANAGEMENT
-// ============================================================
-async function renderDialogues(el) {
-  el.innerHTML = '<div style="text-align:center;padding:40px;color:var(--admin-text-muted)"><i class="fa-solid fa-spinner fa-spin" style="font-size:24px"></i></div>';
-
-  try {
-    const data = await apiGet('/admin/dialogues');
-    el.innerHTML = `
-      <div class="data-table-wrapper">
-        <div class="table-toolbar">
-          <h3 style="font-size:14px;font-weight:700;flex:1">${data.dialogues.length} hội thoại</h3>
-          <button class="btn btn-sm btn-primary" onclick="adminApp.openDialogueForm()"><i class="fa-solid fa-plus"></i> Thêm hội thoại</button>
-        </div>
-        <table class="data-table">
-          <thead><tr><th>ID</th><th>Tiêu đề</th><th>Tiếng Trung</th><th>Level</th><th>Số câu</th><th style="width:140px">Thao tác</th></tr></thead>
-          <tbody>
-            ${data.dialogues.map(d => `
-              <tr>
-                <td>#${d.id}</td>
-                <td style="font-weight:700">${d.title}</td>
-                <td class="hanzi-cell">${d.title_cn}</td>
-                <td><span class="badge badge-primary">${d.level}</span></td>
-                <td>${d.line_count} câu</td>
-                <td>
-                  <div class="table-actions">
-                    <button class="btn btn-icon btn-outline" onclick="adminApp.openDialogueLines(${d.id}, '${d.title}')" title="Xem câu thoại"><i class="fa-solid fa-list"></i></button>
-                    <button class="btn btn-icon btn-outline" onclick="adminApp.openDialogueForm(${d.id})" title="Sửa"><i class="fa-solid fa-pen"></i></button>
-                    <button class="btn btn-icon btn-outline" onclick="adminApp.deleteDialogue(${d.id}, '${d.title}')" title="Xóa" style="color:var(--admin-danger)"><i class="fa-solid fa-trash"></i></button>
-                  </div>
-                </td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
-      </div>
-    `;
-  } catch (err) {
-    el.innerHTML = `<div class="empty-state"><h3>Lỗi</h3><p>${err.message}</p></div>`;
-  }
-}
-
-async function openDialogueForm(id) {
-  let d = { title: '', title_cn: '', level: 'TOCFL 1', sort_order: 0 };
-  if (id) {
-    try { const data = await apiGet(`/admin/dialogues/${id}`); d = data.dialogue; } catch (e) {}
-  }
-  openModal(id ? `Sửa hội thoại #${id}` : 'Thêm hội thoại mới', `
-    <div class="form-group"><label>Tiêu đề (Việt) *</label><input id="f-title" value="${d.title}"></div>
-    <div class="form-group"><label>Tiêu đề (Trung) *</label><input id="f-title-cn" value="${d.title_cn}"></div>
-    <div class="form-row">
-      <div class="form-group"><label>Cấp độ *</label>
-        <select id="f-level">${['TOCFL 1','TOCFL 2','TOCFL 3'].map(l => `<option ${d.level===l?'selected':''}>${l}</option>`).join('')}</select>
-      </div>
-      <div class="form-group"><label>Thứ tự</label><input type="number" id="f-sort" value="${d.sort_order || 0}"></div>
-    </div>
-  `,
-  `<button class="btn btn-outline" onclick="adminApp.closeModal()">Hủy</button>
-   <button class="btn btn-primary" onclick="adminApp.saveDialogue(${id || 'null'})">${id ? 'Cập nhật' : 'Thêm mới'}</button>`
-  );
-}
-
-async function saveDialogue(id) {
-  const body = { title: document.getElementById('f-title').value, title_cn: document.getElementById('f-title-cn').value, level: document.getElementById('f-level').value, sort_order: parseInt(document.getElementById('f-sort').value) || 0 };
-  try {
-    if (id) { await apiPut(`/admin/dialogues/${id}`, body); toast('Cập nhật hội thoại thành công!'); }
-    else { await apiPost('/admin/dialogues', body); toast('Thêm hội thoại thành công!'); }
-    closeModal();
-    renderDialogues(document.getElementById('admin-content'));
-  } catch (err) { toast(err.message, 'error'); }
-}
-
-function deleteDialogue(id, name) {
-  confirmDialog('Xóa hội thoại', `Bạn có chắc muốn xóa "${name}" và toàn bộ câu thoại?`, async () => {
-    try { await apiDel(`/admin/dialogues/${id}`); toast('Đã xóa hội thoại.'); renderDialogues(document.getElementById('admin-content')); }
-    catch (err) { toast(err.message, 'error'); }
-  });
-}
-
-async function openDialogueLines(dialogueId, title) {
-  try {
-    const data = await apiGet(`/admin/dialogues/${dialogueId}`);
-    const lines = data.lines || [];
-
-    openModal(`Câu thoại: ${title}`, `
-      <div style="margin-bottom:16px;display:flex;justify-content:flex-end">
-        <button class="btn btn-sm btn-primary" onclick="adminApp.openLineForm(${dialogueId}, null)"><i class="fa-solid fa-plus"></i> Thêm câu</button>
-      </div>
-      ${lines.length === 0 ? '<div class="empty-state" style="padding:30px"><p>Chưa có câu thoại nào.</p></div>' : `
-        <table class="data-table" style="font-size:12px">
-          <thead><tr><th>#</th><th>Speaker</th><th>Hán tự</th><th>Pinyin</th><th>Nghĩa</th><th>Thao tác</th></tr></thead>
-          <tbody>
-            ${lines.map(l => `
-              <tr>
-                <td>${l.line_order}</td>
-                <td><span class="badge ${l.speaker === 'A' ? 'badge-primary' : 'badge-success'}">${l.speaker_name}</span></td>
-                <td class="hanzi-cell" style="font-size:15px">${l.hanzi}</td>
-                <td style="font-size:11px;color:var(--admin-text-muted)">${l.pinyin}</td>
-                <td style="font-size:12px">${l.meaning}</td>
-                <td>
-                  <div class="table-actions">
-                    <button class="btn btn-icon btn-outline btn-sm" onclick="adminApp.openLineForm(${dialogueId}, ${l.id})" title="Sửa"><i class="fa-solid fa-pen" style="font-size:11px"></i></button>
-                    <button class="btn btn-icon btn-outline btn-sm" onclick="adminApp.deleteLine(${l.id}, ${dialogueId})" title="Xóa" style="color:var(--admin-danger)"><i class="fa-solid fa-trash" style="font-size:11px"></i></button>
-                  </div>
-                </td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
-      `}
-    `);
-  } catch (err) { toast(err.message, 'error'); }
-}
-
-async function openLineForm(dialogueId, lineId) {
-  let line = { line_order: 1, speaker: 'A', speaker_name: '', hanzi: '', pinyin: '', meaning: '' };
-  if (lineId) {
-    try {
-      const data = await apiGet(`/admin/dialogues/${dialogueId}`);
-      line = data.lines.find(l => l.id === lineId) || line;
-    } catch (e) {}
-  }
-  closeModal();
-  setTimeout(() => {
-    openModal(lineId ? `Sửa câu #${lineId}` : 'Thêm câu thoại mới', `
-      <div class="form-row">
-        <div class="form-group"><label>Thứ tự *</label><input type="number" id="f-line-order" value="${line.line_order}"></div>
-        <div class="form-group"><label>Speaker *</label>
-          <select id="f-speaker"><option value="A" ${line.speaker==='A'?'selected':''}>A</option><option value="B" ${line.speaker==='B'?'selected':''}>B</option></select>
-        </div>
-      </div>
-      <div class="form-group"><label>Tên nhân vật *</label><input id="f-speaker-name" value="${line.speaker_name}" placeholder="vd: 小明, 小美..."></div>
-      <div class="form-group"><label>Hán tự *</label><input id="f-line-hanzi" value="${line.hanzi}"></div>
-      <div class="form-group"><label>Pinyin *</label><input id="f-line-pinyin" value="${line.pinyin}"></div>
-      <div class="form-group"><label>Nghĩa tiếng Việt *</label><input id="f-line-meaning" value="${line.meaning}"></div>
-    `,
-    `<button class="btn btn-outline" onclick="adminApp.closeModal();adminApp.openDialogueLines(${dialogueId},'')">← Quay lại</button>
-     <button class="btn btn-primary" onclick="adminApp.saveLine(${dialogueId}, ${lineId || 'null'})">${lineId ? 'Cập nhật' : 'Thêm mới'}</button>`
-    );
-  }, 300);
-}
-
-async function saveLine(dialogueId, lineId) {
-  const body = {
-    line_order: parseInt(document.getElementById('f-line-order').value),
-    speaker: document.getElementById('f-speaker').value,
-    speaker_name: document.getElementById('f-speaker-name').value,
-    hanzi: document.getElementById('f-line-hanzi').value,
-    pinyin: document.getElementById('f-line-pinyin').value,
-    meaning: document.getElementById('f-line-meaning').value,
-  };
-  try {
-    if (lineId) { await apiPut(`/admin/dialogue-lines/${lineId}`, body); toast('Cập nhật câu thoại thành công!'); }
-    else { await apiPost(`/admin/dialogues/${dialogueId}/lines`, body); toast('Thêm câu thoại thành công!'); }
-    closeModal();
-    setTimeout(() => openDialogueLines(dialogueId, ''), 300);
-  } catch (err) { toast(err.message, 'error'); }
-}
-
-async function deleteLine(lineId, dialogueId) {
-  try { await apiDel(`/admin/dialogue-lines/${lineId}`); toast('Đã xóa câu thoại.'); closeModal(); setTimeout(() => openDialogueLines(dialogueId, ''), 300); }
-  catch (err) { toast(err.message, 'error'); }
-}
-
 // ============================================================
 // BLOG MANAGEMENT
 // ============================================================
 let blogSortBy = 'sort_order';
 let blogSortDir = 'ASC';
 
-function blogSortFn(col) {
-  if (blogSortBy === col) blogSortDir = blogSortDir === 'ASC' ? 'DESC' : 'ASC';
-  else { blogSortBy = col; blogSortDir = col === 'published_at' ? 'DESC' : 'ASC'; }
-  syncAdminUrl(true); // đổi lọc/phân trang -> thay thế entry, Back không phải bấm qua từng trang
-  renderBlog(document.getElementById('admin-content'));
-}
-
-async function renderBlog(el) {
-  el.innerHTML = '<div style="text-align:center;padding:40px;color:var(--admin-text-muted)"><i class="fa-solid fa-spinner fa-spin" style="font-size:24px"></i></div>';
-
-  try {
-    const data = await apiGet(`/admin/blog?sortBy=${blogSortBy}&sortDir=${blogSortDir}`);
-    el.innerHTML = `
-      <div class="data-table-wrapper">
-        <div class="table-toolbar">
-          <h3 style="font-size:14px;font-weight:700;flex:1">${data.posts.length} bài viết</h3>
-          <button class="btn btn-sm btn-primary" onclick="adminApp.openBlogForm()"><i class="fa-solid fa-plus"></i> Thêm bài viết</button>
-        </div>
-        <table class="data-table">
-          <thead><tr>
-            <th style="width:36px"></th>
-            <th style="cursor:pointer" onclick="adminApp.blogSortFn('id')">ID ${sortIcon('id', blogSortBy, blogSortDir)}</th>
-            <th></th>
-            <th style="cursor:pointer" onclick="adminApp.blogSortFn('title')">Tiêu đề ${sortIcon('title', blogSortBy, blogSortDir)}</th>
-            <th style="cursor:pointer" onclick="adminApp.blogSortFn('category')">Danh mục ${sortIcon('category', blogSortBy, blogSortDir)}</th>
-            <th style="cursor:pointer" onclick="adminApp.blogSortFn('published_at')">Ngày đăng ${sortIcon('published_at', blogSortBy, blogSortDir)}</th>
-            <th style="cursor:pointer" onclick="adminApp.blogSortFn('sort_order')">Thứ tự ${sortIcon('sort_order', blogSortBy, blogSortDir)}</th>
-            <th style="width:120px">Thao tác</th>
-          </tr></thead>
-          <tbody>
-            ${data.posts.map((p, idx) => `
-              <tr draggable="true" data-idx="${idx}">
-                <td class="drag-handle" title="Kéo thả để sắp xếp"><i class="fa-solid fa-grip-vertical"></i></td>
-                <td>#${p.id}</td>
-                <td style="font-size:24px">${p.emoji || '📝'}</td>
-                <td style="font-weight:700;max-width:250px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${p.title}</td>
-                <td><span class="badge badge-gray">${p.category || '—'}</span></td>
-                <td>${p.published_at ? new Date(p.published_at).toLocaleDateString('vi-VN') : '—'}</td>
-                <td style="text-align:center;font-weight:600;color:var(--admin-text-muted)">${p.sort_order || 0}</td>
-                <td>
-                  <div class="table-actions">
-                    <button class="btn btn-icon btn-outline" onclick="adminApp.moveItem('blog_posts', ${p.id}, 'up', ${idx})" title="Lên" ${idx === 0 ? 'disabled' : ''}><i class="fa-solid fa-arrow-up"></i></button>
-                    <button class="btn btn-icon btn-outline" onclick="adminApp.moveItem('blog_posts', ${p.id}, 'down', ${idx})" title="Xuống" ${idx === data.posts.length - 1 ? 'disabled' : ''}><i class="fa-solid fa-arrow-down"></i></button>
-                    <button class="btn btn-icon btn-outline" onclick="adminApp.openBlogForm(${p.id})" title="Sửa"><i class="fa-solid fa-pen"></i></button>
-                    <button class="btn btn-icon btn-outline" onclick="adminApp.deleteBlog(${p.id}, '${p.title.replace(/'/g,"\\\'")}')" title="Xóa" style="color:var(--admin-danger)"><i class="fa-solid fa-trash"></i></button>
-                  </div>
-                </td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
-      </div>
-    `;
-    initDragDrop('blog_posts', data.posts);
-  } catch (err) {
-    el.innerHTML = `<div class="empty-state"><h3>Lỗi</h3><p>${err.message}</p></div>`;
-  }
-}
-
 let _blogQuill = null; // Quill editor instance
-
-async function openBlogForm(id) {
-  let p = { title: '', excerpt: '', content: '', category: '', emoji: '📝', published_at: new Date().toISOString().split('T')[0] };
-  if (id) {
-    try {
-      const data = await apiGet('/admin/blog');
-      p = data.posts.find(x => x.id === id) || p;
-      if (p.published_at) p.published_at = new Date(p.published_at).toISOString().split('T')[0];
-    } catch (e) {}
-  }
-
-  openModal(id ? `Sửa bài viết #${id}` : 'Thêm bài viết mới', `
-    <div class="form-group"><label>Tiêu đề *</label><input id="f-title" value="${p.title}"></div>
-    <div class="form-row">
-      <div class="form-group"><label>Danh mục</label>
-        <select id="f-category">
-          ${['TOCFL','Học bổng','Học tập','Du học','Khai giảng','Tin tức','Khác'].map(c => `<option ${p.category===c?'selected':''}>${c}</option>`).join('')}
-        </select>
-      </div>
-      <div class="form-group"><label>Emoji</label><input id="f-emoji" value="${p.emoji || '📝'}"></div>
-    </div>
-    <div class="form-group"><label>Ngày đăng</label><input type="date" id="f-date" value="${p.published_at || ''}"></div>
-    <div class="form-group"><label>Tóm tắt</label><textarea id="f-excerpt" rows="2">${p.excerpt || ''}</textarea></div>
-    <div class="form-group">
-      <label>Nội dung bài viết</label>
-      <div id="quill-toolbar"></div>
-      <div id="quill-editor" style="min-height:250px;background:#fff;border-radius:0 0 8px 8px"></div>
-    </div>
-  `,
-  `<button class="btn btn-outline" onclick="adminApp.closeModal()">Hủy</button>
-   <button class="btn btn-primary" onclick="adminApp.saveBlog(${id || 'null'})">${id ? 'Cập nhật' : 'Thêm mới'}</button>`
-  );
-
-  // Initialize Quill after DOM is ready
-  setTimeout(() => {
-    const editorEl = document.getElementById('quill-editor');
-    if (!editorEl || typeof Quill === 'undefined') {
-      console.warn('Quill not loaded, falling back to textarea');
-      return;
-    }
-    _blogQuill = new Quill('#quill-editor', {
-      theme: 'snow',
-      modules: {
-        toolbar: [
-          [{ 'header': [1, 2, 3, false] }],
-          ['bold', 'italic', 'underline', 'strike'],
-          [{ 'color': [] }, { 'background': [] }],
-          [{ 'align': [] }],
-          [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-          ['blockquote', 'code-block'],
-          ['link', 'image'],
-          ['clean']
-        ]
-      },
-      placeholder: 'Nhập nội dung bài viết...',
-    });
-
-    // Load existing content as HTML
-    if (p.content) {
-      _blogQuill.root.innerHTML = p.content;
-    }
-  }, 100);
-}
-
-async function saveBlog(id) {
-  // Get content from Quill editor (HTML)
-  const content = _blogQuill ? _blogQuill.root.innerHTML : (document.getElementById('f-content')?.value || '');
-
-  const body = {
-    title: document.getElementById('f-title').value,
-    excerpt: document.getElementById('f-excerpt').value,
-    content: content,
-    category: document.getElementById('f-category').value,
-    emoji: document.getElementById('f-emoji').value,
-    published_at: document.getElementById('f-date').value,
-  };
-  try {
-    if (id) { await apiPut(`/admin/blog/${id}`, body); toast('Cập nhật bài viết thành công!'); }
-    else { await apiPost('/admin/blog', body); toast('Thêm bài viết thành công!'); }
-    _blogQuill = null;
-    closeModal();
-    renderBlog(document.getElementById('admin-content'));
-  } catch (err) { toast(err.message, 'error'); }
-}
-
-function deleteBlog(id, title) {
-  confirmDialog('Xóa bài viết', `Bạn có chắc muốn xóa "${title}"?`, async () => {
-    try { await apiDel(`/admin/blog/${id}`); toast('Đã xóa bài viết.'); renderBlog(document.getElementById('admin-content')); }
-    catch (err) { toast(err.message, 'error'); }
-  });
-}
 
 // ============================================================
 // USERS MANAGEMENT
@@ -3082,56 +1966,30 @@ const ASSIGNABLE_PRON = [
   { id: 'pron:finals', label: 'Luyện phát âm — Vận mẫu' },
   { id: 'pron:tones', label: 'Luyện phát âm — Thanh điệu' },
 ];
-// Danh mục bài con để giao bài.
-//   · Đương đại: quyển 1 "5.2", quyển 2-6 "2-5.2" — luôn 2 phần.
-//   · Thời Đại : "td2-5.1" — quyển 1 có 3 PHẦN (對話一 · 對話二 · 短文), quyển 2-5 có 2 phần.
-// Id phải khớp đúng ddState.selectedSub phía học viên, nếu không giao bài xong không ai nộp được.
+// Danh mục bài con để giao bài: "td2-5.1" — quyển 1 có 3 PHẦN (對話一 · 對話二 · 短文),
+// quyển 2-5 có 2 phần. Id phải khớp đúng ddState.selectedSub phía học viên, nếu không giao
+// bài xong không ai nộp được.
 const TD_SO_PHAN = (bookId) => (Number(bookId) === 1 ? 3 : 2);
-function _ddBaiCon(tb) {
+function _ddBaiCon() {
   const out = [];
-  if (tb !== 'thoidai') {
-    for (const b of duongdaiBooks) {
-      for (let i = 1; i <= b.lessons.length; i++) for (const sub of ['1', '2']) {
-        out.push({ tb: 'duongdai', book: b.id, key: ddLessonKey(b.id, i), id: `${ddLessonKey(b.id, i)}.${sub}`, label: `Bài ${i}.${sub} · ${b.lessons[i - 1]}` });
-      }
-    }
-  }
-  if (tb !== 'duongdai' && tb !== 'hsk') {
-    for (const b of thoidaiBooks) {
-      for (let i = 1; i <= b.lessons.length; i++) {
-        for (let p = 1; p <= TD_SO_PHAN(b.id); p++) {
-          out.push({ tb: 'thoidai', book: b.id, key: tdLessonKey(b.id, i), id: `${tdLessonKey(b.id, i)}.${p}`, label: `Bài ${i}.${p} · ${b.lessons[i - 1]}` });
-        }
-      }
-    }
-  }
-  // HSK: mỗi bài chỉ MỘT phần ('.1') — đại cương không chia Hội thoại/Đoạn văn như hai bộ kia.
-  // Chỉ sinh khi được gọi đích danh, để danh mục Đương đại/Thời Đại không lẫn 111 bài HSK.
-  if (tb === 'hsk') {
-    for (const b of hskBooks) {
-      for (let i = 1; i <= b.lessons.length; i++) {
-        out.push({ tb: 'hsk', book: b.id, key: hskLessonKey(b.id, i), id: `${hskLessonKey(b.id, i)}.1`, label: `Bài ${i} · ${b.lessons[i - 1]}` });
+  for (const b of thoidaiBooks) {
+    for (let i = 1; i <= b.lessons.length; i++) {
+      for (let p = 1; p <= TD_SO_PHAN(b.id); p++) {
+        out.push({ tb: 'thoidai', book: b.id, key: tdLessonKey(b.id, i), id: `${tdLessonKey(b.id, i)}.${p}`, label: `Bài ${i}.${p} · ${b.lessons[i - 1]}` });
       }
     }
   }
   return out;
 }
-function _assignableTextbook(bookId, tb) {
-  const out = _ddBaiCon(tb).filter(x => !bookId || x.book === bookId);
-  // HSK không có "Luyện tập tổng hợp" (đề của nó bám bài khoá, mà đại cương HSK không có bài
-  // khoá). Giao mục đó cho HSK là học viên mở ra không thấy gì để làm.
-  if (tb === 'hsk') return out;
+function _assignableTextbook(bookId) {
+  const out = _ddBaiCon().filter(x => !bookId || x.book === bookId);
   // Luyện tập tổng hợp — lesson_id phải khớp đúng giá trị main.js ghi vào exercise_results
-  // khi học viên nộp (xem ddOnllangNopTatCa): 'onllang:5' · 'onllang:2-5' · 'onllang:td1-1'.
-  // Từ 2026-09-06 CẢ HAI bộ đều có (Thời Đại sinh từ nội dung bài, xem 4.28) — namespace giữ
-  // nguyên tên 'onllang:' dù nguồn đề đã khác, để không mất liên kết với bản ghi cũ trong DB.
-  const nguonLT = tb === 'thoidai'
-    ? [thoidaiBooks, tdLessonKey]
-    : [duongdaiBooks, ddLessonKey];
-  for (const b of nguonLT[0]) {
+  // khi học viên nộp (xem ddOnllangNopTatCa): 'onllang:td1-1'. Namespace giữ nguyên tên
+  // 'onllang:' dù nguồn đề đã khác, để không mất liên kết với bản ghi cũ trong DB.
+  for (const b of thoidaiBooks) {
     if (bookId && b.id !== bookId) continue;
     for (let i = 1; i <= b.lessons.length; i++) {
-      out.push({ book: b.id, id: `onllang:${nguonLT[1](b.id, i)}`, label: `Luyện tập tổng hợp — Bài ${i}` });
+      out.push({ book: b.id, id: `onllang:${tdLessonKey(b.id, i)}`, label: `Luyện tập tổng hợp — Bài ${i}` });
     }
   }
   return out;
@@ -3153,11 +2011,6 @@ function gameLessonLabel(lessonId) {
   const m = /^game:([a-z]+):(.+)$/.exec(String(lessonId || ''));
   if (!m) return null;
   return `Game ${GAME_TEN_ADMIN[m[1]] || m[1]} — ${tbLabel(m[2])}`;
-}
-// Bài dịch — lesson_id sạch (không prefix), exercise_type = 'translate'
-function _assignableTranslate(bookId) {
-  // Dịch Trung-Việt chỉ có dữ liệu cho Đương đại.
-  return _ddBaiCon('duongdai').filter(x => !bookId || x.book === bookId).map(x => ({ book: x.book, id: x.id, label: x.label }));
 }
 /** Nhãn cấp cho kết quả trang "Tổng hợp từ vựng từng Band" (lesson_id dạng 'tocfl:L3'). */
 const TOCFL_CAP_TEN = {
@@ -3258,24 +2111,14 @@ function openAssignmentForm(id) {
   const opt = (o, type) => `<option value="${o.id}|${type}" ${curType === type && curLessonId === o.id ? 'selected' : ''}>${o.label}</option>`;
   const theoQuyen = (fn, type, icon, ten, sach, tb) => sach.map(b =>
     `<optgroup label="${icon} ${ten} — ${b.label} (${b.level})">${fn(b.id, tb).map(o => opt(o, type)).join('')}</optgroup>`).join('');
-  const tbOpts = theoQuyen(_assignableTextbook, 'bai-tap', '📖', 'Giáo trình Đương đại', duongdaiBooks, 'duongdai');
   const tdOpts = theoQuyen(_assignableTextbook, 'bai-tap', '📘', 'Giáo trình Thời Đại', thoidaiBooks, 'thoidai');
-  const trOpts = theoQuyen(_assignableTranslate, 'translate', '🀄', 'Dịch Trung-Việt / Việt-Trung', duongdaiBooks, 'duongdai');
   const pronOpts = ASSIGNABLE_PRON.map(o => `<option value="${o.id}|bai-tap" ${curType === 'bai-tap' && (cur?.lesson_id === o.id) ? 'selected' : ''}>${o.label}</option>`).join('');
-  // Khu HSK đang ẩn với học viên (shared/an-hsk.js) — thôi cho giao bài HSK, nếu không cô giao
-  // xong mà em bấm vào thông báo lại rơi vào trang 404. Bài ĐÃ giao trước đó vẫn còn nguyên.
-  const hskOpts = AN_HSK ? '' : theoQuyen(_assignableTextbook, 'bai-tap', '📕', 'HSK 3.0', hskBooks, 'hsk');
-  const gameOpts = theoQuyen(_assignableGame, 'bai-tap', '🎮', 'Game từ vựng — Đương đại', duongdaiBooks, 'duongdai')
-    + theoQuyen(_assignableGame, 'bai-tap', '🎮', 'Game từ vựng — Thời Đại', thoidaiBooks, 'thoidai')
-    + (AN_HSK ? '' : theoQuyen(_assignableGame, 'bai-tap', '🎮', 'Game từ vựng — HSK', hskBooks, 'hsk'));
+  const gameOpts = theoQuyen(_assignableGame, 'bai-tap', '🎮', 'Game từ vựng', thoidaiBooks, 'thoidai');
   const selectHtml = cur
     ? `<select id="f-asg-lesson" disabled><option value="${curLessonId}|${curType}">${assignmentLabel(cur.lesson_id, '', curType)}</option></select>
        <p style="font-size:12px;color:var(--admin-text-muted);margin-top:4px">Không đổi được bài — muốn giao bài khác thì bỏ giao bài này rồi giao bài mới.</p>`
     : `<select id="f-asg-lesson">
-         ${tbOpts}
          ${tdOpts}
-         ${hskOpts}
-         ${trOpts}
          <optgroup label="🎤 Luyện phát âm">${pronOpts}</optgroup>
          ${gameOpts}
        </select>`;
@@ -4066,108 +2909,6 @@ async function viewExamExerciseDetail(id, label) {
 // REORDER — Move Up/Down (1 step) + Drag & Drop
 // ============================================================
 let _dragState = { table: null, dragIdx: null, items: [] };
-
-async function moveItem(table, itemId, direction, currentIndex) {
-  try {
-    // Fetch current page to get the adjacent item's ID
-    let items = await _fetchItemsForTable(table);
-    if (items.length < 2) return;
-
-    const swapIndex = direction === 'up' ? currentIndex - 1 : currentIndex + 1;
-    if (swapIndex < 0 || swapIndex >= items.length) return;
-
-    const idA = items[currentIndex].id;
-    const idB = items[swapIndex].id;
-
-    // Use server-side swap which normalizes ALL rows first
-    const sortBy = table === 'vocabulary' ? vocabSortBy : blogSortBy;
-    const sortDir = table === 'vocabulary' ? vocabSortDir : blogSortDir;
-    await apiPut(`/admin/swap/${table}`, { idA, idB, sortBy, sortDir });
-
-    // Reload section
-    const el = document.getElementById('admin-content');
-    if (table === 'vocabulary') renderVocabulary(el);
-    else if (table === 'blog_posts') renderBlog(el);
-  } catch (err) {
-    toast(err.message || 'Lỗi cập nhật thứ tự', 'error');
-  }
-}
-
-async function _fetchItemsForTable(table) {
-  if (table === 'vocabulary') {
-    const qs = `?page=${vocabPage}&limit=20&sortBy=${vocabSortBy}&sortDir=${vocabSortDir}${vocabSearch ? '&search=' + encodeURIComponent(vocabSearch) : ''}`;
-    const data = await apiGet('/admin/vocabulary' + qs);
-    return data.vocabulary;
-  } else if (table === 'blog_posts') {
-    const data = await apiGet(`/admin/blog?sortBy=${blogSortBy}&sortDir=${blogSortDir}`);
-    return data.posts;
-  }
-  return [];
-}
-
-// --- Drag & Drop ---
-function initDragDrop(table, items) {
-  _dragState.table = table;
-  _dragState.items = items.map((item, i) => ({ id: item.id, sort_order: i }));
-
-  setTimeout(() => {
-    const tbody = document.querySelector('.data-table tbody');
-    if (!tbody) return;
-    const rows = tbody.querySelectorAll('tr[draggable]');
-    rows.forEach((row, idx) => {
-      row.addEventListener('dragstart', (e) => {
-        _dragState.dragIdx = idx;
-        row.classList.add('drag-row-active');
-        e.dataTransfer.effectAllowed = 'move';
-        e.dataTransfer.setData('text/plain', idx);
-      });
-      row.addEventListener('dragend', () => {
-        row.classList.remove('drag-row-active');
-        tbody.querySelectorAll('.drag-over-top, .drag-over-bottom').forEach(r => r.classList.remove('drag-over-top', 'drag-over-bottom'));
-      });
-      row.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        e.dataTransfer.dropEffect = 'move';
-        const rect = row.getBoundingClientRect();
-        const midY = rect.top + rect.height / 2;
-        tbody.querySelectorAll('.drag-over-top, .drag-over-bottom').forEach(r => r.classList.remove('drag-over-top', 'drag-over-bottom'));
-        if (e.clientY < midY) row.classList.add('drag-over-top');
-        else row.classList.add('drag-over-bottom');
-      });
-      row.addEventListener('dragleave', () => {
-        row.classList.remove('drag-over-top', 'drag-over-bottom');
-      });
-      row.addEventListener('drop', async (e) => {
-        e.preventDefault();
-        row.classList.remove('drag-over-top', 'drag-over-bottom');
-        const fromIdx = _dragState.dragIdx;
-        const toIdx = idx;
-        if (fromIdx === null || fromIdx === toIdx) return;
-        await _applyDragReorder(fromIdx, toIdx);
-      });
-    });
-  }, 50);
-}
-
-async function _applyDragReorder(fromIdx, toIdx) {
-  try {
-    const table = _dragState.table;
-    const items = [..._dragState.items];
-    // Move item from fromIdx to toIdx
-    const [moved] = items.splice(fromIdx, 1);
-    items.splice(toIdx, 0, moved);
-    // Re-assign sequential sort_order
-    const updates = items.map((item, i) => ({ id: item.id, sort_order: i }));
-    await apiPut(`/admin/reorder/${table}`, { items: updates });
-
-    // Reload
-    const el = document.getElementById('admin-content');
-    if (table === 'vocabulary') renderVocabulary(el);
-    else if (table === 'blog_posts') renderBlog(el);
-  } catch (err) {
-    toast(err.message || 'Lỗi kéo thả', 'error');
-  }
-}
 
 // ============================================================
 // EXPOSE PUBLIC API + INIT
@@ -5428,17 +4169,12 @@ window.adminApp = {
   dhPickTim, dhPickChon, dhPickBo,
   login, logout, navigate, closeModal,
   // Vocabulary
-  openVocabForm, saveVocab, deleteVocab, vocabSearchFn, vocabPageFn, vocabSortFn,
   // Exam
-  openExamForm, saveExam, deleteExam,
   // Dialogues
-  openDialogueForm, saveDialogue, deleteDialogue, openDialogueLines, openLineForm, saveLine, deleteLine,
   // Blog
-  openBlogForm, saveBlog, deleteBlog, blogSortFn,
   // Users
   openUserForm, saveUser, deleteUser, userSearchFn, userPageFn, approveUser, _doApprove,
   // Kinh doanh: trung tâm & quyền học (2026-09-09)
-  moFormToChuc, luuToChuc, moFormCapQuyen, luuCapQuyen, thuHoiQuyen,
   // Quản lý giáo viên
   moGiaoVien, veDanhSachGiaoVien, moFormGiaoVien, luuGiaoVien, boVaiTroGiaoVien,
   moPhieuChamDiem, luuPhieuChamDiem, xoaPhieuChamDiem,
@@ -5458,7 +4194,6 @@ window.adminApp = {
   submitExerciseReview, viewExamExerciseDetail, submitExamReview,
   jumpToAttendance, jumpToStudent,
   // Duyệt thanh toán (4.42)
-  ttDoiLoc, ttXemAnh, ttDuyet, ttDuyetThat, ttTuChoi, ttTuChoiThat, ttMoCauHinh, ttLuuCauHinh,
   // Reorder
   moveItem,
 };

@@ -27,8 +27,8 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DATA = path.join(ROOT, 'public/data');
 const RA = path.join(DATA, 'luyentap');
 
-const NGUON_DE = ['onllang-exercises.json', 'dangdai-luyentap.json', 'luyentap-tusinh.json'];
-const NGUON_DA = ['onllang-answers.json', 'dangdai-luyentap-answers.json', 'luyentap-tusinh-answers.json'];
+const NGUON_DE = ['luyentap-tusinh.json'];
+const NGUON_DA = ['luyentap-tusinh-answers.json'];
 
 const doc = (f, macDinh) => {
   const p = path.join(DATA, f);
@@ -82,30 +82,6 @@ console.log(`[luyentap] ${theoBai.size} bài · ${(tong / 1048576).toFixed(1)} M
 
 
 // =============================================================
-// DỊCH TRUNG–VIỆT — `translate-exercises.json` (0,5 MB) tách theo BÀI CON
-// =============================================================
-const RA_DICH = path.join(DATA, 'dich');
-fs.rmSync(RA_DICH, { recursive: true, force: true });
-fs.mkdirSync(RA_DICH, { recursive: true });
-const dich = doc('translate-exercises.json', []);
-let tongDich = 0;
-const cmDich = [];
-for (const bai of dich) {
-  const id = String(bai.lessonId);
-  if (!/^[\w.-]+$/.test(id)) throw new Error(`lessonId dịch không an toàn cho tên file: ${id}`);
-  const s2 = JSON.stringify(bai);
-  fs.writeFileSync(path.join(RA_DICH, `${id}.json`), s2);
-  tongDich += s2.length;
-  cmDich.push(id);
-}
-fs.writeFileSync(path.join(RA_DICH, 'index.json'), JSON.stringify(cmDich.sort()));
-const cuDich = fs.existsSync(path.join(DATA, 'translate-exercises.json'))
-  ? fs.statSync(path.join(DATA, 'translate-exercises.json')).size : 0;
-console.log(`[dich] ${dich.length} bài · trước tải ${(cuDich / 1024).toFixed(0)} KB mỗi lần mở tab, `
-  + `nay trung bình ${(tongDich / Math.max(1, dich.length) / 1024).toFixed(1)} KB/bài`);
-
-
-// =============================================================
 // NỘI DUNG GIÁO TRÌNH — mỗi BÀI CHA một file (2026-09-06, CLAUDE.md 4.32)
 // =============================================================
 // Đợt tối ưu trước đã chia theo QUYỂN: mở bài 1.1 vẫn kéo về 138 KB từ vựng của cả 15 bài
@@ -115,9 +91,6 @@ console.log(`[dich] ${dich.length} bài · trước tải ${(cuDich / 1024).toFi
 import { pathToFileURL } from 'node:url';
 const nap = (f) => import(pathToFileURL(path.join(ROOT, 'src/data', f)).href);
 
-const dd = await nap('duongdaiData.js');
-const ddG = await nap('duongdaiGrammar.js');
-const ddD = await nap('duongdaiDialogues.js');
 const td = await nap('thoidaiData.js');
 const tdG = await nap('thoidaiGrammar.js');
 const tdD = await nap('thoidaiDialogues.js');
@@ -132,7 +105,6 @@ const theoBaiCon = (bang, key) => Object.fromEntries(
 
 let tongGt = 0, soGt = 0;
 for (const [lessons, vocab, grammar, dialogues, writing] of [
-  [dd.duongdaiLessons, dd.duongdaiVocab, ddG.duongdaiGrammar, ddD.duongdaiDialogues, dd.duongdaiWriting],
   [td.thoidaiLessons, td.thoidaiVocab, tdG.thoidaiGrammar, tdD.thoidaiDialogues, td.thoidaiWriting],
 ]) {
   for (const l of lessons) {
@@ -154,16 +126,5 @@ console.log(`[giaotrinh] ${soGt} bài · ${(tongGt / 1048576).toFixed(1)} MB t�
   + `(trước: chunk theo quyển, mở 1 bài kéo về 138 KB của cả quyển)`);
 
 // ------------------------------------------------------------------ ĐỀ THI TOCFL
-// `src/data/tocflExamData.js` là NGUỒN (do scripts/legacy-de-thi/convert_exams.js sinh ra từ bản
-// scrape); bản chạy được là JSON dưới đây. Lý do phải có bước này: chunk JS nằm trong
-// `dist/assets/` là file tĩnh công khai, ai biết đường dẫn cũng tải được cả 1.600 câu — mà đề
-// thi thử là phần KHÔNG có bản dùng thử (2026-09-09). Dạng JSON thì `tw-gate-noi-dung` loại được
-// khỏi bản build và `/api/noi-dung/thi/tocfl` phục vụ sau khi kiểm quyền.
-{
-  const RA_THI = path.join(DATA, 'thi');
-  fs.mkdirSync(RA_THI, { recursive: true });
-  const { tocflExams } = await import('../src/data/tocflExamData.js');
-  const s = JSON.stringify(tocflExams);
-  fs.writeFileSync(path.join(RA_THI, 'tocfl.json'), s);
-  console.log(`[thi] ${tocflExams.length} đề TOCFL · ${(s.length / 1048576).toFixed(2)} MB`);
-}
+// `public/data/thi/tocfl.json` là bản chạy được và cũng là NGUỒN — sửa thẳng file đó.
+// Nó KHÔNG được sinh lại ở đây, nên đừng thêm bước xoá thư mục `thi/`.
