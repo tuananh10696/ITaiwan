@@ -151,3 +151,6 @@ scripts/data-cache/hsk/dethi/*.rar
 scratchpad/
 tests/mobile/anh-soat/
 .env*
+
+# CA cert cua nha cung cap DB — moi noi mot chung chi, khong kem trong repo.
+server/config/ca.pem
