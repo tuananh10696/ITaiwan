@@ -13,7 +13,7 @@
 import { Router } from 'express';
 import pool from '../config/db.js';
 import { requireAuth } from '../middleware/auth.js';
-import { loadRole, requireStaff, phamViQuanTri, requireOrgAdmin } from '../middleware/roles.js';
+import { loadRole, requireStaff, phamViQuanTri, requireHoSoStaff } from '../middleware/roles.js';
 import { baoHocSinh } from '../utils/du-hoc-thong-bao.js';
 
 const router = Router();
@@ -28,7 +28,7 @@ const router = Router();
 // `phamViQuanTri` lại tra bảng QUYEN bằng chính `req.path` -> mọi luật hết khớp.
 // `next('router')` thoát hẳn router này và trả quyền điều khiển về app để đi tiếp router sau.
 router.use((req, res, next) => (/^\/du-hoc(\/|$)/.test(req.path) ? next() : next('router')));
-router.use(requireAuth, loadRole, requireStaff, phamViQuanTri, requireOrgAdmin);
+router.use(requireAuth, loadRole, requireStaff, phamViQuanTri, requireHoSoStaff);
 
 // ------------------------------------------------------------------ hằng số
 
@@ -105,8 +105,27 @@ const ENUM_HOP_LE = {
 // ------------------------------------------------------------------ helper
 
 /** Mảnh SQL + tham số giới hạn theo tổ chức. Admin nền tảng không bị lọc. */
-const dkOrg = (req, cot = 'h.org_id') => (req.locOrg ? ` AND ${cot} = ?` : '');
-const tsOrg = (req) => (req.locOrg ? [req.orgId] : []);
+/**
+ * Mảnh WHERE dùng chung cho MỌI truy vấn trong file này. Hai tầng lọc:
+ *   • tổ chức (`locOrg`) — bản này luôn tắt, giữ cho tương lai tách cơ sở;
+ *   • người phụ trách (`nhanSuId`) — sale / quản lý hồ sơ chỉ thấy hồ sơ của chính mình.
+ *
+ * Cố ý nhét việc lọc theo nhân sự vào ĐÚNG hai hàm này thay vì vá từng câu SELECT: mọi truy
+ * vấn ở đây đều đã JOIN `du_hoc_ho_so h`, nên một chỗ sửa là cả khu được lọc, và route viết
+ * thêm về sau tự động thừa hưởng. Quên lọc ở khu này không phải là phiền toái 403 — đó là
+ * sale này đọc được hồ sơ, CCCD và tiền nong của khách do sale kia phụ trách.
+ *
+ * Thứ tự tham số trong `tsOrg` phải khớp thứ tự điều kiện trong `dkOrg`.
+ */
+const dkOrg = (req, cot = 'h.org_id') => {
+  const bang = cot.includes('.') ? cot.split('.')[0] : 'h';
+  return (req.locOrg ? ` AND ${cot} = ?` : '')
+    + (req.nhanSuId ? ` AND ${bang}.tu_van_id = ?` : '');
+};
+const tsOrg = (req) => [
+  ...(req.locOrg ? [req.orgId] : []),
+  ...(req.nhanSuId ? [req.nhanSuId] : []),
+];
 
 /** Bảng chưa có (chưa chạy migration) thì nói đúng nguyên nhân thay vì "Lỗi hệ thống". */
 function loiBang(err, macDinh) {
@@ -163,15 +182,28 @@ function chuanGiaTri(cot, v) {
 }
 
 /** Tách phần thân hồ sơ client gửi lên thành cặp (cột, giá trị) đã lọc + chuẩn hoá. */
-function locThanHoSo(body) {
+/**
+ * Lọc các trường được phép ghi từ body.
+ *
+ * `req` bắt buộc phải truyền vào: với sale / quản lý hồ sơ, hàm ÉP `tu_van_id` về chính họ —
+ * tạo hồ sơ thì hồ sơ thuộc về mình, sửa hồ sơ thì không chuyển được sang tên người khác.
+ * Không có chốt này thì một sale sửa `tu_van_id` trong body là đẩy hồ sơ (kèm toàn bộ tiền
+ * đã thu) sang người khác, hoặc kéo hồ sơ của đồng nghiệp về mình nếu biết id.
+ */
+function locThanHoSo(body, req) {
   const cot = [];
   const gt = [];
   for (const c of COT_SUA) {
+    if (c === 'tu_van_id' && req?.nhanSuId) continue;   // xử lý riêng bên dưới
     if (!(c in body)) continue;
     const v = chuanGiaTri(c, body[c]);
     if (v === undefined) continue;
     cot.push(c);
     gt.push(v);
+  }
+  if (req?.nhanSuId) {
+    cot.push('tu_van_id');
+    gt.push(req.nhanSuId);
   }
   return { cot, gt };
 }
@@ -309,6 +341,9 @@ router.get('/du-hoc/ho-so', async (req, res) => {
     const dk = ['1=1'];
     const ts = [];
     if (req.locOrg) { dk.push('h.org_id = ?'); ts.push(req.orgId); }
+    // Sale / quản lý hồ sơ: chỉ hồ sơ mình phụ trách. Đặt TRƯỚC bộ lọc `tu_van` của giao diện
+    // để bộ lọc đó không nới rộng được phạm vi (?tu_van=<id người khác> chỉ làm hẹp thêm).
+    if (req.nhanSuId) { dk.push('h.tu_van_id = ?'); ts.push(req.nhanSuId); }
 
     if (req.query.buoc && MA_BUOC.has(req.query.buoc)) { dk.push('h.buoc = ?'); ts.push(req.query.buoc); }
     else if (req.query.buoc === 'dang-chay') { dk.push(`h.buoc IN ('ho-so','dong-tien','hoc','phong-van','visa','bay')`); }
@@ -444,11 +479,15 @@ router.get('/du-hoc/ho-so/:id', async (req, res) => {
 async function loiGanHocVien(userId, req, hoSoHienTai = null) {
   const id = parseInt(userId, 10);
   if (!Number.isFinite(id)) return 'Tài khoản học viên không hợp lệ.';
+  // Không dùng tsOrg ở đây: hàm đó nay kèm cả điều kiện `tu_van_id` của khu hồ sơ, mà câu này
+  // chạy trên bảng `users`. Sale / quản lý hồ sơ chỉ gắn được tài khoản do CHÍNH MÌNH tạo —
+  // nếu không, họ dò id để kéo học viên của đồng nghiệp vào hồ sơ mình.
   const [u] = await pool.query(
-    `SELECT id FROM users WHERE id = ?${req.locOrg ? ' AND org_id = ?' : ''}`,
-    [id, ...tsOrg(req)]
+    `SELECT id FROM users WHERE id = ?${req.locOrg ? ' AND org_id = ?' : ''}`
+    + (req.nhanSuId ? ' AND created_by = ?' : ''),
+    [id, ...(req.locOrg ? [req.orgId] : []), ...(req.nhanSuId ? [req.nhanSuId] : [])]
   );
-  if (!u.length) return 'Tài khoản học viên không tồn tại trong trung tâm của bạn.';
+  if (!u.length) return 'Tài khoản học viên không tồn tại trong phạm vi của bạn.';
   // Một tài khoản chỉ nên đứng sau MỘT hồ sơ: hai hồ sơ cùng trỏ một người thì tiền và tiến độ
   // của em đó nằm rải hai chỗ, không ai biết chỗ nào là thật.
   const [h] = await pool.query(
@@ -473,7 +512,7 @@ router.post('/du-hoc/ho-so', async (req, res) => {
     if (loi) return res.status(400).json({ error: loi });
   }
 
-  const { cot, gt } = locThanHoSo({ ...req.body, ho_ten: hoTen });
+  const { cot, gt } = locThanHoSo({ ...req.body, ho_ten: hoTen }, req);
 
   // Mã hồ sơ: người dùng tự nhập, hoặc tự sinh HS-0001 theo từng tổ chức. Sinh bằng "lấy số lớn
   // nhất rồi +1, trùng thì thử tiếp" thay vì khoá bảng — hai người tạo cùng lúc thì lần thứ hai
@@ -542,7 +581,7 @@ router.put('/du-hoc/ho-so/:id', async (req, res) => {
       if (loi) return res.status(400).json({ error: loi });
     }
 
-    const { cot, gt } = locThanHoSo(req.body);
+    const { cot, gt } = locThanHoSo(req.body, req);
     if (!cot.length) return res.json({ message: 'Không có gì thay đổi.' });
 
     await pool.query(
@@ -1032,11 +1071,17 @@ router.delete('/du-hoc/ho-so/:id', async (req, res) => {
 /** Nhân sự trong tổ chức, để gán tư vấn viên phụ trách. */
 router.get('/du-hoc/nhan-su', async (req, res) => {
   try {
+    // Tư vấn viên phụ trách hồ sơ nay gồm cả quản lý hồ sơ và sale. Người đang gọi là sale
+    // thì danh sách chỉ có chính họ: ô "tư vấn viên" của họ không phải chỗ để chọn người khác.
+    const dk = ["role IN ('admin','ho_so','sale','teacher')"];
+    const ts = [];
+    if (req.locOrg) { dk.push('org_id = ?'); ts.push(req.orgId); }
+    if (req.nhanSuId) { dk.push('id = ?'); ts.push(req.nhanSuId); }
     const [rows] = await pool.query(
       `SELECT id, name, email, role FROM users
-        WHERE role IN ('admin','teacher')${req.locOrg ? ' AND org_id = ?' : ''}
+        WHERE ${dk.join(' AND ')}
         ORDER BY name LIMIT 200`,
-      tsOrg(req)
+      ts
     );
     res.json({ nhan_su: rows });
   } catch (err) {
@@ -1052,6 +1097,7 @@ router.get('/du-hoc/hoc-vien', async (req, res) => {
     const dk = ["u.role = 'student'"];
     const ts = [];
     if (req.locOrg) { dk.push('u.org_id = ?'); ts.push(req.orgId); }
+    if (req.nhanSuId) { dk.push('u.created_by = ?'); ts.push(req.nhanSuId); }
     if (tim) {
       dk.push('(u.name LIKE ? OR u.email LIKE ? OR u.phone LIKE ?)');
       const q = `%${tim}%`;

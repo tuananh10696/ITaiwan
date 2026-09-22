@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
 import pool from '../config/db.js';
 import { requireAuth } from '../middleware/auth.js';
-import { loadRole, requireStaff, requireAdminOnly, phamViQuanTri } from '../middleware/roles.js';
+import { loadRole, requireStaff, requireAdminOnly, requireHoSoStaff, phamViQuanTri } from '../middleware/roles.js';
 import { sendWelcomeEmail, sendAssignmentReminderEmail, isEmailConfigured, emailStatus } from '../utils/email.js';
 import { toLimit, toPage } from '../utils/num.js';
 import { dsThietBi, goThietBi, TRAN_THIET_BI } from '../utils/thiet-bi.js';
@@ -27,9 +27,15 @@ router.use(requireAuth, loadRole, requireStaff, phamViQuanTri);
 // '/users-unassigned' CỐ Ý không nằm đây: quản trị trung tâm cần nó để thêm học viên vào lớp
 // (nút "Thêm học viên" của họ 403 sạch trước 2026-09-13). Nó được khai riêng trong QUYEN và TỰ
 // lọc theo `req.orgId` ngay bên dưới — mở mà quên lọc thì trung tâm này dò ra học viên trung tâm kia.
-for (const khu of ['/users', '/pending-count', '/vocabulary', '/exam-questions',
-  '/dialogues', '/dialogue-lines', '/blog', '/reorder', '/swap', '/seed', '/tong-quan']) {
+for (const khu of ['/vocabulary', '/exam-questions',
+  '/dialogues', '/dialogue-lines', '/blog', '/reorder', '/swap', '/seed']) {
   router.use(khu, requireAdminOnly);
+}
+// Ba khu dưới đây mở thêm cho quản lý hồ sơ và sale (2026-09-22). Vẫn là lưới thứ hai: bảng
+// QUYEN phân xử từng route, và mỗi route TỰ lọc dữ liệu theo `req.nhanSuId` — sale vào được
+// '/users' nhưng chỉ đọc được tài khoản do chính mình tạo.
+for (const khu of ['/users', '/pending-count', '/tong-quan']) {
+  router.use(khu, requireHoSoStaff);
 }
 
 // Giáo viên đang gọi thì trả về id của họ, admin thì null. Dùng để lọc dữ liệu theo lớp phụ trách.
@@ -74,6 +80,31 @@ const thamSoTrongLop = (req) => (gvId(req) ? [gvId(req)] : thamSoOrg(req));
 // hiện bình thường kèm cảnh báo, thay vì 500 làm hỏng cả trang admin.
 router.get('/stats', async (req, res) => {
   try {
+    // Sale / quản lý hồ sơ: bản rút gọn, chỉ đếm những gì thuộc về họ. Các con số còn lại của
+    // route này (tổng người dùng, lượt thi, người mới nhất của cả trung tâm) vừa không phải
+    // việc của họ, vừa để lộ quy mô hệ thống và danh tính học viên của đồng nghiệp.
+    if (req.nhanSuId) {
+      const [[u]] = await pool.query(
+        'SELECT COUNT(*) AS so FROM users WHERE created_by = ?', [req.nhanSuId]);
+      let hoSo = 0;
+      let choDuyet = 0;
+      try {
+        const [[h]] = await pool.query(
+          "SELECT COUNT(*) AS so FROM du_hoc_ho_so WHERE tu_van_id = ? AND buoc NOT IN ('huy','hoan-thanh')",
+          [req.nhanSuId]);
+        hoSo = h.so;
+      } catch (e) { console.warn('stats: bỏ qua hồ sơ du học —', e.code || e.message); }
+      const [[d]] = await pool.query(
+        'SELECT COUNT(*) AS so FROM users WHERE created_by = ? AND is_verified = 1 AND is_approved = 0',
+        [req.nhanSuId]);
+      choDuyet = d.so;
+      return res.json({
+        userCount: u.so, hoSoDangChay: hoSo, choDuyet,
+        examResultCount: 0, activeToday: 0, recentUsers: [], recentSubmissions: [],
+        exercise7d: { count: 0, avg_score: null, students: 0 },
+      });
+    }
+
     // Số người dùng phải theo TỔ CHỨC: quản trị trung tâm nhìn thấy tổng của cả nền tảng thì
     // vừa lộ quy mô hệ thống vừa là con số vô nghĩa với họ.
     const dkOrg = req.locOrg ? ' WHERE org_id = ?' : '';
@@ -243,6 +274,16 @@ router.get('/stats', async (req, res) => {
 // Mỗi khối bọc try/catch riêng: bảng quỹ / ký túc xá / du học đều đến từ migration riêng, DB
 // nào chưa chạy thì khối đó trả rỗng chứ không làm hỏng cả trang.
 router.get('/tong-quan', async (req, res) => {
+  // Sale / quản lý hồ sơ nhìn CÙNG một màn hình nhưng chỉ thấy số của mình, và không thấy khối
+  // lớp học (không phải việc của họ). `ns` là id để lọc, null với quản trị.
+  const ns = req.nhanSuId;
+  const tsNs = ns ? [ns] : [];
+  const locQuy = ns ? ' AND nguoi_lap_id = ?' : '';
+  const locQuyP = ns ? ' AND p.nguoi_lap_id = ?' : '';
+  const locHoSo = ns ? ' AND h.tu_van_id = ?' : '';
+  const joinKtxHoSo = ns ? 'JOIN du_hoc_ho_so hs ON hs.id = o.ho_so_id' : '';
+  const locKtx = ns ? ' AND hs.tu_van_id = ?' : '';
+
   const rong = { thu: 0, chi: 0 };
   const kq = {
     tien: { ky: { hom_nay: { ...rong }, tuan: { ...rong }, thang: { ...rong }, thang_truoc: { ...rong } },
@@ -266,7 +307,7 @@ router.get('/tong-quan', async (req, res) => {
                   AND ngay <  DATE_FORMAT(CURDATE(), '%Y-%m-01') AND loai='thu' THEN so_tien ELSE 0 END) AS truoc_thu,
         SUM(CASE WHEN ngay >= DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01')
                   AND ngay <  DATE_FORMAT(CURDATE(), '%Y-%m-01') AND loai='chi' THEN so_tien ELSE 0 END) AS truoc_chi
-      FROM quy_phieu WHERE org_id = ?`, [req.orgId]);
+      FROM quy_phieu WHERE org_id = ?${locQuy}`, [req.orgId, ...tsNs]);
     kq.tien.ky = {
       hom_nay: { thu: +k.hom_nay_thu || 0, chi: +k.hom_nay_chi || 0 },
       tuan: { thu: +k.tuan_thu || 0, chi: +k.tuan_chi || 0 },
@@ -281,8 +322,8 @@ router.get('/tong-quan', async (req, res) => {
              SUM(CASE WHEN loai='thu' THEN so_tien ELSE 0 END) AS thu,
              SUM(CASE WHEN loai='chi' THEN so_tien ELSE 0 END) AS chi
         FROM quy_phieu
-       WHERE org_id = ? AND ngay >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-01'), INTERVAL 7 MONTH)
-       GROUP BY ky ORDER BY ky`, [req.orgId]);
+       WHERE org_id = ? AND ngay >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-01'), INTERVAL 7 MONTH)${locQuy}
+       GROUP BY ky ORDER BY ky`, [req.orgId, ...tsNs]);
     const theoKy = Object.fromEntries(rows.map((r) => [r.ky, r]));
     const nay = new Date();
     for (let i = 7; i >= 0; i--) {
@@ -294,8 +335,8 @@ router.get('/tong-quan', async (req, res) => {
     const [dm] = await pool.query(`
       SELECT p.loai, COALESCE(d.ten, 'Chưa phân loại') AS ten, SUM(p.so_tien) AS tien
         FROM quy_phieu p LEFT JOIN quy_danh_muc d ON d.id = p.danh_muc_id
-       WHERE p.org_id = ? AND p.ngay >= DATE_FORMAT(CURDATE(), '%Y-%m-01')
-       GROUP BY p.loai, ten ORDER BY tien DESC`, [req.orgId]);
+       WHERE p.org_id = ? AND p.ngay >= DATE_FORMAT(CURDATE(), '%Y-%m-01')${locQuyP}
+       GROUP BY p.loai, ten ORDER BY tien DESC`, [req.orgId, ...tsNs]);
     kq.tien.thu_theo_dm = dm.filter((r) => r.loai === 'thu').slice(0, 6).map((r) => ({ ten: r.ten, tien: +r.tien }));
     kq.tien.chi_theo_dm = dm.filter((r) => r.loai === 'chi').slice(0, 6).map((r) => ({ ten: r.ten, tien: +r.tien }));
   } catch (e) {
@@ -307,14 +348,15 @@ router.get('/tong-quan', async (req, res) => {
   try {
     const [[t]] = await pool.query(`
       SELECT COALESCE(SUM(CASE WHEN tt.loai='hoan' THEN -tt.so_tien ELSE tt.so_tien END), 0) AS da_thu
-        FROM du_hoc_thu_tien tt JOIN du_hoc_ho_so h ON h.id = tt.ho_so_id WHERE h.org_id = ?`, [req.orgId]);
+        FROM du_hoc_thu_tien tt JOIN du_hoc_ho_so h ON h.id = tt.ho_so_id
+       WHERE h.org_id = ?${locHoSo}`, [req.orgId, ...tsNs]);
     // Còn phải thu chỉ tính hồ sơ ĐANG CHẠY: hồ sơ đã huỷ / tạm dừng không còn là khoản phải đòi.
     const [[n]] = await pool.query(`
       SELECT COALESCE(SUM(GREATEST(h.tong_phi - COALESCE((
                SELECT SUM(CASE WHEN tt.loai='hoan' THEN -tt.so_tien ELSE tt.so_tien END)
                  FROM du_hoc_thu_tien tt WHERE tt.ho_so_id = h.id), 0), 0)), 0) AS con
         FROM du_hoc_ho_so h
-       WHERE h.org_id = ? AND h.buoc NOT IN ('huy', 'tam-dung', 'hoan-thanh')`, [req.orgId]);
+       WHERE h.org_id = ? AND h.buoc NOT IN ('huy', 'tam-dung', 'hoan-thanh')${locHoSo}`, [req.orgId, ...tsNs]);
     kq.nguon_khac.du_hoc_da_thu = +t.da_thu || 0;
     kq.nguon_khac.du_hoc_con_phai_thu = +n.con || 0;
   } catch (e) { console.warn('Tổng quan: bỏ qua du học —', e.code || e.message); }
@@ -324,20 +366,24 @@ router.get('/tong-quan', async (req, res) => {
       SELECT COALESCE(SUM(th.so_tien), 0) AS tien
         FROM ktx_thu_tien th JOIN ktx_o o ON o.id = th.o_id
         JOIN ktx_phong p ON p.id = o.phong_id JOIN ktx_toa toa ON toa.id = p.toa_id
-       WHERE toa.org_id = ? AND th.ky = DATE_FORMAT(CURDATE(), '%Y-%m')`, [req.orgId]);
+        ${joinKtxHoSo}
+       WHERE toa.org_id = ? AND th.ky = DATE_FORMAT(CURDATE(), '%Y-%m')${locKtx}`, [req.orgId, ...tsNs]);
     const [[n]] = await pool.query(`
       SELECT COUNT(*) AS so FROM ktx_o o
         JOIN ktx_phong p ON p.id = o.phong_id JOIN ktx_toa toa ON toa.id = p.toa_id
-       WHERE toa.org_id = ? AND o.trang_thai = 'dang-o'
+        ${joinKtxHoSo}
+       WHERE toa.org_id = ? AND o.trang_thai = 'dang-o'${locKtx}
          AND NOT EXISTS (SELECT 1 FROM ktx_thu_tien th
                           WHERE th.o_id = o.id AND th.loai = 'tien-phong'
-                            AND th.ky = DATE_FORMAT(CURDATE(), '%Y-%m'))`, [req.orgId]);
+                            AND th.ky = DATE_FORMAT(CURDATE(), '%Y-%m'))`, [req.orgId, ...tsNs]);
     kq.nguon_khac.ktx_thang_nay = +t.tien || 0;
     kq.nguon_khac.ktx_no_nguoi = +n.so || 0;
   } catch (e) { console.warn('Tổng quan: bỏ qua ký túc xá —', e.code || e.message); }
 
   // ---------- TÌNH TRẠNG LỚP ----------
-  try {
+  // Sale / quản lý hồ sơ không dính dáng tới lớp học: bỏ hẳn khối này thay vì trả bảng rỗng,
+  // để giao diện của họ không có một ô trống không bao giờ có dữ liệu.
+  if (!ns) try {
     const [lop] = await pool.query(`
       SELECT c.id, c.name, u.name AS teacher_name,
         (SELECT COUNT(*) FROM class_enrollments ce WHERE ce.class_id = c.id) AS si_so,
@@ -364,7 +410,24 @@ router.get('/tong-quan', async (req, res) => {
     try { const [[r]] = await pool.query(sql, ts); kq.canh_bao[ten] = +r.so || 0; }
     catch (e) { kq.canh_bao[ten] = null; console.warn(`Tổng quan: không đếm được ${ten} —`, e.code || e.message); }
   };
-  await dem('cho_duyet', "SELECT COUNT(*) AS so FROM users WHERE is_verified = 1 AND is_approved = 0 AND org_id = ?", [req.orgId]);
+  await dem('cho_duyet',
+    'SELECT COUNT(*) AS so FROM users WHERE is_verified = 1 AND is_approved = 0 AND org_id = ?'
+    + (ns ? ' AND created_by = ?' : ''), [req.orgId, ...tsNs]);
+  await dem('du_hoc_dung', `
+    SELECT COUNT(*) AS so FROM du_hoc_ho_so h
+     WHERE h.org_id = ? AND h.buoc NOT IN ('hoan-thanh', 'huy', 'tam-dung')
+       AND h.buoc_tu IS NOT NULL AND h.buoc_tu < DATE_SUB(CURDATE(), INTERVAL 30 DAY)${locHoSo}`,
+    [req.orgId, ...tsNs]);
+  await dem('du_hoc_yeu_cau',
+    `SELECT COUNT(*) AS so FROM du_hoc_yeu_cau_sua y
+       JOIN du_hoc_ho_so h ON h.id = y.ho_so_id
+      WHERE y.trang_thai = 'cho'${locHoSo}`, tsNs);
+  kq.canh_bao.ktx_no = kq.nguon_khac.ktx_no_nguoi;
+
+  // Từ đây trở xuống là việc của QUẢN TRỊ: điểm danh thiếu, bài quá hạn, bài chờ chấm, thiết bị
+  // vượt hạn mức. Sale không mở được những khu đó nên đếm cũng chỉ để trưng một con số chết.
+  if (ns) return res.json(kq);
+
   await dem('diem_danh', `
     SELECT COUNT(*) AS so FROM (
       SELECT cs.id,
@@ -386,13 +449,7 @@ router.get('/tong-quan', async (req, res) => {
   await dem('cho_cham', `
     SELECT COUNT(*) AS so FROM de_bai_lam bl JOIN de_bai d ON d.id = bl.de_id
      WHERE d.org_id = ? AND bl.trang_thai = 'da-nop'`, [req.orgId]);
-  await dem('du_hoc_dung', `
-    SELECT COUNT(*) AS so FROM du_hoc_ho_so
-     WHERE org_id = ? AND buoc NOT IN ('hoan-thanh', 'huy', 'tam-dung')
-       AND buoc_tu IS NOT NULL AND buoc_tu < DATE_SUB(CURDATE(), INTERVAL 30 DAY)`, [req.orgId]);
-  await dem('du_hoc_yeu_cau', "SELECT COUNT(*) AS so FROM du_hoc_yeu_cau_sua WHERE trang_thai = 'cho'");
   await dem('thiet_bi', 'SELECT COUNT(*) AS so FROM device_alerts WHERE da_xu_ly = 0');
-  kq.canh_bao.ktx_no = kq.nguon_khac.ktx_no_nguoi;
 
   res.json(kq);
 });
@@ -406,25 +463,25 @@ router.get('/users', async (req, res) => {
     // Kẹp page/limit để '?page=0' (OFFSET âm) hay '?limit=abc' (LIMIT NaN) không làm SQL lỗi 500.
     const page = toPage(req.query.page);
     const limit = toLimit(req.query.limit, 20, 200);
-    let sql = 'SELECT id, name, email, phone, avatar_letter, avatar_color, level_label, level_num, streak, longest_streak, points, is_admin, is_approved, last_active, created_at FROM users';
-    const params = [];
+    // Điều kiện dựng CHUNG cho câu lấy dòng và câu đếm — trước đây hai câu tự ghép riêng, nên
+    // thêm một bộ lọc mà quên sửa câu kia là số trang lệch với số dòng thật.
+    const dk = [];
+    const dkParams = [];
     if (search) {
-      sql += ' WHERE name LIKE ? OR email LIKE ?';
-      params.push(`%${search}%`, `%${search}%`);
+      dk.push('(name LIKE ? OR email LIKE ?)');
+      dkParams.push(`%${search}%`, `%${search}%`);
     }
-    sql += ' ORDER BY created_at DESC';
-    const offset = (page - 1) * limit;
-    sql += ' LIMIT ? OFFSET ?';
-    params.push(limit, offset);
+    // Sale / quản lý hồ sơ chỉ thấy tài khoản do CHÍNH MÌNH tạo.
+    if (req.nhanSuId) { dk.push('created_by = ?'); dkParams.push(req.nhanSuId); }
+    const where = dk.length ? ` WHERE ${dk.join(' AND ')}` : '';
 
-    const [rows] = await pool.query(sql, params);
-    let countSql = 'SELECT COUNT(*) as total FROM users';
-    const countParams = [];
-    if (search) {
-      countSql += ' WHERE name LIKE ? OR email LIKE ?';
-      countParams.push(`%${search}%`, `%${search}%`);
-    }
-    const [[{ total }]] = await pool.query(countSql, countParams);
+    const sql = 'SELECT id, name, email, phone, avatar_letter, avatar_color, level_label, level_num,'
+      + ' streak, longest_streak, points, is_admin, role, created_by, is_verified, is_approved,'
+      + ` last_active, created_at FROM users${where} ORDER BY created_at DESC LIMIT ? OFFSET ?`;
+    const offset = (page - 1) * limit;
+
+    const [rows] = await pool.query(sql, [...dkParams, limit, offset]);
+    const [[{ total }]] = await pool.query(`SELECT COUNT(*) as total FROM users${where}`, dkParams);
 
     res.json({ users: rows, total, page, limit });
   } catch (err) {
@@ -438,6 +495,72 @@ router.get('/users', async (req, res) => {
 // đọc được tên/email học viên của trung tâm kia. Chỉ lấy học viên (bỏ giáo viên/quản trị) —
 // trước đây chỉ loại `is_admin = 0` nên giáo viên của chính trung tâm cũng lọt vào danh sách
 // "học viên chưa xếp lớp", tick nhầm là đưa cô giáo vào lớp với tư cách học viên.
+// =============================================================
+// TẠO TÀI KHOẢN (2026-09-22)
+// =============================================================
+// Ai tạo được vai trò nào:
+//   admin          -> student, teacher, sale, ho_so, admin
+//   sale / ho_so   -> CHỈ student
+//
+// Vai trò nằm trong BODY nên bảng quyền ở roles.js không chặn được — chốt duy nhất là dòng
+// `VAI_TRO_DUOC_TAO` dưới đây. Bỏ nó đi thì một sale tạo thẳng một tài khoản admin cho mình.
+const VAI_TRO_DUOC_TAO = {
+  admin: ['student', 'teacher', 'sale', 'ho_so', 'admin'],
+  ho_so: ['student'],
+  sale: ['student'],
+};
+
+const NHAN_VAI_TRO = {
+  student: 'học viên', teacher: 'giáo viên', sale: 'sale',
+  ho_so: 'quản lý hồ sơ', admin: 'quản trị viên',
+};
+
+router.post('/users', async (req, res) => {
+  try {
+    const { name, email, phone, password } = req.body || {};
+    const vai = String(req.body?.role || 'student');
+    const duocTao = VAI_TRO_DUOC_TAO[req.role] || [];
+    if (!duocTao.includes(vai)) {
+      return res.status(403).json({ error: `Bạn không được tạo tài khoản ${NHAN_VAI_TRO[vai] || vai}.` });
+    }
+
+    const mail = String(email || '').trim().toLowerCase();
+    if (!mail || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)) {
+      return res.status(400).json({ error: 'Email không hợp lệ.' });
+    }
+    const mk = String(password || '');
+    if (mk.length < 6) return res.status(400).json({ error: 'Mật khẩu phải từ 6 ký tự trở lên.' });
+
+    const [trung] = await pool.query('SELECT id FROM users WHERE email = ?', [mail]);
+    if (trung.length) return res.status(409).json({ error: 'Email này đã có tài khoản.' });
+
+    const ten = String(name || '').trim() || mail.split('@')[0];
+    const hash = await bcrypt.hash(mk, 10);
+    // Tài khoản do nhân sự tạo tay thì KHÔNG phải xác thực email và KHÔNG phải chờ duyệt —
+    // người tạo đã đứng ra bảo đảm. Học viên tự đăng ký thì vẫn đi đường cũ.
+    const [r] = await pool.query(
+      `INSERT INTO users (org_id, name, email, phone, password_hash, role, created_by, is_admin,
+                          is_verified, is_approved, avatar_letter)
+       VALUES (?,?,?,?,?,?,?,?,1,1,?)`,
+      [req.orgId, ten, mail, String(phone || '').trim() || null, hash, vai, req.userId,
+       vai === 'admin' ? 1 : 0, ten.charAt(0).toUpperCase()]
+    );
+
+    // Báo mật khẩu cho chủ tài khoản. Không chặn luồng nếu gửi hỏng — tài khoản đã tạo xong,
+    // và người tạo vẫn đọc được mật khẩu trên màn hình.
+    sendWelcomeEmail(mail, mk, null)
+      .catch((e) => console.warn('Không gửi được mail tài khoản mới:', e.message));
+
+    res.status(201).json({
+      message: `Đã tạo tài khoản ${NHAN_VAI_TRO[vai] || vai} cho ${mail}.`,
+      id: r.insertId,
+    });
+  } catch (err) {
+    console.error('Lỗi tạo tài khoản:', err);
+    res.status(500).json({ error: 'Không tạo được tài khoản.' });
+  }
+});
+
 router.get('/users-unassigned', async (req, res) => {
   try {
     const dk = req.locOrg ? ' AND org_id = ?' : '';
@@ -496,7 +619,25 @@ router.put('/users/:id', async (req, res) => {
       if (targetId === req.userId && !is_admin) {
         return res.status(400).json({ error: 'Không thể tự gỡ quyền quản trị của chính mình.' });
       }
+      if (!req.laAdmin) return res.status(403).json({ error: 'Chỉ quản trị viên đổi được quyền tài khoản.' });
       sets.push('is_admin=?'); vals.push(is_admin ? 1 : 0);
+    }
+
+    // Đổi VAI TRÒ: chỉ quản trị viên. Sale / quản lý hồ sơ đi tới được route này (tài khoản do
+    // họ tạo), nên nếu không chặn ở đây thì họ tự nâng một tài khoản của mình lên admin rồi
+    // đăng nhập bằng tài khoản đó — vòng qua mọi giới hạn phía trên.
+    const vaiMoi = req.body?.role;
+    if (vaiMoi !== undefined) {
+      if (!req.laAdmin) return res.status(403).json({ error: 'Chỉ quản trị viên đổi được vai trò tài khoản.' });
+      const HOP_LE = ['student', 'teacher', 'sale', 'ho_so', 'admin'];
+      if (!HOP_LE.includes(vaiMoi)) return res.status(400).json({ error: 'Vai trò không hợp lệ.' });
+      if (targetId === req.userId && vaiMoi !== 'admin') {
+        return res.status(400).json({ error: 'Không thể tự hạ vai trò của chính mình.' });
+      }
+      sets.push('role=?'); vals.push(vaiMoi);
+      // `is_admin` là cột cũ nhưng bảng xếp hạng, /auth/me và cổng đăng nhập admin vẫn đọc nó —
+      // để lệch với `role` là tài khoản vào được trang này mà lại không có quyền, hoặc ngược lại.
+      sets.push('is_admin=?'); vals.push(vaiMoi === 'admin' ? 1 : 0);
     }
 
     if (sets.length) {

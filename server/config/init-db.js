@@ -82,10 +82,16 @@ async function initDatabase() {
       phone VARCHAR(20) DEFAULT NULL,
       password_hash VARCHAR(255) NOT NULL,
       is_admin BOOLEAN DEFAULT FALSE,
-      -- Vai trò: 'admin' = quản trị trung tâm · 'teacher' = giáo viên · 'student' = học viên.
+      -- Vai trò: 'admin' = quản trị trung tâm · 'ho_so' = quản lý hồ sơ · 'sale' = nhân viên
+      -- kinh doanh · 'teacher' = giáo viên · 'student' = học viên.
       -- is_admin là cột cũ, vẫn được giữ đồng bộ (role='admin' tương đương is_admin=1) vì
       -- bảng xếp hạng, /auth/me và cổng đăng nhập admin đều đang đọc nó.
-      role ENUM('student','teacher','admin') NOT NULL DEFAULT 'student',
+      -- ⚠️ Thêm vai trò mới thì thêm vào CUỐI enum: MySQL lưu theo chỉ số, chèn vào giữa là
+      -- mọi bản ghi đã có trượt sang vai trò khác.
+      role ENUM('student','teacher','sale','ho_so','admin') NOT NULL DEFAULT 'student',
+      -- Ai đã tạo tài khoản này. NULL = tự đăng ký. Sale và quản lý hồ sơ chỉ sửa/xoá được
+      -- tài khoản do chính mình tạo (xem server/middleware/roles.js).
+      created_by INT DEFAULT NULL,
       avatar_letter CHAR(2) DEFAULT 'U',
       avatar_color VARCHAR(10) DEFAULT '#027AB3',
       level_label VARCHAR(50) DEFAULT 'Tân Sinh · Lv1',
@@ -102,6 +108,10 @@ async function initDatabase() {
       updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
   `);
+  await conn.query('ALTER TABLE users ADD KEY idx_created_by (created_by)');
+  await conn.query(
+    'ALTER TABLE users ADD CONSTRAINT fk_users_created_by FOREIGN KEY (created_by) '
+    + 'REFERENCES users(id) ON DELETE SET NULL');
   console.log('  ✅ Table: users');
 
   // 2. Vocabulary

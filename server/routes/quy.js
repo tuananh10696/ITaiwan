@@ -13,7 +13,7 @@
 import { Router } from 'express';
 import pool from '../config/db.js';
 import { requireAuth } from '../middleware/auth.js';
-import { loadRole, requireStaff, phamViQuanTri, requireOrgAdmin } from '../middleware/roles.js';
+import { loadRole, requireStaff, phamViQuanTri, requireHoSoStaff } from '../middleware/roles.js';
 
 const router = Router();
 
@@ -27,7 +27,7 @@ const router = Router();
 // `phamViQuanTri` lại tra bảng QUYEN bằng chính `req.path` -> mọi luật hết khớp.
 // `next('router')` thoát hẳn router này và trả quyền điều khiển về app để đi tiếp router sau.
 router.use((req, res, next) => (/^\/quy(\/|$)/.test(req.path) ? next() : next('router')));
-router.use(requireAuth, loadRole, requireStaff, phamViQuanTri, requireOrgAdmin);
+router.use(requireAuth, loadRole, requireStaff, phamViQuanTri, requireHoSoStaff);
 
 /** Ảnh chứng từ: cùng ngưỡng với biên lai du học (4.51) — client đã nén trước khi gửi. */
 const ANH_TOI_DA = 900_000;
@@ -190,6 +190,9 @@ router.get('/quy/phieu', async (req, res) => {
   const moiTrang = 50;
   try {
     const dk = ['p.org_id = ?']; const ts = [orgCua(req)];
+    // Sale / quản lý hồ sơ chỉ thấy phiếu do CHÍNH MÌNH lập. Sổ quỹ chứa toàn bộ dòng tiền của
+    // trung tâm (lương, chi phí vận hành) — không phải thứ nhân viên kinh doanh cần thấy.
+    if (req.nhanSuId) { dk.push('p.nguoi_lap_id = ?'); ts.push(req.nhanSuId); }
     if (['thu', 'chi'].includes(loai)) { dk.push('p.loai = ?'); ts.push(loai); }
     if (ngay(tu)) { dk.push('p.ngay >= ?'); ts.push(ngay(tu)); }
     if (ngay(den)) { dk.push('p.ngay <= ?'); ts.push(ngay(den)); }
@@ -365,12 +368,18 @@ router.get('/quy/bao-cao', async (req, res) => {
   const tu = ngay(req.query.tu) || '1970-01-01';
   const den = ngay(req.query.den) || '2999-12-31';
   const orgId = orgCua(req);
+  // Báo cáo gộp BA nguồn tiền, nên phải lọc cả ba theo người phụ trách — sót một nguồn là con
+  // số tổng của sale này gồm cả tiền của sale khác, mà nhìn bảng không ai phát hiện ra.
+  const chiMinh = req.nhanSuId ? ' AND p.nguoi_lap_id = ?' : '';
+  const chiMinhHoSo = req.nhanSuId ? ' AND h.tu_van_id = ?' : '';
+  const chiMinhKtx = req.nhanSuId ? ' AND hs.tu_van_id = ?' : '';
+  const tsMinh = req.nhanSuId ? [req.nhanSuId] : [];
   try {
     // 1. Phiếu tự lập
     const [phieu] = await pool.query(
       `SELECT p.loai, p.ngay, p.so_tien, COALESCE(dm.ten,'Chưa phân loại') AS danh_muc
          FROM quy_phieu p LEFT JOIN quy_danh_muc dm ON dm.id = p.danh_muc_id
-        WHERE p.org_id = ? AND p.ngay BETWEEN ? AND ?`, [orgId, tu, den]
+        WHERE p.org_id = ? AND p.ngay BETWEEN ? AND ?${chiMinh}`, [orgId, tu, den, ...tsMinh]
     );
     // 2. Phí dịch vụ du học — `hoan` là tiền TRẢ RA nên tính là chi.
     let duHoc = [];
@@ -379,7 +388,7 @@ router.get('/quy/bao-cao', async (req, res) => {
         `SELECT IF(t.loai='hoan','chi','thu') AS loai, t.ngay_thu AS ngay, t.so_tien,
                 'Phí dịch vụ du học' AS danh_muc
            FROM du_hoc_thu_tien t JOIN du_hoc_ho_so h ON h.id = t.ho_so_id
-          WHERE h.org_id = ? AND t.ngay_thu BETWEEN ? AND ?`, [orgId, tu, den]
+          WHERE h.org_id = ? AND t.ngay_thu BETWEEN ? AND ?${chiMinhHoSo}`, [orgId, tu, den, ...tsMinh]
       );
       duHoc = r;
     } catch (e) { if (!chuaCoBang(e)) throw e; }
@@ -393,7 +402,8 @@ router.get('/quy/bao-cao', async (req, res) => {
            JOIN ktx_o o ON o.id = tt.o_id
            JOIN ktx_phong p ON p.id = o.phong_id
            JOIN ktx_toa toa ON toa.id = p.toa_id
-          WHERE toa.org_id = ? AND tt.ngay_thu BETWEEN ? AND ?`, [orgId, tu, den]
+           ${req.nhanSuId ? 'JOIN du_hoc_ho_so hs ON hs.id = o.ho_so_id' : ''}
+          WHERE toa.org_id = ? AND tt.ngay_thu BETWEEN ? AND ?${chiMinhKtx}`, [orgId, tu, den, ...tsMinh]
       );
       ktx = r;
     } catch (e) { if (!chuaCoBang(e)) throw e; }

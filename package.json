@@ -52,7 +52,8 @@
     "gv:tao": "node scripts/tao-giao-vien.mjs",
     "db:anon:local": "node scripts/anonymize-local.mjs",
     "test:trung-tam": "node tests/luong-trung-tam.test.mjs",
-    "test": "node tests/phan-quyen.test.mjs && node tests/luong-trung-tam.test.mjs && node tests/luong-giaovien-hocvien.test.mjs && node tests/chong-cay-diem.test.mjs"
+    "test": "node tests/phan-quyen.test.mjs && node tests/luong-trung-tam.test.mjs && node tests/luong-giaovien-hocvien.test.mjs && node tests/chong-cay-diem.test.mjs",
+    "test:vai-tro": "node tests/vai-tro-nhan-su.test.mjs"
   },
   "devDependencies": {
     "@capacitor/cli": "^8.5.1",

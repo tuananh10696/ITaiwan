@@ -15,7 +15,7 @@
 import { Router } from 'express';
 import pool from '../config/db.js';
 import { requireAuth } from '../middleware/auth.js';
-import { loadRole, requireStaff, phamViQuanTri, requireOrgAdmin } from '../middleware/roles.js';
+import { loadRole, requireStaff, phamViQuanTri, requireHoSoStaff } from '../middleware/roles.js';
 
 const router = Router();
 
@@ -29,7 +29,7 @@ const router = Router();
 // `phamViQuanTri` lại tra bảng QUYEN bằng chính `req.path` -> mọi luật hết khớp.
 // `next('router')` thoát hẳn router này và trả quyền điều khiển về app để đi tiếp router sau.
 router.use((req, res, next) => (/^\/ktx(\/|$)/.test(req.path) ? next() : next('router')));
-router.use(requireAuth, loadRole, requireStaff, phamViQuanTri, requireOrgAdmin);
+router.use(requireAuth, loadRole, requireStaff, phamViQuanTri, requireHoSoStaff);
 
 const ANH_TOI_DA = 900_000;
 const HINH_THUC = ['tien-mat', 'chuyen-khoan', 'the', 'khac'];
@@ -254,11 +254,18 @@ router.get('/ktx/phong/:id', async (req, res) => {
   try {
     const p = await layPhong(req.params.id, orgCua(req));
     if (!p) return res.status(404).json({ error: 'Không tìm thấy phòng.' });
+    // Sale / quản lý hồ sơ chỉ thấy DANH SÁCH học sinh của mình trong phòng. Họ vẫn cần biết
+    // phòng còn mấy chỗ, nên số người đang ở được đếm RIÊNG trên toàn phòng (`so_dang_o` dưới
+    // đây) — con số thì chia sẻ được, còn tên và điện thoại học sinh của đồng nghiệp thì không.
     const [nguoiO] = await pool.query(
       `SELECT o.*, h.ma_hs, h.buoc AS buoc_du_hoc
          FROM ktx_o o LEFT JOIN du_hoc_ho_so h ON h.id = o.ho_so_id
-        WHERE o.phong_id = ?
-        ORDER BY o.trang_thai, o.ngay_vao DESC`, [req.params.id]
+        WHERE o.phong_id = ?${req.nhanSuId ? ' AND h.tu_van_id = ?' : ''}
+        ORDER BY o.trang_thai, o.ngay_vao DESC`,
+      [req.params.id, ...(req.nhanSuId ? [req.nhanSuId] : [])]
+    );
+    const [[dem]] = await pool.query(
+      "SELECT COUNT(*) AS n FROM ktx_o WHERE phong_id = ? AND trang_thai = 'dang-o'", [req.params.id]
     );
     const [thu] = await pool.query(
       `SELECT tt.id, tt.o_id, tt.ky, tt.loai, tt.so_tien, tt.ngay_thu, tt.hinh_thuc,
@@ -267,10 +274,12 @@ router.get('/ktx/phong/:id', async (req, res) => {
          FROM ktx_thu_tien tt
          JOIN ktx_o o ON o.id = tt.o_id
          LEFT JOIN users u ON u.id = tt.nguoi_thu_id
-        WHERE o.phong_id = ?
-        ORDER BY tt.ngay_thu DESC, tt.id DESC LIMIT 200`, [req.params.id]
+         ${req.nhanSuId ? 'JOIN du_hoc_ho_so hs ON hs.id = o.ho_so_id' : ''}
+        WHERE o.phong_id = ?${req.nhanSuId ? ' AND hs.tu_van_id = ?' : ''}
+        ORDER BY tt.ngay_thu DESC, tt.id DESC LIMIT 200`,
+      [req.params.id, ...(req.nhanSuId ? [req.nhanSuId] : [])]
     );
-    res.json({ phong: p, nguoi_o: nguoiO, thu_tien: thu });
+    res.json({ phong: p, nguoi_o: nguoiO, thu_tien: thu, so_dang_o: dem.n });
   } catch (err) {
     console.error('Lỗi đọc chi tiết phòng:', err);
     res.status(500).json({ error: loiBang(err, 'Không đọc được chi tiết phòng.') });
@@ -374,7 +383,13 @@ router.post('/ktx/phong/:id/nguoi', async (req, res) => {
     // khác rồi đọc thông tin bên đó, đúng lỗ hổng đã vá ở 4.49.
     let hsId = null;
     if (ho_so_id) {
-      const [h] = await pool.query('SELECT id FROM du_hoc_ho_so WHERE id = ? AND org_id = ?', [ho_so_id, orgId]);
+      // `ho_so_id` nằm trong BODY nên bảng quyền không chặn được — kiểm tại đây. Thiếu dòng
+      // `tu_van_id` này thì một sale xếp học sinh của sale khác vào phòng, và từ đó đọc được
+      // tên, điện thoại, tiền phòng của em đó qua màn hình ký túc xá.
+      const [h] = await pool.query(
+        'SELECT id FROM du_hoc_ho_so WHERE id = ? AND org_id = ?'
+        + (req.nhanSuId ? ' AND tu_van_id = ?' : ''),
+        [ho_so_id, orgId, ...(req.nhanSuId ? [req.nhanSuId] : [])]);
       if (!h.length) return res.status(400).json({ error: 'Hồ sơ du học không hợp lệ.' });
       const [dangO] = await pool.query("SELECT id FROM ktx_o WHERE ho_so_id = ? AND trang_thai='dang-o'", [ho_so_id]);
       if (dangO.length) return res.status(409).json({ error: 'Học sinh này đang ở một phòng khác. Cho trả phòng cũ trước.' });
@@ -550,8 +565,10 @@ router.get('/ktx/cong-no', async (req, res) => {
          FROM ktx_o o
          JOIN ktx_phong p ON p.id = o.phong_id
          JOIN ktx_toa t ON t.id = p.toa_id
-        WHERE t.org_id = ?
-        ORDER BY o.trang_thai, t.ten, p.ten_phong, o.ho_ten`, [orgId]
+         ${req.nhanSuId ? 'JOIN du_hoc_ho_so hs ON hs.id = o.ho_so_id' : ''}
+        WHERE t.org_id = ?${req.nhanSuId ? ' AND hs.tu_van_id = ?' : ''}
+        ORDER BY o.trang_thai, t.ten, p.ten_phong, o.ho_ten`,
+      [orgId, ...(req.nhanSuId ? [req.nhanSuId] : [])]
     );
     const [daThu] = await pool.query(
       `SELECT tt.o_id, tt.ky,
@@ -561,8 +578,10 @@ router.get('/ktx/cong-no', async (req, res) => {
          JOIN ktx_o o ON o.id = tt.o_id
          JOIN ktx_phong p ON p.id = o.phong_id
          JOIN ktx_toa t ON t.id = p.toa_id
-        WHERE t.org_id = ? AND tt.ky BETWEEN ? AND ?
-        GROUP BY tt.o_id, tt.ky`, [orgId, cacKy[0], cacKy[cacKy.length - 1]]
+         ${req.nhanSuId ? 'JOIN du_hoc_ho_so hs ON hs.id = o.ho_so_id' : ''}
+        WHERE t.org_id = ? AND tt.ky BETWEEN ? AND ?${req.nhanSuId ? ' AND hs.tu_van_id = ?' : ''}
+        GROUP BY tt.o_id, tt.ky`,
+      [orgId, cacKy[0], cacKy[cacKy.length - 1], ...(req.nhanSuId ? [req.nhanSuId] : [])]
     );
     const tra = new Map();
     for (const r of daThu) tra.set(`${r.o_id}|${r.ky}`, { tong: Number(r.tong), tien_phong: Number(r.tien_phong) });
@@ -594,7 +613,8 @@ router.get('/ktx/ho-so-chon', async (req, res) => {
   try {
     const ts = [orgCua(req)];
     let dk = '';
-    if (tim) { dk = ' AND (h.ho_ten LIKE ? OR h.ma_hs LIKE ? OR h.phone LIKE ?)'; const k = `%${tim}%`; ts.push(k, k, k); }
+    if (req.nhanSuId) { dk += ' AND h.tu_van_id = ?'; ts.push(req.nhanSuId); }
+    if (tim) { dk += ' AND (h.ho_ten LIKE ? OR h.ma_hs LIKE ? OR h.phone LIKE ?)'; const k = `%${tim}%`; ts.push(k, k, k); }
     const [rows] = await pool.query(
       `SELECT h.id, h.ma_hs, h.ho_ten, h.phone, h.user_id,
               (SELECT p.ten_phong FROM ktx_o o JOIN ktx_phong p ON p.id = o.phong_id
