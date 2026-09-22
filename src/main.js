@@ -634,7 +634,7 @@ async function init() {
   const mangYeu = net.saveData === true || /2g|3g/.test(net.effectiveType || '');
   if (!mangYeu) {
     const ranh = window.requestIdleCallback || ((f) => setTimeout(f, 2500));
-    ranh(() => { napNgam('duongdai', ['1']); }, { timeout: 6000 });
+    ranh(() => { napNgam('thoidai', ['td1-1']); }, { timeout: 6000 });
   }
 }
 
@@ -722,22 +722,11 @@ function napFontHan() {
 // ============================================================
 async function loadApiData() {
   try {
-    // Load vocabulary, leaderboard, dialogues, blog in parallel
-    const [vocabRes, lbRes, dlgRes, blogRes] = await Promise.allSettled([
-      api.getVocabulary({ limit: 500 }),
+    // Chỉ còn bảng xếp hạng: từ vựng / hội thoại / blog của bản mock đã bỏ cùng các khu dùng
+    // chúng, gọi tiếp là 404 mỗi lần mở trang.
+    const [lbRes] = await Promise.allSettled([
       api.getLeaderboard(50),
-      api.getDialogues(),
-      api.getBlogPosts(),
     ]);
-
-    // Normalize vocabulary: API uses example_hanzi/example_meaning, mock uses example/exMeaning
-    if (vocabRes.status === 'fulfilled' && vocabRes.value.vocabulary) {
-      vocabularyData = vocabRes.value.vocabulary.map(w => ({
-        ...w,
-        example: w.example_hanzi || w.example || '',
-        exMeaning: w.example_meaning || w.exMeaning || '',
-      }));
-    }
 
     // Normalize leaderboard: API uses avatar_letter/avatar_color/points/level_label, mock uses avatar/color/score/level
     if (lbRes.status === 'fulfilled' && lbRes.value.leaderboard) {
@@ -749,42 +738,6 @@ async function loadApiData() {
         streak: u.streak || 0,
         avatar: u.avatar_letter || u.name.charAt(0),
         color: u.avatar_color || '#027AB3',
-      }));
-    }
-
-    // Normalize dialogues: API returns flat list + separate lines endpoint, mock has lines inline
-    if (dlgRes.status === 'fulfilled' && dlgRes.value.dialogues) {
-      const apiDialogues = dlgRes.value.dialogues;
-      const detailPromises = apiDialogues.map(d => api.getDialogue(d.id));
-      const detailResults = await Promise.allSettled(detailPromises);
-      dialogueData = apiDialogues.map((d, i) => {
-        const detail = detailResults[i];
-        const lines = (detail.status === 'fulfilled' && detail.value.lines) ? detail.value.lines.map(l => ({
-          speaker: l.speaker,
-          name: l.speaker_name,
-          hanzi: l.hanzi,
-          pinyin: l.pinyin,
-          meaning: l.meaning,
-        })) : [];
-        return {
-          id: d.id,
-          title: d.title,
-          titleCn: d.title_cn,
-          level: d.level,
-          lines,
-        };
-      });
-    }
-
-    // Normalize blog: API uses published_at (date string), mock uses date (formatted)
-    if (blogRes.status === 'fulfilled' && blogRes.value.posts) {
-      blogData = blogRes.value.posts.map(p => ({
-        id: p.id,
-        title: p.title,
-        excerpt: p.excerpt || '',
-        date: p.published_at ? new Date(p.published_at).toLocaleDateString('vi-VN') : '',
-        category: p.category || '',
-        emoji: p.emoji || '📝',
       }));
     }
 
@@ -860,9 +813,7 @@ const GIAO_TRINH_PARAMS = {
         }
       }
       // /quyen-2 không kèm bài -> mở bài 1.1 của quyển đó (Thời Đại luôn có tiền tố 'td').
-      const rawSub = subId || (ddState.tb === 'hsk' ? `hsk${book}-1.1`
-        : ddState.tb === 'thoidai' ? `td${book}-1.1`
-        : (book !== 1 ? `${book}-1.1` : ''));
+      const rawSub = subId || `td${book}-1.1`;
       if (rawSub && TB().subs.some(x => x.id === rawSub) && ddState.selectedSub !== rawSub) {
         ddState.selectedSub = rawSub;
         ddState.fcIdx = 0;
@@ -1105,16 +1056,6 @@ function legacyHashToPath() {
   const parts = hash.split('/').filter(Boolean);
   const page = parts[0];
   if (!page || !pagePath[page]) return null;
-  if (page === 'tocfl-duongdai') {
-    const sub = parts[1] && TB().subs.some(x => x.id === parts[1]) ? parts[1] : null;
-    const tab = parts[2] || null;
-    return buildPath(page, {
-      segs: [
-        sub ? 'bai-' + sub.replace(/\./g, '-') : null,
-        tab ? (DD_TAB_SLUG[tab] || tab) : null,
-      ].filter(Boolean),
-    });
-  }
   return buildPath(page, { segs: parts.slice(1) });
 }
 
@@ -1232,7 +1173,7 @@ const NAV_BOOKS_MENU = 'dd-quyen';
 function navBooksHtml(item) {
   // Mỗi bộ giáo trình có nhóm quyển RIÊNG (khoá menu riêng) — nếu dùng chung khoá thì bung nhóm
   // này sẽ bung luôn nhóm kia và `active` nhảy sang bộ khác.
-  const tbId = item.id === 'tocfl-thoidai' ? 'thoidai' : item.id === 'hsk-30' ? 'hsk' : 'duongdai';
+  const tbId = 'thoidai';
   const menuKey = `${NAV_BOOKS_MENU}-${tbId}`;
   const onPage = state.currentPage === item.id;
   const open = isMenuOpen(menuKey) || onPage;
@@ -1321,7 +1262,7 @@ function updateNavActive(page) {
   // đổi thành `dd-quyen-<bộ>` từ lúc thêm Thời Đại (4.27) — selector không khớp gì nên không bao
   // giờ bung được, mà cũng không báo lỗi. Sở dĩ Đương đại vẫn thấy mở là nhờ 'dd-quyen-duongdai'
   // nằm sẵn trong giá trị mặc định của `tw_open_menus`, còn Thời Đại thì im lặng không bung.
-  const tbCuaTrang = { 'tocfl-duongdai': 'duongdai', 'tocfl-thoidai': 'thoidai', 'hsk-30': 'hsk' }[page];
+  const tbCuaTrang = { 'tocfl-thoidai': 'thoidai' }[page];
   if (tbCuaTrang) {
     const key = `${NAV_BOOKS_MENU}-${tbCuaTrang}`;
     const g = document.querySelector(`.nav-group[data-menu="${key}"]`);
@@ -1335,8 +1276,7 @@ function updateNavActive(page) {
  * navigate() (ddSelectSub chỉ đổi state rồi render lại) — renderDuongdai() gọi lại hàm này.
  */
 function updateNavBooks() {
-  const onPage = state.currentPage === 'tocfl-duongdai' || state.currentPage === 'tocfl-thoidai'
-    || state.currentPage === 'hsk-30';
+  const onPage = state.currentPage === 'tocfl-thoidai';
   const cur = onPage ? ddCurrentBook() : null;
   document.querySelectorAll('.nav-item[data-book]').forEach(el => {
     // Phải so CẢ bộ giáo trình: hai bộ đều có "Quyển 2", so mỗi số thì tô sáng nhầm bên kia.
@@ -1519,8 +1459,8 @@ function navigate(page, params, opts) {
 
   // BA trang giáo trình dùng CHUNG toàn bộ renderer dd* — chỉ khác nguồn dữ liệu, chọn ở đây
   // TRƯỚC read()/write()/render (mọi hàm bên dưới đọc TB() theo ddState.tb).
-  if (page === 'tocfl-duongdai' || page === 'tocfl-thoidai' || page === 'hsk-30') {
-    const tbMoi = page === 'tocfl-thoidai' ? 'thoidai' : page === 'hsk-30' ? 'hsk' : 'duongdai';
+  if (page === 'tocfl-thoidai') {
+    const tbMoi = 'thoidai';
     if (ddState.tb !== tbMoi) {
       ddState.tb = tbMoi;
       // Đổi bộ thì bài đang chọn của bộ cũ vô nghĩa -> về bài đầu của bộ mới (read() bên dưới
@@ -1864,7 +1804,7 @@ function heroHtml() {
           ? 'Mỗi ngày một chút — hệ thống tự nhắc bạn ôn đúng lúc sắp quên.'
           : 'Giáo trình có giọng đọc thật của sách, ngữ pháp giải thích bằng tiếng Việt, từ điển 122.596 mục và đề thi thử TOCFL.'}</p>
         <div class="hero-actions">
-          <button class="hero-cta" onclick="window.app.navigate('${state.isLoggedIn ? 'path-today' : 'tocfl-duongdai'}')">
+          <button class="hero-cta" onclick="window.app.navigate('${state.isLoggedIn ? 'path-today' : 'tocfl-thoidai'}')">
             ${ten ? 'Hôm nay học gì?' : 'Học thử miễn phí'} <i class="fa-solid fa-arrow-right"></i>
           </button>
           <button class="hero-ghost" onclick="window.app.navigate('exam')">
@@ -1916,14 +1856,14 @@ function tcRoadmapHtml(daHoc) {
                 <span class="rm-spine"></span>
                 <span class="rm-series font-tc">${t.hanzi}</span>
                 <span class="rm-mid">
-                  <span class="rm-tap">${t.id === 'hsk' ? 'CẤP' : 'QUYỂN'}</span>
+                  <span class="rm-tap">QUYỂN</span>
                   <span class="rm-num">${b.id}</span>
                 </span>
                 <span class="rm-lv">${b.chip || b.level.replace('TOCFL ', '')}</span>
                 ${ready ? '' : '<span class="rm-soon">Sắp có</span>'}
                 ${xong > 0 ? `<span class="rm-pt"><i style="width:${pt}%"></i></span>` : ''}
               </div>
-              <span class="roadmap-label">${t.id === 'hsk' ? b.label : `Quyển ${b.id}`}</span>
+              <span class="roadmap-label">Quyển ${b.id}</span>
               ${xong > 0 ? `<span class="rm-done">${xong}/${subs.length} bài</span>` : ''}
             </div>`;
           }).join('')}
@@ -2078,7 +2018,7 @@ function tcKhachHtml() {
           ${tcSectionHtml('fa-solid fa-box-open', 'Kho học liệu', '', '')}
           <div class="tc-kho-grid">
             ${[
-              ['fa-solid fa-book', tcSo(k.bai), 'bài học có nội dung thật', 'tocfl-duongdai'],
+              ['fa-solid fa-book', tcSo(k.bai), 'bài học có nội dung thật', 'tocfl-thoidai'],
               ['fa-solid fa-language', tcSo(k.tu), 'từ vựng kèm giọng đọc', 'tocfl-vocab'],
               ['fa-solid fa-book-open', tcSo(TC_KHO.tuDien), 'mục từ điển Trung–Việt', 'dictionary'],
               ['fa-solid fa-torii-gate', tcSo(TC_KHO.boThu), 'bộ thủ + âm Hán Việt', 'radicals'],
@@ -2134,21 +2074,7 @@ function tcKhachHtml() {
            KHÔNG dán lại đoạn gọi hàm vào trong comment này: chú thích nằm trong template
            literal nên backtick sẽ đóng chuỗi sớm, và cú pháp nội suy vẫn được chạy. -->
 
-      <div id="tc-cd"></div>
 
-      ${blogData && blogData.length ? `
-      <div>
-        ${tcSectionHtml('fa-solid fa-newspaper', 'Cẩm nang mới nhất', 'Xem tất cả', 'blog')}
-        <div class="tc-blog-grid">
-          ${blogData.slice(0, 3).map((p) => `
-            <div class="tc-blog" onclick="window.app.navigate('blog', { segs: ['${p.id}'] })">
-              <span class="tc-blog-emoji">${p.emoji || '📝'}</span>
-              <h4>${tdEsc(p.title)}</h4>
-              <p>${tdEsc((p.excerpt || '').slice(0, 110))}</p>
-              <span class="tc-blog-meta">${tdEsc(p.category || 'Cẩm nang')}${p.date ? ` · ${tdEsc(p.date)}` : ''}</span>
-            </div>`).join('')}
-        </div>
-      </div>` : ''}
     </div>`;
 }
 
@@ -2227,7 +2153,6 @@ function tcHocVienHtml() {
 
       <!-- TẠM ẨN "Người đứng sau ITaiwan" 2026-09-11 — xem chú thích ở bản khách phía trên. -->
 
-      <div id="tc-cd"></div>
     </div>`;
 }
 
@@ -2284,130 +2209,7 @@ async function tcNapSoLieu() {
   tcVeLive(d);
 }
 
-// ------------------------------------------------------------------
-// TRANG CHỦ — ba khối CỘNG ĐỒNG (2026-09-11)
-// ------------------------------------------------------------------
-// Học bổng · Bài viết mới nhất · Thảo luận sôi nổi. Một request gộp
-// (`GET /api/cong-dong/trang-chu`), CÔNG KHAI nên khách cũng thấy.
-//
-// ⚠️ Khối nào KHÔNG có dữ liệu thì ẩn hẳn khối đó, và cả ba rỗng thì `#tc-cd` trống trơn —
-// đây là yêu cầu rõ của chủ dự án khi làm trước lúc có nội dung. Đừng thay bằng ô "chưa có bài
-// nào": trang chủ mà đầy ô rỗng thì trông như hệ thống hỏng, chứ không phải như đang chờ nội dung.
-
-let _cdCache = null;   // { luc, d } — cùng lý do với `_tcCache`: renderDashboard chạy 2 lượt
-
-/** Bài cộng đồng -> đúng trang chi tiết theo `loai`. Ba loại nằm ở ba route khác nhau (4.39).
- *  Tên có đuôi `Cd` vì `tcMoBai()` đã là hàm mở BÀI HỌC của khối "Học tiếp". */
-function tcMoBaiCd(loai, id) {
-  const trang = { 'thao-luan': 'community-forum', 'tin-tuc': 'community-news', vlog: 'community-vlog' }[loai] || 'blog';
-  navigate(trang, { segs: [String(id)] });
-}
-
-function tcHocBongHtml(ds) {
-  if (!ds.length) return '';
-  return `<div>
-    ${tcSectionHtml('fa-solid fa-graduation-cap', 'Học bổng du học Đài Loan', 'Xem tất cả', 'community-scholarship')}
-    <div class="tc-hb-grid">
-      ${ds.map((h) => `
-        <button class="tc-hb" onclick="window.app.navigate('community-scholarship')">
-          <span class="tc-hb-ic"><i class="fa-solid fa-award"></i></span>
-          <span class="tc-hb-body">
-            <span class="tc-hb-ten">${tdEsc(h.ten)}</span>
-            ${h.don_vi ? `<span class="tc-hb-dv">${tdEsc(h.don_vi)}</span>` : ''}
-            <span class="tc-hb-meta">
-              ${h.gia_tri ? `<span class="tc-hb-chip">${tdEsc(String(h.gia_tri).slice(0, 40))}</span>` : ''}
-              <span class="tc-hb-han"><i class="fa-regular fa-calendar"></i> ${tdEsc(h.han_nop || 'Xem trang chính thức')}</span>
-            </span>
-          </span>
-        </button>`).join('')}
-    </div>
-  </div>`;
-}
-
-function tcBaiMoiHtml(ds) {
-  if (!ds.length) return '';
-  // Dùng lại `.tc-blog-grid` / `.tc-blog` sẵn có của khối "Cẩm nang mới nhất" — cùng hình dạng
-  // thẻ, không cần CSS mới.
-  return `<div>
-    ${tcSectionHtml('fa-solid fa-newspaper', 'Bài viết mới nhất', 'Xem tất cả', 'blog')}
-    <div class="tc-blog-grid">
-      ${ds.map((b) => `
-        <div class="tc-blog" onclick="window.app.tcMoBaiCd('${b.loai}', ${b.id})">
-          <span class="tc-blog-emoji">${b.emoji || (b.loai === 'tin-tuc' ? '📰' : '📝')}</span>
-          <h4>${tdEsc(b.tieu_de)}</h4>
-          <p>${tdEsc((b.tom_tat || '').slice(0, 110))}</p>
-          <span class="tc-blog-meta">
-            ${b.tac_gia ? `${tdEsc(b.tac_gia)} · ` : ''}${tcNgayNgan(b.created_at)}
-          </span>
-        </div>`).join('')}
-    </div>
-  </div>`;
-}
-
-function tcThaoLuanHtml(ds) {
-  if (!ds.length) return '';
-  return `<div>
-    ${tcSectionHtml('fa-solid fa-comments', 'Thảo luận sôi nổi', 'Xem tất cả', 'community-forum')}
-    <div class="tc-tl-grid">
-      ${ds.map((b) => `
-        <button class="tc-tl" onclick="window.app.tcMoBaiCd('thao-luan', ${b.id})">
-          <span class="tc-tl-top">
-            <span class="tc-tl-ten">${tdEsc(b.tieu_de)}</span>
-            ${b.tom_tat ? `<span class="tc-tl-mo">${tdEsc(String(b.tom_tat).slice(0, 90))}</span>` : ''}
-          </span>
-          <span class="tc-tl-meta">
-            <span><i class="fa-regular fa-comment"></i> ${b.so_binh_luan || 0}</span>
-            <span><i class="fa-regular fa-heart"></i> ${b.so_thich || 0}</span>
-            <span class="tc-tl-ng">${b.tac_gia ? tdEsc(b.tac_gia) : 'Ẩn danh'}</span>
-          </span>
-        </button>`).join('')}
-    </div>
-  </div>`;
-}
-
-/** "3 ngày trước" / "12/09/2026" — ngắn hơn `timeAgo` vì thẻ bài viết rất hẹp. */
-function tcNgayNgan(x) {
-  const d = new Date(x);
-  if (isNaN(d)) return '';
-  const ngay = Math.floor((Date.now() - d.getTime()) / 86400000);
-  if (ngay <= 0) return 'hôm nay';
-  if (ngay === 1) return 'hôm qua';
-  if (ngay < 30) return `${ngay} ngày trước`;
-  return d.toLocaleDateString('vi-VN');
-}
-
-/**
- * Nạp ba khối. KHÔNG đòi đăng nhập — đây là nội dung công khai, khách xem được.
- * Lỗi mạng / chưa chạy migration thì im lặng bỏ qua: ba khối này là phần THÊM của trang chủ,
- * hỏng chúng không được kéo theo phần tiến độ học.
- */
-async function tcNapCongDong() {
-  const box = document.getElementById('tc-cd');
-  if (!box) return;
-  let d;
-  if (_cdCache && Date.now() - _cdCache.luc < TC_CACHE_MS) {
-    d = _cdCache.d;
-  } else {
-    try {
-      d = await api.get('/cong-dong/trang-chu');
-      _cdCache = { luc: Date.now(), d };
-    } catch (e) {
-      console.warn('Không tải được khối cộng đồng:', e.message || e);
-      return;
-    }
-  }
-  if (state.currentPage !== 'dashboard') return;   // đã sang trang khác trong lúc chờ
-  const now = document.getElementById('tc-cd');
-  if (!now) return;
-  const html = tcHocBongHtml(d.hoc_bong || [])
-    + tcBaiMoiHtml(d.moi_nhat || [])
-    + tcThaoLuanHtml(d.soi_noi || []);
-  now.innerHTML = html;
-  if (html) twPlayEnter(now, 'tw-entering');
-}
-
-/** Sau khi nộp bài / mua khoá thì số liệu trang chủ đã cũ — gọi hàm này để lần vẽ sau nạp lại. */
-function tcQuenCache() { _tcCache = null; _bgCache = null; _cdCache = null; }
+function tcQuenCache() { _tcCache = null; _bgCache = null; }
 
 /** Điền mọi chỗ phụ thuộc số liệu: khối động, ba ô hero, thẻ hồ sơ, tiến độ trên bìa sách. */
 function tcVeLive(d) {
@@ -2441,12 +2243,12 @@ function tcVeLive(d) {
  */
 function tcTiepTucHtml(d, daHoc) {
   const gan = (d.gan_nhat || []).find((r) => r.lesson_id && !String(r.lesson_id).includes(':'));
-  const bo = gan ? tbOf(gan.lesson_id) : GIAO_TRINH.duongdai;
+  const bo = gan ? tbOf(gan.lesson_id) : GIAO_TRINH.thoidai;
   const ke = bo.subs.find((s) => !daHoc.has(s.id))
-    || GIAO_TRINH.duongdai.subs.find((s) => !daHoc.has(s.id));
+    || GIAO_TRINH.thoidai.subs.find((s) => !daHoc.has(s.id));
 
   if (!gan && !daHoc.size) {
-    const s = tcBaiDau('duongdai');
+    const s = tcBaiDau('thoidai');
     return `
       <div class="tc-next is-moi" onclick="window.app.tcMoBai('${s.id}')">
         <div class="tc-next-ic"><i class="fa-solid fa-flag-checkered"></i></div>
@@ -2466,7 +2268,7 @@ function tcTiepTucHtml(d, daHoc) {
       <div class="tc-next-ic"><i class="fa-solid fa-play"></i></div>
       <div class="tc-next-body">
         <span class="tc-next-tag">Học tiếp</span>
-        <h3>${ke ? tdEsc(`${bo.ten}${ke.book !== 1 || bo.id !== 'duongdai' ? ` Q${ke.book}` : ''} — ${ke.title}`) : 'Bạn đã làm hết bài của bộ này 🎉'}</h3>
+        <h3>${ke ? tdEsc(`${bo.ten} Q${ke.book} — ${ke.title}`) : 'Bạn đã làm hết bài của bộ này 🎉'}</h3>
         <p>${ganSub
           ? `Gần nhất: ${tdEsc(ganSub.title)}${diem ? ` · đạt ${diem}` : ''}`
           : 'Tiếp tục từ bài chưa làm bài tập.'}</p>
@@ -2565,9 +2367,6 @@ function renderDashboard(el) {
     loadMyAssignments();
     tcNapSoLieu();
   }
-  // Ba khối cộng đồng chạy cho CẢ khách lẫn học viên — nội dung công khai, và với khách thì đây
-  // là thứ cho thấy chỗ này có người thật đang học chứ không phải một kho tài liệu chết.
-  tcNapCongDong();
 }
 
 // ============================================================
@@ -5031,7 +4830,7 @@ function toggleMascot() {
 document.addEventListener('keydown', (e) => {
   if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
 
-  if (state.currentPage === 'tocfl-duongdai' && ddState.activeTab === 'flashcard') {
+  if (state.currentPage === 'tocfl-thoidai' && ddState.activeTab === 'flashcard') {
     if (e.target && /^(INPUT|TEXTAREA)$/.test(e.target.tagName)) return;
     if (e.key === 'ArrowRight') { e.preventDefault(); ddFcNav(1); }
     if (e.key === 'ArrowLeft') { e.preventDefault(); ddFcNav(-1); }
@@ -10177,7 +9976,7 @@ window.app = {
   tvQuizStart, tvQuizChon, tvQuizNav, tvQuizNop, tvQuizThoat,
 
   // Trang chủ (viết lại 2026-09-10)
-  tcMoBai, tcNapSoLieu, tcNapCongDong, tcMoBaiCd,
+  tcMoBai, tcNapSoLieu,
 
   navigate,
   toggleMenu,

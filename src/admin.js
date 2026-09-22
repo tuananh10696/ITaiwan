@@ -4122,7 +4122,6 @@ window.adminApp = {
   jumpToAttendance, jumpToStudent,
   // Duyệt thanh toán (4.42)
   // Reorder
-  moveItem,
 };
 
 // Auto-check auth on load
