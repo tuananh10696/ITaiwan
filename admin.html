@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tẻn - Admin Dashboard</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <!-- Be Vietnam Pro: đủ dấu tiếng Việt (xem ghi chú font ở src/css/style.css). Inter làm dự phòng. -->
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Quill.js Rich Text Editor -->
+  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+  <!-- Font Awesome SUBSET tự host: chỉ những icon dự án dùng (CLAUDE.md 4.32).
+       Dùng chung file với cổng học viên; thêm icon mới -> `npm run data:fa`. -->
+  <link rel="stylesheet" href="/fa/fa-subset.css">
+  <link rel="stylesheet" href="/src/css/admin.css">
+  <script>
+    // PHẢI nằm trong <head> và chạy ĐỒNG BỘ, trước khi trình duyệt vẽ bất cứ thứ gì trong <body>.
+    // Nếu đặt ở cuối <body> (như bản vá trước) thì #login-gate đã được parse + vẽ xong rồi mới bị ẩn
+    // => vẫn thấy chớp màn đăng nhập mỗi lần F5.
+    // Có token = phiên có thể còn hạn -> vào trạng thái "đang kiểm tra": ẩn form đăng nhập, hiện splash.
+    // checkAuth() trong admin.js sẽ gỡ class này ra khi biết chắc kết quả.
+    try {
+      if (localStorage.getItem('tw_token')) {
+        document.documentElement.classList.add('tw-auth-checking');
+        // Chốt an toàn: nếu admin.js không tải được (mạng lỗi, chặn script...) thì splash sẽ treo
+        // vĩnh viễn và người dùng không thấy cả form đăng nhập. Sau 10s tự trả về form đăng nhập.
+        setTimeout(function () {
+          document.documentElement.classList.remove('tw-auth-checking');
+        }, 10000);
+      }
+    } catch (e) { /* trình duyệt chặn localStorage -> cứ hiện form đăng nhập như bình thường */ }
+  </script>
+</head>
+<body>
+  <!-- Splash "đang kiểm tra phiên đăng nhập": chỉ hiện khi <html> có class tw-auth-checking -->
+  <div id="auth-splash" class="auth-splash">
+    <div class="auth-splash-box">
+      <span class="logo-tw">Tẻn</span><span class="logo-di">Admin</span>
+      <div class="auth-splash-spinner"><i class="fa-solid fa-spinner fa-spin"></i></div>
+    </div>
+  </div>
+  <!-- Login Gate -->
+  <div id="login-gate" class="login-gate">
+    <div class="login-card">
+      <div class="login-logo">
+        <span class="logo-tw">Tẻn</span><span class="logo-di">Admin</span>
+        <span class="logo-badge">ADMIN</span>
+      </div>
+      <h2>Đăng nhập Quản trị</h2>
+      <p class="login-desc">Chỉ tài khoản Admin mới có quyền truy cập.</p>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" id="login-email" placeholder="admin@ten.vn" autocomplete="username">
+      </div>
+      <div class="form-group">
+        <label>Mật khẩu</label>
+        <input type="password" id="login-password" placeholder="••••••" autocomplete="current-password">
+      </div>
+      <div id="login-error" class="login-error" style="display:none"></div>
+      <button id="login-btn" class="btn btn-primary btn-full" onclick="adminApp.login()">
+        <i class="fa-solid fa-right-to-bracket"></i> ĐĂNG NHẬP
+      </button>
+    </div>
+  </div>
+
+  <!-- Admin Shell -->
+  <div id="admin-shell" class="admin-shell" style="display:none">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar" id="admin-sidebar">
+      <div class="sidebar-header">
+        <div class="admin-logo">
+          <span class="logo-tw">Tẻn</span><span class="logo-di">Admin</span>
+        </div>
+        <span class="admin-badge" id="vai-tro-badge">ADMIN</span>
+      </div>
+      <nav class="sidebar-nav">
+        <!-- 2026-08-25: đưa nhóm quản lý học viên lên ĐẦU sidebar (trước đây nằm cuối, dưới nội dung)
+             — đây là việc giáo viên dùng hằng ngày, nội dung học thì thỉnh thoảng mới sửa. -->
+        <div class="nav-section-label">DẠY &amp; HỌC</div>
+        <div class="nav-item" data-section="classes" onclick="adminApp.navigate('classes')">
+          <i class="fa-solid fa-chalkboard-user"></i> Quản lý lớp
+        </div>
+        <!-- Hồ sơ du học (2026-09-15): Nhận hồ sơ -> Đóng tiền -> Học -> Phỏng vấn -> Visa -> Bay.
+             data-tu-quan-tri = admin nền tảng + quản trị trung tâm. Giáo viên KHÔNG thấy, vì hồ sơ
+             có CCCD / hộ chiếu / tiền nong (server cũng chặn, xem middleware/roles.js). -->
+        <div class="nav-item" data-section="du-hoc" data-tu-quan-tri onclick="adminApp.navigate('du-hoc')">
+          <i class="fa-solid fa-plane-departure"></i> Hồ sơ du học
+        </div>
+
+        <!-- Ba khu vận hành trung tâm (2026-09-17).
+             data-tu-quan-tri = admin nền tảng + quản trị trung tâm. Sổ quỹ và ký túc xá có tiền
+             nong + thông tin cá nhân nên giáo viên KHÔNG thấy; riêng "Đề bài" thì giáo viên CÓ
+             thấy (họ là người ra đề), nên mục đó không gắn thuộc tính nào. -->
+        <div class="nav-item" data-section="quy" data-tu-quan-tri onclick="adminApp.navigate('quy')">
+          <i class="fa-solid fa-wallet"></i><span>Sổ thu – chi</span>
+        </div>
+        <div class="nav-item" data-section="ktx" data-tu-quan-tri onclick="adminApp.navigate('ktx')">
+          <i class="fa-solid fa-bed"></i><span>Ký túc xá</span>
+        </div>
+        <div class="nav-item" data-section="de-bai" onclick="adminApp.navigate('de-bai')">
+          <i class="fa-solid fa-file-pen"></i><span>Đề bài &amp; kiểm tra</span>
+        </div>
+        <div class="nav-item" data-section="users" data-chi-admin onclick="adminApp.navigate('users')">
+          <i class="fa-solid fa-users"></i> Học viên &amp; tài khoản <span id="pending-badge" class="pending-badge" style="display:none"></span>
+        </div>
+        <div class="nav-item" data-section="teachers" data-tu-quan-tri onclick="adminApp.navigate('teachers')">
+          <i class="fa-solid fa-chalkboard"></i> Giáo viên
+        </div>
+        <div class="nav-item active" data-section="dashboard" onclick="adminApp.navigate('dashboard')">
+          <i class="fa-solid fa-chart-line"></i> Tổng quan
+        </div>
+        <!-- Khu vận hành kinh doanh (2026-09-09): trung tâm thuê hệ thống + quyền học đã bán.
+             "Trung tâm" chỉ admin nền tảng thấy; "Quyền học" thì quản trị trung tâm cũng thấy
+             (chỉ để TRA CỨU — nút cấp/thu hồi do server chặn, xem routes/to-chuc.js). -->
+        <div class="nav-section-label" data-tu-quan-tri>KINH DOANH</div>
+        <div class="nav-item" data-section="to-chuc" data-chi-admin onclick="adminApp.navigate('to-chuc')">
+          <i class="fa-solid fa-building"></i> Trung tâm &amp; hợp đồng
+        </div>
+        <div class="nav-item" data-section="quyen-hoc" data-tu-quan-tri onclick="adminApp.navigate('quyen-hoc')">
+          <i class="fa-solid fa-key"></i> Quyền học
+        </div>
+        <!-- Duyệt chuyển khoản: chỉ admin NỀN TẢNG. Tiền về tài khoản của chủ nền tảng nên chỉ
+             chủ nền tảng mới được xác nhận đã nhận tiền (server chặn bằng requireAdminOnly). -->
+        <div class="nav-item" data-section="thanh-toan" data-chi-admin onclick="adminApp.navigate('thanh-toan')">
+          <i class="fa-solid fa-receipt"></i> Duyệt thanh toán
+          <span class="tt-badge" id="tt-badge" hidden></span>
+        </div>
+        <!-- Chống chia sẻ tài khoản: hàng chờ những lần đăng nhập bị chặn vì quá 2 thiết bị.
+             Chỉ admin NỀN TẢNG — danh sách trải khắp mọi tổ chức. Xem server/utils/thiet-bi.js. -->
+        <div class="nav-item" data-section="thiet-bi" data-chi-admin onclick="adminApp.navigate('thiet-bi')">
+          <i class="fa-solid fa-mobile-screen-button"></i> Thiết bị đăng nhập
+          <span class="tt-badge" id="tb-badge" hidden></span>
+        </div>
+        <div class="nav-section-label" data-chi-admin>NỘI DUNG HỌC</div>
+        <div class="nav-item" data-section="vocabulary" data-chi-admin onclick="adminApp.navigate('vocabulary')">
+          <i class="fa-solid fa-language"></i> Từ vựng
+        </div>
+        <div class="nav-item" data-section="exam" data-chi-admin onclick="adminApp.navigate('exam')">
+          <i class="fa-solid fa-file-pen"></i> Câu hỏi thi
+        </div>
+        <div class="nav-item" data-section="dialogues" data-chi-admin onclick="adminApp.navigate('dialogues')">
+          <i class="fa-solid fa-comments"></i> Hội thoại
+        </div>
+        <div class="nav-item" data-section="blog" data-chi-admin onclick="adminApp.navigate('blog')">
+          <i class="fa-solid fa-newspaper"></i> Blog
+        </div>
+      </nav>
+      <div class="sidebar-footer">
+        <a href="/" class="nav-item back-link"><i class="fa-solid fa-arrow-left"></i> Về trang học</a>
+        <div class="nav-item logout-link" onclick="adminApp.logout()"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+      <header class="admin-header">
+        <button class="mobile-menu-btn" onclick="document.getElementById('admin-sidebar').classList.toggle('open')">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <h1 id="section-title">Tổng quan</h1>
+        <div class="header-right">
+          <span id="admin-name" class="admin-user-name"></span>
+        </div>
+      </header>
+      <div class="admin-content" id="admin-content">
+        <!-- Dynamic content rendered here -->
+      </div>
+    </main>
+  </div>
+
+  <script type="module" src="/src/admin.js"></script>
+</body>
+</html>

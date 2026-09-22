@@ -1,0 +1,73 @@
+# Những thứ TUYỆT ĐỐI không được rời khỏi máy dev khi chạy `vercel --prod`.
+# Vercel CLI dùng file này thay cho .gitignore, nên phải liệt kê đầy đủ.
+
+# Bản dump DB — chứa email + hash mật khẩu học viên thật
+backups/
+
+# Biến môi trường và script chứa credential production
+.env
+.env.*
+push_env.sh
+push_env*.sh
+
+# DB thử nghiệm, file rác, script test tạm
+database.sqlite
+_to_delete/
+test_*.mjs
+fix_*.mjs
+create_test_users.mjs
+scripts/claude-bridge.mjs
+.bridge/
+
+# Không cần cho bản build
+tests/
+md/
+backups
+dist/
+
+# Cache dữ liệu nguồn để chạy script scrape trên máy dev — 8.1GB, KHÔNG cần cho bản chạy.
+# Có file vượt 100MB (whisper/medium.bin 1.4GB, mtc-audio/*.rar) làm `vercel --prod`
+# fail thẳng với "File size limit exceeded (100 MB)". .gitignore đã chặn phần nặng,
+# nhưng Vercel CLI đọc .vercelignore chứ không đọc .gitignore nên phải khai lại ở đây.
+scripts/data-cache/
+
+# Bộ script MỘT LẦN thời scrape đề thi (1,6 MB gồm scraped_exams.json + de_thi.html).
+# Chuyển từ thư mục gốc về đây 2026-09-06; app không dùng, nhưng trước đó KHÔNG có mục nào
+# loại nên cả cụm vẫn đi vào bản deploy và tính vào trần 15.000 file.
+scripts/legacy-de-thi/
+
+# File credential thật — .gitignore đã chặn, nhưng Vercel CLI không đọc .gitignore
+# nên trước đây vẫn bị upload lên hạ tầng Vercel mỗi lần deploy.
+account.md
+
+# Môi trường Python cho scripts/gen-tts-tuvung.py (25MB) và cache bytecode.
+# Chỉ dùng trên máy dev, bản chạy không cần.
+scripts/.venv/
+scripts/__pycache__/
+
+# ---------------------------------------------------------------------------
+# Audio — xem CLAUDE.md 4.31.
+# BỎ COMMENT DÒNG DƯỚI chỉ SAU KHI: đã đẩy đủ lên R2 (`npm run r2:audio -- --kiem` báo đủ),
+# đã đặt VITE_CDN_BASE, đã build và MỞ APP NGHE THỬ thấy có tiếng.
+# Bỏ comment sớm = mọi nút loa im lặng mà KHÔNG có lỗi nào hiện ra (app tự rơi về giọng máy TTS).
+#
+# ⚠️ 2026-09-07 — ĐÃ VƯỢT TRẦN, `vercel --prod` sẽ FAIL cho tới khi dòng dưới được bỏ comment.
+#    public/audio nay là 20.393 file (mp3 TTS sinh cho HSK rồi TOCFL đẩy nó lên gần gấp đôi,
+#    cộng 507 file nghe của bộ đề luyện thi HSK 4 thêm 2026-09-08);
+#    tổng repo hơn 24.000 file trong khi trần Vercel là 15.000. Bỏ comment kéo xuống còn ~3.600.
+#    Đây là việc PHẢI làm trước lần deploy tới, không phải việc để sau.
+# public/audio/
+
+# ============================================================
+# APP NATIVE — không có thứ nào ở đây cần cho bản deploy web,
+# mà Vercel thì chặn 15.000 file/deployment (CLAUDE.md 4.31).
+# ============================================================
+android/
+ios/
+# Neo "/" ở đầu: không có nó thì pattern khớp MỌI cấp, cắt luôn src/assets/
+/store/
+/assets/
+dist-mobile/
+capacitor.config.json
+
+scratchpad/

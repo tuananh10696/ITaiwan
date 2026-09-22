@@ -1,0 +1,152 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+.env
+.env.*
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.vercel
+.playwright-mcp
+.claude_write_test
+account.md
+push_env.sh
+push_env*.sh
+
+# Cầu nối Claude
+.bridge/
+
+# Bản sao lưu DB do scripts/migrate.mjs tạo — CHỨA DỮ LIỆU THẬT CỦA HỌC VIÊN, tuyệt đối không commit
+backups/
+database.sqlite
+
+# Rác của các phiên thử nghiệm — KHÔNG commit
+_to_delete/
+create_test_users.mjs
+fix_admin.mjs
+fix_test_data.mjs
+fix_verification.mjs
+test_*.mjs
+
+# Bộ PPT gốc của MTC-NTNU dùng để sinh ngữ pháp (~100MB) — script tự tải lại khi cần,
+# không commit. Dữ liệu đã trích nằm ở src/data/duongdaiGrammar<N>.js.
+scripts/data-cache/mtc/
+# Bản .rar audio gốc MTC (~1.2GB cho 6 quyển) — script tự tải lại; clip đã cắt nằm ở public/audio/dangdai/
+scripts/data-cache/mtc-audio/
+scripts/.venv/
+scripts/data-cache/whisper/
+
+# Thời Đại: PPT gốc (~870MB) + audio — script tự tải lại
+scripts/data-cache/thoidai/ppt/
+scripts/data-cache/thoidai/audio/
+
+scripts/__pycache__/
+
+# Đề kiểm tra + tài liệu bổ sung MTC (~37MB, script tự tải lại)
+scripts/data-cache/dangdai-test/
+
+# Nguồn Font Awesome + fonttools cho scripts/gen-fontawesome-subset.mjs (CLAUDE.md 4.31).
+# Tải lại được bằng script; kết quả (public/fa/) mới là thứ commit.
+# Nguồn thô HSK tải về từ GitHub (hsk30*.csv 1,1MB + CVDICT.u8 10,8MB) — script tự tải lại khi
+# thiếu. Nhưng GIỮ audio-map.json và tts-map.json: đó là bản đồ đã khảo sát/sinh, mất là phải
+# quét lại blcup (rất chậm) và sinh lại 5.342 file TTS.
+scripts/data-cache/hsk/*.csv
+scripts/data-cache/hsk/*.u8
+
+# Bộ TOCFL: bảng từ gốc tải lại được từ ivankra/tocfl. GIỮ tts-map.json — mất là phải sinh lại
+# 2.487 file mp3 Edge TTS.
+scripts/data-cache/tocfl/*.csv
+
+scripts/data-cache/fa/
+scripts/data-cache/pytools/
+
+# Nguồn thô của kho tra cứu Từ vựng & Hán tự (4.37) — 37 MB: Unihan.zip + 3 file Unihan đã giải
+# nén (26 MB), makemeahanzi dictionary.txt, phienam.txt, EquivalentUnifiedIdeograph.txt.
+# `npm run tudien:build` tự tải lại khi thiếu, nên không có lý do gì để chúng nằm trong git.
+# ⚠️ Sản phẩm thì NGƯỢC LẠI: public/data/tudien/ PHẢI commit — app đọc thẳng từ đó.
+scripts/data-cache/tudien/
+
+# Nguồn thô của đề luyện thi HSK 4 (4.34d): 507 file nghe của Mandarin Zone, 447 file trong đó
+# là .wav tới 16 MB — tổng 2,9 GB. Bản đã nén 64 kbps (143 MB) nằm ở public/audio/hsk-dethi/mz/
+# mới là thứ app dùng. Tải lại bằng `scripts/tai-mz-audio.sh`, JSON nguồn tải lại từ GitHub.
+scripts/data-cache/hsk/mz-audio/
+scripts/data-cache/hsk/mz/
+scripts/data-cache/hsk/mz-audio-urls.txt
+
+# ============================================================
+# APP NATIVE (Capacitor) — xem md/app-mobile.md
+# ============================================================
+
+# ⚠️ KEYSTORE: mất nó là KHÔNG BAO GIỜ cập nhật được app đã phát hành trên Google Play.
+#    Không commit (mật khẩu nằm ngay trong keystore.properties), nhưng PHẢI sao lưu ra ngoài
+#    máy này ít nhất 2 chỗ. Xem hướng dẫn trong chính file keystore.properties.
+android/keystore/
+
+# Bản dựng web dành cho app — sinh lại bằng `npm run build:mobile`.
+dist-mobile/
+
+# Sản phẩm biên dịch của Android/iOS. Phần MÃ NGUỒN của android/ và ios/ thì VẪN commit:
+# chúng chứa cấu hình đã sửa tay (quyền, liên kết sâu, chuỗi mô tả quyền riêng tư trong
+# Info.plist) mà `npx cap add` KHÔNG sinh lại được — xoá đi là mất hết.
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties
+android/.idea/
+android/app/src/main/assets/public/
+android/app/src/main/assets/capacitor.config.json
+android/app/src/main/assets/capacitor.plugins.json
+*.apk
+*.aab
+
+ios/App/build/
+ios/App/Pods/
+ios/App/output/
+ios/App/App/public/
+ios/App/App/capacitor.config.json
+ios/App/App/config.xml
+ios/DerivedData/
+*.xcuserstate
+xcuserdata/
+
+# Bộ icon/splash trung gian — sinh lại bằng `node scripts/gen-app-icons.mjs`.
+# (assets/icon.png và splash.png thì GIỮ, để máy khác dựng lại được đúng bộ icon.)
+
+# Ảnh chụp màn hình để nộp store: 22 MB cho thứ sinh lại được trong một phút bằng
+# `npm run mobile:anh`. Repo git đã 378 MB, không nên phình thêm vì ảnh tái tạo được.
+# Ảnh vẫn nằm trên đĩa để dùng khi nộp, chỉ là không theo dõi bằng git.
+store/anh-chup/
+
+# Ảnh chụp từ máy ảo Android khi thử app — sinh lại bằng `node scripts/chay-android.mjs --anh`.
+store/anh-may-ao/
+store/anh-may-ao-ios/
+ios/App/build-sim/
+store/soat-ui/
+
+# Bản .rar audio gốc của đề thi HSK (7 file, ~225 MB) — tải lại công khai từ
+# https://www.chinesetest.cn/userfiles/file/HSK/level<N>/<mã đề>.rar (xem 4.34c).
+# Bản đã cắt/nén mà app dùng nằm ở public/audio/hsk-dethi/.
+# GitHub đã cảnh báo file HSK7-9_audio.rar 79,5 MB vượt mức khuyến nghị 50 MB.
+scripts/data-cache/hsk/dethi/*.rar
+
+# Thư mục nháp của phiên làm việc (log server, script đo đạc một lần) — không phải mã nguồn.
+scratchpad/
+tests/mobile/anh-soat/

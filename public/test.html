@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/hanzi-writer@2.2/dist/hanzi-writer.min.js"></script>
+</head>
+<body>
+  <div id="target" style="width: 300px; height: 300px; border: 1px solid black;"></div>
+  <script>
+    const writer = HanziWriter.create('target', '陳', {
+      width: 300,
+      height: 300,
+      showCharacter: false,
+      showOutline: true
+    });
+    writer.quiz({
+      onCorrectStroke: function() {
+        console.log("Correct!");
+      }
+    });
+    
+    // Auto complete first stroke after 1s
+    setTimeout(() => {
+      writer._quiz._handleSuccess(0);
+    }, 1000);
+  </script>
+</body>
+</html>

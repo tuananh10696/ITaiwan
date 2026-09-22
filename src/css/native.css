@@ -1,0 +1,133 @@
+/* ============================================================
+   APP NATIVE (iOS / Android) — chỉ có tác dụng khi <html> mang class .tw-native
+   ============================================================
+
+   Lớp native gắn class này lúc khởi động (src/native/index.js), nên toàn bộ file có thể tải
+   trên web mà không đổi một pixel nào. Để RIÊNG ra khỏi style.css có chủ ý: style.css đã 3.100
+   dòng và từng dính lỗi hai khối cùng selector đè nhau (CLAUDE.md 4.24) — thêm một khối phụ
+   thuộc nền tảng vào cuối file đó là mời lại đúng cái bẫy ấy.
+
+   VÙNG AN TOÀN: điện thoại đời mới có tai thỏ / đảo động ở trên và thanh gạt về nhà ở dưới.
+   index.html đã khai `viewport-fit=cover` nên WebView phủ kín màn hình — nghĩa là NẾU KHÔNG
+   chừa chỗ thì tiêu đề chui vào sau tai thỏ và nút dưới cùng nằm dưới thanh gạt, bấm không
+   trúng. `env(safe-area-inset-*)` trả về 0 trên máy không có tai thỏ nên không cần rẽ nhánh.
+   ============================================================ */
+
+.tw-native {
+  /* Chặn kéo-để-tải-lại và nảy quá đà của WebView: trong app thì hai thứ đó không có ý nghĩa
+     gì mà lại làm người dùng tưởng trang bị lỗi. */
+  overscroll-behavior-y: none;
+}
+
+.tw-native body {
+  overscroll-behavior-y: none;
+  /* Không cho chọn văn bản kiểu máy tính bàn khi chạm giữ — trong app nó bật kính lúp và menu
+     Copy/Paste ngay giữa lúc học. Ô nhập liệu và bài đọc vẫn cho chọn, khai lại ở dưới. */
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Nội dung người học cần copy/tra cứu thì vẫn phải chọn được. */
+.tw-native input,
+.tw-native textarea,
+.tw-native [contenteditable],
+.tw-native .page-content p,
+.tw-native .zh,
+.tw-native .vh-body,
+.tw-native .dd-dialog-line,
+.tw-native .tr-answer {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+/* --- Vùng an toàn --- */
+
+.tw-native .sidebar { padding-top: env(safe-area-inset-top); }
+
+.tw-native .main-area > header,
+.tw-native .app-header,
+.tw-native .topbar {
+  padding-top: calc(env(safe-area-inset-top) + 4px);
+}
+
+.tw-native .page-content {
+  /* Chừa chỗ cho thanh gạt về nhà + chỗ trống để cuộn hết nội dung cuối trang. Cộng thêm chiều
+     cao bàn phím khi nó đang mở (biến do lớp native đặt), nếu không ô nhập cuối trang bị bàn
+     phím che mất trong lúc đang gõ bài dịch. */
+  padding-bottom: calc(env(safe-area-inset-bottom) + var(--tw-keyboard, 0px) + 24px);
+}
+
+/* ⚠️ Trên điện thoại (≤1023px) thanh điều hướng dưới (.mobile-nav, 64px) đang hiện, và quy tắc
+   ngay trên có độ đặc hiệu (0,2,0) ĐÈ MẤT `padding-bottom: calc(var(--mobile-nav-height) + 24px)`
+   của style.css (0,1,0). Hậu quả đo được 2026-09-07: trong app, nút "Câu tiếp theo" của trắc
+   nghiệm, hàng Trước/Sau của bài thi, lưới chữ của game Cứu Ong… đều chui dưới thanh điều hướng,
+   cuộn hết cỡ vẫn không bấm được. Phải cộng lại chiều cao thanh đó vào đây. */
+@media (max-width: 1023px) {
+  .tw-native .page-content {
+    /* Thanh điều hướng dưới nay là flex item trong .main-area (2026-09-18), chiếm chỗ thật và không
+       đè lên nội dung — chỉ còn phải chừa chiều cao bàn phím. */
+    padding-bottom: calc(var(--tw-keyboard, 0px) + 24px);
+  }
+  /* Thanh báo mất mạng nằm TRÊN thanh điều hướng, không che nó. */
+  /* Thanh báo mất mạng vẫn `fixed`, nên vẫn phải TỰ chừa chiều cao thanh điều hướng để không che nó. */
+  #tw-offline-bar {
+    bottom: calc(var(--mobile-nav-height, 64px) + var(--safe-bottom, env(safe-area-inset-bottom)));
+    padding-bottom: 12px;
+  }
+}
+
+.tw-native .sidebar-footer { padding-bottom: calc(env(safe-area-inset-bottom) + 8px); }
+
+/* iOS: WebView không tự đẩy nội dung lên khi bàn phím hiện (khác Android). Lớp native đặt
+   --tw-keyboard, ở đây chỉ việc dùng. */
+.tw-native.tw-ios .tw-keyboard-open .page-content { scroll-padding-bottom: var(--tw-keyboard, 0px); }
+
+/* --- Thanh báo mất mạng --- */
+
+#tw-offline-bar {
+  position: fixed;
+  left: 0; right: 0;
+  bottom: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: flex-start;      /* icon thẳng hàng với DÒNG ĐẦU của chữ, không bị đẩy xuống giữa */
+  gap: 10px;
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+  background: #8A5A2B;
+  color: #fff;
+  font-size: 13px;
+  line-height: 1.45;
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, .18);
+  animation: tw-offline-len .28s cubic-bezier(.32, .72, 0, 1);
+}
+
+/* Icon và chữ PHẢI là hai phần tử riêng, chữ bọc trong đúng MỘT <span>.
+   Đây là lỗi tái diễn nhiều lần nhất của dự án (CLAUDE.md 4.11b / 4.21 / 4.22): để chữ nằm
+   thẳng trong container display:flex thì mỗi đoạn văn bản giữa các thẻ con lại thành một
+   "anonymous flex item" riêng, câu bị vỡ thành từng mẩu cách nhau bởi gap thay vì xuống dòng
+   bình thường. */
+#tw-offline-bar > i { flex: none; margin-top: 2px; }
+#tw-offline-bar > span { flex: 1; min-width: 0; }
+
+@keyframes tw-offline-len {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+/* --- Chạm --- */
+
+/* Vùng chạm tối thiểu 44px theo Human Interface Guidelines của Apple; nút nhỏ hơn thế là một
+   trong những lý do bị nhắc trong quá trình duyệt app.
+
+   Phần NỚI VÙNG CHẠM cho từng nút cụ thể (nút thanh tiêu đề, nút đóng hộp thoại, liên kết dạng
+   chữ, nút chọn tốc độ đọc) đã chuyển sang `style.css`: chúng là vấn đề của MỌI người dùng điện
+   thoại, không riêng người cài app. Ở đây chỉ giữ quy tắc chung theo chiều cao. */
+/* ⚠️ ĐỪNG ĐẶT LẠI `min-height: 44px` CHO MỌI <button>.
+   Bản trước làm đúng như vậy và nó BÓP MÉO mọi nút icon vuông: nút loa cạnh mỗi từ vựng bị kéo
+   từ 36×36 thành 36×44 — một ô chữ nhật đứng, nhìn như hỏng bố cục. Cùng lúc nó nâng mỗi nút
+   trong thanh tab lên 44px, khiến tám tab xuống ba hàng chiếm 154px, gần một phần năm màn hình.
+
+   Vùng chạm vẫn phải đủ 44px, nhưng nới bằng lớp phủ ::after (khai trong style.css) — vùng chạm
+   rộng hơn phần nhìn thấy là cách Apple khuyến nghị, và nó không đụng gì tới bố cục. */

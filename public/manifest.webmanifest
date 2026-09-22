@@ -1,0 +1,84 @@
+{
+  "id": "/",
+  "name": "Tẻn — Học tiếng Trung Phồn thể & Luyện thi TOCFL",
+  "short_name": "Tẻn",
+  "description": "Học tiếng Trung Phồn thể theo giáo trình Đương Đại và Thời Đại: 324 bài, 10.562 từ vựng có giọng đọc thật, luyện phát âm, thi thử TOCFL.",
+  "lang": "vi",
+  "dir": "ltr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
+  "orientation": "portrait",
+  "background_color": "#38899E",
+  "theme_color": "#38899E",
+  "categories": [
+    "education",
+    "books"
+  ],
+  "icons": [
+    {
+      "src": "/icons/icon-48.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "/icons/icon-72.png",
+      "type": "image/png",
+      "sizes": "72x72"
+    },
+    {
+      "src": "/icons/icon-96.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "/icons/icon-128.png",
+      "type": "image/png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "/icons/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-256.png",
+      "type": "image/png",
+      "sizes": "256x256"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-maskable-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Bài học hôm nay",
+      "short_name": "Hôm nay",
+      "url": "/lo-trinh/hom-nay"
+    },
+    {
+      "name": "Giáo trình Đương đại",
+      "short_name": "Đương đại",
+      "url": "/tocfl/giao-trinh-duong-dai"
+    },
+    {
+      "name": "Từ điển Trung-Việt",
+      "short_name": "Từ điển",
+      "url": "/tu-vung/tu-dien"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /api/
+Disallow: /tocfl/thi-thu/dang-thi
+
+Sitemap: https://taiwanese-mu.vercel.app/sitemap.xml

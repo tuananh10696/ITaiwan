@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#38899E">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Chẩn đoán màn hình — Tẻn</title>
+<!--
+  TRANG ĐO, KHÔNG PHẢI TÍNH NĂNG. Dựng 2026-09-18 vì chủ dự án báo "trắng xoá bên dưới footer" trên
+  iPhone 15 Pro Max mà Chromium + CDP safe-area không tái hiện được (CLAUDE.md 4.54).
+
+  Nó dựng LẠI ĐÚNG khung của app (app-shell 100dvh · overflow hidden · nav position fixed) rồi tô
+  MỖI VÙNG MỘT MÀU để nhìn ảnh chụp là biết dải trắng thuộc về ai:
+     ĐỎ   = nền html/body lộ ra (tức app-shell KHÔNG cao bằng màn hình)
+     XANH = vùng an toàn dưới mà thanh nav chừa cho thanh gạt về nhà
+     TÍM  = phần nội dung của thanh nav
+  Kèm mọi con số cần thiết + nút sao chép để dán lại, khỏi phải chụp màn hình.
+-->
+<style>
+  :root {
+    --nav-h: 64px;
+    --lan: 12px;                     /* lấn bao nhiêu vào vùng thanh gạt — đổi được bằng nút bên dưới */
+    --safe-bottom: max(env(safe-area-inset-bottom, 0px) - var(--lan), 0px);
+  }
+  * { box-sizing: border-box; }
+  html {
+    height: 100%; overflow: hidden;
+    background: #E11D48;            /* ĐỎ: chỉ lộ ra nếu app-shell không phủ kín màn hình */
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    height: 100%; overflow: hidden; margin: 0;
+    background: #E11D48;
+    font: 14px/1.5 -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    color: #1F2E33;
+  }
+  .app-shell { display: flex; flex-direction: column; height: 100dvh; overflow: hidden; background: #F6F8F8; }
+  header {
+    flex: none; display: flex; align-items: center; gap: 10px; font-weight: 700;
+    height: calc(52px + env(safe-area-inset-top, 0px));
+    padding: env(safe-area-inset-top, 0px) 14px 0;
+    background: #F6F8F8;
+    background-image: linear-gradient(#2A6B7D, #2A6B7D);
+    background-size: 100% env(safe-area-inset-top, 0px);
+    background-repeat: no-repeat;
+    border-bottom: 1px solid #DCE3E4;
+  }
+  main {
+    flex: 1; overflow-y: auto; overscroll-behavior-y: contain;
+    padding: 14px 14px calc(var(--nav-h) + var(--safe-bottom) + 24px);
+  }
+  .nav {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 80;
+    height: calc(var(--nav-h) + var(--safe-bottom));
+    padding-bottom: var(--safe-bottom);
+    background: #7C3AED;            /* TÍM: phần nội dung thanh nav */
+    display: flex; align-items: stretch;
+    border-top: 1px solid #DCE3E4;
+  }
+  /* XANH: chính là dải vùng an toàn mà nav chừa ra ở đáy */
+  .nav::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: 0;
+    height: var(--safe-bottom); background: #059669;
+  }
+  .nav b { flex: 1; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 12px; }
+
+  h1 { font-size: 17px; margin: 0 0 4px; }
+  .sub { color: #5F7178; margin: 0 0 14px; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 10px; overflow: hidden; }
+  td { padding: 8px 10px; border-bottom: 1px solid #EEF2F3; font-size: 13px; vertical-align: top; }
+  td:first-child { color: #5F7178; width: 46%; }
+  td:last-child { font-weight: 700; font-variant-numeric: tabular-nums; }
+  tr.xau td:last-child { color: #B91C1C; }
+  tr.tot td:last-child { color: #047857; }
+  .khoi { margin-bottom: 14px; }
+  .khoi h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .4px; color: #5F7178; margin: 0 0 6px; }
+  .chugiai { background: #fff; border-radius: 10px; padding: 12px; font-size: 13px; }
+  .chugiai div { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+  .o { width: 16px; height: 16px; border-radius: 4px; flex: none; }
+  button {
+    width: 100%; padding: 14px; font-size: 16px; font-weight: 700; color: #fff; background: #38899E;
+    border: 0; border-radius: 10px; margin-bottom: 10px;
+  }
+  .muc { display: flex; gap: 6px; }
+  .muc .m {
+    flex: 1; margin: 0; padding: 10px 4px; font-size: 17px; background: #EEF2F3; color: #1F2E33;
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+  }
+  .muc .m small { font-size: 10px; font-weight: 600; color: #5F7178; }
+  .muc .m.chon { background: #38899E; color: #fff; }
+  .muc .m.chon small { color: rgba(255,255,255,.85); }
+  textarea { width: 100%; height: 150px; font: 12px/1.45 ui-monospace, Menlo, monospace; padding: 10px; border: 1px solid #DCE3E4; border-radius: 10px; }
+</style>
+</head>
+<body>
+<div class="app-shell">
+  <header>Chẩn đoán màn hình</header>
+  <main>
+    <h1>Đo khung hình trên máy này</h1>
+    <p class="sub">Bấm <b>Sao chép kết quả</b> rồi dán vào khung chat. Nếu thấy dải <b style="color:#E11D48">ĐỎ</b> ở đáy thì đó mới là lỗi thật.</p>
+
+    <div class="khoi">
+      <h2>Chú giải màu ở đáy</h2>
+      <div class="chugiai">
+        <div><span class="o" style="background:#7C3AED"></span> Tím = phần nội dung thanh điều hướng</div>
+        <div><span class="o" style="background:#059669"></span> Xanh = vùng chừa cho thanh gạt về nhà</div>
+        <div><span class="o" style="background:#E11D48"></span> Đỏ = nền trang lộ ra — <b>đây là lỗi</b></div>
+      </div>
+    </div>
+
+    <div class="khoi">
+      <h2>Thử các mức — chọn mức nhìn vừa mắt nhất</h2>
+      <div class="chugiai">
+        <p style="margin:0 0 8px">Bấm để xem thanh dưới thu lại bao nhiêu. Mức đang chạy trên web là <b>12px</b>.</p>
+        <div class="muc">
+          <button class="m" data-lan="0">0<small>giữ nguyên 34px</small></button>
+          <button class="m" data-lan="12">12<small>đang dùng</small></button>
+          <button class="m" data-lan="20">20<small>gọn</small></button>
+          <button class="m" data-lan="34">34<small>sát đáy</small></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="khoi"><h2>Kết quả</h2><table id="bang"></table></div>
+    <button onclick="chep()">Sao chép kết quả</button>
+    <textarea id="txt" readonly></textarea>
+  </main>
+</div>
+<nav class="nav"><b>Trang chủ</b><b>Flashcard</b><b>Thi thử</b><b>Từ vựng</b><b>Từ điển</b></nav>
+
+<script>
+function px(el, prop) { return Math.round(parseFloat(getComputedStyle(el).getPropertyValue(prop)) || 0); }
+function do_() {
+  const shell = document.querySelector('.app-shell');
+  const nav = document.querySelector('.nav');
+  const sb = shell.getBoundingClientRect(), nb = nav.getBoundingClientRect();
+  const vv = window.visualViewport || {};
+  const cs = getComputedStyle(document.documentElement);
+  const doc = document.documentElement;
+  // env() đọc gián tiếp qua một phần tử tạm
+  const t = document.createElement('div');
+  t.style.cssText = 'position:fixed;top:0;left:0;width:0;height:0;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)';
+  document.body.appendChild(t);
+  const c = getComputedStyle(t);
+  const env = { top: Math.round(parseFloat(c.paddingTop)), right: Math.round(parseFloat(c.paddingRight)),
+                bottom: Math.round(parseFloat(c.paddingBottom)), left: Math.round(parseFloat(c.paddingLeft)) };
+  t.remove();
+
+  const standalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+  const hoDuoiNav = Math.round(doc.clientHeight - nb.bottom);   // > 0 = nền trang lộ ra dưới nav
+  const shellThieu = Math.round(doc.clientHeight - sb.height);  // > 0 = app-shell không phủ kín
+
+  return {
+    'Chế độ': standalone ? 'Đã thêm vào màn hình chính (PWA)' : 'Đang mở trong trình duyệt',
+    'Màn hình (screen)': screen.width + ' × ' + screen.height,
+    'innerHeight': innerHeight,
+    'documentElement.clientHeight': doc.clientHeight,
+    'visualViewport.height': vv.height ? Math.round(vv.height) : '—',
+    'visualViewport.offsetTop': vv.offsetTop != null ? Math.round(vv.offsetTop) : '—',
+    'env inset trên': env.top,
+    'env inset dưới': env.bottom,
+    '--safe-bottom tính ra': Math.round(nb.height - 64),
+    'app-shell cao': Math.round(sb.height),
+    'app-shell THIẾU so với màn': shellThieu,
+    'nav cao': Math.round(nb.height),
+    'nav: top → bottom': Math.round(nb.top) + ' → ' + Math.round(nb.bottom),
+    'HỞ DƯỚI NAV (nền lộ ra)': hoDuoiNav,
+    'devicePixelRatio': devicePixelRatio,
+    'Mức lấn đang xem': (window.LAN != null ? window.LAN : 12) + 'px',
+    'User agent': navigator.userAgent,
+  };
+}
+function ve() {
+  window.LAN = typeof LAN !== 'undefined' ? LAN : 12;
+  const d = do_();
+  const xau = ['app-shell THIẾU so với màn', 'HỞ DƯỚI NAV (nền lộ ra)'];
+  document.getElementById('bang').innerHTML = Object.entries(d).map(([k, v]) => {
+    const cls = xau.includes(k) ? (Number(v) > 1 ? 'xau' : 'tot') : '';
+    const val = String(v).length > 42 ? String(v).slice(0, 42) + '…' : v;
+    return `<tr class="${cls}"><td>${k}</td><td>${val}</td></tr>`;
+  }).join('');
+  document.getElementById('txt').value = Object.entries(d).map(([k, v]) => k + ': ' + v).join('\n');
+}
+function chep() {
+  const ta = document.getElementById('txt');
+  ta.select(); ta.setSelectionRange(0, 99999);
+  (navigator.clipboard ? navigator.clipboard.writeText(ta.value) : Promise.reject())
+    .then(() => alert('Đã sao chép. Dán vào khung chat giúp tôi.'))
+    .catch(() => { document.execCommand('copy'); alert('Đã sao chép. Dán vào khung chat giúp tôi.'); });
+}
+let LAN = 12;
+document.querySelectorAll('.muc .m').forEach((b) => b.addEventListener('click', () => {
+  LAN = Number(b.dataset.lan);
+  document.documentElement.style.setProperty('--lan', LAN + 'px');
+  document.querySelectorAll('.muc .m').forEach((x) => x.classList.toggle('chon', x === b));
+  ve();
+}));
+document.querySelector('.muc .m[data-lan="12"]').classList.add('chon');
+
+ve();
+addEventListener('resize', ve);
+addEventListener('orientationchange', () => setTimeout(ve, 300));
+if (window.visualViewport) visualViewport.addEventListener('resize', ve);
+</script>
+</body>
+</html>

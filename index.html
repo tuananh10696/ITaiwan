@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="referrer" content="no-referrer">
+    <title>Tẻn - Nền Tảng Học Tiếng Trung Phồn Thể & Luyện Thi TOCFL</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <!-- canonical + og:url được router cập nhật theo từng trang (syncSeoTags trong main.js) -->
+    <link rel="canonical" href="https://taiwanese-mu.vercel.app/">
+    <meta property="og:url" content="https://taiwanese-mu.vercel.app/">
+    <meta name="description" content="Hệ thống học tiếng Trung Phồn thể và luyện thi TOCFL trực tuyến từ Tẻn. Flashcard SRS, luyện viết, hội thoại và thi thử TOCFL.">
+    <meta name="keywords" content="học tiếng trung phồn thể online, luyện thi TOCFL, thi thử TOCFL, flashcard tiếng trung, Tẻn">
+    <meta name="author" content="Tẻn">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Tẻn - Học Tiếng Trung Phồn Thể & Luyện Thi TOCFL">
+    <meta property="og:description" content="Ứng dụng web hỗ trợ học tiếng Trung Phồn thể với SRS, thi thử TOCFL thời gian thực.">
+    <meta property="og:image" content="https://taiwanese-mu.vercel.app/banner.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Be Vietnam Pro: font chính (có ĐỦ dấu tiếng Việt U+1EA0–1EF9 — Outfit trước đây thiếu nên
+         chữ có dấu bị nhấp nhô). Inter: dự phòng + dùng riêng cho pinyin (ǎ ě ǐ ǒ ǔ ǚ).
+         Xem chi tiết ở khối --font-* đầu file src/css/style.css.
+         Weight cắt còn đúng phần CSS dùng thật (2026-09-06): bỏ 300 của Be Vietnam Pro (không
+         selector nào dùng), 800 của Inter, và 3 weight thừa của hai họ Noto Serif — font CJK
+         mỗi weight là một bộ @font-face + subset riêng. Thêm weight mới vào CSS thì nhớ khai
+         ở đây, nếu không trình duyệt tự "làm đậm giả", chữ Hán nhìn nhoè. -->
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- HAI HỌ FONT CHỮ HÁN (Noto Serif TC/SC) CỐ Ý KHÔNG NẰM Ở ĐÂY — xem CLAUDE.md 4.32.
+         Chúng được chia thành ~100 subset theo unicode-range, nên một trang đầy chữ Hán kéo về
+         34 file / 1,25 MB: gấp 12 lần toàn bộ JS của app và đủ để bão hoà đường truyền 4G, làm
+         chậm mọi thứ khác đang tải cùng lúc. `napFontHan()` trong main.js nạp chúng lúc trình
+         duyệt rảnh (và bỏ qua khi mạng yếu); trong lúc đó chữ Hán hiển thị bằng font hệ thống
+         PingFang TC / Microsoft JhengHei vốn đã khai trong --font-chinese-tc. -->
+    <!-- Font Awesome SUBSET tự host: chỉ 153 icon dự án dùng (CLAUDE.md 4.32).
+         Bản đầy đủ trên cdnjs tốn 171 KB + một vòng DNS/TLS tới CDN lạ; bản này ~20 KB,
+         cùng origin nên dùng lại đúng kết nối đang mở. Thêm icon mới -> `npm run data:fa`
+         (build tự cảnh báo nếu quên). -->
+    <!-- Bản kê PWA: cho phép "Thêm vào màn hình chính" trên web, và khai màu thanh trạng thái.
+         Bộ icon ở /icons/ do `npm run mobile:assets` sinh cùng lúc với icon của app native, nên
+         icon trên web và trên app luôn là một. -->
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#38899E">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Tẻn">
+    <meta name="mobile-web-app-capable" content="yes">
+    <!-- iOS KHÔNG nhận apple-touch-icon dạng WebP: gặp WebP nó bỏ qua và dùng ẢNH CHỤP TRANG làm icon
+         trên màn hình chính. Phải là PNG (180×180). Bộ /icons/*.png sinh từ logo thật (favicon.png)
+         bằng scripts/gen-pwa-icons.mjs — bộ .webp cũ là icon tia sét MẶC ĐỊNH của capacitor-assets. -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
+    <!-- SPLASH-IOS:BEGIN — tự sinh bởi scripts/gen-pwa-icons.mjs, đừng sửa tay -->
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 440px) and (device-height: 956px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="/splash/ios-440x956@3x.png">
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 402px) and (device-height: 874px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="/splash/ios-402x874@3x.png">
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="/splash/ios-430x932@3x.png">
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="/splash/ios-393x852@3x.png">
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="/splash/ios-428x926@3x.png">
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="/splash/ios-390x844@3x.png">
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="/splash/ios-375x812@3x.png">
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="/splash/ios-414x896@3x.png">
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="/splash/ios-414x896@2x.png">
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="/splash/ios-375x667@2x.png">
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" href="/splash/ios-414x736@3x.png">
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 1032px) and (device-height: 1376px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="/splash/ios-1032x1376@2x.png">
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="/splash/ios-1024x1366@2x.png">
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="/splash/ios-834x1194@2x.png">
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 820px) and (device-height: 1180px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="/splash/ios-820x1180@2x.png">
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="/splash/ios-768x1024@2x.png">
+    <link rel="apple-touch-startup-image" media="screen and (device-width: 744px) and (device-height: 1133px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" href="/splash/ios-744x1133@2x.png">
+    <!-- SPLASH-IOS:END -->
+    <link rel="stylesheet" href="/fa/fa-subset.css">
+    <link rel="stylesheet" href="/src/css/style.css">
+    <!-- Chỉ có tác dụng khi chạy trong app native (class .tw-native do src/native/index.js gắn):
+         vùng an toàn tai thỏ / thanh gạt, thanh báo mất mạng, vùng chạm 44px. Trên web nó không
+         đổi một pixel nào. -->
+    <link rel="stylesheet" href="/src/css/native.css">
+</head>
+<body>
+    <!-- App Shell -->
+    <div id="app" class="app-shell">
+        <!-- Sidebar (Desktop) -->
+        <aside id="sidebar" class="sidebar">
+            <div class="sidebar-logo">
+                <div class="logo-text">
+                    <span class="logo-brand">Tẻn</span>
+                    <span class="logo-sub">學中文</span>
+                </div>
+            </div>
+            <nav class="sidebar-nav" id="sidebar-nav">
+                <!-- Nav items injected by JS -->
+            </nav>
+            <div class="sidebar-footer">
+                <button class="btn-login-sidebar" id="btn-login-sidebar" onclick="window.app.openAuth()">
+                    <i class="fa-solid fa-right-to-bracket"></i>
+                    <span>Đăng nhập</span>
+                </button>
+                <!-- Chỉ hiện khi chạy như app từ màn hình chính (html.tw-standalone) — xem moChanDoanManHinh() -->
+                <button class="sidebar-chan-doan" onclick="window.app.moChanDoanManHinh()">
+                    <i class="fa-solid fa-mobile-screen"></i><span>Kiểm tra hiển thị màn hình</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Area -->
+        <div class="main-area">
+            <!-- Top Header -->
+            <header class="top-header" id="top-header">
+                <div class="header-left">
+                    <button class="btn-mobile-menu" id="btn-mobile-menu" onclick="window.app.toggleMobileSidebar()">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <h1 class="page-title" id="page-title">Trang chủ</h1>
+                </div>
+                <div class="header-center">
+                    <div class="dict-search-wrap" id="dict-search-wrap">
+                        <i class="fa-solid fa-magnifying-glass dict-search-icon"></i>
+                        <input type="text" id="dict-search-input" class="dict-search-input"
+                            placeholder="Tra từ điển: nhập hanzi, pinyin hoặc nghĩa tiếng Việt..."
+                            autocomplete="off">
+                        <div class="dict-dropdown" id="dict-dropdown"></div>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="header-notifications-wrap" id="header-notifications-wrap">
+                        <button class="btn-notifications" id="btn-notifications" onclick="window.app.toggleNotifications()" title="Thông báo">
+                            <i class="fa-solid fa-bell"></i>
+                            <span class="notifications-badge" id="notifications-badge" style="display:none">0</span>
+                        </button>
+                        <div class="notifications-dropdown" id="notifications-dropdown">
+                            <div class="notif-head">
+                                <h4>
+                                    <i class="fa-solid fa-bell"></i> Thông báo
+                                    <span class="notif-head-count" id="notif-head-count" style="display:none">0</span>
+                                </h4>
+                                <button class="notif-readall" id="notif-readall" onclick="window.app.markAllNotificationsRead()" disabled>
+                                    Đánh dấu đã đọc
+                                </button>
+                            </div>
+                            <div class="notif-tabs">
+                                <button class="notif-tab active" id="notif-tab-all" onclick="window.app.setNotifTab('all')">Tất cả</button>
+                                <button class="notif-tab" id="notif-tab-unread" onclick="window.app.setNotifTab('unread')">Chưa đọc</button>
+                            </div>
+                            <div class="notif-list" id="notif-list">
+                                <div class="notif-empty"><i class="fa-solid fa-bell-slash"></i>Chưa có thông báo nào</div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn-char-toggle" id="btn-char-toggle" onclick="window.app.toggleCharMode()" title="Chuyển Phồn thể / Giản thể">
+                        <span id="char-toggle-label">繁</span>
+                    </button>
+                <div class="header-user-wrap" id="header-user-wrap">
+                    <button class="btn-user-avatar" id="btn-user-avatar" onclick="window.app.toggleUserMenu()" title="Tài khoản">
+                        <span class="user-avatar-inner" id="user-avatar-inner">
+                            <i class="fa-solid fa-user"></i>
+                        </span>
+                    </button>
+                    <!-- User dropdown menu -->
+                    <div class="user-dropdown" id="user-dropdown">
+                        <div class="user-dd-header" id="user-dd-header">
+                            <div class="user-dd-avatar-wrap" onclick="window.app.triggerAvatarUpload()">
+                                <div class="user-dd-avatar" id="user-dd-avatar">
+                                    <i class="fa-solid fa-user"></i>
+                                </div>
+                                <div class="user-dd-avatar-overlay"><i class="fa-solid fa-camera"></i></div>
+                            </div>
+                            <div class="user-dd-info">
+                                <div class="user-dd-name" id="user-dd-name">Khách</div>
+                                <div class="user-dd-email" id="user-dd-email">Chưa đăng nhập</div>
+                                <div class="user-dd-level" id="user-dd-level"></div>
+                            </div>
+                        </div>
+                        <div class="user-dd-stats" id="user-dd-stats"></div>
+                        <div class="user-dd-divider"></div>
+                        <div class="user-dd-menu">
+                            <button class="user-dd-item" onclick="window.app.closeUserMenu(); window.app.navigate('account-profile')">
+                                <i class="fa-solid fa-id-card"></i> Thông tin tài khoản
+                            </button>
+                            <button class="user-dd-item" id="user-dd-class-btn" onclick="window.app.closeUserMenu(); window.app.navigate('account-profile')">
+                                <i class="fa-solid fa-school"></i> <span id="user-dd-class-info">Khóa học của tôi</span>
+                            </button>
+                            <button class="user-dd-item" onclick="window.app.closeUserMenu(); window.app.navigate('account-settings')">
+                                <i class="fa-solid fa-key"></i> Đổi mật khẩu
+                            </button>
+                        </div>
+                        <div class="user-dd-divider"></div>
+                        <div class="user-dd-menu">
+                            <button class="user-dd-item user-dd-logout" id="user-dd-login-btn" onclick="window.app.userMenuAuthAction()">
+                                <i class="fa-solid fa-right-to-bracket"></i> Đăng nhập
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Hidden file input for avatar upload -->
+                    <input type="file" id="avatar-file-input" accept="image/*" style="display:none" onchange="window.app.handleAvatarFileChange(event)">
+                </div><!-- /header-user-wrap -->
+                </div><!-- /header-right -->
+            </header>
+
+            <!-- Page Content -->
+            <main class="page-content" id="page-content">
+                <!-- Pages rendered here by router -->
+            </main>
+
+            <!-- Thanh điều hướng dưới — NẰM TRONG DÒNG CHẢY, không phải position:fixed.
+                 Trước đây nó là `fixed; bottom: 0` (con của .app-shell) trong khi .app-shell cao
+                 `100dvh`. Hai mốc đó KHÁC NHAU trên iOS: dvh co giãn theo thanh công cụ Safari, còn
+                 fixed neo vào layout viewport — lệch bao nhiêu thì hở bấy nhiêu, và phần hở lộ nền
+                 trang thành một dải sáng dưới thanh (chủ dự án gặp trên iPhone 15 Pro Max, 18/09).
+                 Là flex item cuối của .main-area thì thanh luôn nằm đúng đáy khung app, không còn
+                 phụ thuộc vào cách iOS tính viewport. Xem CLAUDE.md 4.54. -->
+            <!-- Mobile Bottom Nav -->
+            <nav class="mobile-nav" id="mobile-nav">
+                <button class="mnav-item active" data-page="dashboard" onclick="window.app.navigate('dashboard')">
+                    <i class="fa-solid fa-house"></i>
+                    <span>Trang chủ</span>
+                </button>
+                <button class="mnav-item" data-page="flashcard" onclick="window.app.navigate('flashcard')">
+                    <i class="fa-solid fa-clone"></i>
+                    <span>Flashcard</span>
+                </button>
+                <button class="mnav-item" data-page="exam" onclick="window.app.navigate('exam')">
+                    <i class="fa-solid fa-file-pen"></i>
+                    <span>Thi TOCFL</span>
+                </button>
+                <button class="mnav-item" data-page="vocabulary" onclick="window.app.navigate('vocabulary')">
+                    <i class="fa-solid fa-book-bookmark"></i>
+                    <span>Từ vựng</span>
+                </button>
+                <button class="mnav-item" data-page="dictionary" onclick="window.app.navigate('dictionary')">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <span>Từ điển</span>
+                </button>
+            </nav>
+        </div>
+
+    </div>
+
+    <!-- Auth Modal -->
+    <div class="modal-overlay" id="auth-modal">
+        <div class="modal-card auth-modal-card">
+            <button class="modal-close" onclick="window.app.closeAuth()"><i class="fa-solid fa-xmark"></i></button>
+            <div class="auth-split">
+                <div class="auth-form-side" id="auth-form-side">
+                    <!-- Injected by auth.js -->
+                </div>
+                <div class="auth-image-side">
+                    <div class="auth-image-overlay"></div>
+                    <div class="auth-image-content">
+                        <div class="auth-image-dots">
+                            <span class="dot dot-gold"></span>
+                            <span class="dot dot-white-60"></span>
+                            <span class="dot dot-white-30"></span>
+                        </div>
+                        <div class="auth-image-text">
+                            <div class="auth-brand-logo">Tẻn</div>
+                            <h3>Chinh phục ước mơ<br>du học Đài Loan</h3>
+                            <p>Đồng hành cùng hàng ngàn học sinh Việt Nam trên hành trình học bổng & nhập học tại Đài Loan.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Guest Lock Popup -->
+    <div class="modal-overlay" id="guest-lock-modal">
+        <div class="modal-card modal-sm">
+            <i class="fa-solid fa-lock guest-lock-icon"></i>
+            <h3>Tính năng bị khóa</h3>
+            <p class="text-muted">Vui lòng đăng nhập để sử dụng tính năng này và theo dõi tiến độ của bạn.</p>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="window.app.closeModal('guest-lock-modal')">Đóng</button>
+                <button class="btn btn-primary" onclick="window.app.closeModal('guest-lock-modal');window.app.openAuth()">Đăng nhập</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal ĐỘNG dùng chung — tiêu đề/nội dung/nút do JS đổ vào (openDialog).
+         Dùng cho: nhận xét của giáo viên, thông báo tài khoản chưa duyệt... -->
+    <div class="modal-overlay" id="app-dialog">
+        <div class="modal-card modal-lg">
+            <button class="modal-close" onclick="window.app.closeDialog()"><i class="fa-solid fa-xmark"></i></button>
+            <h3 id="app-dialog-title"></h3>
+            <div id="app-dialog-body"></div>
+            <div class="modal-actions" id="app-dialog-footer"></div>
+        </div>
+    </div>
+
+    <!-- Lesson Completion Modal -->
+    <div class="modal-overlay" id="completion-modal">
+        <div class="modal-card modal-sm">
+            <button class="modal-close" onclick="window.app.closeModal('completion-modal')"><i class="fa-solid fa-xmark"></i></button>
+            <div class="completion-trophy">
+                <i class="fa-solid fa-trophy"></i>
+            </div>
+            <h3>Chúc mừng! 🎉</h3>
+            <p class="text-muted" id="completion-message">Bạn đã hoàn thành bài học!</p>
+            <div class="modal-actions-col">
+                <button class="btn btn-primary btn-full" onclick="window.app.closeModal('completion-modal')">
+                    HỌC TIẾP BÀI SAU <i class="fa-solid fa-arrow-right"></i>
+                </button>
+                <button class="btn btn-secondary btn-full" onclick="window.app.closeModal('completion-modal')">
+                    <i class="fa-solid fa-rotate-right"></i> Học lại bài này
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Exam Setup Modal -->
+    <div class="modal-overlay" id="exam-setup-modal">
+        <div class="modal-card modal-md">
+            <div class="modal-header-icon blue">
+                <i class="fa-solid fa-sliders"></i>
+            </div>
+            <h3 id="exam-setup-title">Cấu hình bài thi</h3>
+            <p class="text-muted">Tùy chỉnh cấu hình bài thi của bạn trước khi bắt đầu.</p>
+            <div class="form-group">
+                <label class="form-label">Kỹ năng thi</label>
+                <div class="select-wrap">
+                    <select id="exam-skill-select" class="form-select">
+                        <option value="both">Cả 2 kỹ năng (Nghe & Đọc)</option>
+                        <option value="listening">Chỉ thi Nghe (Listening)</option>
+                        <option value="reading">Chỉ thi Đọc (Reading)</option>
+                    </select>
+                    <i class="fa-solid fa-chevron-down select-icon"></i>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Loại chữ hiển thị</label>
+                <div class="select-wrap">
+                    <select id="exam-char-select" class="form-select">
+                        <option value="traditional">Phồn thể (Mặc định Đài Loan)</option>
+                        <option value="simplified">Giản thể</option>
+                    </select>
+                    <i class="fa-solid fa-chevron-down select-icon"></i>
+                </div>
+            </div>
+            <div class="modal-actions mt-6">
+                <button class="btn btn-secondary" onclick="window.app.closeModal('exam-setup-modal')">Hủy bỏ</button>
+                <button class="btn btn-accent" onclick="window.app.startExam()">
+                    BẮT ĐẦU <i class="fa-solid fa-play"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebar-overlay" onclick="window.app.toggleMobileSidebar()"></div>
+
+    <!-- Mascot Widget -->
+    <div class="mascot-widget" id="mascot-widget" onclick="window.app.toggleMascot()">
+        <div class="mascot-emoji">🐝</div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html>
