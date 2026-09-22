@@ -2,7 +2,28 @@
 import mysql from 'mysql2/promise';
 import bcrypt from 'bcryptjs';
 import dotenv from 'dotenv';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 dotenv.config();
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+/**
+ * Cấu hình TLS cho nhà cung cấp DB có quản lý (Aiven, TiDB...) — họ TỪ CHỐI kết nối không mã hoá,
+ * nên thiếu khối này thì lệnh init dừng ngay ở bước bắt tay với lỗi khó đoán.
+ * Bật khi `DB_SSL=true`; CA cert lấy từ biến `DB_CA_CERT` hoặc file `server/config/ca.pem`.
+ */
+function sslNeuCan() {
+  if (process.env.DB_SSL !== 'true') return {};
+  let ca;
+  if (process.env.DB_CA_CERT) {
+    ca = process.env.DB_CA_CERT.replace(/\\n/g, '\n');
+  } else {
+    try { ca = fs.readFileSync(path.join(__dirname, 'ca.pem')); } catch { /* để mysql2 dùng CA hệ thống */ }
+  }
+  return { ssl: { rejectUnauthorized: true, ...(ca ? { ca } : {}) } };
+}
 
 async function initDatabase() {
   // Connect WITHOUT database first to create it
@@ -12,6 +33,7 @@ async function initDatabase() {
     password: process.env.DB_PASSWORD || '',
     port: parseInt(process.env.DB_PORT || '3306'),
     charset: 'utf8mb4',
+    ...sslNeuCan(),
   });
 
   const DB = process.env.DB_NAME || 'taiwan_diary';

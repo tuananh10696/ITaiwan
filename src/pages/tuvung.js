@@ -21,7 +21,7 @@ import api from '../api/client.js';
 import {
   K, C, TD_BO, TD_TU_LOAI, napKho, napChuDon, napChu, napBoThu, napManh, napManhKho, napChuCua,
   daNap, layNgay, tdKhongDau, coChuHan, tdAudio, tdGiaiNhan, tdNhomTuLoai,
-  tdTimTrong, tdTraTu, tdTuBatDau, tdManhSangHang,
+  tdTimTrong, tdTraTu, tdTu, tdTuBatDau, tdManhSangHang,
 } from '../data/tudien-kho.js';
 import { generateQuiz } from '../data/sinh-de-trac-nghiem.js';
 import { tronMang } from '../utils/tron-de.js';
@@ -134,8 +134,7 @@ async function tdLuuTu(han, ns) {
   if (!t) t = { han, gian: '', py: '', hv: '', nghia: '' };
   const daLuu = await soTayDoi(tdChup(t), ns === 'td' ? 'tudien' : ns === 'st' ? 'sotay' : ns === 'bt' ? 'bothu' : 'kho');
   toast(daLuu ? `Đã lưu “${han}” vào sổ tay` : `Đã bỏ “${han}” khỏi sổ tay`);
-  if (ns === 'kv') kvVeTab();
-  else if (ns === 'st') renderNotebook(document.getElementById('page-content'));
+  if (ns === 'st') renderNotebook(document.getElementById('page-content'));
   else if (ns === 'td') renderDictionary(document.getElementById('page-content'));
   else if (ns === 'bt') renderRadicals(document.getElementById('page-content'));
 }
@@ -538,7 +537,7 @@ function renderNotebook(el) {
              Từ điển, thẻ từ trong bài giáo trình — để cất từ vào đây, rồi ôn lại bằng
              flashcard và trắc nghiệm.</p>
           <div class="st-empty-act">
-            <button class="btn btn-primary" onclick="window.app.navigate('vocabulary')">Mở kho từ vựng</button>
+            <button class="btn btn-primary" onclick="window.app.navigate('tocfl-vocab')">Mở kho từ vựng</button>
             <button class="btn btn-outline" onclick="window.app.navigate('dictionary')">Tra từ điển</button>
           </div>
         </div>
@@ -886,9 +885,14 @@ function btNet(v) { btState.net = v; updateUrl(); _btRenderLuoi(document.getElem
 // Một bộ hàm, hai trang gọi — `ns` ('kv' | 'st') cho biết đang ở trang nào. Viết hai bản là
 // hai chỗ phải sửa mỗi lần đổi giao diện thẻ.
 
+/** Số câu mỗi lượt trắc nghiệm. Khớp `TV_SO_CAU` của trang Từ vựng theo Band trong main.js. */
+const KV_SO_CAU = 20;
+
 const LUY_STATE = { st: () => stState };
-const LUY_VE = { kv: () => kvVeTab(), st: () => stVeTab() };
-const _luyDs = (ns) => (ns === 'kv' ? _kvLoc() : _stLoc());
+// Chỉ còn 'st' (Sổ tay): khu "Kho từ vựng" (ns 'kv') đã gỡ khỏi bản này, hai hàm nó gọi
+// (kvVeTab, _kvLoc) không còn tồn tại nên giữ lại nhánh 'kv' là một lỗi chờ nổ.
+const LUY_VE = { st: () => stVeTab() };
+const _luyDs = () => _stLoc();
 
 function luyTabBarHtml(ns, tab) {
   const tabs = [

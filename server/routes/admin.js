@@ -28,7 +28,7 @@ router.use(requireAuth, loadRole, requireStaff, phamViQuanTri);
 // (nút "Thêm học viên" của họ 403 sạch trước 2026-09-13). Nó được khai riêng trong QUYEN và TỰ
 // lọc theo `req.orgId` ngay bên dưới — mở mà quên lọc thì trung tâm này dò ra học viên trung tâm kia.
 for (const khu of ['/users', '/pending-count', '/vocabulary', '/exam-questions',
-  '/dialogues', '/dialogue-lines', '/blog', '/reorder', '/swap', '/seed']) {
+  '/dialogues', '/dialogue-lines', '/blog', '/reorder', '/swap', '/seed', '/tong-quan']) {
   router.use(khu, requireAdminOnly);
 }
 
@@ -220,6 +220,181 @@ router.get('/stats', async (req, res) => {
     console.error('Admin stats error:', err);
     res.status(500).json({ error: 'Lỗi tải thống kê.' });
   }
+});
+
+// =============================================
+// TỔNG QUAN CỦA QUẢN TRỊ  (/admin/tong-quan)
+// =============================================
+// Khác hẳn /stats vốn viết cho GIÁO VIÊN (buổi chưa điểm danh, bài chưa nộp, bài vừa nộp —
+// việc của người đứng lớp). Người quản trị cần trả lời ba câu khác:
+//   1. Hôm nay / tuần này / tháng này trung tâm thu được bao nhiêu, chi bao nhiêu?
+//   2. Tiền vào ra ở những mục nào?
+//   3. Đang có việc gì kẹt không?
+// Nên route này trả về TIỀN + TÌNH TRẠNG LỚP (gọn) + ĐẾM CẢNH BÁO, không trả danh sách chi tiết.
+//
+// Nguồn tiền của bản này nằm ở BA bảng rời nhau và KHÔNG tự cộng vào nhau:
+//   • quy_phieu       — sổ thu chi tổng của trung tâm, là thứ duy nhất có cả THU và CHI
+//   • du_hoc_thu_tien — tiền theo từng hồ sơ du học
+//   • ktx_thu_tien    — tiền phòng ký túc xá
+// Biểu đồ lãi/lỗ chỉ lấy `quy_phieu`; hai nguồn kia hiện riêng. Cộng gộp cả ba là RỦI RO
+// đếm hai lần — trung tâm nào có thói quen ghi lại khoản du học vào sổ quỹ thì con số phồng
+// gấp đôi mà không ai nhận ra. Muốn gộp thì phải có cờ đánh dấu "đã vào sổ quỹ" trước đã.
+//
+// Mỗi khối bọc try/catch riêng: bảng quỹ / ký túc xá / du học đều đến từ migration riêng, DB
+// nào chưa chạy thì khối đó trả rỗng chứ không làm hỏng cả trang.
+router.get('/tong-quan', async (req, res) => {
+  const rong = { thu: 0, chi: 0 };
+  const kq = {
+    tien: { ky: { hom_nay: { ...rong }, tuan: { ...rong }, thang: { ...rong }, thang_truoc: { ...rong } },
+      theo_thang: [], thu_theo_dm: [], chi_theo_dm: [], co_bang: true },
+    nguon_khac: { du_hoc_da_thu: 0, du_hoc_con_phai_thu: 0, ktx_thang_nay: 0, ktx_no_nguoi: 0 },
+    lop: [],
+    canh_bao: {},
+  };
+
+  // ---------- TIỀN: sổ thu chi ----------
+  try {
+    const [[k]] = await pool.query(`
+      SELECT
+        SUM(CASE WHEN ngay = CURDATE() AND loai='thu' THEN so_tien ELSE 0 END) AS hom_nay_thu,
+        SUM(CASE WHEN ngay = CURDATE() AND loai='chi' THEN so_tien ELSE 0 END) AS hom_nay_chi,
+        SUM(CASE WHEN ngay >= DATE_SUB(CURDATE(), INTERVAL 6 DAY) AND loai='thu' THEN so_tien ELSE 0 END) AS tuan_thu,
+        SUM(CASE WHEN ngay >= DATE_SUB(CURDATE(), INTERVAL 6 DAY) AND loai='chi' THEN so_tien ELSE 0 END) AS tuan_chi,
+        SUM(CASE WHEN ngay >= DATE_FORMAT(CURDATE(), '%Y-%m-01') AND loai='thu' THEN so_tien ELSE 0 END) AS thang_thu,
+        SUM(CASE WHEN ngay >= DATE_FORMAT(CURDATE(), '%Y-%m-01') AND loai='chi' THEN so_tien ELSE 0 END) AS thang_chi,
+        SUM(CASE WHEN ngay >= DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01')
+                  AND ngay <  DATE_FORMAT(CURDATE(), '%Y-%m-01') AND loai='thu' THEN so_tien ELSE 0 END) AS truoc_thu,
+        SUM(CASE WHEN ngay >= DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 1 MONTH), '%Y-%m-01')
+                  AND ngay <  DATE_FORMAT(CURDATE(), '%Y-%m-01') AND loai='chi' THEN so_tien ELSE 0 END) AS truoc_chi
+      FROM quy_phieu WHERE org_id = ?`, [req.orgId]);
+    kq.tien.ky = {
+      hom_nay: { thu: +k.hom_nay_thu || 0, chi: +k.hom_nay_chi || 0 },
+      tuan: { thu: +k.tuan_thu || 0, chi: +k.tuan_chi || 0 },
+      thang: { thu: +k.thang_thu || 0, chi: +k.thang_chi || 0 },
+      thang_truoc: { thu: +k.truoc_thu || 0, chi: +k.truoc_chi || 0 },
+    };
+
+    // 8 kỳ gần nhất, kể cả kỳ KHÔNG có phiếu nào: sinh dãy tháng ở JS rồi ghép, vì GROUP BY chỉ
+    // trả về tháng có dữ liệu — để nguyên thì biểu đồ nhảy cóc, tháng trống biến mất im lặng.
+    const [rows] = await pool.query(`
+      SELECT DATE_FORMAT(ngay, '%Y-%m') AS ky,
+             SUM(CASE WHEN loai='thu' THEN so_tien ELSE 0 END) AS thu,
+             SUM(CASE WHEN loai='chi' THEN so_tien ELSE 0 END) AS chi
+        FROM quy_phieu
+       WHERE org_id = ? AND ngay >= DATE_SUB(DATE_FORMAT(CURDATE(), '%Y-%m-01'), INTERVAL 7 MONTH)
+       GROUP BY ky ORDER BY ky`, [req.orgId]);
+    const theoKy = Object.fromEntries(rows.map((r) => [r.ky, r]));
+    const nay = new Date();
+    for (let i = 7; i >= 0; i--) {
+      const d = new Date(nay.getFullYear(), nay.getMonth() - i, 1);
+      const ky = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+      kq.tien.theo_thang.push({ ky, thu: +(theoKy[ky]?.thu || 0), chi: +(theoKy[ky]?.chi || 0) });
+    }
+
+    const [dm] = await pool.query(`
+      SELECT p.loai, COALESCE(d.ten, 'Chưa phân loại') AS ten, SUM(p.so_tien) AS tien
+        FROM quy_phieu p LEFT JOIN quy_danh_muc d ON d.id = p.danh_muc_id
+       WHERE p.org_id = ? AND p.ngay >= DATE_FORMAT(CURDATE(), '%Y-%m-01')
+       GROUP BY p.loai, ten ORDER BY tien DESC`, [req.orgId]);
+    kq.tien.thu_theo_dm = dm.filter((r) => r.loai === 'thu').slice(0, 6).map((r) => ({ ten: r.ten, tien: +r.tien }));
+    kq.tien.chi_theo_dm = dm.filter((r) => r.loai === 'chi').slice(0, 6).map((r) => ({ ten: r.ten, tien: +r.tien }));
+  } catch (e) {
+    kq.tien.co_bang = false;
+    console.warn('Tổng quan: bỏ qua sổ thu chi —', e.code || e.message);
+  }
+
+  // ---------- TIỀN: hai nguồn thu riêng ----------
+  try {
+    const [[t]] = await pool.query(`
+      SELECT COALESCE(SUM(CASE WHEN tt.loai='hoan' THEN -tt.so_tien ELSE tt.so_tien END), 0) AS da_thu
+        FROM du_hoc_thu_tien tt JOIN du_hoc_ho_so h ON h.id = tt.ho_so_id WHERE h.org_id = ?`, [req.orgId]);
+    // Còn phải thu chỉ tính hồ sơ ĐANG CHẠY: hồ sơ đã huỷ / tạm dừng không còn là khoản phải đòi.
+    const [[n]] = await pool.query(`
+      SELECT COALESCE(SUM(GREATEST(h.tong_phi - COALESCE((
+               SELECT SUM(CASE WHEN tt.loai='hoan' THEN -tt.so_tien ELSE tt.so_tien END)
+                 FROM du_hoc_thu_tien tt WHERE tt.ho_so_id = h.id), 0), 0)), 0) AS con
+        FROM du_hoc_ho_so h
+       WHERE h.org_id = ? AND h.buoc NOT IN ('huy', 'tam-dung', 'hoan-thanh')`, [req.orgId]);
+    kq.nguon_khac.du_hoc_da_thu = +t.da_thu || 0;
+    kq.nguon_khac.du_hoc_con_phai_thu = +n.con || 0;
+  } catch (e) { console.warn('Tổng quan: bỏ qua du học —', e.code || e.message); }
+
+  try {
+    const [[t]] = await pool.query(`
+      SELECT COALESCE(SUM(th.so_tien), 0) AS tien
+        FROM ktx_thu_tien th JOIN ktx_o o ON o.id = th.o_id
+        JOIN ktx_phong p ON p.id = o.phong_id JOIN ktx_toa toa ON toa.id = p.toa_id
+       WHERE toa.org_id = ? AND th.ky = DATE_FORMAT(CURDATE(), '%Y-%m')`, [req.orgId]);
+    const [[n]] = await pool.query(`
+      SELECT COUNT(*) AS so FROM ktx_o o
+        JOIN ktx_phong p ON p.id = o.phong_id JOIN ktx_toa toa ON toa.id = p.toa_id
+       WHERE toa.org_id = ? AND o.trang_thai = 'dang-o'
+         AND NOT EXISTS (SELECT 1 FROM ktx_thu_tien th
+                          WHERE th.o_id = o.id AND th.loai = 'tien-phong'
+                            AND th.ky = DATE_FORMAT(CURDATE(), '%Y-%m'))`, [req.orgId]);
+    kq.nguon_khac.ktx_thang_nay = +t.tien || 0;
+    kq.nguon_khac.ktx_no_nguoi = +n.so || 0;
+  } catch (e) { console.warn('Tổng quan: bỏ qua ký túc xá —', e.code || e.message); }
+
+  // ---------- TÌNH TRẠNG LỚP ----------
+  try {
+    const [lop] = await pool.query(`
+      SELECT c.id, c.name, u.name AS teacher_name,
+        (SELECT COUNT(*) FROM class_enrollments ce WHERE ce.class_id = c.id) AS si_so,
+        (SELECT COUNT(*) FROM class_sessions cs
+          WHERE cs.class_id = c.id AND cs.session_date <= CURDATE()) AS buoi,
+        (SELECT ROUND(100 * AVG(ca.status = 'present')) FROM class_attendance ca
+           JOIN class_sessions cs ON cs.id = ca.session_id WHERE cs.class_id = c.id) AS chuyen_can,
+        (SELECT ROUND(AVG(er.score_percent)) FROM exercise_results er
+           JOIN class_enrollments ce ON ce.user_id = er.user_id
+          WHERE ce.class_id = c.id AND er.created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)) AS diem_tb,
+        (SELECT COUNT(*) FROM assignments a JOIN class_enrollments ce ON ce.class_id = a.class_id
+          WHERE a.class_id = c.id
+            AND NOT EXISTS (SELECT 1 FROM exercise_results er
+                             WHERE er.user_id = ce.user_id AND er.lesson_id = a.lesson_id)) AS chua_nop
+      FROM classes c LEFT JOIN users u ON u.id = c.teacher_id
+      WHERE c.is_active = 1 AND c.org_id = ?
+      ORDER BY c.name`, [req.orgId]);
+    kq.lop = lop;
+  } catch (e) { console.warn('Tổng quan: bỏ qua lớp —', e.code || e.message); }
+
+  // ---------- CẢNH BÁO: chỉ ĐẾM, bấm vào thì sang đúng khu ----------
+  // Mỗi phép đếm một try riêng: thiếu một bảng thì mất đúng một con số, không mất cả khối.
+  const dem = async (ten, sql, ts = []) => {
+    try { const [[r]] = await pool.query(sql, ts); kq.canh_bao[ten] = +r.so || 0; }
+    catch (e) { kq.canh_bao[ten] = null; console.warn(`Tổng quan: không đếm được ${ten} —`, e.code || e.message); }
+  };
+  await dem('cho_duyet', "SELECT COUNT(*) AS so FROM users WHERE is_verified = 1 AND is_approved = 0 AND org_id = ?", [req.orgId]);
+  await dem('diem_danh', `
+    SELECT COUNT(*) AS so FROM (
+      SELECT cs.id,
+        (SELECT COUNT(*) FROM class_attendance ca WHERE ca.session_id = cs.id) AS marked,
+        (SELECT COUNT(*) FROM class_enrollments ce WHERE ce.class_id = cs.class_id) AS roster
+      FROM class_sessions cs JOIN classes c ON c.id = cs.class_id
+      WHERE cs.session_date <= CURDATE() AND c.org_id = ?) t
+    WHERE t.roster > 0 AND t.marked < t.roster`, [req.orgId]);
+  await dem('bai_qua_han', `
+    SELECT COUNT(*) AS so FROM (
+      SELECT a.id,
+        (SELECT COUNT(*) FROM class_enrollments ce WHERE ce.class_id = a.class_id) AS tong,
+        (SELECT COUNT(*) FROM class_enrollments ce WHERE ce.class_id = a.class_id
+          AND EXISTS (SELECT 1 FROM exercise_results er
+                       WHERE er.user_id = ce.user_id AND er.lesson_id = a.lesson_id)) AS nop
+      FROM assignments a JOIN classes c ON c.id = a.class_id
+      WHERE c.org_id = ? AND a.due_date IS NOT NULL AND a.due_date < CURDATE()) x
+    WHERE x.tong > 0 AND x.nop < x.tong`, [req.orgId]);
+  await dem('cho_cham', `
+    SELECT COUNT(*) AS so FROM de_bai_lam bl JOIN de_bai d ON d.id = bl.de_id
+     WHERE d.org_id = ? AND bl.trang_thai = 'da-nop'`, [req.orgId]);
+  await dem('du_hoc_dung', `
+    SELECT COUNT(*) AS so FROM du_hoc_ho_so
+     WHERE org_id = ? AND buoc NOT IN ('hoan-thanh', 'huy', 'tam-dung')
+       AND buoc_tu IS NOT NULL AND buoc_tu < DATE_SUB(CURDATE(), INTERVAL 30 DAY)`, [req.orgId]);
+  await dem('du_hoc_yeu_cau', "SELECT COUNT(*) AS so FROM du_hoc_yeu_cau_sua WHERE trang_thai = 'cho'");
+  await dem('thiet_bi', 'SELECT COUNT(*) AS so FROM device_alerts WHERE da_xu_ly = 0');
+  kq.canh_bao.ktx_no = kq.nguon_khac.ktx_no_nguoi;
+
+  res.json(kq);
 });
 
 // =============================================

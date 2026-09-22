@@ -264,6 +264,39 @@ export async function tdTuBatDau(tu, gioiHan = 40) {
     .slice(0, gioiHan);
 }
 
+/**
+ * Đổi MỘT HÀNG của `kho.json` (mảng, đánh số theo `K`) sang object có tên trường đọc được.
+ *
+ * Vì sao cần: dữ liệu để dạng MẢNG cho nhẹ (~40%), nhưng mọi renderer đều viết `t.han`,
+ * `t.nghia`… chứ không viết `w[0]`, `w[4]` — đúng như ghi chú ở khối `K` đầu file. Hàm này là
+ * chỗ DUY NHẤT dịch giữa hai dạng đó.
+ *
+ * ⚠️ Trường trống trong `kho.json` được ghi là SỐ 0 chứ không phải chuỗi rỗng (để file nhẹ hơn),
+ * nên phải `|| ''` từng trường. Trả thẳng `w[K.GIAN]` là có chỗ hiện ra số "0" thay vì để trống.
+ *
+ * `nhan` luôn trả về MẢNG: `tdTheTuHtml` gọi `t.nhan.length` không kiểm tra trước, trả undefined
+ * là vỡ cả danh sách từ.
+ *
+ * `mayDich` = nghĩa lấy từ từ điển Hán–Việt tự động (cột NGUON = 1), chưa qua biên soạn — màn
+ * chi tiết dựa vào cờ này để hiện dòng lưu ý cho người học.
+ */
+export function tdTu(w) {
+  if (!Array.isArray(w)) return w || null;
+  return {
+    han: w[K.HAN] || '',
+    gian: w[K.GIAN] || '',
+    py: w[K.PY] || '',
+    hv: w[K.HV] || '',
+    nghia: w[K.NGHIA] || '',
+    loai: w[K.LOAI] || '',
+    nhan: Array.isArray(w[K.NHAN]) ? w[K.NHAN] : [],
+    audio: w[K.AUDIO] || '',
+    tts: w[K.TTS] || '',
+    mayDich: w[K.NGUON] === 1,
+    en: w[K.NGHIA_EN] || '',
+  };
+}
+
 /** Đổi một bản ghi của mảnh từ điển sang cùng dạng hàng với `kho.json` để renderer dùng chung. */
 export function tdManhSangHang(r) {
   return [r[0], r[1] || 0, r[2], 0, (r[3] || []).slice(0, 2).join('; '), 0, 0, 0, 0, 1, 0];

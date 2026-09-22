@@ -514,7 +514,7 @@ function veThuocDo() {
          tw-vh ${getComputedStyle(de).getPropertyValue('--tw-vh').trim() || '-'} · shell ${shell ? Math.round(shell.height) : '-'} (đáy ${shell ? Math.round(shell.bottom) : '-'})<br>
          env trên <b>${envTren0}</b> · env dưới ${envDuoi} · nav cao ${nb ? Math.round(nb.height) : '-'} · <b style="color:#B91C1C">hở ${ho}</b><br>
          ${dv('vh') >= manCao - 2 && layout < manCao - 2
-           ? '<b style="color:#047857">vh = màn hình → khung app đang dùng 100vh</b>'
+           ? '<b style="color:#17794A">vh = màn hình → khung app đang dùng 100vh</b>'
            : 'khung nhìn hụt ' + (manCao - layout) + 'px so với màn hình'}<br>
          ${coCoViewport ? '<b style="color:#B91C1C">iOS CO KHUNG NHÌN ' + (manCao - layout) + 'px</b> · ' : ''}bản ${([...document.querySelectorAll('script[src]')].map((s) => s.src.split('/').pop()).find((n) => /^main-/.test(n)) || '-')}
          <button onclick="window.app.tatThuocDo()" style="float:right;margin-left:8px;border:0;background:#111;color:#fff;border-radius:4px;padding:2px 8px;font-weight:700">✕</button>
@@ -1754,65 +1754,48 @@ function tcMoBai(subId, tab) {
 }
 
 /**
- * Tên để gọi trong lời chào. Người Việt xưng bằng TỪ CUỐI của họ tên ("Nguyễn Văn An" -> "An"),
- * nhưng rất nhiều tài khoản đăng ký bằng nickname có đuôi số ("nganhaa 2509") — lấy từ cuối thì
- * hoá ra chào bằng một dãy số. Đuôi toàn số / quá ngắn thì lùi về từ trước đó.
+ * Trang Facebook chính thức của trung tâm. Để ở HẰNG SỐ vì cùng một link được dùng ở hero và
+ * (sau này) ở chân trang — sửa một chỗ là đổi hết, không phải đi tìm từng đoạn HTML.
  */
-function tcTenGoi(name) {
-  const phan = String(name || '').trim().split(/\s+/).filter(Boolean);
-  if (!phan.length) return '';
-  const cuoi = phan[phan.length - 1];
-  if (phan.length > 1 && (/^\d+$/.test(cuoi) || cuoi.length < 2)) return phan[phan.length - 2];
-  return cuoi;
-}
+const FB_TRUNG_TAM = 'https://www.facebook.com/DuHocITaiwan/?rdid=ixUB9HM4UdQBcIRC';
 
 /**
- * Hero. Khách thấy lời mời + số liệu kho; học viên thấy lời chào + số của chính mình.
- * Ba ô số liệu của học viên mang id để `tcVeLive()` điền lại bằng dữ liệu thật — lúc vẽ lần đầu
- * chỉ có `state.user` (streak/points lấy từ token đăng nhập), còn "bài đã làm" thì phải hỏi server.
+ * Hero = danh thiếp gọn của trung tâm: TÊN + một câu khẩu hiệu + cách liên hệ. Hết.
+ *
+ * 2026-09-22 (lần 2) — bản trước nhồi cả số người theo dõi, hai dòng mô tả và địa chỉ đầy đủ
+ * vào một thẻ cao 300px; đọc lướt không ra đâu là thông tin chính. Nay bỏ số người theo dõi,
+ * dòng "Hỗ trợ tư vấn du học Đài Loan" (trùng ý với khẩu hiệu) và địa chỉ (dài 2 dòng, người
+ * cần thì bấm sang Facebook là có). Số điện thoại và email giữ lại vì đó là hai thứ người xem
+ * bấm vào được ngay.
+ *
+ * Chữ ở đây là thông tin THẬT của trung tâm — copy nguyên văn, đừng tự sửa.
  */
 function heroHtml() {
-  const ten = state.isLoggedIn && state.user ? tcTenGoi(state.user.name) : '';
-
-  let stats;
-  if (state.isLoggedIn) {
-    const u = state.user || {};
-    stats = [
-      ['tc-hs-streak', u.streak || 0, 'ngày liên tục'],
-      ['tc-hs-bai', '—', 'bài đã làm'],
-      ['tc-hs-diem', tcSo(u.points || 0), 'điểm tích luỹ'],
-    ];
-  } else {
-    const k = tcSoLieuKho();
-    stats = [
-      ['', tcSo(k.bai), 'bài học'],
-      ['', tcSo(k.tu), 'từ vựng'],
-      ['', 'A1–C1', 'phủ 6 cấp TOCFL'],
-    ];
-  }
-
+  const dangHoc = state.isLoggedIn;
   return `
     <div class="hero-section">
       <div class="hero-text-panel">
-        <span class="hero-badge">
-          <i class="fa-solid fa-graduation-cap"></i> Tiếng Trung Phồn thể · Luyện thi TOCFL
-        </span>
-        <h2>${ten
-          ? `Chào ${tdEsc(ten)}, <span>học tiếp thôi</span>`
-          : `Học tiếng Trung Phồn thể <span>bài bản từ đầu</span>`}</h2>
-        <p>${ten
-          ? 'Mỗi ngày một chút — hệ thống tự nhắc bạn ôn đúng lúc sắp quên.'
-          : 'Giáo trình có giọng đọc thật của sách, ngữ pháp giải thích bằng tiếng Việt, từ điển 122.596 mục và đề thi thử TOCFL.'}</p>
-        <div class="hero-actions">
-          <button class="hero-cta" onclick="window.app.navigate('${state.isLoggedIn ? 'path-today' : 'tocfl-thoidai'}')">
-            ${ten ? 'Hôm nay học gì?' : 'Học thử miễn phí'} <i class="fa-solid fa-arrow-right"></i>
-          </button>
-          <button class="hero-ghost" onclick="window.app.navigate('exam')">
-            <i class="fa-solid fa-file-pen"></i> Thi thử TOCFL
-          </button>
+        ${/* Tách làm hai <span> chỉ để đổi kiểu chữ; ghép lại vẫn đúng nguyên văn
+              "Trung Tâm Itaiwan - Du Học Đài Loan", không thêm bớt ký tự nào. */ ''}
+        <h2>Trung Tâm Itaiwan <span class="hero-sub-name">- Du Học Đài Loan</span></h2>
+        <p class="hero-slogan">Săn học bổng du học Đài Loan</p>
+
+        <div class="hero-contact">
+          <a class="hero-contact-row" href="tel:0365678977">
+            <i class="fa-solid fa-phone"></i><span>036 567 8977</span>
+          </a>
+          <a class="hero-contact-row" href="mailto:duhocitaiwan@gmail.com">
+            <i class="fa-solid fa-envelope"></i><span>duhocitaiwan@gmail.com</span>
+          </a>
         </div>
-        <div class="hero-stats">
-          ${stats.map(([id, v, l]) => `<div><b${id ? ` id="${id}"` : ''}>${v}</b><span>${l}</span></div>`).join('')}
+
+        <div class="hero-actions">
+          <a class="hero-cta" href="${FB_TRUNG_TAM}" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-facebook"></i><span>Liên hệ qua Facebook</span>
+          </a>
+          <button class="hero-ghost" onclick="window.app.navigate('${dangHoc ? 'path-today' : 'tocfl-thoidai'}')">
+            <i class="fa-solid fa-book-open"></i><span>${dangHoc ? 'Hôm nay học gì?' : 'Học thử miễn phí'}</span>
+          </button>
         </div>
       </div>
       <div class="hero-image-panel"></div>
@@ -2469,8 +2452,8 @@ function assignmentDue(due) {
   const diff = Math.round((d - today) / 86400000);
   const txt = d.toLocaleDateString('vi-VN');
   if (diff < 0) return { text: `Quá hạn ${txt}`, color: '#B91C1C', bg: '#FEE2E2' };
-  if (diff === 0) return { text: 'Hạn hôm nay', color: '#B45309', bg: '#FEF3C7' };
-  if (diff <= 2) return { text: `${txt} · còn ${diff} ngày`, color: '#B45309', bg: '#FEF3C7' };
+  if (diff === 0) return { text: 'Hạn hôm nay', color: '#8A4513', bg: '#FBEEDF' };
+  if (diff <= 2) return { text: `${txt} · còn ${diff} ngày`, color: '#8A4513', bg: '#FBEEDF' };
   return { text: `Hạn ${txt}`, color: 'var(--text-muted)', bg: 'var(--bg-subtle, #F1F5F9)' };
 }
 
@@ -2514,7 +2497,7 @@ function veBaiCoGiao(box, list) {
         </div>
         <div class="assign-item-meta">
           ${a.submitted
-            ? `<span class="assign-badge" style="color:#047857;background:#D1FAE5">Đã làm${a.best_score != null ? ` · ${Math.round(a.best_score)}%` : ''}</span>`
+            ? `<span class="assign-badge" style="color:#17794A;background:#DDF1E6">Đã làm${a.best_score != null ? ` · ${Math.round(a.best_score)}%` : ''}</span>`
             : `<span class="assign-badge" style="color:${due.color};background:${due.bg}">${due.text}</span>`}
         </div>
       </div>`;
@@ -2761,7 +2744,7 @@ function renderExamResults(el) {
       </div>
 
       <div style="background:${pct >= 60 ? 'var(--success-light)' : 'var(--warning-light)'};padding:16px 24px;border-radius:12px;max-width:400px;margin:0 auto 24px">
-        <p style="font-weight:700;color:${pct >= 60 ? '#065F46' : '#92400E'}">${pct >= 80 ? '🎉 Xuất sắc! Bạn đã nắm vững kiến thức!' : pct >= 60 ? '👍 Tốt lắm! Cần ôn thêm một chút.' : '📚 Cần luyện tập thêm. Đừng nản!'}</p>
+        <p style="font-weight:700;color:${pct >= 60 ? '#065F46' : '#8A4513'}">${pct >= 80 ? '🎉 Xuất sắc! Bạn đã nắm vững kiến thức!' : pct >= 60 ? '👍 Tốt lắm! Cần ôn thêm một chút.' : '📚 Cần luyện tập thêm. Đừng nản!'}</p>
       </div>
 
       <div style="display:flex;gap:12px;justify-content:center">
@@ -3555,7 +3538,7 @@ function renderPinyinChart(el) {
       ${pinyinChartGroups.map(tableHtml).join('')}
 
       <div class="pron-nextstep">
-        <button class="pron-next-btn" onclick="window.app.navigate('vocabulary')">
+        <button class="pron-next-btn" onclick="window.app.navigate('tocfl-vocab')">
           <span><small>Đã xong 4 tiết phát âm</small><b>Sang học từ vựng</b></span>
           <i class="fa-solid fa-arrow-right"></i>
         </button>
@@ -3881,6 +3864,7 @@ function toggleCharMode() {
 function openAuth() {
   const formSide = document.getElementById('auth-form-side');
   formSide.innerHTML = `
+    <img src="/favicon.png" alt="ITaiwan" width="56" height="56" class="auth-form-logo-img">
     <div class="auth-form-logo">ITaiwan <span>學中文</span></div>
     <h2 class="auth-form-title">Đăng nhập hệ thống</h2>
     <div class="auth-error" id="auth-error-msg"></div>
@@ -3993,6 +3977,7 @@ function showApprovalContactModal() {
 function showRegister() {
   const formSide = document.getElementById('auth-form-side');
   formSide.innerHTML = `
+    <img src="/favicon.png" alt="ITaiwan" width="56" height="56" class="auth-form-logo-img">
     <div class="auth-form-logo">ITaiwan <span>學中文</span></div>
     <h2 class="auth-form-title">Đăng ký tài khoản</h2>
     <div class="auth-error" id="auth-error-msg"></div>
@@ -4347,7 +4332,7 @@ function notifItemHtml(n) {
     const due = assignmentDue(n.due_date);
     dong2 = `<i class="fa-solid fa-book"></i>${escHtml(notifLessonName(n))}${n.class_name ? ` · lớp ${escHtml(n.class_name)}` : ''}${n.note ? ` · ${escHtml(n.note)}` : ''}`;
     meta.push(n.submitted
-      ? '<span class="notif-chip" style="color:#047857;background:var(--success-light)">Đã nộp</span>'
+      ? '<span class="notif-chip" style="color:#17794A;background:var(--success-light)">Đã nộp</span>'
       : `<span class="notif-chip" style="color:${due.color};background:${due.bg}">${escHtml(due.text)}</span>`);
   } else {
     const pct = notifPercent(n);
@@ -4837,8 +4822,9 @@ document.addEventListener('keydown', (e) => {
     if (e.code === 'Space') { e.preventDefault(); ddFcFlip(); }
   }
   // Flashcard của Kho từ vựng và Sổ tay (4.37) — cùng phím với flashcard giáo trình.
-  const nsLuy = state.currentPage === 'vocabulary' ? 'kv'
-    : state.currentPage === 'notebook' ? 'st' : null;
+  // Chỉ còn trang Sổ tay: trang 'vocabulary' (Kho từ vựng) đã gỡ, mà LUY_STATE trong module
+  // tuvung.js cũng không còn khoá 'kv' — để nhánh cũ lại là bấm phím mũi tên ở đó thì nổ.
+  const nsLuy = state.currentPage === 'notebook' ? 'st' : null;
   // Handler nằm trong module nạp động; đang đứng ở đúng hai trang đó nghĩa là module đã tải,
   // nhưng vẫn kiểm tra trước khi gọi để phím tắt không ném lỗi trong lúc module đang tải dở.
   if (nsLuy && window.app.luyNav && window.app.luyLat) {

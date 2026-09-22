@@ -147,9 +147,9 @@ async function renderQuy(el) {
           <div><div class="stat-value">${_tien(t.thu)}</div><div class="stat-label">Tổng thu</div></div></div>
         <div class="stat-card"><div class="stat-icon" style="background:#FEE2E2;color:#DC2626"><i class="fa-solid fa-arrow-up"></i></div>
           <div><div class="stat-value">${_tien(t.chi)}</div><div class="stat-label">Tổng chi</div></div></div>
-        <div class="stat-card"><div class="stat-icon" style="background:#DBEAFE;color:#2563EB"><i class="fa-solid fa-wallet"></i></div>
+        <div class="stat-card"><div class="stat-icon" style="background:#E4F1EA;color:#265648"><i class="fa-solid fa-wallet"></i></div>
           <div><div class="stat-value" style="color:${t.ton < 0 ? '#DC2626' : 'inherit'}">${_tien(t.ton)}</div><div class="stat-label">Tồn quỹ</div></div></div>
-        <div class="stat-card"><div class="stat-icon" style="background:#F3E8FF;color:#7C3AED"><i class="fa-solid fa-receipt"></i></div>
+        <div class="stat-card"><div class="stat-icon" style="background:#E6F0EC;color:#2F6B58"><i class="fa-solid fa-receipt"></i></div>
           <div><div class="stat-value">${ds.tong_so || 0}</div><div class="stat-label">Số phiếu</div></div></div>
       </div>
 
@@ -446,11 +446,11 @@ async function renderKtx(el) {
 
     el.innerHTML = `
       <div class="stats-grid" style="margin-bottom:20px">
-        <div class="stat-card"><div class="stat-icon" style="background:#DBEAFE;color:#2563EB"><i class="fa-solid fa-building"></i></div>
+        <div class="stat-card"><div class="stat-icon" style="background:#E4F1EA;color:#265648"><i class="fa-solid fa-building"></i></div>
           <div><div class="stat-value">${tq.so_phong}</div><div class="stat-label">Phòng (${tq.so_toa} toà)</div></div></div>
         <div class="stat-card"><div class="stat-icon" style="background:#DCFCE7;color:#16A34A"><i class="fa-solid fa-bed"></i></div>
           <div><div class="stat-value">${tq.dang_o}/${tq.tong_cho}</div><div class="stat-label">Đang ở / tổng chỗ</div></div></div>
-        <div class="stat-card"><div class="stat-icon" style="background:#FEF3C7;color:#D97706"><i class="fa-solid fa-door-open"></i></div>
+        <div class="stat-card"><div class="stat-icon" style="background:#FBEEDF;color:#B85C1A"><i class="fa-solid fa-door-open"></i></div>
           <div><div class="stat-value">${tq.con_trong}</div><div class="stat-label">Chỗ còn trống</div></div></div>
         <div class="stat-card" ${tq.chua_dong.length ? 'style="border-color:#FCA5A5"' : ''}>
           <div class="stat-icon" style="background:${tq.chua_dong.length ? '#FEE2E2;color:#DC2626' : '#DCFCE7;color:#16A34A'}"><i class="fa-solid fa-money-bill-wave"></i></div>
@@ -1014,7 +1014,7 @@ async function deSoan(el) {
         </div>
       </div>
 
-      ${de.trang_thai === 'nhap' ? `<div style="padding:12px 16px;background:#FEF3C7;border-radius:8px;margin-bottom:16px;font-size:13px">
+      ${de.trang_thai === 'nhap' ? `<div style="padding:12px 16px;background:#FBEEDF;border-radius:8px;margin-bottom:16px;font-size:13px">
         <i class="fa-solid fa-circle-info"></i> Đề đang là <b>Nháp</b> — học sinh chưa nhìn thấy. Thêm đủ câu hỏi rồi bấm <b>Phát hành</b> để giao được.
       </div>` : ''}
 
@@ -1286,9 +1286,9 @@ async function deKetQua(el) {
       <div class="stats-grid" style="margin-bottom:20px">
         <div class="stat-card"><div class="stat-icon" style="background:#DCFCE7;color:#16A34A"><i class="fa-solid fa-check"></i></div>
           <div><div class="stat-value">${d.ket_qua.length}</div><div class="stat-label">Đã làm</div></div></div>
-        <div class="stat-card"><div class="stat-icon" style="background:#FEF3C7;color:#D97706"><i class="fa-solid fa-hourglass"></i></div>
+        <div class="stat-card"><div class="stat-icon" style="background:#FBEEDF;color:#B85C1A"><i class="fa-solid fa-hourglass"></i></div>
           <div><div class="stat-value">${d.chua_lam.length}</div><div class="stat-label">Chưa làm</div></div></div>
-        <div class="stat-card"><div class="stat-icon" style="background:#DBEAFE;color:#2563EB"><i class="fa-solid fa-percent"></i></div>
+        <div class="stat-card"><div class="stat-icon" style="background:#E4F1EA;color:#265648"><i class="fa-solid fa-percent"></i></div>
           <div><div class="stat-value">${Math.round(diemTb)}%</div><div class="stat-label">Điểm trung bình</div></div></div>
       </div>
 

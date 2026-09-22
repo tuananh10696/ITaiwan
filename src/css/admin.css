@@ -3,38 +3,41 @@
    ============================================ */
 
 :root {
-  --admin-primary: #1E4E9C;
-  --admin-primary-light: #E8F0FA;
-  --admin-primary-dark: #16376E;
-  --admin-accent: #D2321F;
+  /* Bảng màu XANH LÁ / SAGE (2026-09-22) — đổi theo ảnh mẫu khách gửi, khớp với cổng học viên.
+     Trước đây là xanh dương + đỏ. Mọi mã đã đo tương phản, không chọn bằng mắt:
+       #265648 trên trắng 8.38:1 · #1A3F35 11.0:1 · #1F7A52 5.30:1 · #B85C1A 4.58:1. */
+  --admin-primary: #265648;
+  --admin-primary-light: #EDF6F1;
+  --admin-primary-dark: #1A3F35;
+  --admin-accent: #1F7A52;
   --admin-success: #1E8E5A;
   --admin-danger: #B3261E;
-  --admin-warning: #C77700;
-  --admin-bg: #F5F7FA;            /* màu đặc, còn dùng cho ô input / chip / khối phụ */
-  /* Nền trang là GRADIENT — nền một màu phẳng nhìn rất chán. Ba mốc đi từ xanh dương rất
-     nhạt (trên) qua trung tính (giữa) tới hồng đỏ nhạt (dưới), cùng họ xanh–đỏ của cổng học
-     viên. Giữ độ sáng >= 96% để thẻ trắng vẫn nổi và chữ vẫn đủ tương phản. */
-  --admin-bg-1: #DCE7F7;
-  --admin-bg-2: #EDF1F8;
-  --admin-bg-3: #FAE4E0;
+  --admin-warning: #B85C1A;
+  --admin-bg: #F1F6F2;            /* màu đặc, còn dùng cho ô input / chip / khối phụ */
+  /* Nền trang là GRADIENT — nền một màu phẳng nhìn rất chán. Ba mốc đi từ xanh lá rất nhạt
+     (trên) qua trung tính (giữa) tới cát nhạt (dưới), cùng họ sage–cát của cổng học viên.
+     Giữ độ sáng >= 96% để thẻ trắng vẫn nổi và chữ vẫn đủ tương phản. */
+  --admin-bg-1: #DCEDE1;
+  --admin-bg-2: #EDF4EE;
+  --admin-bg-3: #F6EBDC;
   --admin-surface: #FFFFFF;
-  /* Sidebar NỀN SÁNG — đổ từ trắng xuống xanh rất nhạt, cùng họ với nền trang. */
+  /* Sidebar NỀN SÁNG — đổ từ trắng xuống xanh lá rất nhạt, cùng họ với nền trang. */
   --admin-sidebar-bg: #FFFFFF;
-  --admin-sidebar-bg-2: #E7EEF9;
-  --admin-sidebar-text: #44536A;          /* chữ TỐI trên nền sáng */
-  --admin-sidebar-active: #17222F;
-  --admin-sidebar-line: #DDE4EF;
-  --admin-sidebar-hover: rgba(30, 78, 156, 0.10);
+  --admin-sidebar-bg-2: #E8F2EB;
+  --admin-sidebar-text: #4A5B51;          /* chữ TỐI trên nền sáng */
+  --admin-sidebar-active: #17281F;
+  --admin-sidebar-line: #DEE9E1;
+  --admin-sidebar-hover: rgba(38, 86, 72, 0.10);
   /* Màu chữ đậm cho logo — KHÔNG dùng lại --admin-sidebar-bg như trước: nay nó là màu NỀN
      (trắng), lấy làm màu chữ thì logo ở màn đăng nhập biến mất trên thẻ trắng. */
-  --admin-logo-ink: #17222F;
-  --admin-text: #17222F;
-  --admin-text-secondary: #4A5768;
-  --admin-text-muted: #86909F;
-  --admin-border: #E3E9EA;
+  --admin-logo-ink: #17281F;
+  --admin-text: #17281F;
+  --admin-text-secondary: #4A5B51;
+  --admin-text-muted: #7F8D84;
+  --admin-border: #DEE9E1;
   --admin-radius: 12px;
   --admin-radius-sm: 8px;
-  --admin-shadow: 0 1px 2px rgba(31, 46, 51, 0.05), 0 8px 20px -14px rgba(31, 46, 51, 0.2);
+  --admin-shadow: 0 1px 2px rgba(23, 40, 31, 0.05), 0 8px 20px -14px rgba(23, 40, 31, 0.2);
   --admin-shadow-md: 0 4px 12px rgba(0,0,0,0.1);
   --admin-transition: 0.2s ease;
   --sidebar-width: 260px;
@@ -50,9 +53,9 @@ body {
      danh sách 200 học viên), để mặc định thì gradient bị kéo giãn theo chiều cao nội dung —
      trang ngắn thấy một màu, trang dài thấy cả dải. */
   background:
-    radial-gradient(1200px 640px at 14% -10%, rgba(30, 78, 156, 0.30), transparent 62%),
-    radial-gradient(900px 560px at 98% 2%, rgba(210, 50, 31, 0.24), transparent 58%),
-    radial-gradient(760px 520px at 62% 108%, rgba(46, 158, 139, 0.16), transparent 60%),
+    radial-gradient(1200px 640px at 14% -10%, rgba(126, 216, 172, 0.42), transparent 62%),
+    radial-gradient(900px 560px at 98% 2%, rgba(243, 220, 194, 0.55), transparent 58%),
+    radial-gradient(760px 520px at 62% 108%, rgba(38, 86, 72, 0.12), transparent 60%),
     linear-gradient(180deg, var(--admin-bg-1) 0%, var(--admin-bg-2) 45%, var(--admin-bg-3) 100%);
   background-attachment: fixed;
   color: var(--admin-text);
@@ -71,8 +74,8 @@ body {
   /* Cùng họ teal của hệ thống thay vì navy lạc quẻ (2026-09-15). Vẫn để ĐẬM: thẻ đăng nhập
      màu trắng phải nổi bật, nền sáng thì nó chìm nghỉm. */
   background:
-    radial-gradient(900px 600px at 20% 0%, rgba(30, 78, 156, 0.55), transparent 60%),
-    radial-gradient(700px 500px at 85% 95%, rgba(210, 50, 31, 0.20), transparent 62%),
+    radial-gradient(900px 600px at 20% 0%, rgba(38, 86, 72, 0.55), transparent 60%),
+    radial-gradient(700px 500px at 85% 95%, rgba(184, 92, 26, 0.20), transparent 62%),
     linear-gradient(140deg, #12303A 0%, #1E4E5C 52%, #12303A 100%);
   padding: 20px;
 }
@@ -91,6 +94,15 @@ body {
   align-items: center;
   gap: 6px;
   margin-bottom: 24px;
+}
+
+/* Logo thật (public/favicon.png), dùng chung cho splash · thẻ đăng nhập · sidebar quản trị.
+   Ảnh nguồn vuông nền đỏ tràn viền; ở đây chỉ bo góc chứ không cắt tròn vì cả ba chỗ đều nền
+   sáng — ô vuông đỏ đọc rõ hơn hình tròn. Cỡ đặt bằng thuộc tính width/height trên thẻ <img>. */
+.brand-logo-img {
+  flex: none;
+  border-radius: 22%;
+  display: block;
 }
 
 .login-logo .logo-tw { font-size: 28px; font-weight: 900; color: var(--admin-logo-ink); }
@@ -188,7 +200,7 @@ body {
 .btn-primary { background: var(--admin-primary); color: #fff; }
 .btn-primary:hover { background: var(--admin-primary-dark); transform: translateY(-1px); box-shadow: var(--admin-shadow-md); }
 .btn-success { background: var(--admin-success); color: #fff; }
-.btn-success:hover { background: #059669; }
+.btn-success:hover { background: #17794A; }
 .btn-danger { background: var(--admin-danger); color: #fff; }
 .btn-danger:hover { background: #DC2626; }
 .btn-outline {
@@ -286,7 +298,7 @@ body {
 .nav-item.active {
   background: linear-gradient(135deg, var(--admin-primary) 0%, var(--admin-primary-dark) 100%);
   color: #fff;
-  box-shadow: 0 6px 14px -6px rgba(30, 78, 156, 0.75);
+  box-shadow: 0 6px 14px -6px rgba(38, 86, 72, 0.75);
 }
 
 .nav-item i { width: 18px; text-align: center; font-size: 15px; }
@@ -377,6 +389,348 @@ body {
 
 .stat-card .stat-value { font-size: 28px; font-weight: 900; color: var(--admin-text); }
 .stat-card .stat-label { font-size: 12px; font-weight: 600; color: var(--admin-text-muted); margin-top: 2px; }
+
+/* ============================================
+   TỔNG QUAN CỦA QUẢN TRỊ (2026-09-22)
+   ============================================
+   Hai màu dữ liệu duy nhất của khu này: XANH LÁ (thu) + CAM ĐẤT (chi), lấy tông từ ảnh mẫu
+   khách gửi. Đã chạy qua bộ kiểm tra bảng màu phân loại và đạt cả sáu mục: lệch màu ΔE 8,0 với
+   người mù màu đỏ (protan), 24,8 với thị lực thường — ngưỡng tối thiểu là 8.
+
+   ⚠️ 8,0 là sát ngưỡng. Vài cặp "đẹp hơn" đã thử và TRƯỢT, ghi lại để khỏi thử lại:
+     #2C6B55 + #D2762F  -> xanh quá xỉn, rớt sàn độ bão hoà (đọc ra màu xám)
+     #2E9E6B + #D2762F  -> ΔE chỉ 7,7, dưới ngưỡng
+     #128A53 + #C9691F  -> ΔE chỉ 5,5
+   Đổi màu thì phải CHẠY LẠI bộ kiểm, đừng chọn bằng mắt, và đừng lấy hai màu cùng tông (hai
+   sắc xanh, hay xanh lá ↔ cam nhạt): người mù màu đỏ-lục nhìn ra cùng một màu. */
+:root {
+  --tq-thu: #17794A;
+  --tq-chi: #D2762F;
+  --tq-vien: rgba(23, 40, 31, 0.08);
+  --tq-do-bong: 0 1px 2px rgba(23, 40, 31, 0.04), 0 10px 28px -18px rgba(23, 40, 31, 0.45);
+}
+
+/* ---------- Thẻ dùng chung ---------- */
+.tq-the {
+  background: var(--admin-surface);
+  border: 1px solid var(--tq-vien);
+  border-radius: 16px;
+  box-shadow: var(--tq-do-bong);
+  padding: 18px 20px 16px;
+  margin-bottom: 18px;
+}
+
+.tq-the-dau {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.tq-the-dau h3 {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  color: var(--admin-text-secondary);
+}
+
+.tq-cham { width: 9px; height: 9px; border-radius: 50%; flex: none; }
+
+/* Chú giải LUÔN có khi biểu đồ từ hai chuỗi trở lên — không bắt người đọc tự đoán màu nào là
+   thu, màu nào là chi. (Khối này từng bị bỏ quên lúc viết lại CSS: chữ "Thu Chi" vẫn hiện
+   nhưng hai ô màu biến mất, thành ra chú giải không chú giải gì cả.) */
+.tq-chu-giai {
+  display: flex;
+  gap: 14px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--admin-text-secondary);
+}
+.tq-chu-giai span { display: flex; align-items: center; gap: 6px; }
+.tq-chu-giai i { width: 10px; height: 10px; border-radius: 3px; display: block; flex: none; }
+
+.tq-the-link {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--admin-primary);
+  cursor: pointer;
+}
+
+.tq-the-dem {
+  min-width: 22px;
+  height: 22px;
+  padding: 0 7px;
+  border-radius: 999px;
+  background: #FBEEE0;
+  color: var(--admin-warning);
+  font-size: 12px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tq-ghi-chu { margin-top: 12px; font-size: 11.5px; color: var(--admin-text-muted); line-height: 1.5; }
+.tq-trong { padding: 22px 0; font-size: 13px; color: var(--admin-text-muted); }
+
+/* ---------- Hàng ô số liệu ---------- */
+.tq-luoi-o {
+  display: grid;
+  /* 165px chứ không phải 186px: vùng nội dung trên màn 1440 rộng ~1150px, trừ 5 khe 14px còn
+     1080/6 = 180px mỗi ô — đặt mức tối thiểu 186 thì chỉ 5 ô vừa hàng và ô thứ sáu rớt xuống
+     một mình, để lại một khoảng trống dài. */
+  grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+/* Không dùng lại .stat-card: thẻ đó có khối icon pastel 42px nằm TRÊN con số, sáu thẻ cạnh
+   nhau thành một dãy ô vuông màu nặng nề. Ở đây icon nhỏ nằm cùng dòng với nhãn, con số là
+   thứ to nhất, và màu chỉ còn một vạch mảnh ở mép trái. */
+.tq-o {
+  position: relative;
+  background: var(--admin-surface);
+  border: 1px solid var(--tq-vien);
+  border-radius: 14px;
+  box-shadow: var(--tq-do-bong);
+  padding: 15px 16px 13px 18px;
+  overflow: hidden;
+  transition: transform var(--admin-transition), box-shadow var(--admin-transition);
+}
+
+.tq-o::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 12px;
+  bottom: 12px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: var(--tq-o-mau, var(--admin-primary));
+}
+
+.tq-o.is-bam { cursor: pointer; }
+.tq-o.is-bam:hover { transform: translateY(-2px); box-shadow: 0 2px 4px rgba(23, 40, 31,.05), 0 18px 34px -20px rgba(23, 40, 31,.55); }
+
+/* Chốt cứng chiều cao BẰNG HAI DÒNG: nhãn dài ngắn khác nhau ("Thu hôm nay" so với "Chênh
+   lệch tháng này"), để tự co thì con số ở sáu ô nằm lệch nhau từng nấc — nhìn như xếp hỏng.
+   Khoá hai dòng thì mọi con số thẳng hàng dù nhãn dài bao nhiêu. */
+.tq-o-dau {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  min-height: 34px;
+  font-size: 12px;
+  line-height: 1.4;
+  font-weight: 600;
+  color: var(--admin-text-muted);
+}
+
+.tq-o-dau i { margin-top: 2px; }
+
+.tq-o-dau i { font-size: 12px; color: var(--tq-o-mau, var(--admin-primary)); flex: none; }
+
+.tq-o-so {
+  margin-top: 6px;
+  font-size: 29px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--admin-text);
+}
+
+/* Mũi tên + chữ chứ không phải chỉ màu: người mù màu vẫn đọc được hướng tăng/giảm. */
+.tq-o-phu {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 7px;
+  min-height: 17px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--admin-text-muted);
+}
+.tq-o-phu.is-tot { color: var(--admin-success); }
+.tq-o-phu.is-xau { color: var(--admin-danger); }
+
+/* ---------- Biểu đồ cột ---------- */
+.tq-chart { position: relative; }
+.tq-svg { width: 100%; height: auto; display: block; overflow: visible; }
+
+/* Lưới và trục phải LÙI VỀ SAU: nét mảnh 1px, liền (không gạch đứt), màu chỉ hơn nền một nấc. */
+/* Lưới mảnh và LIỀN (không gạch đứt). Ảnh mẫu dùng nét chấm; ở đây giữ nét liền vì nét đứt
+   cộng thêm nhiễu thị giác vào chính vùng đọc dữ liệu — cùng lý do lưới phải nhạt hơn cột. */
+.tq-luoi { stroke: #E4EEE7; stroke-width: 1; }
+.tq-truc { stroke: #DCE8DF; stroke-width: 1; }
+/* Chữ KHÔNG mang màu dữ liệu: màu nằm ở cột, chữ dùng màu chữ bình thường. */
+.tq-truc-y, .tq-truc-x { font-size: 11px; fill: var(--admin-text-muted); font-weight: 600; }
+.tq-truc-x.is-nay { fill: var(--admin-text); font-weight: 800; }
+
+.tq-cot-thu { fill: var(--tq-thu); }
+.tq-cot-chi { fill: var(--tq-chi); }
+
+/* Vùng bắt chuột: trong suốt, chỉ sáng lên khi rê để biết đang đọc tháng nào. */
+.tq-vung { fill: transparent; cursor: pointer; }
+.tq-vung:hover { fill: rgba(38, 86, 72, 0.05); }
+
+.tq-tip {
+  position: absolute;
+  z-index: 5;
+  min-width: 178px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #17281F;
+  color: #fff;
+  box-shadow: 0 12px 30px -10px rgba(23, 40, 31, 0.6);
+  pointer-events: none;
+  font-size: 12px;
+}
+
+.tq-tip-ky { font-weight: 800; margin-bottom: 6px; font-size: 12.5px; }
+.tq-tip-hang { display: flex; align-items: center; gap: 7px; line-height: 1.75; }
+.tq-tip-hang i { width: 8px; height: 8px; border-radius: 2px; flex: none; }
+.tq-tip-hang span { flex: 1; color: rgba(255, 255, 255, 0.72); }
+.tq-tip-hang b { font-weight: 800; }
+.tq-tip-hang.is-chenh { margin-top: 5px; padding-top: 5px; border-top: 1px solid rgba(255, 255, 255, 0.16); }
+
+/* ---------- Thanh ngang: tiền theo từng mục ---------- */
+.tq-thanh-ds { display: flex; flex-direction: column; gap: 11px; }
+
+.tq-thanh-hang {
+  display: grid;
+  grid-template-columns: minmax(92px, 1fr) 1.7fr auto;
+  align-items: center;
+  gap: 12px;
+}
+
+.tq-thanh-ten {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--admin-text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tq-thanh-ray { height: 13px; border-radius: 999px; background: #EBF2ED; overflow: hidden; }
+/* Bo ở ĐẦU SỐ LIỆU, vuông ở gốc — cùng quy ước với cột của biểu đồ trên. */
+.tq-thanh-ray i { display: block; height: 100%; border-radius: 0 999px 999px 0; }
+.tq-thanh-ray i.is-thu { background: var(--tq-thu); }
+.tq-thanh-ray i.is-chi { background: var(--tq-chi); }
+
+.tq-thanh-so {
+  font-size: 12.5px;
+  font-weight: 800;
+  color: var(--admin-text);
+  white-space: nowrap;
+  text-align: right;
+}
+.tq-thanh-so em {
+  display: block;
+  font-style: normal;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--admin-text-muted);
+}
+
+/* ---------- Danh sách lớp ---------- */
+.tq-lop-ds { display: flex; flex-direction: column; gap: 10px; }
+
+.tq-lop {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding: 12px 14px;
+  border: 1px solid var(--tq-vien);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: border-color var(--admin-transition), background var(--admin-transition);
+}
+.tq-lop:hover { border-color: #C5DCCB; background: #F7FCF9; }
+
+.tq-lop-ten { flex: 1; min-width: 150px; }
+.tq-lop-ten b { display: block; font-size: 13.5px; font-weight: 800; color: var(--admin-text); }
+.tq-lop-ten span { font-size: 11.5px; color: var(--admin-text-muted); }
+
+.tq-lop-so { display: flex; gap: 18px; }
+
+.tq-do { min-width: 62px; }
+.tq-do-nhan { display: block; font-size: 10.5px; font-weight: 700; letter-spacing: 0.3px; text-transform: uppercase; color: var(--admin-text-muted); }
+.tq-do b { font-size: 16px; font-weight: 900; color: var(--admin-text); }
+.tq-do b.is-canh-bao { color: var(--admin-warning); }
+.tq-do-ray { display: block; height: 6px; margin-top: 5px; border-radius: 999px; background: #EBF2ED; overflow: hidden; }
+/* Một RAMP một màu, đậm dần theo mức — không đổi hẳn sang màu khác, để hai lớp đọc ra là hai
+   mức của cùng một thứ. Dưới 70% chuyển màu cảnh báo vì đó là ngưỡng cần để mắt tới. */
+.tq-do-ray i { display: block; height: 100%; border-radius: 999px; }
+.tq-do-ray i.is-tot { background: #17794A; }
+.tq-do-ray i.is-vua { background: #6FB394; }
+.tq-do-ray i.is-kem { background: var(--admin-warning); }
+
+/* Hai thẻ trong một hàng thường lệch nhau rất nhiều (2 lớp so với 8 việc cần xử lý). Mặc định
+   của grid là kéo cả hai cho bằng chiều cao, làm thẻ ngắn thừa ra một mảng trắng lớn.
+   Chỉ áp cho hàng của Tổng quan quản trị — `.admin-cols-2` còn dùng ở Tổng quan giáo viên,
+   nơi hai bảng vốn xấp xỉ nhau và căn bằng chiều cao lại đẹp hơn. */
+.admin-cols-2.tq-hang { align-items: start; }
+
+/* ---------- Danh sách việc cần xử lý ---------- */
+.tq-viec { list-style: none; display: flex; flex-direction: column; gap: 2px; }
+
+.tq-viec li {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 10px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--admin-text-secondary);
+  transition: background var(--admin-transition);
+}
+
+.tq-viec li:hover { background: #F2F7F3; }
+.tq-viec li > i:first-child { width: 18px; text-align: center; color: var(--admin-warning); font-size: 13px; }
+.tq-viec span { flex: 1; min-width: 0; }
+.tq-viec b {
+  min-width: 24px;
+  height: 22px;
+  padding: 0 7px;
+  border-radius: 999px;
+  background: #FBEEE0;
+  color: var(--admin-warning);
+  font-size: 12.5px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.tq-viec-mui { color: #BDCBC1; font-size: 11px; }
+
+/* Chữ trong SVG co theo viewBox: khung 960 đơn vị vẽ trên màn 400px là tỉ lệ 0,41 — cỡ 11px
+   hiện ra chỉ còn ~4,5px, không ai đọc nổi. Nâng cỡ chữ theo hai nấc để cỡ THẬT trên màn hình
+   luôn ở quanh 10-13px. (Cỡ đặt bằng đơn vị của viewBox, không phải pixel màn hình.) */
+@media (max-width: 1100px) {
+  .tq-truc-y, .tq-truc-x { font-size: 16px; }
+}
+
+@media (max-width: 760px) {
+  .tq-truc-y, .tq-truc-x { font-size: 24px; }
+  .tq-lop-so { gap: 12px; width: 100%; }
+  .tq-do { flex: 1; min-width: 0; }
+}
+
+@media (max-width: 640px) {
+  .tq-thanh-hang { grid-template-columns: minmax(78px, 1fr) 1.2fr auto; gap: 8px; }
+  .tq-the { padding: 14px 14px 12px; }
+  .tq-o-so { font-size: 25px; }
+}
 
 /* ============================================
    DATA TABLE
@@ -541,11 +895,11 @@ body {
 }
 
 .badge-primary { background: var(--admin-primary-light); color: var(--admin-primary); }
-.badge-success { background: #D1FAE5; color: #065F46; }
-.badge-warning { background: #FEF3C7; color: #92400E; }
+.badge-success { background: #DDF1E6; color: #065F46; }
+.badge-warning { background: #FBEEDF; color: #8A4513; }
 .badge-danger { background: #FEE2E2; color: #991B1B; }
 .badge-gray { background: #F1F5F9; color: #64748B; }
-.badge-purple { background: #EDE9FE; color: #5B21B6; }
+.badge-purple { background: #E6F0EC; color: #5B21B6; }
 
 /* ============================================
    TOAST NOTIFICATION
@@ -755,7 +1109,7 @@ tr[draggable]:hover .drag-handle {
   border-radius: 4px;
   font-size: 12.5px;
 }
-.admin-alert--warn { background: #FFFBEB; border-color: #FDE68A; color: #92400E; }
+.admin-alert--warn { background: #FFFBEB; border-color: #FDE68A; color: #8A4513; }
 
 /* --- Lưới 2 cột cho khối "cần xử lý" / "cần chú ý" --- */
 .admin-cols-2 {
@@ -912,12 +1266,18 @@ html.tw-auth-checking .auth-splash {
   /* Cùng họ teal của hệ thống thay vì navy lạc quẻ (2026-09-15). Vẫn để ĐẬM: thẻ đăng nhập
      màu trắng phải nổi bật, nền sáng thì nó chìm nghỉm. */
   background:
-    radial-gradient(900px 600px at 20% 0%, rgba(30, 78, 156, 0.55), transparent 60%),
-    radial-gradient(700px 500px at 85% 95%, rgba(210, 50, 31, 0.20), transparent 62%),
+    radial-gradient(900px 600px at 20% 0%, rgba(38, 86, 72, 0.55), transparent 60%),
+    radial-gradient(700px 500px at 85% 95%, rgba(184, 92, 26, 0.20), transparent 62%),
     linear-gradient(140deg, #12303A 0%, #1E4E5C 52%, #12303A 100%);
 }
 
-.auth-splash-box { text-align: center; }
+.auth-splash-box {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
 .auth-splash-box .logo-tw { font-size: 30px; font-weight: 900; color: #fff; }
 .auth-splash-box .logo-di { font-size: 30px; font-weight: 900; color: var(--admin-primary); }
 .auth-splash-spinner {
@@ -953,7 +1313,7 @@ html.tw-auth-checking .auth-splash {
 
 .att-hint {
   display: flex; align-items: flex-start; gap: 8px;
-  background: #EFF6FF; color: #1E40AF; border-top: 1px solid #DBEAFE; border-bottom: 1px solid #DBEAFE;
+  background: #EFF6FF; color: #1E40AF; border-top: 1px solid #E4F1EA; border-bottom: 1px solid #E4F1EA;
   padding: 10px 18px; font-size: 13px; line-height: 1.5;
 }
 
@@ -979,7 +1339,7 @@ html.tw-auth-checking .auth-splash {
 }
 .alert i { flex: none; margin-top: 2px; }
 .alert span { flex: 1; min-width: 0; }
-.alert-warning { background: #FEF3C7; border-color: #FCD34D; color: #92400E; }
+.alert-warning { background: #FBEEDF; border-color: #FCD34D; color: #8A4513; }
 .alert-danger { background: #FEE2E2; border-color: #FCA5A5; color: #991B1B; }
 
 /* === CHẤM SỐ "ĐƠN CHỜ DUYỆT" trên sidebar (4.42) ===
@@ -1257,14 +1617,14 @@ html.tw-auth-checking .auth-splash {
 /* --- hàng chờ duyệt yêu cầu sửa --- */
 .dh-yc-box {
   background: var(--admin-surface, #fff); border: 1px solid var(--admin-border, #e2e8f0);
-  border-left: 3px solid #D97706; border-radius: 12px; padding: 16px; margin-bottom: 18px;
+  border-left: 3px solid #B85C1A; border-radius: 12px; padding: 16px; margin-bottom: 18px;
 }
 .dh-yc-head {
   display: flex; align-items: center; gap: 8px;
-  font-weight: 800; color: #B45309; margin-bottom: 12px;
+  font-weight: 800; color: #8A4513; margin-bottom: 12px;
 }
 .dh-yc-so {
-  background: #D97706; color: #fff; font-size: 11.5px; font-weight: 800;
+  background: #B85C1A; color: #fff; font-size: 11.5px; font-weight: 800;
   padding: 1px 8px; border-radius: 999px;
 }
 .dh-yc-i { border-top: 1px solid var(--admin-border-soft, #eef2f3); padding: 12px 0 4px; }
@@ -1451,7 +1811,7 @@ html.tw-auth-checking .auth-splash {
     box-shadow: 1px 0 0 var(--admin-line, #E5E7EB);
     max-width: 150px; white-space: normal;
   }
-  .bang-congno thead th:first-child { z-index: 2; background: var(--admin-bg, #F5F7FA); }
+  .bang-congno thead th:first-child { z-index: 2; background: var(--admin-bg, var(--admin-bg)); }
 }
 
 /* Biểu đồ 6 tháng của báo cáo quỹ: đủ 6 cột trong bề ngang hộp thoại trên điện thoại —

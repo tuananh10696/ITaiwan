@@ -24,6 +24,37 @@ npm run dev                # frontend -> http://localhost:5173
 Đăng nhập lần đầu: **admin@itaiwan.vn / ITaiwan@2026** — *đổi mật khẩu ngay*.
 Cổng quản trị: `/admin.html`.
 
+### Dữ liệu thử — `npm run demo:day-du`
+
+Dựng sẵn một trung tâm giả lập để thử mọi chức năng mà không phải nhập tay:
+
+```bash
+npm run demo:day-du              # XOÁ SẠCH dữ liệu nghiệp vụ rồi seed lại (chỉ chạy trên DB local)
+npm run demo:day-du -- --xoa     # chỉ xoá
+```
+
+Ra: 1 quản trị · 1 giáo viên · 11 học viên (+2 tài khoản chờ duyệt) · 2 lớp, kèm buổi học &
+điểm danh, bài cô giao, kết quả bài tập có lời phê, ngân hàng 1.600 câu TOCFL + lượt thi, sổ
+tay, thẻ ôn tập, nhịp học 120 ngày, đề tự soạn, hồ sơ du học, sổ thu chi, ký túc xá, thiết bị
+đăng nhập. Mật khẩu chung **ITaiwan@2026**; script in ra bảng tài khoản kèm đặc điểm từng em.
+
+Mỗi em một "điểm nhấn" khác nhau (em chăm nhất, em nợ bài, em có lời phê chưa đọc, em gần như
+chưa có dữ liệu…) để không màn hình nào rơi vào cảnh "ai cũng giống ai".
+
+⚠️ Ba điều dễ vấp khi thử tay trên máy:
+
+1. **Vite nhảy cổng.** Cổng 5173 bận thì Vite tự sang 5174 — mà danh sách origin của backend
+   chỉ khai sẵn 5173, nên mọi POST trả 500 vì CORS còn GET vẫn 200. Khởi động backend kèm
+   `EXTRA_ORIGINS` trỏ đúng cổng Vite đang dùng:
+   ```bash
+   EXTRA_ORIGINS=http://localhost:5174 npm run server
+   ```
+2. **Giới hạn 10 lần đăng nhập / 15 phút.** Thử lần lượt 13 tài khoản là chạm trần ngay. Chạy
+   `TAT_GIOI_HAN=true npm run server` (biến này bị bỏ qua khi `NODE_ENV=production`).
+3. **Mỗi học viên chỉ được 2 thiết bị.** Seed cố ý chỉ cấp sẵn 1 máy cho mỗi em để trình duyệt
+   của bạn còn chỗ. Riêng `hv10@itaiwan.vn` đã dùng hết 2 máy — đăng nhập bằng em đó sẽ bị chặn,
+   đó là chủ đích để thử màn hình chặn và thao tác gỡ thiết bị bên quản trị.
+
 ### Lệnh hay dùng
 
 | Lệnh | Việc |
@@ -33,6 +64,7 @@ Cổng quản trị: `/admin.html`.
 | `npm run data:tach` | Tách lại `public/data/{giaotrinh,luyentap}` từ `src/data` |
 | `npm run data:fa` | Sinh lại subset Font Awesome sau khi dùng icon mới |
 | `npm run pwa:icons` | Sinh bộ icon PWA + splash iOS từ `public/favicon.png` |
+| `npm run demo:day-du` | Dựng lại dữ liệu thử (xem mục trên) |
 | `npm run db:migrate:prod` | Chạy migration lên production (có sao lưu trước) |
 | `npm run db:diff` | So schema local với production |
 | `npm run test:quyen` · `test:du-hoc` · `test:quy-ktx-de` … | Bộ kiểm thử API |

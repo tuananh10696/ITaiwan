@@ -226,7 +226,7 @@ const laQuanTri = (u) => ['admin', 'org_admin'].includes(vaiTro(u));
 const laNhanSu = (u) => ['admin', 'org_admin', 'teacher'].includes(vaiTro(u));
 
 const NHAN_VAI_TRO = { admin: 'ADMIN', org_admin: 'QUẢN TRỊ TRUNG TÂM', teacher: 'GIÁO VIÊN' };
-const MAU_VAI_TRO = { admin: '', org_admin: '#7C3AED', teacher: '#0891B2' };
+const MAU_VAI_TRO = { admin: '', org_admin: '#2F6B58', teacher: '#12726B' };
 
 /**
  * Ẩn/hiện mục theo vai trò + đổi nhãn trên sidebar.
@@ -242,7 +242,7 @@ function apDungVaiTro() {
   if (badge) {
     const v = vaiTro();
     badge.textContent = NHAN_VAI_TRO[v] || 'GIÁO VIÊN';
-    badge.style.background = MAU_VAI_TRO[v] ?? '#0891B2';
+    badge.style.background = MAU_VAI_TRO[v] ?? '#12726B';
   }
 }
 
@@ -859,9 +859,325 @@ async function xoaNhanXetGiaoVien(id) {
 // ============================================================
 // DASHBOARD
 // ============================================================
+// ============================================================
+// TỔNG QUAN — HAI BẢN KHÁC HẲN NHAU THEO VAI TRÒ
+// ============================================================
+// Giáo viên và quản trị mở cùng một trang nhưng cần hai thứ khác nhau:
+//   • giáo viên — việc phải làm trong hôm nay: buổi chưa điểm danh, em chưa nộp bài, bài vừa nộp.
+//   • quản trị  — trung tâm đang sống thế nào: tiền vào ra hôm nay/tuần/tháng, tiền đi vào mục
+//                 nào, lớp nào đang đuối, còn việc gì kẹt. Ba bảng "việc của người đứng lớp"
+//                 KHÔNG hiện cho quản trị: họ không phải người điểm danh, và 49 buổi × nhiều lớp
+//                 đổ ra đây thì thứ cần nhìn (tiền) bị đẩy xuống dưới màn hình.
+// Quản trị vẫn xem được các bảng đó khi vào từng lớp ở khu Quản lý lớp.
 async function renderDashboard(el) {
   el.innerHTML = '<div style="text-align:center;padding:40px;color:var(--admin-text-muted)"><i class="fa-solid fa-spinner fa-spin" style="font-size:24px"></i><p style="margin-top:12px">Đang tải...</p></div>';
+  return laQuanTri() ? renderTongQuanQuanTri(el) : renderTongQuanGiaoVien(el);
+}
 
+// ------------------------------------------------------------
+// TIỀN — định dạng gọn
+// ------------------------------------------------------------
+/** 45.000.000 -> "45 tr" · 1.250.000.000 -> "1,25 tỷ". Dùng cho nhãn trục và ô số liệu. */
+function tienGon(n) {
+  const v = Number(n) || 0;
+  const dau = v < 0 ? '-' : '';
+  const a = Math.abs(v);
+  if (a >= 1e9) return dau + (a / 1e9).toFixed(a >= 1e10 ? 0 : 2).replace(/\.?0+$/, '').replace('.', ',') + ' tỷ';
+  if (a >= 1e6) return dau + (a / 1e6).toFixed(a >= 1e8 ? 0 : 1).replace(/[,.]0$/, '').replace('.', ',') + ' tr';
+  if (a >= 1e3) return dau + Math.round(a / 1e3) + ' ng';
+  return dau + a;
+}
+/** Số đầy đủ kèm "đ" — dùng ở tooltip và bảng, nơi cần con số chính xác. */
+const tienDay = (n) => (Number(n) || 0).toLocaleString('vi-VN') + 'đ';
+
+/**
+ * Nấc trục tròn trịa gần nhất trên `max`. Trục lẻ kiểu 47.320.000 rất khó đọc.
+ *
+ * Dãy hệ số phải MỊN. Bản đầu chỉ có [1, 2, 2.5, 5, 10]: đỉnh dữ liệu 50,7tr nhảy thẳng lên
+ * nấc 100tr, tức cột cao nhất chỉ chiếm 51% chiều cao và NỬA TRÊN biểu đồ trống trơn — nhìn
+ * như đồ thị hỏng. Dãy hiện tại cho ra 60tr (85%). Đo lại vài mốc: 12tr -> 12tr (100%),
+ * 3,2tr -> 4tr (80%), 43tr -> 50tr (86%).
+ */
+function nacTron(max) {
+  if (!(max > 0)) return 1;
+  const mu = Math.pow(10, Math.floor(Math.log10(max)));
+  for (const b of [1, 1.2, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10]) if (mu * b >= max) return mu * b;
+  return mu * 10;
+}
+
+/**
+ * Phần trăm thay đổi so với kỳ trước. Trả null khi kỳ trước KHÔNG DƯƠNG — nơi gọi hiện con số
+ * tuyệt đối thay thế.
+ *
+ * Vì sao chặn cả số ÂM chứ không chỉ số 0: tháng trước lỗ 12,7tr, tháng này lãi 2,6tr, công thức
+ * ra -120% — mũi tên chỉ XUỐNG màu đỏ trong khi thực tế là từ lỗ chuyển sang lãi. Phần trăm thay
+ * đổi chỉ có nghĩa khi mẫu số dương; với mẫu âm thì phải nói thẳng con số.
+ */
+function chenhLech(nay, truoc) {
+  if (!(truoc > 0)) return null;
+  return Math.round(((nay - truoc) / truoc) * 100);
+}
+
+// ------------------------------------------------------------
+// BIỂU ĐỒ CỘT GHÉP — thu / chi theo tháng
+// ------------------------------------------------------------
+// SVG vẽ tay, KHÔNG thêm thư viện chart (dự án là vanilla JS thuần — xem README mục 6; cùng lối
+// với đường xu hướng điểm ở src/pages/lotrinh.js).
+//
+// Vì sao CỘT GHÉP chứ không phải hai trục hay cột chồng:
+//   • hai trục y trên một khung là lỗi kinh điển — tỉ lệ giữa hai trục do người vẽ tự chọn nên
+//     biểu đồ "sinh ra" một mối tương quan không có thật.
+//   • cột chồng trả lời "tổng bao nhiêu", còn câu hỏi ở đây là "thu so với chi tháng đó thế nào"
+//     — phải đặt cạnh nhau, chung MỘT trục, mới so được.
+// Thu = xanh lá #17794A, chi = cam đất #D2762F (tông lấy từ ảnh mẫu khách gửi). Cặp này đã chạy
+// qua bộ kiểm tra mù màu: ΔE 8,0 (protan) / 24,8 (thị lực thường) — vừa đủ ngưỡng 8. Danh sách
+// các cặp đã thử và TRƯỢT nằm ở đầu khối --tq-* trong src/css/admin.css; đổi màu thì đọc chỗ đó
+// và CHẠY LẠI bộ kiểm, đừng chọn bằng mắt.
+
+/** Dữ liệu tháng đang vẽ — tooltip tra theo chỉ số nên phải giữ ở đây. */
+let _tqThang = [];
+
+/**
+ * Cắt bỏ những tháng RỖNG ở ĐẦU dãy. Trung tâm mới mở thì 3-4 tháng đầu không có phiếu nào,
+ * để nguyên là một phần ba biểu đồ trắng trơn. Giữ tối thiểu 5 tháng để trục không quá ngắn,
+ * và chỉ cắt ở đầu — tháng rỗng ở GIỮA là thông tin thật ("tháng đó không thu chi gì").
+ */
+function _tqCatDauRong(ds) {
+  let dau = 0;
+  while (dau < ds.length - 5 && ds[dau].thu === 0 && ds[dau].chi === 0) dau++;
+  return ds.slice(dau);
+}
+
+function _tqCotHtml(thangGoc) {
+  const thang = _tqCatDauRong(thangGoc);
+  _tqThang = thang;
+  const W = 960, H = 290;
+  const TREN = 18, DUOI = 40, TRAI = 76, PHAI = 16;
+  const nen = W - TRAI - PHAI, cao = H - TREN - DUOI;
+  const dinh = nacTron(Math.max(1, ...thang.flatMap((t) => [t.thu, t.chi])));
+  const y = (v) => TREN + cao - (v / dinh) * cao;
+  const bang = nen / thang.length;
+  // Cột dày tối đa 26px, khe 3px giữa hai cột cùng tháng — hai khối màu dính nhau thì mắt đọc
+  // thành một khối duy nhất.
+  const rongCot = Math.min(30, (bang - 28) / 2);
+  const KHE = 4;
+
+  const cot = (x, v, lop) => {
+    if (v <= 0) return '';
+    const h = TREN + cao - y(v);
+    // Bo 8px (ảnh mẫu bo tròn hẳn đầu cột) nhưng không quá nửa bề ngang cột, nếu không
+    // hai cung bo chồng nhau và đầu cột méo thành hình giọt nước.
+    const r = Math.min(8, h, rongCot / 2);
+    // Bo ở ĐẦU SỐ LIỆU, vuông ở chân: chân cột là vạch 0, bo tròn cả hai đầu là nói dối về
+    // điểm xuất phát.
+    return `<path class="${lop}" d="M${x},${TREN + cao} L${x},${y(v) + r} Q${x},${y(v)} ${x + r},${y(v)}`
+      + ` L${x + rongCot - r},${y(v)} Q${x + rongCot},${y(v)} ${x + rongCot},${y(v) + r}`
+      + ` L${x + rongCot},${TREN + cao} Z"/>`;
+  };
+
+  return `
+    <div class="tq-chart" id="tq-chart-box">
+      <svg class="tq-svg" viewBox="0 0 ${W} ${H}" role="img"
+           aria-label="Biểu đồ cột thu và chi theo tháng">
+        ${[0, 0.25, 0.5, 0.75, 1].map((p) => `
+          <line class="tq-luoi" x1="${TRAI}" x2="${W - PHAI}" y1="${y(dinh * p)}" y2="${y(dinh * p)}"/>
+          <text class="tq-truc-y" x="${TRAI - 12}" y="${y(dinh * p) + 4}" text-anchor="end">${tienGon(dinh * p)}</text>`).join('')}
+        ${thang.map((t, i) => {
+          const giua = TRAI + bang * i + bang / 2;
+          const x0 = giua - rongCot - KHE / 2;
+          const cuoi = i === thang.length - 1;
+          return `
+            ${/* Vùng bắt chuột phủ CẢ BỀ CAO của tháng: bắt đúng trên thân cột thì cột thấp gần
+                 như không rê trúng được. Vùng này cũng là thứ tô sáng nền tháng khi rê. */ ''}
+            <rect class="tq-vung" x="${TRAI + bang * i}" y="${TREN}" width="${bang}" height="${cao}"
+                  rx="7" onmousemove="adminApp.tqTip(event, ${i})" onmouseleave="adminApp.tqTip(event, -1)"/>
+            ${cot(x0, t.thu, 'tq-cot-thu')}
+            ${cot(x0 + rongCot + KHE, t.chi, 'tq-cot-chi')}
+            <text class="tq-truc-x${cuoi ? ' is-nay' : ''}" x="${giua}" y="${H - 16}" text-anchor="middle">${t.ky.slice(5)}/${t.ky.slice(2, 4)}</text>`;
+        }).join('')}
+        <line class="tq-truc" x1="${TRAI}" x2="${W - PHAI}" y1="${TREN + cao}" y2="${TREN + cao}"/>
+      </svg>
+      <div class="tq-tip" id="tq-tip" hidden></div>
+    </div>`;
+}
+
+/** Bảng chú thích nổi khi rê chuột. `i < 0` = ẩn đi. */
+function tqTip(ev, i) {
+  const box = document.getElementById('tq-chart-box');
+  const tip = document.getElementById('tq-tip');
+  if (!box || !tip) return;
+  const t = _tqThang[i];
+  if (!t) { tip.hidden = true; return; }
+  const chenh = t.thu - t.chi;
+  tip.innerHTML = `
+    <div class="tq-tip-ky">Tháng ${t.ky.slice(5)}/${t.ky.slice(0, 4)}</div>
+    <div class="tq-tip-hang"><i style="background:var(--tq-thu)"></i><span>Thu</span><b>${tienDay(t.thu)}</b></div>
+    <div class="tq-tip-hang"><i style="background:var(--tq-chi)"></i><span>Chi</span><b>${tienDay(t.chi)}</b></div>
+    <div class="tq-tip-hang is-chenh"><i></i><span>Chênh lệch</span><b>${tienDay(chenh)}</b></div>`;
+  tip.hidden = false;
+  const r = box.getBoundingClientRect();
+  const x = ev.clientX - r.left;
+  const y = ev.clientY - r.top;
+  // Kẹp trong khung để bảng không tràn ra ngoài thẻ ở hai mép trái/phải.
+  tip.style.left = Math.max(6, Math.min(r.width - tip.offsetWidth - 6, x - tip.offsetWidth / 2)) + 'px';
+  tip.style.top = Math.max(6, y - tip.offsetHeight - 14) + 'px';
+}
+
+/** Dải thanh ngang cho "tiền vào/ra mục nào". Một biểu đồ = MỘT màu: độ dài thanh đã nói hết
+ *  về độ lớn rồi, tô mỗi mục một màu chỉ là mã hoá lặp và làm hỏng bộ màu phân loại. */
+function _tqThanhHtml(ds, lop) {
+  if (!ds.length) return '<p class="tq-trong">Tháng này chưa có phiếu nào.</p>';
+  const dinh = Math.max(...ds.map((d) => d.tien)) || 1;
+  const tong = ds.reduce((a, d) => a + d.tien, 0);
+  return `<div class="tq-thanh-ds">${ds.map((d) => `
+    <div class="tq-thanh-hang">
+      <span class="tq-thanh-ten" title="${esc(d.ten)}">${esc(d.ten)}</span>
+      <span class="tq-thanh-ray"><i class="${lop}" style="width:${Math.max(3, (d.tien / dinh) * 100)}%"></i></span>
+      <span class="tq-thanh-so">${tienGon(d.tien)}<em>${Math.round((d.tien / tong) * 100)}%</em></span>
+    </div>`).join('')}</div>`;
+}
+
+/**
+ * Ô số liệu của Tổng quan quản trị. KHÔNG dùng lại `.stat-card` chung: thẻ đó có khối icon
+ * pastel 42px nằm trên cùng, đẩy con số xuống dưới và làm sáu thẻ cạnh nhau trông nặng nề.
+ * Ở đây icon nhỏ nằm CÙNG DÒNG với nhãn, con số là thứ to nhất — mắt bắt số trước, nhãn sau.
+ */
+function _tqOHtml({ nhan, so, phu, delta, tot = true, mau, icon, di }) {
+  const mui = delta == null ? '' : delta > 0 ? 'fa-arrow-up' : delta < 0 ? 'fa-arrow-down' : 'fa-minus';
+  const lop = delta == null || delta === 0 ? '' : ((delta > 0) === tot ? ' is-tot' : ' is-xau');
+  return `
+    <div class="tq-o${di ? ' is-bam' : ''}"${di ? ` onclick="adminApp.navigate('${di}')"` : ''} style="--tq-o-mau:${mau}">
+      <div class="tq-o-dau"><i class="fa-solid ${icon}"></i><span>${nhan}</span></div>
+      <div class="tq-o-so">${so}</div>
+      ${delta != null
+        ? `<div class="tq-o-phu${lop}"><i class="fa-solid ${mui}"></i><span>${Math.abs(delta)}% so với tháng trước</span></div>`
+        : `<div class="tq-o-phu">${phu ? `<span>${phu}</span>` : ''}</div>`}
+    </div>`;
+}
+
+/**
+ * Một chỉ số của lớp: nhãn + con số + thanh mức. Thanh mức dùng CÙNG MỘT ramp một màu
+ * (đậm dần theo giá trị) chứ không đổi hẳn sang màu khác, để "70%" và "92%" đọc ra là hai mức
+ * của cùng một thứ. Dưới 70% tô màu cảnh báo vì đó là ngưỡng cần để mắt tới.
+ */
+function _tqDoHtml(nhan, giaTri) {
+  if (giaTri == null) return `<div class="tq-do"><span class="tq-do-nhan">${nhan}</span><b>—</b></div>`;
+  const v = Math.max(0, Math.min(100, Number(giaTri)));
+  const muc = v >= 85 ? 'is-tot' : v >= 70 ? 'is-vua' : 'is-kem';
+  return `
+    <div class="tq-do">
+      <span class="tq-do-nhan">${nhan}</span>
+      <b>${Math.round(v)}%</b>
+      <span class="tq-do-ray"><i class="${muc}" style="width:${v}%"></i></span>
+    </div>`;
+}
+
+async function renderTongQuanQuanTri(el) {
+  try {
+    const d = await apiGet('/admin/tong-quan');
+    const k = d.tien.ky;
+    const chenh = k.thang.thu - k.thang.chi;
+    const chenhTruoc = k.thang_truoc.thu - k.thang_truoc.chi;
+    const cb = d.canh_bao || {};
+
+    // Chỉ liệt kê những việc THẬT SỰ còn tồn; đếm = 0 thì không hiện dòng nào, để danh sách
+    // luôn đúng nghĩa "việc cần xử lý" chứ không phải bảng kê toàn số 0.
+    const viec = [
+      ['cho_duyet', 'tài khoản chờ duyệt', 'fa-user-check', 'users'],
+      ['diem_danh', 'buổi chưa điểm danh xong', 'fa-clipboard-check', 'classes'],
+      ['bai_qua_han', 'bài quá hạn còn em chưa nộp', 'fa-list-check', 'classes'],
+      ['cho_cham', 'bài kiểm tra chờ chấm', 'fa-file-pen', 'de-bai'],
+      ['du_hoc_yeu_cau', 'yêu cầu sửa hồ sơ chờ duyệt', 'fa-pen-to-square', 'du-hoc'],
+      ['du_hoc_dung', 'hồ sơ du học đứng yên quá 30 ngày', 'fa-plane-departure', 'du-hoc'],
+      ['ktx_no', 'người ở KTX chưa đóng tiền kỳ này', 'fa-bed', 'ktx'],
+      ['thiet_bi', 'cảnh báo thiết bị chưa xử lý', 'fa-mobile-screen-button', 'thiet-bi'],
+    ].filter(([key]) => cb[key] > 0);
+
+    el.innerHTML = `
+      <div class="tq-luoi-o">
+        ${_tqOHtml({ nhan: 'Thu tháng này', so: tienGon(k.thang.thu), delta: chenhLech(k.thang.thu, k.thang_truoc.thu),
+          tot: true, mau: 'var(--tq-thu)', icon: 'fa-money-bill-wave', di: 'quy' })}
+        ${_tqOHtml({ nhan: 'Chi tháng này', so: tienGon(k.thang.chi), delta: chenhLech(k.thang.chi, k.thang_truoc.chi),
+          tot: false, mau: 'var(--tq-chi)', icon: 'fa-receipt', di: 'quy' })}
+        ${_tqOHtml({ nhan: 'Chênh lệch tháng này', so: tienGon(chenh), delta: chenhLech(chenh, chenhTruoc),
+          phu: `Tháng trước ${tienGon(chenhTruoc)}`, tot: true,
+          mau: chenh >= 0 ? 'var(--admin-success)' : 'var(--admin-danger)',
+          icon: chenh >= 0 ? 'fa-wallet' : 'fa-triangle-exclamation', di: 'quy' })}
+        ${_tqOHtml({ nhan: 'Thu hôm nay', so: tienGon(k.hom_nay.thu), phu: `Tuần này ${tienGon(k.tuan.thu)}`,
+          mau: '#2F6B58', icon: 'fa-calendar-day', di: 'quy' })}
+        ${_tqOHtml({ nhan: 'Du học còn phải thu', so: tienGon(d.nguon_khac.du_hoc_con_phai_thu),
+          phu: `Đã thu ${tienGon(d.nguon_khac.du_hoc_da_thu)}`,
+          mau: 'var(--admin-warning)', icon: 'fa-plane-departure', di: 'du-hoc' })}
+        ${_tqOHtml({ nhan: 'Ký túc xá tháng này', so: tienGon(d.nguon_khac.ktx_thang_nay),
+          phu: d.nguon_khac.ktx_no_nguoi > 0 ? `${d.nguon_khac.ktx_no_nguoi} người chưa đóng` : 'Đã thu đủ',
+          mau: '#12726B', icon: 'fa-bed', di: 'ktx' })}
+      </div>
+
+      <div class="tq-the">
+        <div class="tq-the-dau">
+          <h3>Thu – chi theo tháng</h3>
+          <div class="tq-chu-giai">
+            <span><i style="background:var(--tq-thu)"></i>Thu</span>
+            <span><i style="background:var(--tq-chi)"></i>Chi</span>
+          </div>
+        </div>
+        ${d.tien.co_bang ? _tqCotHtml(d.tien.theo_thang) : '<p class="tq-trong">Chưa chạy migration sổ thu chi.</p>'}
+        <p class="tq-ghi-chu">Chỉ tính phiếu trong Sổ thu – chi. Tiền du học và ký túc xá ghi ở sổ riêng.</p>
+      </div>
+
+      <div class="admin-cols-2 tq-hang">
+        <div class="tq-the">
+          <div class="tq-the-dau"><h3><span class="tq-cham" style="background:var(--tq-thu)"></span> Thu tháng này theo mục</h3></div>
+          ${_tqThanhHtml(d.tien.thu_theo_dm, 'is-thu')}
+        </div>
+        <div class="tq-the">
+          <div class="tq-the-dau"><h3><span class="tq-cham" style="background:var(--tq-chi)"></span> Chi tháng này theo mục</h3></div>
+          ${_tqThanhHtml(d.tien.chi_theo_dm, 'is-chi')}
+        </div>
+      </div>
+
+      <div class="admin-cols-2 tq-hang">
+        <div class="tq-the">
+          <div class="tq-the-dau"><h3>Tình trạng lớp</h3><a class="tq-the-link" onclick="adminApp.navigate('classes')">Quản lý lớp</a></div>
+          ${!d.lop.length
+            ? '<p class="tq-trong">Chưa có lớp nào.</p>'
+            : `<div class="tq-lop-ds">${d.lop.map((l) => `
+                <div class="tq-lop" onclick="adminApp.openClassDetail(${l.id}, '${String(l.name).replace(/'/g, "\\'")}')">
+                  <div class="tq-lop-ten">
+                    <b>${esc(l.name)}</b>
+                    <span>${esc(l.teacher_name || 'Chưa có giáo viên')} · ${l.si_so} học viên · ${l.buoi} buổi</span>
+                  </div>
+                  <div class="tq-lop-so">
+                    ${_tqDoHtml('Chuyên cần', l.chuyen_can)}
+                    ${_tqDoHtml('Điểm TB', l.diem_tb)}
+                    <div class="tq-do">
+                      <span class="tq-do-nhan">Chưa nộp</span>
+                      <b class="${l.chua_nop > 0 ? 'is-canh-bao' : ''}">${l.chua_nop || 0}</b>
+                    </div>
+                  </div>
+                </div>`).join('')}</div>`}
+        </div>
+
+        <div class="tq-the">
+          <div class="tq-the-dau"><h3>Cần xử lý</h3>${viec.length ? `<span class="tq-the-dem">${viec.length}</span>` : ''}</div>
+          ${!viec.length
+            ? '<p class="tq-trong">Không có việc nào đang kẹt. 🎉</p>'
+            : `<ul class="tq-viec">${viec.map(([key, nhan, icon, di]) => `
+                <li onclick="adminApp.navigate('${di}')">
+                  <i class="fa-solid ${icon}"></i>
+                  <span>${nhan}</span>
+                  <b>${cb[key]}</b>
+                  <i class="fa-solid fa-chevron-right tq-viec-mui"></i>
+                </li>`).join('')}</ul>`}
+        </div>
+      </div>
+    `;
+  } catch (err) {
+    el.innerHTML = `<div class="empty-state"><i class="fa-solid fa-exclamation-triangle"></i><h3>Lỗi tải dữ liệu</h3><p>${esc(err.message)}</p></div>`;
+  }
+}
+
+async function renderTongQuanGiaoVien(el) {
   try {
     const data = await apiGet('/admin/stats');
     const ex = data.exercise7d || {};
@@ -876,42 +1192,41 @@ async function renderDashboard(el) {
           <i class="fa-solid fa-triangle-exclamation"></i>
           <div>
             <b>Chưa chạy migration bảng lớp học.</b>
-            Các số liệu về lớp / điểm danh đang tạm để trống. Chạy file
-            <code>server/config/migration-classes-attendance.sql</code> trên DB rồi tải lại trang.
+            Chạy <code>server/config/migration-classes-attendance.sql</code> rồi tải lại trang.
           </div>
         </div>` : ''}
 
       <!-- Nhóm số liệu dạy & học — thứ giáo viên cần nhìn mỗi ngày -->
       <div class="stats-grid">
         <div class="stat-card stat-card--link" onclick="adminApp.navigate('classes')">
-          <div class="stat-icon" style="background:#DBEAFE;color:#2563EB"><i class="fa-solid fa-chalkboard-user"></i></div>
+          <div class="stat-icon" style="background:#E4F1EA;color:#265648"><i class="fa-solid fa-chalkboard-user"></i></div>
           <div class="stat-value">${data.classCount}</div>
-          <div class="stat-label">Lớp đang mở</div>
+          <div class="stat-label">Lớp</div>
         </div>
         <div class="stat-card stat-card--link" onclick="adminApp.navigate('classes')">
-          <div class="stat-icon" style="background:#D1FAE5;color:#059669"><i class="fa-solid fa-user-graduate"></i></div>
+          <div class="stat-icon" style="background:#DDF1E6;color:#17794A"><i class="fa-solid fa-user-graduate"></i></div>
           <div class="stat-value">${data.studentCount}</div>
-          <div class="stat-label">Học viên trong lớp</div>
+          <div class="stat-label">Học viên</div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon" style="background:#EDE9FE;color:#7C3AED"><i class="fa-solid fa-calendar-days"></i></div>
+          <div class="stat-icon" style="background:#E6F0EC;color:#2F6B58"><i class="fa-solid fa-calendar-days"></i></div>
           <div class="stat-value">${data.sessionCount}</div>
-          <div class="stat-label">Buổi đã tạo</div>
+          <div class="stat-label">Buổi học</div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon" style="background:#FEF3C7;color:#D97706"><i class="fa-solid fa-pen-to-square"></i></div>
+          <div class="stat-icon" style="background:#FBEEDF;color:#B85C1A"><i class="fa-solid fa-pen-to-square"></i></div>
           <div class="stat-value">${ex.count || 0}</div>
-          <div class="stat-label">Bài nộp (7 ngày)</div>
+          <div class="stat-label">Bài nộp · 7 ngày</div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon" style="background:#CFFAFE;color:#0891B2"><i class="fa-solid fa-bullseye"></i></div>
+          <div class="stat-icon" style="background:#DFF0EF;color:#12726B"><i class="fa-solid fa-bullseye"></i></div>
           <div class="stat-value">${ex.avg_score != null ? ex.avg_score + '%' : '—'}</div>
-          <div class="stat-label">Điểm TB (7 ngày)</div>
+          <div class="stat-label">Điểm TB · 7 ngày</div>
         </div>
         <div class="stat-card stat-card--link" onclick="adminApp.navigate('users')">
-          <div class="stat-icon" style="background:#FCE7F3;color:#DB2777"><i class="fa-solid fa-bolt"></i></div>
+          <div class="stat-icon" style="background:#F6E7DC;color:#A2541C"><i class="fa-solid fa-bolt"></i></div>
           <div class="stat-value">${data.activeToday}</div>
-          <div class="stat-label">Hoạt động hôm nay</div>
+          <div class="stat-label">Học hôm nay</div>
         </div>
       </div>
 
@@ -919,12 +1234,12 @@ async function renderDashboard(el) {
         <!-- Việc cần làm: buổi học tới ngày rồi mà chưa điểm danh xong -->
         <div class="data-table-wrapper">
           <div class="table-toolbar">
-            <h3 style="font-size:14px;font-weight:800;flex:1"><i class="fa-solid fa-clipboard-check" style="color:var(--admin-warning)"></i> Buổi học chưa điểm danh xong</h3>
+            <h3 style="font-size:14px;font-weight:800;flex:1"><i class="fa-solid fa-clipboard-check" style="color:var(--admin-warning)"></i> Chưa điểm danh</h3>
           </div>
           ${(data.pendingAttendance || []).length === 0
-            ? `<div class="empty-state" style="padding:24px"><p>Không còn buổi nào phải điểm danh. 🎉</p></div>`
+            ? `<div class="empty-state" style="padding:24px"><p>Đã điểm danh hết. 🎉</p></div>`
             : `<table class="data-table">
-                <thead><tr><th>Ngày</th><th>Lớp</th><th>Đã điểm danh</th><th></th></tr></thead>
+                <thead><tr><th>Ngày</th><th>Lớp</th><th>Đã ghi</th><th></th></tr></thead>
                 <tbody>
                   ${data.pendingAttendance.map(s => `
                     <tr>
@@ -943,7 +1258,7 @@ async function renderDashboard(el) {
             <h3 style="font-size:14px;font-weight:800;flex:1"><i class="fa-solid fa-user-clock" style="color:var(--admin-danger)"></i> Học viên cần chú ý</h3>
           </div>
           ${(data.attentionStudents || []).length === 0
-            ? `<div class="empty-state" style="padding:24px"><p>Chưa có học viên nào đáng lo. 👍</p></div>`
+            ? `<div class="empty-state" style="padding:24px"><p>Không có em nào đáng lo. 👍</p></div>`
             : `<table class="data-table">
                 <thead><tr><th>Học viên</th><th>Vắng</th><th>Điểm TB</th><th></th></tr></thead>
                 <tbody>
@@ -963,17 +1278,17 @@ async function renderDashboard(el) {
       ${(data.pendingAssignments || []).length === 0 ? '' : `
       <div class="data-table-wrapper" style="margin-bottom:20px">
         <div class="table-toolbar">
-          <h3 style="font-size:14px;font-weight:800;flex:1"><i class="fa-solid fa-list-check" style="color:var(--admin-warning)"></i> Bài đã giao — còn em chưa nộp</h3>
+          <h3 style="font-size:14px;font-weight:800;flex:1"><i class="fa-solid fa-list-check" style="color:var(--admin-warning)"></i> Bài còn em chưa nộp</h3>
         </div>
         <table class="data-table">
-          <thead><tr><th>Bài</th><th>Lớp</th><th>Hạn nộp</th><th>Tiến độ</th><th></th></tr></thead>
+          <thead><tr><th>Bài</th><th>Lớp</th><th>Hạn</th><th>Còn thiếu</th><th></th></tr></thead>
           <tbody>
             ${data.pendingAssignments.map(a => `
               <tr>
                 <td style="font-weight:700">${assignmentLabel(a.lesson_id, a.title)}</td>
                 <td>${a.class_name}</td>
                 <td>${_dueText(a.due_date)}</td>
-                <td><span class="badge badge-warning">${a.total_students - a.submitted_count} em chưa nộp</span></td>
+                <td><span class="badge badge-warning">${a.total_students - a.submitted_count} em</span></td>
                 <td><button class="btn btn-sm btn-outline" onclick="adminApp.viewAssignmentSubmissions(${a.id})">Xem tên</button></td>
               </tr>`).join('')}
           </tbody>
@@ -983,12 +1298,12 @@ async function renderDashboard(el) {
       <!-- Hoạt động làm bài mới nhất của toàn hệ thống -->
       <div class="data-table-wrapper" style="margin-bottom:20px">
         <div class="table-toolbar">
-          <h3 style="font-size:14px;font-weight:800;flex:1"><i class="fa-solid fa-wave-square" style="color:var(--admin-primary)"></i> Bài tập vừa nộp</h3>
+          <h3 style="font-size:14px;font-weight:800;flex:1"><i class="fa-solid fa-wave-square" style="color:var(--admin-primary)"></i> Vừa nộp</h3>
         </div>
         ${(data.recentSubmissions || []).length === 0
           ? `<div class="empty-state" style="padding:24px"><p>Chưa có ai nộp bài.</p></div>`
           : `<table class="data-table">
-              <thead><tr><th>Học viên</th><th>Bài</th><th>Kết quả</th><th>Điểm</th><th>Lúc</th></tr></thead>
+              <thead><tr><th>Học viên</th><th>Bài</th><th>Đúng</th><th>Điểm</th><th>Lúc</th></tr></thead>
               <tbody>
                 ${data.recentSubmissions.map(s => `
                   <tr>
@@ -1044,7 +1359,7 @@ async function renderUsers(el) {
               } else if (u.is_approved) {
                 approvedCol = '<span class="badge badge-success">Đã duyệt</span>';
               } else {
-                approvedCol = '<span class="badge" style="background:#FEF3C7;color:#92400E">Chờ duyệt</span>';
+                approvedCol = '<span class="badge" style="background:#FBEEDF;color:#8A4513">Chờ duyệt</span>';
               }
               return `
               <tr>
@@ -2128,7 +2443,7 @@ async function viewAssignmentSubmissions(id) {
           <div style="display:flex;flex-direction:column;gap:6px">${missing.length ? listHtml(missing, false) : '<p style="font-size:13px;color:var(--admin-text-muted)">Cả lớp đã nộp đủ. 🎉</p>'}</div>
         </div>
         <div>
-          <h4 style="font-size:13px;font-weight:800;margin-bottom:8px;color:#059669">Đã nộp (${doneRows.length})</h4>
+          <h4 style="font-size:13px;font-weight:800;margin-bottom:8px;color:#17794A">Đã nộp (${doneRows.length})</h4>
           <div style="display:flex;flex-direction:column;gap:6px">${doneRows.length ? listHtml(doneRows, true) : '<p style="font-size:13px;color:var(--admin-text-muted)">Chưa có ai nộp.</p>'}</div>
         </div>
       </div>`,
@@ -2190,9 +2505,9 @@ async function viewTranslateSubmissions(assignmentId, asg) {
     openModal(
       `Bài dịch — ${label} <span style="font-weight:400;font-size:13px;margin-left:8px">${subs.length}/${enrolled} đã nộp</span>`,
       `<div style="max-height:65vh;overflow-y:auto">
-        ${notSubmitted > 0 ? `<div style="padding:8px 0;color:var(--admin-danger);font-size:13px"><i class="fa-solid fa-triangle-exclamation"></i> ${notSubmitted} học viên chưa nộp bài dịch</div>` : '<div style="padding:8px 0;color:#059669;font-size:13px"><i class="fa-solid fa-check-circle"></i> Cả lớp đã nộp đủ!</div>'}
+        ${notSubmitted > 0 ? `<div style="padding:8px 0;color:var(--admin-danger);font-size:13px"><i class="fa-solid fa-triangle-exclamation"></i> ${notSubmitted} học viên chưa nộp bài dịch</div>` : '<div style="padding:8px 0;color:#17794A;font-size:13px"><i class="fa-solid fa-check-circle"></i> Cả lớp đã nộp đủ!</div>'}
         ${pending.length > 0 ? `<h4 style="font-size:12px;font-weight:700;margin:12px 0 8px;text-transform:uppercase;color:var(--admin-danger)">Chưa chấm (${pending.length})</h4>${pending.map(mkSubCard).join('')}` : ''}
-        ${reviewed.length > 0 ? `<h4 style="font-size:12px;font-weight:700;margin:12px 0 8px;text-transform:uppercase;color:#059669">Đã chấm (${reviewed.length})</h4>${reviewed.map(mkSubCard).join('')}` : ''}
+        ${reviewed.length > 0 ? `<h4 style="font-size:12px;font-weight:700;margin:12px 0 8px;text-transform:uppercase;color:#17794A">Đã chấm (${reviewed.length})</h4>${reviewed.map(mkSubCard).join('')}` : ''}
         ${subs.length === 0 ? '<p style="text-align:center;color:var(--admin-text-muted);padding:24px">Chưa có học viên nào nộp bài dịch.</p>' : ''}
       </div>`,
       `<button class="btn btn-outline" onclick="adminApp.closeModal()">Đóng</button>`
@@ -2214,7 +2529,7 @@ async function openTranslateReview(submissionId) {
     <div style="border:1px solid var(--admin-border);border-radius:8px;padding:10px 12px;margin-bottom:8px">
       <div style="font-size:11px;color:var(--admin-text-muted);margin-bottom:4px">${i+1}. ${nl2br(ans.q)}</div>
       <div style="font-size:13px;margin-bottom:4px"><strong>Học viên:</strong> ${nl2br(ans.studentAnswer || '<em>Không trả lời</em>')}</div>
-      <div style="font-size:12px;color:#059669"><i class="fa-solid fa-check"></i> Đáp án: ${nl2br(ans.modelAnswer || ans.a || '—')}</div>
+      <div style="font-size:12px;color:#17794A"><i class="fa-solid fa-check"></i> Đáp án: ${nl2br(ans.modelAnswer || ans.a || '—')}</div>
     </div>`).join('');
   openModal(
     `Chấm bài — ${s.student_name}`,
@@ -2305,7 +2620,7 @@ async function renderClassMistakes(el) {
                       <span class="badge ${m.wrong_rate >= 60 ? 'badge-danger' : m.wrong_rate >= 30 ? 'badge-warning' : 'badge-gray'}">${m.wrong}/${m.attempts} em (${m.wrong_rate}%)</span>
                     </td>
                     <td style="color:var(--admin-danger)">${m.common_wrong_answer ? `${String(m.common_wrong_answer).replace(/</g, '&lt;')} <span style="color:var(--admin-text-muted);font-size:11px">(${m.common_wrong_count} em)</span>` : '—'}</td>
-                    <td style="color:#059669;font-weight:700">${String(m.correct_answer || '—').replace(/</g, '&lt;')}</td>
+                    <td style="color:#17794A;font-weight:700">${String(m.correct_answer || '—').replace(/</g, '&lt;')}</td>
                   </tr>`).join('')}
               </tbody>
             </table>`}
@@ -2563,22 +2878,22 @@ async function renderStudentDetail(el) {
 
       <div class="stats-grid" style="margin-bottom:20px">
         <div class="stat-card">
-          <div class="stat-icon" style="background:#DBEAFE;color:#2563EB"><i class="fa-solid fa-user"></i></div>
+          <div class="stat-icon" style="background:#E4F1EA;color:#265648"><i class="fa-solid fa-user"></i></div>
           <div class="stat-value" style="font-size:16px">${st.name}</div>
           <div class="stat-label">${st.email}</div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon" style="background:#D1FAE5;color:#059669"><i class="fa-solid fa-calendar-check"></i></div>
+          <div class="stat-icon" style="background:#DDF1E6;color:#17794A"><i class="fa-solid fa-calendar-check"></i></div>
           <div class="stat-value">${att.attended_count || 0}/${att.total_sessions || 0}</div>
           <div class="stat-label">Buổi tham gia</div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon" style="background:#FEF3C7;color:#D97706"><i class="fa-solid fa-clock"></i></div>
+          <div class="stat-icon" style="background:#FBEEDF;color:#B85C1A"><i class="fa-solid fa-clock"></i></div>
           <div class="stat-value">${att.late_count || 0}</div>
           <div class="stat-label">Lần đi muộn</div>
         </div>
         <div class="stat-card">
-          <div class="stat-icon" style="background:#FCE7F3;color:#DB2777"><i class="fa-solid fa-person-walking-arrow-right"></i></div>
+          <div class="stat-icon" style="background:#F6E7DC;color:#A2541C"><i class="fa-solid fa-person-walking-arrow-right"></i></div>
           <div class="stat-value">${att.early_leave_count || 0}</div>
           <div class="stat-label">Lần về sớm</div>
         </div>
@@ -2749,7 +3064,7 @@ function _renderDetailItems(items) {
           ${(it.options || []).map((opt, oi) => {
             let style = 'color:var(--admin-text-muted)';
             let tag = '';
-            if (oi === it.correctIdx) { style = 'color:#059669;font-weight:700'; tag = ' ✓ đáp án đúng'; }
+            if (oi === it.correctIdx) { style = 'color:#17794A;font-weight:700'; tag = ' ✓ đáp án đúng'; }
             if (oi === it.selected && oi !== it.correctIdx) { style = 'color:#DC2626;font-weight:700'; tag = ' ✗ học viên chọn'; }
             else if (oi === it.selected && oi === it.correctIdx) { tag = ' ✓ học viên chọn'; }
             return `<span style="${style}">${'ABCD'[oi] || ''}. ${opt}${tag}</span>`;
@@ -2813,7 +3128,7 @@ async function viewExamExerciseDetail(id, label) {
                   if (!opt) return '';
                   let style = 'color:var(--admin-text-muted)';
                   let tag = '';
-                  if (oi === ans.correct_option) { style = 'color:#059669;font-weight:700'; tag = ' ✓'; }
+                  if (oi === ans.correct_option) { style = 'color:#17794A;font-weight:700'; tag = ' ✓'; }
                   if (oi === ans.selected_option && oi !== ans.correct_option) { style = 'color:#DC2626;font-weight:700'; tag = ' ✗ (đã chọn)'; }
                   else if (oi === ans.selected_option && oi === ans.correct_option) { tag = ' ✓ (đã chọn)'; }
                   return `<span style="${style}">${'ABCD'[oi]}. ${opt}${tag}</span>`;
@@ -3144,13 +3459,13 @@ function _dhVeDanhSachHtml(el, tq, ds) {
   const t = tq.tien || {};
   const soLieu = `
     <div class="stats-grid">
-      <div class="stat-card"><div class="stat-icon" style="background:#2563EB1a;color:#2563EB"><i class="fa-solid fa-folder-open"></i></div>
+      <div class="stat-card"><div class="stat-icon" style="background:#2656481a;color:#265648"><i class="fa-solid fa-folder-open"></i></div>
         <div><div class="stat-value">${tq.dang_chay || 0}</div><div class="stat-label">Hồ sơ đang xử lý</div></div></div>
       <div class="stat-card"><div class="stat-icon" style="background:#16A34A1a;color:#16A34A"><i class="fa-solid fa-hand-holding-dollar"></i></div>
         <div><div class="stat-value" style="font-size:20px">${_tien(t.da_thu)}</div><div class="stat-label">Đã thu</div></div></div>
-      <div class="stat-card"><div class="stat-icon" style="background:#D977061a;color:#D97706"><i class="fa-solid fa-scale-unbalanced"></i></div>
+      <div class="stat-card"><div class="stat-icon" style="background:#B85C1A1a;color:#B85C1A"><i class="fa-solid fa-scale-unbalanced"></i></div>
         <div><div class="stat-value" style="font-size:20px">${_tien(t.con_thieu)}</div><div class="stat-label">Còn phải thu</div></div></div>
-      <div class="stat-card"><div class="stat-icon" style="background:#7C3AED1a;color:#7C3AED"><i class="fa-solid fa-calendar-day"></i></div>
+      <div class="stat-card"><div class="stat-icon" style="background:#2F6B581a;color:#2F6B58"><i class="fa-solid fa-calendar-day"></i></div>
         <div><div class="stat-value" style="font-size:20px">${_tien(t.thu_30_ngay)}</div><div class="stat-label">Thu 30 ngày qua</div></div></div>
     </div>`;
 
@@ -3169,15 +3484,15 @@ function _dhVeDanhSachHtml(el, tq, ds) {
       <span class="dh-viec-ten">${esc(h.ho_ten)}</span><span class="dh-viec-phu">${phu}</span></li>`;
 
   const khoiViec = [
-    oViec('Phỏng vấn trong 14 ngày', 'fa-comments', '#7C3AED', v.phong_van,
+    oViec('Phỏng vấn trong 14 ngày', 'fa-comments', '#2F6B58', v.phong_van,
       (h) => li(h, _dhNgay(h.ngay_phong_van))),
-    oViec('Bay trong 30 ngày', 'fa-plane-departure', '#059669', v.sap_bay,
+    oViec('Bay trong 30 ngày', 'fa-plane-departure', '#17794A', v.sap_bay,
       (h) => li(h, _dhNgay(h.ngay_bay))),
     oViec('Hộ chiếu sắp hết hạn', 'fa-passport', '#DC2626', v.ho_chieu,
       (h) => li(h, _dhNgay(h.ho_chieu_het_han))),
-    oViec('Đứng yên quá 30 ngày', 'fa-hourglass-half', '#D97706', v.bo_quen,
+    oViec('Đứng yên quá 30 ngày', 'fa-hourglass-half', '#B85C1A', v.bo_quen,
       (h) => li(h, `${h.so_ngay} ngày · ${esc(_dhBuoc(h.buoc).ten)}`)),
-    oViec('Còn nợ học phí', 'fa-scale-unbalanced', '#B45309', v.cong_no,
+    oViec('Còn nợ học phí', 'fa-scale-unbalanced', '#8A4513', v.cong_no,
       (h) => li(h, _tien(Math.max(0, h.tong_phi - h.da_thu)))),
   ].join('');
 
@@ -3216,7 +3531,7 @@ function _dhVeDanhSachHtml(el, tq, ds) {
                  // trên cũng đã loại nhóm này. Tô cam ở đây là hai chỗ trên cùng một màn hình nói
                  // hai kiểu khác nhau về cùng một người.
                  ? `<div class="dh-sub">chênh ${_tien(thieu)}</div>`
-                 : `<div class="dh-sub" style="color:#B45309;font-weight:700">thiếu ${_tien(thieu)}</div>`}`
+                 : `<div class="dh-sub" style="color:#8A4513;font-weight:700">thiếu ${_tien(thieu)}</div>`}`
           : '<span class="dh-sub">chưa chốt phí</span>'}</td>
       <td style="text-align:center">
         ${h.thieu_giay_to
@@ -3444,7 +3759,7 @@ function _dhVeChiTietHtml(el) {
           <div><span class="dh-sub">Tổng phí</span><b>${_tien(h.tong_phi)}</b></div>
           <div><span class="dh-sub">Đã thu</span><b style="color:#16A34A">${_tien(t.da_thu)}</b></div>
           <div><span class="dh-sub">Còn thiếu</span>
-            <b style="color:${t.con_thieu ? '#B45309' : '#16A34A'}">${_tien(t.con_thieu)}</b></div>
+            <b style="color:${t.con_thieu ? '#8A4513' : '#16A34A'}">${_tien(t.con_thieu)}</b></div>
         </div>
         <div class="dh-bar"><i style="width:${pct}%"></i></div>`
       : `<p class="dh-sub" style="margin:0 0 12px">Chưa chốt tổng phí dịch vụ.
@@ -4120,6 +4435,9 @@ window.adminApp = {
   viewExerciseDetail, viewPronExerciseDetail, openTextbookReviewModal, openTextbookExerciseDetail,
   submitExerciseReview, viewExamExerciseDetail, submitExamReview,
   jumpToAttendance, jumpToStudent,
+  // Tổng quan quản trị: bảng chú thích nổi của biểu đồ thu-chi. Thiếu tên ở đây thì rê chuột
+  // lên biểu đồ không hiện gì, lỗi chỉ nằm ở console (quy ước 4.4).
+  tqTip,
   // Duyệt thanh toán (4.42)
   // Reorder
 };

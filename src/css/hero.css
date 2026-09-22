@@ -16,10 +16,14 @@
   border-radius: var(--radius-2xl);
   margin-bottom: 22px;
   overflow: hidden;
-  background: linear-gradient(168deg, #4E93A6 0%, #6FA6B0 38%, #C3BDB4 72%, var(--peach) 100%);
+  /* 2026-09-22: dải teal -> kem đổi sang XANH LÁ -> CÁT theo ảnh mẫu (sage #A2CBAC, xanh
+     rừng #255645, cát #D2A16A đọc từ chính ảnh). */
+  background: linear-gradient(168deg, #2E6B58 0%, #4C8F72 36%, #9CBF9E 70%, var(--peach) 100%);
   border: none;
   box-shadow: var(--shadow-lg);
-  min-height: 244px;
+  /* 262px: bản trước 300px cho khối chữ có cả địa chỉ; nay chỉ còn tên + khẩu hiệu + 2 dòng
+     liên hệ + hàng nút. */
+  min-height: 262px;
 }
 
 /**
@@ -40,10 +44,10 @@
   z-index: 1;
   pointer-events: none;
   background: linear-gradient(96deg,
-    rgba(46, 106, 124, 0.94) 0%,
-    rgba(50, 112, 130, 0.92) 38%,
-    rgba(66, 128, 142, 0.66) 50%,
-    rgba(120, 158, 160, 0.20) 64%,
+    rgba(26, 63, 53, 0.94) 0%,
+    rgba(32, 74, 62, 0.92) 38%,
+    rgba(46, 107, 88, 0.66) 50%,
+    rgba(124, 163, 140, 0.20) 64%,
     rgba(255, 255, 255, 0) 76%);
 }
 
@@ -67,8 +71,8 @@
 .hero-text-panel {
   position: relative;
   z-index: 2;
-  flex: 0 0 480px;
-  padding: 30px 32px;
+  flex: 0 0 470px;
+  padding: 30px 34px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -94,19 +98,36 @@
 .hero-badge i { font-size: 11px; }
 
 .hero-text-panel h2 {
-  font-size: 30px;
+  font-size: 34px;
   font-weight: 800;
   margin: 0;
-  line-height: 1.22;
+  line-height: 1.2;
   letter-spacing: -0.035em;
   color: #fff;
 }
 
-.hero-text-panel h2 span { color: #FFE2C9; }
+/* Nửa sau của TÊN trung tâm — nhẹ và nhỏ hơn để mắt bắt "Trung Tâm Itaiwan" trước.
+   Chỉ là kiểu chữ: ghép hai span lại vẫn ra đúng chuỗi gốc. */
+.hero-text-panel h2 .hero-sub-name {
+  display: block;
+  margin-top: 2px;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #FFE2C9;
+}
+
+.hero-slogan {
+  margin-top: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 1px 3px rgba(17, 45, 35, 0.35);
+}
 
 .hero-text-panel p {
   /* Bóng chữ mảnh: dòng mô tả dài hơn vùng nền đậm nên đuôi câu nằm trên phần ảnh đã sáng. */
-  text-shadow: 0 1px 3px rgba(20, 52, 62, 0.35);
+  text-shadow: 0 1px 3px rgba(17, 45, 35, 0.35);
   font-size: 14px;
   margin-top: 10px;
   color: rgba(255, 255, 255, 0.87);
@@ -115,11 +136,50 @@
   opacity: 1;
 }
 
+/* ---- Khối thông tin liên hệ của trung tâm (2026-09-22) ----
+   Mỗi dòng là một hộp icon + chữ dùng flex, nên phần chữ PHẢI nằm trong đúng MỘT <span>:
+   để chữ trần cạnh <i> thì mỗi đoạn văn bản thành một anonymous flex item riêng và câu dài
+   (dòng địa chỉ) vỡ thành nhiều mẩu rời rạc. Xem README mục 6. */
+.hero-contact {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+}
+
+/* Mỗi cách liên hệ là một "viên" bấm được, không phải một dòng chữ suông — nhìn ra ngay là
+   chạm vào gọi/gửi mail được. */
+.hero-contact-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 13px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(6px);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  transition: background var(--dur) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+
+.hero-contact-row i {
+  flex: none;
+  font-size: 12px;
+  color: #FFE2C9;
+}
+
+@media (hover: hover) {
+  .hero-contact-row:hover { background: rgba(255, 255, 255, 0.26); transform: translateY(-1px); }
+}
+
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-top: 20px;
+  margin-top: 18px;
 }
 
 .hero-text-panel .hero-cta {
@@ -139,6 +199,10 @@
   transition: transform var(--dur-fast) var(--ease-out), box-shadow var(--dur) var(--ease-out);
   width: fit-content;
 }
+
+/* Nút chính nay là thẻ <a> trỏ sang Facebook (trước là <button>), nên phải tự bỏ gạch chân. */
+.hero-text-panel .hero-cta { text-decoration: none; white-space: nowrap; }
+.hero-ghost { white-space: nowrap; }
 
 .hero-text-panel .hero-cta:hover {
   transform: translateY(-1px);
@@ -168,44 +232,6 @@
   transform: translateY(-1px);
   background: rgba(255, 255, 255, 0.26);
   border-color: rgba(255, 255, 255, 0.5);
-}
-
-/* Dải số liệu dưới nút */
-.hero-stats {
-  display: flex;
-  margin-top: 22px;
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  border-radius: var(--radius-lg);
-  background: rgba(255, 255, 255, 0.14);
-  overflow: hidden;
-  width: fit-content;
-}
-
-.hero-stats > div {
-  padding: 9px 16px;
-  border-right: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.hero-stats > div:last-child { border-right: none; }
-
-.hero-stats b {
-  display: block;
-  font-family: var(--font-num);
-  font-size: 18px;
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1.15;
-  color: #fff;
-}
-
-.hero-stats span {
-  display: block;
-  /* 11.5px chứ không phải 10.5px: đo trên máy ảo Android 412px, ba nhãn "bài học" / "từ vựng" /
-     "phủ 6 cấp TOCFL" ra 10.5px — dưới ngưỡng 12px vốn được coi là cỡ nhỏ nhất còn đọc thoải
-     mái trên điện thoại, mà đây lại là dòng giải thích cho con số lớn ngay trên nó. */
-  font-size: 11.5px;
-  color: rgba(255, 255, 255, 0.72);
-  margin-top: 1px;
 }
 
 /* Phải: ảnh */
@@ -251,10 +277,15 @@
   }
   .hero-text-panel h2 { font-size: 23px; }
   .hero-text-panel p { font-size: 13.5px; margin-top: 8px; }
-  .hero-stats { width: 100%; margin-top: 16px; }
-  /* flex: 1 1 auto (không phải flex: 1): ô "phủ 6 cấp TOCFL" dài hơn hai ô kia, chia đều là nó
-     xuống hai dòng còn hai ô kia thừa chỗ. */
-  .hero-stats > div { flex: 1 1 auto; padding: 9px 10px; }
+  .hero-contact { margin-top: 14px; }
+  .hero-contact-row { font-size: 13px; }
+  .hero-text-panel h2 .hero-sub-name { font-size: 17px; }
+  .hero-slogan { font-size: 13.5px; margin-top: 8px; }
+  /* Hai nút xếp dọc và kéo hết bề ngang: ở 360px mà để nằm ngang thì nút thứ hai chỉ còn
+     ~120px, chữ "Học thử miễn phí" bị cắt. */
+  .hero-actions { flex-direction: column; align-items: stretch; }
+  .hero-text-panel .hero-cta,
+  .hero-ghost { justify-content: center; width: 100%; }
   .hero-image-panel { min-height: 150px; order: -1; }
 }
 
