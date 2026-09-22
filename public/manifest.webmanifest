@@ -1,7 +1,7 @@
 {
   "id": "/",
-  "name": "Tẻn — Học tiếng Trung Phồn thể & Luyện thi TOCFL",
-  "short_name": "Tẻn",
+  "name": "ITaiwan — Học tiếng Trung & Luyện thi TOCFL",
+  "short_name": "ITaiwan",
   "description": "Học tiếng Trung Phồn thể theo giáo trình Đương Đại và Thời Đại: 324 bài, 10.562 từ vựng có giọng đọc thật, luyện phát âm, thi thử TOCFL.",
   "lang": "vi",
   "dir": "ltr",
@@ -13,8 +13,8 @@
     "minimal-ui"
   ],
   "orientation": "portrait",
-  "background_color": "#38899E",
-  "theme_color": "#38899E",
+  "background_color": "#1E4E9C",
+  "theme_color": "#1E4E9C",
   "categories": [
     "education",
     "books"

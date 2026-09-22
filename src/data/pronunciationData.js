@@ -1,6 +1,6 @@
 // ============================================================
 // DỮ LIỆU HỌC PHÁT ÂM — Thanh mẫu · Vận mẫu · Thanh điệu
-// Biên soạn gốc cho Tẻn. Âm thanh phát bằng Web Speech API (zh-TW),
+// Biên soạn gốc cho ITaiwan. Âm thanh phát bằng Web Speech API (zh-TW),
 // không phụ thuộc file mp3 bên ngoài.
 // Mỗi mục có `speak` = chữ Hán đại diện để TTS đọc đúng âm.
 // ============================================================

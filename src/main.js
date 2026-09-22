@@ -1142,10 +1142,10 @@ function syncSeoTags(page) {
   }
   if (robots) robots.setAttribute('content', noindex ? 'noindex, follow' : 'index, follow');
 
-  const label = pageTitles[page] || 'Tẻn';
+  const label = pageTitles[page] || 'ITaiwan';
   document.title = page === 'dashboard'
-    ? 'Tẻn - Nền Tảng Học Tiếng Trung Phồn Thể & Luyện Thi TOCFL'
-    : label + ' · Tẻn - Học Tiếng Trung Phồn Thể & Luyện Thi TOCFL';
+    ? 'ITaiwan - Nền Tảng Học Tiếng Trung Phồn Thể & Luyện Thi TOCFL'
+    : label + ' · ITaiwan - Học Tiếng Trung Phồn Thể & Luyện Thi TOCFL';
   const url = SITE_ORIGIN + location.pathname + location.search;
   const set = (sel, attr, val) => { const el = document.querySelector(sel); if (el) el.setAttribute(attr, val); };
   set('link[rel="canonical"]', 'href', url);
@@ -1589,7 +1589,7 @@ function navigate(page, params, opts) {
   closeMobileSidebar();
 
   // Cập nhật tiêu đề trang
-  document.getElementById('page-title').textContent = pageTitles[page] || 'Tẻn';
+  document.getElementById('page-title').textContent = pageTitles[page] || 'ITaiwan';
 
   // Render page
   const content = document.getElementById('page-content');
@@ -1967,7 +1967,7 @@ function tcHubHtml() {
 const TAC_GIA = {
   ten: 'Hoàng Thị Tỉnh',
   vai: 'Giáo viên tiếng Trung · Thạc sĩ MBA · Học bổng HES',
-  dan: 'Rất vui được đồng hành cùng các bạn trong hành trình chinh phục tiếng Trung — mỗi bài trên Tẻn đều được biên soạn theo đúng lộ trình mình đang dạy trên lớp.',
+  dan: 'Rất vui được đồng hành cùng các bạn trong hành trình chinh phục tiếng Trung — mỗi bài trên ITaiwan đều được biên soạn theo đúng lộ trình mình đang dạy trên lớp.',
   hienTai: 'Chuyên viên biên chế Văn phòng Quốc tế — Đại học Quốc lập Cần Ích, Đài Loan',
   moc: [
     { ic: 'fa-solid fa-building-columns', ten: 'Cử nhân Ngôn ngữ', mo: 'Đại học Ngoại ngữ — ĐHQG Hà Nội' },
@@ -2126,7 +2126,7 @@ function tcKhachHtml() {
         ${tcHubHtml()}
       </div>
 
-      <!-- TẠM ẨN "Người đứng sau Tẻn" theo yêu cầu chủ dự án 2026-09-11.
+      <!-- TẠM ẨN "Người đứng sau ITaiwan" theo yêu cầu chủ dự án 2026-09-11.
            Hàm tcTacGiaHtml(), hằng số TAC_GIA và 2 ảnh trong public/images GIỮ NGUYÊN — bật lại
            chỉ là gọi lại hàm đó ở đây và ở bản học viên bên dưới. Chỗ cũ của nó là SAU phần sản
            phẩm, vì khách lướt theo mạch "có gì học -> thi thử ra sao -> công cụ gì" rồi mới tới
@@ -2225,7 +2225,7 @@ function tcHocVienHtml() {
         ${tcThiThuHtml()}
       </div>
 
-      <!-- TẠM ẨN "Người đứng sau Tẻn" 2026-09-11 — xem chú thích ở bản khách phía trên. -->
+      <!-- TẠM ẨN "Người đứng sau ITaiwan" 2026-09-11 — xem chú thích ở bản khách phía trên. -->
 
       <div id="tc-cd"></div>
     </div>`;
@@ -4082,7 +4082,7 @@ function toggleCharMode() {
 function openAuth() {
   const formSide = document.getElementById('auth-form-side');
   formSide.innerHTML = `
-    <div class="auth-form-logo">Tẻn <span>學中文</span></div>
+    <div class="auth-form-logo">ITaiwan <span>學中文</span></div>
     <h2 class="auth-form-title">Đăng nhập hệ thống</h2>
     <div class="auth-error" id="auth-error-msg"></div>
     <div class="auth-success" id="auth-success-msg"></div>
@@ -4194,7 +4194,7 @@ function showApprovalContactModal() {
 function showRegister() {
   const formSide = document.getElementById('auth-form-side');
   formSide.innerHTML = `
-    <div class="auth-form-logo">Tẻn <span>學中文</span></div>
+    <div class="auth-form-logo">ITaiwan <span>學中文</span></div>
     <h2 class="auth-form-title">Đăng ký tài khoản</h2>
     <div class="auth-error" id="auth-error-msg"></div>
     <div class="auth-success" id="auth-success-msg"></div>
@@ -8811,7 +8811,7 @@ async function ddSubmitTeacherReview(id, btn) {
 }
 
 // ============================================================
-// GAME TAB — Bong Bóng Từ Vựng & Cứu Chú Ong Tẻn
+// GAME TAB — Bong Bóng Từ Vựng & Cứu Chú Ong ITaiwan
 // Rà lại + viết lại phần lõi 2026-09-04. Những chỗ CỐ Ý, đừng "sửa" ngược lại:
 //
 // 1. **Bong bóng của đáp án KHÔNG có màu riêng.** Bản cũ tô đáp án bằng class
@@ -9036,7 +9036,7 @@ function ddRenderGame(el) {
         <div class="dd-game-card bee-card" onclick="window.app.ddGameSelectMode('bee')">
           <div class="dd-game-card-blob"></div>
           <div class="dd-game-card-icon">🐝</div>
-          <h3>Cứu Chú Ong Tẻn</h3>
+          <h3>Cứu Chú Ong ITaiwan</h3>
           <p>Đọc nghĩa → chọn từng chữ Hán để phá lồng cứu chú ong trước khi hết mạng!</p>
           ${kyLuc(bestBee)}
           <button class="dd-game-card-btn" onclick="event.stopPropagation();window.app.ddGameSelectMode('bee')">

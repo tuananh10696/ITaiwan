@@ -64,7 +64,7 @@ const BO = [
     html: `<div class="k" style="${nenTeal(TEAL, TEAL_DAM)}">
       <div style="display:flex;flex-direction:column;align-items:center;gap:64px">
         <div style="width:520px;height:520px">${logoSvg(0.86)}</div>
-        <div style="font:700 132px/1 -apple-system,'PingFang TC','Helvetica Neue',sans-serif;color:#fff;letter-spacing:8px">Tẻn</div>
+        <div style="font:700 132px/1 -apple-system,'PingFang TC','Helvetica Neue',sans-serif;color:#fff;letter-spacing:8px">ITaiwan</div>
         <div style="width:180px;height:8px;border-radius:4px;background:${CAM}"></div>
       </div></div>`,
   },
@@ -73,7 +73,7 @@ const BO = [
     html: `<div class="k" style="${nenTeal('#20505E', '#122E36')}">
       <div style="display:flex;flex-direction:column;align-items:center;gap:64px">
         <div style="width:520px;height:520px">${logoSvg(0.86)}</div>
-        <div style="font:700 132px/1 -apple-system,'PingFang TC','Helvetica Neue',sans-serif;color:#fff;letter-spacing:8px">Tẻn</div>
+        <div style="font:700 132px/1 -apple-system,'PingFang TC','Helvetica Neue',sans-serif;color:#fff;letter-spacing:8px">ITaiwan</div>
         <div style="width:180px;height:8px;border-radius:4px;background:${CAM}"></div>
       </div></div>`,
   },
@@ -84,7 +84,7 @@ const BO = [
     html: `<div class="k" style="${nenTeal(TEAL, TEAL_DAM)};justify-content:flex-start;padding-left:88px;box-sizing:border-box">
       <div style="width:150px;height:150px;flex:none">${logoSvg(0.9)}</div>
       <div style="margin-left:48px;font-family:-apple-system,'PingFang TC','Helvetica Neue',sans-serif;color:#fff">
-        <div style="font-size:76px;font-weight:800;letter-spacing:2px">Tẻn</div>
+        <div style="font-size:76px;font-weight:800;letter-spacing:2px">ITaiwan</div>
         <div style="font-size:34px;font-weight:600;opacity:.94;margin-top:10px">Học tiếng Trung Phồn thể</div>
         <div style="font-size:27px;font-weight:500;opacity:.8;margin-top:8px">Luyện thi TOCFL · 324 bài · 10.562 từ</div>
       </div></div>`,

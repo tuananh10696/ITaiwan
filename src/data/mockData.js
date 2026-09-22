@@ -198,7 +198,7 @@ export const blogData = [
   { id: 3, title: 'Phương pháp học từ vựng tiếng Trung hiệu quả với SRS', excerpt: 'Tìm hiểu về phương pháp Spaced Repetition System (SRS) và cách áp dụng để nhớ từ vựng lâu dài...', date: '05/08/2025', category: 'Học tập', emoji: '🧠' },
   { id: 4, title: 'Kinh nghiệm sống và học tập tại Đài Loan cho du học sinh mới', excerpt: 'Chia sẻ kinh nghiệm thực tế về cuộc sống, ăn ở, đi lại và học tập tại Đài Loan...', date: '01/08/2025', category: 'Du học', emoji: '✈️' },
   { id: 5, title: 'So sánh Phồn thể và Giản thể - Nên học loại nào?', excerpt: 'Phân tích ưu nhược điểm của việc học tiếng Trung Phồn thể vs Giản thể cho người Việt...', date: '28/07/2025', category: 'Học tập', emoji: '🔤' },
-  { id: 6, title: 'Lịch khai giảng các khóa học tiếng Trung tháng 9/2025', excerpt: 'Thông tin về các khóa học tiếng Trung online và offline sắp khai giảng tại Tẻn...', date: '25/07/2025', category: 'Khai giảng', emoji: '📅' },
+  { id: 6, title: 'Lịch khai giảng các khóa học tiếng Trung tháng 9/2025', excerpt: 'Thông tin về các khóa học tiếng Trung online và offline sắp khai giảng tại ITaiwan...', date: '25/07/2025', category: 'Khai giảng', emoji: '📅' },
 ];
 
 // Radicals data

@@ -194,7 +194,7 @@ async function ganNutBack() {
       const { Dialog } = await import('@capacitor/dialog');
       const { value } = await Dialog.confirm({
         title: 'Thoát ứng dụng',
-        message: 'Bạn có muốn thoát Tẻn không?',
+        message: 'Bạn có muốn thoát ITaiwan không?',
         okButtonTitle: 'Thoát',
         cancelButtonTitle: 'Ở lại',
       });
@@ -325,7 +325,7 @@ export async function chiaSe({ tieuDe, noiDung, url } = {}) {
   try {
     const { Share } = await import('@capacitor/share');
     await Share.share({
-      title: tieuDe || 'Tẻn — Học tiếng Trung',
+      title: tieuDe || 'ITaiwan — Học tiếng Trung',
       text: noiDung || '',
       url: url || 'https://taiwanese-mu.vercel.app',
       dialogTitle: 'Chia sẻ',

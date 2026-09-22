@@ -27,10 +27,9 @@ export const laIOS = () => nenTang() === 'ios';
 export const laAndroid = () => nenTang() === 'android';
 
 // Máy chủ API khi chạy native. Đặt lúc BUILD qua VITE_API_BASE (Vite thay bằng hằng chuỗi).
-// Không có thì dùng production — để lỡ quên biến môi trường thì app vẫn chạy được, thay vì
-// gọi vào hư không.
-const API_HOST = String(import.meta.env?.VITE_API_BASE || 'https://taiwanese-mu.vercel.app')
-  .replace(/\/+$/, '');
+// Bỏ trống thì app native gọi vào chính origin của WebView và luôn 404 — nên khi dựng bản
+// native, VITE_API_BASE là biến BẮT BUỘC.
+const API_HOST = String(import.meta.env?.VITE_API_BASE || '').replace(/\/+$/, '');
 
 /**
  * Tiền tố cho mọi lời gọi API.

@@ -1,6 +1,6 @@
 {
   "appId": "com.taiwanese.app",
-  "appName": "Tẻn",
+  "appName": "ITaiwan",
   "webDir": "dist-mobile",
   "android": {
     "allowMixedContent": false,

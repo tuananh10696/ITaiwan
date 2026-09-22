@@ -302,7 +302,7 @@ function renderAccountSettings(el) {
       <div class="account-card">
         <h3><i class="fa-solid fa-bell"></i> Nhắc học qua email</h3>
         <p class="tk-cai-mo">Mỗi tối, nếu hôm đó bạn chưa học và đang có từ đến hạn ôn hoặc bài
-          giáo viên giao, Tẻn gửi một email nhắc. Không có việc gì thì không gửi.</p>
+          giáo viên giao, ITaiwan gửi một email nhắc. Không có việc gì thì không gửi.</p>
         <div class="tk-doi">
           <button class="tk-doi-btn ${nhacBat ? 'active' : ''}" onclick="window.app.tkDatNhac(true)">
             <i class="fa-solid fa-bell"></i> Bật</button>

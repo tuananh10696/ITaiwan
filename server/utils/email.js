@@ -66,18 +66,18 @@ export const sendVerificationEmail = async (email, token) => {
   // ngầm ở phía họ, trả lỗi rõ trong response nếu request bị từ chối). Set
   // RESEND_FROM_EMAIL sau khi verify domain, ví dụ "no-reply@taiwandiary.vn".
   const fromAddress = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
-  const fromName = process.env.RESEND_FROM_NAME || 'Tẻn - Học Tiếng Trung';
+  const fromName = process.env.RESEND_FROM_NAME || 'Trung tâm ITaiwan';
 
   const payload = {
     from: `${fromName} <${fromAddress}>`,
     to: [email],
-    subject: 'Xác nhận đăng ký tài khoản - Tẻn',
-    text: `Chào bạn,\n\nCảm ơn bạn đã đăng ký tài khoản trên hệ thống học tiếng Trung Tẻn.\n\nVui lòng copy đường link sau dán vào trình duyệt để xác nhận địa chỉ email của bạn:\n${verifyLink}\n\nTrân trọng,\nĐội ngũ Tẻn`,
+    subject: 'Xác nhận đăng ký tài khoản - ITaiwan',
+    text: `Chào bạn,\n\nCảm ơn bạn đã đăng ký tài khoản trên hệ thống học tiếng Trung ITaiwan.\n\nVui lòng copy đường link sau dán vào trình duyệt để xác nhận địa chỉ email của bạn:\n${verifyLink}\n\nTrân trọng,\nĐội ngũ ITaiwan`,
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
-        <h2 style="color: #027AB3; text-align: center;">Xác nhận tài khoản Tẻn</h2>
+        <h2 style="color: #027AB3; text-align: center;">Xác nhận tài khoản ITaiwan</h2>
         <p>Chào bạn,</p>
-        <p>Cảm ơn bạn đã đăng ký tài khoản trên hệ thống học tiếng Trung <strong>Tẻn</strong>.</p>
+        <p>Cảm ơn bạn đã đăng ký tài khoản trên hệ thống học tiếng Trung <strong>ITaiwan</strong>.</p>
         <p>Vui lòng click vào nút bên dưới để xác nhận địa chỉ email của bạn và hoàn tất việc đăng ký:</p>
         <div style="text-align: center; margin: 30px 0;">
           <a href="${verifyLink}" style="background-color: #027AB3; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block;">Xác nhận Email</a>
@@ -86,7 +86,7 @@ export const sendVerificationEmail = async (email, token) => {
         <p style="word-break: break-all; color: #64748b; font-size: 14px;">${verifyLink}</p>
         <p>Nếu bạn không thực hiện yêu cầu này, vui lòng bỏ qua email này.</p>
         <br/>
-        <p>Trân trọng,<br/>Đội ngũ Tẻn</p>
+        <p>Trân trọng,<br/>Đội ngũ ITaiwan</p>
       </div>
     `,
   };
@@ -155,18 +155,18 @@ export const sendWelcomeEmail = async (email, password, className) => {
   }
 
   const fromAddress = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
-  const fromName = process.env.RESEND_FROM_NAME || 'Tẻn - Học Tiếng Trung';
+  const fromName = process.env.RESEND_FROM_NAME || 'Trung tâm ITaiwan';
 
   const payload = {
     from: `${fromName} <${fromAddress}>`,
     to: [email],
-    subject: `Tài khoản học tiếng Trung Tẻn${className ? ` — Lớp ${className}` : ''}`,
-    text: `Chào bạn,\n\nBạn đã được thêm vào lớp học "${className || ''}" trên hệ thống Tẻn. Thông tin đăng nhập của bạn:\n\nEmail: ${email}\nMật khẩu: ${password}\n\nTruy cập tại: ${loginLink}\n\nBạn nên đổi mật khẩu sau khi đăng nhập lần đầu (mục Tài khoản > Thông tin cá nhân).\n\nTrân trọng,\nĐội ngũ Tẻn`,
+    subject: `Tài khoản học tiếng Trung ITaiwan${className ? ` — Lớp ${className}` : ''}`,
+    text: `Chào bạn,\n\nBạn đã được thêm vào lớp học "${className || ''}" trên hệ thống ITaiwan. Thông tin đăng nhập của bạn:\n\nEmail: ${email}\nMật khẩu: ${password}\n\nTruy cập tại: ${loginLink}\n\nBạn nên đổi mật khẩu sau khi đăng nhập lần đầu (mục Tài khoản > Thông tin cá nhân).\n\nTrân trọng,\nĐội ngũ ITaiwan`,
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
-        <h2 style="color: #027AB3; text-align: center;">Chào mừng đến với Tẻn${className ? ` — Lớp ${className}` : ''}</h2>
+        <h2 style="color: #027AB3; text-align: center;">Chào mừng đến với ITaiwan${className ? ` — Lớp ${className}` : ''}</h2>
         <p>Chào bạn,</p>
-        <p>Giáo viên đã thêm bạn vào lớp học <strong>${className || ''}</strong> trên hệ thống học tiếng Trung <strong>Tẻn</strong>. Đây là thông tin đăng nhập của bạn:</p>
+        <p>Giáo viên đã thêm bạn vào lớp học <strong>${className || ''}</strong> trên hệ thống học tiếng Trung <strong>ITaiwan</strong>. Đây là thông tin đăng nhập của bạn:</p>
         <div style="background:#f8fafc;border-radius:8px;padding:16px;margin:20px 0;">
           <p style="margin:4px 0"><strong>Email:</strong> ${email}</p>
           <p style="margin:4px 0"><strong>Mật khẩu:</strong> ${password}</p>
@@ -176,7 +176,7 @@ export const sendWelcomeEmail = async (email, password, className) => {
         </div>
         <p style="color:#64748b;font-size:13px">Bạn nên đổi mật khẩu sau khi đăng nhập lần đầu, ở mục <em>Tài khoản → Thông tin cá nhân</em>.</p>
         <br/>
-        <p>Trân trọng,<br/>Đội ngũ Tẻn</p>
+        <p>Trân trọng,<br/>Đội ngũ ITaiwan</p>
       </div>
     `,
   };
@@ -237,13 +237,13 @@ export const sendAssignmentReminderEmail = async (email, { studentName, classNam
   }
 
   const fromAddress = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
-  const fromName = process.env.RESEND_FROM_NAME || 'Tẻn - Học Tiếng Trung';
+  const fromName = process.env.RESEND_FROM_NAME || 'Trung tâm ITaiwan';
 
   const payload = {
     from: `${fromName} <${fromAddress}>`,
     to: [email],
     subject: `Nhắc nộp bài: ${lessonLabel}${dueText ? ` — hạn ${dueText}` : ''}`,
-    text: `Chào ${studentName || 'bạn'},\n\nBạn chưa làm bài "${lessonLabel}" mà giáo viên đã giao cho lớp ${className || ''}.${dueText ? `\nHạn nộp: ${dueText}.` : ''}\n\nVào học tại: ${baseUrl}/\n\nTrân trọng,\nĐội ngũ Tẻn`,
+    text: `Chào ${studentName || 'bạn'},\n\nBạn chưa làm bài "${lessonLabel}" mà giáo viên đã giao cho lớp ${className || ''}.${dueText ? `\nHạn nộp: ${dueText}.` : ''}\n\nVào học tại: ${baseUrl}/\n\nTrân trọng,\nĐội ngũ ITaiwan`,
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
         <h2 style="color: #027AB3;">Nhắc nộp bài tập</h2>
@@ -255,7 +255,7 @@ export const sendAssignmentReminderEmail = async (email, { studentName, classNam
         </div>
         <p style="color:#64748b;font-size:13px">Nếu bạn đã làm bài rồi thì bỏ qua email này nhé.</p>
         <br/>
-        <p>Trân trọng,<br/>Đội ngũ Tẻn</p>
+        <p>Trân trọng,<br/>Đội ngũ ITaiwan</p>
       </div>
     `,
   };
@@ -323,7 +323,7 @@ export const sendNhacHocEmail = async (email, v) => {
   }
 
   const fromAddress = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
-  const fromName = process.env.RESEND_FROM_NAME || 'Tẻn - Học Tiếng Trung';
+  const fromName = process.env.RESEND_FROM_NAME || 'Trung tâm ITaiwan';
   const dsBai = (v.baiGiao || []).slice(0, 3)
     .map((b) => `<li>${b.ten}${b.han ? ` — hạn ${new Date(b.han).toLocaleDateString('vi-VN')}` : ''}</li>`)
     .join('');
@@ -398,7 +398,7 @@ export const sendNhacDuHocEmail = async (email, v) => {
   }
 
   const fromAddress = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
-  const fromName = process.env.RESEND_FROM_NAME || 'Tẻn - Học Tiếng Trung';
+  const fromName = process.env.RESEND_FROM_NAME || 'Trung tâm ITaiwan';
   const dong = viec.map((x) => `<li style="margin-bottom:6px"><strong>${x.nhan}</strong>`
     + `${x.ngay ? ` — ${new Date(x.ngay).toLocaleDateString('vi-VN')}` : ''}`
     + `${x.chiTiet ? `<br><span style="color:#4B5D64">${x.chiTiet}</span>` : ''}</li>`).join('');

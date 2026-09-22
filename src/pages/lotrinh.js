@@ -1025,7 +1025,7 @@ function ccMo(bo, quyen) {
   openDialog('Chứng chỉ hoàn thành', `
     <div class="cc-khung" id="cc-khung">${_ccSvg({ ten, c, ngay, ma })}</div>
     <p class="tv-note" style="margin-top:12px"><i class="fa-solid fa-circle-info"></i>
-      <span>Chứng chỉ ghi nhận bạn đã hoàn thành toàn bộ bài tập của quyển này trên Tẻn.
+      <span>Chứng chỉ ghi nhận bạn đã hoàn thành toàn bộ bài tập của quyển này trên ITaiwan.
       Đây không phải chứng chỉ năng lực ngôn ngữ do TOCFL hay Hanban cấp.</span></p>
   `, `<button class="btn btn-outline" onclick="window.app.closeDialog()">Đóng</button>
       <button class="btn btn-primary" onclick="window.app.ccTai('${tdNhay(ten)}', '${bo}', ${quyen})">

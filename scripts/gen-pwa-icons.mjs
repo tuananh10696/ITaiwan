@@ -25,13 +25,13 @@ await ve(path.join(GOC, 'assets/icon-foreground.png'), 1024, 0.62 / 0.75, 'trans
 await ve(path.join(GOC, 'assets/icon-background.png'), 1024, 0, NEN);
 
 // SPLASH (2732×2732, capacitor-assets cắt cho mọi cỡ) + ảnh nổi bật Play Store (1024×500).
-// Bản cũ cũng là tia sét placeholder kèm chữ "Tẻn". Font Be Vietnam Pro tải từ Google Fonts lúc
+// Bản cũ cũng là tia sét placeholder kèm chữ "ITaiwan". Font Be Vietnam Pro tải từ Google Fonts lúc
 // sinh; không có mạng thì rơi về system-ui — chỉ khác kiểu chữ, vẫn đúng logo.
 const FONT = `<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@700;800&display=swap" rel="stylesheet">`;
 const splash = (bg, chuPhu) => `<!doctype html><html><head><meta charset="utf-8">${FONT}</head><body style="margin:0">
 <div id="ic" style="width:2732px;height:2732px;background:${bg};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;font-family:'Be Vietnam Pro',system-ui,sans-serif">
   <img src="data:image/png;base64,${b64}" style="width:760px;height:760px;display:block;margin-bottom:24px">
-  <div style="font-size:200px;font-weight:800;color:#fff;letter-spacing:-4px;line-height:1">Tẻn</div>
+  <div style="font-size:200px;font-weight:800;color:#fff;letter-spacing:-4px;line-height:1">ITaiwan</div>
   <div style="font-size:64px;font-weight:700;color:${chuPhu};margin-top:26px;letter-spacing:14px">學中文</div>
   <div style="width:180px;height:10px;border-radius:5px;background:#FD923C;margin-top:44px"></div>
 </div></body></html>`;
@@ -46,7 +46,7 @@ const feature = `<!doctype html><html><head><meta charset="utf-8">${FONT}</head>
 <div id="ic" style="width:1024px;height:500px;background:linear-gradient(105deg,#4A9DB0 0%,#38899E 50%,#2A6B7D 100%);display:flex;align-items:center;gap:56px;padding:0 84px;box-sizing:border-box;font-family:'Be Vietnam Pro',system-ui,sans-serif;color:#fff">
   <img src="data:image/png;base64,${b64}" style="width:300px;height:300px;flex:none;display:block">
   <div style="min-width:0">
-    <div style="font-size:92px;font-weight:800;letter-spacing:-2px;line-height:1">Tẻn <span style="color:#FDBA74;font-weight:700">學中文</span></div>
+    <div style="font-size:92px;font-weight:800;letter-spacing:-2px;line-height:1">ITaiwan <span style="color:#FDBA74;font-weight:700">學中文</span></div>
     <div style="font-size:34px;font-weight:700;margin-top:22px;line-height:1.3">Học tiếng Trung Phồn thể<br>&amp; luyện thi TOCFL</div>
     <div style="font-size:24px;margin-top:18px;opacity:.85;white-space:nowrap">324 bài · 10.562 từ có giọng đọc thật</div>
   </div>
@@ -85,7 +85,7 @@ const khoiDong = (w, h) => {
   return `<!doctype html><html><head><meta charset="utf-8">${FONT}</head><body style="margin:0">
 <div id="ic" style="width:${w}px;height:${h}px;background:#38899E;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Be Vietnam Pro',system-ui,sans-serif">
   <img src="data:image/png;base64,${b64}" style="width:${Math.round(nho * 0.42)}px;height:${Math.round(nho * 0.42)}px;display:block">
-  <div style="font-size:${Math.round(nho * 0.11)}px;font-weight:800;color:#fff;letter-spacing:-1px;line-height:1;margin-top:${Math.round(nho * 0.02)}px">Tẻn</div>
+  <div style="font-size:${Math.round(nho * 0.11)}px;font-weight:800;color:#fff;letter-spacing:-1px;line-height:1;margin-top:${Math.round(nho * 0.02)}px">ITaiwan</div>
   <div style="font-size:${Math.round(nho * 0.038)}px;font-weight:700;color:rgba(255,255,255,.82);letter-spacing:${Math.round(nho * 0.008)}px;margin-top:${Math.round(nho * 0.02)}px">學中文</div>
 </div></body></html>`;
 };

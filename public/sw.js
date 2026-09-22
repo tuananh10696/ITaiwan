@@ -1,4 +1,4 @@
-/* Service worker của Tẻn — PWA (2026-09-18).
+/* Service worker của ITaiwan — PWA (2026-09-18).
  *
  * MỤC ĐÍCH: đủ điều kiện "Thêm vào màn hình chính" thành app thật trên Android/iOS, mở lại được
  * khung app khi mất mạng, và không tải lại những file bất biến (JS/CSS có hash, audio, ảnh).
@@ -77,7 +77,7 @@ async function mangTruocHtml(req) {
     const c = await caches.open(CACHE_SHELL);
     const shell = await c.match('/');
     if (shell) return shell;
-    return new Response('<!doctype html><meta charset="utf-8"><title>Tẻn</title><p style="font-family:system-ui;padding:24px">Không có kết nối mạng. Hãy thử lại khi có mạng.</p>', { headers: { 'Content-Type': 'text/html; charset=utf-8' }, status: 503 });
+    return new Response('<!doctype html><meta charset="utf-8"><title>ITaiwan</title><p style="font-family:system-ui;padding:24px">Không có kết nối mạng. Hãy thử lại khi có mạng.</p>', { headers: { 'Content-Type': 'text/html; charset=utf-8' }, status: 503 });
   }
 }
 

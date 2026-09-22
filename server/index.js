@@ -1,4 +1,4 @@
-// Tẻn - Express Backend Server
+// ITaiwan - Express Backend Server
 import express from 'express';
 import cors from 'cors';
 import compression from 'compression';
@@ -175,7 +175,7 @@ app.use((err, req, res, next) => {
 // nào — chỉ có nginx trả 502. Đừng đưa `NODE_ENV` trở lại điều kiện này.
 if (!process.env.VERCEL) {
   app.listen(PORT, () => {
-    console.log(`\n🚀 Tẻn API Server`);
+    console.log(`\n🚀 ITaiwan API Server`);
     console.log(`   ├─ URL:  http://localhost:${PORT}`);
     console.log(`   ├─ Env:  ${process.env.NODE_ENV || 'development'}`);
     console.log(`   └─ DB:   ${process.env.DB_NAME || 'ten_app'}@${process.env.DB_HOST || 'localhost'}`);

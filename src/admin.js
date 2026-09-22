@@ -1,5 +1,5 @@
 // ============================================================
-// ADMIN PANEL — Tẻn (SPA Controller)
+// ADMIN PANEL — ITaiwan (SPA Controller)
 // ============================================================
 // Danh mục quyển + helper id/URL — module thuần dữ liệu, dùng chung với main.js.
 // Không import thoidaiData.js: file đó kéo theo toàn bộ từ vựng.
@@ -479,7 +479,7 @@ function renderCurrentSection() {
   });
   document.getElementById('section-title').textContent = r.title;
   // Đổi cả tiêu đề tab trình duyệt để bookmark / lịch sử / nhiều tab mở cùng lúc phân biệt được nhau.
-  document.title = `${r.title} · Tẻn Admin`;
+  document.title = `${r.title} · ITaiwan Admin`;
   document.getElementById('admin-sidebar').classList.remove('open');
 
   const content = document.getElementById('admin-content');
