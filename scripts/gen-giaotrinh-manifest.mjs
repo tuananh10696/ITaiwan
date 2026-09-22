@@ -3,8 +3,8 @@
  * Sinh `src/data/giaotrinh-manifest.js` — BẢNG SỐ LIỆU NHẸ của cả hai bộ giáo trình.
  *
  * VÌ SAO CẦN (2026-09-06, xem CLAUDE.md 4.30): danh sách bài trong sidebar phải có NGAY khi
- * vào trang, nhưng nó vốn được tính bằng cách đếm `duongdaiVocab[key].length` — tức là kéo
- * theo 11 MB từ vựng/ngữ pháp/hội thoại vào bundle chính. Manifest tách đúng phần SỐ (số từ
+ * vào trang, nhưng nó vốn được tính bằng cách đếm `thoidaiVocab[key].length` — tức là kéo
+ * theo vài MB từ vựng/ngữ pháp/hội thoại vào bundle chính. Manifest tách đúng phần SỐ (số từ
  * mỗi bài, from/to mỗi bài con, bài nào có ngữ pháp/hội thoại/luyện viết) ra một file ~20 KB,
  * để nội dung thật nạp động theo quyển.
  *
@@ -34,9 +34,6 @@ function coDuLieu(obj) {
 }
 
 async function main() {
-  const dd = await nap('duongdaiData.js');
-  const ddG = await nap('duongdaiGrammar.js');
-  const ddD = await nap('duongdaiDialogues.js');
   const td = await nap('thoidaiData.js');
   const tdG = await nap('thoidaiGrammar.js');
   const tdD = await nap('thoidaiDialogues.js');
@@ -52,8 +49,6 @@ async function main() {
   });
 
   const manifest = {
-    duongdai: bo(dd.duongdaiLessons, dd.duongdaiSubLessons, dd.duongdaiVocab,
-      ddG.duongdaiGrammar, ddD.duongdaiDialogues, dd.duongdaiWriting),
     thoidai: bo(td.thoidaiLessons, td.thoidaiSubLessons, td.thoidaiVocab,
       tdG.thoidaiGrammar, tdD.thoidaiDialogues, td.thoidaiWriting),
   };
@@ -69,9 +64,9 @@ async function main() {
 
   // --- Ghi file ---
   const noiDung = `// FILE TỰ SINH bởi scripts/gen-giaotrinh-manifest.mjs — ĐỪNG SỬA TAY.
-// Bảng số liệu nhẹ để dựng danh sách bài (sidebar) mà không phải nạp 11 MB từ vựng.
+// Bảng số liệu nhẹ để dựng danh sách bài (sidebar) mà không phải nạp từ vựng của cả bộ.
 // total: số từ mỗi bài cha · range: [from, to] mỗi bài con · g/d/w: bài con có ngữ pháp /
-// hội thoại / luyện viết. Xem CLAUDE.md 4.30.
+// hội thoại / luyện viết.
 export const GT_MANIFEST = ${JSON.stringify(manifest)};
 `;
   const cu = fs.existsSync(RA) ? fs.readFileSync(RA, 'utf8') : '';
@@ -84,11 +79,8 @@ export const GT_MANIFEST = ${JSON.stringify(manifest)};
 async function kiemTra() {
   // import sau khi đã ghi file, nếu không sẽ đọc bản cũ
   const idx = await nap('giaotrinh-index.js', `?t=${Date.now()}`);
-  const dd = await nap('duongdaiData.js');
   const td = await nap('thoidaiData.js');
   const cap = [
-    ['duongdai lessons', idx.duongdaiLessons, dd.duongdaiLessons],
-    ['duongdai subs', idx.duongdaiSubLessons, dd.duongdaiSubLessons],
     ['thoidai lessons', idx.thoidaiLessons, td.thoidaiLessons],
     ['thoidai subs', idx.thoidaiSubLessons, td.thoidaiSubLessons],
   ];
@@ -104,4 +96,4 @@ async function kiemTra() {
 const { doi, manifest } = await main();
 if (fs.existsSync(path.join(ROOT, 'src/data/giaotrinh-index.js'))) await kiemTra();
 const dem = (m) => `${Object.keys(m.total).length} bài · ${Object.keys(m.range).length} bài con`;
-console.log(`[manifest] ${doi ? 'đã cập nhật' : 'không đổi'} — Đương đại: ${dem(manifest.duongdai)} · Thời Đại: ${dem(manifest.thoidai)}`);
+console.log(`[manifest] ${doi ? 'đã cập nhật' : 'không đổi'} — Thời Đại: ${dem(manifest.thoidai)}`);
