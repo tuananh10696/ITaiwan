@@ -208,66 +208,14 @@ router.post('/vao-lop', requireAuth, async (req, res) => {
   if (!ma) return res.status(400).json({ error: 'Vui lòng nhập mã mời của lớp.' });
 
   try {
-    // Cột `org_id` và bảng `organizations` chỉ có sau migration-to-chuc-quyen.sql. DB chưa
-    // migrate thì coi như mọi thứ thuộc tổ chức gốc — hành vi y hệt trước khi có mô hình cho
-    // thuê, chứ không 500 vào mặt học viên chỉ vì thiếu một bảng (cùng lối với `loadRole`).
-    let lop, chuaCoOrg = false;
-    try {
-      [[lop]] = await pool.query(
-        `SELECT c.id, c.name, c.org_id, c.is_active,
-                o.ten AS org_ten, o.trang_thai AS org_trang_thai, o.het_han AS org_het_han,
-                o.gioi_han_hoc_vien
-           FROM classes c
-      LEFT JOIN organizations o ON o.id = c.org_id
-          WHERE c.invite_code = ?`, [ma]);
-    } catch (err) {
-      if (err?.code !== 'ER_NO_SUCH_TABLE' && err?.code !== 'ER_BAD_FIELD_ERROR') throw err;
-      chuaCoOrg = true;
-      [[lop]] = await pool.query(
-        'SELECT id, name, is_active FROM classes WHERE invite_code = ?', [ma]);
-    }
+    const [[lop]] = await pool.query(
+      'SELECT id, name, is_active FROM classes WHERE invite_code = ?', [ma]);
     if (!lop) return res.status(404).json({ error: 'Mã mời không đúng. Kiểm tra lại với giáo viên nhé.' });
     if (!lop.is_active) return res.status(400).json({ error: 'Lớp này đã đóng.' });
 
-    let u;
-    try {
-      [[u]] = await pool.query('SELECT id, org_id, role FROM users WHERE id = ?', [req.userId]);
-    } catch (err) {
-      if (err?.code !== 'ER_BAD_FIELD_ERROR') throw err;
-      chuaCoOrg = true;
-      [[u]] = await pool.query('SELECT id, role FROM users WHERE id = ?', [req.userId]);
-    }
-    const vaiTro = u.role || 'student';
-    if (vaiTro !== 'student') {
+    const [[u]] = await pool.query('SELECT id, role FROM users WHERE id = ?', [req.userId]);
+    if ((u.role || 'student') !== 'student') {
       return res.status(400).json({ error: 'Chỉ tài khoản học viên mới vào lớp bằng mã mời.' });
-    }
-
-    const orgLop = lop.org_id || 1;
-    const orgToi = u.org_id || 1;
-    // Chưa migrate thì mọi người cùng một tổ chức gốc — không có gì để đổi, không hạn mức nào.
-    const doiToChuc = !chuaCoOrg && orgToi !== orgLop;
-
-    if (doiToChuc && orgToi !== 1) {
-      // Đang thuộc một trung tâm khác: lịch sử học của họ nằm ở bên kia, và đổi qua lại là mất
-      // liên kết. Phải nhờ trung tâm cũ gỡ ra trước.
-      return res.status(400).json({
-        error: 'Tài khoản của bạn đang thuộc một trung tâm khác. Liên hệ trung tâm đó để chuyển trước khi vào lớp mới.',
-      });
-    }
-    if (orgLop !== 1) {
-      if (lop.org_trang_thai !== 'hoat-dong') {
-        return res.status(400).json({ error: 'Trung tâm này đang tạm dừng. Liên hệ giáo viên của bạn nhé.' });
-      }
-      if (lop.org_het_han && new Date(lop.org_het_han) < new Date(new Date().toDateString())) {
-        return res.status(400).json({ error: 'Hợp đồng của trung tâm này đã hết hạn. Liên hệ giáo viên của bạn nhé.' });
-      }
-      if (doiToChuc && lop.gioi_han_hoc_vien) {
-        const [[{ n }]] = await pool.query(
-          "SELECT COUNT(*) AS n FROM users WHERE org_id = ? AND role = 'student'", [orgLop]);
-        if (n >= lop.gioi_han_hoc_vien) {
-          return res.status(400).json({ error: 'Lớp/trung tâm đã đủ sĩ số theo gói. Liên hệ giáo viên của bạn nhé.' });
-        }
-      }
     }
 
     const [[daCo]] = await pool.query(
@@ -280,7 +228,6 @@ router.post('/vao-lop', requireAuth, async (req, res) => {
       `SELECT c.name FROM class_enrollments ce JOIN classes c ON c.id = ce.class_id
         WHERE ce.user_id = ? LIMIT 1`, [req.userId]);
 
-    if (doiToChuc) await pool.query('UPDATE users SET org_id = ? WHERE id = ?', [orgLop, req.userId]);
     await pool.query('DELETE FROM class_enrollments WHERE user_id = ?', [req.userId]);
     await pool.query('INSERT INTO class_enrollments (class_id, user_id) VALUES (?, ?)', [lop.id, req.userId]);
     // Quyền nội dung có thể vừa đổi (vào trung tâm đã mua khoá) — bỏ đệm để có hiệu lực ngay.
@@ -291,7 +238,6 @@ router.post('/vao-lop', requireAuth, async (req, res) => {
         ? `Đã vào lớp "${lop.name}" (bạn được chuyển khỏi lớp "${cu.name}").`
         : `Đã vào lớp "${lop.name}".`,
       lop: { id: lop.id, name: lop.name },
-      to_chuc: orgLop !== 1 ? lop.org_ten : null,
     });
   } catch (err) {
     console.error('Lỗi vào lớp bằng mã mời:', err);

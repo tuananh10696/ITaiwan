@@ -247,8 +247,8 @@ function apDungVaiTro() {
 }
 
 /** Gõ tay URL của khu không được vào -> đưa về Tổng quan thay vì để nhận 403 khó hiểu. */
-const KHU_CHI_ADMIN = ['users', 'vocabulary', 'exam', 'dialogues', 'blog', 'to-chuc'];
-const KHU_QUAN_TRI = ['teachers', 'quyen-hoc', 'du-hoc', 'quy', 'ktx'];
+const KHU_CHI_ADMIN = ['users', 'thiet-bi'];
+const KHU_QUAN_TRI = ['teachers', 'du-hoc', 'quy', 'ktx'];
 function chanKhuCam() {
   const cam = (!laAdmin() && KHU_CHI_ADMIN.includes(currentSection))
     || (!laQuanTri() && KHU_QUAN_TRI.includes(currentSection));
@@ -385,18 +385,10 @@ const ADMIN_ROUTES = [
   { section: 'classes',    slug: 'lop-hoc',     title: 'Quản lý lớp' },
   { section: 'users',      slug: 'nguoi-dung',  title: 'Học viên & tài khoản' },
   { section: 'teachers',   slug: 'giao-vien',   title: 'Quản lý Giáo viên' },
-  { section: 'vocabulary', slug: 'tu-vung',     title: 'Quản lý Từ vựng' },
-  { section: 'exam',       slug: 'cau-hoi-thi', title: 'Quản lý Câu hỏi thi' },
-  { section: 'dialogues',  slug: 'hoi-thoai',   title: 'Quản lý Hội thoại' },
-  { section: 'blog',       slug: 'blog',        title: 'Quản lý Blog' },
-  // Khu vận hành kinh doanh (2026-09-09)
-  { section: 'to-chuc',    slug: 'trung-tam',   title: 'Trung tâm & hợp đồng' },
-  { section: 'quyen-hoc',  slug: 'quyen-hoc',   title: 'Quyền học' },
-  { section: 'thanh-toan', slug: 'thanh-toan',  title: 'Duyệt thanh toán' },
   { section: 'thiet-bi',   slug: 'thiet-bi',    title: 'Thiết bị đăng nhập' },
-  // Hồ sơ du học của trung tâm (2026-09-15)
+  // Hồ sơ du học của trung tâm
   { section: 'du-hoc',     slug: 'du-hoc',      title: 'Hồ sơ du học' },
-  // Ba khu vận hành trung tâm (2026-09-17)
+  // Ba khu vận hành trung tâm
   { section: 'quy',        slug: 'thu-chi',     title: 'Sổ thu – chi' },
   { section: 'ktx',        slug: 'ky-tuc-xa',   title: 'Ký túc xá' },
   { section: 'de-bai',     slug: 'de-bai',      title: 'Đề bài & kiểm tra' },
@@ -410,36 +402,25 @@ function _routeBySection(section) {
 // đúng kết quả tìm kiếm và đúng trang đang xem.
 function _queryForSection(section) {
   const q = new URLSearchParams();
-  if (section === 'vocabulary') {
-    if (vocabSearch) q.set('tim', vocabSearch);
-    if (vocabPage > 1) q.set('trang', vocabPage);
-    if (vocabSortBy !== 'sort_order') q.set('sap-xep', vocabSortBy);
-    if (vocabSortDir !== 'ASC') q.set('chieu', vocabSortDir);
-  } else if (section === 'users') {
+  if (section === 'users') {
     if (userSearch) q.set('tim', userSearch);
     if (userPage > 1) q.set('trang', userPage);
-  } else if (section === 'blog') {
-    if (blogSortBy !== 'sort_order') q.set('sap-xep', blogSortBy);
-    if (blogSortDir !== 'ASC') q.set('chieu', blogSortDir);
   }
   return q;
 }
 
 // Đọc query string trên URL vào biến trạng thái của trang tương ứng.
 function _applyQueryToSection(section, q) {
-  if (section === 'vocabulary') {
-    vocabSearch = q.get('tim') || '';
-    vocabPage = Math.max(1, parseInt(q.get('trang') || '1', 10) || 1);
-    vocabSortBy = q.get('sap-xep') || 'sort_order';
-    vocabSortDir = q.get('chieu') === 'DESC' ? 'DESC' : 'ASC';
-  } else if (section === 'users') {
+  if (section === 'users') {
     userSearch = q.get('tim') || '';
     userPage = Math.max(1, parseInt(q.get('trang') || '1', 10) || 1);
-  } else if (section === 'blog') {
-    blogSortBy = q.get('sap-xep') || 'sort_order';
-    blogSortDir = q.get('chieu') === 'DESC' ? 'DESC' : 'ASC';
   }
 }
+
+// Number() chứ không dùng thẳng `n`: cột SUM()/COUNT() của MySQL về tới đây là CHUỖI (mysql2
+// trả DECIMAL dạng string để khỏi mất chính xác), mà String.prototype.toLocaleString trả lại
+// nguyên chuỗi — ra "12000000₫" thay vì "12.000.000₫". Không lỗi nào hiện ra, chỉ nhìn mới thấy.
+const _tien = (n) => (Number(n) || 0).toLocaleString('vi-VN') + '₫';
 
 /** Dựng chuỗi hash phản ánh ĐÚNG trạng thái đang xem. */
 function buildAdminHash(section) {
@@ -633,40 +614,6 @@ function veDanhSachGiaoVien() {
   renderCurrentSection();
 }
 
-// ============================================================
-// KINH DOANH — TRUNG TÂM & QUYỀN HỌC (2026-09-09)
-// ============================================================
-// Hai màn hình phục vụ hai đường kiếm tiền:
-//   • "Trung tâm & hợp đồng" — cho thuê hệ thống. Mỗi trung tâm là một `organizations`; hết hạn
-//     hợp đồng là toàn bộ học viên của họ mất quyền cùng lúc, không phải đi thu hồi từng người.
-//   • "Quyền học" — bán khoá cho học viên (gói theo thời gian hoặc mua lẻ từng bộ).
-//
-// Quản trị TRUNG TÂM chỉ thấy màn "Quyền học" và chỉ để TRA CỨU — server chặn cấp/thu hồi
-// (routes/to-chuc.js). Ẩn nút ở đây chỉ để họ khỏi bấm vào rồi nhận 403.
-
-// Số bài mở miễn phí mỗi quyển/cấp — chỉ để HIỂN THỊ cho đúng lời quảng cáo. Quy tắc thật nằm ở
-// shared/noi-dung-mo.js (SO_BAI_MO) và do server áp dụng; đổi bên đó thì đổi cả con số này.
-const SO_BAI_MO_UI = 3;
-const _ngay = (d) => (d ? new Date(d).toLocaleDateString('vi-VN') : '—');
-// Number() chứ không dùng thẳng `n`: cột SUM()/COUNT() của MySQL về tới đây là CHUỖI (mysql2 trả
-// DECIMAL dạng string để khỏi mất chính xác), mà String.prototype.toLocaleString trả lại nguyên
-// chuỗi — ra "12000000₫" thay vì "12.000.000₫". Không lỗi nào hiện ra, chỉ nhìn ảnh mới thấy.
-const _tien = (n) => (Number(n) || 0).toLocaleString('vi-VN') + '₫';
-
-let _toChucCache = [];
-
-// ------------------------------------------------------------------ QUYỀN HỌC
-// ============================================================
-// DUYỆT THANH TOÁN CHUYỂN KHOẢN (2026-09-09)
-// ============================================================
-// Chỉ admin NỀN TẢNG (sidebar gắn `data-chi-admin`, server chặn lại bằng `requireAdminOnly`).
-//
-// Cách dùng: mở app ngân hàng, đối chiếu từng đơn (số tiền + nội dung chuyển khoản) rồi
-// bấm Duyệt. Ảnh biên lai chỉ là thứ giúp đối chiếu nhanh — KHÔNG phải bằng chứng đủ để tin,
-// ảnh bill giả có sẵn hàng loạt công cụ tạo. Xem đầu server/routes/thanh-toan.js.
-
-let ttLoc = 'cho';
-let ttDs = [];
 
 const TT_MAU = {
   cho: 'badge-warning', 'thanh-cong': 'badge-success',
@@ -1055,12 +1002,7 @@ async function renderDashboard(el) {
             </table>`}
       </div>
 
-      <!-- Nội dung học: số liệu phụ, gom lại 1 dải nhỏ cho đỡ chiếm chỗ -->
       <div class="mini-stats">
-        <div class="mini-stat" onclick="adminApp.navigate('vocabulary')"><i class="fa-solid fa-language"></i><b>${data.vocabulary}</b><span>Từ vựng</span></div>
-        <div class="mini-stat" onclick="adminApp.navigate('exam')"><i class="fa-solid fa-file-pen"></i><b>${data.examQuestions}</b><span>Câu hỏi thi</span></div>
-        <div class="mini-stat" onclick="adminApp.navigate('dialogues')"><i class="fa-solid fa-comments"></i><b>${data.dialogues}</b><span>Hội thoại</span></div>
-        <div class="mini-stat" onclick="adminApp.navigate('blog')"><i class="fa-solid fa-newspaper"></i><b>${data.blogPosts}</b><span>Bài viết</span></div>
         <div class="mini-stat" onclick="adminApp.navigate('users')"><i class="fa-solid fa-users"></i><b>${data.users}</b><span>Tài khoản</span></div>
         <div class="mini-stat"><i class="fa-solid fa-clipboard-check"></i><b>${data.examResults}</b><span>Lượt thi</span></div>
       </div>
@@ -1070,21 +1012,6 @@ async function renderDashboard(el) {
   }
 }
 
-// ============================================================
-// VOCABULARY MANAGEMENT
-// ============================================================
-let vocabPage = 1;
-let vocabSearch = '';
-let vocabSortBy = 'sort_order';
-let vocabSortDir = 'ASC';
-
-// ============================================================
-// BLOG MANAGEMENT
-// ============================================================
-let blogSortBy = 'sort_order';
-let blogSortDir = 'ASC';
-
-let _blogQuill = null; // Quill editor instance
 
 // ============================================================
 // USERS MANAGEMENT

@@ -32,8 +32,7 @@ CREATE TABLE IF NOT EXISTS quy_danh_muc (
   -- Cùng một trung tâm không được có 2 danh mục trùng tên trong cùng loại: báo cáo gom theo
   -- danh mục, trùng tên là ra 2 dòng giống hệt nhau mà số liệu chia đôi.
   UNIQUE KEY uk_org_loai_ten (org_id, loai, ten),
-  INDEX idx_org (org_id, loai, is_active),
-  CONSTRAINT fk_quy_dm_org FOREIGN KEY (org_id) REFERENCES organizations(id) ON DELETE CASCADE
+  INDEX idx_org (org_id, loai, is_active)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- -------------------------------------------------------------------------
@@ -66,7 +65,6 @@ CREATE TABLE IF NOT EXISTS quy_phieu (
   UNIQUE KEY uk_org_ma (org_id, ma_phieu),
   INDEX idx_org_ngay (org_id, ngay),
   INDEX idx_danh_muc (danh_muc_id),
-  CONSTRAINT fk_quy_phieu_org FOREIGN KEY (org_id) REFERENCES organizations(id) ON DELETE CASCADE,
   -- Xoá danh mục thì phiếu cũ vẫn còn, chỉ mất nhãn — xoá theo là mất luôn số liệu lịch sử.
   CONSTRAINT fk_quy_phieu_dm FOREIGN KEY (danh_muc_id) REFERENCES quy_danh_muc(id) ON DELETE SET NULL,
   CONSTRAINT fk_quy_phieu_nguoi FOREIGN KEY (nguoi_lap_id) REFERENCES users(id) ON DELETE SET NULL

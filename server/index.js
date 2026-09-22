@@ -8,20 +8,14 @@ dotenv.config();
 
 // Import routes
 import authRoutes from './routes/auth.js';
-import vocabularyRoutes from './routes/vocabulary.js';
 import srsRoutes from './routes/srs.js';
 import examRoutes from './routes/exam.js';
-import dialogueRoutes from './routes/dialogues.js';
-import savedWordsRoutes from './routes/savedWords.js';
 import notebookRoutes from './routes/notebook.js';
 import lotrinhRoutes from './routes/lotrinh.js';
-import congdongRoutes from './routes/congdong.js';
 import leaderboardRoutes from './routes/leaderboard.js';
 import profileRoutes from './routes/profile.js';
-import blogRoutes from './routes/blog.js';
 import adminRoutes from './routes/admin.js';
 import teacherRoutes from './routes/teachers.js';
-import toChucRoutes from './routes/to-chuc.js';
 import duHocRoutes from './routes/du-hoc.js';
 import quyRoutes from './routes/quy.js';
 import ktxRoutes from './routes/ktx.js';
@@ -29,11 +23,8 @@ import deBaiRoutes from './routes/de-bai.js';
 import deBaiHocVienRoutes from './routes/de-bai-hocvien.js';
 import duHocHocVienRoutes from './routes/du-hoc-hocvien.js';
 import cronRoutes from './routes/cron.js';
-import webhookBankRoutes from './routes/webhook-bank.js';
 import exerciseRoutes from './routes/exercise.js';
 import noiDungRoutes from './routes/noi-dung.js';
-import thanhToanRoutes from './routes/thanh-toan.js';
-import thanhToanAdminRoutes from './routes/thanh-toan-admin.js';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -107,7 +98,7 @@ app.use(cors({
 // mà giao diện chỉ thấy một lỗi mạng chung chung. Nới CHỈ cho hai nhánh cần, không nới toàn cục:
 // mọi route khác giữ nguyên trần 100KB, đó vẫn là lớp chắn tốt trước body rác.
 // Phải đặt TRƯỚC express.json() mặc định — cái nào chạy trước thì cái đó parse (và ném 413).
-app.use(['/api/thanh-toan', '/api/admin/thanh-toan', '/api/admin/du-hoc',
+app.use(['/api/admin/du-hoc', '/api/du-hoc',
          '/api/admin/quy', '/api/admin/ktx', '/api/admin/de-bai'], express.json({ limit: '6mb' }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -129,22 +120,15 @@ if (process.env.NODE_ENV !== 'production') {
 
 // API Routes
 app.use('/api/auth', authRoutes);
-app.use('/api/vocabulary', vocabularyRoutes);
 app.use('/api/srs', srsRoutes);
 app.use('/api/exam', examRoutes);
-app.use('/api/dialogues', dialogueRoutes);
-app.use('/api/saved-words', savedWordsRoutes);
 app.use('/api/notebook', notebookRoutes);
 app.use('/api/lo-trinh', lotrinhRoutes);
-app.use('/api/cong-dong', congdongRoutes);
 app.use('/api/leaderboard', leaderboardRoutes);
 app.use('/api/profile', profileRoutes);
-app.use('/api/blog', blogRoutes);
 app.use('/api/admin', adminRoutes);
 // Quản lý giáo viên: cùng tiền tố /api/admin nhưng router riêng, tự đòi quyền admin bên trong.
 app.use('/api/admin', teacherRoutes);
-// Tổ chức (trung tâm thuê) + cấp quyền học — xem server/routes/to-chuc.js (2026-09-09).
-app.use('/api/admin', toChucRoutes);
 // Hồ sơ du học của trung tâm (2026-09-15) — xem server/routes/du-hoc.js. Chỉ quản trị dùng được.
 app.use('/api/admin', duHocRoutes);
 
@@ -161,16 +145,9 @@ app.use('/api/du-hoc', duHocHocVienRoutes);
 app.use('/api/de-bai', deBaiHocVienRoutes);
 // Tác vụ định kỳ (Vercel Cron) — tự bảo vệ bằng CRON_SECRET, xem server/routes/cron.js.
 app.use('/api/cron', cronRoutes);
-// Webhook ngân hàng (SePay/Casso) — tự duyệt đơn chuyển khoản. Tắt cho tới khi có BANK_WEBHOOK_KEY.
-app.use('/api/webhook', webhookBankRoutes);
 app.use('/api/exercise', exerciseRoutes);
 // Nội dung bài học có kiểm quyền (2026-09-09) — xem server/routes/noi-dung.js.
 app.use('/api/noi-dung', noiDungRoutes);
-
-// Thanh toán: phần học viên tự lọc theo req.userId; phần duyệt đi qua tầng phân quyền chung và
-// mount vào /api/admin (xem đầu file thanh-toan-admin.js).
-app.use('/api/thanh-toan', thanhToanRoutes);
-app.use('/api/admin', thanhToanAdminRoutes);
 
 // Health check
 app.get('/api/health', (req, res) => {

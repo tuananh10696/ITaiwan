@@ -23,8 +23,7 @@ CREATE TABLE IF NOT EXISTS ktx_toa (
   trang_thai ENUM('dang-dung','dong') NOT NULL DEFAULT 'dang-dung',
   sort_order INT NOT NULL DEFAULT 0,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  INDEX idx_org (org_id, trang_thai),
-  CONSTRAINT fk_ktx_toa_org FOREIGN KEY (org_id) REFERENCES organizations(id) ON DELETE CASCADE
+  INDEX idx_org (org_id, trang_thai)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- -------------------------------------------------------------------------

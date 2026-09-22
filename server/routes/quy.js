@@ -3,7 +3,7 @@
 // =============================================================
 // Mount ở /api/admin nên đường dẫn thật là /api/admin/quy/...
 //
-// PHÂN QUYỀN — chỉ QUẢN TRỊ (admin nền tảng + org_admin), như khu du học. Giáo viên không khai
+// PHÂN QUYỀN — chỉ QUẢN TRỊ, như khu du học. Giáo viên không khai
 // trong bảng QUYEN nên tự nhận 403: đây là toàn bộ dòng tiền của trung tâm.
 //
 // ⚠️ BÁO CÁO GỘP BA NGUỒN LÚC ĐỌC, KHÔNG SINH PHIẾU TỰ ĐỘNG (chốt 17/09/2026).

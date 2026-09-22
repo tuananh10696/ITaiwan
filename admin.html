@@ -8,9 +8,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <!-- Be Vietnam Pro: đủ dấu tiếng Việt (xem ghi chú font ở src/css/style.css). Inter làm dự phòng. -->
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <!-- Quill.js Rich Text Editor -->
-  <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
   <!-- Font Awesome SUBSET tự host: chỉ những icon dự án dùng (CLAUDE.md 4.32).
        Dùng chung file với cổng học viên; thêm icon mới -> `npm run data:fa`. -->
   <link rel="stylesheet" href="/fa/fa-subset.css">
@@ -76,75 +73,45 @@
         <span class="admin-badge" id="vai-tro-badge">ADMIN</span>
       </div>
       <nav class="sidebar-nav">
-        <!-- 2026-08-25: đưa nhóm quản lý học viên lên ĐẦU sidebar (trước đây nằm cuối, dưới nội dung)
-             — đây là việc giáo viên dùng hằng ngày, nội dung học thì thỉnh thoảng mới sửa. -->
+        <div class="nav-item active" data-section="dashboard" onclick="adminApp.navigate('dashboard')">
+          <i class="fa-solid fa-chart-line"></i> Tổng quan
+        </div>
+
         <div class="nav-section-label">DẠY &amp; HỌC</div>
         <div class="nav-item" data-section="classes" onclick="adminApp.navigate('classes')">
           <i class="fa-solid fa-chalkboard-user"></i> Quản lý lớp
         </div>
-        <!-- Hồ sơ du học (2026-09-15): Nhận hồ sơ -> Đóng tiền -> Học -> Phỏng vấn -> Visa -> Bay.
-             data-tu-quan-tri = admin nền tảng + quản trị trung tâm. Giáo viên KHÔNG thấy, vì hồ sơ
-             có CCCD / hộ chiếu / tiền nong (server cũng chặn, xem middleware/roles.js). -->
-        <div class="nav-item" data-section="du-hoc" data-tu-quan-tri onclick="adminApp.navigate('du-hoc')">
-          <i class="fa-solid fa-plane-departure"></i> Hồ sơ du học
-        </div>
-
-        <!-- Ba khu vận hành trung tâm (2026-09-17).
-             data-tu-quan-tri = admin nền tảng + quản trị trung tâm. Sổ quỹ và ký túc xá có tiền
-             nong + thông tin cá nhân nên giáo viên KHÔNG thấy; riêng "Đề bài" thì giáo viên CÓ
-             thấy (họ là người ra đề), nên mục đó không gắn thuộc tính nào. -->
-        <div class="nav-item" data-section="quy" data-tu-quan-tri onclick="adminApp.navigate('quy')">
-          <i class="fa-solid fa-wallet"></i><span>Sổ thu – chi</span>
-        </div>
-        <div class="nav-item" data-section="ktx" data-tu-quan-tri onclick="adminApp.navigate('ktx')">
-          <i class="fa-solid fa-bed"></i><span>Ký túc xá</span>
-        </div>
+        <!-- "Đề bài" giáo viên CÓ thấy (họ là người ra đề) nên không gắn thuộc tính nào. -->
         <div class="nav-item" data-section="de-bai" onclick="adminApp.navigate('de-bai')">
           <i class="fa-solid fa-file-pen"></i><span>Đề bài &amp; kiểm tra</span>
-        </div>
-        <div class="nav-item" data-section="users" data-chi-admin onclick="adminApp.navigate('users')">
-          <i class="fa-solid fa-users"></i> Học viên &amp; tài khoản <span id="pending-badge" class="pending-badge" style="display:none"></span>
         </div>
         <div class="nav-item" data-section="teachers" data-tu-quan-tri onclick="adminApp.navigate('teachers')">
           <i class="fa-solid fa-chalkboard"></i> Giáo viên
         </div>
-        <div class="nav-item active" data-section="dashboard" onclick="adminApp.navigate('dashboard')">
-          <i class="fa-solid fa-chart-line"></i> Tổng quan
+        <div class="nav-item" data-section="users" data-chi-admin onclick="adminApp.navigate('users')">
+          <i class="fa-solid fa-users"></i> Học viên <span id="pending-badge" class="pending-badge" style="display:none"></span>
         </div>
-        <!-- Khu vận hành kinh doanh (2026-09-09): trung tâm thuê hệ thống + quyền học đã bán.
-             "Trung tâm" chỉ admin nền tảng thấy; "Quyền học" thì quản trị trung tâm cũng thấy
-             (chỉ để TRA CỨU — nút cấp/thu hồi do server chặn, xem routes/to-chuc.js). -->
-        <div class="nav-section-label" data-tu-quan-tri>KINH DOANH</div>
-        <div class="nav-item" data-section="to-chuc" data-chi-admin onclick="adminApp.navigate('to-chuc')">
-          <i class="fa-solid fa-building"></i> Trung tâm &amp; hợp đồng
+
+        <!-- Hồ sơ du học: Nhận hồ sơ -> Đóng tiền -> Học -> Phỏng vấn -> Visa -> Bay.
+             data-tu-quan-tri = quản trị. Giáo viên KHÔNG thấy, vì hồ sơ có CCCD / hộ chiếu /
+             tiền nong (server cũng chặn, xem middleware/roles.js). -->
+        <div class="nav-section-label" data-tu-quan-tri>DU HỌC</div>
+        <div class="nav-item" data-section="du-hoc" data-tu-quan-tri onclick="adminApp.navigate('du-hoc')">
+          <i class="fa-solid fa-plane-departure"></i> Hồ sơ du học
         </div>
-        <div class="nav-item" data-section="quyen-hoc" data-tu-quan-tri onclick="adminApp.navigate('quyen-hoc')">
-          <i class="fa-solid fa-key"></i> Quyền học
+        <div class="nav-item" data-section="ktx" data-tu-quan-tri onclick="adminApp.navigate('ktx')">
+          <i class="fa-solid fa-bed"></i><span>Ký túc xá</span>
         </div>
-        <!-- Duyệt chuyển khoản: chỉ admin NỀN TẢNG. Tiền về tài khoản của chủ nền tảng nên chỉ
-             chủ nền tảng mới được xác nhận đã nhận tiền (server chặn bằng requireAdminOnly). -->
-        <div class="nav-item" data-section="thanh-toan" data-chi-admin onclick="adminApp.navigate('thanh-toan')">
-          <i class="fa-solid fa-receipt"></i> Duyệt thanh toán
-          <span class="tt-badge" id="tt-badge" hidden></span>
+
+        <div class="nav-section-label" data-tu-quan-tri>VẬN HÀNH</div>
+        <div class="nav-item" data-section="quy" data-tu-quan-tri onclick="adminApp.navigate('quy')">
+          <i class="fa-solid fa-wallet"></i><span>Sổ thu – chi</span>
         </div>
         <!-- Chống chia sẻ tài khoản: hàng chờ những lần đăng nhập bị chặn vì quá 2 thiết bị.
-             Chỉ admin NỀN TẢNG — danh sách trải khắp mọi tổ chức. Xem server/utils/thiet-bi.js. -->
+             Xem server/utils/thiet-bi.js. -->
         <div class="nav-item" data-section="thiet-bi" data-chi-admin onclick="adminApp.navigate('thiet-bi')">
           <i class="fa-solid fa-mobile-screen-button"></i> Thiết bị đăng nhập
           <span class="tt-badge" id="tb-badge" hidden></span>
-        </div>
-        <div class="nav-section-label" data-chi-admin>NỘI DUNG HỌC</div>
-        <div class="nav-item" data-section="vocabulary" data-chi-admin onclick="adminApp.navigate('vocabulary')">
-          <i class="fa-solid fa-language"></i> Từ vựng
-        </div>
-        <div class="nav-item" data-section="exam" data-chi-admin onclick="adminApp.navigate('exam')">
-          <i class="fa-solid fa-file-pen"></i> Câu hỏi thi
-        </div>
-        <div class="nav-item" data-section="dialogues" data-chi-admin onclick="adminApp.navigate('dialogues')">
-          <i class="fa-solid fa-comments"></i> Hội thoại
-        </div>
-        <div class="nav-item" data-section="blog" data-chi-admin onclick="adminApp.navigate('blog')">
-          <i class="fa-solid fa-newspaper"></i> Blog
         </div>
       </nav>
       <div class="sidebar-footer">

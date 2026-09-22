@@ -44,7 +44,6 @@ CREATE TABLE IF NOT EXISTS de_bai (
   UNIQUE KEY uk_org_ma (org_id, ma),
   INDEX idx_org (org_id, trang_thai),
   INDEX idx_tao_boi (tao_boi),
-  CONSTRAINT fk_de_org FOREIGN KEY (org_id) REFERENCES organizations(id) ON DELETE CASCADE,
   CONSTRAINT fk_de_nguoi FOREIGN KEY (tao_boi) REFERENCES users(id) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 

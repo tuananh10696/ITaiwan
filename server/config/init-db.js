@@ -26,12 +26,17 @@ async function initDatabase() {
   // ========================================
   await conn.query('SET FOREIGN_KEY_CHECKS = 0');
   const tables = [
-    'student_notes', 'assignment_reads', 'assignment_reminders', 'assignments',
+    'de_bai_lam', 'de_giao', 'de_cau_hoi', 'de_bai',
+    'ktx_thu_tien', 'ktx_o', 'ktx_phong', 'ktx_toa', 'quy_phieu', 'quy_danh_muc',
+    'du_hoc_giay_to', 'du_hoc_thu_tien', 'du_hoc_lich_su', 'du_hoc_yeu_cau_sua',
+    'du_hoc_thong_bao', 'du_hoc_ho_so',
+    'device_alerts', 'user_devices',
+    'schema_migrations', 'teacher_reviews', 'teacher_notes',
+    'translate_submissions', 'student_notes', 'assignment_reads', 'assignment_reminders', 'assignments',
     'class_attendance', 'class_sessions', 'class_enrollments', 'classes', 'exercise_results',
-    'community_reports', 'community_likes', 'community_comments', 'community_posts', 'scholarships',
-    'user_vocabulary', 'srs_words', 'study_activity', 'notebook_words', 'saved_words', 'exam_answers', 'exam_results',
-    'dialogue_lines', 'dialogues', 'exam_questions',
-    'vocabulary', 'users', 'blog_posts'
+    'user_vocabulary', 'srs_words', 'study_activity', 'notebook_words', 'saved_words',
+    'exam_answers', 'exam_results', 'exam_questions',
+    'vocabulary', 'users'
   ];
   for (const t of tables) {
     await conn.query(`DROP TABLE IF EXISTS \`${t}\``);
@@ -47,11 +52,18 @@ async function initDatabase() {
   await conn.query(`
     CREATE TABLE users (
       id INT AUTO_INCREMENT PRIMARY KEY,
+      -- Hệ thống dựng sẵn cho nhiều cơ sở; bản này phát hành cho MỘT trung tâm nên cột luôn
+      -- bằng 1. Giữ lại để các truy vấn có sẵn không phải viết lại nếu sau này tách cơ sở.
+      org_id INT NOT NULL DEFAULT 1,
       name VARCHAR(100) NOT NULL,
       email VARCHAR(255) NOT NULL UNIQUE,
       phone VARCHAR(20) DEFAULT NULL,
       password_hash VARCHAR(255) NOT NULL,
       is_admin BOOLEAN DEFAULT FALSE,
+      -- Vai trò: 'admin' = quản trị trung tâm · 'teacher' = giáo viên · 'student' = học viên.
+      -- is_admin là cột cũ, vẫn được giữ đồng bộ (role='admin' tương đương is_admin=1) vì
+      -- bảng xếp hạng, /auth/me và cổng đăng nhập admin đều đang đọc nó.
+      role ENUM('student','teacher','admin') NOT NULL DEFAULT 'student',
       avatar_letter CHAR(2) DEFAULT 'U',
       avatar_color VARCHAR(10) DEFAULT '#027AB3',
       level_label VARCHAR(50) DEFAULT 'Tân Sinh · Lv1',
@@ -205,91 +217,6 @@ async function initDatabase() {
   `);
   console.log('  ✅ Table: srs_words');
 
-  // 4d. Khu Cộng đồng (2026-09-08, xem 4.39). MỘT bộ máy bài viết cho 4 loại nội dung
-  // (thao-luan · bai-viet · vlog · tin-tuc) nên bình luận/thích/báo cáo chỉ viết một lần.
-  await conn.query(`
-    CREATE TABLE community_posts (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      user_id INT DEFAULT NULL,
-      loai ENUM('thao-luan','bai-viet','vlog','tin-tuc') NOT NULL DEFAULT 'thao-luan',
-      tieu_de VARCHAR(300) NOT NULL,
-      tom_tat VARCHAR(600) DEFAULT NULL,
-      noi_dung LONGTEXT DEFAULT NULL,
-      chu_de VARCHAR(40) DEFAULT NULL,
-      video_nguon VARCHAR(20) DEFAULT NULL,
-      video_id VARCHAR(160) DEFAULT NULL,
-      video_url VARCHAR(500) DEFAULT NULL,
-      anh_bia VARCHAR(500) DEFAULT NULL,
-      emoji VARCHAR(10) DEFAULT NULL,
-      trang_thai ENUM('hien','an') NOT NULL DEFAULT 'hien',
-      co_canh_bao TINYINT NOT NULL DEFAULT 0,
-      ly_do_co VARCHAR(300) DEFAULT NULL,
-      ghim TINYINT NOT NULL DEFAULT 0,
-      chinh_thuc TINYINT NOT NULL DEFAULT 0,
-      so_xem INT NOT NULL DEFAULT 0,
-      so_thich INT NOT NULL DEFAULT 0,
-      so_binh_luan INT NOT NULL DEFAULT 0,
-      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-      KEY idx_loai (loai, trang_thai, created_at),
-      KEY idx_ghim (loai, ghim, created_at),
-      KEY idx_co (co_canh_bao, trang_thai),
-      FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
-  `);
-  await conn.query(`
-    CREATE TABLE community_comments (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      post_id INT NOT NULL,
-      user_id INT NOT NULL,
-      parent_id INT DEFAULT NULL,
-      noi_dung VARCHAR(2000) NOT NULL,
-      trang_thai ENUM('hien','an') NOT NULL DEFAULT 'hien',
-      co_canh_bao TINYINT NOT NULL DEFAULT 0,
-      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-      KEY idx_post (post_id, trang_thai, created_at),
-      FOREIGN KEY (post_id) REFERENCES community_posts(id) ON DELETE CASCADE,
-      FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
-  `);
-  await conn.query(`
-    CREATE TABLE community_likes (
-      post_id INT NOT NULL, user_id INT NOT NULL,
-      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-      PRIMARY KEY (post_id, user_id),
-      FOREIGN KEY (post_id) REFERENCES community_posts(id) ON DELETE CASCADE,
-      FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
-  `);
-  await conn.query(`
-    CREATE TABLE community_reports (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      post_id INT DEFAULT NULL, comment_id INT DEFAULT NULL, user_id INT NOT NULL,
-      ly_do VARCHAR(300) DEFAULT NULL,
-      trang_thai ENUM('moi','da-xu-ly') NOT NULL DEFAULT 'moi',
-      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-      UNIQUE KEY uk_bao_cao (user_id, post_id, comment_id),
-      FOREIGN KEY (post_id) REFERENCES community_posts(id) ON DELETE CASCADE,
-      FOREIGN KEY (comment_id) REFERENCES community_comments(id) ON DELETE CASCADE,
-      FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
-  `);
-  await conn.query(`
-    CREATE TABLE scholarships (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      ten VARCHAR(300) NOT NULL, ten_goc VARCHAR(300) DEFAULT NULL,
-      don_vi VARCHAR(200) DEFAULT NULL, cap_hoc VARCHAR(120) DEFAULT NULL,
-      gia_tri VARCHAR(300) DEFAULT NULL, han_nop VARCHAR(160) DEFAULT NULL,
-      yeu_cau_tieng VARCHAR(200) DEFAULT NULL, doi_tuong VARCHAR(300) DEFAULT NULL,
-      mo_ta TEXT DEFAULT NULL, link VARCHAR(500) DEFAULT NULL,
-      trang_thai ENUM('hien','an') NOT NULL DEFAULT 'hien',
-      sort_order INT NOT NULL DEFAULT 0, cap_nhat_luc DATE DEFAULT NULL,
-      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-      UNIQUE KEY uk_ten (ten), KEY idx_hien (trang_thai, sort_order)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
-  `);
-  console.log('  ✅ Tables: community_posts, community_comments, community_likes, community_reports, scholarships');
 
   // 5. Exam Questions
   await conn.query(`
@@ -355,52 +282,8 @@ async function initDatabase() {
   `);
   console.log('  ✅ Table: exam_answers');
 
-  // 8. Dialogues
-  await conn.query(`
-    CREATE TABLE dialogues (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      title VARCHAR(200) NOT NULL,
-      title_cn VARCHAR(200) NOT NULL,
-      level VARCHAR(20) NOT NULL,
-      sort_order INT DEFAULT 0,
-      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
-  `);
-  console.log('  ✅ Table: dialogues');
 
-  // 9. Dialogue Lines
-  await conn.query(`
-    CREATE TABLE dialogue_lines (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      dialogue_id INT NOT NULL,
-      line_order INT NOT NULL,
-      speaker CHAR(1) NOT NULL,
-      speaker_name VARCHAR(20) NOT NULL,
-      hanzi TEXT NOT NULL,
-      pinyin TEXT NOT NULL,
-      meaning TEXT NOT NULL,
-      FOREIGN KEY (dialogue_id) REFERENCES dialogues(id) ON DELETE CASCADE,
-      INDEX idx_dialogue (dialogue_id, line_order)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
-  `);
-  console.log('  ✅ Table: dialogue_lines');
 
-  // 10. Blog Posts
-  await conn.query(`
-    CREATE TABLE blog_posts (
-      id INT AUTO_INCREMENT PRIMARY KEY,
-      title VARCHAR(300) NOT NULL,
-      excerpt TEXT DEFAULT NULL,
-      content LONGTEXT DEFAULT NULL,
-      category VARCHAR(50) DEFAULT '',
-      emoji VARCHAR(10) DEFAULT '📝',
-      published_at DATE DEFAULT NULL,
-      sort_order INT DEFAULT 0,
-      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-      INDEX idx_sort (sort_order)
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
-  `);
-  console.log('  ✅ Table: blog_posts');
 
   // 11. Exercise Results (bài tập từ vựng Đương đại)
   await conn.query(`
@@ -434,6 +317,7 @@ async function initDatabase() {
   await conn.query(`
     CREATE TABLE classes (
       id INT AUTO_INCREMENT PRIMARY KEY,
+      org_id INT NOT NULL DEFAULT 1,
       name VARCHAR(100) NOT NULL,
       description VARCHAR(500) DEFAULT '',
       -- teacher_id để NULL được + ON DELETE SET NULL (2026-08-27).
@@ -574,177 +458,129 @@ async function initDatabase() {
   `);
   console.log('  ✅ Table: student_notes');
 
-  // 19. Translate submissions (học viên tự dịch, nộp bài, giáo viên chấm điểm — 4.21b/4.22)
-  // Append-only như exercise_results: làm lại nhiều lần ghi bản mới, không UPDATE đè
-  // (không có UNIQUE(user_id, lesson_id, mode) — nơi đọc luôn lấy bản MỚI NHẤT).
+  // Bài dịch của học viên. Tab "Dịch Trung-Việt" không có trong bản này nên bảng luôn rỗng —
+  // giữ lại vì vài truy vấn thống kê (lo-trinh, admin) tra EXISTS vào đây; bỏ bảng thì phải
+  // sửa 10 câu SQL lồng nhau chỉ để đổi một kết quả vốn đã luôn là "chưa nộp".
   await conn.query(`
     CREATE TABLE translate_submissions (
       id INT AUTO_INCREMENT PRIMARY KEY,
       user_id INT NOT NULL,
-      lesson_id VARCHAR(32) NOT NULL COMMENT 'e.g. 1.1, 3.2 (chỉ Đương đại — Thời Đại chưa có bài dịch)',
-      mode ENUM('vi-zh','zh-vi') NOT NULL DEFAULT 'vi-zh',
-      answers_json LONGTEXT NOT NULL COMMENT 'JSON array: [{idx, q, studentAnswer}]',
-      auto_score TINYINT UNSIGNED COMMENT 'Điểm tự chấm sơ bộ 0-100 (so sánh với đáp án mẫu)',
-      submitted_at DATETIME DEFAULT NOW(),
-      teacher_score TINYINT UNSIGNED COMMENT 'Điểm giáo viên chỉnh 0-100, NULL = chưa chấm',
-      teacher_comment TEXT,
-      reviewed_at DATETIME,
-      reviewed_by INT,
-      INDEX idx_ts_lesson (lesson_id),
-      INDEX idx_ts_user (user_id),
-      INDEX idx_ts_pending (teacher_score, submitted_at),
-      FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+      lesson_id VARCHAR(32) NOT NULL,
+      mode VARCHAR(10) NOT NULL DEFAULT 'zh-vi',
+      answers_json JSON NULL,
+      auto_score INT NULL,
+      teacher_score INT NULL,
+      teacher_comment TEXT NULL,
+      reviewed_at DATETIME NULL,
+      reviewed_by INT NULL,
+      submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+      INDEX idx_user_lesson (user_id, lesson_id),
+      INDEX idx_lesson (lesson_id)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
   `);
   console.log('  ✅ Table: translate_submissions');
+
+  // Đánh giá giáo viên — 3 lớp tách bạch: chỉ số tự động (tính từ dữ liệu dạy học), sổ nhận xét
+  // (ghi tự do theo thời gian) và phiếu chấm 5 tiêu chí theo kỳ. Mỗi tiêu chí một CỘT riêng chứ
+  // không phải JSON, để so sánh giữa các kỳ / giáo viên bằng SQL.
+  await conn.query(`
+    CREATE TABLE teacher_notes (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      teacher_id INT NOT NULL,
+      noi_dung TEXT NOT NULL,
+      nguoi_ghi INT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY (teacher_id) REFERENCES users(id) ON DELETE CASCADE,
+      INDEX idx_teacher (teacher_id, created_at)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+  `);
+  await conn.query(`
+    CREATE TABLE teacher_reviews (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      teacher_id INT NOT NULL,
+      ky VARCHAR(7) NOT NULL COMMENT 'YYYY-MM',
+      diem_chuyen_can TINYINT NULL,
+      diem_bai_giang TINYINT NULL,
+      diem_theo_sat TINYINT NULL,
+      diem_phan_hoi TINYINT NULL,
+      diem_ket_qua TINYINT NULL,
+      nhan_xet TEXT NULL,
+      nguoi_cham INT NULL,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+      UNIQUE KEY uq_teacher_ky (teacher_id, ky),
+      FOREIGN KEY (teacher_id) REFERENCES users(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+  `);
+  console.log('  ✅ Tables: teacher_notes, teacher_reviews');
+
+
+  // ========================================
+  // GHI NHẬN MIGRATION ĐÃ BAO GỒM
+  // ========================================
+  // File này là NGUỒN SỰ THẬT của schema (xem README), nên mọi migration cũ chỉ còn giá trị
+  // lịch sử: bảng/cột chúng thêm đã nằm sẵn trong các CREATE TABLE bên trên. Đánh dấu chúng
+  // "đã chạy" ngay tại đây để `npm run db:migrate:local` sau đó chỉ chạy phần thật sự còn
+  // thiếu (du học, sổ thu chi, ký túc xá, đề bài, thiết bị…) thay vì chết vì cột trùng tên.
+  await conn.query(`
+    CREATE TABLE IF NOT EXISTS schema_migrations (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      filename VARCHAR(191) NOT NULL UNIQUE,
+      checksum CHAR(64) NOT NULL,
+      applied_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+  `);
+  const daBaoGom = [
+    'migration-classes-attendance.sql', 'migration-classes-teacher-fk.sql',
+    'migration-exercise-results-detail.sql', 'migration-teacher-review.sql',
+    'migration-assignments-notes.sql', 'migration-teacher-role.sql',
+    'migration-assignment-reads.sql', 'migration-translate-submissions.sql',
+    'migration-thoidai.sql', 'migration-sotay.sql', 'migration-lo-trinh.sql',
+  ];
+  const { createHash } = await import('node:crypto');
+  const { readFileSync, existsSync } = await import('node:fs');
+  const { dirname, join } = await import('node:path');
+  const { fileURLToPath } = await import('node:url');
+  const thuMuc = dirname(fileURLToPath(import.meta.url));
+  for (const f of daBaoGom) {
+    const duong = join(thuMuc, f);
+    const sum = existsSync(duong)
+      ? createHash('sha256').update(readFileSync(duong)).digest('hex')
+      : createHash('sha256').update(f).digest('hex');
+    await conn.query(
+      'INSERT IGNORE INTO schema_migrations (filename, checksum) VALUES (?,?)', [f, sum]);
+  }
+  console.log(`  ✅ Ghi nhận ${daBaoGom.length} migration đã nằm sẵn trong file này`);
 
   // ========================================
   // SEED DATA
   // ========================================
   console.log('\n📦 Seeding data...\n');
 
-  const demoHash = await bcrypt.hash('12345678', 10);
+  // Tài khoản quản trị đầu tiên. ĐỔI MẬT KHẨU NGAY sau lần đăng nhập đầu — mật khẩu này nằm
+  // trong mã nguồn nên ai đọc repo cũng biết.
+  const matKhauAdmin = process.env.ADMIN_PASSWORD || 'ITaiwan@2026';
+  const emailAdmin = process.env.ADMIN_EMAIL || 'admin@itaiwan.vn';
+  const demoHash = await bcrypt.hash(matKhauAdmin, 10);
   const users = [
-    ['Admin', 'buituananh106963007@gmail.com', '0912345678', demoHash, true, 'A', '#027AB3', 'Quản trị viên', 99, 99, 99, 9999, true, true, null],
+    ['Quản trị viên', emailAdmin, '', demoHash, true, 'admin', 'A', '#1E4E9C', 'Quản trị viên', 99, 0, 0, 0, true, true, null],
   ];
   for (const u of users) {
     await conn.query(
-      `INSERT INTO users (name, email, phone, password_hash, is_admin, avatar_letter, avatar_color, level_label, level_num, streak, longest_streak, points, is_verified, is_approved, verification_token) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+      `INSERT INTO users (name, email, phone, password_hash, is_admin, role, avatar_letter, avatar_color, level_label, level_num, streak, longest_streak, points, is_verified, is_approved, verification_token) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
       u
     );
   }
-  console.log(`  ✅ Seeded ${users.length} users (Admin password: 12345678)`);
+  console.log(`  ✅ Seeded ${users.length} users`);
 
-  // -- Seed Vocabulary --
-  const vocab = [
-    ['你好','你好','nǐ hǎo','Xin chào','TOCFL 1','Bài 1','Chào hỏi','你好，我是小明。','Xin chào, tôi là Tiểu Minh.'],
-    ['謝謝','谢谢','xiè xie','Cảm ơn','TOCFL 1','Bài 1','Chào hỏi','謝謝你的幫助。','Cảm ơn sự giúp đỡ của bạn.'],
-    ['再見','再见','zài jiàn','Tạm biệt','TOCFL 1','Bài 1','Chào hỏi','明天再見！','Ngày mai gặp lại!'],
-    ['對不起','对不起','duì bu qǐ','Xin lỗi','TOCFL 1','Bài 1','Chào hỏi','對不起，我遲到了。','Xin lỗi, tôi đến muộn rồi.'],
-    ['沒關係','没关系','méi guān xi','Không sao','TOCFL 1','Bài 1','Chào hỏi','沒關係，別擔心。','Không sao, đừng lo lắng.'],
-    ['學生','学生','xué shēng','Học sinh, sinh viên','TOCFL 1','Bài 2','Nghề nghiệp','我是大學生。','Tôi là sinh viên đại học.'],
-    ['老師','老师','lǎo shī','Giáo viên, thầy cô','TOCFL 1','Bài 2','Nghề nghiệp','他是我的中文老師。','Anh ấy là giáo viên tiếng Trung của tôi.'],
-    ['朋友','朋友','péng yǒu','Bạn bè','TOCFL 1','Bài 2','Quan hệ','她是我最好的朋友。','Cô ấy là bạn thân nhất của tôi.'],
-    ['家','家','jiā','Nhà, gia đình','TOCFL 1','Bài 3','Gia đình','我家有五個人。','Gia đình tôi có năm người.'],
-    ['吃飯','吃饭','chī fàn','Ăn cơm, ăn','TOCFL 1','Bài 3','Ăn uống','你吃飯了嗎？','Bạn ăn cơm chưa?'],
-    ['喝水','喝水','hē shuǐ','Uống nước','TOCFL 1','Bài 3','Ăn uống','請喝水。','Mời uống nước.'],
-    ['書','书','shū','Sách','TOCFL 1','Bài 4','Học tập','這本書很好看。','Cuốn sách này rất hay.'],
-    ['寫','写','xiě','Viết','TOCFL 1','Bài 4','Học tập','請寫你的名字。','Hãy viết tên của bạn.'],
-    ['看','看','kàn','Xem, nhìn','TOCFL 1','Bài 4','Học tập','我喜歡看電影。','Tôi thích xem phim.'],
-    ['說','说','shuō','Nói','TOCFL 1','Bài 4','Học tập','他會說中文。','Anh ấy biết nói tiếng Trung.'],
-    ['聽','听','tīng','Nghe','TOCFL 1','Bài 4','Học tập','請聽老師說話。','Hãy nghe thầy nói.'],
-    ['大','大','dà','Lớn, to','TOCFL 1','Bài 5','Tính từ','這個房間很大。','Căn phòng này rất lớn.'],
-    ['小','小','xiǎo','Nhỏ, bé','TOCFL 1','Bài 5','Tính từ','我有一隻小狗。','Tôi có một con chó nhỏ.'],
-    ['好','好','hǎo','Tốt, đẹp','TOCFL 1','Bài 5','Tính từ','今天天氣很好。','Hôm nay thời tiết rất đẹp.'],
-    ['漂亮','漂亮','piào liang','Đẹp, xinh','TOCFL 1','Bài 5','Tính từ','她穿的衣服很漂亮。','Quần áo cô ấy mặc rất đẹp.'],
-    ['今天','今天','jīn tiān','Hôm nay','TOCFL 1','Bài 6','Thời gian','今天是星期一。','Hôm nay là thứ Hai.'],
-    ['明天','明天','míng tiān','Ngày mai','TOCFL 1','Bài 6','Thời gian','明天我們去公園。','Ngày mai chúng ta đi công viên.'],
-    ['昨天','昨天','zuó tiān','Hôm qua','TOCFL 1','Bài 6','Thời gian','昨天下雨了。','Hôm qua trời mưa.'],
-    ['工作','工作','gōng zuò','Công việc, làm việc','TOCFL 2','Bài 7','Nghề nghiệp','我每天工作八個小時。','Tôi làm việc 8 tiếng mỗi ngày.'],
-    ['學習','学习','xué xí','Học tập','TOCFL 2','Bài 7','Học tập','他在大學學習中文。','Anh ấy học tiếng Trung ở đại học.'],
-    ['考試','考试','kǎo shì','Thi cử, kỳ thi','TOCFL 2','Bài 7','Học tập','下星期有中文考試。','Tuần sau có thi tiếng Trung.'],
-    ['醫院','医院','yī yuàn','Bệnh viện','TOCFL 2','Bài 8','Địa điểm','他在醫院工作。','Anh ấy làm việc ở bệnh viện.'],
-    ['圖書館','图书馆','tú shū guǎn','Thư viện','TOCFL 2','Bài 8','Địa điểm','我們去圖書館念書。','Chúng ta đi thư viện đọc sách.'],
-    ['機場','机场','jī chǎng','Sân bay','TOCFL 2','Bài 8','Giao thông','我們要去機場接他。','Chúng ta phải ra sân bay đón anh ấy.'],
-    ['臺灣','台湾','Tái wān','Đài Loan','TOCFL 2','Bài 9','Địa danh','臺灣是一個美麗的島嶼。','Đài Loan là một hòn đảo xinh đẹp.'],
-    ['越南','越南','Yuè nán','Việt Nam','TOCFL 2','Bài 9','Địa danh','我從越南來。','Tôi đến từ Việt Nam.'],
-    ['電腦','电脑','diàn nǎo','Máy tính','TOCFL 2','Bài 10','Công nghệ','我需要一臺新電腦。','Tôi cần một chiếc máy tính mới.'],
-    ['手機','手机','shǒu jī','Điện thoại di động','TOCFL 2','Bài 10','Công nghệ','他的手機很貴。','Điện thoại của anh ấy rất đắt.'],
-    ['快樂','快乐','kuài lè','Vui vẻ, hạnh phúc','TOCFL 2','Bài 11','Cảm xúc','祝你生日快樂！','Chúc mừng sinh nhật vui vẻ!'],
-    ['認真','认真','rèn zhēn','Nghiêm túc, chăm chỉ','TOCFL 2','Bài 11','Tính từ','他學習很認真。','Anh ấy học tập rất nghiêm túc.'],
-    ['練習','练习','liàn xí','Luyện tập','TOCFL 2','Bài 12','Học tập','你要多練習寫字。','Bạn cần luyện viết chữ nhiều hơn.'],
-    ['準備','准备','zhǔn bèi','Chuẩn bị','TOCFL 2','Bài 12','Hành động','我在準備明天的考試。','Tôi đang chuẩn bị cho kỳ thi ngày mai.'],
-    ['問題','问题','wèn tí','Câu hỏi, vấn đề','TOCFL 2','Bài 12','Học tập','你有什麼問題嗎？','Bạn có câu hỏi gì không?'],
-    ['經驗','经验','jīng yàn','Kinh nghiệm','TOCFL 3','Bài 13','Nghề nghiệp','他有很多教學經驗。','Anh ấy có nhiều kinh nghiệm giảng dạy.'],
-    ['環境','环境','huán jìng','Môi trường','TOCFL 3','Bài 13','Xã hội','我們要保護環境。','Chúng ta phải bảo vệ môi trường.'],
-  ];
-  for (const v of vocab) {
-    await conn.query(
-      `INSERT INTO vocabulary (hanzi, simplified, pinyin, meaning, level, lesson, category, example_hanzi, example_meaning) VALUES (?,?,?,?,?,?,?,?,?)`,
-      v
-    );
-  }
-  console.log(`  ✅ Seeded ${vocab.length} vocabulary words`);
-
-  // -- Seed Exam Questions --
-  const examQs = [
-    ['reading','Band A','小明每天早上七點起床，先吃早餐，然後八點去學校。他最喜歡的課是中文課，因為他想學好中文。',null,'小明每天幾點起床？','Tiểu Minh mỗi ngày mấy giờ thức dậy?','六點','七點','八點','九點','6 giờ','7 giờ','8 giờ','9 giờ',1],
-    ['reading','Band A','我家在臺北，離學校不遠。我每天坐公車去上學，大概二十分鐘就到了。',null,'他怎麼去上學？','Anh ấy đi học bằng cách nào?','走路','坐公車','騎腳踏車','坐捷運','Đi bộ','Đi xe buýt','Đi xe đạp','Đi MRT',1],
-    ['reading','Band A','今天天氣很好，我和朋友去公園散步。公園裡有很多花，非常漂亮。',null,'今天天氣怎麼樣？','Hôm nay thời tiết thế nào?','下雨','很好','很冷','颱風','Mưa','Rất đẹp','Rất lạnh','Bão',1],
-    ['reading','Band B','臺灣的夜市非常有名。你可以在夜市吃到很多好吃的小吃，像是臭豆腐、珍珠奶茶、雞排等等。每到週末，夜市總是擠滿了人。',null,'文章主要在介紹什麼？','Bài viết chủ yếu giới thiệu gì?','臺灣的學校','臺灣的夜市','臺灣的天氣','臺灣的交通','Trường học Đài Loan','Chợ đêm Đài Loan','Thời tiết Đài Loan','Giao thông Đài Loan',1],
-    ['reading','Band B','學中文最重要的是每天練習。你可以每天看中文新聞、聽中文歌，也可以跟臺灣朋友用中文聊天。這樣你的中文一定會進步很快。',null,'文章建議學中文要怎麼做？','Bài viết khuyên học tiếng Trung nên làm gì?','只看書就好','每天練習','只考試','不用練習','Chỉ cần đọc sách','Luyện tập mỗi ngày','Chỉ cần thi','Không cần luyện tập',1],
-    ['listening','Band A',null,'🔊 Một người nói: "我想買一杯咖啡。"','他想做什麼？','Anh ấy muốn làm gì?','買東西','買咖啡','喝水','吃飯','Mua đồ','Mua cà phê','Uống nước','Ăn cơm',1],
-    ['listening','Band A',null,'🔊 Hội thoại: A: "你去哪裡？" B: "我去圖書館。"','B要去哪裡？','B muốn đi đâu?','學校','公園','圖書館','超市','Trường học','Công viên','Thư viện','Siêu thị',2],
-    ['listening','Band A',null,'🔊 Thông báo: "各位旅客，往臺北的火車即將到達。"','火車要去哪裡？','Tàu hỏa đi đâu?','高雄','臺北','臺中','花蓮','Cao Hùng','Đài Bắc','Đài Trung','Hoa Liên',1],
-  ];
-  for (const q of examQs) {
-    await conn.query(
-      `INSERT INTO exam_questions (type, level, passage, audio_desc, question, question_meaning, option_a, option_b, option_c, option_d, option_a_meaning, option_b_meaning, option_c_meaning, option_d_meaning, correct_option) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
-      q
-    );
-  }
-  console.log(`  ✅ Seeded ${examQs.length} exam questions`);
-
-  // -- Seed Dialogues --
-  const dialogues = [
-    ['Gặp mặt lần đầu', '第一次見面', 'TOCFL 1', 1],
-    ['Đi ăn cơm', '去吃飯', 'TOCFL 1', 2],
-    ['Đi mua sắm', '去買東西', 'TOCFL 2', 3],
-  ];
-  for (const d of dialogues) {
-    await conn.query(`INSERT INTO dialogues (title, title_cn, level, sort_order) VALUES (?,?,?,?)`, d);
-  }
-
-  const dlgLines = [
-    // Dialogue 1
-    [1,1,'A','小明','你好！我叫小明。','Nǐ hǎo! Wǒ jiào Xiǎo Míng.','Xin chào! Tôi tên Tiểu Minh.'],
-    [1,2,'B','小美','你好！我叫小美。很高興認識你。','Nǐ hǎo! Wǒ jiào Xiǎo Měi. Hěn gāo xìng rèn shì nǐ.','Xin chào! Tôi tên Tiểu Mỹ. Rất vui được biết bạn.'],
-    [1,3,'A','小明','你是哪裡人？','Nǐ shì nǎ lǐ rén?','Bạn là người ở đâu?'],
-    [1,4,'B','小美','我是越南人。你呢？','Wǒ shì Yuènán rén. Nǐ ne?','Tôi là người Việt Nam. Còn bạn?'],
-    [1,5,'A','小明','我是臺灣人。你來臺灣做什麼？','Wǒ shì Táiwān rén. Nǐ lái Táiwān zuò shénme?','Tôi là người Đài Loan. Bạn đến Đài Loan làm gì?'],
-    [1,6,'B','小美','我來臺灣學中文。','Wǒ lái Táiwān xué Zhōngwén.','Tôi đến Đài Loan học tiếng Trung.'],
-    [1,7,'A','小明','太好了！歡迎來臺灣！','Tài hǎo le! Huānyíng lái Táiwān!','Tuyệt quá! Chào mừng đến Đài Loan!'],
-    // Dialogue 2
-    [2,1,'A','小明','你吃飯了嗎？','Nǐ chī fàn le ma?','Bạn ăn cơm chưa?'],
-    [2,2,'B','小美','還沒，你呢？','Hái méi, nǐ ne?','Chưa, còn bạn?'],
-    [2,3,'A','小明','我也還沒。我們一起去吃飯吧！','Wǒ yě hái méi. Wǒmen yìqǐ qù chī fàn ba!','Tôi cũng chưa. Chúng ta cùng đi ăn cơm nhé!'],
-    [2,4,'B','小美','好啊！你想吃什麼？','Hǎo a! Nǐ xiǎng chī shénme?','Được! Bạn muốn ăn gì?'],
-    [2,5,'A','小明','我想吃牛肉麵。你喜歡吃麵嗎？','Wǒ xiǎng chī niúròu miàn. Nǐ xǐhuān chī miàn ma?','Tôi muốn ăn mì bò. Bạn thích ăn mì không?'],
-    [2,6,'B','小美','喜歡！臺灣的牛肉麵很好吃！','Xǐhuān! Táiwān de niúròu miàn hěn hǎo chī!','Thích! Mì bò Đài Loan rất ngon!'],
-    // Dialogue 3
-    [3,1,'A','小美','請問，這件衣服多少錢？','Qǐng wèn, zhè jiàn yīfú duōshǎo qián?','Xin hỏi, chiếc áo này bao nhiêu tiền?'],
-    [3,2,'B','店員','這件五百塊。','Zhè jiàn wǔ bǎi kuài.','Chiếc này 500 đồng (Đài tệ).'],
-    [3,3,'A','小美','可以便宜一點嗎？','Kěyǐ piányi yì diǎn ma?','Có thể rẻ hơn một chút không?'],
-    [3,4,'B','店員','好吧，算你四百五。','Hǎo ba, suàn nǐ sì bǎi wǔ.','Được rồi, tính bạn 450.'],
-    [3,5,'A','小美','謝謝！我要這件。','Xièxie! Wǒ yào zhè jiàn.','Cảm ơn! Tôi lấy cái này.'],
-  ];
-  for (const l of dlgLines) {
-    await conn.query(
-      `INSERT INTO dialogue_lines (dialogue_id, line_order, speaker, speaker_name, hanzi, pinyin, meaning) VALUES (?,?,?,?,?,?,?)`,
-      l
-    );
-  }
-  console.log(`  ✅ Seeded ${dialogues.length} dialogues with ${dlgLines.length} lines`);
-
-  // -- Seed Blog Posts --
-  const blogs = [
-    ['Hướng dẫn đăng ký thi TOCFL 2025 - Chi tiết từ A-Z','Hướng dẫn chi tiết cách đăng ký thi TOCFL năm 2025, bao gồm lịch thi, địa điểm thi tại Việt Nam...','TOCFL','📝','2025-08-15'],
-    ['Top 10 học bổng du học Đài Loan dành cho sinh viên Việt Nam','Tổng hợp các chương trình học bổng hấp dẫn nhất từ chính phủ Đài Loan và các trường đại học...','Học bổng','🎓','2025-08-10'],
-    ['Phương pháp học từ vựng tiếng Trung hiệu quả với SRS','Tìm hiểu về phương pháp Spaced Repetition System (SRS) và cách áp dụng để nhớ từ vựng lâu dài...','Học tập','🧠','2025-08-05'],
-    ['Kinh nghiệm sống và học tập tại Đài Loan cho du học sinh mới','Chia sẻ kinh nghiệm thực tế về cuộc sống, ăn ở, đi lại và học tập tại Đài Loan...','Du học','✈️','2025-08-01'],
-    ['So sánh Phồn thể và Giản thể - Nên học loại nào?','Phân tích ưu nhược điểm của việc học tiếng Trung Phồn thể vs Giản thể cho người Việt...','Học tập','🔤','2025-07-28'],
-    ['Lịch khai giảng các khóa học tiếng Trung tháng 9/2025','Thông tin về các khóa học tiếng Trung online và offline sắp khai giảng tại Tẻn...','Khai giảng','📅','2025-07-25'],
-  ];
-  for (const b of blogs) {
-    await conn.query(
-      `INSERT INTO blog_posts (title, excerpt, category, emoji, published_at) VALUES (?,?,?,?,?)`,
-      b
-    );
-  }
-  console.log(`  ✅ Seeded ${blogs.length} blog posts`);
-
+  
+  
+  
+  
   console.log('\n✅ Database initialization complete!\n');
-  console.log('📌 Admin login: buituananh106963007@gmail.com / 12345678\n');
+  console.log(`📌 Đăng nhập quản trị: ${emailAdmin} / ${matKhauAdmin}`);
+  console.log('   ⚠️  Đổi mật khẩu ngay sau lần đăng nhập đầu tiên.\n');
 
   await conn.end();
   process.exit(0);

@@ -1,53 +1,39 @@
 // =============================================================
 // PHÂN QUYỀN KHU QUẢN TRỊ (/api/admin/*)
 // =============================================================
-// BỐN vai trò trong `users.role` (mở rộng 2026-09-09 khi hệ thống bắt đầu cho trung tâm thuê):
+// BA vai trò trong `users.role`:
 //
-//   admin     — chủ NỀN TẢNG. Toàn quyền, xuyên mọi tổ chức. Chỉ tính là admin nền tảng khi tài
-//               khoản thuộc tổ chức gốc (org_id = 1); xem `laAdminNenTang` bên dưới.
-//   org_admin — quản trị viên của MỘT TRUNG TÂM. Toàn quyền TRONG tổ chức mình: lớp, giáo viên,
-//               học viên, giao bài, báo cáo, cấp quyền học cho học viên từ hạn mức đã mua.
-//               KHÔNG thấy tổ chức khác, KHÔNG đụng nội dung nền tảng (từ vựng, đề thi, blog).
-//   teacher   — chỉ thao tác trên lớp mình phụ trách (classes.teacher_id = mình).
-//   student   — không vào được khu này.
-//
-// Vì sao phải có org_admin: trước đây muốn cho trung tâm tự quản lý lớp thì chỉ còn cách bật
-// role='admin', tức trao luôn quyền xoá tài khoản của mọi người và sửa từ vựng của cả nền tảng —
-// không cho thuê được hệ thống theo cách đó.
+//   admin   — quản trị trung tâm. Toàn quyền: lớp, giáo viên, học viên, giao bài, báo cáo,
+//             hồ sơ du học, sổ thu chi, ký túc xá.
+//   teacher — chỉ thao tác trên lớp mình phụ trách (classes.teacher_id = mình).
+//   student — không vào được khu này.
 //
 // NGUYÊN TẮC THIẾT KẾ — ĐỪNG ĐỔI khi thêm route mới:
-//   Với MỌI vai trò trừ admin nền tảng, mặc định là CẤM. Muốn cho phép thì khai báo tường minh
-//   trong bảng QUYEN bên dưới. Cách ngược lại ("mặc định cho phép rồi đi chặn từng route") đã bị
-//   loại bỏ có chủ ý: khu admin đang có hơn 60 route, quên một cái là trung tâm này đọc được dữ
-//   liệu của trung tâm kia. Quên khai báo thì hậu quả là 403 — phiền nhưng an toàn.
+//   Với giáo viên, mặc định là CẤM. Muốn cho phép thì khai báo tường minh trong bảng QUYEN bên
+//   dưới. Cách ngược lại ("mặc định cho phép rồi đi chặn từng route") đã bị loại bỏ có chủ ý:
+//   khu admin đang có hơn 50 route, quên một cái là giáo viên này đọc được lớp của giáo viên
+//   kia. Quên khai báo thì hậu quả là 403 — phiền nhưng an toàn.
 import pool from '../config/db.js';
 
-/** Tổ chức gốc (chính chủ dự án). Tài khoản admin của tổ chức này mới là admin NỀN TẢNG. */
-export const ORG_NEN_TANG = 1;
+/** Cơ sở mặc định — mọi bản ghi đều thuộc về nó. */
+export const ORG_MAC_DINH = 1;
 
-/** Nạp vai trò + tổ chức của người đang gọi. Dùng sau requireAuth. */
+/** Nạp vai trò của người đang gọi. Dùng sau requireAuth. */
 export async function loadRole(req, res, next) {
-  if (req.role && req.orgId) return next();   // router khác đã nạp rồi thì không truy vấn lại
+  if (req.role) return next();   // router khác đã nạp rồi thì không truy vấn lại
   try {
-    let rows;
-    try {
-      [rows] = await pool.query('SELECT role, is_admin, org_id FROM users WHERE id = ?', [req.userId]);
-    } catch (err) {
-      // Cột org_id chỉ có sau migration-to-chuc-quyen.sql. Chưa migrate thì chính câu SELECT ném
-      // ER_BAD_FIELD_ERROR (không phải trả NULL) — đọc phần còn lại rồi coi như tổ chức gốc bên dưới.
-      if (err?.code !== 'ER_BAD_FIELD_ERROR') throw err;
-      [rows] = await pool.query('SELECT role, is_admin FROM users WHERE id = ?', [req.userId]);
-      req.chuaCoOrg = true;   // phamViQuanTri đọc cờ này để KHÔNG bật lọc org_id (cột chưa có)
-    }
+    const [rows] = await pool.query('SELECT role, is_admin FROM users WHERE id = ?', [req.userId]);
     if (!rows.length) return res.status(403).json({ error: 'Tài khoản không tồn tại.' });
     // is_admin là cột cũ, vẫn được đồng bộ với role — ưu tiên role, rơi về is_admin cho chắc.
     req.role = rows[0].role || (rows[0].is_admin ? 'admin' : 'student');
-    // Cột org_id chỉ có sau migration-to-chuc-quyen.sql; DB chưa migrate thì coi như tổ chức gốc,
-    // tức hành vi y hệt trước đây — không khoá cứng hệ thống đang chạy chỉ vì thiếu một cột.
-    req.orgId = rows[0].org_id || ORG_NEN_TANG;
-    // Một tài khoản role='admin' nhưng thuộc trung tâm KHÔNG được coi là admin nền tảng: nếu
-    // không, chỉ cần đặt nhầm vai trò cho một quản trị viên trung tâm là họ thấy cả hệ thống.
-    req.laAdminNenTang = req.role === 'admin' && req.orgId === ORG_NEN_TANG;
+    req.laAdmin = req.role === 'admin';
+    // Hệ thống dựng sẵn cho nhiều cơ sở nhưng bản này phát hành cho MỘT trung tâm: cột `org_id`
+    // trên các bảng nghiệp vụ vẫn còn (xem init-db.js) và luôn bằng 1, còn `locOrg` luôn false
+    // nên không truy vấn nào lọc theo tổ chức. Giữ hai giá trị này để các route đã viết sẵn
+    // chạy nguyên; muốn tách cơ sở sau này thì chỉ phải sửa đúng chỗ này.
+    req.orgId = ORG_MAC_DINH;
+    req.locOrg = false;
+    req.laAdminNenTang = req.laAdmin;   // tên cũ, một số route còn dùng
     next();
   } catch (err) {
     console.error('Lỗi đọc vai trò:', err);
@@ -55,23 +41,20 @@ export async function loadRole(req, res, next) {
   }
 }
 
-/** Cho phép mọi nhân sự: admin nền tảng, quản trị trung tâm, giáo viên. */
+/** Cho phép mọi nhân sự: quản trị + giáo viên. */
 export function requireStaff(req, res, next) {
-  if (['admin', 'org_admin', 'teacher'].includes(req.role)) return next();
+  if (['admin', 'teacher'].includes(req.role)) return next();
   res.status(403).json({ error: 'Bạn không có quyền truy cập trang quản trị.' });
 }
 
-/** CHỈ admin nền tảng — khu nội dung dùng chung (từ vựng, đề thi, hội thoại, blog, seed). */
+/** CHỈ quản trị. */
 export function requireAdminOnly(req, res, next) {
-  if (req.laAdminNenTang) return next();
-  res.status(403).json({ error: 'Chức năng này chỉ dành cho quản trị viên hệ thống.' });
+  if (req.laAdmin) return next();
+  res.status(403).json({ error: 'Chức năng này chỉ dành cho quản trị viên.' });
 }
 
-/** Quản trị trung tâm trở lên (dùng cho khu quản lý giáo viên / cấp quyền học trong tổ chức). */
-export function requireOrgAdmin(req, res, next) {
-  if (req.laAdminNenTang || req.role === 'org_admin') return next();
-  res.status(403).json({ error: 'Chức năng này dành cho quản trị viên.' });
-}
+/** Tên cũ của requireAdminOnly, giữ để nơi gọi không phải sửa đồng loạt. */
+export const requireOrgAdmin = requireAdminOnly;
 
 // ------------------------------------------------------------------
 // BẢNG QUYỀN
@@ -83,7 +66,9 @@ export function requireOrgAdmin(req, res, next) {
 //   nhom: chỉ số nhóm bắt trong regex chứa id cần tra
 // ------------------------------------------------------------------
 const GV = 'teacher';
-const QT = 'org_admin';
+// Quản trị đi thẳng ở đầu `phamViQuanTri`, nên các dòng mang QT dưới đây chỉ còn giá trị tài
+// liệu: chúng ghi lại route nào vốn dành riêng cho quản trị. Giáo viên thì phải khớp luật.
+const QT = 'admin';
 
 // Ngoại lệ nằm TRONG khu được phép nhưng vẫn phải cấm — xét TRƯỚC bảng cho phép.
 // /classes/:id/available-students tìm trong toàn bộ người dùng để chọn thêm vào lớp; giáo viên
@@ -115,9 +100,6 @@ const QUYEN = [
   { vai: [GV, QT], method: ['DELETE'], re: /^\/student-notes\/(\d+)$/, qua: 'nhanxet', nhom: 1 },
   { vai: [GV, QT], method: ['GET', 'POST'], re: /^\/exercise-results\/(\d+)(\/review)?$/, qua: 'ketqua-bt', nhom: 1 },
   { vai: [GV, QT], method: ['GET', 'POST'], re: /^\/exam-results\/(\d+)(\/review)?$/, qua: 'ketqua-thi', nhom: 1 },
-  // class_id nằm ở query string chứ không trong path -> regex không bắt được; route tự lọc.
-  { vai: [GV, QT], method: ['GET'], re: /^\/translate-submissions$/, qua: null },
-  { vai: [GV, QT], method: ['PUT'], re: /^\/translate-submissions\/(\d+)\/review$/, qua: 'bai-dich', nhom: 1 },
 
   // --- QUẢN LÝ GIÁO VIÊN trong tổ chức: chỉ quản trị trung tâm ---
   { vai: [QT], method: ['GET', 'POST'], re: /^\/teachers$/, qua: null },
@@ -125,13 +107,6 @@ const QUYEN = [
   { vai: [QT], method: ['GET', 'PUT', 'DELETE', 'POST'], re: /^\/teachers\/(\d+)(\/.*)?$/, qua: 'giaovien', nhom: 1 },
   { vai: [QT], method: ['DELETE'], re: /^\/teacher-notes\/(\d+)$/, qua: null },
   { vai: [QT], method: ['DELETE'], re: /^\/teacher-reviews\/(\d+)$/, qua: null },
-
-  // --- BÁN HÀNG ---
-  // Quản trị trung tâm chỉ ĐỌC quyền học (để trả lời "sao em này không mở được bài?"). Cấp và
-  // thu hồi là việc của admin nền tảng: quyền chính là thứ đem bán, trung tâm tự cấp cho mình
-  // được thì không còn gì để bán. Route cũng tự chặn lại bằng requireAdminOnly.
-  { vai: [QT], method: ['GET'], re: /^\/quyen-hoc(\/.*)?$/, qua: null },
-  { vai: [GV, QT], method: ['GET'], re: /^\/to-chuc\/cua-toi$/, qua: null },
 
   // --- HỒ SƠ DU HỌC (2026-09-15) ---
   // CHỈ quản trị trung tâm. Giáo viên cố ý KHÔNG có mặt ở đây: hồ sơ chứa CCCD, hộ chiếu, địa chỉ
@@ -164,16 +139,18 @@ const QUYEN = [
 
 // ------------------------------------------------------------------ kiểm sở hữu
 export async function lopThuocPhamVi(classId, req) {
-  // Giáo viên: đúng lớp mình phụ trách. Quản trị trung tâm: mọi lớp của tổ chức mình.
-  const dk = req.role === 'teacher' ? 'AND teacher_id = ?' : 'AND org_id = ?';
-  const gt = req.role === 'teacher' ? req.userId : req.orgId;
-  const [r] = await pool.query(`SELECT 1 FROM classes WHERE id = ? ${dk}`, [classId, gt]);
+  // Giáo viên: đúng lớp mình phụ trách. Quản trị: mọi lớp.
+  if (req.role !== 'teacher') {
+    const [r] = await pool.query('SELECT 1 FROM classes WHERE id = ?', [classId]);
+    return r.length > 0;
+  }
+  const [r] = await pool.query('SELECT 1 FROM classes WHERE id = ? AND teacher_id = ?', [classId, req.userId]);
   return r.length > 0;
 }
 
 export async function hocVienThuocPhamVi(userId, req) {
-  if (req.role === 'org_admin') {
-    const [r] = await pool.query('SELECT 1 FROM users WHERE id = ? AND org_id = ?', [userId, req.orgId]);
+  if (req.role !== 'teacher') {
+    const [r] = await pool.query('SELECT 1 FROM users WHERE id = ?', [userId]);
     return r.length > 0;
   }
   const [r] = await pool.query(
@@ -201,7 +178,7 @@ async function duocPhep(qua, id, req) {
     case 'giaovien': {
       // Giáo viên phải cùng tổ chức. Không kiểm điều này thì quản trị trung tâm A sửa/hạ vai trò
       // được giáo viên của trung tâm B.
-      const [r] = await pool.query("SELECT 1 FROM users WHERE id = ? AND org_id = ? AND role IN ('teacher','org_admin')", [id, req.orgId]);
+      const [r] = await pool.query("SELECT 1 FROM users WHERE id = ? AND role IN ('teacher','admin')", [id]);
       return r.length > 0;
     }
     case 'nhanxet': {
@@ -220,8 +197,8 @@ async function duocPhep(qua, id, req) {
       // Giáo viên chỉ đụng được đề CHÍNH MÌNH tạo; quản trị trung tâm đụng mọi đề của tổ chức.
       // Cho giáo viên sửa đề của đồng nghiệp thì một người đổi đáp án là bài đã chấm của lớp
       // khác sai theo mà không ai hay.
-      const [r] = await pool.query('SELECT org_id, tao_boi FROM de_bai WHERE id = ?', [id]);
-      if (!r.length || r[0].org_id !== req.orgId) return false;
+      const [r] = await pool.query('SELECT tao_boi FROM de_bai WHERE id = ?', [id]);
+      if (!r.length) return false;
       return req.role === 'teacher' ? r[0].tao_boi === req.userId : true;
     }
     case 'bailam': {
@@ -239,21 +216,16 @@ async function duocPhep(qua, id, req) {
 }
 
 /**
- * Chặn ở hai tầng: route có được phép với vai trò này không, và tài nguyên có thuộc phạm vi
- * (tổ chức / lớp phụ trách) của người gọi không. Admin nền tảng đi thẳng.
+ * Chặn ở hai tầng: route có được phép với vai trò này không, và tài nguyên có thuộc lớp người
+ * gọi phụ trách không. Quản trị đi thẳng.
  * Đặt SAU requireStaff.
  *
  * Route tự lọc thì đọc:
- *   req.orgId      — luôn có
  *   req.teacherId  — id giáo viên, hoặc null nếu không phải giáo viên
- *   req.locOrg     — true khi PHẢI lọc theo tổ chức (mọi vai trò trừ admin nền tảng)
  */
 export async function phamViQuanTri(req, res, next) {
   req.teacherId = req.role === 'teacher' ? req.userId : null;
-  // chuaCoOrg: DB chưa migrate-to-chuc-quyen — mọi tài khoản đều thuộc tổ chức gốc, không có gì
-  // để lọc, mà bật lọc là mọi truy vấn có `org_id = ?` ném ER_BAD_FIELD_ERROR -> 500 cho giáo viên.
-  req.locOrg = !req.laAdminNenTang && !req.chuaCoOrg;
-  if (req.laAdminNenTang) return next();
+  if (req.laAdmin) return next();
 
   const duong = req.path.replace(/\/+$/, '') || '/';
   const tuChoi = () => res.status(403).json({ error: 'Bạn không có quyền dùng chức năng này.' });

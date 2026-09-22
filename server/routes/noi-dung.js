@@ -312,45 +312,17 @@ router.get('/tocfl/:cap', (req, res) => {
   traFile(res, 'tocfl', `cap-${cap}`, 'public, max-age=3600, stale-while-revalidate=604800');
 });
 
-/** Bảng giá — giao diện đọc từ đây thay vì viết cứng, đổi giá là việc của DB. */
-router.get('/goi', async (req, res) => {
-  try {
-    const [rows] = await pool.query(
-      `SELECT ma, ten, mo_ta, loai, nhom, so_ngay, gia, gia_goc, tien_te, pham_vi
-         FROM products WHERE is_active = TRUE ORDER BY sort_order, gia`);
-    res.set('Cache-Control', 'public, max-age=300');
-    res.json({ goi: rows });
-  } catch (err) {
-    // Chưa chạy migration thì trả danh sách rỗng — giao diện tự hiện lời mời liên hệ, không vỡ.
-    if (err.code === 'ER_NO_SUCH_TABLE') return res.json({ goi: [] });
-    console.error('Lỗi tải bảng giá:', err);
-    res.status(500).json({ error: 'Lỗi tải bảng giá.' });
-  }
-});
 
 // ------------------------------------------------------------------ trạng thái
 /** Quyền của chính mình — giao diện dùng để biết bài nào hiện ổ khoá, gói còn hạn tới bao giờ. */
-router.get('/quyen', optionalAuth, async (req, res) => {
-  try {
-    if (!req.userId) {
-      return res.json({ dang_nhap: false, tat_ca: false, bo: [], quyen: [], het_han: null, so_bai_mo: SO_BAI_MO });
-    }
-    const q = await quyenCuaNguoiDung(req.userId);
-    res.json({
-      dang_nhap: true,
-      tat_ca: q.tatCa,
-      bo: [...q.bo],
-      // Quyển lẻ đã mua, dạng 'duongdai:2' — giao diện dùng để biết thẻ quyển nào hiện ổ khoá.
-      quyen: [...q.quyen],
-      het_han: q.hetHan,
-      vai_tro: q.vaiTro,
-      so_bai_mo: SO_BAI_MO,
-      nguon: q.nguon,
-    });
-  } catch (err) {
-    console.error('Lỗi đọc quyền nội dung:', err);
-    res.status(500).json({ error: 'Lỗi kiểm tra quyền.' });
-  }
+router.get('/quyen', optionalAuth, (req, res) => {
+  // Bản này không bán khoá: mọi nội dung mở cho người đã đăng nhập. Giữ route để giao diện
+  // không phải bỏ lời gọi — nó đọc `tat_ca` để biết có vẽ ổ khoá nào không.
+  res.json({
+    dang_nhap: !!req.userId,
+    tat_ca: true,
+    bo: [], quyen: [], het_han: null, so_bai_mo: SO_BAI_MO,
+  });
 });
 
 /**

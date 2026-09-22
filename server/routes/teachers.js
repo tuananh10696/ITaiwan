@@ -65,7 +65,7 @@ router.get('/teachers', async (req, res) => {
 router.get('/teachers-options', async (req, res) => {
   try {
     const [rows] = await pool.query(
-      `SELECT id, name, email, role FROM users WHERE role IN ('teacher','org_admin','admin')${dkOrg(req)} ORDER BY role DESC, name ASC`, tsOrg(req)
+      `SELECT id, name, email, role FROM users WHERE role IN ('teacher','admin')${dkOrg(req)} ORDER BY role DESC, name ASC`, tsOrg(req)
     );
     res.json({ teachers: rows });
   } catch (err) {
@@ -95,21 +95,6 @@ router.post('/teachers', async (req, res) => {
       }
       await pool.query('UPDATE users SET role = ?, is_approved = 1 WHERE id = ?', ['teacher', u.id]);
       return res.status(200).json({ message: `Đã chuyển "${u.name}" thành giáo viên.`, id: u.id, nang_cap: true });
-    }
-
-    // Hạn mức giáo viên của gói thuê. Trước 2026-09-13 cột này chỉ hiện ra ở màn quản trị chứ
-    // không chặn gì — gói 5 giáo viên dùng được vô hạn.
-    const [[org]] = await pool.query(
-      'SELECT gioi_han_giao_vien FROM organizations WHERE id = ?', [req.orgId]
-    ).catch(() => [[null]]);
-    if (org?.gioi_han_giao_vien) {
-      const [[{ n }]] = await pool.query(
-        "SELECT COUNT(*) AS n FROM users WHERE org_id = ? AND role = 'teacher'", [req.orgId]);
-      if (n >= org.gioi_han_giao_vien) {
-        return res.status(400).json({
-          error: `Gói của bạn giới hạn ${org.gioi_han_giao_vien} giáo viên (đang có ${n}). Liên hệ quản trị hệ thống để nâng hạn mức.`,
-        });
-      }
     }
 
     const hash = await bcrypt.hash(MAT_KHAU_MAC_DINH_GV, 10);
@@ -177,7 +162,7 @@ router.get('/teachers/:id', async (req, res) => {
   try {
     const id = parseInt(req.params.id, 10);
     const [[gv]] = await pool.query(
-      `SELECT id, name, email, phone, role, last_active, created_at FROM users WHERE id = ? AND role IN ('teacher','org_admin','admin')${dkOrg(req)}`,
+      `SELECT id, name, email, phone, role, last_active, created_at FROM users WHERE id = ? AND role IN ('teacher','admin')${dkOrg(req)}`,
       [id, ...tsOrg(req)]
     );
     if (!gv) return res.status(404).json({ error: 'Không tìm thấy giáo viên.' });

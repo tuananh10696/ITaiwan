@@ -20,7 +20,7 @@ import pool from '../config/db.js';
 export const TRAN_THIET_BI = 2;
 
 /** Nhân sự dạy trên nhiều máy (trường, nhà, điện thoại) — chặn họ không bảo vệ thêm được gì. */
-const MIEN_TRU = new Set(['admin', 'org_admin', 'teacher']);
+const MIEN_TRU = new Set(['admin', 'teacher']);
 
 function thieuBang(err) {
   return err && (err.code === 'ER_NO_SUCH_TABLE' || err.code === 'ER_BAD_FIELD_ERROR');

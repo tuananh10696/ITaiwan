@@ -6,7 +6,7 @@
 // Mount ở /api/admin nên đường dẫn thật là /api/admin/du-hoc/...
 // Tách khỏi routes/admin.js (đã ~2.100 dòng) theo quy ước "route mới thì file mới" trong CLAUDE.md.
 //
-// PHÂN QUYỀN — chỉ QUẢN TRỊ (admin nền tảng + org_admin). Giáo viên KHÔNG khai trong bảng QUYEN
+// PHÂN QUYỀN — chỉ QUẢN TRỊ. Giáo viên KHÔNG khai trong bảng QUYEN
 // nên tự nhận 403: hồ sơ ở đây có CCCD, hộ chiếu, địa chỉ, tiền nong — giáo viên dạy lớp không
 // cần và không nên thấy. Bảng QUYEN là lưới thứ nhất; mọi truy vấn bên dưới vẫn phải kèm
 // `dkOrg(req)` làm lưới thứ hai, đúng lối teachers.js đang làm.
@@ -1034,7 +1034,7 @@ router.get('/du-hoc/nhan-su', async (req, res) => {
   try {
     const [rows] = await pool.query(
       `SELECT id, name, email, role FROM users
-        WHERE role IN ('admin','org_admin','teacher')${req.locOrg ? ' AND org_id = ?' : ''}
+        WHERE role IN ('admin','teacher')${req.locOrg ? ' AND org_id = ?' : ''}
         ORDER BY name LIMIT 200`,
       tsOrg(req)
     );
