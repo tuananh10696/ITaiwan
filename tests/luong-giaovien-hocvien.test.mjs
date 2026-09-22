@@ -23,17 +23,31 @@ const ok=(b,l)=>console.log(`  ${b?'✅':'❌'} ${l}`);
 /** API trả khi thì mảng, khi thì {assignments|notifications|students|results:[...]} — chuẩn hoá về mảng. */
 const ds=(j)=>Array.isArray(j)?j:(j&&(j.assignments||j.notifications||j.students||j.results||j.rows||j.data))||[];
 
-// lớp 1 (của admin id=1) + một học viên trong lớp
-const [[hv]] = await c.query('SELECT user_id FROM class_enrollments WHERE class_id=1 LIMIT 1');
-const ADMIN=tok(1), HS=tok(hv.user_id);
-const LESSON='td1-1.3';                       // bài Thời Đại, chắc chắn không đụng dữ liệu cũ
-console.log(`Lớp 1 · học viên id=${hv.user_id} · bài ${LESSON}\n`);
-const donDep = { assignment:null, result:null };
+// TỰ DỰNG lớp + học viên: bộ test phải chạy được trên DB vừa `db:init`, đừng phụ thuộc
+// dữ liệu có sẵn (bản cũ dùng cứng "lớp 1" nên DB mới là ném TypeError ngay dòng đầu).
+const MA = 'ltest-' + Math.random().toString(36).slice(2, 8);
+const [[ad]] = await c.query("SELECT id FROM users WHERE role = 'admin' ORDER BY id LIMIT 1");
+if (!ad) { console.error('❌ DB chưa có tài khoản quản trị — chạy `npm run db:init` trước.'); process.exit(1); }
+const bcrypt = (await import('bcryptjs')).default;
+const hash = await bcrypt.hash('x'.repeat(12), 10);
+const [insHv] = await c.query(
+  `INSERT INTO users (name, email, password_hash, role, is_verified, is_approved, avatar_letter)
+   VALUES (?,?,?,'student',1,1,'H')`, [`HV ${MA}`, `hv.${MA}@local.invalid`, hash]);
+const [insLop] = await c.query(
+  'INSERT INTO classes (name, teacher_id, is_active, invite_code) VALUES (?,?,1,?)',
+  [`Lớp ${MA}`, ad.id, Math.random().toString(36).slice(2, 10).toUpperCase()]);
+const LOP = insLop.insertId;
+await c.query('INSERT INTO class_enrollments (class_id, user_id) VALUES (?,?)', [LOP, insHv.insertId]);
+
+const ADMIN=tok(ad.id), HS=tok(insHv.insertId);
+const LESSON='td1-1.3';
+console.log(`Lớp ${LOP} · học viên id=${insHv.insertId} · bài ${LESSON}\n`);
+const donDep = { assignment:null, result:null, lop:LOP, hv:insHv.insertId, ma:MA };
 
 // ---------- 1. Giáo viên giao bài ----------
-let r = await call('POST','/admin/classes/1/assignments',ADMIN,{lesson_id:LESSON,exercise_type:'bai-tap',title:'KIỂM THỬ TỰ ĐỘNG',note:'test',due_date:'2026-12-31'});
+let r = await call('POST',`/admin/classes/${LOP}/assignments`,ADMIN,{lesson_id:LESSON,exercise_type:'bai-tap',title:'KIỂM THỬ TỰ ĐỘNG',note:'test',due_date:'2026-12-31'});
 ok(r.st===200||r.st===201,`giáo viên giao bài → ${r.st}`);
-const [[asg]] = await c.query('SELECT id FROM assignments WHERE class_id=1 AND lesson_id=? ORDER BY id DESC LIMIT 1',[LESSON]);
+const [[asg]] = await c.query('SELECT id FROM assignments WHERE class_id=? AND lesson_id=? ORDER BY id DESC LIMIT 1',[LOP,LESSON]);
 donDep.assignment = asg?.id; ok(!!asg,`ghi vào bảng assignments (id=${asg?.id})`);
 
 // ---------- 2. Học viên thấy bài ----------
@@ -48,7 +62,7 @@ ok(tb[0] && !tb[0].read_at, 'tin ở trạng thái CHƯA ĐỌC');
 r = await call('POST','/exercise/submit',HS,{lesson_id:LESSON,total_questions:10,correct_answers:8,score_percent:80,time_seconds:120,
   details:[{question:'Câu kiểm thử',options:['a','b'],selected:0,correctIdx:0,explain:''}]});
 ok(r.st===200, `học viên nộp bài → ${r.st}`);
-const [[kq]] = await c.query('SELECT id, score_percent FROM exercise_results WHERE user_id=? AND lesson_id=? ORDER BY id DESC LIMIT 1',[hv.user_id,LESSON]);
+const [[kq]] = await c.query('SELECT id, score_percent FROM exercise_results WHERE user_id=? AND lesson_id=? ORDER BY id DESC LIMIT 1',[donDep.hv,LESSON]);
 donDep.result = kq?.id; ok(!!kq && Number(kq.score_percent)===80, `ghi exercise_results (id=${kq?.id}, ${kq?.score_percent}%)`);
 
 // ---------- 4. Giáo viên thấy bài đã nộp ----------
@@ -74,13 +88,21 @@ const sau = ds(r.j).find(x=>x.type==='exercise' && String(x.id)===String(donDep.
 ok(sau && sau.read_at, 'sau khi đọc, read_at đã có giá trị');
 
 // ---------- 7. Học viên KHÁC không đọc trộm được ----------
-const [[hv2]] = await c.query('SELECT id FROM users WHERE role="student" AND id<>? AND is_approved=1 LIMIT 1',[hv.user_id]);
-r = await call('GET',`/admin/exercise-results/${donDep.result}`,tok(hv2.id));
+const [insHv2] = await c.query(
+  `INSERT INTO users (name, email, password_hash, role, is_verified, is_approved, avatar_letter)
+   VALUES (?,?,?,'student',1,1,'K')`, [`HV2 ${MA}`, `hv2.${MA}@local.invalid`, hash]);
+r = await call('GET',`/admin/exercise-results/${donDep.result}`,tok(insHv2.insertId));
 ok(r.st===403, `học viên khác mở bài làm của bạn → ${r.st} (phải 403)`);
 
 // ---------- dọn dẹp ----------
 if (donDep.result) await c.query('DELETE FROM exercise_results WHERE id=?',[donDep.result]);
 if (donDep.assignment) { await c.query('DELETE FROM assignment_reads WHERE assignment_id=?',[donDep.assignment]); await c.query('DELETE FROM assignments WHERE id=?',[donDep.assignment]); }
-const [[left]] = await c.query('SELECT (SELECT COUNT(*) FROM assignments WHERE lesson_id=?) a,(SELECT COUNT(*) FROM exercise_results WHERE lesson_id=?) e',[LESSON,LESSON]);
-console.log(`\n🧹 dọn dẹp: assignments còn ${left.a}, exercise_results còn ${left.e} (phải 0/0)`);
+await c.query('DELETE FROM class_enrollments WHERE class_id=?',[donDep.lop]);
+await c.query('DELETE FROM classes WHERE id=?',[donDep.lop]);
+await c.query('DELETE FROM users WHERE email LIKE ?',[`%${MA}@local.invalid`]);
+const [[left]] = await c.query(
+  `SELECT (SELECT COUNT(*) FROM assignments WHERE lesson_id=?) a,
+          (SELECT COUNT(*) FROM exercise_results WHERE lesson_id=?) e,
+          (SELECT COUNT(*) FROM users WHERE email LIKE ?) u`, [LESSON, LESSON, `%${MA}@local.invalid`]);
+console.log(`\n🧹 dọn dẹp: assignments ${left.a}, exercise_results ${left.e}, users ${left.u} (phải 0/0/0)`);
 await c.end();

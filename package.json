@@ -41,10 +41,7 @@
     "tudien:build": "node scripts/gen-tudien.mjs",
     "test:quyen": "node tests/phan-quyen.test.mjs",
     "test:luong": "node tests/luong-giaovien-hocvien.test.mjs",
-    "test:du-hoc": "node tests/du-hoc.test.mjs",
     "test:diem": "node tests/chong-cay-diem.test.mjs",
-    "test:du-hoc-hs": "node tests/du-hoc-hocvien.test.mjs",
-    "test:quy-ktx-de": "node tests/quy-ktx-de.test.mjs",
     "demo:trung-tam": "node scripts/seed-trungtam-demo.mjs",
     "pwa:icons": "node scripts/gen-pwa-icons.mjs",
     "luyentap:tusinh": "node scripts/gen-luyentap-tusinh.mjs",
@@ -52,7 +49,9 @@
     "baitap:kiem-toan": "node scripts/kiem-toan-bai-tap.mjs",
     "tocfl:vocab": "node scripts/gen-tocfl-vocab.mjs",
     "gv:tao": "node scripts/tao-giao-vien.mjs",
-    "db:anon:local": "node scripts/anonymize-local.mjs"
+    "db:anon:local": "node scripts/anonymize-local.mjs",
+    "test:trung-tam": "node tests/luong-trung-tam.test.mjs",
+    "test": "node tests/phan-quyen.test.mjs && node tests/luong-trung-tam.test.mjs && node tests/luong-giaovien-hocvien.test.mjs && node tests/chong-cay-diem.test.mjs"
   },
   "devDependencies": {
     "@capacitor/cli": "^8.5.1",

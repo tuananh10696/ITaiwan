@@ -706,7 +706,7 @@ router.post('/classes/:id/students', async (req, res) => {
 
     // --- Đường EMAIL: tra tài khoản, chưa có thì tạo. Quy về userIds rồi ghi danh chung bên dưới.
     if (emails.length) {
-      const conTrong = Infinity;   // bản này không giới hạn số học viên
+      let conTrong = Infinity;   // bản này không giới hạn số học viên
 
       for (const mail of emails) {
         if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)) {

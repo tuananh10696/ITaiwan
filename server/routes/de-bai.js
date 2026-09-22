@@ -158,7 +158,7 @@ router.post('/de-bai', async (req, res) => {
       [req.orgId, ma, td.slice(0, 200), String(mo_ta || '').slice(0, 1000) || null,
        ['bai-tap', 'kiem-tra'].includes(loai) ? loai : 'bai-tap', tg,
        tron_cau ? 1 : 0, tron_dap_an ? 1 : 0,
-       Math.max(0, Math.min(99, parseInt(so_lan_lam, 10) ?? 1)),
+       Math.max(0, Math.min(99, parseInt(so_lan_lam, 10) || 1)),
        ['ngay', 'sau-han', 'khong'].includes(hien_dap_an) ? hien_dap_an : 'ngay',
        Math.max(0, Math.min(100, Number(diem_dat) || 50)), req.userId]
     );
