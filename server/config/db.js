@@ -30,7 +30,8 @@ if (process.env.VERCEL || process.env.DB_SSL === 'true') {
     try {
       caCert = fs.readFileSync(path.join(__dirname, 'ca.pem'));
     } catch (e) {
-      console.warn('Could not read ca.pem file, SSL connection might fail.');
+      console.warn('Không đọc được server/config/ca.pem — kết nối SSL có thể thất bại.\n'
+        + '   Tải CA cert của nhà cung cấp DB rồi đặt vào đúng đường dẫn đó.');
     }
   }
 

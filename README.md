@@ -203,8 +203,10 @@ build** (không chạy ở dev, không chạy trong app native).
 
 ## 9. Deploy
 
-1. Tạo DB MySQL (Aiven hoặc nhà cung cấp khác), bật SSL nếu cần —
-   `server/config/db.js` tự bật khi biến `VERCEL` có mặt hoặc `DB_SSL=true`.
+1. Tạo DB MySQL (Aiven hoặc nhà cung cấp khác). SSL tự bật khi có biến `VERCEL` hoặc
+   `DB_SSL=true`; khi đó đặt CA cert qua biến **`DB_CA_CERT`** (dán nội dung file, xuống dòng
+   ghi bằng `\n`), hoặc để file tại `server/config/ca.pem`. Repo cố ý KHÔNG kèm sẵn ca.pem —
+   mỗi nhà cung cấp một chứng chỉ khác nhau.
 2. Đặt biến môi trường trên Vercel: `DB_*`, `JWT_SECRET` (≥ 32 ký tự), `NODE_ENV=production`,
    `APP_URL`, `RESEND_API_KEY` (nếu muốn gửi mail thật), `CRON_SECRET`.
 3. `npm run db:migrate:prod` — script tự sao lưu ra `backups/` trước khi chạy.
