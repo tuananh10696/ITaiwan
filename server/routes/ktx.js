@@ -106,17 +106,24 @@ router.get('/ktx/tong-quan', async (req, res) => {
         WHERE t.org_id = ? AND o.trang_thai = 'dang-o'`, [orgId]
     );
     // Công nợ tháng này: người đang ở, có giá thuê > 0, mà chưa có khoản `tien-phong` của kỳ này.
+    // Số TOÀ / PHÒNG / CHỖ TRỐNG ở trên cố ý KHÔNG lọc: đó là hạ tầng của trung tâm, sale cần
+    // biết còn chỗ nào mà xếp học sinh. Từ đây xuống là số gắn với NGƯỜI (ai nợ, thu được bao
+    // nhiêu) nên phải về đúng phạm vi — nếu không, sale thấy "2 người chưa đóng" rồi bấm sang
+    // Công nợ lại trống trơn.
     const [chuaDong] = await pool.query(
       `SELECT o.id, o.ho_ten, o.gia_thang, p.ten_phong, t.ten AS toa_ten
          FROM ktx_o o
          JOIN ktx_phong p ON p.id = o.phong_id
          JOIN ktx_toa t ON t.id = p.toa_id
+         ${req.nhanSuId ? 'JOIN du_hoc_ho_so hs ON hs.id = o.ho_so_id' : ''}
         WHERE t.org_id = ? AND o.trang_thai = 'dang-o' AND o.gia_thang > 0
+          ${req.nhanSuId ? 'AND hs.tu_van_id = ?' : ''}
           AND NOT EXISTS (
             SELECT 1 FROM ktx_thu_tien tt
              WHERE tt.o_id = o.id AND tt.ky = ? AND tt.loai = 'tien-phong'
           )
-        ORDER BY t.ten, p.ten_phong, o.ho_ten`, [orgId, kyNay]
+        ORDER BY t.ten, p.ten_phong, o.ho_ten`,
+      [orgId, ...(req.nhanSuId ? [req.nhanSuId] : []), kyNay]
     );
     const [[thuThang]] = await pool.query(
       `SELECT COALESCE(SUM(IF(tt.loai='hoan-coc', -tt.so_tien, tt.so_tien)), 0) tong
@@ -124,7 +131,9 @@ router.get('/ktx/tong-quan', async (req, res) => {
          JOIN ktx_o o ON o.id = tt.o_id
          JOIN ktx_phong p ON p.id = o.phong_id
          JOIN ktx_toa t ON t.id = p.toa_id
-        WHERE t.org_id = ? AND tt.ky = ?`, [orgId, kyNay]
+         ${req.nhanSuId ? 'JOIN du_hoc_ho_so hs ON hs.id = o.ho_so_id' : ''}
+        WHERE t.org_id = ? AND tt.ky = ?${req.nhanSuId ? ' AND hs.tu_van_id = ?' : ''}`,
+      [orgId, kyNay, ...(req.nhanSuId ? [req.nhanSuId] : [])]
     );
     res.json({
       ky: kyNay,

@@ -223,10 +223,35 @@ function vaiTro(u) {
 const laAdmin = (u) => vaiTro(u) === 'admin';
 /** Quản trị viên: admin nền tảng HOẶC quản trị trung tâm. */
 const laQuanTri = (u) => ['admin', 'org_admin'].includes(vaiTro(u));
-const laNhanSu = (u) => ['admin', 'org_admin', 'teacher'].includes(vaiTro(u));
+/** Sale hoặc quản lý hồ sơ — hai vai trò có cùng bộ quyền, khác nhãn. */
+const laNhanSuHoSo = (u) => ['sale', 'ho_so'].includes(vaiTro(u));
+/**
+ * Ai được vào cổng quản trị. Danh sách này phải khớp `requireStaff` ở server/middleware/roles.js
+ * — thiếu một vai trò ở đây thì người đó đăng nhập đúng mật khẩu vẫn nhận "Tài khoản này không
+ * có quyền quản trị", còn API thì vẫn cho qua: rất khó lần ra vì không có lỗi nào ở server.
+ */
+const laNhanSu = (u) => ['admin', 'org_admin', 'teacher', 'ho_so', 'sale'].includes(vaiTro(u));
 
-const NHAN_VAI_TRO = { admin: 'ADMIN', org_admin: 'QUẢN TRỊ TRUNG TÂM', teacher: 'GIÁO VIÊN' };
-const MAU_VAI_TRO = { admin: '', org_admin: '#2F6B58', teacher: '#12726B' };
+const NHAN_VAI_TRO = {
+  admin: 'ADMIN', org_admin: 'QUẢN TRỊ TRUNG TÂM', teacher: 'GIÁO VIÊN',
+  ho_so: 'QUẢN LÝ HỒ SƠ', sale: 'SALE',
+};
+/** Nhãn ngắn cho bảng danh sách (viết hoa cả cụm trong ô hẹp thì rất khó đọc). */
+const NHAN_VAI_TRO_NGAN = {
+  admin: 'Quản trị', teacher: 'Giáo viên', ho_so: 'Quản lý hồ sơ', sale: 'Sale', student: 'Học viên',
+};
+const MAU_HUY_HIEU_VAI = {
+  admin: '#D2321F', teacher: '#12726B', ho_so: '#1E4E9C', sale: '#B2571F', student: '#EEF1F5',
+};
+/** Vai trò mà người đang đăng nhập được phép tạo — khớp VAI_TRO_DUOC_TAO ở server/routes/admin.js. */
+function vaiTroDuocTao() {
+  if (laAdmin()) return ['student', 'teacher', 'sale', 'ho_so', 'admin'];
+  if (laNhanSuHoSo()) return ['student'];
+  return [];
+}
+const MAU_VAI_TRO = {
+  admin: '', org_admin: '#2F6B58', teacher: '#12726B', ho_so: '#1E4E9C', sale: '#B2571F',
+};
 
 /**
  * Ẩn/hiện mục theo vai trò + đổi nhãn trên sidebar.
@@ -234,6 +259,15 @@ const MAU_VAI_TRO = { admin: '', org_admin: '#2F6B58', teacher: '#12726B' };
  *   data-tu-quan-tri  -> admin nền tảng + quản trị trung tâm (giáo viên, quyền học)
  */
 function apDungVaiTro() {
+  const v = vaiTro();
+  // Mỗi mục sidebar tự khai vai trò được thấy: data-vai="admin,ho_so,sale".
+  // Mục KHÔNG khai gì thì ai cũng thấy (Tổng quan). Ẩn menu chỉ là cho gọn màn hình —
+  // chặn thật nằm ở server/middleware/roles.js, đừng bao giờ coi đây là hàng rào.
+  document.querySelectorAll('[data-vai]').forEach((el) => {
+    const duoc = el.dataset.vai.split(',').map((x) => x.trim()).includes(v);
+    el.style.display = duoc ? '' : 'none';
+  });
+  // Hai cờ cũ vẫn còn rải rác trong các màn hình con (nút, cột bảng), giữ cho chúng chạy đúng.
   const chiAdmin = laAdmin();
   const quanTri = laQuanTri();
   document.querySelectorAll('[data-chi-admin]').forEach(el => { el.style.display = chiAdmin ? '' : 'none'; });
@@ -246,12 +280,24 @@ function apDungVaiTro() {
   }
 }
 
-/** Gõ tay URL của khu không được vào -> đưa về Tổng quan thay vì để nhận 403 khó hiểu. */
-const KHU_CHI_ADMIN = ['users', 'thiet-bi'];
-const KHU_QUAN_TRI = ['teachers', 'du-hoc', 'quy', 'ktx'];
+/**
+ * Gõ tay URL của khu không được vào -> đưa về Tổng quan thay vì để nhận 403 khó hiểu.
+ * Bảng này phải khớp với `data-vai` trên sidebar trong admin.html; lệch nhau thì người dùng
+ * thấy mục trong menu mà bấm vào lại bị đá về trang chủ.
+ */
+const VAI_CUA_KHU = {
+  classes: ['admin', 'teacher'],
+  'de-bai': ['admin', 'teacher'],
+  teachers: ['admin'],
+  'thiet-bi': ['admin'],
+  users: ['admin', 'ho_so', 'sale'],
+  'du-hoc': ['admin', 'ho_so', 'sale'],
+  ktx: ['admin', 'ho_so', 'sale'],
+  quy: ['admin', 'ho_so', 'sale'],
+};
 function chanKhuCam() {
-  const cam = (!laAdmin() && KHU_CHI_ADMIN.includes(currentSection))
-    || (!laQuanTri() && KHU_QUAN_TRI.includes(currentSection));
+  const duoc = VAI_CUA_KHU[currentSection];
+  const cam = duoc && !duoc.includes(vaiTro());
   if (cam) {
     currentSection = 'dashboard';
     _writeAdminUrl(buildAdminHash('dashboard'), true);
@@ -871,7 +917,10 @@ async function xoaNhanXetGiaoVien(id) {
 // Quản trị vẫn xem được các bảng đó khi vào từng lớp ở khu Quản lý lớp.
 async function renderDashboard(el) {
   el.innerHTML = '<div style="text-align:center;padding:40px;color:var(--admin-text-muted)"><i class="fa-solid fa-spinner fa-spin" style="font-size:24px"></i><p style="margin-top:12px">Đang tải...</p></div>';
-  return laQuanTri() ? renderTongQuanQuanTri(el) : renderTongQuanGiaoVien(el);
+  // Sale / quản lý hồ sơ dùng CHUNG bảng điều khiển với quản trị: cùng bố cục tiền — hồ sơ —
+  // ký túc xá, chỉ khác là mọi con số đã được server lọc về phạm vi của riêng họ, và khối lớp
+  // học bị bỏ (xem renderTongQuanQuanTri). Giáo viên có bảng riêng thiên về dạy & học.
+  return (laQuanTri() || laNhanSuHoSo()) ? renderTongQuanQuanTri(el) : renderTongQuanGiaoVien(el);
 }
 
 // ------------------------------------------------------------
@@ -1094,6 +1143,10 @@ async function renderTongQuanQuanTri(el) {
     ].filter(([key]) => cb[key] > 0);
 
     el.innerHTML = `
+      ${laNhanSuHoSo() ? `<div class="admin-alert" style="background:#EEF3FB;border-color:#C9D9F0">
+        <i class="fa-solid fa-circle-info" style="color:#1E4E9C"></i>
+        <div>Mọi con số dưới đây là <b>phần việc của riêng bạn</b>: hồ sơ bạn phụ trách, phiếu thu chi bạn lập, học sinh bạn xếp ký túc xá.</div>
+      </div>` : ''}
       <div class="tq-luoi-o">
         ${_tqOHtml({ nhan: 'Thu tháng này', so: tienGon(k.thang.thu), delta: chenhLech(k.thang.thu, k.thang_truoc.thu),
           tot: true, mau: 'var(--tq-thu)', icon: 'fa-money-bill-wave', di: 'quy' })}
@@ -1136,8 +1189,8 @@ async function renderTongQuanQuanTri(el) {
         </div>
       </div>
 
-      <div class="admin-cols-2 tq-hang">
-        <div class="tq-the">
+      <div class="${laNhanSuHoSo() ? '' : 'admin-cols-2 '}tq-hang">
+        ${laNhanSuHoSo() ? '' : `<div class="tq-the">
           <div class="tq-the-dau"><h3>Tình trạng lớp</h3><a class="tq-the-link" onclick="adminApp.navigate('classes')">Quản lý lớp</a></div>
           ${!d.lop.length
             ? '<p class="tq-trong">Chưa có lớp nào.</p>'
@@ -1156,7 +1209,7 @@ async function renderTongQuanQuanTri(el) {
                     </div>
                   </div>
                 </div>`).join('')}</div>`}
-        </div>
+        </div>`}
 
         <div class="tq-the">
           <div class="tq-the-dau"><h3>Cần xử lý</h3>${viec.length ? `<span class="tq-the-dem">${viec.length}</span>` : ''}</div>
@@ -1346,13 +1399,18 @@ async function renderUsers(el) {
         <div class="table-toolbar">
           <input class="search-input" placeholder="Tìm kiếm người dùng..." value="${userSearch}" onkeydown="if(event.key==='Enter'){adminApp.userSearchFn(this.value)}" id="user-search-input">
           <button class="btn btn-sm btn-outline" onclick="adminApp.userSearchFn(document.getElementById('user-search-input').value)"><i class="fa-solid fa-search"></i></button>
+          <button class="btn btn-sm btn-primary" style="margin-left:auto" onclick="adminApp.moFormTaoTaiKhoan()"><i class="fa-solid fa-user-plus"></i><span>Tạo tài khoản</span></button>
         </div>
         <table class="data-table">
           <thead><tr>
-            <th>ID</th><th></th><th>Tên</th><th>Email</th><th>Level</th><th>Trạng thái</th><th style="width:120px">Thao tác</th>
+            <th>ID</th><th></th><th>Tên</th><th>Email</th><th>Vai trò</th><th>Trạng thái</th><th style="width:120px">Thao tác</th>
           </tr></thead>
           <tbody>
             ${data.users.map(u => {
+              // Vai trò hiển thị bằng nhãn tiếng Việt; `role` có thể trống ở bản ghi cũ nên
+              // rơi về is_admin rồi mới tới 'student'.
+              const vai = u.role || (u.is_admin ? 'admin' : 'student');
+              const vaiCol = `<span class="badge" style="background:${MAU_HUY_HIEU_VAI[vai] || '#EEF1F5'};color:${vai === 'student' ? '#3B4658' : '#fff'}">${NHAN_VAI_TRO_NGAN[vai] || vai}</span>`;
               var approvedCol = '';
               if (u.is_admin) {
                 approvedCol = '<span class="badge badge-danger">Admin</span>';
@@ -1367,7 +1425,7 @@ async function renderUsers(el) {
                 <td><div style="width:32px;height:32px;border-radius:50%;background:${u.avatar_color};display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:12px">${u.avatar_letter}</div></td>
                 <td style="font-weight:700">${u.name}</td>
                 <td>${u.email}</td>
-                <td><span class="badge badge-gray">${u.level_label || 'Lv1'}</span></td>
+                <td>${vaiCol}</td>
                 <td>${approvedCol}</td>
                 <td>
                   <div class="table-actions">
@@ -1397,19 +1455,81 @@ async function renderUsers(el) {
 function userSearchFn(val) { userSearch = val; userPage = 1; syncAdminUrl(true); renderUsers(document.getElementById('admin-content')); }
 function userPageFn(p) { userPage = p; syncAdminUrl(true); renderUsers(document.getElementById('admin-content')); }
 
+/**
+ * Form tạo tài khoản mới. Danh sách vai trò lấy theo quyền của CHÍNH người đang đăng nhập:
+ * admin tạo được cả 5 loại, sale / quản lý hồ sơ chỉ tạo được học viên. Đây chỉ là lớp cho
+ * gọn màn hình — server vẫn từ chối nếu ai đó sửa DOM rồi gửi vai trò khác (403).
+ */
+function moFormTaoTaiKhoan() {
+  const duoc = vaiTroDuocTao();
+  if (!duoc.length) { toast('Bạn không có quyền tạo tài khoản.', 'error'); return; }
+
+  openModal('Tạo tài khoản mới', `
+    <div class="form-row">
+      <div class="form-group"><label>Họ tên</label><input id="tk-ten" placeholder="Nguyễn Văn A"></div>
+      <div class="form-group"><label>Email <span style="color:var(--admin-danger)">*</span></label><input id="tk-email" type="email" placeholder="email@vidu.com"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Số điện thoại</label><input id="tk-phone" placeholder="09xxxxxxxx"></div>
+      <div class="form-group">
+        <label>Loại tài khoản</label>
+        <select id="tk-vai">
+          ${duoc.map((v) => `<option value="${v}">${NHAN_VAI_TRO_NGAN[v]}</option>`).join('')}
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Mật khẩu <span style="color:var(--admin-danger)">*</span></label>
+      <input id="tk-mk" type="text" placeholder="Tối thiểu 6 ký tự">
+      <small style="color:var(--admin-text-muted)">Để dạng chữ thường nhìn thấy được, vì bạn cần đọc lại cho chủ tài khoản.</small>
+    </div>
+    <div style="background:#EEF3FB;border-radius:8px;padding:10px 12px;font-size:13px;line-height:1.5">
+      <i class="fa-solid fa-circle-info" style="color:#1E4E9C"></i>
+      <span>Tài khoản tạo ở đây vào dùng được ngay, không phải xác thực email hay chờ duyệt.
+      ${laNhanSuHoSo() ? 'Học viên bạn tạo sẽ nằm trong danh sách quản lý của bạn.' : ''}</span>
+    </div>
+  `,
+  `<button class="btn btn-outline" onclick="adminApp.closeModal()">Hủy</button>
+   <button class="btn btn-primary" onclick="adminApp.luuTaiKhoanMoi()"><i class="fa-solid fa-user-plus"></i><span>Tạo tài khoản</span></button>`
+  );
+}
+
+async function luuTaiKhoanMoi() {
+  const body = {
+    name: document.getElementById('tk-ten').value.trim(),
+    email: document.getElementById('tk-email').value.trim(),
+    phone: document.getElementById('tk-phone').value.trim(),
+    password: document.getElementById('tk-mk').value,
+    role: document.getElementById('tk-vai').value,
+  };
+  if (!body.email) { toast('Chưa nhập email.', 'error'); return; }
+  if (!body.password || body.password.length < 6) { toast('Mật khẩu phải từ 6 ký tự.', 'error'); return; }
+
+  try {
+    const r = await apiPost('/admin/users', body);
+    toast(r.message || 'Đã tạo tài khoản.');
+    closeModal();
+    renderUsers(document.getElementById('admin-content'));
+    refreshPendingBadge();
+  } catch (err) { toast(err.message, 'error'); }
+}
+
 async function openUserForm(id) {
   let u = {};
   let classesList = [];
-  try { 
-    const data = await apiGet(`/admin/users/${id}`); 
-    u = data.user; 
-    
-    // Fetch classes for the dropdown
-    const cData = await apiGet('/admin/classes');
-    if (cData && cData.classes) {
-      classesList = cData.classes;
-    }
+  try {
+    const data = await apiGet(`/admin/users/${id}`);
+    u = data.user;
   } catch (e) { toast('Không tìm thấy.', 'error'); return; }
+
+  // Danh sách lớp nằm ở khu KHÁC: sale / quản lý hồ sơ nhận 403 ở đó. Gọi trong try riêng,
+  // nếu không thì một lỗi 403 vô hại làm cả form sửa tài khoản không mở được.
+  if (!laNhanSuHoSo()) {
+    try {
+      const cData = await apiGet('/admin/classes');
+      if (cData && cData.classes) classesList = cData.classes;
+    } catch (e) { /* không có quyền xem lớp thì bỏ ô chọn lớp */ }
+  }
 
   openModal(`Sửa người dùng #${id}`, `
     <div class="form-row">
@@ -1418,13 +1538,13 @@ async function openUserForm(id) {
     </div>
     <div class="form-row">
       <div class="form-group"><label>SĐT</label><input id="f-phone" value="${u.phone || ''}"></div>
-      <div class="form-group">
+      ${classesList.length ? `<div class="form-group">
         <label>Lớp học</label>
         <select id="f-class-id">
           <option value="">-- Không có lớp --</option>
           ${classesList.map(c => `<option value="${c.id}" ${u.class_id === c.id ? 'selected' : ''}>${c.name}</option>`).join('')}
         </select>
-      </div>
+      </div>` : ''}
     </div>
     <div class="form-row">
       <div class="form-group"><label>Level Label</label><input id="f-level-label" value="${u.level_label || ''}"></div>
@@ -1434,9 +1554,13 @@ async function openUserForm(id) {
       <div class="form-group"><label>Điểm</label><input type="number" id="f-points" value="${u.points || 0}"></div>
       <div class="form-group"><label>Streak</label><input type="number" id="f-streak" value="${u.streak || 0}"></div>
     </div>
-    <div class="form-group">
-      <label><input type="checkbox" id="f-is-admin" ${u.is_admin ? 'checked' : ''} style="margin-right:6px"> Quyền Admin</label>
-    </div>
+    ${laAdmin() ? `<div class="form-group">
+      <label>Loại tài khoản</label>
+      <select id="f-role">
+        ${['student', 'teacher', 'sale', 'ho_so', 'admin'].map((v) => `<option value="${v}" ${(u.role || (u.is_admin ? 'admin' : 'student')) === v ? 'selected' : ''}>${NHAN_VAI_TRO_NGAN[v]}</option>`).join('')}
+      </select>
+      <small style="color:var(--admin-text-muted)">Đổi sang "Quản trị" là trao toàn quyền hệ thống.</small>
+    </div>` : ''}
     <hr style="margin:16px 0;border:none;border-top:1px solid var(--admin-border)">
     <div class="form-group"><label>Đổi mật khẩu (để trống nếu không đổi)</label><input type="password" id="f-new-password" placeholder="Nhập mật khẩu mới..."></div>
   `,
@@ -1446,6 +1570,9 @@ async function openUserForm(id) {
 }
 
 async function saveUser(id) {
+  // Vài ô chỉ có mặt với quản trị (vai trò) hoặc khi lấy được danh sách lớp. Đọc qua `oGiaTri`
+  // để ô vắng mặt không ném TypeError làm hỏng cả nút Lưu.
+  const oGiaTri = (idO) => document.getElementById(idO)?.value;
   const body = {
     name: document.getElementById('f-name').value,
     email: document.getElementById('f-email').value,
@@ -1454,9 +1581,11 @@ async function saveUser(id) {
     level_num: parseInt(document.getElementById('f-level-num').value),
     points: parseInt(document.getElementById('f-points').value),
     streak: parseInt(document.getElementById('f-streak').value),
-    is_admin: document.getElementById('f-is-admin').checked,
-    class_id: document.getElementById('f-class-id').value ? parseInt(document.getElementById('f-class-id').value, 10) : null,
   };
+  const vaiMoi = oGiaTri('f-role');
+  if (vaiMoi) body.role = vaiMoi;
+  const lop = oGiaTri('f-class-id');
+  if (lop !== undefined) body.class_id = lop ? parseInt(lop, 10) : null;
   const newPw = document.getElementById('f-new-password').value;
 
   try {
@@ -4416,6 +4545,7 @@ window.adminApp = {
   // Blog
   // Users
   openUserForm, saveUser, deleteUser, userSearchFn, userPageFn, approveUser, _doApprove,
+  moFormTaoTaiKhoan, luuTaiKhoanMoi,
   // Kinh doanh: trung tâm & quyền học (2026-09-09)
   // Quản lý giáo viên
   moGiaoVien, veDanhSachGiaoVien, moFormGiaoVien, luuGiaoVien, boVaiTroGiaoVien,

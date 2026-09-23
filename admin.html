@@ -80,39 +80,39 @@
           <i class="fa-solid fa-chart-line"></i> Tổng quan
         </div>
 
-        <div class="nav-section-label">DẠY &amp; HỌC</div>
-        <div class="nav-item" data-section="classes" onclick="adminApp.navigate('classes')">
+        <div class="nav-section-label" data-vai="admin,teacher">DẠY &amp; HỌC</div>
+        <div class="nav-item" data-section="classes" data-vai="admin,teacher" onclick="adminApp.navigate('classes')">
           <i class="fa-solid fa-chalkboard-user"></i> Quản lý lớp
         </div>
         <!-- "Đề bài" giáo viên CÓ thấy (họ là người ra đề) nên không gắn thuộc tính nào. -->
-        <div class="nav-item" data-section="de-bai" onclick="adminApp.navigate('de-bai')">
+        <div class="nav-item" data-section="de-bai" data-vai="admin,teacher" onclick="adminApp.navigate('de-bai')">
           <i class="fa-solid fa-file-pen"></i><span>Đề bài &amp; kiểm tra</span>
         </div>
-        <div class="nav-item" data-section="teachers" data-tu-quan-tri onclick="adminApp.navigate('teachers')">
+        <div class="nav-item" data-section="teachers" data-vai="admin" onclick="adminApp.navigate('teachers')">
           <i class="fa-solid fa-chalkboard"></i> Giáo viên
         </div>
-        <div class="nav-item" data-section="users" data-chi-admin onclick="adminApp.navigate('users')">
-          <i class="fa-solid fa-users"></i> Học viên <span id="pending-badge" class="pending-badge" style="display:none"></span>
+        <div class="nav-item" data-section="users" data-vai="admin,ho_so,sale" onclick="adminApp.navigate('users')">
+          <i class="fa-solid fa-users"></i> Tài khoản <span id="pending-badge" class="pending-badge" style="display:none"></span>
         </div>
 
         <!-- Hồ sơ du học: Nhận hồ sơ -> Đóng tiền -> Học -> Phỏng vấn -> Visa -> Bay.
              data-tu-quan-tri = quản trị. Giáo viên KHÔNG thấy, vì hồ sơ có CCCD / hộ chiếu /
              tiền nong (server cũng chặn, xem middleware/roles.js). -->
-        <div class="nav-section-label" data-tu-quan-tri>DU HỌC</div>
-        <div class="nav-item" data-section="du-hoc" data-tu-quan-tri onclick="adminApp.navigate('du-hoc')">
+        <div class="nav-section-label" data-vai="admin,ho_so,sale">DU HỌC</div>
+        <div class="nav-item" data-section="du-hoc" data-vai="admin,ho_so,sale" onclick="adminApp.navigate('du-hoc')">
           <i class="fa-solid fa-plane-departure"></i> Hồ sơ du học
         </div>
-        <div class="nav-item" data-section="ktx" data-tu-quan-tri onclick="adminApp.navigate('ktx')">
+        <div class="nav-item" data-section="ktx" data-vai="admin,ho_so,sale" onclick="adminApp.navigate('ktx')">
           <i class="fa-solid fa-bed"></i><span>Ký túc xá</span>
         </div>
 
-        <div class="nav-section-label" data-tu-quan-tri>VẬN HÀNH</div>
-        <div class="nav-item" data-section="quy" data-tu-quan-tri onclick="adminApp.navigate('quy')">
+        <div class="nav-section-label" data-vai="admin,ho_so,sale">VẬN HÀNH</div>
+        <div class="nav-item" data-section="quy" data-vai="admin,ho_so,sale" onclick="adminApp.navigate('quy')">
           <i class="fa-solid fa-wallet"></i><span>Sổ thu – chi</span>
         </div>
         <!-- Chống chia sẻ tài khoản: hàng chờ những lần đăng nhập bị chặn vì quá 2 thiết bị.
              Xem server/utils/thiet-bi.js. -->
-        <div class="nav-item" data-section="thiet-bi" data-chi-admin onclick="adminApp.navigate('thiet-bi')">
+        <div class="nav-item" data-section="thiet-bi" data-vai="admin" onclick="adminApp.navigate('thiet-bi')">
           <i class="fa-solid fa-mobile-screen-button"></i> Thiết bị đăng nhập
           <span class="tt-badge" id="tb-badge" hidden></span>
         </div>
