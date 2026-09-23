@@ -517,6 +517,19 @@ function syncAdminUrl(replace) {
 }
 
 /** Vẽ lại giao diện theo `currentSection` + các biến trạng thái, KHÔNG đụng tới URL. */
+let _luotVe = 0;
+
+/**
+ * Nội dung vừa tải xong có còn thuộc khu đang mở không.
+ * Dùng NGAY SAU mỗi `await` trong hàm render, trước khi ghi `innerHTML`:
+ *   const luot = el.dataset.luot;
+ *   const d = await apiGet(...);
+ *   if (!conDungLuot(el, luot)) return;
+ */
+function conDungLuot(el, luot) {
+  return el && el.dataset.luot === luot;
+}
+
 function renderCurrentSection() {
   chanKhuCam();
   const r = _routeBySection(currentSection);
@@ -529,6 +542,11 @@ function renderCurrentSection() {
   document.getElementById('admin-sidebar').classList.remove('open');
 
   const content = document.getElementById('admin-content');
+  // Mỗi lần đổi khu là một LƯỢT VẼ mới. Hàm render nào đi qua `await` phải kiểm lại lượt của
+  // mình trước khi ghi `innerHTML` (xem `conDungLuot`), nếu không thì kết quả về muộn của khu
+  // CŨ sẽ đè lên khu người dùng vừa mở — trên production lỗi này hiện rõ vì DB ở Singapore
+  // cộng cold start làm /admin/tong-quan về sau /admin/users tới mấy giây.
+  content.dataset.luot = String(++_luotVe);
   switch (currentSection) {
     case 'users': renderUsers(content); break;
     case 'teachers': renderTeachers(content); break;
@@ -680,9 +698,11 @@ function renderTeachers(el) {
 }
 
 async function renderTeacherList(el) {
+  const luot = el.dataset.luot;
   el.innerHTML = '<div style="text-align:center;padding:40px;color:var(--admin-text-muted)"><i class="fa-solid fa-spinner fa-spin" style="font-size:24px"></i></div>';
   try {
     const { teachers } = await apiGet('/admin/teachers');
+    if (!conDungLuot(el, luot)) return;
     el.innerHTML = `
       <div class="data-table-wrapper">
         <div class="table-toolbar">
@@ -1122,8 +1142,10 @@ function _tqDoHtml(nhan, giaTri) {
 }
 
 async function renderTongQuanQuanTri(el) {
+  const luot = el.dataset.luot;
   try {
     const d = await apiGet('/admin/tong-quan');
+    if (!conDungLuot(el, luot)) return;   // người dùng đã bấm sang khu khác trong lúc chờ
     const k = d.tien.ky;
     const chenh = k.thang.thu - k.thang.chi;
     const chenhTruoc = k.thang_truoc.thu - k.thang_truoc.chi;
@@ -1231,8 +1253,10 @@ async function renderTongQuanQuanTri(el) {
 }
 
 async function renderTongQuanGiaoVien(el) {
+  const luot = el.dataset.luot;
   try {
     const data = await apiGet('/admin/stats');
+    if (!conDungLuot(el, luot)) return;
     const ex = data.exercise7d || {};
     const dt = (s) => new Date(s).toLocaleDateString('vi-VN');
     const lessonLabel = (id) => ({
@@ -1390,9 +1414,11 @@ let userSearch = '';
 async function renderUsers(el) {
   el.innerHTML = '<div style="text-align:center;padding:40px;color:var(--admin-text-muted)"><i class="fa-solid fa-spinner fa-spin" style="font-size:24px"></i></div>';
 
+  const luot = el.dataset.luot;
   try {
     const qs = `?page=${userPage}&limit=20${userSearch ? '&search=' + encodeURIComponent(userSearch) : ''}`;
     const data = await apiGet('/admin/users' + qs);
+    if (!conDungLuot(el, luot)) return;
 
     el.innerHTML = `
       <div class="data-table-wrapper">
@@ -1687,9 +1713,11 @@ function renderClasses(el) {
 }
 
 async function renderClassesList(el) {
+  const luot = el.dataset.luot;
   el.innerHTML = '<div style="text-align:center;padding:40px;color:var(--admin-text-muted)"><i class="fa-solid fa-spinner fa-spin" style="font-size:24px"></i></div>';
   try {
     const data = await apiGet('/admin/classes');
+    if (!conDungLuot(el, luot)) return;
     el.innerHTML = `
       <div class="data-table-wrapper">
         <div class="table-toolbar">
@@ -3299,9 +3327,11 @@ let _dragState = { table: null, dragIdx: null, items: [] };
 let tbCanhBao = [];
 
 async function renderThietBi(el) {
+  const luot = el.dataset.luot;
   el.innerHTML = '<div style="text-align:center;padding:40px;color:var(--admin-text-muted)"><i class="fa-solid fa-spinner fa-spin" style="font-size:24px"></i></div>';
   try {
     const d = await apiGet('/admin/thiet-bi/canh-bao');
+    if (!conDungLuot(el, luot)) return;
     tbCanhBao = d.canh_bao || [];
     _tbVe(el, d);
   } catch (err) {
@@ -3559,6 +3589,7 @@ function dhVeDanhSach() {
 // ------------------------------------------------------------------ MÀN DANH SÁCH
 
 async function _dhVeDanhSach(el) {
+  const luot = el.dataset.luot;
   el.innerHTML = '<div style="text-align:center;padding:40px;color:var(--admin-text-muted)"><i class="fa-solid fa-spinner fa-spin" style="font-size:24px"></i></div>';
   try {
     const q = new URLSearchParams();
@@ -3573,6 +3604,7 @@ async function _dhVeDanhSach(el) {
       apiGet('/admin/du-hoc/tong-quan'),
       apiGet('/admin/du-hoc/ho-so?' + q.toString()),
     ]);
+    if (!conDungLuot(el, luot)) return;
     dhBuocList = ds.buoc || tq.buoc || [];
     _dhVeDanhSachHtml(el, tq, ds);
   } catch (err) {
@@ -4521,7 +4553,7 @@ async function dhNapNhanSu() {
 
 // Nạp cầu nối cho module 3 khu trung tâm TRƯỚC khi gắn handler — module gọi các helper này
 // ngay từ lần render đầu tiên.
-dangKyTrungTam({ apiGet, apiPost, apiPut, apiDel, esc, toast, openModal, closeModal, confirmDialog, _tien });
+dangKyTrungTam({ apiGet, apiPost, apiPut, apiDel, esc, toast, openModal, closeModal, confirmDialog, _tien, conDungLuot });
 
 window.adminApp = {
   // Ba khu vận hành trung tâm — quên dòng này là mọi nút trong đó im lặng không chạy (quy ước 4.4).

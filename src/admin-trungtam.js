@@ -28,6 +28,8 @@ const openModal = (...a) => A.openModal(...a);
 const closeModal = (...a) => A.closeModal(...a);
 const confirmDialog = (...a) => A.confirmDialog(...a);
 const _tien = (n) => A._tien(n);
+/** Xem admin.js: kết quả về muộn của khu cũ không được ghi đè khu đang mở. */
+const conDungLuot = (el, luot) => A.conDungLuot(el, luot);
 
 // ------------------------------------------------------------------ helper chung
 
@@ -128,6 +130,7 @@ async function xemAnh(duongDan, tieuDe = 'Ảnh chứng từ') {
 const quyState = { loai: '', tu: '', den: '', danhMuc: '', tim: '', trang: 1, danhMuc_ds: [] };
 
 async function renderQuy(el) {
+  const luot = el.dataset.luot;
   el.innerHTML = spin;
   try {
     const [dm, ds] = await Promise.all([
@@ -137,6 +140,7 @@ async function renderQuy(el) {
         danh_muc: quyState.danhMuc, tim: quyState.tim, trang: quyState.trang,
       })}`),
     ]);
+    if (!conDungLuot(el, luot)) return;
     if (dm.chua_migration || ds.chua_migration) return canMigration(el);
     quyState.danhMuc_ds = dm.danh_muc || [];
     const t = ds.tong || { thu: 0, chi: 0, ton: 0 };
@@ -433,6 +437,7 @@ export const quyHandlers = {
 const ktxState = { view: 'phong', phongId: null, toaLoc: '', chiTiet: null };
 
 async function renderKtx(el) {
+  const luot = el.dataset.luot;
   if (ktxState.view === 'chi-tiet' && ktxState.phongId) return ktxChiTiet(el);
   if (ktxState.view === 'cong-no') return ktxCongNo(el);
   el.innerHTML = spin;
@@ -442,6 +447,7 @@ async function renderKtx(el) {
       apiGet('/admin/ktx/toa'),
       apiGet(`/admin/ktx/phong${ktxState.toaLoc ? `?toa_id=${ktxState.toaLoc}` : ''}`),
     ]);
+    if (!conDungLuot(el, luot)) return;
     if (tq.chua_migration) return canMigration(el);
 
     el.innerHTML = `
@@ -876,11 +882,13 @@ const DANG_NHAN = {
 };
 
 async function renderDeBai(el) {
+  const luot = el.dataset.luot;
   if (deState.view === 'soan' && deState.deId) return deSoan(el);
   if (deState.view === 'ket-qua' && deState.deId) return deKetQua(el);
   el.innerHTML = spin;
   try {
     const d = await apiGet('/admin/de-bai');
+    if (!conDungLuot(el, luot)) return;
     if (d.chua_migration) return canMigration(el);
     el.innerHTML = `
       <div class="table-toolbar">
