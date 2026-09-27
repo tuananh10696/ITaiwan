@@ -1493,6 +1493,95 @@ html.tw-auth-checking .auth-splash {
 .dh-moc > div { display: flex; flex-direction: column; gap: 3px; }
 .dh-moc b { font-size: 15px; }
 
+/* --- bước Phỏng vấn: trường / VP Đài Bắc / cả 2 (2026-09-27) ---
+   Màu chữ trạng thái đều >= 4,5:1 trên trắng: accent #1F7A52 (5,30), danger #B3261E, #8A4513
+   (chữ của .badge-warning), primary #265648 (8,38), text-secondary #4A5B51 (7,23). KHÔNG dùng
+   --admin-text-muted (≈3,5:1) cho chữ trạng thái — nó chỉ để làm chữ phụ. */
+.dh-step-phu {
+  font-size: 11px; font-weight: 800; padding: 1px 8px; border-radius: 999px;
+  background: var(--admin-bg); color: var(--admin-text-secondary);
+}
+.dh-step.is-now .dh-step-phu { background: var(--c); color: #fff; }
+
+.dh-pv-dong { display: flex; flex-wrap: wrap; gap: 3px 10px; margin-top: 5px; font-size: 12px; font-weight: 600; }
+.dh-pv-dong > span { display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; }
+.dh-pv-dong .is-dau { color: var(--admin-accent); }
+.dh-pv-dong .is-truot { color: var(--admin-danger); }
+.dh-pv-dong .is-cho { color: #8A4513; }
+.dh-pv-dong .is-hen { color: var(--admin-primary); }
+.dh-pv-dong .is-chua { color: var(--admin-text-secondary); }
+
+/* Khối Phỏng vấn trên màn chi tiết — viền trái màu của bước Phỏng vấn (#7C3AED) */
+.dh-pv { border-left: 3px solid #7C3AED; margin-bottom: 20px; }
+.dh-pv-loai { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.dh-pv-loai-btn {
+  padding: 7px 14px; border: 1px solid var(--admin-border); background: var(--admin-surface);
+  border-radius: 999px; font-family: inherit; font-size: 13px; font-weight: 600;
+  color: var(--admin-text-secondary); cursor: pointer;
+}
+.dh-pv-loai-btn:hover { border-color: var(--admin-primary); color: var(--admin-primary); }
+.dh-pv-loai-btn.active { background: var(--admin-primary); border-color: var(--admin-primary); color: #fff; }
+
+.dh-pv-buoi {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto; align-items: center;
+  gap: 10px 16px; padding: 10px 12px; margin-bottom: 8px;
+  border: 1px solid var(--admin-border); border-radius: var(--admin-radius-sm);
+}
+.dh-pv-ic {
+  width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--admin-bg); color: var(--admin-text-secondary); font-size: 14px;
+}
+.dh-pv-ten { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.dh-pv-ten > span { font-size: 12.5px; font-weight: 600; color: var(--admin-text-secondary); }
+.dh-pv-buoi.is-dau { border-color: #A9D9C2; background: #F3FAF6; }
+.dh-pv-buoi.is-dau .dh-pv-ic { background: var(--admin-accent); color: #fff; }
+.dh-pv-buoi.is-dau .dh-pv-ten > span { color: var(--admin-accent); }
+.dh-pv-buoi.is-truot { border-color: #F2B8B5; background: #FEF4F3; }
+.dh-pv-buoi.is-truot .dh-pv-ic { background: var(--admin-danger); color: #fff; }
+.dh-pv-buoi.is-truot .dh-pv-ten > span { color: var(--admin-danger); }
+.dh-pv-buoi.is-cho .dh-pv-ic { background: #FBEEDF; color: #8A4513; }
+.dh-pv-buoi.is-cho .dh-pv-ten > span { color: #8A4513; }
+.dh-pv-buoi.is-hen .dh-pv-ic { background: var(--admin-primary-light); color: var(--admin-primary); }
+.dh-pv-buoi.is-hen .dh-pv-ten > span { color: var(--admin-primary); }
+
+.dh-pv-ngay { display: flex; flex-direction: column; gap: 2px; }
+.dh-pv-ngay > span, .dh-pv-do > span {
+  font-size: 11px; font-weight: 700; color: var(--admin-text-secondary);
+  text-transform: uppercase; letter-spacing: .3px;
+}
+.dh-pv-ngay input, .dh-pv-do input {
+  padding: 6px 9px; border: 1px solid var(--admin-border); border-radius: var(--admin-radius-sm);
+  font-family: inherit; font-size: 13px; background: #fff;
+}
+.dh-pv-kq {
+  display: inline-flex; border: 1px solid var(--admin-border); border-radius: 999px; overflow: hidden;
+}
+.dh-pv-kq button {
+  border: 0; background: var(--admin-surface); padding: 7px 12px; cursor: pointer;
+  font-family: inherit; font-size: 12.5px; font-weight: 600; color: var(--admin-text-secondary);
+}
+.dh-pv-kq button + button { border-left: 1px solid var(--admin-border); }
+.dh-pv-kq button:hover { background: var(--admin-primary-light); }
+.dh-pv-kq button.active.k-dau { background: var(--admin-accent); color: #fff; }
+.dh-pv-kq button.active.k-truot { background: var(--admin-danger); color: #fff; }
+.dh-pv-kq button.active.k-cho { background: #8A4513; color: #fff; }
+
+.dh-pv-do { display: flex; align-items: center; gap: 10px; margin-top: 4px; flex-wrap: wrap; }
+.dh-pv-do input { flex: 1; min-width: 180px; max-width: 360px; }
+/* Icon + chữ trong flex: chữ bọc trong MỘT span (README mục 6). */
+.dh-pv-tomtat {
+  display: flex; gap: 8px; margin-top: 12px; padding-top: 10px;
+  border-top: 1px dashed var(--admin-border); font-size: 13px; color: var(--admin-text-secondary);
+}
+.dh-pv-tomtat > i { flex: none; margin-top: 2px; color: #7C3AED; }
+.dh-pv-tomtat > span { flex: 1; min-width: 0; }
+
+@media (max-width: 640px) {
+  .dh-pv-buoi { grid-template-columns: auto minmax(0, 1fr); }
+  .dh-pv-ngay, .dh-pv-kq { grid-column: 1 / -1; }
+  .dh-pv-kq { justify-self: start; }
+}
+
 /* --- checklist giấy tờ --- */
 .dh-gt { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
 .dh-gt-item {

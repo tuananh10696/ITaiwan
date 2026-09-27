@@ -14536,6 +14536,9 @@ ol.vh-list li::before {
 .dh-step.dang { background: var(--primary); border-color: var(--primary-dark); }
 .dh-step.dang .dh-step-ic { background: rgba(255,255,255,.22); color: #fff; }
 .dh-step.dang .dh-step-ten { color: #fff; font-weight: 800; }
+/* "Đạt 1/2" dưới bước Phỏng vấn — em phỏng vấn cả trường lẫn VP Đài Bắc thấy còn mấy buổi. */
+.dh-step-phu { display: block; margin-top: 3px; font-size: 10.5px; font-weight: 700; color: var(--text-secondary); }
+.dh-step.dang .dh-step-phu { color: #fff; }
 
 .dh-ket-thuc {
   display: flex; align-items: center; gap: 10px; font-weight: 800;

@@ -16,6 +16,7 @@ import { requireAuth } from '../middleware/auth.js';
 import { loadRole, requireStaff, phamViQuanTri, requireHoSoStaff } from '../middleware/roles.js';
 import { baoHocSinh } from '../utils/du-hoc-thong-bao.js';
 import { dungBoGop, nhomTheoTruong, PHAM_VI } from '../utils/nhom-truong.js';
+import { LOAI_PV, MA_LOAI_PV, COT_PV, tinhPhongVan } from '../../shared/phong-van.js';
 
 const router = Router();
 
@@ -38,7 +39,8 @@ export const BUOC = [
   { ma: 'ho-so',      ten: 'Nhận hồ sơ',       icon: 'fa-folder-open',      mau: '#64748B' },
   { ma: 'dong-tien',  ten: 'Đóng tiền',        icon: 'fa-money-bill-wave',  mau: '#D97706' },
   { ma: 'hoc',        ten: 'Học',              icon: 'fa-graduation-cap',   mau: '#2563EB' },
-  { ma: 'phong-van',  ten: 'Phỏng vấn trường', icon: 'fa-comments',         mau: '#7C3AED' },
+  // "Phỏng vấn" gồm phỏng vấn trường và/hoặc phỏng vấn VP Đài Bắc — xem shared/phong-van.js.
+  { ma: 'phong-van',  ten: 'Phỏng vấn',        icon: 'fa-comments',         mau: '#7C3AED' },
   { ma: 'visa',       ten: 'Xin visa',         icon: 'fa-passport',         mau: '#0891B2' },
   { ma: 'bay',        ten: 'Chốt lịch bay',    icon: 'fa-plane-departure',  mau: '#059669' },
   { ma: 'hoan-thanh', ten: 'Đã bay',           icon: 'fa-circle-check',     mau: '#16A34A' },
@@ -82,6 +84,8 @@ const COT_SUA = [
   'truong_nv1', 'truong_nv2', 'truong_nv3', 'nganh', 'ky_nhap_hoc', 'loai_hinh',
   'tu_van_id', 'nguon', 'ngay_nhan',
   'ngay_phong_van', 'kq_phong_van', 'truong_do', 'ngay_nop_visa', 'kq_visa', 'ngay_bay',
+  // Ba loại phỏng vấn (2026-09-27): trường dùng hai cột cũ ở dòng trên, VP Đài Bắc dùng hai cột này.
+  'loai_phong_van', 'ngay_pv_vp', 'kq_pv_vp',
   'chuyen_bay', 'tong_phi', 'ghi_chu', 'user_id',
   // Ký túc xá (2026-09-16). `ktx_dang_ky` / `ktx_loai` / `ktx_ghi_chu` là NGUYỆN VỌNG do học
   // sinh khai (cổng học sinh cũng ghi được), còn `ktx_kq` / `ktx_han` là kết quả + hạn nộp của
@@ -91,7 +95,7 @@ const COT_SUA = [
 /** Cột ngày: chuỗi rỗng phải thành NULL, không phải '' (MySQL ép '' thành 0000-00-00). */
 const COT_NGAY = new Set([
   'ngay_sinh', 'ho_chieu_het_han', 'ngay_nhan', 'ngay_phong_van', 'ngay_nop_visa', 'ngay_bay',
-  'ktx_han',
+  'ktx_han', 'ngay_pv_vp',
 ]);
 const COT_SO = new Set(['tong_phi', 'tu_van_id', 'user_id']);
 const ENUM_HOP_LE = {
@@ -99,6 +103,8 @@ const ENUM_HOP_LE = {
   loai_hinh: ['hoa-ngu', 'dai-hoc', 'cao-hoc', 'tien-si', 'khac'],
   kq_phong_van: ['cho', 'dau', 'truot'],
   kq_visa: ['cho', 'dau', 'truot'],
+  loai_phong_van: MA_LOAI_PV,
+  kq_pv_vp: ['cho', 'dau', 'truot'],
   ktx_dang_ky: ['chua-quyet', 'co', 'khong'],
   ktx_kq: ['cho', 'duoc', 'khong-duoc'],
 };
@@ -182,6 +188,61 @@ function chuanGiaTri(cot, v) {
   return String(v).trim().slice(0, 1000) || null;
 }
 
+/**
+ * Giá trị để SO SÁNH cũ/mới theo đúng thứ người dùng thấy. Cột DATE từ mysql2 về là Date object
+ * dựng theo giờ máy chủ, nên lấy ngày bằng getter giờ ĐỊA PHƯƠNG — `toISOString()` sẽ lùi một
+ * ngày trên máy đặt múi +07.
+ */
+function giaTriSo(v) {
+  if (v === null || v === undefined || v === '') return '';
+  if (v instanceof Date) {
+    const p = (n) => String(n).padStart(2, '0');
+    return `${v.getFullYear()}-${p(v.getMonth() + 1)}-${p(v.getDate())}`;
+  }
+  return String(v);
+}
+
+/**
+ * Hồ sơ đang ở bước "Phỏng vấn" và đã ĐẬU đủ các buổi cần có (trường / VP Đài Bắc / cả 2) thì tự
+ * chuyển sang "Xin visa", ghi lịch sử và báo học sinh như một lần chuyển bước bằng tay.
+ *
+ * Chỉ đi TỪ "Phỏng vấn": hồ sơ còn ở "Học" / "Đóng tiền" mà có kết quả phỏng vấn (học chạy song
+ * song với phỏng vấn) thì không nhảy cóc — tự bỏ qua bước chưa xong là giấu mất việc còn nợ.
+ * `AND buoc = 'phong-van'` nằm trong câu UPDATE để hai lần lưu cùng lúc không chuyển hai lần.
+ *
+ * @returns {Promise<string|null>} mã bước đã chuyển tới, hoặc null nếu không chuyển
+ */
+async function tuChuyenSauPhongVan(hoSoId, req) {
+  try {
+    const [r] = await pool.query(
+      `SELECT id, buoc, user_id, loai_phong_van, ngay_phong_van, kq_phong_van, ngay_pv_vp, kq_pv_vp
+         FROM du_hoc_ho_so WHERE id = ?`, [hoSoId]);
+    const h = r[0];
+    if (!h || h.buoc !== 'phong-van') return null;
+    const pv = tinhPhongVan(h);
+    if (!pv.du) return null;
+
+    const [u] = await pool.query(
+      "UPDATE du_hoc_ho_so SET buoc = 'visa', buoc_tu = CURDATE() WHERE id = ? AND buoc = 'phong-van'",
+      [hoSoId]);
+    if (!u.affectedRows) return null;
+
+    const ten = (m) => BUOC.find((b) => b.ma === m)?.ten || m;
+    await ghiNhatKy(hoSoId, 'buoc',
+      `${ten('phong-van')} → ${ten('visa')} · tự chuyển vì đã đậu ${pv.tong > 1 ? `cả ${pv.tong} buổi phỏng vấn` : 'phỏng vấn'}`,
+      req.userId, 'phong-van', 'visa');
+    if (h.user_id) {
+      await baoHocSinh(hoSoId, h.user_id, 'buoc', `Hồ sơ chuyển sang bước: ${ten('visa')}`,
+        `Hồ sơ du học của bạn vừa được chuyển từ "${ten('phong-van')}" sang "${ten('visa')}".`);
+    }
+    return 'visa';
+  } catch (err) {
+    // Tự chuyển là việc phụ: lỗi ở đây không được làm hỏng lần lưu vừa thành công.
+    console.error('Lỗi tự chuyển bước sau phỏng vấn:', err);
+    return null;
+  }
+}
+
 /** Tách phần thân hồ sơ client gửi lên thành cặp (cột, giá trị) đã lọc + chuẩn hoá. */
 /**
  * Lọc các trường được phép ghi từ body.
@@ -248,15 +309,20 @@ router.get('/du-hoc/tong-quan', async (req, res) => {
     // Mỗi truy vấn trả lời một câu hỏi vận hành cụ thể. Giới hạn 20 để màn hình không thành một
     // danh sách dài vô tận; số tổng nằm ở `dem`.
     const viec = {};
+    // Hai loại buổi (trường / VP Đài Bắc) gộp một danh sách, mỗi dòng ghi rõ `loai_buoi`: em
+    // "Cả 2" có hai buổi trong 14 ngày thì hiện hai dòng — đó là hai việc phải chuẩn bị.
+    const buoiPv = (cotNgay, cotKq, loai) => `
+      SELECT h.id, h.ma_hs, h.ho_ten, '${loai}' AS loai_buoi, h.${cotNgay} AS ngay, h.truong_nv1
+        FROM du_hoc_ho_so h
+       WHERE h.${cotNgay} IS NOT NULL
+         AND (h.${cotKq} IS NULL OR h.${cotKq} = 'cho')
+         AND h.buoc NOT IN ('huy', 'tam-dung')
+         AND h.${cotNgay} BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 14 DAY)${o}`;
     const [pv] = await pool.query(
-      `SELECT h.id, h.ma_hs, h.ho_ten, h.ngay_phong_van, h.truong_nv1
-         FROM du_hoc_ho_so h
-        WHERE h.ngay_phong_van IS NOT NULL
-          AND (h.kq_phong_van IS NULL OR h.kq_phong_van = 'cho')
-          AND h.buoc NOT IN ('huy', 'tam-dung')
-          AND h.ngay_phong_van BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 14 DAY)${o}
-        ORDER BY h.ngay_phong_van LIMIT 20`,
-      t
+      `SELECT * FROM (${buoiPv('ngay_phong_van', 'kq_phong_van', 'truong')}
+        UNION ALL ${buoiPv('ngay_pv_vp', 'kq_pv_vp', 'vp')}) x
+        ORDER BY x.ngay LIMIT 20`,
+      [...t, ...t]
     );
     viec.phong_van = pv;
 
@@ -372,6 +438,7 @@ router.get('/du-hoc/ho-so', async (req, res) => {
     const [rows] = await pool.query(
       `SELECT h.id, h.ma_hs, h.ho_ten, h.phone, h.email, h.buoc, h.buoc_tu, h.ky_nhap_hoc,
               h.truong_nv1, h.loai_hinh, h.ngay_phong_van, h.kq_phong_van, h.ngay_nop_visa,
+              h.loai_phong_van, h.ngay_pv_vp, h.kq_pv_vp,
               h.kq_visa, h.ngay_bay, h.tong_phi, h.user_id, h.ho_chieu_het_han, h.created_at,
               u.name AS tu_van_ten,
               (SELECT COALESCE(SUM(CASE WHEN tt.loai = 'hoan' THEN -tt.so_tien ELSE tt.so_tien END), 0)
@@ -451,6 +518,7 @@ router.get('/du-hoc/theo-truong', async (req, res) => {
         `SELECT h.id, h.ma_hs, h.ho_ten, h.buoc, h.buoc_tu, h.ky_nhap_hoc, h.loai_hinh, h.nganh,
                 h.truong_nv1, h.truong_nv2, h.truong_nv3, h.truong_do,
                 h.ngay_phong_van, h.kq_phong_van, h.ngay_nop_visa, h.kq_visa, h.ngay_bay,
+                h.loai_phong_van, h.ngay_pv_vp, h.kq_pv_vp,
                 u.name AS tu_van_ten,
                 (SELECT COUNT(*) FROM du_hoc_giay_to g
                   WHERE g.ho_so_id = h.id AND g.bat_buoc = TRUE AND g.trang_thai = 'chua') AS thieu_giay_to
@@ -563,6 +631,7 @@ router.get('/du-hoc/ho-so/:id', async (req, res) => {
       tien: { tong_phi: hs.tong_phi, da_thu: daThu, con_thieu: Math.max(0, hs.tong_phi - daThu) },
       hoc_tap: hocTap,
       buoc: BUOC,
+      loai_pv: LOAI_PV,
     });
   } catch (err) {
     console.error('Lỗi chi tiết hồ sơ du học:', err);
@@ -691,11 +760,16 @@ router.put('/du-hoc/ho-so/:id', async (req, res) => {
     // Chỉ ghi nhật ký cho những thay đổi CÓ Ý NGHĨA nghiệp vụ. Ghi mọi lần sửa một ô điện thoại
     // thì nhật ký ngập rác và không ai đọc nữa.
     const dangChu = {
-      ngay_phong_van: 'ngày phỏng vấn', kq_phong_van: 'kết quả phỏng vấn',
+      ngay_phong_van: 'ngày phỏng vấn trường', kq_phong_van: 'kết quả phỏng vấn trường',
+      loai_phong_van: 'loại phỏng vấn',
+      ngay_pv_vp: 'ngày phỏng vấn VP Đài Bắc', kq_pv_vp: 'kết quả phỏng vấn VP Đài Bắc',
       ngay_nop_visa: 'ngày nộp visa', kq_visa: 'kết quả visa',
       ngay_bay: 'ngày bay', tong_phi: 'tổng phí', tu_van_id: 'tư vấn viên phụ trách',
     };
-    const doi = cot.filter((c, i) => dangChu[c] && String(hs[c] ?? '') !== String(gt[i] ?? ''));
+    // So theo giá trị NGƯỜI DÙNG THẤY: cột DATE từ mysql2 về là Date object, còn giá trị mới là
+    // chuỗi 'YYYY-MM-DD' — so String() hai thứ đó thì lần lưu nào cũng "đổi ngày", và học sinh
+    // nhận lại thông báo "đã xếp lịch phỏng vấn / chốt lịch bay" mỗi khi ai đó bấm Lưu form.
+    const doi = cot.filter((c, i) => dangChu[c] && giaTriSo(hs[c]) !== giaTriSo(gt[i]));
     if (doi.length) {
       await ghiNhatKy(hs.id, 'ghi-chu', `Cập nhật: ${doi.map((c) => dangChu[c]).join(', ')}`, req.userId);
     }
@@ -708,9 +782,22 @@ router.put('/du-hoc/ho-so/:id', async (req, res) => {
     if (hs.user_id) {
       if (doiMoc.has('ngay_phong_van') && moi('ngay_phong_van')) {
         await baoHocSinh(hs.id, hs.user_id, 'phong-van',
-          'Trung tâm đã xếp lịch phỏng vấn',
+          'Trung tâm đã xếp lịch phỏng vấn trường',
           `Ngày phỏng vấn: ${ngayVi(moi('ngay_phong_van'))}. Bạn chuẩn bị hồ sơ và có mặt đúng giờ nhé.`,
           moi('ngay_phong_van'));
+      }
+      if (doiMoc.has('ngay_pv_vp') && moi('ngay_pv_vp')) {
+        await baoHocSinh(hs.id, hs.user_id, 'phong-van',
+          'Trung tâm đã xếp lịch phỏng vấn VP Đài Bắc',
+          `Ngày phỏng vấn: ${ngayVi(moi('ngay_pv_vp'))}. Bạn chuẩn bị hồ sơ và có mặt đúng giờ nhé.`,
+          moi('ngay_pv_vp'));
+      }
+      if (doiMoc.has('kq_pv_vp') && moi('kq_pv_vp') && moi('kq_pv_vp') !== 'cho') {
+        await baoHocSinh(hs.id, hs.user_id, 'phong-van',
+          moi('kq_pv_vp') === 'dau' ? 'Bạn đã ĐẬU phỏng vấn VP Đài Bắc' : 'Kết quả phỏng vấn VP Đài Bắc',
+          moi('kq_pv_vp') === 'dau'
+            ? 'Chúc mừng! Trung tâm sẽ hướng dẫn bước tiếp theo.'
+            : 'Kết quả chưa như mong đợi. Liên hệ tư vấn viên để bàn phương án tiếp theo nhé.');
       }
       if (doiMoc.has('ngay_bay') && moi('ngay_bay')) {
         await baoHocSinh(hs.id, hs.user_id, 'bay',
@@ -745,13 +832,24 @@ router.put('/du-hoc/ho-so/:id', async (req, res) => {
             : 'Lần này bạn chưa được xếp ký túc xá. Liên hệ tư vấn viên để tìm phương án thuê ngoài.');
       }
       const ktxHan = cot.includes('ktx_han') ? moi('ktx_han') : undefined;
-      if (ktxHan && String(hs.ktx_han ?? '') !== String(ktxHan)) {
+      if (ktxHan && giaTriSo(hs.ktx_han) !== giaTriSo(ktxHan)) {
         await baoHocSinh(hs.id, hs.user_id, 'ktx', 'Hạn đăng ký ký túc xá',
           `Hạn đăng ký ký túc xá: ${ngayVi(ktxHan)}. Vào hồ sơ du học chọn nguyện vọng chỗ ở giúp trung tâm nhé.`, ktxHan);
       }
     }
 
-    res.json({ message: 'Đã lưu hồ sơ.' });
+    // Đậu đủ các buổi phỏng vấn cần có -> tự sang "Xin visa". Chỉ xét khi lần lưu này làm ĐỔI một
+    // ô phỏng vấn — không phải chỉ "có gửi kèm": form sửa hồ sơ luôn gửi mọi ô, nên hồ sơ vừa được
+    // kéo lùi về "Phỏng vấn" để phỏng vấn lại sẽ bị đẩy đi ngay khi ai đó sửa số điện thoại.
+    const doiPv = cot.some((c, i) => COT_PV.includes(c) && giaTriSo(hs[c]) !== giaTriSo(gt[i]));
+    const tuChuyen = doiPv ? await tuChuyenSauPhongVan(hs.id, req) : null;
+
+    res.json({
+      message: tuChuyen
+        ? 'Đã lưu. Hồ sơ đậu đủ phỏng vấn nên đã tự chuyển sang bước "Xin visa".'
+        : 'Đã lưu hồ sơ.',
+      tu_chuyen_buoc: tuChuyen,
+    });
   } catch (err) {
     console.error('Lỗi sửa hồ sơ du học:', err);
     res.status(500).json({ error: loiBang(err, 'Không lưu được hồ sơ.') });

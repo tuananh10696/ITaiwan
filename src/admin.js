@@ -12,6 +12,8 @@ import {
   dangKy as dangKyTrungTam, renderQuy, renderKtx, renderDeBai,
   quyHandlers, ktxHandlers, deHandlers,
 } from './admin-trungtam.js';
+// Bước Phỏng vấn: 3 loại + trạng thái từng buổi. Quy tắc DÙNG CHUNG với server (tự chuyển bước).
+import { LOAI_PV, BUOI_PV, tinhPhongVan, loaiPv } from '../shared/phong-van.js';
 // Tiến độ theo trường (2026-09-25) — khu con của Du học, cùng lối cầu nối như module trên.
 import {
   dangKy as dangKyTienDoTruong, renderTienDoTruong, tdtHandlers, tdtQuery, tdtNapQuery,
@@ -3460,7 +3462,8 @@ async function tbBoQua(userId) {
 // ============================================================
 // HỒ SƠ DU HỌC (2026-09-15) — chỉ quản trị trung tâm
 // ============================================================
-// Luồng: Nhận hồ sơ -> Đóng tiền -> Học -> Phỏng vấn trường -> Xin visa -> Chốt lịch bay.
+// Luồng: Nhận hồ sơ -> Đóng tiền -> Học -> Phỏng vấn -> Xin visa -> Chốt lịch bay.
+// "Phỏng vấn" gồm phỏng vấn trường và/hoặc phỏng vấn VP Đài Bắc (shared/phong-van.js).
 // Backend: server/routes/du-hoc.js. Giáo viên KHÔNG vào được (hồ sơ có CCCD, hộ chiếu, tiền).
 //
 // Hai màn, đổi bằng `dhView` giống cách Quản lý lớp làm: danh sách -> chi tiết một hồ sơ.
@@ -3492,6 +3495,57 @@ const _dhBuoc = (ma) => dhBuocList.find((b) => b.ma === ma) || { ma, ten: ma, ic
 const _dhNgay = (d) => (d ? new Date(d).toLocaleDateString('vi-VN') : '—');
 const _dhVal = (id) => (document.getElementById(id)?.value || '').trim();
 const _dhSo = (id) => parseInt(String(_dhVal(id)).replace(/[^\d]/g, ''), 10) || 0;
+
+/**
+ * Ngày cho ô <input type="date">. Dùng getter giờ ĐỊA PHƯƠNG chứ không `slice(0, 10)` chuỗi ISO:
+ * server đặt múi +07 trả "2026-10-09T17:00:00.000Z" cho ngày 10/10 — cắt chuỗi là lùi một ngày,
+ * và lưu form lại là ngày trôi dần về trước mỗi lần bấm Lưu.
+ */
+function _dhNgayInput(v) {
+  if (!v) return '';
+  if (/^\d{4}-\d{2}-\d{2}$/.test(String(v))) return String(v);
+  const t = new Date(v);
+  if (Number.isNaN(t.getTime())) return '';
+  const p = (n) => String(n).padStart(2, '0');
+  return `${t.getFullYear()}-${p(t.getMonth() + 1)}-${p(t.getDate())}`;
+}
+/** `dd/mm` — tự ghép: `toLocaleDateString('vi-VN', {day, month})` ra "06-10" với gạch ngang. */
+function _dhNgayNgan(d) {
+  if (!d) return '';
+  const t = new Date(d);
+  const p = (n) => String(n).padStart(2, '0');
+  return `${p(t.getDate())}/${p(t.getMonth() + 1)}`;
+}
+
+/** Trạng thái một buổi phỏng vấn -> icon + chữ. Trạng thái tính ở shared/phong-van.js. */
+const DH_PV_TT = {
+  dau: { icon: 'fa-check', chu: 'Đậu' },
+  truot: { icon: 'fa-xmark', chu: 'Trượt' },
+  cho: { icon: 'fa-hourglass-half', chu: 'Đang chờ' },
+  hen: { icon: 'fa-clock', chu: '' },          // chữ = ngày hẹn
+  chua: { icon: 'fa-minus', chu: 'Chưa hẹn' },
+};
+const _dhPvChu = (b) => (b.trang_thai === 'hen' ? _dhNgayNgan(b.ngay) : DH_PV_TT[b.trang_thai].chu);
+
+/**
+ * Một dòng tóm tắt từng buổi phỏng vấn: "Trường · Đậu   VP Đài Bắc · 10/10". Dùng ở bảng danh
+ * sách hồ sơ và bảng Tiến độ theo trường — nhìn là biết em đang kẹt ở buổi nào.
+ */
+function _dhPvDong(h) {
+  const pv = tinhPhongVan(h);
+  if (!pv.loai) return '<div class="dh-pv-dong"><span class="is-chua"><span>Chưa chọn loại phỏng vấn</span></span></div>';
+  return `<div class="dh-pv-dong">${pv.buoi.map((b) => `<span class="is-${b.trang_thai}">
+      <i class="fa-solid ${DH_PV_TT[b.trang_thai].icon}"></i><span>${esc(b.ngan)} · ${_dhPvChu(b)}</span></span>`).join('')}</div>`;
+}
+
+/** Ngày phỏng vấn đáng nhìn nhất: buổi sắp tới gần nhất, không có thì buổi gần đây nhất. */
+function _dhPvMocGan(h) {
+  const ds = [h.ngay_phong_van, h.ngay_pv_vp].filter(Boolean).map((d) => new Date(d));
+  if (!ds.length) return null;
+  const homNay = new Date(); homNay.setHours(0, 0, 0, 0);
+  const sap = ds.filter((d) => d >= homNay).sort((a, b) => a - b);
+  return sap[0] || ds.sort((a, b) => b - a)[0];
+}
 
 /** Chip trạng thái bước, dùng chung ở bảng danh sách và các thẻ việc cần làm. */
 function _dhChipBuoc(ma) {
@@ -3668,7 +3722,7 @@ function _dhVeDanhSachHtml(el, tq, ds) {
 
   const khoiViec = [
     oViec('Phỏng vấn trong 14 ngày', 'fa-comments', '#2F6B58', v.phong_van,
-      (h) => li(h, _dhNgay(h.ngay_phong_van))),
+      (h) => li(h, `${_dhNgay(h.ngay)} · ${esc((BUOI_PV[h.loai_buoi] || BUOI_PV.truong).ngan)}`)),
     oViec('Bay trong 30 ngày', 'fa-plane-departure', '#17794A', v.sap_bay,
       (h) => li(h, _dhNgay(h.ngay_bay))),
     oViec('Hộ chiếu sắp hết hạn', 'fa-passport', '#DC2626', v.ho_chieu,
@@ -3702,6 +3756,7 @@ function _dhVeDanhSachHtml(el, tq, ds) {
         <div class="dh-sub">${esc(h.ma_hs)}${h.phone ? ' · ' + esc(h.phone) : ''}</div>
       </td>
       <td>${_dhChipBuoc(h.buoc)}
+        ${h.buoc === 'phong-van' ? _dhPvDong(h) : ''}
         ${h.buoc_tu ? `<div class="dh-sub">từ ${_dhNgay(h.buoc_tu)}</div>` : ''}</td>
       <td>${h.truong_nv1 ? esc(h.truong_nv1) : '<span class="dh-sub">—</span>'}
         <div class="dh-sub">${h.ky_nhap_hoc ? esc(h.ky_nhap_hoc) : ''}${h.loai_hinh ? ' · ' + DH_LOAI_HINH[h.loai_hinh] : ''}</div></td>
@@ -3722,7 +3777,7 @@ function _dhVeDanhSachHtml(el, tq, ds) {
           : '<span class="badge badge-success">đủ</span>'}</td>
       <td class="dh-sub" style="white-space:nowrap">
         ${h.ngay_bay ? '<i class="fa-solid fa-plane-departure"></i> ' + _dhNgay(h.ngay_bay)
-          : h.ngay_phong_van ? '<i class="fa-solid fa-comments"></i> ' + _dhNgay(h.ngay_phong_van) : '—'}</td>
+          : _dhPvMocGan(h) ? '<i class="fa-solid fa-comments"></i> ' + _dhNgay(_dhPvMocGan(h)) : '—'}</td>
     </tr>`;
   }).join('');
 
@@ -3738,7 +3793,7 @@ function _dhVeDanhSachHtml(el, tq, ds) {
       <div>
         <h2 style="margin:0">Hồ sơ du học</h2>
         <p style="margin:4px 0 0;font-size:13px;color:var(--admin-text-muted)">
-          Nhận hồ sơ → Đóng tiền → Học → Phỏng vấn trường → Xin visa → Chốt lịch bay.</p>
+          Nhận hồ sơ → Đóng tiền → Học → Phỏng vấn → Xin visa → Chốt lịch bay.</p>
       </div>
       <button class="btn btn-primary" onclick="adminApp.dhFormHoSo()">
         <i class="fa-solid fa-plus"></i> Thêm hồ sơ
@@ -3814,6 +3869,8 @@ function _dhVeChiTietHtml(el) {
   const h = d.ho_so;
   const t = d.tien || {};
 
+  const pv = tinhPhongVan(h);
+
   // --- Thanh 6 bước. Bấm thẳng vào bước để chuyển; cho tới/lùi tự do (trượt visa phải làm lại). ---
   const chinh = dhBuocList.filter((b) => !['hoan-thanh', 'tam-dung', 'huy'].includes(b.ma));
   const viTri = chinh.findIndex((b) => b.ma === h.buoc);
@@ -3829,6 +3886,7 @@ function _dhVeChiTietHtml(el) {
                 onclick="adminApp.dhChuyenBuoc('${b.ma}')" title="Chuyển sang bước này">
           <span class="dh-step-ic"><i class="fa-solid ${qua ? 'fa-check' : b.icon}"></i></span>
           <span class="dh-step-ten">${esc(b.ten)}</span>
+          ${b.ma === 'phong-van' && pv.tong ? `<span class="dh-step-phu">Đậu ${pv.dau}/${pv.tong}</span>` : ''}
         </button>`;
       }).join('')}
     </div>
@@ -3885,15 +3943,48 @@ function _dhVeChiTietHtml(el) {
       ${h.ghi_chu ? `<div class="dh-note"><i class="fa-solid fa-note-sticky"></i><span>${esc(h.ghi_chu)}</span></div>` : ''}
     </div>`;
 
-  // --- Mốc phỏng vấn / visa / bay ---
+  // --- Phỏng vấn: loại + từng buổi, bấm nhanh ngay trên màn chi tiết (2026-09-27) ---
+  // Đặt ngay dưới thanh bước, trải hết bề ngang: đây là chỗ hồ sơ hay kẹt lâu nhất, phải nhìn
+  // một cái là biết còn buổi nào chưa có kết quả. Mỗi thao tác lưu ngay (PUT), không mở form.
+  const kqNut = (b) => ['cho', 'dau', 'truot'].map((k) => `
+      <button type="button" class="k-${k} ${b.kq === k ? 'active' : ''}" aria-pressed="${b.kq === k}"
+              onclick="adminApp.dhPvKq('${b.ma}','${k}')">${DH_KET_QUA[k]}</button>`).join('');
+  const pvTomTat = !pv.loai ? ['fa-circle-question', 'Chọn loại phỏng vấn cho hồ sơ này.']
+    : pv.du ? ['fa-circle-check', h.buoc === 'phong-van' || ['ho-so', 'dong-tien', 'hoc'].includes(h.buoc)
+      ? `Đã đậu đủ phỏng vấn.${h.buoc !== 'phong-van' ? ' Hồ sơ chỉ tự chuyển sang "Xin visa" khi đang ở bước "Phỏng vấn".' : ''}`
+      : 'Đã đậu đủ phỏng vấn.']
+      : pv.truot ? ['fa-circle-xmark', 'Có buổi phỏng vấn trượt — cần xử lý.']
+        : ['fa-hourglass-half', `Đã đậu ${pv.dau}/${pv.tong} buổi. Đậu đủ thì hồ sơ tự chuyển sang "Xin visa".`];
+  const pvCard = `
+    <div class="data-table-wrapper dh-pv" style="padding:16px">
+      <div class="dh-block-head">
+        <h3>Phỏng vấn${pv.tong ? ` <span class="badge ${pv.du ? 'badge-success' : pv.truot ? 'badge-danger' : 'badge-gray'}">Đậu ${pv.dau}/${pv.tong}</span>` : ''}</h3>
+      </div>
+      <div class="dh-pv-loai" role="group" aria-label="Loại phỏng vấn">
+        ${LOAI_PV.map((l) => `<button type="button" class="dh-pv-loai-btn ${pv.loai === l.ma ? 'active' : ''}"
+            aria-pressed="${pv.loai === l.ma}" onclick="adminApp.dhPvLoai('${l.ma}')">${esc(l.ten)}</button>`).join('')}
+      </div>
+      ${pv.buoi.map((b) => `
+        <div class="dh-pv-buoi is-${b.trang_thai}">
+          <span class="dh-pv-ic"><i class="fa-solid ${DH_PV_TT[b.trang_thai].icon}"></i></span>
+          <div class="dh-pv-ten"><b>${esc(b.ten)}</b><span>${_dhPvChu(b)}</span></div>
+          <label class="dh-pv-ngay"><span>Ngày phỏng vấn</span>
+            <input type="date" value="${_dhNgayInput(b.ngay)}" onchange="adminApp.dhPvNgay('${b.ma}', this.value)"></label>
+          <div class="dh-pv-kq" role="group" aria-label="Kết quả ${esc(b.ten)}">${kqNut(b)}</div>
+        </div>`).join('')}
+      ${pv.loai ? `
+        <label class="dh-pv-do"><span>Trường đã đậu</span>
+          <input type="text" value="${esc(h.truong_do || '')}" placeholder="—"
+                 onchange="adminApp.dhPvTruongDo(this.value)"></label>` : ''}
+      <div class="dh-pv-tomtat"><i class="fa-solid ${pvTomTat[0]}"></i><span>${esc(pvTomTat[1])}</span></div>
+    </div>`;
+
+  // --- Mốc visa / bay --- (phỏng vấn đã có khối riêng ở trên)
   const kq = (v) => (v ? `<span class="badge ${v === 'dau' ? 'badge-success' : v === 'truot' ? 'badge-danger' : 'badge-gray'}">${DH_KET_QUA[v]}</span>` : '');
   const mocs = `
     <div class="data-table-wrapper" style="padding:16px">
-      <div class="dh-block-head"><h3>Phỏng vấn · Visa · Lịch bay</h3></div>
+      <div class="dh-block-head"><h3>Visa · Lịch bay</h3></div>
       <div class="dh-moc">
-        <div><span class="dh-sub">Phỏng vấn trường</span>
-          <b>${_dhNgay(h.ngay_phong_van)}</b> ${kq(h.kq_phong_van)}
-          ${h.truong_do ? `<div class="dh-sub">Đậu: ${esc(h.truong_do)}</div>` : ''}</div>
         <div><span class="dh-sub">Nộp hồ sơ visa</span>
           <b>${_dhNgay(h.ngay_nop_visa)}</b> ${kq(h.kq_visa)}</div>
         <div><span class="dh-sub">Chuyến bay</span>
@@ -4030,6 +4121,7 @@ function _dhVeChiTietHtml(el) {
       </div>
     </div>
     ${thanhBuoc}
+    ${pvCard}
     <div class="admin-cols-2">
       <div style="display:flex;flex-direction:column;gap:20px">${thongTin}${giayTo}</div>
       <div style="display:flex;flex-direction:column;gap:20px">${mocs}${tien}${hocTap}${nhatKy}</div>
@@ -4051,10 +4143,45 @@ async function dhChuyenBuoc(buoc) {
   }
 }
 
+// ------------------------------------------------------------------ phỏng vấn: bấm nhanh
+/** Lưu một thay đổi của khối Phỏng vấn rồi vẽ lại. Server tự chuyển bước khi đậu đủ. */
+async function _dhPvLuu(body) {
+  if (!dhId) return;
+  try {
+    const r = await apiPut(`/admin/du-hoc/ho-so/${dhId}`, body);
+    toast(r.message || 'Đã lưu.');
+    renderDuHoc(document.getElementById('admin-content'));
+  } catch (err) {
+    toast(err.message || 'Không lưu được.', 'error');
+  }
+}
+function dhPvLoai(ma) {
+  if (dhChiTiet?.ho_so.loai_phong_van === ma) return;
+  _dhPvLuu({ loai_phong_van: ma });
+}
+function dhPvNgay(buoi, v) {
+  const b = BUOI_PV[buoi];
+  if (b) _dhPvLuu({ [b.cotNgay]: v });
+}
+function dhPvKq(buoi, kq) {
+  const b = BUOI_PV[buoi];
+  if (!b || dhChiTiet?.ho_so[b.cotKq] === kq) return;
+  _dhPvLuu({ [b.cotKq]: kq });
+}
+function dhPvTruongDo(v) { _dhPvLuu({ truong_do: v }); }
+
+/** Form sửa hồ sơ: ẩn/hiện hàng ngày + kết quả theo loại phỏng vấn đang chọn. */
+function dhFormLoaiPv() {
+  const loai = _dhVal('f-dh-loai-pv');
+  const hien = (id, co) => { const el = document.getElementById(id); if (el) el.style.display = co ? '' : 'none'; };
+  hien('f-dh-pv-truong', loai === 'truong' || loai === 'ca-hai');
+  hien('f-dh-pv-vp', loai === 'vp' || loai === 'ca-hai');
+}
+
 function dhFormHoSo(id) {
   const sua = !!id;
   const h = sua && dhChiTiet && dhChiTiet.ho_so.id === id ? dhChiTiet.ho_so : {};
-  const d = (v) => (v ? String(v).slice(0, 10) : '');
+  const d = _dhNgayInput;
   const opt = (map, cur) => Object.entries(map)
     .map(([k, v]) => `<option value="${k}" ${cur === k ? 'selected' : ''}>${v}</option>`).join('');
 
@@ -4164,15 +4291,31 @@ function dhFormHoSo(id) {
         <input type="text" id="f-dh-ktx-gc" value="${_escAttr(h.ktx_ghi_chu || '')}"></div>
     </div>
 
-    <div class="dh-form-sec">Tiến độ &amp; vận hành</div>
-    <div class="form-row dh-f3">
-      <div class="form-group"><label>Ngày phỏng vấn</label>
-        <input type="date" id="f-dh-ngay-pv" value="${d(h.ngay_phong_van)}"></div>
-      <div class="form-group"><label>Kết quả phỏng vấn</label>
-        <select id="f-dh-kq-pv"><option value="">—</option>${opt(DH_KET_QUA, h.kq_phong_van)}</select></div>
+    <div class="dh-form-sec">Phỏng vấn</div>
+    <div class="form-row">
+      <div class="form-group"><label>Loại phỏng vấn</label>
+        <select id="f-dh-loai-pv" onchange="adminApp.dhFormLoaiPv()"><option value="">—</option>
+          ${LOAI_PV.map((l) => `<option value="${l.ma}" ${loaiPv(h) === l.ma ? 'selected' : ''}>${esc(l.ten)}</option>`).join('')}
+        </select></div>
       <div class="form-group"><label>Trường đã đậu</label>
         <input type="text" id="f-dh-truong-do" value="${_escAttr(h.truong_do || '')}"></div>
     </div>
+    <!-- Hai hàng dưới ẩn/hiện theo loại phỏng vấn (dhFormLoaiPv). Ẩn vẫn gửi giá trị cũ đi,
+         nên đổi loại qua lại không làm mất ngày / kết quả đã nhập. -->
+    <div class="form-row" id="f-dh-pv-truong" style="${['truong', 'ca-hai'].includes(loaiPv(h)) ? '' : 'display:none'}">
+      <div class="form-group"><label>Ngày phỏng vấn trường</label>
+        <input type="date" id="f-dh-ngay-pv" value="${d(h.ngay_phong_van)}"></div>
+      <div class="form-group"><label>Kết quả phỏng vấn trường</label>
+        <select id="f-dh-kq-pv"><option value="">—</option>${opt(DH_KET_QUA, h.kq_phong_van)}</select></div>
+    </div>
+    <div class="form-row" id="f-dh-pv-vp" style="${['vp', 'ca-hai'].includes(loaiPv(h)) ? '' : 'display:none'}">
+      <div class="form-group"><label>Ngày phỏng vấn VP Đài Bắc</label>
+        <input type="date" id="f-dh-ngay-pv-vp" value="${d(h.ngay_pv_vp)}"></div>
+      <div class="form-group"><label>Kết quả phỏng vấn VP Đài Bắc</label>
+        <select id="f-dh-kq-pv-vp"><option value="">—</option>${opt(DH_KET_QUA, h.kq_pv_vp)}</select></div>
+    </div>
+
+    <div class="dh-form-sec">Tiến độ &amp; vận hành</div>
     <div class="form-row">
       <div class="form-group"><label>Ngày nộp visa</label>
         <input type="date" id="f-dh-ngay-visa" value="${d(h.ngay_nop_visa)}"></div>
@@ -4283,6 +4426,7 @@ async function dhLuuHoSo(id) {
     truong_nv1: _dhVal('f-dh-nv1'), truong_nv2: _dhVal('f-dh-nv2'), truong_nv3: _dhVal('f-dh-nv3'),
     nganh: _dhVal('f-dh-nganh'), ky_nhap_hoc: _dhVal('f-dh-ky'), loai_hinh: _dhVal('f-dh-loai-hinh'),
     ngay_phong_van: _dhVal('f-dh-ngay-pv'), kq_phong_van: _dhVal('f-dh-kq-pv'), truong_do: _dhVal('f-dh-truong-do'),
+    loai_phong_van: _dhVal('f-dh-loai-pv'), ngay_pv_vp: _dhVal('f-dh-ngay-pv-vp'), kq_pv_vp: _dhVal('f-dh-kq-pv-vp'),
     ngay_nop_visa: _dhVal('f-dh-ngay-visa'), kq_visa: _dhVal('f-dh-kq-visa'),
     ngay_bay: _dhVal('f-dh-ngay-bay'), chuyen_bay: _dhVal('f-dh-chuyen-bay'),
     ktx_dang_ky: _dhVal('f-dh-ktx-dk'), ktx_loai: _dhVal('f-dh-ktx-loai'),
@@ -4299,8 +4443,9 @@ async function dhLuuHoSo(id) {
   }
   try {
     if (id) {
-      await apiPut(`/admin/du-hoc/ho-so/${id}`, body);
-      toast('Đã lưu hồ sơ.');
+      const r = await apiPut(`/admin/du-hoc/ho-so/${id}`, body);
+      // Server báo kèm khi hồ sơ tự chuyển sang "Xin visa" vì đậu đủ phỏng vấn.
+      toast(r.message || 'Đã lưu hồ sơ.');
       closeModal();
       renderDuHoc(document.getElementById('admin-content'));
     } else {
@@ -4582,7 +4727,7 @@ async function dhNapNhanSu() {
 // Nạp cầu nối cho module 3 khu trung tâm TRƯỚC khi gắn handler — module gọi các helper này
 // ngay từ lần render đầu tiên.
 dangKyTrungTam({ apiGet, apiPost, apiPut, apiDel, esc, toast, openModal, closeModal, confirmDialog, _tien, conDungLuot });
-dangKyTienDoTruong({ apiGet, esc, conDungLuot, syncUrl: syncAdminUrl, moHoSo: dhMoTuKhuKhac });
+dangKyTienDoTruong({ apiGet, esc, conDungLuot, syncUrl: syncAdminUrl, moHoSo: dhMoTuKhuKhac, pvDong: _dhPvDong });
 
 window.adminApp = {
   // Ba khu vận hành trung tâm — quên dòng này là mọi nút trong đó im lặng không chạy (quy ước 4.4).
@@ -4593,6 +4738,8 @@ window.adminApp = {
   // Hồ sơ du học
   dhMo, dhVeDanhSach, dhDoiBuocLoc, dhTim, dhDoiKy, dhXoaLoc, dhTrang,
   dhFormHoSo, dhLuuHoSo, dhXoaHoSo, dhChuyenBuoc,
+  // Bước Phỏng vấn: bấm nhanh trên màn chi tiết + ẩn/hiện hàng trong form (2026-09-27)
+  dhPvLoai, dhPvNgay, dhPvKq, dhPvTruongDo, dhFormLoaiPv,
   dhFormThu, dhLuuThu, dhXoaThu,
   // Chứng từ ảnh + yêu cầu sửa của học sinh (2026-09-16). Thiếu một tên ở đây thì nút bấm im
   // lặng không chạy, lỗi chỉ hiện ở console (quy ước 4.4).

@@ -856,6 +856,7 @@ const HO_SO = [
     tn: ['THPT Kim Liên', '2024', 'Giỏi', 'TOCFL A2'], nv: ['Đại học Phụ Nhân'],
     nganh: 'Ngôn ngữ Trung', ky: '2027 Xuân', loai: 'dai-hoc', phi: 53000000, nguon: 'Học viên cũ giới thiệu',
     nhan: 120, buoc_tu: 8, pv: [22, 'dau'], truong_do: 'Đại học Phụ Nhân', visa: [6, 'cho'],
+    loai_pv: 'ca-hai', pv_vp: [12, 'dau'],
     gt_xong: 13, ktx: ['co', 'Phòng 2 người', 'cho'],
     thu: [[53000000, 100, 'hoc-phi', 'chuyen-khoan', 'BL0003']],
     nhat_ky: ['Nộp hồ sơ visa tại VPKTVH Đài Bắc, hẹn trả kết quả sau 10 ngày làm việc.'] },
@@ -867,6 +868,7 @@ const HO_SO = [
     nv: ['Đại học Quốc lập Đài Loan (NTU)', 'Đại học Thanh Hoa Đài Loan'],
     nganh: 'Khoa học máy tính', ky: '2027 Xuân', loai: 'cao-hoc', phi: 55000000, nguon: 'Google',
     nhan: 90, buoc_tu: 10, pv: [-6, 'cho'], gt_xong: 11, ktx: ['chua-quyet', null, null],
+    loai_pv: 'ca-hai', pv_vp: [-13, null],
     thu: [[30000000, 85, 'dat-coc', 'chuyen-khoan', 'BL0002'],
       [25000000, 30, 'hoc-phi', 'chuyen-khoan', 'BL0015']],
     nhat_ky: ['Đã gửi em bộ câu hỏi phỏng vấn mẫu, hẹn luyện thử thứ 5.'] },
@@ -954,8 +956,8 @@ for (const h of HO_SO) {
        truong_tn, nam_tn, xep_loai, trinh_do_tieng, truong_nv1, truong_nv2,
        nganh, ky_nhap_hoc, loai_hinh, tu_van_id, nguon, ngay_nhan, buoc, buoc_tu,
        ngay_phong_van, kq_phong_van, truong_do, ngay_nop_visa, kq_visa, ngay_bay, chuyen_bay,
-       tong_phi, ghi_chu, ktx_dang_ky, ktx_loai, ktx_kq)
-     VALUES (1,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+       tong_phi, ghi_chu, ktx_dang_ky, ktx_loai, ktx_kq, loai_phong_van, ngay_pv_vp, kq_pv_vp)
+     VALUES (1,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
     [hv ? hv.id : null, h.ma, h.ho_ten || (hv ? hv.ten : h.ma), h.ngay_sinh, h.gt,
       h.cccd || null, h.hc || null, h.hc_han ? ngay(h.hc_han) : null,
       h.dia_chi, hv ? '09' + String(10000000 + HOC_VIEN.indexOf(hv) * 111111).slice(0, 8) : '0912223334',
@@ -966,7 +968,10 @@ for (const h of HO_SO) {
       h.pv ? ngay(h.pv[0]) : null, h.pv ? h.pv[1] : null, h.truong_do || null,
       h.visa ? ngay(h.visa[0]) : null, h.visa ? h.visa[1] : null,
       h.bay !== undefined ? ngay(h.bay) : null, h.chuyen_bay || null,
-      h.phi, h.ghi_chu || null, h.ktx[0], h.ktx[1], h.ktx[2]],
+      h.phi, h.ghi_chu || null, h.ktx[0], h.ktx[1], h.ktx[2],
+      // Bước Phỏng vấn (migration-phong-van.sql): hồ sơ chỉ có phỏng vấn trường thì loại = 'truong'.
+      h.loai_pv || (h.pv ? 'truong' : null),
+      h.pv_vp ? ngay(h.pv_vp[0]) : null, h.pv_vp ? h.pv_vp[1] : null],
   );
   hoSoId[h.ma] = r.insertId;
 

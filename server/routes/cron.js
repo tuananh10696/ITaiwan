@@ -143,7 +143,7 @@ router.get('/nhac-du-hoc', async (req, res) => {
   try {
     const [ds] = await pool.query(
       `SELECT h.id, h.ma_hs, h.ho_ten, h.user_id, h.buoc, h.tong_phi,
-              h.ngay_phong_van, h.ngay_bay, h.ngay_nop_visa, h.ktx_han, h.ktx_dang_ky,
+              h.ngay_phong_van, h.ngay_pv_vp, h.ngay_bay, h.ngay_nop_visa, h.ktx_han, h.ktx_dang_ky,
               h.hs_gui_luc,
               u.name, u.email, u.nhan_mail_nhac,
               (SELECT COUNT(*) FROM du_hoc_giay_to g
@@ -169,10 +169,16 @@ router.get('/nhac-du-hoc', async (req, res) => {
       const viec = [];
 
       // 1. Lịch sắp tới — nhắc khi còn <= 7 ngày, và chỉ khi CHƯA QUA.
-      const pv = conMay(h.ngay_phong_van);
-      if (pv !== null && pv >= 0 && pv <= 7 && !(await daBaoGanDay(h.id, 'phong-van', 3))) {
-        viec.push({ loai: 'phong-van', nhan: pv === 0 ? 'Hôm nay phỏng vấn trường' : `Còn ${pv} ngày tới buổi phỏng vấn`,
-          chiTiet: 'Chuẩn bị hồ sơ và có mặt đúng giờ.', ngay: h.ngay_phong_van, gap: pv });
+      // Phỏng vấn trường và phỏng vấn VP Đài Bắc chung một loại thông báo ('phong-van') nên chung
+      // một nhịp chống spam — nhắc buổi GẦN NHẤT; buổi còn lại tới lượt ở lần nhắc sau.
+      const pv = [['trường', h.ngay_phong_van], ['VP Đài Bắc', h.ngay_pv_vp]]
+        .map(([ten, ngay]) => ({ ten, ngay, gap: conMay(ngay) }))
+        .filter((x) => x.gap !== null && x.gap >= 0 && x.gap <= 7)
+        .sort((a, b) => a.gap - b.gap)[0];
+      if (pv && !(await daBaoGanDay(h.id, 'phong-van', 3))) {
+        viec.push({ loai: 'phong-van',
+          nhan: pv.gap === 0 ? `Hôm nay phỏng vấn ${pv.ten}` : `Còn ${pv.gap} ngày tới buổi phỏng vấn ${pv.ten}`,
+          chiTiet: 'Chuẩn bị hồ sơ và có mặt đúng giờ.', ngay: pv.ngay, gap: pv.gap });
       }
       const bay = conMay(h.ngay_bay);
       if (bay !== null && bay >= 0 && bay <= 14 && !(await daBaoGanDay(h.id, 'bay', 3))) {

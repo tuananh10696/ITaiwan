@@ -16,6 +16,10 @@ export function dangKy(api) { A = api; }
 const apiGet = (...a) => A.apiGet(...a);
 const esc = (s) => A.esc(s);
 const conDungLuot = (el, luot) => A.conDungLuot(el, luot);
+// Dòng trạng thái từng buổi phỏng vấn (trường / VP Đài Bắc) — dùng lại đúng bản của khu Hồ sơ
+// du học để hai màn không vẽ hai kiểu cho cùng một hồ sơ.
+const pvDong = (h) => A.pvDong(h);
+
 
 // ------------------------------------------------------------------ trạng thái
 
@@ -278,7 +282,7 @@ function bangHocSinh(ds, coTruong) {
         `<span class="tdt-vai tdt-vai-${v}">${NHAN_VAI[v] || esc(v)}</span>`).join('')}
         ${h.dau_truong_khac ? `<div class="dh-sub">Đã đậu: ${esc(h.dau_truong_khac)}</div>` : ''}</td>` : ''}
       <td>${chipBuoc(h.buoc)}${h.buoc_tu ? `<div class="dh-sub">từ ${ngay(h.buoc_tu)}</div>` : ''}</td>
-      <td>${oKetQua(h.ngay_phong_van, h.kq_phong_van)}</td>
+      <td>${pvDong(h)}</td>
       <td>${oKetQua(h.ngay_nop_visa, h.kq_visa)}</td>
       <td style="white-space:nowrap">${h.ngay_bay ? ngay(h.ngay_bay) : '<span class="dh-sub">—</span>'}</td>
       <td style="text-align:center">${Number(h.thieu_giay_to)

@@ -14,6 +14,8 @@ import { state, tkState } from '../core/state.js';
 import { tdEsc, toast, twPlayEnter, openDialog, closeDialog, khungXuongTrang } from '../core/ui.js';
 import api from '../api/client.js';
 import { quenBaiBiKhoa } from '../data/giaotrinh-kho.js';
+// Bước Phỏng vấn: trường / VP Đài Bắc / cả 2 — cùng quy tắc với server và cổng quản trị.
+import { tinhPhongVan } from '../../shared/phong-van.js';
 
 // --- cầu nối tới phần còn nằm trong main.js ---
 const navigate = (...a) => app.navigate(...a);
@@ -680,8 +682,10 @@ function dhTienDoHtml(d) {
   const i = chay.findIndex((b) => b.ma === t.buoc);
   const ketThuc = i < 0;
 
+  // Mỗi buổi phỏng vấn một mốc riêng — em "Cả 2" phải thấy mình còn buổi nào, ngày nào.
+  const pv = tinhPhongVan(t);
   const moc = [];
-  if (t.ngay_phong_van) moc.push(['Phỏng vấn', t.ngay_phong_van, t.kq_phong_van, 'fa-comments']);
+  for (const b of pv.buoi) if (b.ngay) moc.push([b.ten, b.ngay, b.kq, 'fa-comments']);
   if (t.ngay_nop_visa) moc.push(['Nộp visa', t.ngay_nop_visa, t.kq_visa, 'fa-passport']);
   if (t.ngay_bay) moc.push(['Bay', t.ngay_bay, null, 'fa-plane-departure']);
 
@@ -694,6 +698,7 @@ function dhTienDoHtml(d) {
             <div class="dh-step ${k < i ? 'xong' : k === i ? 'dang' : ''}">
               <span class="dh-step-ic"><i class="fa-solid ${b.icon}"></i></span>
               <span class="dh-step-ten">${tdEsc(b.ten)}</span>
+              ${b.ma === 'phong-van' && pv.tong ? `<span class="dh-step-phu">Đạt ${pv.dau}/${pv.tong}</span>` : ''}
             </div>`).join('')}</div>`}
       ${t.buoc_tu && !ketThuc ? `<p class="dh-note"><i class="fa-solid fa-clock"></i><span>Ở bước này từ ${dhNgay(t.buoc_tu)}</span></p>` : ''}
       ${moc.length ? `<div class="dh-moc">${moc.map(([ten, ngay, kq, ic]) => {

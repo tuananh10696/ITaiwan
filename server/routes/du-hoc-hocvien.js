@@ -185,6 +185,10 @@ router.get('/ho-so-cua-toi', async (req, res) => {
         cac_buoc: BUOC,
         ngay_phong_van: hs.ngay_phong_van,
         kq_phong_van: hs.kq_phong_van,
+        // Ba loại phỏng vấn (2026-09-27) — cổng học sinh vẽ từng buổi bằng shared/phong-van.js.
+        loai_phong_van: hs.loai_phong_van ?? null,
+        ngay_pv_vp: hs.ngay_pv_vp ?? null,
+        kq_pv_vp: hs.kq_pv_vp ?? null,
         truong_do: hs.truong_do,
         ngay_nop_visa: hs.ngay_nop_visa,
         kq_visa: hs.kq_visa,

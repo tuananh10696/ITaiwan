@@ -54,7 +54,8 @@
     "test:trung-tam": "node tests/luong-trung-tam.test.mjs",
     "test": "node tests/nhom-truong.test.mjs && node tests/phan-quyen.test.mjs && node tests/luong-trung-tam.test.mjs && node tests/luong-giaovien-hocvien.test.mjs && node tests/chong-cay-diem.test.mjs",
     "test:vai-tro": "node tests/vai-tro-nhan-su.test.mjs",
-    "test:truong": "node tests/nhom-truong.test.mjs"
+    "test:truong": "node tests/nhom-truong.test.mjs",
+    "test:phong-van": "node tests/phong-van.test.mjs"
   },
   "devDependencies": {
     "@capacitor/cli": "^8.5.1",

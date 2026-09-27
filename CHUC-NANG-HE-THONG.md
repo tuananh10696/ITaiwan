@@ -133,6 +133,8 @@ Danh sách + tìm kiếm + phân trang · duyệt tài khoản chờ (có badge 
 ### 2.6 Hồ sơ du học
 Tạo hồ sơ (thông tin cá nhân, giấy tờ tuỳ thân, phụ huynh, học vấn, nguyện vọng trường/ngành, tư vấn viên) · chuyển bước quy trình 6 giai đoạn có ghi lịch sử · quản lý danh mục giấy tờ (đã nộp/thiếu) · thu tiền theo đợt kèm ảnh chứng từ · duyệt/từ chối yêu cầu sửa của học viên · gắn hồ sơ với tài khoản học viên · gửi thông báo cho học viên · tìm kiếm, lọc theo bước, phân trang · bảng tổng quan tiến độ.
 
+**Bước Phỏng vấn** gồm 3 loại, chọn theo từng hồ sơ: Phỏng vấn trường · Phỏng vấn VP Đài Bắc · Cả 2. Mỗi buổi có ngày + kết quả riêng, bấm Đậu / Trượt / Đang chờ ngay trên màn chi tiết; thanh bước hiện "Đậu 1/2", danh sách hồ sơ hiện trạng thái từng buổi. Đậu đủ các buổi cần có khi hồ sơ đang ở bước Phỏng vấn thì **tự chuyển sang Xin visa** (ghi lịch sử + báo học sinh). Quy tắc dùng chung server/giao diện ở `shared/phong-van.js`.
+
 **Tiến độ theo trường** (mục riêng trong nhóm Du học): mỗi trường có bao nhiêu học sinh đăng ký (nguyện vọng 1–3 + trường đã đậu) và từng em đang ở bước nào · thanh phân bổ theo bước · lọc theo kỳ nhập học, trạng thái, phạm vi (mọi nguyện vọng / chỉ NV1 / chỉ trường đậu) · tìm theo tên trường hoặc tên học sinh · nhóm "chưa khai trường". Tên trường là chữ tự do do học sinh hoặc tư vấn viên nhập, hệ thống tự gộp các cách viết của cùng một trường (có/không dấu, "ĐH"/"Trường Đại học", viết tắt trong ngoặc) — luật gộp ở `server/utils/nhom-truong.js`. Sale / quản lý hồ sơ chỉ thấy hồ sơ mình phụ trách.
 
 ### 2.7 Ký túc xá
