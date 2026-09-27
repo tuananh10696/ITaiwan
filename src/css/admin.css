@@ -1644,6 +1644,103 @@ html.tw-auth-checking .auth-splash {
   .dh-yc-nut .btn { flex: 1; }
 }
 
+/* ============================================================
+   DU HỌC — tiến độ theo trường (2026-09-25) — prefix .tdt-
+   ============================================================
+   Dùng lại .dh-filter, .dh-chip, .dh-sub, .dh-table-wrap, .stat-card, .badge của khối trên;
+   ở đây chỉ selector MỚI. */
+
+.tdt-nut-mo { display: flex; gap: 6px; margin-left: auto; }
+/* Ô tìm đứng chung hàng với 3 ô chọn + 2 nút: min-width 220px của .dh-filter làm gợi ý bị cắt
+   giữa chữ ở vài bề rộng màn. Đủ chỗ cho cả câu gợi ý thì hàng tự xuống dòng trước khi cắt. */
+.dh-filter #tdt-tim { min-width: min(272px, 100%); }
+
+/* chú giải màu các bước — ô màu inline-block chứ không flex, chữ không bị tách mảnh */
+.tdt-chu-giai {
+  display: flex; flex-wrap: wrap; gap: 6px 14px; margin-bottom: 14px;
+  font-size: 12px; color: var(--admin-text-secondary);
+}
+.tdt-chu-giai i {
+  display: inline-block; width: 10px; height: 10px; border-radius: 3px;
+  margin-right: 6px; vertical-align: -1px;
+}
+
+.tdt-truong {
+  background: var(--admin-surface); border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius); box-shadow: var(--admin-shadow);
+  padding: 14px 16px; margin-bottom: 12px;
+}
+.tdt-truong.is-mo { border-color: var(--admin-primary); }
+.tdt-chua-khai { border-style: dashed; box-shadow: none; background: rgba(255, 255, 255, .7); }
+
+.tdt-head {
+  display: flex; align-items: center; gap: 10px; width: 100%;
+  background: none; border: 0; padding: 0; text-align: left; cursor: pointer;
+  font-family: inherit; color: var(--admin-text);
+}
+.tdt-head:focus-visible { outline: 2px solid var(--admin-primary); outline-offset: 4px; border-radius: 4px; }
+.tdt-caret { flex: none; width: 16px; color: var(--admin-text-muted); font-size: 13px; }
+.tdt-ten { flex: 1; min-width: 0; font-size: 15px; font-weight: 800; word-break: break-word; }
+.tdt-tong { flex: none; font-size: 13px; color: var(--admin-text-secondary); white-space: nowrap; }
+.tdt-tong b { font-size: 18px; font-weight: 900; color: var(--admin-primary); }
+
+/* số học sinh theo nguyện vọng — thụt vào thẳng hàng tên trường (bề rộng mũi tên + khoảng cách) */
+.tdt-tomtat {
+  display: flex; flex-wrap: wrap; gap: 4px 8px; margin: 4px 0 10px 26px;
+  font-size: 12.5px; color: var(--admin-text-secondary);
+}
+.tdt-tomtat b { color: var(--admin-text); }
+.tdt-cham { color: var(--admin-text-muted); }
+/* --admin-accent (5,30:1) chứ không --admin-success (4,14:1 — hụt chuẩn AA ở cỡ chữ này) */
+.tdt-dau, .tdt-dau b { color: var(--admin-accent); }
+
+/* thanh phân bổ theo bước — mỗi đoạn rộng theo số học sinh ở bước đó */
+.tdt-bar {
+  display: flex; gap: 2px; height: 10px; margin-left: 26px;
+  border-radius: 999px; overflow: hidden; background: var(--admin-border);
+}
+.tdt-bar > i { display: block; min-width: 6px; }
+/* Chữ màu TRUNG TÍNH + ô màu bước đứng trước: tô chữ bằng màu bước thì 5/9 bước dưới 4,5:1
+   (xám "Tạm dừng" chỉ 2,56:1). Ô màu inline-block như .tdt-chu-giai, chữ không bị tách mảnh. */
+.tdt-bar-nhan {
+  display: flex; flex-wrap: wrap; gap: 3px 14px; margin: 7px 0 0 26px;
+  font-size: 12px; color: var(--admin-text-secondary);
+}
+.tdt-bar-nhan b { color: var(--admin-text); }
+.tdt-bar-nhan i {
+  display: inline-block; width: 9px; height: 9px; border-radius: 2px;
+  margin-right: 5px; vertical-align: -1px;
+}
+
+.tdt-bien-the {
+  display: flex; gap: 8px; margin-top: 12px; padding: 8px 10px;
+  background: var(--admin-bg); border-radius: var(--admin-radius-sm);
+  font-size: 12.5px; color: var(--admin-text-secondary);
+}
+.tdt-bien-the > i { flex: none; margin-top: 2px; }
+.tdt-bien-the > span { flex: 1; min-width: 0; }
+.tdt-bang { margin-top: 12px; }
+/* Bảng đã cuộn ngang được (min-width của .dh-table-wrap) — cột tên không cần co tới mức mỗi
+   chữ một dòng như trình duyệt tự chia trên màn hẹp. */
+.tdt-bang td:first-child { min-width: 170px; }
+/* Ô "Đăng ký" có dòng "Đã đậu: <tên trường>" — không đặt min-width thì mỗi chữ một dòng ở 390px. */
+.tdt-bang .tdt-o-dk { min-width: 150px; }
+
+/* nhãn nguyện vọng trong bảng học sinh */
+.tdt-vai {
+  display: inline-block; margin: 0 4px 3px 0; padding: 1px 7px; border-radius: 999px;
+  font-size: 11px; font-weight: 800; white-space: nowrap;
+  background: var(--admin-primary-light); color: var(--admin-primary);
+}
+.tdt-vai-nv2, .tdt-vai-nv3 { background: var(--admin-bg); color: var(--admin-text-secondary); }
+.tdt-vai-do { background: #DDF1E6; color: #065F46; }
+
+@media (max-width: 640px) {
+  .tdt-truong { padding: 12px; }
+  .tdt-nut-mo { margin-left: 0; }
+  .tdt-tomtat, .tdt-bar, .tdt-bar-nhan { margin-left: 0; }
+}
+
 /* === BA KHU VẬN HÀNH TRUNG TÂM — 2026-09-17 ===
    Sổ thu chi · Ký túc xá · Đề bài. Chỉ selector MỚI; sửa component có sẵn thì sửa tại chỗ của nó
    (đừng nối khối override ở cuối file — bài học 2 khối CSS game đè chết nhau, 4.24). */

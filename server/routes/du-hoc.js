@@ -15,6 +15,7 @@ import pool from '../config/db.js';
 import { requireAuth } from '../middleware/auth.js';
 import { loadRole, requireStaff, phamViQuanTri, requireHoSoStaff } from '../middleware/roles.js';
 import { baoHocSinh } from '../utils/du-hoc-thong-bao.js';
+import { dungBoGop, nhomTheoTruong, PHAM_VI } from '../utils/nhom-truong.js';
 
 const router = Router();
 
@@ -407,6 +408,104 @@ router.get('/du-hoc/ho-so', async (req, res) => {
     }
     console.error('Lỗi danh sách hồ sơ du học:', err);
     res.status(500).json({ error: loiBang(err, 'Không tải được danh sách hồ sơ.') });
+  }
+});
+
+// =============================================================
+// TIẾN ĐỘ THEO TRƯỜNG (2026-09-25)
+// =============================================================
+// Mỗi trường có bao nhiêu em đăng ký (NV1/2/3 + trường đã đậu) và từng em đang ở bước nào.
+// Tên trường là chữ tự do (học sinh tự khai hoặc tư vấn viên gõ) nên phải GỘP cách viết ở tầng JS
+// — xem server/utils/nhom-truong.js. GROUP BY theo chuỗi trong SQL thì "ĐH Thành Công" và
+// "Đại học Thành Công (NCKU)" thành hai trường.
+//
+// Ba truy vấn, cùng phạm vi `dkOrg` (sale / quản lý hồ sơ chỉ thấy hồ sơ mình phụ trách):
+//   1. hồ sơ ĐÃ LỌC kỳ / trạng thái ngay trong SQL — để trần bên dưới áp lên đúng tập đang xem, và
+//      so kỳ theo collation của DB giống màn Hồ sơ du học ('2027 Xuân' = '2027 xuân');
+//   2. MỌI cách viết tên trường, không lọc, không trần — bộ gộp cần nhìn cả tập, nếu dựng từ tập đã
+//      lọc thì cùng một cách viết lúc được gộp lúc không, tuỳ bộ lọc đang chọn;
+//   3. danh sách kỳ nhập học, không trần — kỳ chỉ còn hồ sơ cũ vẫn phải chọn được.
+// Chỉ lấy cột màn này cần — KHÔNG kéo CCCD, hộ chiếu, điện thoại, tiền.
+const TRAN_THEO_TRUONG = 5000;
+
+router.get('/du-hoc/theo-truong', async (req, res) => {
+  const phamVi = typeof req.query.nv === 'string' && Object.hasOwn(PHAM_VI, req.query.nv) ? req.query.nv : 'tat-ca';
+  const ky = typeof req.query.ky === 'string' ? req.query.ky.slice(0, 40) : '';
+  const tt = typeof req.query.trang_thai === 'string' ? req.query.trang_thai : '';
+
+  const dkLoc = [];
+  const tsLoc = [];
+  if (ky) { dkLoc.push(' AND h.ky_nhap_hoc = ?'); tsLoc.push(ky); }
+  if (tt === 'dang-chay') {
+    dkLoc.push(` AND h.buoc IN (${BUOC_DANG_CHAY.map(() => '?').join(', ')})`);
+    tsLoc.push(...BUOC_DANG_CHAY);
+  } else if (MA_BUOC.has(tt)) {
+    dkLoc.push(' AND h.buoc = ?');
+    tsLoc.push(tt);
+  }
+  const o = dkOrg(req);
+  const t = tsOrg(req);
+  try {
+    const [[rows], [cacTen], [kyRows]] = await Promise.all([
+      pool.query(
+        `SELECT h.id, h.ma_hs, h.ho_ten, h.buoc, h.buoc_tu, h.ky_nhap_hoc, h.loai_hinh, h.nganh,
+                h.truong_nv1, h.truong_nv2, h.truong_nv3, h.truong_do,
+                h.ngay_phong_van, h.kq_phong_van, h.ngay_nop_visa, h.kq_visa, h.ngay_bay,
+                u.name AS tu_van_ten,
+                (SELECT COUNT(*) FROM du_hoc_giay_to g
+                  WHERE g.ho_so_id = h.id AND g.bat_buoc = TRUE AND g.trang_thai = 'chua') AS thieu_giay_to
+           FROM du_hoc_ho_so h
+           LEFT JOIN users u ON u.id = h.tu_van_id
+          WHERE 1=1${o}${dkLoc.join('')}
+          ORDER BY h.id DESC
+          LIMIT ?`,
+        [...t, ...tsLoc, TRAN_THEO_TRUONG + 1]
+      ),
+      // UNION ALL chứ không UNION: UNION khử trùng theo collation không phân biệt hoa thường, có
+      // thể giữ "(ncku)" mà bỏ "(NCKU)" — trong khi viết tắt chỉ được nhận khi VIẾT HOA.
+      pool.query(
+        ['truong_nv1', 'truong_nv2', 'truong_nv3', 'truong_do']
+          .map((c) => `SELECT h.${c} AS ten FROM du_hoc_ho_so h WHERE h.${c} <> ''${o}`)
+          .join(' UNION ALL '),
+        [...t, ...t, ...t, ...t]
+      ),
+      pool.query(
+        `SELECT DISTINCT h.ky_nhap_hoc FROM du_hoc_ho_so h
+          WHERE h.ky_nhap_hoc IS NOT NULL AND h.ky_nhap_hoc <> ''${o}
+          ORDER BY h.ky_nhap_hoc`,
+        t
+      ),
+    ]);
+    // Có trần để một trung tâm lớn không kéo sập function; chạm trần thì NÓI RA (cờ `bi_cat`)
+    // thay vì âm thầm đếm thiếu — giữ các hồ sơ mới nhất. Lọc theo kỳ là thu hẹp được tập này.
+    const biCat = rows.length > TRAN_THEO_TRUONG;
+    if (biCat) rows.length = TRAN_THEO_TRUONG;
+
+    const gop = dungBoGop(cacTen.map((r) => r.ten));
+    const { truong, chuaKhai } = nhomTheoTruong(rows, { phamVi, thuTuBuoc: BUOC.map((b) => b.ma), gop });
+
+    res.json({
+      buoc: BUOC,
+      pham_vi: phamVi,
+      ky_list: kyRows.map((k) => k.ky_nhap_hoc),
+      tong_ho_so: rows.length,
+      // Đếm ở đây chứ không cộng `dau` của các thẻ: xem "chỉ NV1" thì em đậu trường ngoài NV1
+      // không nằm trong thẻ nào, cộng thẻ là đếm thiếu.
+      da_dau: rows.filter((h) => h.truong_do && gop(h.truong_do)).length,
+      truong,
+      chua_khai: chuaKhai,
+      bi_cat: biCat,
+      tran: TRAN_THEO_TRUONG,
+    });
+  } catch (err) {
+    if (chuaCoBang(err)) {
+      return res.json({
+        buoc: BUOC, pham_vi: phamVi, ky_list: [], tong_ho_so: 0, da_dau: 0, truong: [], chua_khai: [],
+        bi_cat: false, tran: TRAN_THEO_TRUONG, chua_migrate: true,
+      });
+    }
+    console.error('Lỗi tiến độ theo trường:', err);
+    res.status(500).json({ error: loiBang(err, 'Không tải được tiến độ theo trường.') });
   }
 });
 

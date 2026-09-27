@@ -40,9 +40,11 @@ const hvCuaB = await taoUser('student', 'hvB', saleB);
 
 const taoHoSo = async (tuVan, nhan) => {
   const [r] = await pool.query(
-    `INSERT INTO du_hoc_ho_so (org_id, ma_hs, ho_ten, tu_van_id, buoc, cccd, tong_phi)
-     VALUES (1,?,?,?,'ho-so','0123456789',50000000)`,
-    [`HS-${MA}-${nhan}`, `Học sinh ${nhan} ${MA}`, tuVan]);
+    `INSERT INTO du_hoc_ho_so (org_id, ma_hs, ho_ten, tu_van_id, buoc, cccd, tong_phi, truong_nv1)
+     VALUES (1,?,?,?,'ho-so','0123456789',50000000,?)`,
+    // Cả hai hồ sơ cùng MỘT trường: màn "Tiến độ theo trường" gom theo trường, nên đây đúng là
+    // chỗ dễ rò nhất — thẻ của trường chung không được kéo học sinh của sale kia vào.
+    [`HS-${MA}-${nhan}`, `Học sinh ${nhan} ${MA}`, tuVan, `Đại học Thử ${MA}`]);
   return r.insertId;
 };
 const hoSoA = await taoHoSo(saleA, 'A');
@@ -110,6 +112,17 @@ console.log('\n── 2. Hồ sơ du học: chỉ thấy của mình ───�
   const { j } = await goi('GET', `/admin/du-hoc/ho-so?tu_van=${saleB}`, 'saleA');
   const ids = (j?.ho_so || []).map((h) => h.id);
   dat('lọc ?tu_van=<id người khác> không lộ hồ sơ của họ', !ids.includes(hoSoB));
+}
+
+{
+  // Tiến độ theo trường: gom theo trường chứ không theo người, nên phải kiểm riêng.
+  const { ma, j } = await goi('GET', '/admin/du-hoc/theo-truong', 'saleA');
+  const ids = [...(j?.truong || []).flatMap((t) => t.hoc_sinh.map((h) => h.id)), ...(j?.chua_khai || []).map((h) => h.id)];
+  dat(`sale A mở được tiến độ theo trường (${ma})`, ma === 200 && ids.includes(hoSoA));
+  dat('tiến độ theo trường của sale A KHÔNG có hồ sơ của sale B (dù cùng trường)', !ids.includes(hoSoB));
+  const the = (j?.truong || []).find((t) => t.ten === `Đại học Thử ${MA}`);
+  dat('thẻ trường chung chỉ đếm 1 học sinh với sale A', the?.tong === 1);
+  dat('không trả CCCD trong tiến độ theo trường', !JSON.stringify(j || {}).includes('0123456789'));
 }
 
 console.log('\n── 3. Không chuyển được hồ sơ sang tên người khác ───────');
@@ -194,6 +207,8 @@ console.log('\n── 8. Quản lý hồ sơ có cùng bộ quyền với sale �
 {
   const { ma } = await goi('GET', '/admin/du-hoc/ho-so', 'hoSo');
   dat(`vai trò ho_so vào được khu du học (${ma})`, ma === 200);
+  const { ma: maTr } = await goi('GET', '/admin/du-hoc/theo-truong', 'hoSo');
+  dat(`vai trò ho_so mở được tiến độ theo trường (${maTr})`, maTr === 200);
   const { ma: ma2 } = await goi('GET', '/admin/classes', 'hoSo');
   dat(`vai trò ho_so KHÔNG vào được khu lớp (${ma2})`, ma2 === 403);
 }

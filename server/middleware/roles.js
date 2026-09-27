@@ -204,7 +204,8 @@ const QUYEN = [
   { vai: NS, method: ['POST'], re: /^\/users\/(\d+)\/verify$/, qua: 'taikhoan', nhom: 1 },
 
   // --- HỒ SƠ DU HỌC: chỉ hồ sơ mình phụ trách ---
-  { vai: NS, method: ['GET'], re: /^\/du-hoc\/(tong-quan|ho-so|nhan-su|hoc-vien|yeu-cau-sua)$/, qua: null },
+  // `theo-truong` (tiến độ theo trường) tự lọc bằng dkOrg như tong-quan.
+  { vai: NS, method: ['GET'], re: /^\/du-hoc\/(tong-quan|ho-so|nhan-su|hoc-vien|yeu-cau-sua|theo-truong)$/, qua: null },
   { vai: NS, method: ['POST'], re: /^\/du-hoc\/ho-so$/, qua: null },
   { vai: NS, method: ['GET', 'POST', 'PUT', 'DELETE'], re: /^\/du-hoc\/ho-so\/(\d+)(\/.*)?$/, qua: 'hoso', nhom: 1 },
   { vai: NS, method: ['GET', 'PUT', 'DELETE'], re: /^\/du-hoc\/thu-tien\/(\d+)(\/anh)?$/, qua: 'thu-tien', nhom: 1 },

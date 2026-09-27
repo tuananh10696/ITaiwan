@@ -12,6 +12,10 @@ import {
   dangKy as dangKyTrungTam, renderQuy, renderKtx, renderDeBai,
   quyHandlers, ktxHandlers, deHandlers,
 } from './admin-trungtam.js';
+// Tiến độ theo trường (2026-09-25) — khu con của Du học, cùng lối cầu nối như module trên.
+import {
+  dangKy as dangKyTienDoTruong, renderTienDoTruong, tdtHandlers, tdtQuery, tdtNapQuery,
+} from './admin-tien-do-truong.js';
 
 const _khongNs = (id) => String(id || '').replace(/^[a-z]+(?::[a-z]+)?:/, '');
 /** Nhãn bài cho mọi id bài. */
@@ -292,6 +296,7 @@ const VAI_CUA_KHU = {
   'thiet-bi': ['admin'],
   users: ['admin', 'ho_so', 'sale'],
   'du-hoc': ['admin', 'ho_so', 'sale'],
+  'du-hoc-truong': ['admin', 'ho_so', 'sale'],
   ktx: ['admin', 'ho_so', 'sale'],
   quy: ['admin', 'ho_so', 'sale'],
 };
@@ -434,6 +439,7 @@ const ADMIN_ROUTES = [
   { section: 'thiet-bi',   slug: 'thiet-bi',    title: 'Thiết bị đăng nhập' },
   // Hồ sơ du học của trung tâm
   { section: 'du-hoc',     slug: 'du-hoc',      title: 'Hồ sơ du học' },
+  { section: 'du-hoc-truong', slug: 'tien-do-truong', title: 'Tiến độ theo trường' },
   // Ba khu vận hành trung tâm
   { section: 'quy',        slug: 'thu-chi',     title: 'Sổ thu – chi' },
   { section: 'ktx',        slug: 'ky-tuc-xa',   title: 'Ký túc xá' },
@@ -447,6 +453,7 @@ function _routeBySection(section) {
 // Query string riêng của từng trang (bộ lọc / trang hiện tại) — để F5 hay gửi link vẫn giữ nguyên
 // đúng kết quả tìm kiếm và đúng trang đang xem.
 function _queryForSection(section) {
+  if (section === 'du-hoc-truong') return tdtQuery();
   const q = new URLSearchParams();
   if (section === 'users') {
     if (userSearch) q.set('tim', userSearch);
@@ -457,6 +464,7 @@ function _queryForSection(section) {
 
 // Đọc query string trên URL vào biến trạng thái của trang tương ứng.
 function _applyQueryToSection(section, q) {
+  if (section === 'du-hoc-truong') tdtNapQuery(q);
   if (section === 'users') {
     userSearch = q.get('tim') || '';
     userPage = Math.max(1, parseInt(q.get('trang') || '1', 10) || 1);
@@ -553,6 +561,7 @@ function renderCurrentSection() {
     case 'classes': renderClasses(content); break;
     case 'thiet-bi': renderThietBi(content); break;
     case 'du-hoc': renderDuHoc(content); break;
+    case 'du-hoc-truong': renderTienDoTruong(content); break;
     case 'quy': renderQuy(content); break;
     case 'ktx': renderKtx(content); break;
     case 'de-bai': renderDeBai(content); break;
@@ -3577,6 +3586,19 @@ function dhMo(id) {
   renderDuHoc(document.getElementById('admin-content'));
 }
 
+/**
+ * Mở một hồ sơ từ khu KHÁC (Tiến độ theo trường). Không dùng `dhMo`: hàm đó chỉ vẽ lại vùng nội
+ * dung, còn menu đang sáng, tiêu đề trang và lượt vẽ vẫn là của khu cũ. Đi qua `navigate` thì
+ * cả ba đổi theo, và nút Back của trình duyệt quay về đúng bộ lọc vừa xem.
+ */
+function dhMoTuKhuKhac(id) {
+  dhView = 'detail';
+  dhId = id;
+  dhChiTiet = null;
+  dhNapNhanSu();
+  navigate('du-hoc', { keepView: true });
+}
+
 function dhVeDanhSach() {
   dhView = 'list';
   dhId = null;
@@ -3770,12 +3792,18 @@ function dhTrang(n) { dhLoc.trang = Math.max(1, n); renderDuHoc(document.getElem
 // ------------------------------------------------------------------ MÀN CHI TIẾT
 
 async function _dhVeChiTiet(el) {
+  const luot = el.dataset.luot;
   el.innerHTML = '<div style="text-align:center;padding:40px;color:var(--admin-text-muted)"><i class="fa-solid fa-spinner fa-spin" style="font-size:24px"></i></div>';
   try {
-    dhChiTiet = await apiGet(`/admin/du-hoc/ho-so/${dhId}`);
+    const d = await apiGet(`/admin/du-hoc/ho-so/${dhId}`);
+    // Bấm Back (vd. về Tiến độ theo trường) trong lúc hồ sơ còn đang tải: bỏ kết quả về muộn, không
+    // ghi đè khu đã mở, cũng không đổi `dhChiTiet` của một màn không còn hiển thị.
+    if (!conDungLuot(el, luot)) return;
+    dhChiTiet = d;
     dhBuocList = dhChiTiet.buoc || dhBuocList;
     _dhVeChiTietHtml(el);
   } catch (err) {
+    if (!conDungLuot(el, luot)) return;
     el.innerHTML = `<div class="empty-state"><p>${_escHtml(err.message || 'Không mở được hồ sơ.')}</p>
       <button class="btn btn-outline" onclick="adminApp.dhVeDanhSach()">← Về danh sách</button></div>`;
   }
@@ -4554,10 +4582,13 @@ async function dhNapNhanSu() {
 // Nạp cầu nối cho module 3 khu trung tâm TRƯỚC khi gắn handler — module gọi các helper này
 // ngay từ lần render đầu tiên.
 dangKyTrungTam({ apiGet, apiPost, apiPut, apiDel, esc, toast, openModal, closeModal, confirmDialog, _tien, conDungLuot });
+dangKyTienDoTruong({ apiGet, esc, conDungLuot, syncUrl: syncAdminUrl, moHoSo: dhMoTuKhuKhac });
 
 window.adminApp = {
   // Ba khu vận hành trung tâm — quên dòng này là mọi nút trong đó im lặng không chạy (quy ước 4.4).
   ...quyHandlers, ...ktxHandlers, ...deHandlers,
+  // Tiến độ theo trường (2026-09-25)
+  ...tdtHandlers,
   tbXem, tbGo, tbBoQua,
   // Hồ sơ du học
   dhMo, dhVeDanhSach, dhDoiBuocLoc, dhTim, dhDoiKy, dhXoaLoc, dhTrang,

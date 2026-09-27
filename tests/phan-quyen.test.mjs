@@ -50,6 +50,7 @@ const ROUTES = [
   ['GET', '/admin/teachers',                       { admin: 200, teacher: 403, student: 403, khach: 401 }],
   // Hồ sơ du học / quỹ / ký túc xá: giáo viên KHÔNG thấy (có CCCD, hộ chiếu, tiền nong).
   ['GET', '/admin/du-hoc/ho-so',                   { admin: 200, teacher: 403, student: 403, khach: 401 }],
+  ['GET', '/admin/du-hoc/theo-truong',             { admin: 200, teacher: 403, student: 403, khach: 401 }],
   ['GET', '/admin/quy/danh-muc',                   { admin: 200, teacher: 403, student: 403, khach: 401 }],
   ['GET', '/admin/ktx/toa',                        { admin: 200, teacher: 403, student: 403, khach: 401 }],
   // Đề bài: giáo viên CÓ quyền (họ là người ra đề).
