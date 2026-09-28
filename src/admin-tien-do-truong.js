@@ -129,7 +129,7 @@ function veKhung(el) {
        Chạy <code>npm run db:migrate:prod</code> để bật khu Hồ sơ du học.</div>` : ''}
     ${d.bi_cat ? `<div class="alert alert-warning">Chỉ tính ${Number(d.tran).toLocaleString('vi-VN')} hồ sơ
        mới nhất — lọc theo kỳ nhập học để xem đủ.</div>` : ''}
-    <div class="stats-grid">
+    <div class="stats-grid stats-grid--4">
       ${the('fa-school', '#265648', d.truong.length, 'Trường có học sinh đăng ký')}
       ${the('fa-user-graduate', '#1F7A52', d.tong_ho_so, 'Hồ sơ trong bộ lọc')}
       ${the('fa-circle-check', '#16A34A', soDau, 'Đã có trường đậu')}
@@ -263,7 +263,7 @@ function theChuaKhai(ds) {
 
 function chipBuoc(ma) {
   const b = buoc(ma);
-  return `<span class="dh-chip" style="background:${b.mau}1a;color:${b.mau}"><i class="fa-solid ${b.icon}"></i> ${esc(b.ten)}</span>`;
+  return `<span class="dh-chip" style="--c:${b.mau}"><i class="fa-solid ${b.icon}"></i> ${esc(b.ten)}</span>`;
 }
 
 function oKetQua(ngayMoc, kq) {

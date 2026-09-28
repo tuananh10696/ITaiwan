@@ -243,13 +243,19 @@ router.get('/ktx/phong', async (req, res) => {
       `SELECT p.*, t.ten AS toa_ten,
               (SELECT COUNT(*) FROM ktx_o o WHERE o.phong_id = p.id AND o.trang_thai='dang-o') AS dang_o,
               (SELECT COUNT(*) FROM ktx_o o
+                 ${req.nhanSuId ? 'JOIN du_hoc_ho_so hs ON hs.id = o.ho_so_id AND hs.tu_van_id = ?' : ''}
                 WHERE o.phong_id = p.id AND o.trang_thai='dang-o' AND o.gia_thang > 0
                   AND NOT EXISTS (SELECT 1 FROM ktx_thu_tien tt
                                    WHERE tt.o_id = o.id AND tt.ky = ? AND tt.loai='tien-phong')
               ) AS no_thang_nay
          FROM ktx_phong p JOIN ktx_toa t ON t.id = p.toa_id
         WHERE ${dk.join(' AND ')}
-        ORDER BY t.sort_order, t.ten, p.tang, p.ten_phong`, [kyNay, ...ts]
+        ORDER BY t.sort_order, t.ten, p.tang, p.ten_phong`,
+      // Sale / quản lý hồ sơ: "chưa đóng" chỉ đếm người ở thuộc hồ sơ MÌNH phụ trách — khớp với ô
+      // thống kê và bảng công nợ của họ (trước đây thẻ phòng báo "1 người chưa đóng" trong khi hai
+      // chỗ kia ghi 0, và lộ tình trạng đóng tiền của học viên người khác). Số người đang ở vẫn
+      // đếm cả phòng: họ cần biết phòng còn chỗ hay không.
+      [...(req.nhanSuId ? [req.nhanSuId] : []), kyNay, ...ts]
     );
     res.json({ phong: rows, ky: kyNay });
   } catch (err) {

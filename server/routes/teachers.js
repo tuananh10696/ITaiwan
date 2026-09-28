@@ -230,9 +230,14 @@ router.get('/teachers/:id', async (req, res) => {
           WHERE er.teacher_review IS NOT NULL AND er.teacher_review <> '') AS so_loi_phe_bai
     `, [id, id, id]);
 
+    // Tên cột theo init-db.js (nguồn sự thật, cũng là schema đang chạy trên production):
+    // `noi_dung` / `nguoi_ghi` / `nguoi_cham`. Bản trước viết `note` / `author_id` theo file
+    // migration-teacher-role.sql — file đó là CREATE TABLE IF NOT EXISTS nên chưa bao giờ tạo
+    // được bảng trên DB dựng bằng init-db, và màn hồ sơ giáo viên trả 500 ở mọi nơi.
+    // Giữ tên trường TRẢ VỀ (`note`, `author_name`) để giao diện không phải đổi.
     const [notes] = await pool.query(`
-      SELECT tn.id, tn.note, tn.created_at, u.name AS author_name
-      FROM teacher_notes tn LEFT JOIN users u ON u.id = tn.author_id
+      SELECT tn.id, tn.noi_dung AS note, tn.created_at, u.name AS author_name
+      FROM teacher_notes tn LEFT JOIN users u ON u.id = tn.nguoi_ghi
       WHERE tn.teacher_id = ? ORDER BY tn.created_at DESC LIMIT 100
     `, [id]);
 
@@ -240,7 +245,7 @@ router.get('/teachers/:id', async (req, res) => {
       SELECT tr.*, u.name AS author_name,
         ROUND((tr.diem_chuyen_can + tr.diem_bai_giang + tr.diem_theo_sat
              + tr.diem_phan_hoi + tr.diem_ket_qua) / 5, 1) AS diem_tb
-      FROM teacher_reviews tr LEFT JOIN users u ON u.id = tr.author_id
+      FROM teacher_reviews tr LEFT JOIN users u ON u.id = tr.nguoi_cham
       WHERE tr.teacher_id = ? ORDER BY tr.ky DESC LIMIT 36
     `, [id]);
 
@@ -276,7 +281,7 @@ router.post('/teachers/:id/notes', async (req, res) => {
   try {
     const note = typeof req.body.note === 'string' ? req.body.note.trim() : '';
     if (!note) return res.status(400).json({ error: 'Nhận xét không được để trống.' });
-    await pool.query('INSERT INTO teacher_notes (teacher_id, author_id, note) VALUES (?,?,?)',
+    await pool.query('INSERT INTO teacher_notes (teacher_id, nguoi_ghi, noi_dung) VALUES (?,?,?)',
       [req.params.id, req.userId, note]);
     res.status(201).json({ message: 'Đã lưu nhận xét.' });
   } catch (err) {
@@ -317,11 +322,11 @@ router.put('/teachers/:id/reviews', async (req, res) => {
     const nhan_xet = typeof req.body.nhan_xet === 'string' ? req.body.nhan_xet.trim() : '';
 
     await pool.query(`
-      INSERT INTO teacher_reviews (teacher_id, ky, ${TIEU_CHI.join(', ')}, nhan_xet, author_id)
+      INSERT INTO teacher_reviews (teacher_id, ky, ${TIEU_CHI.join(', ')}, nhan_xet, nguoi_cham)
       VALUES (?,?,?,?,?,?,?,?,?)
       ON DUPLICATE KEY UPDATE
         ${TIEU_CHI.map(t => `${t}=VALUES(${t})`).join(', ')},
-        nhan_xet=VALUES(nhan_xet), author_id=VALUES(author_id)
+        nhan_xet=VALUES(nhan_xet), nguoi_cham=VALUES(nguoi_cham)
     `, [req.params.id, ky, ...TIEU_CHI.map(t => diem[t]), nhan_xet, req.userId]);
 
     res.json({ message: `Đã lưu phiếu đánh giá kỳ ${ky}.` });

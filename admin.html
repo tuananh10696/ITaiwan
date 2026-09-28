@@ -126,6 +126,8 @@
         <div class="nav-item logout-link" onclick="adminApp.logout()"><i class="fa-solid fa-right-from-bracket"></i> Đăng xuất</div>
       </div>
     </aside>
+    <!-- Lớp phủ sau menu trượt trên điện thoại — bấm vào là đóng menu (CSS chỉ hiện khi menu mở). -->
+    <div class="sidebar-backdrop" onclick="document.getElementById('admin-sidebar').classList.remove('open')"></div>
 
     <!-- Main Content -->
     <main class="admin-main">

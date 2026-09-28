@@ -146,13 +146,13 @@ async function renderQuy(el) {
     const t = ds.tong || { thu: 0, chi: 0, ton: 0 };
 
     el.innerHTML = `
-      <div class="stats-grid" style="margin-bottom:20px">
+      <div class="stats-grid stats-grid--4" style="margin-bottom:20px">
         <div class="stat-card"><div class="stat-icon" style="background:#DCFCE7;color:#16A34A"><i class="fa-solid fa-arrow-down"></i></div>
-          <div><div class="stat-value">${_tien(t.thu)}</div><div class="stat-label">Tổng thu</div></div></div>
+          <div><div class="stat-value stat-tien">${_tien(t.thu)}</div><div class="stat-label">Tổng thu</div></div></div>
         <div class="stat-card"><div class="stat-icon" style="background:#FEE2E2;color:#DC2626"><i class="fa-solid fa-arrow-up"></i></div>
-          <div><div class="stat-value">${_tien(t.chi)}</div><div class="stat-label">Tổng chi</div></div></div>
+          <div><div class="stat-value stat-tien">${_tien(t.chi)}</div><div class="stat-label">Tổng chi</div></div></div>
         <div class="stat-card"><div class="stat-icon" style="background:#E4F1EA;color:#265648"><i class="fa-solid fa-wallet"></i></div>
-          <div><div class="stat-value" style="color:${t.ton < 0 ? '#DC2626' : 'inherit'}">${_tien(t.ton)}</div><div class="stat-label">Tồn quỹ</div></div></div>
+          <div><div class="stat-value stat-tien" style="color:${t.ton < 0 ? '#DC2626' : 'inherit'}">${_tien(t.ton)}</div><div class="stat-label">Tồn quỹ</div></div></div>
         <div class="stat-card"><div class="stat-icon" style="background:#E6F0EC;color:#2F6B58"><i class="fa-solid fa-receipt"></i></div>
           <div><div class="stat-value">${ds.tong_so || 0}</div><div class="stat-label">Số phiếu</div></div></div>
       </div>
@@ -189,19 +189,19 @@ async function renderQuy(el) {
       </div>
 
       <div class="data-table-wrapper"><div class="dh-table-wrap">
-        <table class="data-table bang-the">
+        <table class="data-table bang-the bang-quy">
           <thead><tr>
             <th>Mã phiếu</th><th>Ngày</th><th>Loại</th><th>Danh mục</th>
             <th>Đối tượng</th><th style="text-align:right">Số tiền</th><th>Diễn giải</th><th></th>
           </tr></thead>
           <tbody>${(ds.phieu || []).map((p) => `
             <tr>
-              <td data-nhan="Mã phiếu" style="font-family:var(--font-num,monospace);font-weight:700">${esc(p.ma_phieu)}</td>
+              <td data-nhan="Mã phiếu" class="quy-ma"><b>${esc(p.ma_phieu)}</b></td>
               <td data-nhan="Ngày">${ngayVi(p.ngay)}</td>
               <td data-nhan="Loại"><span class="badge ${p.loai === 'thu' ? 'badge-success' : 'badge-danger'}">${p.loai === 'thu' ? 'Thu' : 'Chi'}</span></td>
               <td data-nhan="Danh mục">${esc(p.danh_muc_ten || '—')}</td>
               <td data-nhan="Đối tượng">${esc(p.doi_tuong || '—')}</td>
-              <td data-nhan="Số tiền" class="quy-tien" style="text-align:right;font-weight:700;color:${p.loai === 'thu' ? '#16A34A' : '#DC2626'}">
+              <td data-nhan="Số tiền" class="quy-tien" style="text-align:right;font-weight:700;color:${p.loai === 'thu' ? 'var(--admin-accent)' : '#DC2626'}">
                 ${p.loai === 'thu' ? '+' : '−'}${_tien(p.so_tien)}</td>
               <td data-nhan="Diễn giải" style="max-width:240px" title="${esc(p.dien_giai || '')}">${esc((p.dien_giai || '').slice(0, 60))}</td>
               <td class="table-actions">
@@ -361,7 +361,7 @@ async function quyBaoCao() {
     if (!than) return;
     than.innerHTML = `
       <div style="display:flex;gap:16px;margin-bottom:18px;flex-wrap:wrap">
-        <div><div style="color:#667;font-size:12px">TỔNG THU</div><div style="font-size:20px;font-weight:800;color:#16A34A">${_tien(d.tong.thu)}</div></div>
+        <div><div style="color:#667;font-size:12px">TỔNG THU</div><div style="font-size:20px;font-weight:800;color:var(--admin-accent)">${_tien(d.tong.thu)}</div></div>
         <div><div style="color:#667;font-size:12px">TỔNG CHI</div><div style="font-size:20px;font-weight:800;color:#DC2626">${_tien(d.tong.chi)}</div></div>
         <div><div style="color:#667;font-size:12px">TỒN</div><div style="font-size:20px;font-weight:800">${_tien(d.tong.ton)}</div></div>
       </div>
@@ -369,14 +369,14 @@ async function quyBaoCao() {
         gộp <b>cả ba nguồn</b>: phiếu tự lập, phí du học, tiền ký túc xá (bảng ngoài chỉ đếm phiếu tự lập).</p>
 
       <h4 style="margin:0 0 10px">Thu chi 6 tháng gần nhất</h4>
-      <div class="quy-bieudo" style="display:flex;gap:10px;align-items:flex-end;height:150px;padding:10px;background:var(--admin-bg);border-radius:10px;margin-bottom:20px;overflow-x:auto">
+      <div class="quy-bieudo" style="display:flex;gap:10px;align-items:flex-end;min-height:150px;padding:10px;background:var(--admin-bg);border-radius:10px;margin-bottom:20px;overflow-x:auto">
         ${d.theo_thang.map((t) => `
           <div style="flex:1;text-align:center">
             <div style="display:flex;gap:3px;align-items:flex-end;height:110px;justify-content:center">
               <div title="Thu ${_tien(t.thu)}" style="width:15px;background:#16A34A;border-radius:3px 3px 0 0;height:${Math.round((t.thu / max) * 100)}%"></div>
               <div title="Chi ${_tien(t.chi)}" style="width:15px;background:#DC2626;border-radius:3px 3px 0 0;height:${Math.round((t.chi / max) * 100)}%"></div>
             </div>
-            <div style="font-size:11px;color:#667;margin-top:5px">${kyVi(t.thang)}</div>
+            <div style="font-size:11px;color:#667;margin-top:5px">${kyVi(t.thang).replace('/', '/<wbr>')}</div>
           </div>`).join('') || '<div class="empty-state">Chưa có dữ liệu</div>'}
       </div>
 
@@ -396,7 +396,7 @@ async function quyBaoCao() {
       <div class="data-table-wrapper"><table class="data-table bang-the">
         <thead><tr><th>Nguồn</th><th style="text-align:right">Thu</th><th style="text-align:right">Chi</th></tr></thead>
         <tbody>${d.theo_nguon.map((x) => `<tr><td data-nhan="Nguồn">${nhanNguon[x.nguon] || x.nguon}</td>
-          <td data-nhan="Thu" style="text-align:right;color:#16A34A">${_tien(x.thu)}</td>
+          <td data-nhan="Thu" style="text-align:right;color:var(--admin-accent)">${_tien(x.thu)}</td>
           <td data-nhan="Chi" style="text-align:right;color:#DC2626">${_tien(x.chi)}</td></tr>`).join('') || '<tr><td colspan="3">Chưa có dữ liệu</td></tr>'}</tbody>
       </table></div>
       <div style="margin-top:16px"><button class="btn btn-outline" onclick="adminApp.quyXuatCsv('${tu}','${den}')">
@@ -451,7 +451,7 @@ async function renderKtx(el) {
     if (tq.chua_migration) return canMigration(el);
 
     el.innerHTML = `
-      <div class="stats-grid" style="margin-bottom:20px">
+      <div class="stats-grid stats-grid--4" style="margin-bottom:20px">
         <div class="stat-card"><div class="stat-icon" style="background:#E4F1EA;color:#265648"><i class="fa-solid fa-building"></i></div>
           <div><div class="stat-value">${tq.so_phong}</div><div class="stat-label">Phòng (${tq.so_toa} toà)</div></div></div>
         <div class="stat-card"><div class="stat-icon" style="background:#DCFCE7;color:#16A34A"><i class="fa-solid fa-bed"></i></div>
@@ -556,9 +556,11 @@ function ktxLocToa(id) { ktxState.toaLoc = id; veLaiKtx(); }
 function ktxXemPhong(id) { ktxState.view = 'chi-tiet'; ktxState.phongId = id; veLaiKtx(); }
 
 async function ktxChiTiet(el) {
+  const luot = el.dataset.luot;
   el.innerHTML = spin;
   try {
     const d = await apiGet(`/admin/ktx/phong/${ktxState.phongId}`);
+    if (!conDungLuot(el, luot)) return;
     const p = d.phong;
     const dangO = d.nguoi_o.filter((x) => x.trang_thai === 'dang-o');
     const daTra = d.nguoi_o.filter((x) => x.trang_thai === 'da-tra');
@@ -573,19 +575,19 @@ async function ktxChiTiet(el) {
           <h2 style="margin:0">${esc(p.toa_ten)} · ${esc(p.ten_phong)}</h2>
           <div style="color:#667;font-size:13px;margin-top:4px">
             ${p.tang ? `Tầng ${esc(p.tang)} · ` : ''}Phòng ${({ nam: 'nam', nu: 'nữ', chung: 'chung' })[p.loai]} ·
-            ${dangO.length}/${p.suc_chua} người · ${_tien(p.gia_thang)}/tháng
+            ${d.so_dang_o ?? dangO.length}/${p.suc_chua} người · ${_tien(p.gia_thang)}/tháng
             ${p.tien_ich ? `<br>Tiện ích: ${esc(p.tien_ich)}` : ''}
           </div>
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
           <button class="btn btn-outline" onclick="adminApp.ktxPhongForm(${p.id})"><i class="fa-solid fa-pen"></i> Sửa phòng</button>
-          <button class="btn btn-primary" ${dangO.length >= p.suc_chua ? 'disabled title="Phòng đã đầy"' : ''}
+          <button class="btn btn-primary" ${(d.so_dang_o ?? dangO.length) >= p.suc_chua ? 'disabled title="Phòng đã đầy"' : ''}
                   onclick="adminApp.ktxNguoiForm(${p.id}, ${p.gia_thang})"><i class="fa-solid fa-user-plus"></i> Thêm người ở</button>
         </div>
       </div>
 
       <h3 style="margin:18px 0 10px">Đang ở (${dangO.length})</h3>
-      <div class="data-table-wrapper"><div class="dh-table-wrap"><table class="data-table bang-the">
+      <div class="data-table-wrapper"><div class="dh-table-wrap"><table class="data-table bang-the bang-o">
         <thead><tr><th>Họ tên</th><th>Điện thoại</th><th>Hồ sơ du học</th><th>Vào ở</th>
           <th style="text-align:right">Giá/tháng</th><th style="text-align:right">Cọc</th><th>Đã thu</th><th></th></tr></thead>
         <tbody>${dangO.map((o) => {
@@ -598,7 +600,7 @@ async function ktxChiTiet(el) {
             <td data-nhan="Vào ở">${ngayVi(o.ngay_vao)}</td>
             <td data-nhan="Giá/tháng" style="text-align:right">${_tien(o.gia_thang)}</td>
             <td data-nhan="Cọc" style="text-align:right">${_tien(o.tien_coc)}</td>
-            <td data-nhan="Đã thu">${_tien(tong)} <span style="color:#667">(${thu.length} lần)</span></td>
+            <td data-nhan="Đã thu">${_tien(tong)} <span style="color:#667;white-space:nowrap">(${thu.length} lần)</span></td>
             <td class="table-actions">
               <button class="btn btn-sm btn-primary" onclick="adminApp.ktxThuForm(${o.id}, '${esc(o.ho_ten)}', ${o.gia_thang})">Thu tiền</button>
               <button class="btn btn-icon btn-outline" title="Sửa" onclick="adminApp.ktxNguoiSua(${o.id}, '${esc(o.ho_ten)}', '${esc(o.phone || '')}', ${o.gia_thang}, ${o.tien_coc})"><i class="fa-solid fa-pen"></i></button>
@@ -618,14 +620,14 @@ async function ktxChiTiet(el) {
           </tr>`).join('')}</tbody></table></div>` : ''}
 
       <h3 style="margin:22px 0 10px">Lịch sử thu tiền</h3>
-      <div class="data-table-wrapper"><div class="dh-table-wrap"><table class="data-table bang-the">
+      <div class="data-table-wrapper"><div class="dh-table-wrap"><table class="data-table bang-the bang-lstt">
         <thead><tr><th>Kỳ</th><th>Người ở</th><th>Khoản</th><th style="text-align:right">Số tiền</th>
           <th>Ngày thu</th><th>Hình thức</th><th>Người thu</th><th></th></tr></thead>
         <tbody>${d.thu_tien.map((t) => `<tr>
           <td data-nhan="Kỳ"><b>${kyVi(t.ky)}</b></td>
           <td data-nhan="Người ở">${esc(t.ho_ten)}</td>
           <td data-nhan="Khoản">${({ 'tien-phong': 'Tiền phòng', 'dien-nuoc': 'Điện nước', coc: 'Tiền cọc', 'hoan-coc': 'Hoàn cọc', khac: 'Khác' })[t.loai] || t.loai}</td>
-          <td data-nhan="Số tiền" class="quy-tien" style="text-align:right;font-weight:700;color:${t.loai === 'hoan-coc' ? '#DC2626' : '#16A34A'}">
+          <td data-nhan="Số tiền" class="quy-tien" style="text-align:right;font-weight:700;color:${t.loai === 'hoan-coc' ? '#DC2626' : 'var(--admin-accent)'}">
             ${t.loai === 'hoan-coc' ? '−' : '+'}${_tien(t.so_tien)}</td>
           <td data-nhan="Ngày thu">${ngayVi(t.ngay_thu)}</td>
           <td data-nhan="Hình thức">${({ 'tien-mat': 'Tiền mặt', 'chuyen-khoan': 'Chuyển khoản', the: 'Thẻ', khac: 'Khác' })[t.hinh_thuc]}</td>
@@ -642,9 +644,11 @@ async function ktxChiTiet(el) {
 }
 
 async function ktxCongNo(el) {
+  const luot = el.dataset.luot;
   el.innerHTML = spin;
   try {
     const d = await apiGet('/admin/ktx/cong-no');
+    if (!conDungLuot(el, luot)) return;
     el.innerHTML = `
       <button class="btn btn-outline" onclick="adminApp.ktxXem('phong')" style="margin-bottom:16px">
         <i class="fa-solid fa-arrow-left"></i> Về danh sách phòng</button>
@@ -652,7 +656,7 @@ async function ktxCongNo(el) {
         <div style="color:#667;font-size:13px">
           <span style="display:inline-block;width:12px;height:12px;background:#16A34A;border-radius:3px;vertical-align:-1px"></span> đã đóng ·
           <span style="display:inline-block;width:12px;height:12px;background:#FCA5A5;border-radius:3px;vertical-align:-1px"></span> chưa đóng ·
-          <span style="display:inline-block;width:12px;height:12px;background:#E5E7EB;border-radius:3px;vertical-align:-1px"></span> chưa ở
+          <span style="display:inline-block;width:12px;height:12px;background:#F3F4F6;box-shadow:inset 0 0 0 1px var(--admin-text-muted);border-radius:3px;vertical-align:-1px"></span> chưa ở
         </div></div>
       <p class="cn-keo">Vuốt ngang bảng để xem các tháng còn lại.</p>
       <div class="data-table-wrapper"><div class="dh-table-wrap"><table class="data-table bang-congno">
@@ -667,11 +671,15 @@ async function ktxCongNo(el) {
             if (o.ngoai) return '<td style="text-align:center;background:#F3F4F6"></td>';
             return o.da_dong
               ? '<td style="text-align:center;background:#DCFCE7;color:#166534;font-weight:700">✓</td>'
-              : `<td style="text-align:center;background:#FEE2E2"><button class="btn btn-sm btn-outline"
-                   style="padding:2px 8px" onclick="adminApp.ktxThuForm(${n.id}, '${esc(n.ho_ten)}', ${n.gia_thang}, '${o.ky}')">Thu</button></td>`;
+              : `<td style="text-align:center;background:#FEE2E2"><button class="btn btn-sm btn-outline cn-thu"
+                   onclick="adminApp.ktxThuForm(${n.id}, '${esc(n.ho_ten)}', ${n.gia_thang}, '${o.ky}')">Thu</button></td>`;
           }).join('')}
         </tr>`).join('') || `<tr><td colspan="${3 + d.cac_ky.length}"><div class="empty-state"><p>Chưa có ai ở ký túc xá.</p></div></td></tr>`}
         </tbody></table></div></div>`;
+    // Cột tháng xếp cũ -> mới, tháng HIỆN TẠI ở cuối: bảng rộng hơn khung thì mở sẵn ở mép phải,
+    // không để tháng cần xem nhất nằm khuất.
+    const cuon = el.querySelector('.bang-congno')?.closest('.dh-table-wrap');
+    if (cuon) cuon.scrollLeft = cuon.scrollWidth;
   } catch (e) {
     el.innerHTML = `<div class="empty-state"><i class="fa-solid fa-triangle-exclamation"></i><h3>Không tải được bảng công nợ</h3><p>${esc(e.message || '')}</p></div>`;
   }
@@ -930,6 +938,8 @@ const veLaiDe = () => renderDeBai($('admin-content'));
 function deMo(id) { deState.view = 'soan'; deState.deId = id; veLaiDe(); }
 function deXemKetQua(id) { deState.view = 'ket-qua'; deState.deId = id; veLaiDe(); }
 function deVeDanhSach() { deState.view = 'list'; deState.deId = null; veLaiDe(); }
+/** Bấm mục "Đề bài & kiểm tra" ở sidebar khi đang ở màn soạn / kết quả thì về danh sách (admin.js navigate). */
+export function deDatLai() { deState.view = 'list'; deState.deId = null; }
 
 function deForm(d = null) {
   openModal(d ? 'Sửa thông tin đề' : 'Tạo đề mới', `
@@ -990,9 +1000,12 @@ function deXoa(id, ten) {
 // --- MÀN SOẠN ĐỀ ---
 
 async function deSoan(el) {
+  const luot = el.dataset.luot;
   el.innerHTML = spin;
   try {
     const d = await apiGet(`/admin/de-bai/${deState.deId}`);
+    // Đã bấm sang khu khác trong lúc chờ: bỏ kết quả về muộn, không đè khu đang mở (xem admin.js).
+    if (!conDungLuot(el, luot)) return;
     deState.chiTiet = d;
     const de = d.de;
     const tongDiem = d.cau_hoi.reduce((s, c) => s + Number(c.diem), 0);
@@ -1059,10 +1072,10 @@ async function deSoan(el) {
               ${c.lua_chon ? `<div style="display:flex;flex-direction:column;gap:3px">
                 ${c.lua_chon.map((lc, j) => {
                   const dung = (c.dap_an || []).includes(j);
-                  return `<div style="font-size:13px;color:${dung ? '#16A34A' : '#667'};font-weight:${dung ? 700 : 400}">
+                  return `<div style="font-size:13px;color:${dung ? 'var(--admin-accent)' : '#667'};font-weight:${dung ? 700 : 400}">
                     ${dung ? '✓' : '○'} ${String.fromCharCode(65 + j)}. ${esc(lc)}</div>`;
                 }).join('')}</div>` : ''}
-              ${c.loai === 'dien-tu' ? `<div style="font-size:13px;color:#16A34A;font-weight:600">
+              ${c.loai === 'dien-tu' ? `<div style="font-size:13px;color:var(--admin-accent);font-weight:600">
                 ✓ Đáp án: ${(c.dap_an || []).map(esc).join('  /  ')}</div>` : ''}
               ${c.loai === 'tu-luan' ? '<div style="font-size:13px;color:#667"><i class="fa-solid fa-pen"></i> Giáo viên chấm tay</div>' : ''}
               ${c.giai_thich ? `<div style="font-size:13px;color:#667;margin-top:6px;padding-left:10px;border-left:3px solid var(--admin-border)">
@@ -1079,6 +1092,7 @@ async function deSoan(el) {
           <button class="btn btn-primary" onclick="adminApp.deCauForm(${de.id})">Thêm câu hỏi</button></div>`}
     `;
   } catch (e) {
+    if (!conDungLuot(el, luot)) return;
     el.innerHTML = `<div class="empty-state"><i class="fa-solid fa-triangle-exclamation"></i><h3>Không mở được đề</h3><p>${esc(e.message || '')}</p></div>`;
   }
 }
@@ -1278,9 +1292,11 @@ function deThuHoi(id) {
 // --- KẾT QUẢ ---
 
 async function deKetQua(el) {
+  const luot = el.dataset.luot;
   el.innerHTML = spin;
   try {
     const d = await apiGet(`/admin/de-bai/${deState.deId}/ket-qua`);
+    if (!conDungLuot(el, luot)) return;
     const diemTb = d.ket_qua.length
       ? (d.ket_qua.reduce((s, x) => s + (Number(x.tong_diem) ? (Number(x.diem) / Number(x.tong_diem)) * 100 : 0), 0) / d.ket_qua.length)
       : 0;
@@ -1301,7 +1317,7 @@ async function deKetQua(el) {
       </div>
 
       <h3 style="margin:0 0 10px">Bài đã nộp</h3>
-      <div class="data-table-wrapper"><div class="dh-table-wrap"><table class="data-table bang-the">
+      <div class="data-table-wrapper"><div class="dh-table-wrap"><table class="data-table bang-the bang-kq">
         <thead><tr><th>Học sinh</th><th>Lần</th><th style="text-align:right">Điểm</th><th>Số câu đúng</th>
           <th>Nộp lúc</th><th>Trạng thái</th><th></th></tr></thead>
         <tbody>${d.ket_qua.map((b) => {
@@ -1339,7 +1355,7 @@ async function deKetQua(el) {
             return `<tr>
               <td data-nhan="Câu hỏi" style="max-width:320px">${esc(String(c.noi_dung).slice(0, 90))}</td>
               <td data-nhan="Dạng">${DANG_NHAN[c.loai] || c.loai}</td>
-              <td data-nhan="Đúng" style="text-align:center;color:#16A34A">${c.dung}</td>
+              <td data-nhan="Đúng" style="text-align:center;color:var(--admin-accent)">${c.dung}</td>
               <td data-nhan="Sai" style="text-align:center;color:#DC2626;font-weight:700">${c.sai}</td>
               <td data-nhan="Tỉ lệ sai"><div style="background:#F3F4F6;border-radius:4px;height:16px;overflow:hidden">
                 <div style="width:${pct}%;height:100%;background:${pct > 50 ? '#DC2626' : '#F59E0B'}"></div></div>
@@ -1348,6 +1364,7 @@ async function deKetQua(el) {
           }).join('')}</tbody></table></div>` : ''}
     `;
   } catch (e) {
+    if (!conDungLuot(el, luot)) return;
     el.innerHTML = `<div class="empty-state"><i class="fa-solid fa-triangle-exclamation"></i><h3>Không tải được kết quả</h3><p>${esc(e.message || '')}</p></div>`;
   }
 }
@@ -1371,7 +1388,7 @@ async function deXemBai(baiLamId) {
       ${d.cau_hoi.map((c, i) => {
         const kq = tl[c.id] || {};
         const tuLuan = c.loai === 'tu-luan';
-        const mau = tuLuan ? '#667' : kq.dung ? '#16A34A' : '#DC2626';
+        const mau = tuLuan ? '#667' : kq.dung ? 'var(--admin-accent)' : '#DC2626';
         return `<div style="padding:12px;border-left:3px solid ${mau};background:var(--admin-bg);border-radius:6px;margin-bottom:10px">
           <div style="display:flex;justify-content:space-between;gap:10px">
             <b>Câu ${i + 1}</b>
@@ -1382,13 +1399,13 @@ async function deXemBai(baiLamId) {
           ${c.lua_chon ? `<div style="font-size:13px">${c.lua_chon.map((lc, j) => {
             const chon = Array.isArray(kq.tra_loi) ? kq.tra_loi.includes(j) : kq.tra_loi === j;
             const dung = (c.dap_an || []).includes(j);
-            return `<div style="color:${dung ? '#16A34A' : chon ? '#DC2626' : '#667'};font-weight:${dung || chon ? 600 : 400}">
+            return `<div style="color:${dung ? 'var(--admin-accent)' : chon ? '#DC2626' : '#667'};font-weight:${dung || chon ? 600 : 400}">
               ${dung ? '✓' : chon ? '✗' : '○'} ${String.fromCharCode(65 + j)}. ${esc(lc)}
               ${chon ? ' <i style="font-size:11px">(đã chọn)</i>' : ''}</div>`;
           }).join('')}</div>` : ''}
           ${c.loai === 'dien-tu' ? `<div style="font-size:13px">
             <div>Học sinh viết: <b>${esc(kq.tra_loi ?? '(bỏ trống)')}</b></div>
-            <div style="color:#16A34A">Đáp án: ${(c.dap_an || []).map(esc).join(' / ')}</div></div>` : ''}
+            <div style="color:var(--admin-accent)">Đáp án: ${(c.dap_an || []).map(esc).join(' / ')}</div></div>` : ''}
           ${tuLuan ? `
             <div style="background:#fff;border:1px solid var(--admin-border);border-radius:6px;padding:10px;margin:8px 0;white-space:pre-line">
               ${esc(kq.tra_loi || '(học sinh không viết gì)')}</div>

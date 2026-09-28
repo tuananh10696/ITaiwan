@@ -677,8 +677,9 @@ await chenNhieu('teacher_reviews',
   ['teacher_id', 'ky', 'diem_chuyen_can', 'diem_bai_giang', 'diem_theo_sat', 'diem_phan_hoi',
     'diem_ket_qua', 'nhan_xet', 'nguoi_cham'],
   [
-    [GV, ky(2), 9, 8, 8, 9, 8, 'Kỳ đầu nhận lớp, bám lớp tốt.', ADMIN],
-    [GV, ky(1), 9, 9, 9, 9, 8, 'Tỉ lệ chuyên cần của lớp A1 tăng rõ.', ADMIN],
+    // Thang 1-5 (API chặn ngoài khoảng này) — bản trước ghi 8-9 nên màn giáo viên hiện "8.6/5".
+    [GV, ky(2), 4, 4, 4, 5, 4, 'Kỳ đầu nhận lớp, bám lớp tốt.', ADMIN],
+    [GV, ky(1), 5, 5, 4, 5, 4, 'Tỉ lệ chuyên cần của lớp A1 tăng rõ.', ADMIN],
   ]);
 
 console.log(`🗒  ${nhanXetHang.length} nhận xét học viên · 3 ghi chú + 2 phiếu chấm giáo viên`);

@@ -33,7 +33,13 @@
   --admin-logo-ink: #17281F;
   --admin-text: #17281F;
   --admin-text-secondary: #4A5B51;
-  --admin-text-muted: #7F8D84;
+  /* #5F6E65 thay #7F8D84 (2026-09-28): màu cũ chỉ 3,47:1 trên trắng, 3,32:1 trên nền tiêu đề
+     bảng — dưới chuẩn 4,5:1 cho chữ thường, mà token này tô tiêu đề cột MỌI bảng, nhãn thẻ số
+     liệu, dòng phụ. Màu mới 5,38:1 trắng · 5,14:1 #F8FAFC · 4,57:1 trên nền cát. */
+  --admin-text-muted: #5F6E65;
+  /* Được dùng ở ~10 chỗ (nhãn bộ lọc, nhãn ô ở chế độ thẻ…) nhưng trước đây CHƯA khai báo:
+     chữ rơi về màu kế thừa, nhãn "Số tiền:" còn ăn màu xanh/đỏ của giá trị. */
+  --admin-text-light: var(--admin-text-secondary);
   --admin-border: #DEE9E1;
   --admin-radius: 12px;
   --admin-radius-sm: 8px;
@@ -161,6 +167,11 @@ body {
 
 .form-group textarea { resize: vertical; min-height: 80px; }
 .form-group select { cursor: pointer; }
+/* Ô không sửa được phải TRÔNG khác ô sửa được (vd. "Mã hồ sơ" khi sửa hồ sơ). */
+.form-group input:not([type=checkbox]):not([type=radio]):disabled,
+.form-group select:disabled, .form-group textarea:disabled {
+  background: var(--admin-bg); color: var(--admin-text-secondary); cursor: not-allowed;
+}
 
 .form-row {
   display: grid;
@@ -240,23 +251,35 @@ body {
 }
 
 .sidebar-header {
-  padding: 20px 20px 12px;
+  /* Cao ĐÚNG 60px như .admin-header để hai đường kẻ đáy nối thành một đường. */
+  height: 60px;
+  padding: 0 20px;
+  align-content: center;
   border-bottom: 1px solid var(--admin-sidebar-line);
-  display: flex;
+  /* Lưới 2 cột: logo chiếm 2 hàng, huy hiệu vai trò xuống hàng dưới chữ "ITaiwanAdmin".
+     Trước đây xếp cả ba trên MỘT hàng flex rộng 244px + padding > 260px của sidebar: huy hiệu
+     lòi ra ngoài — desktop đè lên đường ranh với nội dung, điện thoại thì khi menu đóng vẫn thấy
+     mẩu "IN" đỏ ở mép trái màn hình. Nhãn "QUẢN LÝ HỒ SƠ" còn dài gấp đôi "ADMIN". */
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
   align-items: center;
-  gap: 8px;
+  column-gap: 10px;
+  row-gap: 3px;
 }
+.sidebar-header .brand-logo-img { grid-row: span 2; }
+.sidebar-header .admin-badge { justify-self: start; }
 
 .admin-logo .logo-tw { font-size: 22px; font-weight: 900; color: var(--admin-logo-ink); }
 .admin-logo .logo-di { font-size: 22px; font-weight: 900; color: var(--admin-primary); }
 .admin-badge {
   background: var(--admin-danger);
   color: #fff;
-  font-size: 9px;
+  font-size: 11px;   /* 9px trước đây dưới ngưỡng đọc được; nay có hàng riêng nên đủ chỗ */
   font-weight: 800;
-  padding: 2px 6px;
+  padding: 1px 7px;
   border-radius: 3px;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
 }
 
 .sidebar-nav {
@@ -266,7 +289,7 @@ body {
 }
 
 .nav-section-label {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 800;
   /* #5F7178 chứ không phải xám nhạt: nhãn này là chữ 10px IN HOA, cần >= 4.5:1. Xám
      #8A9AA1 chỉ được 2,57:1 ở đáy sidebar — đúng cái bẫy --text-muted đã ghi ở 4.36. */
@@ -348,6 +371,7 @@ body {
 .admin-header h1 { font-size: 18px; font-weight: 800; flex: 1; }
 .admin-user-name { font-size: 13px; font-weight: 600; color: var(--admin-text-secondary); }
 .mobile-menu-btn { display: none; background: none; border: none; font-size: 20px; color: var(--admin-text); cursor: pointer; }
+.sidebar-backdrop { display: none; }
 
 .admin-content {
   flex: 1;
@@ -389,6 +413,19 @@ body {
 
 .stat-card .stat-value { font-size: 28px; font-weight: 900; color: var(--admin-text); }
 .stat-card .stat-label { font-size: 12px; font-weight: 600; color: var(--admin-text-muted); margin-top: 2px; }
+
+/* Lưới ĐÚNG 4 thẻ: 4 cột trên màn rộng, 2x2 từ 1279px trở xuống. auto-fit cho 3+1 ở 1024 —
+   thẻ thứ tư đứng một mình, hai phần ba hàng dưới bỏ trống. (≤768 đã về 2 cột ở khối responsive.) */
+.stats-grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+/* 2x2 tới 1279px: ở 1101-1279 bốn cột làm số tiền co còn ~18px cạnh ô số đếm 28px — lệch cỡ. */
+@media (max-width: 1279px) { .stats-grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+/* Lưới 6 thẻ (Tổng quan giáo viên): 3+3 ở màn laptop, một hàng 6 trên màn rộng. */
+.stats-grid--6 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (min-width: 1380px) { .stats-grid--6 { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+/* Số TIỀN trong thẻ: co theo bề rộng chính thẻ (container query) thay vì tràn qua viền —
+   "329.000.000₫" ở 28px cần ~215px, thẻ ở 1024 chỉ có ~183px. */
+.stat-card:has(.stat-tien) { container-type: inline-size; }
+.stat-card .stat-tien { font-size: clamp(17px, 12.5cqi, 28px); white-space: nowrap; }
 
 /* ============================================
    TỔNG QUAN CỦA QUẢN TRỊ (2026-09-22)
@@ -469,7 +506,7 @@ body {
   padding: 0 7px;
   border-radius: 999px;
   background: #FBEEE0;
-  color: var(--admin-warning);
+  color: #8A4513;   /* --admin-warning trên nền cam nhạt chỉ 4,02:1; #8A4513 6,26:1 (màu chữ .badge-warning) */
   font-size: 12px;
   font-weight: 800;
   display: inline-flex;
@@ -483,13 +520,15 @@ body {
 /* ---------- Hàng ô số liệu ---------- */
 .tq-luoi-o {
   display: grid;
-  /* 165px chứ không phải 186px: vùng nội dung trên màn 1440 rộng ~1150px, trừ 5 khe 14px còn
-     1080/6 = 180px mỗi ô — đặt mức tối thiểu 186 thì chỉ 5 ô vừa hàng và ô thứ sáu rớt xuống
-     một mình, để lại một khoảng trống dài. */
-  grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+  /* Số cột CỐ ĐỊNH theo bề rộng thay vì auto-fit: auto-fit cho 5+1 ở 1280/1366 (màn laptop phổ
+     biến) và 4+2 ở 1024/768 — đúng cảnh "ô thứ sáu rớt xuống một mình". 6 ô chia 3+3 hoặc 2x3
+     thì luôn đều. */
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
   margin-bottom: 18px;
 }
+@media (min-width: 1380px) { .tq-luoi-o { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .tq-luoi-o { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 
 /* Không dùng lại .stat-card: thẻ đó có khối icon pastel 42px nằm TRÊN con số, sáu thẻ cạnh
    nhau thành một dãy ô vuông màu nặng nề. Ở đây icon nhỏ nằm cùng dòng với nhãn, con số là
@@ -557,7 +596,7 @@ body {
   font-weight: 600;
   color: var(--admin-text-muted);
 }
-.tq-o-phu.is-tot { color: var(--admin-success); }
+.tq-o-phu.is-tot { color: var(--tq-thu); }   /* --admin-success chỉ 4,14:1; #17794A 5,43:1 */
 .tq-o-phu.is-xau { color: var(--admin-danger); }
 
 /* ---------- Biểu đồ cột ---------- */
@@ -601,14 +640,17 @@ body {
 .tq-tip-hang.is-chenh { margin-top: 5px; padding-top: 5px; border-top: 1px solid rgba(255, 255, 255, 0.16); }
 
 /* ---------- Thanh ngang: tiền theo từng mục ---------- */
-.tq-thanh-ds { display: flex; flex-direction: column; gap: 11px; }
-
-.tq-thanh-hang {
+/* MỘT lưới chung cho mọi hàng (hàng = display:contents): cột tên rộng theo tên dài nhất (tối
+   đa nửa khung) thay vì tỉ lệ cố định 1/2,7 — tên "Marketing - Quảng cáo" hết bị cắt "…", và
+   thanh các hàng thẳng cột với nhau (trước lệch 1-4px vì mỗi hàng tự tính cột `auto`). */
+.tq-thanh-ds {
   display: grid;
-  grid-template-columns: minmax(92px, 1fr) 1.7fr auto;
+  grid-template-columns: fit-content(50%) minmax(48px, 1fr) auto;
   align-items: center;
-  gap: 12px;
+  gap: 11px 12px;
 }
+
+.tq-thanh-hang { display: contents; }
 
 .tq-thanh-ten {
   font-size: 12.5px;
@@ -635,7 +677,7 @@ body {
 .tq-thanh-so em {
   display: block;
   font-style: normal;
-  font-size: 10.5px;
+  font-size: 11px;
   font-weight: 600;
   color: var(--admin-text-muted);
 }
@@ -663,7 +705,7 @@ body {
 .tq-lop-so { display: flex; gap: 18px; }
 
 .tq-do { min-width: 62px; }
-.tq-do-nhan { display: block; font-size: 10.5px; font-weight: 700; letter-spacing: 0.3px; text-transform: uppercase; color: var(--admin-text-muted); }
+.tq-do-nhan { display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.3px; text-transform: uppercase; color: var(--admin-text-muted); }
 .tq-do b { font-size: 16px; font-weight: 900; color: var(--admin-text); }
 .tq-do b.is-canh-bao { color: var(--admin-warning); }
 .tq-do-ray { display: block; height: 6px; margin-top: 5px; border-radius: 999px; background: #EBF2ED; overflow: hidden; }
@@ -704,7 +746,7 @@ body {
   padding: 0 7px;
   border-radius: 999px;
   background: #FBEEE0;
-  color: var(--admin-warning);
+  color: #8A4513;   /* 6,26:1 trên #FBEEE0 */
   font-size: 12.5px;
   font-weight: 800;
   display: inline-flex;
@@ -725,9 +767,10 @@ body {
   .tq-lop-so { gap: 12px; width: 100%; }
   .tq-do { flex: 1; min-width: 0; }
 }
+@media (max-width: 480px) { .tq-truc-y, .tq-truc-x { font-size: 21px; } }   /* viewBox 560 -> ~12px thật */
 
 @media (max-width: 640px) {
-  .tq-thanh-hang { grid-template-columns: minmax(78px, 1fr) 1.2fr auto; gap: 8px; }
+  .tq-thanh-ds { column-gap: 8px; }
   .tq-the { padding: 14px 14px 12px; }
   .tq-o-so { font-size: 25px; }
 }
@@ -740,8 +783,22 @@ body {
   border-radius: var(--admin-radius);
   box-shadow: var(--admin-shadow);
   border: 1px solid var(--admin-border);
-  overflow: hidden;
+  /* overflow-x AUTO chứ không hidden: hidden (để bo góc) CẮT MẤT cột thừa mà không cho cuộn —
+     trên điện thoại mất hẳn cột Thao tác của Tài khoản, cột Điểm danh của Buổi học… nên không
+     bấm được. auto vẫn bo góc, chỉ hiện thanh cuộn khi bảng thật sự rộng hơn khung. */
+  overflow-x: auto;
+  overflow-y: hidden;
 }
+/* Wrapper cuộn ngang thì CHỈ bảng cuộn: thanh công cụ, dòng hướng dẫn, phân trang đứng yên —
+   không thì cuộn sang phải là đầu thẻ thành dải trắng, nút "Giao bài mới" trôi mất khỏi tầm. */
+.data-table-wrapper > .table-toolbar,
+.data-table-wrapper > .table-pagination,
+.data-table-wrapper > .att-hint { position: sticky; left: 0; }
+/* ≤480: bảng thường (không phải .bang-the — bảng đó đã thành thẻ) giữ tối thiểu 560px và CUỘN
+   ngang, thay vì bị ép về bề rộng tối thiểu: mỗi ô một chữ, hàng cao 126px. */
+@media (max-width: 480px) { .data-table-wrapper:not(.dh-table-wrap) > .data-table:not(.bang-the) { min-width: 560px; } }
+/* (.dh-table-wrap đã có mức 700px riêng — bảng lịch sử có colgroup cố định 516-530px, ép về 560
+   thì cột tên bài chỉ còn 30-44px.) */
 
 .table-toolbar {
   padding: 16px 20px;
@@ -751,6 +808,11 @@ body {
   border-bottom: 1px solid var(--admin-border);
   flex-wrap: wrap;
 }
+/* Tiêu đề trang (toolbar đứng TRẦN trong #admin-content, không nằm trong thẻ) thẳng lề với thẻ
+   bên dưới — padding 20px của toolbar-trong-thẻ làm tiêu đề thụt vào so với mép thẻ. Nút viền
+   đứng trên nền gradient thì cần nền trắng, không thì viền #DEE9E1 gần như vô hình (1,1:1). */
+#admin-content > .table-toolbar { padding-left: 0; padding-right: 0; }
+#admin-content > .table-toolbar .btn-outline { background: var(--admin-surface); }
 
 .table-toolbar .search-input {
   flex: 1;
@@ -794,11 +856,25 @@ body {
   color: var(--admin-text);
   vertical-align: middle;
 }
+/* 769-1100px (sidebar vẫn hiện, khung ~700px): padding ô 16px làm bảng 7 cột (Tài khoản) rộng hơn
+   khung 70px, nút Xoá bị giấu sau thanh cuộn ẩn của macOS. Rule riêng .bang-* 8px đứng sau vẫn thắng. */
+@media (min-width: 769px) and (max-width: 1100px) {
+  .data-table th, .data-table td { padding-left: 10px; padding-right: 10px; }
+}
 
 .data-table tr:hover td { background: #F8FAFC; }
 .data-table tr:last-child td { border-bottom: none; }
 
 .table-actions { display: flex; gap: 6px; }
+/* Ô <td class="table-actions">: flex làm ô mất tư cách table-cell -> viền dưới lửng giữa hàng,
+   nút dính mép trên. Từ 721px trở lên giữ nó là ô bảng; ≤720 chế độ thẻ (.bang-the) vẫn dùng flex. */
+@media (min-width: 721px) {
+  .data-table td.table-actions { display: table-cell; white-space: nowrap; }
+  .data-table td.table-actions > .btn + .btn { margin-left: 6px; }
+  /* Ô table-cell canh nút theo baseline -> Soạn 29px, Kết quả 27px, Xoá 34px lệch nhau. */
+  .data-table td.table-actions > .btn { vertical-align: middle; min-height: 34px; }
+  .bang-de td.table-actions { text-align: right; }   /* thùng rác luôn ở mép phải, kể cả hàng không có "Kết quả" */
+}
 
 .table-pagination {
   padding: 14px 20px;
@@ -839,7 +915,11 @@ body {
   width: 100%;
   max-width: 780px;
   max-height: 85vh;
-  overflow-y: auto;
+  /* Chỉ THÂN modal cuộn; đầu (nút đóng) và chân (nút Lưu) luôn nằm trong khung. Trước đây cả
+     modal cuộn chung: form hồ sơ ~40 ô thì phải kéo hết mới thấy nút Lưu. */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
   box-shadow: 0 20px 60px rgba(0,0,0,0.2);
   transform: translateY(10px);
   transition: transform 0.25s;
@@ -872,7 +952,8 @@ body {
 }
 .modal-close:hover { background: #E2E8F0; color: var(--admin-text); }
 
-.modal-body { padding: 20px 24px; }
+.modal-body { padding: 20px 24px; flex: 1 1 auto; min-height: 0; overflow-y: auto; }
+.modal-header, .modal-footer { flex: none; }
 
 .modal-footer {
   padding: 16px 24px;
@@ -898,7 +979,7 @@ body {
 .badge-success { background: #DDF1E6; color: #065F46; }
 .badge-warning { background: #FBEEDF; color: #8A4513; }
 .badge-danger { background: #FEE2E2; color: #991B1B; }
-.badge-gray { background: #F1F5F9; color: #64748B; }
+.badge-gray { background: #F1F5F9; color: var(--admin-text-secondary); }   /* #64748B cũ: 4,34:1 */
 .badge-purple { background: #E6F0EC; color: #5B21B6; }
 
 /* ============================================
@@ -971,6 +1052,12 @@ body {
     transform: translateX(0);
     box-shadow: 4px 0 20px rgba(0,0,0,0.3);
   }
+  /* Lớp phủ sau menu trượt: làm mờ nội dung và BẤM VÀO LÀ ĐÓNG menu. Không có nó thì menu mở
+     che 2/3 màn hình mà bấm ra ngoài không đóng được, phải tìm lại nút ☰. */
+  .admin-sidebar.open + .sidebar-backdrop {
+    display: block; position: fixed; inset: 0; z-index: 99;
+    background: rgba(23, 40, 31, 0.35);
+  }
   .admin-main { margin-left: 0; }
   .mobile-menu-btn { display: block; }
   .admin-content { padding: 16px; }
@@ -979,6 +1066,14 @@ body {
   .table-toolbar { flex-direction: column; align-items: stretch; }
   .data-table { font-size: 12px; }
   .data-table th, .data-table td { padding: 10px 12px; }
+  /* Một cột thì bỏ khoảng cách hàng của lưới: .form-group đã có margin-bottom 16px, cộng thêm
+     gap 12px là hai ô cùng hàng cách 28px còn khác hàng cách 16px — nhìn lổn nhổn. */
+  .form-row { row-gap: 0; }
+  /* Vùng bấm tối thiểu ~36px trên màn cảm ứng (btn-sm 27px, btn-icon 34px, nút đóng 32px). */
+  .btn-sm { min-height: 36px; }
+  .btn-icon, .modal-close { width: 36px; height: 36px; }
+  /* Số thẻ LẺ thì thẻ cuối trải hết hàng (trước chỉ áp ≤480, ở 768 thẻ thứ 3/5 đứng trơ trọi). */
+  .stats-grid .stat-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
 }
 
 @media (max-width: 480px) {
@@ -988,7 +1083,6 @@ body {
      Tổng quan và Hồ sơ du học, không nhãn nào bị cắt). */
   .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 18px; }
   /* Số thẻ LẺ thì thẻ cuối trải hết hàng, không để trống nửa hàng bên phải. */
-  .stats-grid .stat-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
   .stat-card { padding: 13px; }
   .stat-card .stat-icon { width: 34px; height: 34px; font-size: 15px; margin-bottom: 8px; border-radius: 9px; }
   .stat-card .stat-value { font-size: 20px; }
@@ -1114,7 +1208,10 @@ tr[draggable]:hover .drag-handle {
 /* --- Lưới 2 cột cho khối "cần xử lý" / "cần chú ý" --- */
 .admin-cols-2 {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  /* 460px (thay 340px): ngưỡng cũ vẫn chia 2 cột ở màn 1024 (nội dung chỉ còn 708px sau
+     sidebar) — bảng mỗi cột còn ~340px, mỗi ô một chữ, nút gãy dòng. min(100%, …) để không
+     tràn trên điện thoại. */
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr));
   gap: 20px;
   margin-bottom: 20px;
 }
@@ -1171,7 +1268,9 @@ tr[draggable]:hover .drag-handle {
 .data-table tbody tr:hover { background: #F8FAFF; }
 
 @media (max-width: 900px) {
-  .admin-cols-2 { grid-template-columns: 1fr; }
+  /* minmax(0, 1fr) chứ không `1fr` (= minmax(auto, 1fr)): track `1fr` phình theo bảng rộng nhất
+     bên trong -> cả trang tràn ngang 67px ở 390 (chi tiết hồ sơ du học). */
+  .admin-cols-2 { grid-template-columns: minmax(0, 1fr); }
 }
 
 /* --- Accordion bài tập gom nhóm --- */
@@ -1304,7 +1403,11 @@ html.tw-auth-checking .auth-splash {
 }
 .att-btn + .att-btn { border-left: 1.5px solid var(--admin-border); }
 .att-btn:hover { background: #F1F5F9; }
-.att-btn--present.is-on { background: var(--admin-success); color: #fff; }
+.att-btn--present.is-on { background: var(--admin-accent); color: #fff; }   /* chữ trắng trên --admin-success chỉ 4,14:1 */
+/* Màn điểm danh là màn giáo viên dùng trên điện thoại nhiều nhất: nút 27px gãy chữ "Có mặt",
+   ô tick 13px — nâng vùng bấm lên 36px / 20px. */
+.att-btn { min-height: 36px; white-space: nowrap; }
+#attendance-table .att-late, #attendance-table .att-early { width: 20px; height: 20px; accent-color: var(--admin-primary); }
 .att-btn--absent.is-on { background: var(--admin-danger); color: #fff; }
 
 /* Dòng của học viên vắng làm mờ đi để lướt mắt là thấy ngay ai nghỉ. */
@@ -1316,6 +1419,9 @@ html.tw-auth-checking .auth-splash {
   background: #EFF6FF; color: #1E40AF; border-top: 1px solid #E4F1EA; border-bottom: 1px solid #E4F1EA;
   padding: 10px 18px; font-size: 13px; line-height: 1.5;
 }
+/* Chữ trong MỘT span (README mục 6): để trần xen <b> thì flex chia thành 8 mẩu rời. */
+.att-hint > i { flex: none; margin-top: 3px; }
+.att-hint > span { flex: 1; min-width: 0; }
 
 /* Buổi học hôm nay / sắp tới: viền trái nổi bật giữa danh sách dài. */
 .session-row--next > td:first-child { box-shadow: inset 3px 0 0 var(--admin-accent); }
@@ -1366,6 +1472,10 @@ html.tw-auth-checking .auth-splash {
 .dh-chip {
   display: inline-flex; align-items: center; gap: 5px;
   padding: 3px 9px; border-radius: 999px; font-size: 12px; font-weight: 700; white-space: nowrap;
+  /* Nền 10% + chữ màu bước PHA ĐEN 35%: chữ đúng màu bước (vd. xám "Tạm dừng" 2,37:1, cam
+     "Đóng tiền" 2,86:1) không đọc nổi; pha xong thấp nhất ~5:1 mà vẫn nhận ra màu của bước. */
+  background: color-mix(in srgb, var(--c, #64748B) 10%, #fff);
+  color: color-mix(in srgb, var(--c, #64748B) 65%, #000);
 }
 
 /* --- việc cần làm --- */
@@ -1426,7 +1536,17 @@ html.tw-auth-checking .auth-splash {
    (để bo góc) nên ở đó bảng bị CẮT MẤT cột chứ không cuộn được — thêm cuộn ngang cho riêng bảng
    này. Chỉ bảng mới được rộng hơn khung; phần thân trang thì không (CLAUDE.md 4.36). */
 .dh-table-wrap { overflow-x: auto; overflow-y: hidden; }
-.dh-table-wrap .data-table { min-width: 720px; }
+.dh-table-wrap .data-table { min-width: 700px; }   /* 700 chứ không 720: khung ở màn 1024 chỉ rộng 706px */
+/* Danh sách hồ sơ: cột Học sinh + Nguyện vọng có bề rộng tối thiểu — không có thì các cột nowrap
+   (Bước, Tiền, Mốc) chiếm hết chỗ, tên gãy 3 dòng, nguyện vọng 5-6 dòng, hàng cao 115-141px. */
+.dh-table-wrap:not(.tdt-bang) .dh-row > td:first-child { min-width: 170px; }
+.dh-table-wrap:not(.tdt-bang) .dh-row > td:nth-child(3) { min-width: 190px; }
+/* ≤1180: ô Tiền được xuống 2 dòng ("đã thu / tổng") — để nowrap thì ở 1024 cột Tiền, Giấy tờ,
+   Mốc gần nhất bị đẩy khuất 257px. */
+@media (max-width: 1180px) {
+  .dh-table-wrap:not(.tdt-bang) .dh-row > td:nth-child(4) { white-space: normal !important; }
+  .dh-table-wrap:not(.tdt-bang) .dh-row > td:nth-child(4) > .dh-sub { display: block; }
+}
 
 /* --- thanh 6 bước ---
    Nút, không phải chỉ báo: bấm thẳng vào bước để chuyển, cho tới/lùi tự do (trượt visa phải
@@ -1450,11 +1570,11 @@ html.tw-auth-checking .auth-splash {
   background: var(--admin-bg); border: 1px solid var(--admin-border); font-size: 14px;
 }
 .dh-step-ten { font-size: 12px; font-weight: 700; text-align: center; line-height: 1.25; }
-.dh-step.is-done { color: var(--admin-success); }
+.dh-step.is-done { color: var(--admin-accent); }   /* --admin-success 4,14:1, accent 5,30:1 */
 .dh-step.is-done .dh-step-ic {
   background: var(--admin-success); border-color: var(--admin-success); color: #fff;
 }
-.dh-step.is-now { color: var(--c); background: color-mix(in srgb, var(--c) 10%, transparent); }
+.dh-step.is-now { color: color-mix(in srgb, var(--c) 65%, #000); background: color-mix(in srgb, var(--c) 10%, transparent); }
 .dh-step.is-now .dh-step-ic { background: var(--c); border-color: var(--c); color: #fff; }
 
 .dh-step-end { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 20px; }
@@ -1574,9 +1694,15 @@ html.tw-auth-checking .auth-splash {
   border-top: 1px dashed var(--admin-border); font-size: 13px; color: var(--admin-text-secondary);
 }
 .dh-pv-tomtat > i { flex: none; margin-top: 2px; color: #7C3AED; }
+.dh-pv-tomtat > .fa-circle-xmark { color: var(--admin-danger); }
+.dh-pv-tomtat > .fa-circle-check { color: var(--admin-accent); }
 .dh-pv-tomtat > span { flex: 1; min-width: 0; }
 
 @media (max-width: 640px) {
+  /* Vùng bấm >= 38px trên điện thoại (trước 23-32px). */
+  .dh-tab, .dh-step-endbtn, .dh-pv-loai-btn, .dh-pv-kq button, .dh-gt-act select,
+  .dh-pv-ngay input, .dh-pv-do input, .dh-viec-list li { min-height: 38px; }
+  .tdt-truong > .tdt-head { padding: 8px 0; margin: -8px 0; }   /* vùng bấm 23 -> 39px */
   .dh-pv-buoi { grid-template-columns: auto minmax(0, 1fr); }
   .dh-pv-ngay, .dh-pv-kq { grid-column: 1 / -1; }
   .dh-pv-kq { justify-self: start; }
@@ -1585,7 +1711,9 @@ html.tw-auth-checking .auth-splash {
 /* --- checklist giấy tờ --- */
 .dh-gt { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
 .dh-gt-item {
-  display: flex; align-items: center; gap: 10px;
+  /* wrap: ở ≤360px tên giấy tờ + select 158px + nút xoá không vừa một hàng -> cụm thao tác
+     xuống hàng dưới, sát phải, thay vì đẩy tràn khối hoặc bị cắt mất nút xoá. */
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
   padding: 8px 10px; border-radius: var(--admin-radius-sm);
   background: var(--admin-bg); border-left: 3px solid var(--admin-border);
 }
@@ -1593,8 +1721,11 @@ html.tw-auth-checking .auth-splash {
 .dh-gt-item.is-dich { border-left-color: var(--admin-primary); }
 .dh-gt-item.is-nop { border-left-color: var(--admin-success); }
 .dh-gt-item.is-khong-can { opacity: .55; }
-.dh-gt-ten { flex: 1; min-width: 0; font-size: 13px; font-weight: 600; }
-.dh-gt-act { display: flex; align-items: center; gap: 4px; flex: none; }
+.dh-gt-ten { flex: 1 1 170px; min-width: 0; font-size: 13px; font-weight: 600; }
+.dh-gt-act { display: flex; align-items: center; gap: 4px; flex: none; margin-left: auto; }
+/* Bảng sổ thu tiền trong chi tiết hồ sơ: tự cuộn trong khung, không đẩy cả lưới 2 cột rộng ra. */
+.dh-tien-bang { overflow-x: auto; margin-top: 12px; }
+.dh-tien-bang .dh-sub { white-space: normal; }
 .dh-gt-act select {
   padding: 5px 8px; border: 1px solid var(--admin-border);
   border-radius: var(--admin-radius-sm); font-family: inherit; font-size: 12px; background: #fff;
@@ -1604,6 +1735,7 @@ html.tw-auth-checking .auth-splash {
 .dh-tien-top { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 10px; }
 .dh-tien-top > div { display: flex; flex-direction: column; gap: 2px; }
 .dh-tien-top b { font-size: 16px; font-weight: 800; }
+@media (max-width: 480px) { .dh-tien-top { grid-template-columns: 1fr; } }   /* 481-768 vẫn đủ chỗ 3 cột; đặt SAU luật gốc */
 .dh-bar { height: 7px; border-radius: 999px; background: var(--admin-border); overflow: hidden; }
 .dh-bar > i { display: block; height: 100%; background: var(--admin-success); border-radius: 999px; }
 
@@ -1674,10 +1806,10 @@ html.tw-auth-checking .auth-splash {
    là grid item, không phải flex item). Hàng 3 ô dùng class này. */
 .dh-f3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 .dh-f3 > .form-group { margin-bottom: 16px; }
-@media (max-width: 720px) { .dh-f3 { grid-template-columns: 1fr; } }
+@media (max-width: 720px) { .dh-f3 { grid-template-columns: 1fr; row-gap: 0; } }
 
 @media (max-width: 768px) {
-  .dh-tien-top { grid-template-columns: 1fr; }
+
   .dh-step { min-width: 84px; }
   .dh-step-ten { font-size: 11px; }
 }
@@ -1686,7 +1818,7 @@ html.tw-auth-checking .auth-splash {
    DU HỌC — chứng từ ảnh + yêu cầu sửa của học sinh (2026-09-16)
    ============================================================ */
 
-.dh-ok { font-size: 12px; color: #16A34A; font-weight: 700; }
+.dh-ok { font-size: 12px; color: var(--admin-accent); font-weight: 700; }
 
 /* --- ảnh chứng từ --- */
 .dh-anh-xem { display: flex; align-items: center; gap: 10px; margin-top: 8px; font-size: 12.5px; }
@@ -1863,7 +1995,12 @@ html.tw-auth-checking .auth-splash {
 }
 .ktx-the:hover { border-color: var(--admin-primary); box-shadow: 0 4px 14px rgba(0,0,0,.08); transform: translateY(-2px); }
 .ktx-the.is-no { border-color: #FCA5A5; }
-.ktx-the.is-tat { opacity: .62; }
+/* Phòng tắt (bảo trì / đóng): làm NHẠT nền thay vì opacity cả thẻ — opacity .62 kéo cả badge
+   "Bảo trì" xuống 2,3:1, đúng cái chữ cần đọc. */
+.ktx-the.is-tat { background: var(--admin-bg); }
+.ktx-the.is-tat b, .ktx-the.is-tat .ktx-gia { color: var(--admin-text-secondary); }
+.ktx-the.is-tat .ktx-thanh { opacity: .5; }
+.ktx-the.is-tat .badge { background: var(--admin-surface); }   /* badge-gray trùng nền thẻ tắt */
 .ktx-the-dau { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 4px; }
 .ktx-the-dau b { font-size: 16px; }
 .ktx-the-phu { font-size: 12.5px; color: var(--admin-text-light); }
@@ -1938,6 +2075,12 @@ html.tw-auth-checking .auth-splash {
     padding: 10px 12px; margin-bottom: 10px; background: #fff;
   }
   .bang-the td { border: none !important; padding: 3px 0 !important; text-align: left !important; }
+  /* Thẻ cuối không để dải trắng thừa; hàng "trống" (td colspan) không vẽ thành thẻ lồng trong khung. */
+  .bang-the tbody { padding: 10px; }
+  .bang-the tr:last-child { margin-bottom: 0; }
+  .bang-the tr:has(> td[colspan]) { border: 0; padding: 0; margin: 0; background: none; }
+  .bang-the td.table-actions .btn-icon { width: 40px; height: 40px; }
+  .bang-the td.table-actions .btn-sm { min-height: 40px; }
   /* Nhãn cột đứng trước giá trị — không có nó thì đọc thẻ không biết con số nào là gì. */
   .bang-the td[data-nhan]::before {
     content: attr(data-nhan) ": ";
@@ -1986,8 +2129,13 @@ html.tw-auth-checking .auth-splash {
 .bang-congno .cn-phu { display: none; }
 .bang-congno th, .bang-congno td { white-space: nowrap; }
 
-@media (max-width: 760px) {
-  .cn-keo { display: block; }
+/* Bảng công nợ rộng ~1100px: từ 1400px trở xuống gộp cột Phòng/Giá vào dưới tên và ghim cột
+   tên (trước chỉ làm ở ≤760px, nên ở 768-1366 các tháng gần nhất bị khuất mà không gì báo). */
+/* 761-768px bảng vừa khung (cột Phòng/Giá đã gộp) nên không cần gợi ý vuốt. */
+@media (max-width: 760px), (min-width: 769px) and (max-width: 1023px) { .cn-keo { display: block; } }
+.bang-congno .cn-thu { padding: 2px 8px; }
+@media (max-width: 760px) { .bang-congno .cn-thu { min-height: 36px; padding: 6px 12px; } }
+@media (max-width: 1439px) {   /* bảng đủ cột vừa khung từ ~1422px */
   .bang-congno .cn-an { display: none; }
   .bang-congno .cn-phu { display: block; font-size: 11.5px; color: var(--text-muted, #667); font-weight: 400; margin-top: 2px; }
   .bang-congno thead th:first-child,
@@ -2040,6 +2188,41 @@ html.tw-auth-checking .auth-splash {
   .bang-de .de-nguoi { min-width: 110px; }
   .bang-de .de-tieude .badge { margin-left: 7px; vertical-align: 1px; }
 }
+/* Màn 721-1150px: bảng nhiều cột phải cuộn ngang trong khung — GHIM cột nút bấm vào mép phải để
+   Soạn / Kết quả / In / Xoá luôn nhìn thấy, không phải cuộn mới bấm được. */
+@media (min-width: 721px) and (max-width: 1150px) {
+  .bang-de th:last-child, .bang-de td.table-actions,
+  .bang-kq th:last-child, .bang-kq td.table-actions,
+  .bang-quy th:last-child, .bang-quy td.table-actions,
+  .bang-lstt th:last-child, .bang-lstt td.table-actions {
+    position: sticky; right: 0; z-index: 1;
+    background: var(--admin-surface);
+    box-shadow: inset 1px 0 0 var(--admin-border);
+  }
+  .bang-de th:last-child, .bang-kq th:last-child, .bang-quy th:last-child, .bang-lstt th:last-child { background: #F8FAFC; }
+  /* 8 cột, padding 16px mỗi ô -> cột Diễn giải / Người thu còn ~70px, mỗi chữ một dòng. */
+  .bang-quy th, .bang-quy td, .bang-lstt th, .bang-lstt td,
+  .bang-kq th, .bang-kq td, .bang-phieu th, .bang-phieu td { padding-left: 8px; padding-right: 8px; }
+}
+/* Phiếu chấm giáo viên: 9 cột, cột Nhận xét bị ép còn 75px (gãy 7 dòng). */
+.bang-phieu td[data-nhan="Nhận xét"] { min-width: 150px; }
+/* Bảng "Đang ở" của một phòng rộng ~945px: khung nội dung = bề rộng màn − 318px, nên phải xử lý
+   tới 1279px (dừng ở 1150 thì ở 1151-1261 nút Thu tiền / Sửa / Trả phòng lại bị khuất). */
+@media (min-width: 721px) and (max-width: 1279px) {
+  .bang-o th:last-child, .bang-o td.table-actions {
+    position: sticky; right: 0; z-index: 1;
+    background: var(--admin-surface);
+    box-shadow: inset 1px 0 0 var(--admin-border);
+  }
+  .bang-o th:last-child { background: #F8FAFC; }
+  .bang-o th, .bang-o td { padding-left: 8px; padding-right: 8px; }
+  .bang-o td:first-child { min-width: 120px; }   /* tên người ở không gãy từng chữ */
+}
+/* Kết quả đề: tên học sinh không bị ép còn 87px (gãy 3 dòng). */
+.bang-kq td:first-child { min-width: 120px; }
+/* Mã phiếu "PT-0013" không gãy ở dấu gạch; <b> để nhãn "Mã phiếu:" ở chế độ thẻ không ăn font số. */
+.quy-ma { white-space: nowrap; }
+.quy-ma b { font-family: var(--font-num, monospace); font-weight: 700; }
 /* Màn laptop 1280px: bỏ cột "Người tạo" thay vì đẩy cột nút bấm ra ngoài mép — người tạo là
    thông tin phụ, còn nút Soạn / Kết quả là việc chính của màn này. */
 @media (min-width: 721px) and (max-width: 1330px) {
@@ -2062,7 +2245,7 @@ html.tw-auth-checking .auth-splash {
 
 /* Nút trong cột thao tác và nhãn trạng thái KHÔNG được gãy chữ: "Thu tiền" vỡ thành hai dòng
    "Thu / tiền" trông như lỗi hiển thị, mà chỗ để thêm vài pixel thì bảng nào cũng có. */
-.data-table .table-actions .btn, .data-table .badge { white-space: nowrap; }
+.data-table .btn, .data-table .badge { white-space: nowrap; }
 
 /* Dưới ~1150px bảng đề vẫn rộng hơn khung (8 cột), nên nói thẳng là vuốt ngang được — thanh cuộn
    của `.dh-table-wrap` rất mảnh, không ai nhận ra. Trên 1150px bảng vừa khít nên giấu dòng này. */

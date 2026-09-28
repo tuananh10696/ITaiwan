@@ -9,7 +9,7 @@ import { thoidaiBooks, tdLessonKey, tdLessonLabel, tdSubSegs, tdParseLessonId } 
 // đã 5.400 dòng. Cầu nối MỘT CHIỀU `dangKyTrungTam` ở cuối file: module chỉ đọc, không import
 // ngược lại đây (tránh vòng lặp import — đúng lối src/core/app.js ở 4.40).
 import {
-  dangKy as dangKyTrungTam, renderQuy, renderKtx, renderDeBai,
+  dangKy as dangKyTrungTam, renderQuy, renderKtx, renderDeBai, deDatLai,
   quyHandlers, ktxHandlers, deHandlers,
 } from './admin-trungtam.js';
 // Bước Phỏng vấn: 3 loại + trạng thái từng buổi. Quy tắc DÙNG CHUNG với server (tự chuyển bước).
@@ -637,6 +637,9 @@ function applyAdminRoute() {
 // opts.replace : thay thế entry lịch sử hiện tại thay vì tạo entry mới.
 function navigate(section, opts) {
   if (section === 'teachers' && !(opts && opts.keepView)) _gvDangXem = null;
+  // Bấm "Đề bài & kiểm tra" ở sidebar khi đang soạn / xem kết quả một đề: về danh sách (trước đây
+  // URL đổi thành #/de-bai mà màn vẫn giữ nguyên màn con).
+  if (section === 'de-bai' && !(opts && opts.keepView)) deDatLai();
   if (section === 'du-hoc' && !(opts && opts.keepView)) { dhView = 'list'; dhId = null; dhChiTiet = null; }
   if (section === 'classes' && !(opts && opts.keepView)) {
     classesView = 'list';
@@ -720,7 +723,7 @@ async function renderTeacherList(el) {
           <h3 style="font-size:14px;font-weight:700;flex:1">${teachers.length} giáo viên</h3>
           <button class="btn btn-sm btn-primary" onclick="adminApp.moFormGiaoVien()"><i class="fa-solid fa-plus"></i> Thêm giáo viên</button>
         </div>
-        <table class="data-table">
+        <table class="data-table bang-the">
           <thead><tr><th>Giáo viên</th><th style="width:90px">Số lớp</th><th style="width:100px">Học viên</th><th style="width:120px">Điểm đánh giá</th><th style="width:150px">Thao tác</th></tr></thead>
           <tbody>
             ${teachers.length === 0 ? `<tr><td colspan="5"><div class="empty-state" style="padding:26px">
@@ -732,13 +735,13 @@ async function renderTeacherList(el) {
                   <div style="font-weight:700">${_escHtml(t.name)}</div>
                   <div style="font-size:11px;color:var(--admin-text-muted)">${_escHtml(t.email)}${t.phone ? ' · ' + _esc(t.phone) : ''}</div>
                 </td>
-                <td>${t.so_lop}</td>
-                <td>${t.so_hoc_vien}</td>
-                <td>${t.diem_tb != null ? `<span class="badge ${t.diem_tb >= 4 ? 'badge-success' : t.diem_tb >= 3 ? 'badge-warning' : 'badge-danger'}">${t.diem_tb}/5</span>` : '<span style="color:var(--admin-text-muted)">chưa chấm</span>'}</td>
-                <td>
+                <td data-nhan="Số lớp">${t.so_lop}</td>
+                <td data-nhan="Học viên">${t.so_hoc_vien}</td>
+                <td data-nhan="Điểm đánh giá">${t.diem_tb != null ? `<span class="badge ${t.diem_tb >= 4 ? 'badge-success' : t.diem_tb >= 3 ? 'badge-warning' : 'badge-danger'}">${t.diem_tb}/5</span>` : '<span style="color:var(--admin-text-muted)">chưa chấm</span>'}</td>
+                <td><div class="table-actions">
                   <button class="btn btn-sm btn-outline" onclick="adminApp.moGiaoVien(${t.id})"><i class="fa-solid fa-eye"></i> Hồ sơ</button>
                   <button class="btn btn-icon btn-outline" title="Bỏ vai trò giáo viên" onclick="adminApp.boVaiTroGiaoVien(${t.id}, '${_escAttr(t.name)}')"><i class="fa-solid fa-user-minus"></i></button>
-                </td>
+                </div></td>
               </tr>`).join('')}
           </tbody>
         </table>
@@ -792,9 +795,11 @@ async function boVaiTroGiaoVien(id, ten) {
 }
 
 async function renderTeacherDetail(el, id) {
+  const luot = el.dataset.luot;
   el.innerHTML = '<div style="text-align:center;padding:40px;color:var(--admin-text-muted)"><i class="fa-solid fa-spinner fa-spin" style="font-size:24px"></i></div>';
   try {
     const d = await apiGet(`/admin/teachers/${id}`);
+    if (!conDungLuot(el, luot)) return;
     const cs = d.chi_so;
     const tyLeDiemDanh = cs.buoi_da_toi_ngay > 0 ? Math.round((cs.buoi_da_diem_danh / cs.buoi_da_toi_ngay) * 100) : null;
     const tyLeNop = cs.luot_can_nop > 0 ? Math.round((cs.luot_da_nop / cs.luot_can_nop) * 100) : null;
@@ -835,20 +840,20 @@ async function renderTeacherDetail(el, id) {
           <h3 style="font-size:13px;font-weight:700;flex:1">${d.reviews.length} phiếu</h3>
           <button class="btn btn-sm btn-primary" onclick="adminApp.moPhieuChamDiem(${id})"><i class="fa-solid fa-star"></i> Chấm điểm kỳ này</button>
         </div>
-        <table class="data-table">
+        <table class="data-table bang-the bang-phieu">
           <thead><tr><th style="width:90px">Kỳ</th>${TIEU_CHI_GV.map(t => `<th title="${t.mo_ta}">${t.nhan}</th>`).join('')}<th style="width:80px">TB</th><th>Nhận xét</th><th style="width:90px"></th></tr></thead>
           <tbody>
             ${d.reviews.length === 0 ? `<tr><td colspan="9"><div class="empty-state" style="padding:22px"><p>Chưa chấm điểm kỳ nào.</p></div></td></tr>` : ''}
             ${d.reviews.map(r => `
               <tr>
-                <td style="font-weight:700">${r.ky}</td>
-                ${TIEU_CHI_GV.map(t => `<td>${r[t.key] == null ? '—' : r[t.key] + '/5'}</td>`).join('')}
-                <td><span class="badge ${r.diem_tb >= 4 ? 'badge-success' : r.diem_tb >= 3 ? 'badge-warning' : 'badge-danger'}">${r.diem_tb ?? '—'}</span></td>
-                <td style="font-size:12px">${_escHtml(r.nhan_xet || '')}</td>
-                <td>
+                <td data-nhan="Kỳ" style="font-weight:700;white-space:nowrap">${r.ky}</td>
+                ${TIEU_CHI_GV.map(t => `<td data-nhan="${t.nhan}">${r[t.key] == null ? '—' : r[t.key] + '/5'}</td>`).join('')}
+                <td data-nhan="TB"><span class="badge ${r.diem_tb >= 4 ? 'badge-success' : r.diem_tb >= 3 ? 'badge-warning' : 'badge-danger'}">${r.diem_tb ?? '—'}</span></td>
+                <td data-nhan="Nhận xét" style="font-size:12px">${_escHtml(r.nhan_xet || '')}</td>
+                <td><div class="table-actions">
                   <button class="btn btn-icon btn-outline" title="Sửa" onclick="adminApp.moPhieuChamDiem(${id}, '${r.ky}')"><i class="fa-solid fa-pen"></i></button>
                   <button class="btn btn-icon btn-outline" title="Xoá" onclick="adminApp.xoaPhieuChamDiem(${r.id})"><i class="fa-solid fa-trash"></i></button>
-                </td>
+                </div></td>
               </tr>`).join('')}
           </tbody>
         </table>
@@ -873,6 +878,7 @@ async function renderTeacherDetail(el, id) {
           </div>`).join('')}
       </div>`;
   } catch (err) {
+    if (!conDungLuot(el, luot)) return;
     el.innerHTML = `<div class="empty-state"><h3>Lỗi</h3><p>${_escHtml(err.message)}</p></div>`;
   }
 }
@@ -1031,10 +1037,13 @@ function _tqCatDauRong(ds) {
 function _tqCotHtml(thangGoc) {
   const thang = _tqCatDauRong(thangGoc);
   _tqThang = thang;
-  const W = 960, H = 290;
+  // viewBox hẹp hơn trên điện thoại: SVG co 960 -> ~330px làm chữ trục chỉ còn 8px.
+  const W = window.innerWidth <= 480 ? 560 : 960, H = 290;
   const TREN = 18, DUOI = 40, TRAI = 76, PHAI = 16;
   const nen = W - TRAI - PHAI, cao = H - TREN - DUOI;
-  const dinh = nacTron(Math.max(1, ...thang.flatMap((t) => [t.thu, t.chi])));
+  // Sàn 1 triệu: chưa có số liệu thì trục là 0 / 250 ng / … / 1 tr — sàn 1 (đồng) cho ra
+  // "0.25 / 0.5 / 0.75", vừa sai định dạng vừa vô nghĩa với tiền.
+  const dinh = nacTron(Math.max(1e6, ...thang.flatMap((t) => [t.thu, t.chi])));
   const y = (v) => TREN + cao - (v / dinh) * cao;
   const bang = nen / thang.length;
   // Cột dày tối đa 26px, khe 3px giữa hai cột cùng tháng — hai khối màu dính nhau thì mắt đọc
@@ -1073,7 +1082,9 @@ function _tqCotHtml(thangGoc) {
                   rx="7" onmousemove="adminApp.tqTip(event, ${i})" onmouseleave="adminApp.tqTip(event, -1)"/>
             ${cot(x0, t.thu, 'tq-cot-thu')}
             ${cot(x0 + rongCot + KHE, t.chi, 'tq-cot-chi')}
-            <text class="tq-truc-x${cuoi ? ' is-nay' : ''}" x="${giua}" y="${H - 16}" text-anchor="middle">${t.ky.slice(5)}/${t.ky.slice(2, 4)}</text>`;
+            ${/* Tháng hẹp (điện thoại, 7-8 tháng): nhãn "05/26" rộng ~77 đơn vị sẽ chồng nhau ->
+                 hiện cách một tháng, luôn giữ tháng hiện tại. Máy tính mỗi tháng >= 108 đơn vị. */ ''}
+            ${bang < 80 && (thang.length - 1 - i) % 2 ? '' : `<text class="tq-truc-x${cuoi ? ' is-nay' : ''}" x="${giua}" y="${H - 16}" text-anchor="middle">${t.ky.slice(5)}/${t.ky.slice(2, 4)}</text>`}`;
         }).join('')}
         <line class="tq-truc" x1="${TRAI}" x2="${W - PHAI}" y1="${TREN + cao}" y2="${TREN + cao}"/>
       </svg>
@@ -1270,6 +1281,9 @@ async function renderTongQuanGiaoVien(el) {
     if (!conDungLuot(el, luot)) return;
     const ex = data.exercise7d || {};
     const dt = (s) => new Date(s).toLocaleDateString('vi-VN');
+    // Giáo viên không vào được khu Tài khoản (chanKhuCam đá về Tổng quan): thẻ trỏ tới đó phải
+    // KHÔNG trông như bấm được — trước đây có con trỏ tay + viền đổi màu mà bấm không có gì xảy ra.
+    const xemTK = VAI_CUA_KHU.users.includes(vaiTro());
     const lessonLabel = (id) => ({
       'pron:initials': 'Thanh mẫu', 'pron:finals': 'Vận mẫu', 'pron:tones': 'Thanh điệu',
     }[id] || tbLabel(id));
@@ -1285,7 +1299,7 @@ async function renderTongQuanGiaoVien(el) {
         </div>` : ''}
 
       <!-- Nhóm số liệu dạy & học — thứ giáo viên cần nhìn mỗi ngày -->
-      <div class="stats-grid">
+      <div class="stats-grid stats-grid--6">
         <div class="stat-card stat-card--link" onclick="adminApp.navigate('classes')">
           <div class="stat-icon" style="background:#E4F1EA;color:#265648"><i class="fa-solid fa-chalkboard-user"></i></div>
           <div class="stat-value">${data.classCount}</div>
@@ -1311,7 +1325,7 @@ async function renderTongQuanGiaoVien(el) {
           <div class="stat-value">${ex.avg_score != null ? ex.avg_score + '%' : '—'}</div>
           <div class="stat-label">Điểm TB · 7 ngày</div>
         </div>
-        <div class="stat-card stat-card--link" onclick="adminApp.navigate('users')">
+        <div class="stat-card${xemTK ? ' stat-card--link' : ''}"${xemTK ? ` onclick="adminApp.navigate('users')"` : ''}>
           <div class="stat-icon" style="background:#F6E7DC;color:#A2541C"><i class="fa-solid fa-bolt"></i></div>
           <div class="stat-value">${data.activeToday}</div>
           <div class="stat-label">Học hôm nay</div>
@@ -1406,7 +1420,7 @@ async function renderTongQuanGiaoVien(el) {
       </div>
 
       <div class="mini-stats">
-        <div class="mini-stat" onclick="adminApp.navigate('users')"><i class="fa-solid fa-users"></i><b>${data.users}</b><span>Tài khoản</span></div>
+        <div class="mini-stat"${xemTK ? ` onclick="adminApp.navigate('users')"` : ''}><i class="fa-solid fa-users"></i><b>${data.users}</b><span>Tài khoản</span></div>
         <div class="mini-stat"><i class="fa-solid fa-clipboard-check"></i><b>${data.examResults}</b><span>Lượt thi</span></div>
       </div>
     `;
@@ -1434,8 +1448,12 @@ async function renderUsers(el) {
     el.innerHTML = `
       <div class="data-table-wrapper">
         <div class="table-toolbar">
-          <input class="search-input" placeholder="Tìm kiếm người dùng..." value="${userSearch}" onkeydown="if(event.key==='Enter'){adminApp.userSearchFn(this.value)}" id="user-search-input">
-          <button class="btn btn-sm btn-outline" onclick="adminApp.userSearchFn(document.getElementById('user-search-input').value)"><i class="fa-solid fa-search"></i></button>
+          <!-- Ô tìm + nút tìm cùng một hàng: ở ≤768 toolbar xếp dọc + stretch, để rời thì nút chỉ
+               có icon bị kéo thành thanh trống dài hết khung. esc(): giá trị lấy từ URL (?tim=). -->
+          <div style="display:flex;gap:8px;flex:1;min-width:0">
+            <input class="search-input" placeholder="Tìm kiếm người dùng..." value="${esc(userSearch)}" onkeydown="if(event.key==='Enter'){adminApp.userSearchFn(this.value)}" id="user-search-input">
+            <button class="btn btn-sm btn-outline" onclick="adminApp.userSearchFn(document.getElementById('user-search-input').value)"><i class="fa-solid fa-search"></i></button>
+          </div>
           <button class="btn btn-sm btn-primary" style="margin-left:auto" onclick="adminApp.moFormTaoTaiKhoan()"><i class="fa-solid fa-user-plus"></i><span>Tạo tài khoản</span></button>
         </div>
         <table class="data-table">
@@ -1876,15 +1894,19 @@ async function renderClassDetail(el) {
       </div>
       <div class="data-table-wrapper" style="margin-bottom:20px">
         <div class="table-toolbar">
-          <div style="flex:1">
+          <div style="flex:1;min-width:min(100%,320px)">
             <h3 style="font-size:16px;font-weight:800">${cls.name} <span class="badge badge-gray" style="margin-left:6px">Mã mời: ${cls.invite_code}</span></h3>
             <p style="font-size:13px;color:var(--admin-text-muted);margin-top:4px">${cls.description || 'Không có mô tả'} · GV: ${cls.teacher_name || '—'}</p>
           </div>
-          <button class="btn btn-sm btn-outline" onclick="adminApp.goToSessions()"><i class="fa-solid fa-calendar-days"></i> Buổi học &amp; điểm danh</button>
-          <button class="btn btn-sm btn-outline" onclick="adminApp.goToAssignments()"><i class="fa-solid fa-list-check"></i> Bài tập đã giao</button>
-          <button class="btn btn-sm btn-outline" onclick="adminApp.goToMistakes()"><i class="fa-solid fa-triangle-exclamation"></i> Lỗi sai của lớp</button>
-          <button class="btn btn-sm btn-outline" onclick="adminApp.openReportForm()"><i class="fa-solid fa-file-arrow-down"></i> Xuất báo cáo</button>
-          <button class="btn btn-sm btn-primary" onclick="adminApp.openBulkAddForm()"><i class="fa-solid fa-user-plus"></i> Thêm học viên</button>
+          <!-- Năm nút gom một hàng tự xuống dòng: để trần làm con của .table-toolbar thì ở ≤768
+               (toolbar đổi sang cột + stretch) mỗi nút chiếm trọn một hàng, thẻ cao 280-316px. -->
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn btn-sm btn-outline" onclick="adminApp.goToSessions()"><i class="fa-solid fa-calendar-days"></i> Buổi học &amp; điểm danh</button>
+            <button class="btn btn-sm btn-outline" onclick="adminApp.goToAssignments()"><i class="fa-solid fa-list-check"></i> Bài tập đã giao</button>
+            <button class="btn btn-sm btn-outline" onclick="adminApp.goToMistakes()"><i class="fa-solid fa-triangle-exclamation"></i> Lỗi sai của lớp</button>
+            <button class="btn btn-sm btn-outline" onclick="adminApp.openReportForm()"><i class="fa-solid fa-file-arrow-down"></i> Xuất báo cáo</button>
+            <button class="btn btn-sm btn-primary" onclick="adminApp.openBulkAddForm()"><i class="fa-solid fa-user-plus"></i> Thêm học viên</button>
+          </div>
         </div>
       </div>
       <div class="data-table-wrapper">
@@ -2096,7 +2118,7 @@ async function renderClassSessions(el) {
                   ${isToday ? '<div><span class="badge badge-primary" style="margin-top:4px">Hôm nay</span></div>' : ''}
                 </td>
                 <td>${s.topic || '—'}</td>
-                <td>${s.course_type ? `<span class="badge badge-outline">${s.course_type}</span>` : '—'}</td>
+                <td>${s.course_type ? `<span class="badge badge-gray">${s.course_type}</span>` : '—'}</td>
                 <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${s.notes || '—'}</td>
                 <td><span class="badge ${done ? 'badge-success' : 'badge-gray'}">${s.marked_count}/${s.roster_count}</span></td>
                 <td>
@@ -2313,9 +2335,9 @@ async function renderAttendance(el) {
           </div>
         </div>
         ${markedCount === 0 ? `<div class="att-hint"><i class="fa-solid fa-circle-info"></i>
-          Buổi này chưa điểm danh. Mặc định cả lớp <b>Có mặt</b> — chỉ cần bấm <b>Vắng</b> ở những em nghỉ rồi <b>Lưu</b>.</div>` : ''}
+          <span>Buổi này chưa điểm danh. Mặc định cả lớp <b>Có mặt</b> — chỉ cần bấm <b>Vắng</b> ở những em nghỉ rồi <b>Lưu</b>.</span></div>` : ''}
         <table class="data-table" id="attendance-table">
-          <thead><tr><th>Học viên</th><th style="width:160px">Trạng thái</th><th style="width:80px">Đi muộn</th><th style="width:80px">Về sớm</th><th>Nhận xét</th></tr></thead>
+          <thead><tr><th>Học viên</th><th style="width:160px">Trạng thái</th><th style="width:80px">Đi muộn</th><th style="width:80px">Về sớm</th><th style="min-width:180px">Nhận xét</th></tr></thead>
           <tbody>
             ${_attRoster.length === 0 ? '<tr><td colspan="5"><div class="empty-state" style="padding:24px"><p>Lớp chưa có học viên nào.</p></div></td></tr>' : ''}
             ${_attRoster.map(_attRowHtml).join('')}
@@ -2472,7 +2494,7 @@ async function renderAssignments(el) {
           <button class="btn btn-sm btn-primary" onclick="adminApp.openAssignmentForm()"><i class="fa-solid fa-plus"></i> Giao bài mới</button>
         </div>
         <table class="data-table">
-          <thead><tr><th>Bài</th><th style="width:190px">Hạn nộp</th><th style="width:150px">Tiến độ nộp</th><th>Ghi chú</th><th style="width:190px">Thao tác</th></tr></thead>
+          <thead><tr><th style="min-width:200px">Bài</th><th style="width:190px">Hạn nộp</th><th style="width:150px">Tiến độ nộp</th><th>Ghi chú</th><th style="width:190px">Thao tác</th></tr></thead>
           <tbody>
             ${list.length === 0 ? '<tr><td colspan="5"><div class="empty-state" style="padding:26px"><p>Chưa giao bài nào cho lớp này.</p><p style="font-size:12px">Giao bài để theo dõi được ai đã làm, ai chưa.</p></div></td></tr>' : ''}
             ${list.map(a => {
@@ -2778,12 +2800,12 @@ async function renderClassMistakes(el) {
           ? `<div class="empty-state" style="padding:30px"><p>Chưa đủ dữ liệu để phân tích.</p>
              <p style="font-size:12px">Cần học viên làm bài (và bài phải được lưu chi tiết từng câu) thì mới thống kê được.</p></div>`
           : `<table class="data-table">
-              <thead><tr><th>Câu hỏi</th><th style="width:120px">Bài</th><th style="width:130px">Số em sai</th><th>Hay chọn nhầm thành</th><th style="width:150px">Đáp án đúng</th></tr></thead>
+              <thead><tr><th style="min-width:200px">Câu hỏi</th><th style="min-width:130px">Bài</th><th style="width:130px">Số em sai</th><th>Hay chọn nhầm thành</th><th style="width:150px">Đáp án đúng</th></tr></thead>
               <tbody>
                 ${list.map(m => `
                   <tr>
                     <td style="font-weight:600">${String(m.question).replace(/</g, '&lt;')}</td>
-                    <td><span class="badge badge-gray">${assignmentLabel(m.lesson_id, '')}</span></td>
+                    <td><span class="badge badge-gray" style="white-space:normal">${assignmentLabel(m.lesson_id, '')}</span></td>
                     <td>
                       <span class="badge ${m.wrong_rate >= 60 ? 'badge-danger' : m.wrong_rate >= 30 ? 'badge-warning' : 'badge-gray'}">${m.wrong}/${m.attempts} em (${m.wrong_rate}%)</span>
                     </td>
@@ -2914,6 +2936,9 @@ function _noDetail() {
 function _fmtDate(d) { return new Date(d).toLocaleDateString('vi-VN'); }
 
 function _renderPronAccordion(groups) {
+  // Bảng con (các lần nộp cũ) là <table> LỒNG, tự tính cột riêng -> lệch với tiêu đề. Cùng một
+  // colgroup + table-layout:fixed cho cả bảng ngoài lẫn bảng con thì cột thẳng hàng.
+  var COLS = '<colgroup><col><col style="width:90px"><col style="width:110px"><col style="width:120px"><col style="width:120px"></colgroup>';
   var empty = '<tr><td colspan="5"><div class="empty-state" style="padding:20px"><p>Chưa làm bài luyện phát âm nào.</p></div></td></tr>';
   var rows = '';
   for (var g = 0; g < groups.length; g++) {
@@ -2941,22 +2966,26 @@ function _renderPronAccordion(groups) {
           '</tr>';
       }
     }
-    rows += '<tr class="exercise-sub-rows"><td colspan="5" style="padding:0"><table class="data-table" style="margin:0;border:none;box-shadow:none">' + subHtml + '</table></td></tr>';
+    rows += '<tr class="exercise-sub-rows"><td colspan="5" style="padding:0"><table class="data-table" style="margin:0;border:none;box-shadow:none;table-layout:fixed">' + COLS + subHtml + '</table></td></tr>';
   }
-  return '<div class="data-table-wrapper" style="margin-bottom:20px">' +
+  return '<div class="data-table-wrapper dh-table-wrap" style="margin-bottom:20px">' +
     '<div class="table-toolbar"><h3 style="font-size:14px;font-weight:700">🎧 Bài luyện phát âm — tất cả lần nộp</h3></div>' +
-    '<table class="data-table"><thead><tr><th>Phần</th><th>Điểm</th><th>Số câu đúng</th><th>Ngày làm</th><th style="width:110px">Chi tiết</th></tr></thead>' +
+    '<table class="data-table" style="table-layout:fixed">' + COLS + '<thead><tr><th>Phần</th><th>Điểm</th><th>Số câu đúng</th><th>Ngày làm</th><th style="width:110px">Chi tiết</th></tr></thead>' +
     '<tbody>' + (groups.length === 0 ? empty : rows) + '</tbody></table></div>';
 }
 
 function _renderExamAccordion(groups) {
+  // Bảng con (các lần nộp cũ) là <table> LỒNG, tự tính cột riêng -> lệch với tiêu đề. Cùng một
+  // colgroup + table-layout:fixed cho cả bảng ngoài lẫn bảng con thì cột thẳng hàng.
+  var COLS = '<colgroup><col><col style="width:90px"><col style="width:110px"><col style="width:100px"><col style="width:120px"><col style="width:110px"></colgroup>';
   var empty = '<tr><td colspan="6"><div class="empty-state" style="padding:20px"><p>Chưa làm bài thi nào.</p></div></td></tr>';
   var rows = '';
   for (var g = 0; g < groups.length; g++) {
     var group = groups[g];
     var latest = group.submissions[0];
     var count = group.submissions.length;
-    var skillLabel = { 'mixed': 'Tổng hợp', 'listening': 'Nghe', 'reading': 'Đọc' }[group.skill] || group.skill;
+    // 'both' = đề đủ Nghe + Đọc (main.js ghi như vậy) — thiếu khoá này thì màn hiện chữ thô "both".
+    var skillLabel = { 'mixed': 'Tổng hợp', 'both': 'Tổng hợp', 'listening': 'Nghe', 'reading': 'Đọc' }[group.skill] || group.skill;
     
     rows += '<tr class="exercise-group-header" onclick="this.classList.toggle(\'expanded\');this.nextElementSibling.classList.toggle(\'show\')" style="cursor:pointer;background:var(--admin-bg-subtle,#f8f9fa)">' +
       '<td style="font-weight:700"><i class="fa-solid fa-chevron-right exercise-chevron" style="margin-right:6px;font-size:10px;transition:transform .2s"></i>Kỹ năng: ' + skillLabel + ' <span style="color:var(--admin-text-muted);font-weight:400;font-size:12px">(' + count + ' lần)</span></td>' +
@@ -2980,15 +3009,18 @@ function _renderExamAccordion(groups) {
           '</tr>';
       }
     }
-    rows += '<tr class="exercise-sub-rows"><td colspan="6" style="padding:0"><table class="data-table" style="margin:0;border:none;box-shadow:none">' + subHtml + '</table></td></tr>';
+    rows += '<tr class="exercise-sub-rows"><td colspan="6" style="padding:0"><table class="data-table" style="margin:0;border:none;box-shadow:none;table-layout:fixed">' + COLS + subHtml + '</table></td></tr>';
   }
-  return '<div class="data-table-wrapper" style="margin-bottom:20px">' +
+  return '<div class="data-table-wrapper dh-table-wrap" style="margin-bottom:20px">' +
     '<div class="table-toolbar"><h3 style="font-size:14px;font-weight:700">📝 Bài thi — tất cả lần nộp</h3></div>' +
-    '<table class="data-table"><thead><tr><th>Kỹ năng</th><th>Điểm</th><th>Số câu đúng</th><th>Thời gian</th><th>Ngày làm</th><th style="width:110px">Chi tiết</th></tr></thead>' +
+    '<table class="data-table" style="table-layout:fixed">' + COLS + '<thead><tr><th>Kỹ năng</th><th>Điểm</th><th>Số câu đúng</th><th>Thời gian</th><th>Ngày làm</th><th style="width:110px">Chi tiết</th></tr></thead>' +
     '<tbody>' + (groups.length === 0 ? empty : rows) + '</tbody></table></div>';
 }
 
 function _renderTextbookAccordion(groups) {
+  // Bảng con (các lần nộp cũ) là <table> LỒNG, tự tính cột riêng -> lệch với tiêu đề. Cùng một
+  // colgroup + table-layout:fixed cho cả bảng ngoài lẫn bảng con thì cột thẳng hàng.
+  var COLS = '<colgroup><col><col style="width:80px"><col style="width:96px"><col style="width:84px"><col style="width:104px"><col style="width:152px"></colgroup>';
   var empty = '<tr><td colspan="6"><div class="empty-state" style="padding:20px"><p>Chưa làm bài tập giáo trình nào.</p></div></td></tr>';
   var rows = '';
   for (var g = 0; g < groups.length; g++) {
@@ -3002,7 +3034,7 @@ function _renderTextbookAccordion(groups) {
       '<td>' + latest.time_seconds + 's</td>' +
       '<td>' + _fmtDate(latest.created_at) + '</td>' +
       '<td>' + (latest.has_detail
-        ? _exDetailBtn(latest.exercise_result_id, assignmentLabel(group.lesson_id)) + _exOpenPageBtn(latest.exercise_result_id, group.lesson_id)
+        ? '<div class="table-actions">' + _exDetailBtn(latest.exercise_result_id, assignmentLabel(group.lesson_id)) + _exOpenPageBtn(latest.exercise_result_id, group.lesson_id) + '</div>'
         : _noDetail()) + '</td>' +
       '</tr>';
     var subHtml = '';
@@ -3016,16 +3048,16 @@ function _renderTextbookAccordion(groups) {
           '<td>' + e.time_seconds + 's</td>' +
           '<td>' + _fmtDate(e.created_at) + '</td>' +
           '<td>' + (e.has_detail
-            ? _exDetailBtn(e.exercise_result_id, assignmentLabel(group.lesson_id)) + _exOpenPageBtn(e.exercise_result_id, group.lesson_id)
+            ? '<div class="table-actions">' + _exDetailBtn(e.exercise_result_id, assignmentLabel(group.lesson_id)) + _exOpenPageBtn(e.exercise_result_id, group.lesson_id) + '</div>'
             : _noDetail()) + '</td>' +
           '</tr>';
       }
     }
-    rows += '<tr class="exercise-sub-rows"><td colspan="6" style="padding:0"><table class="data-table" style="margin:0;border:none;box-shadow:none">' + subHtml + '</table></td></tr>';
+    rows += '<tr class="exercise-sub-rows"><td colspan="6" style="padding:0"><table class="data-table" style="margin:0;border:none;box-shadow:none;table-layout:fixed">' + COLS + subHtml + '</table></td></tr>';
   }
-  return '<div class="data-table-wrapper" style="margin-bottom:20px">' +
+  return '<div class="data-table-wrapper dh-table-wrap" style="margin-bottom:20px">' +
     '<div class="table-toolbar"><h3 style="font-size:14px;font-weight:700">📖 Bài tập giáo trình — tất cả lần nộp</h3></div>' +
-    '<table class="data-table"><thead><tr><th>Bài</th><th>Điểm</th><th>Số câu đúng</th><th>Thời gian</th><th>Ngày làm</th><th style="width:110px">Chi tiết</th></tr></thead>' +
+    '<table class="data-table" style="table-layout:fixed">' + COLS + '<thead><tr><th>Bài</th><th>Điểm</th><th>Số câu đúng</th><th>Thời gian</th><th>Ngày làm</th><th style="width:110px">Chi tiết</th></tr></thead>' +
     '<tbody>' + (groups.length === 0 ? empty : rows) + '</tbody></table></div>';
 }
 
@@ -3044,7 +3076,7 @@ async function renderStudentDetail(el) {
       <!-- Sổ nhận xét: nạp bất đồng bộ sau khi khung đã hiện, đỡ làm chậm phần chính -->
       <div id="student-notes-box" class="data-table-wrapper" style="margin-bottom:20px"></div>
 
-      <div class="stats-grid" style="margin-bottom:20px">
+      <div class="stats-grid" style="margin-bottom:20px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">
         <div class="stat-card">
           <div class="stat-icon" style="background:#E4F1EA;color:#265648"><i class="fa-solid fa-user"></i></div>
           <div class="stat-value" style="font-size:16px">${st.name}</div>
@@ -3387,7 +3419,7 @@ function _tbVe(el, d) {
     <div class="table-toolbar">
       <div>
         <h2 style="margin:0">Thiết bị đăng nhập</h2>
-        <p style="margin:4px 0 0;font-size:13px;color:var(--admin-text-muted)">
+        <p style="margin:4px 0 0;font-size:13px;color:var(--admin-text-secondary)">
           Tài khoản bị chặn vì đăng nhập quá ${d.tran || 2} thiết bị.
           Đổi máy thật thì gỡ máy cũ; đúng là chia sẻ tài khoản thì bỏ qua.</p>
       </div>
@@ -3550,7 +3582,8 @@ function _dhPvMocGan(h) {
 /** Chip trạng thái bước, dùng chung ở bảng danh sách và các thẻ việc cần làm. */
 function _dhChipBuoc(ma) {
   const b = _dhBuoc(ma);
-  return `<span class="dh-chip" style="background:${b.mau}1a;color:${b.mau}">
+  // Màu do CSS trộn từ màu bước (--c): tô chữ bằng đúng màu bước thì 7/9 bước dưới 4,5:1.
+  return `<span class="dh-chip" style="--c:${b.mau}">
     <i class="fa-solid ${b.icon}"></i> ${esc(b.ten)}</span>`;
 }
 
@@ -3695,15 +3728,15 @@ function _dhVeDanhSachHtml(el, tq, ds) {
 
   const t = tq.tien || {};
   const soLieu = `
-    <div class="stats-grid">
+    <div class="stats-grid stats-grid--4">
       <div class="stat-card"><div class="stat-icon" style="background:#2656481a;color:#265648"><i class="fa-solid fa-folder-open"></i></div>
         <div><div class="stat-value">${tq.dang_chay || 0}</div><div class="stat-label">Hồ sơ đang xử lý</div></div></div>
       <div class="stat-card"><div class="stat-icon" style="background:#16A34A1a;color:#16A34A"><i class="fa-solid fa-hand-holding-dollar"></i></div>
-        <div><div class="stat-value" style="font-size:20px">${_tien(t.da_thu)}</div><div class="stat-label">Đã thu</div></div></div>
+        <div><div class="stat-value stat-tien">${_tien(t.da_thu)}</div><div class="stat-label">Đã thu</div></div></div>
       <div class="stat-card"><div class="stat-icon" style="background:#B85C1A1a;color:#B85C1A"><i class="fa-solid fa-scale-unbalanced"></i></div>
-        <div><div class="stat-value" style="font-size:20px">${_tien(t.con_thieu)}</div><div class="stat-label">Còn phải thu</div></div></div>
+        <div><div class="stat-value stat-tien">${_tien(t.con_thieu)}</div><div class="stat-label">Còn phải thu</div></div></div>
       <div class="stat-card"><div class="stat-icon" style="background:#2F6B581a;color:#2F6B58"><i class="fa-solid fa-calendar-day"></i></div>
-        <div><div class="stat-value" style="font-size:20px">${_tien(t.thu_30_ngay)}</div><div class="stat-label">Thu 30 ngày qua</div></div></div>
+        <div><div class="stat-value stat-tien">${_tien(t.thu_30_ngay)}</div><div class="stat-label">Thu 30 ngày qua</div></div></div>
     </div>`;
 
   // --- VIỆC CẦN LÀM ---
@@ -3741,7 +3774,7 @@ function _dhVeDanhSachHtml(el, tq, ds) {
     `<button class="dh-tab ${dhLoc.buoc === 'dang-chay' ? 'active' : ''}" onclick="adminApp.dhDoiBuocLoc('dang-chay')">Đang xử lý</button>`,
     ...dhBuocList.map((b) => `
       <button class="dh-tab ${dhLoc.buoc === b.ma ? 'active' : ''}" onclick="adminApp.dhDoiBuocLoc('${b.ma}')"
-              style="${dhLoc.buoc === b.ma ? `background:${b.mau};border-color:${b.mau}` : ''}">
+              style="${dhLoc.buoc === b.ma ? `background:color-mix(in srgb, ${b.mau} 70%, #000);border-color:transparent` : ''}">
         <i class="fa-solid ${b.icon}"></i> ${esc(b.ten)}
         ${dem[b.ma] ? `<span class="dh-tab-so">${dem[b.ma]}</span>` : ''}
       </button>`),
@@ -3763,7 +3796,7 @@ function _dhVeDanhSachHtml(el, tq, ds) {
       <td style="white-space:nowrap">
         ${h.tong_phi
           ? `${_tien(h.da_thu)}<span class="dh-sub"> / ${_tien(h.tong_phi)}</span>
-             ${!thieu ? '<div class="dh-sub" style="color:#16A34A;font-weight:700">đủ</div>'
+             ${!thieu ? '<div class="dh-sub" style="color:var(--admin-accent);font-weight:700">đủ</div>'
                : h.buoc === 'huy'
                  // Hồ sơ đã huỷ thì khoản chênh không còn là nợ phải đòi — ô "Còn nợ học phí" ở
                  // trên cũng đã loại nhóm này. Tô cam ở đây là hai chỗ trên cùng một màn hình nói
@@ -3784,13 +3817,13 @@ function _dhVeDanhSachHtml(el, tq, ds) {
   const rong = `
     <div class="empty-state">
       <i class="fa-solid fa-folder-open" style="font-size:32px;color:var(--admin-text-muted)"></i>
-      <p>${dhLoc.tim || dhLoc.buoc || dhLoc.ky ? 'Không có hồ sơ nào khớp bộ lọc.' : 'Chưa có hồ sơ du học nào.'}</p>
-      <span>Bấm <b>Thêm hồ sơ</b> để nhận hồ sơ đầu tiên. Học sinh chưa có tài khoản trên hệ thống vẫn tạo được.</span>
+      <h3>${dhLoc.tim || dhLoc.buoc || dhLoc.ky ? 'Không có hồ sơ nào khớp bộ lọc.' : 'Chưa có hồ sơ du học nào.'}</h3>
+      <p>Bấm <b>Thêm hồ sơ</b> để nhận hồ sơ đầu tiên. Học sinh chưa có tài khoản trên hệ thống vẫn tạo được.</p>
     </div>`;
 
   el.innerHTML = `
     <div class="table-toolbar">
-      <div>
+      <div style="flex:1;min-width:0">
         <h2 style="margin:0">Hồ sơ du học</h2>
         <p style="margin:4px 0 0;font-size:13px;color:var(--admin-text-muted)">
           Nhận hồ sơ → Đóng tiền → Học → Phỏng vấn → Xin visa → Chốt lịch bay.</p>
@@ -3894,7 +3927,7 @@ function _dhVeChiTietHtml(el) {
       ${['hoan-thanh', 'tam-dung', 'huy'].map((m) => {
         const b = _dhBuoc(m);
         return `<button class="dh-step-endbtn ${h.buoc === m ? 'active' : ''}"
-          style="${h.buoc === m ? `background:${b.mau};border-color:${b.mau};color:#fff` : ''}"
+          style="${h.buoc === m ? `background:color-mix(in srgb, ${b.mau} 70%, #000);border-color:transparent;color:#fff` : ''}"
           onclick="adminApp.dhChuyenBuoc('${m}')"><i class="fa-solid ${b.icon}"></i> ${esc(b.ten)}</button>`;
       }).join('')}
       ${h.buoc_tu ? `<span class="dh-sub" style="margin-left:auto">Ở bước hiện tại từ ${_dhNgay(h.buoc_tu)}</span>` : ''}
@@ -4037,15 +4070,15 @@ function _dhVeChiTietHtml(el) {
       ${h.tong_phi > 0 ? `
         <div class="dh-tien-top">
           <div><span class="dh-sub">Tổng phí</span><b>${_tien(h.tong_phi)}</b></div>
-          <div><span class="dh-sub">Đã thu</span><b style="color:#16A34A">${_tien(t.da_thu)}</b></div>
+          <div><span class="dh-sub">Đã thu</span><b style="color:var(--admin-accent)">${_tien(t.da_thu)}</b></div>
           <div><span class="dh-sub">Còn thiếu</span>
-            <b style="color:${t.con_thieu ? '#8A4513' : '#16A34A'}">${_tien(t.con_thieu)}</b></div>
+            <b style="color:${t.con_thieu ? '#8A4513' : 'var(--admin-accent)'}">${_tien(t.con_thieu)}</b></div>
         </div>
         <div class="dh-bar"><i style="width:${pct}%"></i></div>`
       : `<p class="dh-sub" style="margin:0 0 12px">Chưa chốt tổng phí dịch vụ.
            Bấm <b>Sửa</b> ở khối thông tin để nhập, khi đó mới tính được công nợ.</p>`}
       ${tt.length ? `
-        <table class="data-table" style="margin-top:12px">
+        <div class="dh-tien-bang"><table class="data-table">
           <thead><tr><th>Ngày</th><th>Khoản</th><th style="text-align:right">Số tiền</th><th></th></tr></thead>
           <tbody>${tt.map((x) => `
             <tr>
@@ -4054,7 +4087,7 @@ function _dhVeChiTietHtml(el) {
               <td>${DH_KHOAN[x.khoan] || 'Khác'}
                 ${x.ghi_chu ? `<div class="dh-sub">${esc(x.ghi_chu)}</div>` : ''}
                 ${x.nguoi_thu_ten ? `<div class="dh-sub">${esc(x.nguoi_thu_ten)}</div>` : ''}</td>
-              <td style="text-align:right;white-space:nowrap;font-weight:700;color:${x.loai === 'hoan' ? '#DC2626' : '#16A34A'}">
+              <td style="text-align:right;white-space:nowrap;font-weight:700;color:${x.loai === 'hoan' ? '#DC2626' : 'var(--admin-accent)'}">
                 ${x.loai === 'hoan' ? '− ' : '+ '}${_tien(x.so_tien)}</td>
               <td style="white-space:nowrap">
                 ${x.co_anh ? `<button class="btn-icon" title="Xem chứng từ" onclick="adminApp.dhXemAnh(${x.id})">
@@ -4062,7 +4095,7 @@ function _dhVeChiTietHtml(el) {
                 <button class="btn-icon" title="Xoá khoản này" onclick="adminApp.dhXoaThu(${x.id})">
                 <i class="fa-solid fa-trash"></i></button></td>
             </tr>`).join('')}</tbody>
-        </table>` : '<p class="dh-sub" style="margin:12px 0 0">Chưa có khoản thu nào.</p>'}
+        </table></div>` : '<p class="dh-sub" style="margin:12px 0 0">Chưa có khoản thu nào.</p>'}
     </div>`;
 
   // --- Học tập (chỉ khi hồ sơ đã gắn tài khoản học) ---
@@ -4110,7 +4143,7 @@ function _dhVeChiTietHtml(el) {
 
   el.innerHTML = `
     <div class="table-toolbar">
-      <div>
+      <div style="flex:1;min-width:0">
         <button class="btn btn-sm btn-outline" onclick="adminApp.dhVeDanhSach()">← Danh sách</button>
         <h2 style="margin:8px 0 0">${esc(h.ho_ten)}
           <span class="dh-sub" style="font-weight:500">${esc(h.ma_hs)}</span></h2>

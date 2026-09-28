@@ -33,6 +33,7 @@ luôn trả "có quyền"; nếu sau này muốn bán khoá thì chỉ phải th
 | Namespace `onllang:` trong `lesson_id` | Tên cũ của "Luyện tập tổng hợp". Giữ nguyên để không mất liên kết với bản ghi đã có. |
 | `src/data/sinh-de-trac-nghiem.js` | Trước tên là `duongdaiExercise.js`. Dùng cho mọi bộ giáo trình. |
 | `requireOrgAdmin` | Nay chỉ là alias của `requireAdminOnly`. |
+| `teacher_notes` / `teacher_reviews` | Tên cột THẬT (init-db.js, cũng là schema production): `noi_dung`, `nguoi_ghi`, `nguoi_cham`. File `migration-teacher-role.sql` còn ghi `note` / `author_id` nhưng là `CREATE TABLE IF NOT EXISTS` và đã được đánh dấu chạy trên mọi DB dựng bằng init-db — đừng viết SQL theo file đó (màn hồ sơ giáo viên từng 500 vì vậy). Đừng sửa file migration đã chạy: đổi nội dung là `migrate.mjs` cảnh báo mãi. |
 
 ---
 

@@ -48,6 +48,9 @@ const ROUTES = [
   ['GET', `/admin/classes/${lopNgoai.insertId}`,   { admin: 200, teacher: 403, student: 403, khach: 401 }],
   ['GET', '/admin/users',                          { admin: 200, teacher: 403, student: 403, khach: 401 }],
   ['GET', '/admin/teachers',                       { admin: 200, teacher: 403, student: 403, khach: 401 }],
+  // Hồ sơ một giáo viên: từng trả 500 ở mọi nơi vì route đọc cột `note`/`author_id` trong khi DB
+  // (init-db.js) là `noi_dung`/`nguoi_ghi`/`nguoi_cham`. Giữ dòng này để lỗi đó không quay lại.
+  ['GET', `/admin/teachers/${gvId}`,               { admin: 200, teacher: 403, student: 403, khach: 401 }],
   // Hồ sơ du học / quỹ / ký túc xá: giáo viên KHÔNG thấy (có CCCD, hộ chiếu, tiền nong).
   ['GET', '/admin/du-hoc/ho-so',                   { admin: 200, teacher: 403, student: 403, khach: 401 }],
   ['GET', '/admin/du-hoc/theo-truong',             { admin: 200, teacher: 403, student: 403, khach: 401 }],
