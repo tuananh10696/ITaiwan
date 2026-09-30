@@ -8,6 +8,7 @@ import { loadRole, requireStaff, requireAdminOnly, requireHoSoStaff, phamViQuanT
 import { sendWelcomeEmail, sendAssignmentReminderEmail, isEmailConfigured, emailStatus } from '../utils/email.js';
 import { toLimit, toPage } from '../utils/num.js';
 import { dsThietBi, goThietBi, TRAN_THIET_BI } from '../utils/thiet-bi.js';
+import { guiPush, guiNgam } from '../utils/push.js';
 
 // Mật khẩu mặc định khi admin tạo tài khoản học viên mới từ trang Quản lý lớp
 // (học viên nên đổi lại sau khi đăng nhập lần đầu, ở trang Tài khoản > Thông tin cá nhân).
@@ -933,6 +934,7 @@ function reviewErrorMessage(err, fallback) {
 router.post('/exercise-results/:id/review', async (req, res) => {
   try {
     const { teacher_review } = req.body;
+    const loiPhe = (typeof teacher_review === 'string' ? teacher_review.trim() : teacher_review) || null;
     const [r] = await pool.query('UPDATE exercise_results SET teacher_review = ?, review_read_at = NULL WHERE id = ?', [
       // Trim rồi mới lưu: lời phê toàn khoảng trắng phải thành NULL, nếu không chuông của học viên
       // vẫn báo đỏ mà mở ra chẳng có chữ nào (xem thêm ghi chú ở /api/exercise/notifications).
@@ -940,6 +942,13 @@ router.post('/exercise-results/:id/review', async (req, res) => {
       req.params.id
     ]);
     if (r.affectedRows === 0) return res.status(404).json({ error: 'Không tìm thấy bài tập này.' });
+    // Có lời phê (không phải xoá lời phê) thì đẩy lên điện thoại học viên.
+    if (loiPhe) {
+      guiNgam(pool.query('SELECT user_id FROM exercise_results WHERE id = ?', [req.params.id])
+        .then(([x]) => x[0] && guiPush(x[0].user_id, {
+          tieuDe: 'Cô đã nhận xét bài tập của bạn', noiDung: String(loiPhe), url: '/tai-khoan/thong-bao',
+        })));
+    }
     res.json({ message: 'Đã lưu nhận xét.' });
   } catch (err) {
     console.error('Save exercise review error:', err);
@@ -950,6 +959,7 @@ router.post('/exercise-results/:id/review', async (req, res) => {
 router.post('/exam-results/:id/review', async (req, res) => {
   try {
     const { teacher_review } = req.body;
+    const loiPhe = (typeof teacher_review === 'string' ? teacher_review.trim() : teacher_review) || null;
     const [r] = await pool.query('UPDATE exam_results SET teacher_review = ?, review_read_at = NULL WHERE id = ?', [
       // Trim rồi mới lưu: lời phê toàn khoảng trắng phải thành NULL, nếu không chuông của học viên
       // vẫn báo đỏ mà mở ra chẳng có chữ nào (xem thêm ghi chú ở /api/exercise/notifications).
@@ -957,6 +967,13 @@ router.post('/exam-results/:id/review', async (req, res) => {
       req.params.id
     ]);
     if (r.affectedRows === 0) return res.status(404).json({ error: 'Không tìm thấy bài thi này.' });
+    // Có lời phê (không phải xoá lời phê) thì đẩy lên điện thoại học viên.
+    if (loiPhe) {
+      guiNgam(pool.query('SELECT user_id FROM exam_results WHERE id = ?', [req.params.id])
+        .then(([x]) => x[0] && guiPush(x[0].user_id, {
+          tieuDe: 'Cô đã nhận xét bài thi của bạn', noiDung: String(loiPhe), url: '/tai-khoan/thong-bao',
+        })));
+    }
     res.json({ message: 'Đã lưu nhận xét.' });
   } catch (err) {
     console.error('Save exam review error:', err);
@@ -1208,6 +1225,10 @@ router.put('/sessions/:id/attendance', async (req, res) => {
       return res.status(400).json({ error: 'Vui lòng cập nhật Ngày học cho buổi này trước khi điểm danh.' });
     }
 
+    // Nhận xét CŨ của buổi này — để chỉ push nhận xét mới / đã sửa. Lưu điểm danh là lưu cả lớp
+    // một lượt; không so thì mỗi lần cô bấm Lưu, em nào đã có nhận xét lại nhận push một lần nữa.
+    const [cu] = await pool.query('SELECT user_id, teacher_note FROM class_attendance WHERE session_id = ?', [req.params.id]);
+    const ghiChuCu = new Map(cu.map((x) => [x.user_id, (x.teacher_note || '').trim()]));
     const conn = await pool.getConnection();
     try {
       await conn.beginTransaction();
@@ -1221,6 +1242,12 @@ router.put('/sessions/:id/attendance', async (req, res) => {
       }
       await conn.commit();
       res.json({ message: 'Lưu điểm danh thành công.', count: records.length });
+      for (const r of records) {
+        const moi = String(r.teacher_note || '').trim();
+        if (moi && moi !== ghiChuCu.get(Number(r.user_id))) {
+          guiNgam(guiPush(r.user_id, { tieuDe: 'Cô nhận xét buổi học của bạn', noiDung: moi, url: '/lo-trinh/tong-quan' }));
+        }
+      }
     } catch (e) {
       await conn.rollback();
       throw e;
@@ -1396,12 +1423,22 @@ router.post('/classes/:id/assignments', async (req, res) => {
     const cleanType = ['bai-tap', 'translate'].includes(exercise_type) ? exercise_type : 'bai-tap';
     // Giao lại đúng bài đã giao (cùng lesson_id + exercise_type) = cập nhật hạn nộp/ghi chú,
     // không tạo bản ghi trùng (UNIQUE(class_id, lesson_id, exercise_type) — xem init-db.js).
-    await pool.query(`
+    const [kq] = await pool.query(`
       INSERT INTO assignments (class_id, lesson_id, exercise_type, title, due_date, note, created_by)
       VALUES (?,?,?,?,?,?,?)
       ON DUPLICATE KEY UPDATE title=VALUES(title), due_date=VALUES(due_date), note=VALUES(note)
     `, [req.params.id, String(lesson_id).trim(), cleanType, title || '', due_date || null, note || '', req.userId]);
     res.status(201).json({ message: 'Đã giao bài cho lớp.' });
+    // Push cho cả lớp — CHỈ khi là bài MỚI (affectedRows 1). Giao lại để sửa hạn (affectedRows 2)
+    // mà cũng bắn thì mỗi lần cô chỉnh ngày cả lớp nhận thêm một thông báo "bài mới".
+    if (kq.affectedRows === 1) {
+      guiNgam(pool.query('SELECT user_id FROM class_enrollments WHERE class_id = ?', [req.params.id])
+        .then(([hv]) => guiPush(hv.map((x) => x.user_id), {
+          tieuDe: 'Cô vừa giao bài mới',
+          noiDung: [title, due_date ? `Hạn nộp ${String(due_date).slice(8, 10)}/${String(due_date).slice(5, 7)}` : ''].filter(Boolean).join(' · '),
+          url: '/lo-trinh/bai-tap',
+        })));
+    }
   } catch (err) {
     console.error('Create assignment error:', err);
     res.status(500).json({ error: assignmentErrorMessage(err, 'Lỗi giao bài.') });

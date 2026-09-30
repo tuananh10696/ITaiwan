@@ -38,6 +38,8 @@ import {
   tdTimTrong, tdTraTu, tdTuBatDau, tdManhSangHang,
 } from './data/tudien-kho.js';
 import api from './api/client.js';
+// Push thông báo (2026-09-28): đồng bộ đăng ký khi mở app / đổi tài khoản — xem src/core/push.js.
+import { dongBoPush, ngheDoiDangKy } from './core/push.js';
 import { laNative, apiBase } from './utils/env.js';
 
 // ---- LÕI dùng chung (4.40) ----
@@ -619,6 +621,12 @@ async function init() {
       .catch((e) => console.warn('Không nạp được lớp native:', e));
   }
   dangKyServiceWorker();
+  // Thiết bị đã bật push: gửi lại đăng ký gắn với tài khoản ĐANG đăng nhập (đổi người dùng trên
+  // cùng máy thì thông báo phải tới người mới), và nghe SW báo địa chỉ push đổi để đăng ký lại.
+  if (!laNative()) {
+    ngheDoiDangKy(goiApiPush);
+    if (state.isLoggedIn) dongBoPush(goiApiPush);
+  }
 
   // Load real data from API (async, re-renders when done)
   loadApiData();
@@ -3927,6 +3935,7 @@ async function handleLogin(e) {
   try {
     const data = await api.login(email, password);
     if (successEl) { successEl.textContent = data.message || 'Đăng nhập thành công!'; successEl.style.display = 'block'; }
+    if (!laNative()) dongBoPush(goiApiPush);
 
     state.isLoggedIn = true;
     state.user = {
@@ -4770,7 +4779,28 @@ async function handleAvatarFileChange(e) {
   reader.readAsDataURL(file);
 }
 
+/** Gọi API cho src/core/push.js bằng client của cổng học viên. */
+function goiApiPush(method, path, body) {
+  return method === 'GET' ? api.get(path) : api.post(path, body);
+}
+
 function logout() {
+  // Gỡ thiết bị này khỏi tài khoản TRƯỚC khi xoá token (sau đó không còn quyền gọi API): máy dùng
+  // chung thì người sau không nhận thông báo của người trước. Không chờ — đăng xuất phải tức thì.
+  // Giữ token NGAY BÂY GIỜ: đoạn dưới chạy bất đồng bộ, tới lúc gửi thì api.logout() đã xoá token.
+  const tkCu = api.token;
+  try {
+    if (tkCu && !laNative() && navigator.serviceWorker) {
+      navigator.serviceWorker.getRegistration('/')
+        .then((r) => r && r.pushManager.getSubscription())
+        .then((sub) => sub && fetch('/api/push/huy', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${tkCu}` },
+          body: JSON.stringify({ endpoint: sub.endpoint }),
+        }))
+        .catch(() => {});
+    }
+  } catch { /* trình duyệt không có SW */ }
   api.logout();
   state.isLoggedIn = false;
   state.user = { name: 'Học viên', level: 'Tân Sinh · Lv1', avatar: 'U', streak: 0, points: 0, wordsToReview: 0, avatarUrl: null };

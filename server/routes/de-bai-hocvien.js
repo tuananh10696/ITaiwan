@@ -18,6 +18,7 @@
 //    lộ đáp án. Làm ở client thì không phải lưu bảng quy chiếu ở server và không có nguy cơ lệch
 //    chỉ số lúc chấm (đúng cái bẫy `mapGoc` đã ghi ở 4.19).
 import { Router } from 'express';
+import { guiPush, guiPushVaiTro, guiNgam } from '../utils/push.js';
 import pool from '../config/db.js';
 import { requireAuth } from '../middleware/auth.js';
 import { chamBai } from '../utils/cham-de.js';
@@ -259,6 +260,13 @@ router.post('/bai-lam/:id/nop', async (req, res) => {
     }
     try { await capNhatChuoi(req.userId); } catch { /* chuỗi ngày là phần phụ */ }
 
+    // Có câu tự luận -> báo người ra đề (không rõ người ra đề thì báo quản trị) là có bài chờ chấm.
+    if (kq.co_tu_luan) {
+      guiNgam(pool.query('SELECT name FROM users WHERE id = ?', [req.userId]).then(([u]) => {
+        const tb = { tieuDe: 'Có bài chờ chấm', noiDung: `${u[0]?.name || 'Học sinh'} vừa nộp "${de.tieu_de}"`, url: '/admin.html#/de-bai' };
+        return de.tao_boi ? guiPush(de.tao_boi, tb) : guiPushVaiTro('admin', tb);
+      }));
+    }
     res.json({
       success: true,
       het_gio: hetGio,

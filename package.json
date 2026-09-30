@@ -55,7 +55,8 @@
     "test": "node tests/nhom-truong.test.mjs && node tests/phan-quyen.test.mjs && node tests/luong-trung-tam.test.mjs && node tests/luong-giaovien-hocvien.test.mjs && node tests/chong-cay-diem.test.mjs",
     "test:vai-tro": "node tests/vai-tro-nhan-su.test.mjs",
     "test:truong": "node tests/nhom-truong.test.mjs",
-    "test:phong-van": "node tests/phong-van.test.mjs"
+    "test:phong-van": "node tests/phong-van.test.mjs",
+    "test:push": "node tests/push.test.mjs"
   },
   "devDependencies": {
     "@capacitor/cli": "^8.5.1",
@@ -89,7 +90,8 @@
     "mysql2": "^3.23.3",
     "nodemailer": "^9.0.5",
     "pdf-parse": "^2.4.5",
-    "uuid": "^14.0.2"
+    "uuid": "^14.0.2",
+    "web-push": "^3.6.7"
   },
   "description": "Hệ thống học tiếng Trung, luyện thi TOCFL và quản lý trung tâm du học — ITaiwan"
 }

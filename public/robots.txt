@@ -4,4 +4,4 @@ Disallow: /admin.html
 Disallow: /api/
 Disallow: /tocfl/thi-thu/dang-thi
 
-Sitemap: https://itaiwan.vn/sitemap.xml
+Sitemap: https://duhocitaiwan.com/sitemap.xml

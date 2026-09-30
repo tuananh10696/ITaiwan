@@ -10,6 +10,7 @@
 // THIẾU `CRON_SECRET` thì route TỪ CHỐI CHẠY (503), không phải "cho qua vì chưa cấu hình" — một
 // cửa mở im lặng nguy hiểm hơn một lỗi nhìn thấy được.
 import { Router } from 'express';
+import { guiPush } from '../utils/push.js';
 import pool from '../config/db.js';
 import { sendNhacHocEmail, sendNhacDuHocEmail, emailStatus, isEmailConfigured } from '../utils/email.js';
 import { baoHocSinh, daBaoGanDay } from '../utils/du-hoc-thong-bao.js';
@@ -96,11 +97,21 @@ router.get('/nhac-hoc', async (req, res) => {
 
       const gui = chayThu ? true
         : await sendNhacHocEmail(u.email, { hoTen: u.name, soTuOn, baiGiao, chuoi });
+      // Push lên điện thoại (2026-09-28). Cùng tag 'nhac-hoc': lời nhắc hôm nay THAY lời nhắc hôm
+      // qua trên máy, không chồng thành một dãy.
+      const soPush = chayThu ? 0 : await guiPush(u.id, {
+        tieuDe: 'Hôm nay bạn chưa học',
+        noiDung: [baiGiao.length ? `${baiGiao.length} bài cô giao chưa nộp` : '',
+          soTuOn ? `${soTuOn} từ đến hạn ôn` : '',
+          chuoi ? `giữ chuỗi ${chuoi} ngày` : ''].filter(Boolean).join(' · '),
+        url: baiGiao.length ? '/lo-trinh/bai-tap' : '/lo-trinh/hom-nay',
+        the: 'nhac-hoc',
+      });
 
-      if (gui && !chayThu) {
+      if ((gui || soPush) && !chayThu) {
         await pool.query('UPDATE users SET nhac_lan_cuoi = CURDATE() WHERE id = ?', [u.id]);
       }
-      ketQua.push({ id: u.id, email: u.email, tu_on: soTuOn, bai_giao: baiGiao.length, chuoi, gui });
+      ketQua.push({ id: u.id, email: u.email, tu_on: soTuOn, bai_giao: baiGiao.length, chuoi, gui, push: soPush });
     }
 
     res.json({

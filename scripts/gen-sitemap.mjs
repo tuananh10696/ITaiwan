@@ -8,7 +8,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 // Tên miền thật của trung tâm — đặt qua biến môi trường SITE_URL khi deploy.
-const SITE = (process.env.SITE_URL || 'https://itaiwan.vn').replace(/\/+$/, '');
+const SITE = (process.env.SITE_URL || 'https://duhocitaiwan.com').replace(/\/+$/, '');
 
 // Trang chưa có nội dung thật thì không đưa vào sitemap (tránh Google index màn "Sắp ra mắt")
 const src = fs.readFileSync(path.join(ROOT, 'src/main.js'), 'utf8');

@@ -13,13 +13,17 @@
  *                         phản hồi 200 cùng origin (bỏ 206 của request Range, bỏ opaque từ CDN).
  *  - Đổi VERSION là xoá sạch cache cũ ở bước activate.
  */
-const VERSION = 'ten-sw-v1';
+// v2 (2026-09-28): khung app tách riêng cổng học viên / cổng quản trị + push thông báo.
+// Đổi VERSION -> bước activate xoá cache v1 (có thể đang giữ nhầm admin.html làm khung '/').
+const VERSION = 'ten-sw-v2';
 const CACHE_SHELL = `${VERSION}-shell`;
 const CACHE_ASSETS = `${VERSION}-assets`;
 const CACHE_STATIC = `${VERSION}-static`;
 const CACHE_AUDIO = `${VERSION}-audio`;
 const TRAN = { [CACHE_STATIC]: 300, [CACHE_AUDIO]: 400, [CACHE_ASSETS]: 80 };
 const SHELL = ['/', '/manifest.webmanifest', '/icons/icon-192.png'];
+/** Khung app của trang đang mở: cổng quản trị có khung RIÊNG, không được đè khung cổng học viên. */
+const khoaKhung = (url) => (url.pathname.startsWith('/admin') ? '/admin.html' : '/');
 
 self.addEventListener('install', (e) => {
   e.waitUntil((async () => {
@@ -65,17 +69,19 @@ async function cacheTruoc(req, cacheName) {
 }
 
 async function mangTruocHtml(req) {
+  const khoa = khoaKhung(new URL(req.url));
   try {
     const res = await fetch(req);
-    // Cập nhật khung app mỗi lần vào được mạng, để lần mất mạng sau có bản mới nhất.
+    // Cập nhật khung app mỗi lần vào được mạng, để lần mất mạng sau có bản mới nhất. Khoá THEO
+    // CỔNG: bản cũ cất mọi trang vào '/', mở admin.html một lần là khung cổng học viên thành trang admin.
     if (res && res.status === 200) {
       const c = await caches.open(CACHE_SHELL);
-      c.put('/', res.clone()).catch(() => {});
+      c.put(khoa, res.clone()).catch(() => {});
     }
     return res;
   } catch {
     const c = await caches.open(CACHE_SHELL);
-    const shell = await c.match('/');
+    const shell = await c.match(khoa);
     if (shell) return shell;
     return new Response('<!doctype html><meta charset="utf-8"><title>ITaiwan</title><p style="font-family:system-ui;padding:24px">Không có kết nối mạng. Hãy thử lại khi có mạng.</p>', { headers: { 'Content-Type': 'text/html; charset=utf-8' }, status: 503 });
   }
@@ -100,4 +106,51 @@ self.addEventListener('fetch', (e) => {
     e.respondWith(cacheTruoc(req, CACHE_STATIC)); return;
   }
   // còn lại (src/* lúc dev, file lạ): không can thiệp
+});
+
+// =============================================================
+// PUSH THÔNG BÁO (2026-09-28) — xem server/utils/push.js
+// =============================================================
+// Server gửi JSON { tieu_de, noi_dung, url, the }. Hiện ngay cả khi không mở app (điện thoại
+// khoá màn hình). iOS chỉ nhận khi web đã được "Thêm vào Màn hình chính" (iOS 16.4+).
+self.addEventListener('push', (e) => {
+  let d = {};
+  try { d = e.data ? e.data.json() : {}; } catch { d = { tieu_de: e.data ? e.data.text() : '' }; }
+  const tieuDe = d.tieu_de || 'ITaiwan';
+  e.waitUntil(self.registration.showNotification(tieuDe, {
+    body: d.noi_dung || '',
+    icon: '/icons/icon-192.png',
+    badge: '/icons/icon-96.png',
+    tag: d.the || undefined,
+    // Cùng tag -> thông báo mới THAY thông báo cũ; renotify để máy vẫn rung/kêu lại.
+    renotify: !!d.the,
+    data: { url: d.url || '/' },
+    lang: 'vi',
+  }));
+});
+
+// Bấm vào thông báo: có sẵn một tab/app của đúng cổng thì chuyển nó tới trang cần xem, không thì mở mới.
+self.addEventListener('notificationclick', (e) => {
+  e.notification.close();
+  const dich = new URL((e.notification.data && e.notification.data.url) || '/', self.location.origin);
+  e.waitUntil((async () => {
+    const ds = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
+    const cungCong = ds.find((c) => {
+      try { return khoaKhung(new URL(c.url)) === khoaKhung(dich); } catch { return false; }
+    });
+    if (cungCong) {
+      await cungCong.focus();
+      try { await cungCong.navigate(dich.href); } catch { /* trang khác origin / không cho điều hướng: đã focus là đủ */ }
+      return;
+    }
+    await self.clients.openWindow(dich.href);
+  })());
+});
+
+// Trình duyệt tự đổi địa chỉ push (hết hạn) -> báo các tab đang mở để chúng đăng ký lại với server.
+self.addEventListener('pushsubscriptionchange', (e) => {
+  e.waitUntil((async () => {
+    const ds = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
+    ds.forEach((c) => c.postMessage({ loai: 'push-doi-dang-ky' }));
+  })());
 });

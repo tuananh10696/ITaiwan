@@ -7,6 +7,7 @@ import { requireAuth, generateToken } from '../middleware/auth.js';
 import { sendVerificationEmail, getAppBaseUrl } from '../utils/email.js';
 import { chanDangNhap, chanDangKy, chanGuiMail } from '../middleware/gioi-han.js';
 import { ghiNhanDangNhap, ipCuaReq } from '../utils/thiet-bi.js';
+import { guiPushVaiTro, guiNgam } from '../utils/push.js';
 
 const router = Router();
 
@@ -76,6 +77,11 @@ router.get('/verify', async (req, res) => {
     }
 
     await pool.query('UPDATE users SET is_verified = true, verification_token = NULL WHERE id = ?', [rows[0].id]);
+    // Đã xác thực email mà chưa được duyệt = đang CHỜ quản trị -> báo quản trị (2026-09-28).
+    guiNgam(pool.query('SELECT name, email, is_approved FROM users WHERE id = ?', [rows[0].id]).then(([u]) =>
+      u[0] && !u[0].is_approved && guiPushVaiTro('admin', {
+        tieuDe: 'Có tài khoản chờ duyệt', noiDung: `${u[0].name} · ${u[0].email}`, url: '/admin.html#/nguoi-dung',
+      })));
 
     // Redirect to frontend with success query param. FRONTEND_URL riêng vẫn được ưu
     // tiên nếu có (trường hợp frontend deploy ở domain khác API), nhưng ở dự án này

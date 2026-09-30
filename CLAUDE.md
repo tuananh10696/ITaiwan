@@ -64,8 +64,15 @@ npm run server:test                  # backend cho bộ test (tắt giới hạn
 npm run test:quyen                   # ma trận phân quyền
 npm run test:du-hoc                  # vòng đời hồ sơ du học
 npm run test:quy-ktx-de              # sổ thu chi · ký túc xá · đề bài
+npm run test:push                    # push thông báo — tự dựng backend + dịch vụ push giả, KHÔNG cần server:test
 node tests/mobile/kiem-web-khong-hong.mjs
 ```
+
+Kiểm push bằng trình duyệt thật: Playwright mặc định (chromium headless-shell) luôn báo
+`Notification.permission = 'denied'`, còn `browser.newContext()` là ẩn danh — Chrome **không có
+Push API trong ẩn danh** và cố ý không để web dò ra. Phải dùng
+`chromium.launchPersistentContext(thuMuc, { channel: 'chrome' })` + `grantPermissions(['notifications'])`;
+khi đó đăng ký FCM thật và `reg.getNotifications()` đọc được thông báo SW đã hiện.
 
 Kiểm bằng trình duyệt thật thì chạy backend + vite ở cổng riêng và **phải truyền
 `EXTRA_ORIGINS`**, nếu không mọi POST nhận 500 vì CORS còn GET vẫn 200 — rất dễ tưởng là lỗi

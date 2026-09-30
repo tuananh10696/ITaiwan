@@ -23,6 +23,7 @@ import pool from '../config/db.js';
 import { requireAuth } from '../middleware/auth.js';
 import { BUOC } from './du-hoc.js';
 import { baoHocSinh, chuaCoBangTb, LOAI_TB } from '../utils/du-hoc-thong-bao.js';
+import { guiPush, guiPushVaiTro, guiNgam } from '../utils/push.js';
 
 const router = Router();
 router.use(requireAuth);
@@ -346,6 +347,10 @@ router.post('/yeu-cau-sua', async (req, res) => {
     ).catch(() => {});
 
     res.status(201).json({ id: r.insertId, message: 'Đã gửi yêu cầu sửa. Trung tâm sẽ duyệt và phản hồi.' });
+    // Báo nhân viên: người phụ trách hồ sơ + quản trị (quản trị duyệt được mọi hồ sơ).
+    const tbNv = { tieuDe: 'Học sinh xin sửa hồ sơ', noiDung: `${hs.ho_ten} (${hs.ma_hs}) · ${thayDoi.map((t) => t.nhan).join(', ')}`,
+      url: `/admin.html#/du-hoc/${hs.id}` };
+    guiNgam(Promise.all([hs.tu_van_id ? guiPush(hs.tu_van_id, tbNv) : 0, guiPushVaiTro('admin', tbNv)]));
   } catch (err) {
     if (chuaCoBang(err)) return res.status(503).json({ error: 'Chức năng chưa sẵn sàng (DB chưa chạy migration).' });
     console.error('Lỗi gửi yêu cầu sửa du học:', err);

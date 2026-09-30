@@ -1,0 +1,13 @@
+# Crontab của user deploy — cài bằng:   crontab /srv/itaiwan/deploy/crontab.txt
+# Giờ ở đây là giờ Việt Nam (setup-server.sh đặt múi giờ hệ điều hành Asia/Ho_Chi_Minh).
+# Khớp lịch cũ trên Vercel: "0 12 * * *" UTC = 19:00 VN, "0 1 * * *" UTC = 08:00 VN.
+# Hai lô mail cách nhau 11 tiếng -> không dồn vào cùng một giờ của trần SMTP 200 mail/giờ.
+
+# Nhắc học — 19:00 mỗi ngày
+0 19 * * * /srv/itaiwan/deploy/chay-cron.sh nhac-hoc >> /var/log/itaiwan/cron.log 2>&1
+
+# Nhắc hồ sơ du học — 08:00 mỗi ngày
+0 8 * * * /srv/itaiwan/deploy/chay-cron.sh nhac-du-hoc >> /var/log/itaiwan/cron.log 2>&1
+
+# Sao lưu DB — 02:30 mỗi đêm
+30 2 * * * /srv/itaiwan/deploy/backup-db.sh >> /var/log/itaiwan/backup.log 2>&1

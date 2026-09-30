@@ -16,6 +16,8 @@ import api from '../api/client.js';
 import { quenBaiBiKhoa } from '../data/giaotrinh-kho.js';
 // Bước Phỏng vấn: trường / VP Đài Bắc / cả 2 — cùng quy tắc với server và cổng quản trị.
 import { tinhPhongVan } from '../../shared/phong-van.js';
+// Push thông báo lên điện thoại (2026-09-28) — phần trình duyệt dùng chung với cổng quản trị.
+import { trangThaiPush, batPush, tatPush, NHAN_PUSH } from '../core/push.js';
 
 // --- cầu nối tới phần còn nằm trong main.js ---
 const navigate = (...a) => app.navigate(...a);
@@ -314,6 +316,13 @@ function renderAccountSettings(el) {
       </div>
 
       <div class="account-card">
+        <h3><i class="fa-solid fa-mobile-screen-button"></i> Thông báo trên điện thoại</h3>
+        <p class="tk-cai-mo">Nhận thông báo ngay cả khi không mở ITaiwan: cô giao bài, cô nhận xét,
+          bài kiểm tra được chấm, lịch hồ sơ du học, lời nhắc học mỗi ngày. Bật riêng trên từng thiết bị.</p>
+        <div id="tk-push"><p class="tk-cai-mo"><i class="fa-solid fa-spinner fa-spin"></i></p></div>
+      </div>
+
+      <div class="account-card">
         <h3><i class="fa-solid fa-key"></i> Đổi mật khẩu</h3>
         <div class="form-group"><label class="form-label" for="acc-pw-current">Mật khẩu hiện tại</label>
           <input type="password" class="form-input" id="acc-pw-current" placeholder="••••••••" autocomplete="current-password"></div>
@@ -336,6 +345,49 @@ function renderAccountSettings(el) {
         </button>
       </div>
     </div>`;
+  veKhoiPush();
+}
+
+// ------------------------------------------------------------ push thông báo
+const goiApi = (method, path, body) => (method === 'GET' ? api.get(path) : api.post(path, body));
+
+/** Vẽ khối "Thông báo trên điện thoại" theo trạng thái THẬT của thiết bị (phải hỏi trình duyệt, bất đồng bộ). */
+async function veKhoiPush() {
+  const el = document.getElementById('tk-push');
+  if (!el) return;
+  const tt = await trangThaiPush();
+  if (!document.getElementById('tk-push')) return;   // đã rời trang trong lúc chờ
+  const nut = tt === 'bat'
+    ? `<button class="tk-doi-btn" onclick="window.app.tkThuPush()"><i class="fa-solid fa-paper-plane"></i> Gửi thử</button>
+       <button class="tk-doi-btn" onclick="window.app.tkTatPush()"><i class="fa-solid fa-bell-slash"></i> Tắt</button>`
+    : tt === 'tat'
+      ? `<button class="tk-doi-btn active" onclick="window.app.tkBatPush()"><i class="fa-solid fa-bell"></i> Bật thông báo</button>`
+      : '';
+  el.innerHTML = `
+    <p class="tk-cai-mo"><i class="fa-solid ${tt === 'bat' ? 'fa-circle-check' : 'fa-circle-info'}"></i>
+      <span>${NHAN_PUSH[tt] || ''}</span></p>
+    ${nut ? `<div class="tk-doi">${nut}</div>` : ''}`;
+}
+
+async function tkBatPush() {
+  try {
+    const tt = await batPush(goiApi);
+    toast(tt === 'bat' ? 'Đã bật thông báo trên thiết bị này.' : (NHAN_PUSH[tt] || 'Chưa bật được thông báo.'), tt === 'bat' ? undefined : 'error');
+  } catch (e) {
+    toast(e?.message || 'Không bật được thông báo.', 'error');
+  }
+  veKhoiPush();
+}
+
+async function tkTatPush() {
+  try { await tatPush(goiApi); toast('Đã tắt thông báo trên thiết bị này.'); }
+  catch (e) { toast(e?.message || 'Không tắt được thông báo.', 'error'); }
+  veKhoiPush();
+}
+
+async function tkThuPush() {
+  try { const r = await api.post('/push/thu', { url: '/' }); toast(r.message || 'Đã gửi thử.'); }
+  catch (e) { toast(e?.message || 'Không gửi thử được.', 'error'); }
 }
 
 async function tkDatNhac(bat) {
@@ -1040,6 +1092,8 @@ export const render = {
 export const handlers = {
   accountSaveInfo, accountChangePassword, tkDatChu, tkVaoLop,
   tkDatNhac,
+  // Push thông báo (2026-09-28)
+  tkBatPush, tkTatPush, tkThuPush,
   tkTbLoc, tkTbMo, tkTbDocHet,
   // Hồ sơ du học (2026-09-16). Thiếu một tên ở đây thì nút bấm im lặng không chạy — lỗi chỉ
   // hiện ở console (quy ước 4.4).

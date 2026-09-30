@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ITaiwan - Admin Dashboard</title>
   <link rel="icon" type="image/png" href="/favicon.png">
+  <!-- PWA cho cổng quản trị (2026-09-28): manifest RIÊNG (id /admin.html) để cài ra màn hình chính
+       thành app "ITaiwan Admin" tách khỏi app học viên — và trên iPhone, chỉ app đã cài mới nhận push. -->
+  <link rel="manifest" href="/manifest-admin.webmanifest">
+  <meta name="theme-color" content="#265648">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="ITaiwan Admin">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <!-- Be Vietnam Pro: đủ dấu tiếng Việt (xem ghi chú font ở src/css/style.css). Inter làm dự phòng. -->
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -137,6 +145,11 @@
         </button>
         <h1 id="section-title">Tổng quan</h1>
         <div class="header-right">
+          <!-- Bật / tắt push thông báo trên thiết bị này — trạng thái do admin.js vẽ (veNutPush). -->
+          <button id="admin-push-btn" class="admin-push-btn" type="button" hidden
+                  onclick="adminApp.pushMo()" title="Thông báo trên thiết bị này" aria-label="Thông báo trên thiết bị này">
+            <i class="fa-solid fa-bell-slash"></i>
+          </button>
           <span id="admin-name" class="admin-user-name"></span>
         </div>
       </header>

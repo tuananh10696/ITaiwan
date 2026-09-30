@@ -11,6 +11,7 @@
 // ⚠️ `class_id` khi giao đề nằm trong BODY nên regex của bảng QUYEN không bắt được — route này
 //    PHẢI tự gọi `lopThuocPhamVi()`. Quên bước đó là giáo viên A giao đề vào lớp của giáo viên B.
 import { Router } from 'express';
+import { guiPush, guiNgam } from '../utils/push.js';
 import pool from '../config/db.js';
 import { requireAuth } from '../middleware/auth.js';
 import {
@@ -382,7 +383,7 @@ router.post('/de-bai/:id/giao', async (req, res) => {
   const dsUser = Array.isArray(user_ids) ? user_ids.filter((x) => Number.isInteger(Number(x))) : [];
   if (!class_id && !dsUser.length) return res.status(400).json({ error: 'Chưa chọn lớp hoặc học sinh để giao.' });
   try {
-    const [d] = await pool.query('SELECT id, trang_thai FROM de_bai WHERE id = ?', [req.params.id]);
+    const [d] = await pool.query('SELECT id, trang_thai, tieu_de FROM de_bai WHERE id = ?', [req.params.id]);
     if (!d.length) return res.status(404).json({ error: 'Không tìm thấy đề.' });
     if (d[0].trang_thai !== 'phat-hanh') {
       return res.status(400).json({ error: 'Đề đang ở trạng thái Nháp. Phát hành đề trước khi giao.' });
@@ -423,6 +424,13 @@ router.post('/de-bai/:id/giao', async (req, res) => {
     // Không ghi bảng thông báo nào: chuông suy THẲNG từ `de_giao` (cùng cách bài cô giao làm ở
     // 4.18) nên không bao giờ có chuyện giao xong mà quên tạo thông báo.
     res.json({ success: true, ids });
+    // Push cho học sinh được giao: cả lớp (nếu giao theo lớp) + các em giao lẻ.
+    guiNgam((class_id
+      ? pool.query('SELECT user_id FROM class_enrollments WHERE class_id = ?', [class_id]).then(([x]) => x.map((y) => y.user_id))
+      : Promise.resolve([])
+    ).then((lop) => guiPush([...lop, ...dsUser.map(Number)], {
+      tieuDe: 'Cô vừa giao bài kiểm tra', noiDung: d[0].tieu_de, url: '/lo-trinh/bai-kiem-tra',
+    })));
   } catch (err) {
     console.error('Lỗi giao đề:', err);
     res.status(500).json({ error: loiBang(err, 'Không giao được đề.') });
@@ -558,6 +566,11 @@ router.post('/de-bai-lam/:id/cham', async (req, res) => {
     // da_doc_luc = NULL để bài vừa chấm nổi lên chuông của học sinh, y hệt cách lời phê bài tập
     // làm ở 4.18.
     res.json({ success: true, diem: Math.round(diem * 100) / 100 });
+    guiNgam(pool.query('SELECT tieu_de FROM de_bai WHERE id = ?', [b[0].de_id]).then(([dd]) => guiPush(b[0].user_id, {
+      tieuDe: 'Bài kiểm tra đã được chấm',
+      noiDung: [dd[0]?.tieu_de, nhan_xet ? String(nhan_xet).trim() : ''].filter(Boolean).join(' — '),
+      url: '/lo-trinh/bai-kiem-tra',
+    })));
   } catch (err) {
     console.error('Lỗi chấm bài:', err);
     res.status(500).json({ error: 'Không chấm được bài.' });

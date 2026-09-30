@@ -7,6 +7,14 @@
 // được xây riêng cho việc gửi mail từ server/serverless nên không gặp vấn đề này.
 // Không cần thêm package `resend` — chỉ cần `fetch` (có sẵn trong Node 18+) gọi
 // thẳng REST API, tránh phải thêm dependency mới + cập nhật package-lock.json.
+//
+// 2026-09-28: thêm kênh thứ hai — SMTP của Email Doanh Nghiệp Vietnix (hộp noreply@) — khi chuyển
+// từ Vercel sang VPS. Mục đích là CỘNG hạn mức: Resend Free chỉ 100 mail/ngày, Vietnix 200 mail/giờ.
+// Mỗi mail đi theo thứ tự kênh trong `THU_TU` bên dưới, kênh đầu lỗi (hết hạn mức, sai cấu hình,
+// mạng) thì tự thử kênh sau. Chỉ kênh nào ĐỦ biến môi trường mới được dùng — thiếu cả hai thì
+// giữ nguyên hành vi dev cũ: in ra console và coi như đã gửi.
+import nodemailer from 'nodemailer';
+
 const RESEND_API_URL = 'https://api.resend.com/emails';
 
 // EMAIL_DRY_RUN=true  -> KHÔNG gửi mail thật, chỉ in ra console.
@@ -16,9 +24,9 @@ const RESEND_API_URL = 'https://api.resend.com/emails';
 export const isEmailDryRun = () => String(process.env.EMAIL_DRY_RUN).toLowerCase() === 'true';
 
 /** 'san-sang' | 'dry-run' | 'thieu-key' — dùng để báo đúng sự thật cho người bấm nút. */
-export const emailStatus = () => (isEmailDryRun() ? 'dry-run' : (process.env.RESEND_API_KEY ? 'san-sang' : 'thieu-key'));
+export const emailStatus = () => (isEmailDryRun() ? 'dry-run' : (coResend() || coSmtp() ? 'san-sang' : 'thieu-key'));
 
-// Có gửi được mail thật hay không. Các hàm gửi bên dưới cố ý trả về true khi thiếu RESEND_API_KEY
+// Có gửi được mail thật hay không. Các hàm gửi bên dưới cố ý trả về true khi thiếu cả hai kênh
 // (để môi trường dev không vỡ luồng, chỉ in ra console) — nhưng chỗ nào BÁO CÁO lại cho người dùng
 // hoặc GHI NHỚ "đã gửi" thì phải hỏi hàm này trước, nếu không giáo viên sẽ thấy "Đã gửi nhắc 5 em"
 // trong khi thực tế không có email nào rời khỏi server (2026-08-27).
@@ -39,6 +47,126 @@ export function getAppBaseUrl() {
   return 'http://localhost:3001';
 }
 
+// ------------------------------------------------------------------ KÊNH GỬI
+function coResend() { return Boolean(process.env.RESEND_API_KEY); }
+function coSmtp() { return Boolean(process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS); }
+
+const tenNguoiGui = () => process.env.EMAIL_FROM_NAME || process.env.RESEND_FROM_NAME || 'Trung tâm ITaiwan';
+
+/**
+ * Thứ tự thử kênh theo LOẠI mail:
+ *   • 'giao-dich' (xác thực, chào mừng) — người dùng đang đứng đợi mail -> Resend trước, vì tỉ lệ
+ *     vào inbox tốt hơn và không vướng trần theo giờ.
+ *   • 'hang-loat' (nhắc học, nhắc du học, nhắc nộp bài) — đi theo lô cả trăm mail -> SMTP Vietnix
+ *     trước để để dành 100 mail/ngày của Resend cho mail giao dịch.
+ */
+const THU_TU = { 'giao-dich': ['resend', 'smtp'], 'hang-loat': ['smtp', 'resend'] };
+
+// Resend trả 429 khi chạm trần (Free: 100 mail/ngày) -> nghỉ kênh này 10 phút thay vì gọi hỏng
+// từng mail một suốt cả lô cron.
+let resendNghiDen = 0;
+
+async function quaResend({ to, subject, text, html }) {
+  if (Date.now() < resendNghiDen) return { ok: false, loi: 'Resend đang tạm nghỉ sau lỗi 429' };
+  // RESEND_FROM_EMAIL phải thuộc domain đã verify trên Resend Dashboard → Domains; để mặc định
+  // "onboarding@resend.dev" thì Resend chỉ giao tới đúng email chủ tài khoản Resend (403 với
+  // mọi địa chỉ khác, dù code chạy đúng).
+  const fromAddress = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
+  const payload = { from: `${tenNguoiGui()} <${fromAddress}>`, to: [to], subject, text, html };
+  if (process.env.EMAIL_REPLY_TO) payload.reply_to = process.env.EMAIL_REPLY_TO;
+
+  // Timeout rõ ràng: fail nhanh và có kiểm soát thay vì treo cả lô cron.
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 8000);
+  try {
+    const res = await fetch(RESEND_API_URL, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${process.env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      signal: controller.signal,
+    });
+    const data = await res.json().catch(() => null);
+    if (!res.ok) {
+      if (res.status === 429) resendNghiDen = Date.now() + 10 * 60 * 1000;
+      return { ok: false, loi: `Resend ${res.status}`, chiTiet: data };
+    }
+    return { ok: true, id: data?.id };
+  } catch (error) {
+    return { ok: false, loi: `Resend: ${error?.name || ''} ${error?.message || ''}`.trim() };
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
+
+// Trần theo giờ của Email Doanh Nghiệp Vietnix là 200 mail/giờ; mặc định tự dừng ở 180 để chừa
+// chỗ cho mail nhân viên gửi tay cùng domain. Đếm trong bộ nhớ tiến trình — đúng khi PM2 chạy
+// MỘT tiến trình (deploy/ecosystem.config.cjs). Vượt trần thì mail rơi sang Resend, không mất.
+const SMTP_DA_GUI = [];
+function smtpConHanMuc() {
+  const tran = Number.parseInt(process.env.SMTP_GIOI_HAN_GIO, 10) || 180;
+  const mocGio = Date.now() - 60 * 60 * 1000;
+  while (SMTP_DA_GUI.length && SMTP_DA_GUI[0] < mocGio) SMTP_DA_GUI.shift();
+  return SMTP_DA_GUI.length < tran;
+}
+
+let smtpTransport = null;
+function laySmtp() {
+  if (!smtpTransport) {
+    const port = Number.parseInt(process.env.SMTP_PORT, 10) || 465;
+    smtpTransport = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port,
+      // 465 = SSL ngay từ đầu; 587 = STARTTLS. SMTP_SECURE ghi đè khi nhà cung cấp làm khác lệ.
+      secure: process.env.SMTP_SECURE ? String(process.env.SMTP_SECURE).toLowerCase() === 'true' : port === 465,
+      auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
+      connectionTimeout: 10000,
+      greetingTimeout: 10000,
+      socketTimeout: 20000,
+    });
+  }
+  return smtpTransport;
+}
+
+async function quaSmtp({ to, subject, text, html }) {
+  if (!smtpConHanMuc()) return { ok: false, loi: 'SMTP đã chạm trần mail/giờ (SMTP_GIOI_HAN_GIO)' };
+  try {
+    const info = await laySmtp().sendMail({
+      // Máy chủ mail thường từ chối From khác hộp đang đăng nhập -> mặc định From = SMTP_USER.
+      from: { name: tenNguoiGui(), address: process.env.SMTP_FROM_EMAIL || process.env.SMTP_USER },
+      to, subject, text, html,
+      ...(process.env.EMAIL_REPLY_TO ? { replyTo: process.env.EMAIL_REPLY_TO } : {}),
+    });
+    SMTP_DA_GUI.push(Date.now());
+    return { ok: true, id: info?.messageId };
+  } catch (error) {
+    return { ok: false, loi: `SMTP: ${error?.code || ''} ${error?.message || ''}`.trim() };
+  }
+}
+
+/**
+ * Gửi một mail qua các kênh đang cấu hình, theo thứ tự của `loai`.
+ * @returns {Promise<{ok: boolean, kenh?: string, id?: string, loi?: Array}>}
+ *   Chưa cấu hình kênh nào -> in `devLog` và trả ok (hành vi dev như trước).
+ */
+async function guiMail({ to, subject, text, html }, { loai, nhan, devLog }) {
+  const kenh = THU_TU[loai].filter((k) => (k === 'resend' ? coResend() : coSmtp()));
+  if (!kenh.length) {
+    console.log(devLog);
+    return { ok: true, kenh: 'dev' };
+  }
+  const loi = [];
+  for (const k of kenh) {
+    const kq = k === 'resend' ? await quaResend({ to, subject, text, html }) : await quaSmtp({ to, subject, text, html });
+    if (kq.ok) {
+      if (loi.length) console.warn(`✉️ Mail ${nhan} tới ${to} đi qua ${k} sau khi kênh trước lỗi:`, loi);
+      return { ok: true, kenh: k, id: kq.id };
+    }
+    loi.push({ kenh: k, loi: kq.loi, ...(kq.chiTiet ? { chiTiet: kq.chiTiet } : {}) });
+  }
+  console.error(`Lỗi gửi email ${nhan}:`, { to, loi });
+  return { ok: false, loi };
+}
+
 export const sendVerificationEmail = async (email, token) => {
   if (isEmailDryRun()) {
     console.log(`✉️  [DRY-RUN] Bỏ qua gửi mail "Xác thực tài khoản" tới ${email} (EMAIL_DRY_RUN=true).`);
@@ -47,30 +175,7 @@ export const sendVerificationEmail = async (email, token) => {
   const baseUrl = getAppBaseUrl();
   const verifyLink = `${baseUrl}/api/auth/verify?token=${token}`;
 
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
-    // Local dev chưa cấu hình RESEND_API_KEY: không gọi Resend, chỉ in link xác
-    // nhận thẳng ra console để tự test được luồng đăng ký mà không cần key thật
-    // (trước đây dùng Ethereal — dịch vụ SMTP giả lập cần gọi mạng để tạo tài
-    // khoản test; in thẳng link ra console đơn giản hơn và không cần mạng).
-    console.log(`✉️ [DEV] RESEND_API_KEY chưa được cấu hình — link xác nhận cho ${email}:\n${verifyLink}`);
-    return true;
-  }
-
-  // RESEND_FROM_EMAIL: mặc định "onboarding@resend.dev" (domain test có sẵn của
-  // Resend, dùng được ngay không cần cấu hình gì thêm) — NHƯNG Resend chỉ cho gửi
-  // từ domain test này tới đúng địa chỉ email đã đăng ký tài khoản Resend, cho tới
-  // khi verify 1 domain riêng (Resend Dashboard → Domains → thêm bản ghi DNS của
-  // domain bạn sở hữu). Trước khi verify domain, người dùng thật (không phải bạn)
-  // đăng ký sẽ KHÔNG nhận được mail dù log vẫn báo gửi thành công (Resend chặn
-  // ngầm ở phía họ, trả lỗi rõ trong response nếu request bị từ chối). Set
-  // RESEND_FROM_EMAIL sau khi verify domain, ví dụ "no-reply@taiwandiary.vn".
-  const fromAddress = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
-  const fromName = process.env.RESEND_FROM_NAME || 'Trung tâm ITaiwan';
-
   const payload = {
-    from: `${fromName} <${fromAddress}>`,
-    to: [email],
     subject: 'Xác nhận đăng ký tài khoản - ITaiwan',
     text: `Chào bạn,\n\nCảm ơn bạn đã đăng ký tài khoản trên hệ thống học tiếng Trung ITaiwan.\n\nVui lòng copy đường link sau dán vào trình duyệt để xác nhận địa chỉ email của bạn:\n${verifyLink}\n\nTrân trọng,\nĐội ngũ ITaiwan`,
     html: `
@@ -91,44 +196,17 @@ export const sendVerificationEmail = async (email, token) => {
     `,
   };
 
-  // Timeout rõ ràng (giống lý do đã thêm cho SMTP trước đây): fail nhanh và có
-  // kiểm soát thay vì có thể treo tới hết thời gian chạy của serverless function.
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 8000);
-
-  try {
-    const res = await fetch(RESEND_API_URL, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-      signal: controller.signal,
-    });
-
-    const data = await res.json().catch(() => null);
-
-    if (!res.ok) {
-      // Lỗi hay gặp nhất khi chưa verify domain: Resend trả 403 với message dạng
-      // "You can only send testing emails to your own email address..." — log rõ
-      // status + toàn bộ body để không phải đoán khi đọc Vercel Logs.
-      console.error('Lỗi gửi email xác nhận (Resend):', { to: email, status: res.status, body: data });
-      return false;
-    }
-
-    console.log(`✉️ Đã gửi email xác nhận thành công tới: ${email} — id=${data?.id}`);
-    return true;
-  } catch (error) {
-    console.error('Lỗi gửi email xác nhận (Resend):', {
-      to: email,
-      message: error?.message,
-      name: error?.name,
-    });
-    return false;
-  } finally {
-    clearTimeout(timeoutId);
-  }
+  // Chưa cấu hình kênh nào (máy dev): in link xác nhận thẳng ra console để tự test được luồng
+  // đăng ký mà không cần key thật.
+  const kq = await guiMail({ to: email, ...payload }, {
+    loai: 'giao-dich',
+    nhan: 'xác nhận',
+    devLog: `✉️ [DEV] Chưa cấu hình kênh gửi mail — link xác nhận cho ${email}:\n${verifyLink}`,
+  });
+  // Lỗi hay gặp nhất khi chưa verify domain trên Resend: 403 "You can only send testing emails to
+  // your own email address..." — guiMail đã log đủ status + body của từng kênh.
+  if (kq.ok && kq.kenh !== 'dev') console.log(`✉️ Đã gửi email xác nhận thành công tới: ${email} qua ${kq.kenh} — id=${kq.id}`);
+  return kq.ok;
 };
 
 // Gửi email chào mừng kèm thông tin đăng nhập — dùng khi admin tạo tài khoản học
@@ -148,18 +226,7 @@ export const sendWelcomeEmail = async (email, password, className) => {
   const baseUrl = getAppBaseUrl();
   const loginLink = `${baseUrl}/`;
 
-  const apiKey = process.env.RESEND_API_KEY;
-  if (!apiKey) {
-    console.log(`✉️ [DEV] RESEND_API_KEY chưa được cấu hình — tài khoản cho ${email}: mật khẩu "${password}"${className ? `, lớp ${className}` : ''}`);
-    return true;
-  }
-
-  const fromAddress = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
-  const fromName = process.env.RESEND_FROM_NAME || 'Trung tâm ITaiwan';
-
   const payload = {
-    from: `${fromName} <${fromAddress}>`,
-    to: [email],
     subject: `Tài khoản học tiếng Trung ITaiwan${className ? ` — Lớp ${className}` : ''}`,
     text: `Chào bạn,\n\nBạn đã được thêm vào lớp học "${className || ''}" trên hệ thống ITaiwan. Thông tin đăng nhập của bạn:\n\nEmail: ${email}\nMật khẩu: ${password}\n\nTruy cập tại: ${loginLink}\n\nBạn nên đổi mật khẩu sau khi đăng nhập lần đầu (mục Tài khoản > Thông tin cá nhân).\n\nTrân trọng,\nĐội ngũ ITaiwan`,
     html: `
@@ -181,39 +248,13 @@ export const sendWelcomeEmail = async (email, password, className) => {
     `,
   };
 
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 8000);
-
-  try {
-    const res = await fetch(RESEND_API_URL, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload),
-      signal: controller.signal,
-    });
-
-    const data = await res.json().catch(() => null);
-
-    if (!res.ok) {
-      console.error('Lỗi gửi email chào mừng (Resend):', { to: email, status: res.status, body: data });
-      return false;
-    }
-
-    console.log(`✉️ Đã gửi email chào mừng thành công tới: ${email} — id=${data?.id}`);
-    return true;
-  } catch (error) {
-    console.error('Lỗi gửi email chào mừng (Resend):', {
-      to: email,
-      message: error?.message,
-      name: error?.name,
-    });
-    return false;
-  } finally {
-    clearTimeout(timeoutId);
-  }
+  const kq = await guiMail({ to: email, ...payload }, {
+    loai: 'giao-dich',
+    nhan: 'chào mừng',
+    devLog: `✉️ [DEV] Chưa cấu hình kênh gửi mail — tài khoản cho ${email}: mật khẩu "${password}"${className ? `, lớp ${className}` : ''}`,
+  });
+  if (kq.ok && kq.kenh !== 'dev') console.log(`✉️ Đã gửi email chào mừng thành công tới: ${email} qua ${kq.kenh} — id=${kq.id}`);
+  return kq.ok;
 };
 
 // Nhắc học viên chưa nộp bài đến hạn. Dùng cùng cơ chế Resend như 2 hàm trên — xem ghi chú giới hạn
@@ -225,23 +266,12 @@ export const sendAssignmentReminderEmail = async (email, { studentName, classNam
     return true;
   }
   const baseUrl = getAppBaseUrl();
-  const apiKey = process.env.RESEND_API_KEY;
 
   const dueText = dueDate
     ? new Date(dueDate).toLocaleDateString('vi-VN')
     : null;
 
-  if (!apiKey) {
-    console.log(`✉️ [DEV] Nhắc nộp bài cho ${email}: ${lessonLabel}${dueText ? ` (hạn ${dueText})` : ''}`);
-    return true;
-  }
-
-  const fromAddress = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
-  const fromName = process.env.RESEND_FROM_NAME || 'Trung tâm ITaiwan';
-
   const payload = {
-    from: `${fromName} <${fromAddress}>`,
-    to: [email],
     subject: `Nhắc nộp bài: ${lessonLabel}${dueText ? ` — hạn ${dueText}` : ''}`,
     text: `Chào ${studentName || 'bạn'},\n\nBạn chưa làm bài "${lessonLabel}" mà giáo viên đã giao cho lớp ${className || ''}.${dueText ? `\nHạn nộp: ${dueText}.` : ''}\n\nVào học tại: ${baseUrl}/\n\nTrân trọng,\nĐội ngũ ITaiwan`,
     html: `
@@ -260,27 +290,12 @@ export const sendAssignmentReminderEmail = async (email, { studentName, classNam
     `,
   };
 
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 8000);
-  try {
-    const res = await fetch(RESEND_API_URL, {
-      method: 'POST',
-      headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-      signal: controller.signal,
-    });
-    const data = await res.json().catch(() => null);
-    if (!res.ok) {
-      console.error('Lỗi gửi email nhắc nộp bài (Resend):', { to: email, status: res.status, body: data });
-      return false;
-    }
-    return true;
-  } catch (error) {
-    console.error('Lỗi gửi email nhắc nộp bài (Resend):', { to: email, message: error?.message, name: error?.name });
-    return false;
-  } finally {
-    clearTimeout(timeoutId);
-  }
+  const kq = await guiMail({ to: email, ...payload }, {
+    loai: 'hang-loat',
+    nhan: 'nhắc nộp bài',
+    devLog: `✉️ [DEV] Nhắc nộp bài cho ${email}: ${lessonLabel}${dueText ? ` (hạn ${dueText})` : ''}`,
+  });
+  return kq.ok;
 };
 
 /**
@@ -302,7 +317,6 @@ export const sendNhacHocEmail = async (email, v) => {
     return true;
   }
   const baseUrl = getAppBaseUrl();
-  const apiKey = process.env.RESEND_API_KEY;
 
   const y = [];
   if (v.chuoi > 0) y.push(`giữ chuỗi <strong>${v.chuoi} ngày</strong> đang có`);
@@ -317,20 +331,11 @@ export const sendNhacHocEmail = async (email, v) => {
       ? `Chuỗi ${v.chuoi} ngày của bạn sắp đứt`
       : `${v.soTuOn} từ đang đợi bạn ôn hôm nay`;
 
-  if (!apiKey) {
-    console.log(`✉️ [DEV] Nhắc học ${email}: ${tieuDe} (${tomTat})`);
-    return true;
-  }
-
-  const fromAddress = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
-  const fromName = process.env.RESEND_FROM_NAME || 'Trung tâm ITaiwan';
   const dsBai = (v.baiGiao || []).slice(0, 3)
     .map((b) => `<li>${b.ten}${b.han ? ` — hạn ${new Date(b.han).toLocaleDateString('vi-VN')}` : ''}</li>`)
     .join('');
 
   const payload = {
-    from: `${fromName} <${fromAddress}>`,
-    to: [email],
     subject: tieuDe,
     text: `Chào ${v.hoTen || 'bạn'},\n\nHôm nay bạn có thể: ${tomTat.replace(/<[^>]+>/g, '')}.\n\n`
       + `Vào học: ${baseUrl}/lo-trinh/hom-nay\n\n`
@@ -351,21 +356,12 @@ export const sendNhacHocEmail = async (email, v) => {
       </div>`,
   };
 
-  try {
-    const res = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
-    if (!res.ok) {
-      console.error('Lỗi gửi mail nhắc học:', res.status, await res.text().catch(() => ''));
-      return false;
-    }
-    return true;
-  } catch (err) {
-    console.error('Lỗi gửi mail nhắc học:', err.message);
-    return false;
-  }
+  const kq = await guiMail({ to: email, ...payload }, {
+    loai: 'hang-loat',
+    nhan: 'nhắc học',
+    devLog: `✉️ [DEV] Nhắc học ${email}: ${tieuDe} (${tomTat})`,
+  });
+  return kq.ok;
 };
 
 /**
@@ -383,7 +379,6 @@ export const sendNhacDuHocEmail = async (email, v) => {
     return true;
   }
   const baseUrl = getAppBaseUrl();
-  const apiKey = process.env.RESEND_API_KEY;
   const viec = (v.viec || []).slice(0, 5);
   if (!viec.length) return false;
 
@@ -392,20 +387,11 @@ export const sendNhacDuHocEmail = async (email, v) => {
     ? `${viec[0].nhan} — ${new Date(viec[0].ngay).toLocaleDateString('vi-VN')}`
     : viec[0].nhan;
 
-  if (!apiKey) {
-    console.log(`✉️ [DEV] Nhắc du học ${email}: ${tieuDe}`);
-    return true;
-  }
-
-  const fromAddress = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
-  const fromName = process.env.RESEND_FROM_NAME || 'Trung tâm ITaiwan';
   const dong = viec.map((x) => `<li style="margin-bottom:6px"><strong>${x.nhan}</strong>`
     + `${x.ngay ? ` — ${new Date(x.ngay).toLocaleDateString('vi-VN')}` : ''}`
     + `${x.chiTiet ? `<br><span style="color:#4B5D64">${x.chiTiet}</span>` : ''}</li>`).join('');
 
   const payload = {
-    from: `${fromName} <${fromAddress}>`,
-    to: [email],
     subject: tieuDe,
     text: `Chào ${v.hoTen || 'bạn'},\n\nHồ sơ du học ${v.maHs || ''} của bạn có việc cần xử lý:\n`
       + viec.map((x) => `- ${x.nhan}${x.ngay ? ` (${new Date(x.ngay).toLocaleDateString('vi-VN')})` : ''}`
@@ -427,19 +413,10 @@ export const sendNhacDuHocEmail = async (email, v) => {
       </div>`,
   };
 
-  try {
-    const res = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
-    if (!res.ok) {
-      console.error('Lỗi gửi mail nhắc du học:', res.status, await res.text().catch(() => ''));
-      return false;
-    }
-    return true;
-  } catch (err) {
-    console.error('Lỗi gửi mail nhắc du học:', err.message);
-    return false;
-  }
+  const kq = await guiMail({ to: email, ...payload }, {
+    loai: 'hang-loat',
+    nhan: 'nhắc du học',
+    devLog: `✉️ [DEV] Nhắc du học ${email}: ${tieuDe}`,
+  });
+  return kq.ok;
 };

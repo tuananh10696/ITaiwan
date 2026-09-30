@@ -369,6 +369,16 @@ body {
 }
 
 .admin-header h1 { font-size: 18px; font-weight: 800; flex: 1; }
+/* Chuông bật/tắt push thông báo trên thiết bị này (2026-09-28). `:not([hidden])` bắt buộc: thuộc
+   tính hidden chỉ là display:none của trình duyệt, thua mọi luật có class. */
+.admin-push-btn:not([hidden]) {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; margin-right: 10px; border-radius: 50%;
+  border: 1.5px solid var(--admin-border); background: var(--admin-surface);
+  color: var(--admin-text-secondary); cursor: pointer; font-size: 15px;
+}
+.admin-push-btn:hover { border-color: var(--admin-primary); color: var(--admin-primary); }
+.admin-push-btn.is-bat { color: var(--admin-accent); border-color: color-mix(in srgb, var(--admin-accent) 45%, #fff); }
 .admin-user-name { font-size: 13px; font-weight: 600; color: var(--admin-text-secondary); }
 .mobile-menu-btn { display: none; background: none; border: none; font-size: 20px; color: var(--admin-text); cursor: pointer; }
 .sidebar-backdrop { display: none; }

@@ -22,6 +22,7 @@ import ktxRoutes from './routes/ktx.js';
 import deBaiRoutes from './routes/de-bai.js';
 import deBaiHocVienRoutes from './routes/de-bai-hocvien.js';
 import duHocHocVienRoutes from './routes/du-hoc-hocvien.js';
+import pushRoutes from './routes/push.js';
 import cronRoutes from './routes/cron.js';
 import exerciseRoutes from './routes/exercise.js';
 import noiDungRoutes from './routes/noi-dung.js';
@@ -143,6 +144,8 @@ app.use('/api/admin', deBaiRoutes);
 app.use('/api/du-hoc', duHocHocVienRoutes);
 // Phía học sinh làm bài — chỉ requireAuth, mọi truy vấn tự lọc theo req.userId.
 app.use('/api/de-bai', deBaiHocVienRoutes);
+// Đăng ký nhận push thông báo (2026-09-28) — dùng chung cho học viên và nhân viên, chỉ requireAuth.
+app.use('/api/push', pushRoutes);
 // Tác vụ định kỳ (Vercel Cron) — tự bảo vệ bằng CRON_SECRET, xem server/routes/cron.js.
 app.use('/api/cron', cronRoutes);
 app.use('/api/exercise', exerciseRoutes);

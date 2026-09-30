@@ -14,6 +14,8 @@ import {
 } from './admin-trungtam.js';
 // Bước Phỏng vấn: 3 loại + trạng thái từng buổi. Quy tắc DÙNG CHUNG với server (tự chuyển bước).
 import { LOAI_PV, BUOI_PV, tinhPhongVan, loaiPv } from '../shared/phong-van.js';
+// Push thông báo lên thiết bị của nhân viên (2026-09-28) — phần trình duyệt dùng chung với cổng học viên.
+import { trangThaiPush, batPush, tatPush, dongBoPush, ngheDoiDangKy, NHAN_PUSH } from './core/push.js';
 // Tiến độ theo trường (2026-09-25) — khu con của Du học, cùng lối cầu nối như module trên.
 import {
   dangKy as dangKyTienDoTruong, renderTienDoTruong, tdtHandlers, tdtQuery, tdtNapQuery,
@@ -196,6 +198,19 @@ function endAuthChecking() {
 }
 
 function logout() {
+  // Gỡ thiết bị này khỏi tài khoản trước khi mất token (máy dùng chung: người sau không nhận
+  // thông báo của người trước). Giữ token vào biến vì đoạn gỡ chạy bất đồng bộ.
+  const tkCu = token;
+  if (tkCu && navigator.serviceWorker) {
+    navigator.serviceWorker.getRegistration('/')
+      .then((r) => r && r.pushManager.getSubscription())
+      .then((sub) => sub && fetch(API + '/push/huy', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${tkCu}` },
+        body: JSON.stringify({ endpoint: sub.endpoint }),
+      }))
+      .catch(() => {});
+  }
   token = null;
   adminUser = null;
   localStorage.removeItem('tw_token');
@@ -336,6 +351,68 @@ function showAdminShell() {
   }
 
   if (laAdmin()) refreshPendingBadge();
+  khoiDongPush();
+}
+
+// ------------------------------------------------------------------ push thông báo (2026-09-28)
+const goiApiPush = (method, path, body) => (method === 'GET' ? apiGet(path) : apiPost(path, body));
+let _pushDaNghe = false;
+
+/** Đăng ký SW (bản build / HTTPS), đồng bộ đăng ký push với tài khoản đang đăng nhập, vẽ nút chuông. */
+function khoiDongPush() {
+  try {
+    const choPhep = !import.meta.env.DEV && 'serviceWorker' in navigator
+      && (location.protocol === 'https:' || location.hostname === 'localhost');
+    if (choPhep) navigator.serviceWorker.register('/sw.js', { scope: '/' }).catch(() => {});
+    if (!_pushDaNghe) { _pushDaNghe = true; ngheDoiDangKy(goiApiPush); }
+    dongBoPush(goiApiPush);
+  } catch { /* trình duyệt cũ: bỏ qua */ }
+  veNutPush();
+}
+
+/** Chuông ở thanh tiêu đề: đặc = đang nhận thông báo, gạch chéo = chưa bật / không nhận được. */
+async function veNutPush() {
+  const nut = document.getElementById('admin-push-btn');
+  if (!nut) return;
+  const tt = await trangThaiPush();
+  nut.hidden = false;
+  nut.classList.toggle('is-bat', tt === 'bat');
+  nut.innerHTML = `<i class="fa-solid ${tt === 'bat' ? 'fa-bell' : 'fa-bell-slash'}"></i>`;
+}
+
+/** Bấm chuông: chưa bật thì bật luôn (xin quyền phải đi từ cú bấm); còn lại mở hộp trạng thái. */
+async function pushMo() {
+  const tt = await trangThaiPush();
+  if (tt === 'tat') return pushBat();
+  openModal('Thông báo trên thiết bị này', `
+    <p style="display:flex;gap:10px;margin:0"><i class="fa-solid ${tt === 'bat' ? 'fa-circle-check' : 'fa-circle-info'}"
+       style="margin-top:3px;color:${tt === 'bat' ? 'var(--admin-accent)' : 'var(--admin-text-secondary)'}"></i>
+      <span>${esc(NHAN_PUSH[tt] || '')}</span></p>`,
+  tt === 'bat' ? `
+    <button class="btn btn-outline" onclick="adminApp.pushTat()"><i class="fa-solid fa-bell-slash"></i> Tắt</button>
+    <button class="btn btn-primary" onclick="adminApp.pushThu()"><i class="fa-solid fa-paper-plane"></i> Gửi thử</button>`
+    : '<button class="btn btn-outline" onclick="adminApp.closeModal()">Đóng</button>');
+}
+
+async function pushBat() {
+  try {
+    const tt = await batPush(goiApiPush);
+    if (tt === 'bat') toast('Đã bật thông báo trên thiết bị này.');
+    else { toast(NHAN_PUSH[tt] || 'Chưa bật được thông báo.', 'error'); }
+  } catch (err) { toast(err.message || 'Không bật được thông báo.', 'error'); }
+  veNutPush();
+}
+
+async function pushTat() {
+  try { await tatPush(goiApiPush); toast('Đã tắt thông báo trên thiết bị này.'); }
+  catch (err) { toast(err.message || 'Không tắt được thông báo.', 'error'); }
+  closeModal();
+  veNutPush();
+}
+
+async function pushThu() {
+  try { const r = await apiPost('/push/thu', { url: '/admin.html' }); toast(r.message || 'Đã gửi thử.'); }
+  catch (err) { toast(err.message || 'Không gửi thử được.', 'error'); }
 }
 
 async function refreshPendingBadge() {
@@ -4767,6 +4844,8 @@ window.adminApp = {
   ...quyHandlers, ...ktxHandlers, ...deHandlers,
   // Tiến độ theo trường (2026-09-25)
   ...tdtHandlers,
+  // Push thông báo (2026-09-28) — nút chuông ở thanh tiêu đề
+  pushMo, pushBat, pushTat, pushThu,
   tbXem, tbGo, tbBoQua,
   // Hồ sơ du học
   dhMo, dhVeDanhSach, dhDoiBuocLoc, dhTim, dhDoiKy, dhXoaLoc, dhTrang,

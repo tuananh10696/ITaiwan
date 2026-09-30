@@ -9,6 +9,7 @@
 // NGUYÊN TẮC: hồ sơ CHƯA gắn tài khoản thì không sinh thông báo nào. Không có `user_id` thì
 // không ai đọc được, ghi vào chỉ làm phình bảng và làm sai mọi phép đếm "chưa đọc".
 import pool from '../config/db.js';
+import { guiPush, guiNgam } from './push.js';
 
 /** Bảng chưa có (chưa chạy migration) — nơi gọi dùng để im lặng bỏ qua thay vì ném 500. */
 export const chuaCoBangTb = (err) => err && (err.code === 'ER_NO_SUCH_TABLE' || err.code === 'ER_BAD_FIELD_ERROR');
@@ -32,6 +33,10 @@ export async function baoHocSinh(hoSoId, userId, loai, tieuDe, noiDung = null, n
        noiDung ? String(noiDung).slice(0, 1000) : null,
        /^\d{4}-\d{2}-\d{2}$/.test(String(ngay || '').slice(0, 10)) ? String(ngay).slice(0, 10) : null]
     );
+    // Đẩy luôn lên điện thoại (2026-09-28) — mọi thông báo du học (đặt lịch, kết quả, đổi bước,
+    // nhắc hằng ngày của cron) đều đi qua ĐÚNG hàm này, nên gắn một chỗ là đủ. Chạy ngầm: không bắt
+    // nhân viên đợi dịch vụ push của Apple/Google mới thấy "Đã lưu".
+    guiNgam(guiPush(userId, { tieuDe, noiDung, url: '/tai-khoan/ho-so-du-hoc' }));
     return true;
   } catch (err) {
     if (!chuaCoBangTb(err)) console.error('Lỗi ghi thông báo du học:', err);

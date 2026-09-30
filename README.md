@@ -235,6 +235,9 @@ build** (không chạy ở dev, không chạy trong app native).
 
 ## 9. Deploy
 
+> **2026-09-28: đang chuyển sang VPS Vietnix + domain `duhocitaiwan.com`** — hướng dẫn đầy đủ ở
+> [`deploy/README.md`](deploy/README.md). Phần Vercel bên dưới giữ lại cho tới khi cắt chuyển xong.
+
 **Bản đang chạy:** https://itaiwan-edu.vercel.app — project Vercel `itaiwan-edu`
 (tài khoản `tuananh10696`), nối thẳng với repo `tuananh10696/ITaiwan`.
 **Deploy = push lên `main`**, Vercel tự dựng. Đừng chạy `vercel --prod`: free plan có trần
