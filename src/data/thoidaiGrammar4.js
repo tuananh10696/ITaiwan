@@ -16,43 +16,53 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：他的個性非常獨特，平常也總是很少跟別人說話。B：嗯，除非很有耐性，不然想跟他相處不太容易。A：因為這樣，除非有很重要的事，我才會主動跟他說話。",
-       "vi": ""
+       "vi": "A: Tính cách anh ấy rất đặc biệt, bình thường cũng rất ít nói chuyện với người khác. B: Ừ, trừ phi rất kiên nhẫn, nếu không muốn chung sống với anh ấy không dễ. A: Vì vậy, trừ phi có việc rất quan trọng, tôi mới chủ động nói chuyện với anh ấy.",
+       "py": "A: Tā de gèxìng fēicháng dútè, píngcháng yě zǒngshì hěnshǎo gēn biérén shuōhuà. B: ń, chúfēi hěn yǒu nàixìng, bùrán xiǎng gēn tā xiāngchǔ bú tài róngyì. A: Yīnwèi zhèyàng, chúfēi yǒu hěn zhòngyào de shì, wǒ cái huì zhǔdòng gēn tā shuōhuà."
       },
       {
-       "hz": "「除非」是連詞(Conj)，用來說明某個情況發生的必要條件。",
-       "vi": ""
+       "hz": "「除非」是連詞，用來說明某個情況發生的必要條件。",
+       "vi": "“除非” là liên từ, dùng để nói điều kiện cần thiết để một tình huống xảy ra.",
+       "py": "“Chúfēi” shì liáncí, yònglái shuōmíng mǒugè qíngkuàng fāshēng de bìyàotiáojiàn."
       },
       {
        "hz": "小孩：這裡有好多玩具，買一個給我啦！",
-       "vi": ""
+       "vi": "Trẻ con: Ở đây nhiều đồ chơi quá, mua cho con một cái đi mà!",
+       "py": "Xiǎohái: Zhèlǐ yǒu hǎoduō wánjù, mǎi yígè gěi wǒ la!"
       },
       {
        "hz": "A：老師，那篇報告能不能讓我晚兩天再交？",
-       "vi": ""
+       "vi": "A: Thưa thầy, bài báo cáo đó cho em nộp muộn hai ngày được không ạ?",
+       "py": "A: Lǎoshī, nà piān bàogào néng bùnéng ràng wǒ wǎn liǎngtiān zài jiāo?"
       },
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       },
       {
        "hz": "A：他說要讓體重輕點兒，打算每天早上慢跑。現在跑得怎麼樣了？ B：他是這麼想，但常不想起床，結果只跑了幾次就不跑了II. ……（也）是這麼想，不過/可是/但……",
-       "vi": ""
+       "vi": "A: Anh ấy nói muốn giảm cân, định sáng nào cũng chạy bộ. Bây giờ chạy đến đâu rồi? B: Anh ấy nghĩ vậy thôi, nhưng hay lười dậy, kết quả chạy được mấy lần là thôi. II. …(cũng) nghĩ vậy, nhưng / có điều…",
+       "py": "A: Tā shuō yào ràng tǐzhòng qīng diǎn'ér, dǎsuàn měitiān zǎoshàng mànpǎo. Xiànzài pǎo de zěnmeyàng le? B: Tā shì zhème xiǎng, dàn cháng bùxiǎng qǐchuáng, jiéguǒ zhǐ pǎo le jǐcì jiù bù pǎo le II.…… (yě) shì zhème xiǎng, búguò / kěshì / dàn……"
       },
       {
        "hz": "A：從高雄搭火車到臺北很方便，而且平常票也不難買。",
-       "vi": ""
+       "vi": "A: Từ Cao Hùng đi tàu hoả đến Đài Bắc rất tiện, hơn nữa bình thường vé cũng không khó mua.",
+       "py": "A: Cóng Gāoxióng dā huǒchē dào Táiběi hěn fāngbiàn, érqiě píngcháng piào yě bùnán mǎi."
       },
       {
        "hz": "A：在我的國家，家庭主婦大多認為整理房間是件痛苦的事。",
-       "vi": ""
+       "vi": "A: Ở nước tôi, phần lớn các bà nội trợ cho rằng dọn dẹp nhà cửa là việc khổ sở.",
+       "py": "A: Zài wǒ de guójiā, jiātíngzhǔfù dàduō rènwéi zhěnglǐ fángjiān shì jiàn tòngkǔ de shì."
       },
       {
        "hz": "A：這部電影作品不夠成熟，為什麼還有那麼多觀眾喜歡呢？",
-       "vi": ""
+       "vi": "A: Bộ phim này chưa đủ chín muồi, sao vẫn có nhiều khán giả thích vậy?",
+       "py": "A: Zhèbù diànyǐng zuòpǐn búgòu chéngshú, wèishénme háiyǒu nàme duō guānzhòng xǐhuān ne?"
       },
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -70,67 +80,83 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：妳男友每天都開車帶妳來上班，妳還真幸福呢。B：不過，他有時太關心我了，反而讓我心裡很不自在。A：這樣啊。感情的事，每個人的感覺還真是不同呢。",
-       "vi": ""
+       "vi": "A: Ngày nào bạn trai cũng lái xe đưa chị đi làm, chị hạnh phúc thật đấy. B: Có điều, đôi khi anh ấy quan tâm tôi quá, ngược lại khiến tôi thấy không thoải mái. A: Vậy à. Chuyện tình cảm, cảm nhận của mỗi người đúng là khác nhau thật.",
+       "py": "A: Nǐ nányǒu měitiān dōu kāichē dài nǐ lái shàngbān, nǐ hái zhēnxìngfú ne. B: Búguò, tā yǒushí tài guānxīn wǒ le, fǎn'ér ràng wǒ xīnlǐ hěn búzìzài. A: Zhèyàng a. Gǎnqíng de shì, měigè rén de gǎnjué hái zhēnshì bùtóng ne."
       },
       {
-       "hz": "「還」在本語法中是副詞(Adv)，說話的人覺得出現了沒想到的情況。「還」常跟「真」、「挺」、「蠻/滿」（本書第14課）一起使用。",
-       "vi": ""
+       "hz": "「還」在本語法中是副詞，說話的人覺得出現了沒想到的情況。「還」常跟「真」、「挺」、「蠻/滿」（本書第14課）一起使用。",
+       "vi": "“還” trong mẫu ngữ pháp này là phó từ, người nói thấy xuất hiện tình huống không ngờ tới. “還” thường dùng cùng “真”, “挺”, “蠻/滿” (bài 14 của sách này).",
+       "py": "“Hái” zài běn yǔfǎ zhōng shì fùcí, shuōhuà de rén juéde chūxiàn le méixiǎngdào de qíngkuàng. “Hái” cháng gēn “zhēn”, “tǐng”, “mán / mǎn” (běnshū dì 14 kè) yìqǐ shǐyòng."
       },
       {
        "hz": "請用「還」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “還” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “hái” wánchéng yǐxià de duìhuà."
       },
       {
-       "hz": "A：我想在六十歲前退休，然後到世界各地旅行。這樣的夢想，   我想大家都有。B：不一定，我就沒想過。我想做到不能動才退休。",
-       "vi": ""
+       "hz": "A：我想在六十歲前退休，然後到世界各地旅行。這樣的夢想，我想大家都有。B：不一定，我就沒想過。我想做到不能動才退休。",
+       "vi": "A: Tôi muốn nghỉ hưu trước sáu mươi tuổi, rồi đi du lịch khắp thế giới. Ước mơ này chắc ai cũng có. B: Chưa chắc, tôi thì chưa từng nghĩ vậy. Tôi muốn làm đến khi không cử động được nữa mới nghỉ.",
+       "py": "A: Wǒ xiǎng zài liùshísuì qián tuìxiū, ránhòu dào shìjiègèdì lǚxíng. Zhèyàng de mèngxiǎng, wǒ xiǎng dàjiā dōu yǒu. B: Bù yídìng, wǒ jiù méi xiǎng guò. Wǒ xiǎngzuòdào bùnéng dòng cái tuìxiū."
       },
       {
        "hz": "A：我覺得年齡還小的孩子不應該使用手機或平板電腦，這些產品對他們來說一點好處都沒有。你說呢？",
-       "vi": ""
+       "vi": "A: Tôi thấy trẻ còn nhỏ tuổi không nên dùng điện thoại hay máy tính bảng, những sản phẩm này chẳng có lợi gì cho chúng cả. Bạn thấy sao?",
+       "py": "A: Wǒ juéde niánlíng hái xiǎo de háizi bù yīnggāi shǐyòng shǒujī huò píngbǎn diànnǎo, zhèxiē chǎnpǐn duì tāmen láishuō yìdiǎn hǎochù dōu méiyǒu. Nǐ shuō ne?"
       },
       {
        "hz": "A：我想世界上所有的發明都對人類有貢獻，沒有用的發明是不存在的。你認為呢？",
-       "vi": ""
+       "vi": "A: Tôi nghĩ mọi phát minh trên thế giới đều có đóng góp cho nhân loại, không tồn tại phát minh vô dụng. Bạn nghĩ sao?",
+       "py": "A: Wǒ xiǎng shìjiè shàng suǒyǒu de fāmíng dōu duì rénlèi yǒu gòngxiàn, méiyǒu yòng de fāmíng shì bù cúnzài de. Nǐ rènwéi ne?"
       },
       {
        "hz": "請用「就」來完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “就” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “jiù” lái wánchéng yǐxià de duìhuà."
       },
       {
        "hz": "作者提到時代進步對交朋友的方式有什麼影響？你覺得這樣的影響是好是壞？為什麼？",
-       "vi": ""
+       "vi": "Tác giả nói sự tiến bộ của thời đại ảnh hưởng thế nào đến cách kết bạn? Bạn thấy ảnh hưởng đó tốt hay xấu? Tại sao?",
+       "py": "Zuòzhě tídào shídài jìnbù duì jiāopéngyǒu de fāngshì yǒu shénme yǐngxiǎng? Nǐ juéde zhèyàng de yǐngxiǎng shì hǎo shì huài? Wèishénme?"
       },
       {
        "hz": "華人常說：「在家靠父母，出外靠朋友。」在你的國家也有這樣的說法嗎？請你用一、兩個生活上的例子來說明。",
-       "vi": ""
+       "vi": "Người Hoa hay nói: “Ở nhà nhờ cha mẹ, ra ngoài nhờ bạn bè.” Ở nước bạn có cách nói tương tự không? Hãy lấy một, hai ví dụ trong cuộc sống để giải thích.",
+       "py": "Huárén cháng shuō: “Zàijiā kào fùmǔ, chūwài kào péngyǒu.” zài nǐ de guójiā yě yǒu zhèyàng de shuōfǎ ma? Qǐng nǐ yòng yì, liǎnggè shēnghuó shàng de lìzi lái shuōmíng."
       },
       {
        "hz": "作者對個性在交友上的影響有什麼樣的看法？除了個性以外，你認為哪些事對交友也有影響？",
-       "vi": ""
+       "vi": "Tác giả nhìn nhận thế nào về ảnh hưởng của tính cách đến việc kết bạn? Ngoài tính cách, bạn nghĩ còn những điều gì ảnh hưởng đến việc kết bạn?",
+       "py": "Zuòzhě duì gèxìng zài jiāoyǒu shàng de yǐngxiǎng yǒu shénmeyàng de kànfǎ? Chúle gèxìng yǐwài, nǐ rènwéi nǎxiē shì duì jiāoyǒu yě yǒu yǐngxiǎng?"
       },
       {
        "hz": "要是對方的個性、興趣或觀念跟自己相同，你認為是不是就一定能夠跟對方變成好友？",
-       "vi": ""
+       "vi": "Nếu tính cách, sở thích hay quan niệm của đối phương giống mình, bạn có nghĩ nhất định sẽ trở thành bạn thân không?",
+       "py": "Yàoshì duìfāng de gèxìng, xìngqù huò guānniàn gēn zìjǐ xiāngtóng, nǐ rènwéi shìbúshì jiù yídìng nénggòu gēn duìfāng biànchéng hǎoyǒu?"
       },
       {
        "hz": "作者提到跟朋友發生誤會時的處理方式，他是怎麼說的？除了這些方式，你認為還可以怎麼做？",
-       "vi": ""
+       "vi": "Tác giả nói gì về cách xử lý khi xảy ra hiểu lầm với bạn bè? Ngoài những cách đó, bạn nghĩ còn có thể làm gì?",
+       "py": "Zuòzhě tídào gēn péngyǒu fāshēng wùhuì shí de chǔlǐ fāngshì, tā shì zěnme shuō de? Chúle zhèxiē fāngshì, nǐ rènwéi hái kěyǐ zěnme zuò?"
       },
       {
        "hz": "如果想讓自己跟朋友之間的感情更好，作者認為可以怎麼做？你呢？你覺得做哪些事可以加深友誼，哪些事反而會令人失去友誼？",
-       "vi": ""
+       "vi": "Nếu muốn tình cảm giữa mình và bạn bè tốt hơn, tác giả cho rằng có thể làm gì? Còn bạn? Bạn nghĩ làm những việc gì có thể thắt chặt tình bạn, những việc gì ngược lại khiến mất đi tình bạn?",
+       "py": "Rúguǒ xiǎng ràng zìjǐ gēn péngyǒu zhījiān de gǎnqíng gènghǎo, zuòzhě rènwéi kěyǐ zěnme zuò? Nǐ ne? Nǐ juéde zuò nǎxiē shì kěyǐ jiāshēn yǒuyí, nǎxiē shì fǎn'ér huì lìngrén shīqù yǒuyí?"
       },
       {
        "hz": "就你的經驗來說，用真心和誠對人容不容易？為什麼？",
-       "vi": ""
+       "vi": "Theo kinh nghiệm của bạn, đối xử với người khác bằng sự chân thành có dễ không? Tại sao?",
+       "py": "Jiù nǐ de jīngyàn láishuō, yòng zhēnxīn hàn chéng duì rén róng bù róngyì? Wèishénme?"
       },
       {
        "hz": "作者談到，要是一個人沒有知心好友，就失去了使自己生活更豐富的機會。你同意這樣的說法嗎？為什麼？",
-       "vi": ""
+       "vi": "Tác giả nói nếu một người không có bạn tri kỷ thì sẽ mất đi cơ hội làm cuộc sống mình phong phú hơn. Bạn có đồng ý không? Tại sao?",
+       "py": "Zuòzhě tándào, yàoshì yígè rén méiyǒu zhīxīn hǎoyǒu, jiù shīqù le shǐ zìjǐ shēnghuó gèng fēngfù de jīhuì. Nǐ tóngyì zhèyàng de shuōfǎ ma? Wèishénme?"
       },
       {
        "hz": "在家靠父母，出外靠朋友。",
-       "vi": ""
+       "vi": "Ở nhà nhờ cha mẹ, ra ngoài nhờ bạn bè.",
+       "py": "Zàijiā kào fùmǔ, chūwài kào péngyǒu."
       }
      ],
      "answer": null
@@ -147,12 +173,14 @@ export const thoidaiGrammar4 = {
      "formula": null,
      "examples": [
       {
-       "hz": "我煩惱的事隨著年齡增加。            （年齡增加，煩惱的事也多了） 2. 我的快樂隨著幫助別人而增加。        （因為幫人，然後快樂增加了）     3. 隨著年齡增加，體會到的事情也越多。    （年齡增加，體會一樣也越多） 4. 隨著考試越來越近，而使我越來越緊張。（因為考試近，讓我緊張起來）「隨著」是介詞(Prep.)，表示某件事改變了，另一件事也跟著變化。",
-       "vi": ""
+       "hz": "我煩惱的事隨著年齡增加。 （年齡增加，煩惱的事也多了） 2. 我的快樂隨著幫助別人而增加。 （因為幫人，然後快樂增加了） 3. 隨著年齡增加，體會到的事情也越多。 （年齡增加，體會一樣也越多） 4. 隨著考試越來越近，而使我越來越緊張。（因為考試近，讓我緊張起來）「隨著」是介詞，表示某件事改變了，另一件事也跟著變化。",
+       "vi": "Chuyện phiền muộn của tôi tăng theo tuổi tác. (tuổi càng lớn, chuyện phiền muộn càng nhiều) Niềm vui của tôi tăng lên nhờ giúp đỡ người khác. (vì giúp người nên niềm vui tăng lên) Cùng với tuổi tác tăng lên, những điều thấm thía cũng nhiều hơn. (tuổi tăng, trải nghiệm cũng tăng theo) Kỳ thi càng đến gần, tôi càng căng thẳng. (vì kỳ thi gần mà tôi căng thẳng) “隨著” là giới từ, diễn tả khi một việc thay đổi thì việc khác cũng thay đổi theo.",
+       "py": "Wǒ fánnǎo de shì suí zhe niánlíng zēngjiā. (niánlíng zēngjiā, fánnǎo de shì yě duō le) 2. Wǒ de kuàilè suí zhe bāngzhù biérén ér zēngjiā. (yīnwèi bāng rén, ránhòu kuàilè zēngjiā le) 3. Suí zhe niánlíng zēngjiā, tǐhuì dào de shìqíng yě yuè duō. (niánlíng zēngjiā, tǐhuì yíyàng yě yuè duō) 4. Suí zhe kǎoshì yuèláiyuèjìn, ér shǐ wǒ yuèláiyuè jǐnzhāng. (yīnwèi kǎoshì jìn, ràng wǒ jǐnzhāng qǐlái) “suí zhe” shì jiècí, biǎoshì mǒujiànshì gǎibiàn le, lìng yíjiàn shì yě gēn zhe biànhuà."
       },
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -170,15 +198,18 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "人有了錢不見得就不煩惱，但想用錢卻沒錢時一定更煩惱。2. 每位學生的家長不見得都能理解學校的教育方式。",
-       "vi": ""
+       "vi": "Người có tiền chưa chắc đã không phiền muộn, nhưng muốn tiêu tiền mà không có tiền thì chắc chắn còn phiền muộn hơn. Phụ huynh của học sinh chưa chắc ai cũng hiểu được phương pháp giáo dục của nhà trường.",
+       "py": "Rén yǒuleqián bújiànde jiù bù fánnǎo, dàn xiǎng yòngqián què méi qián shí yídìng gèng fánnǎo. 2. Měiwèi xuéshēng de jiāzhǎng bújiànde dōu néng lǐjiě xuéxiào de jiàoyù fāngshì."
       },
       {
        "hz": "A：研究科學的人，大概都沒空深入地了解藝術。",
-       "vi": ""
+       "vi": "A: Người nghiên cứu khoa học có lẽ đều không có thời gian tìm hiểu sâu về nghệ thuật.",
+       "py": "A: Yánjiù kēxué de rén, dàgài dōu méikòng shēnrù dì liǎojiě yìshù."
       },
       {
        "hz": "A：我聽阿姨說，結了婚以後，麻煩事就不斷地發生。還是單身請用「不見得」完成以下的對話。",
-       "vi": ""
+       "vi": "A: Tôi nghe dì nói sau khi kết hôn chuyện phiền phức cứ xảy ra liên tục. Vẫn là độc thân… Hãy dùng “不見得” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "A: Wǒ tīng āyí shuō, jiélehūn yǐhòu, máfánshì jiù búduàn dì fāshēng. Háishì dānshēn qǐng yòng “bújiànde” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -198,43 +229,53 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：他的個性非常獨特，平常也總是很少跟別人說話。B：嗯，除非很有耐性，不然想跟他相處不太容易。A：因為這樣，除非有很重要的事，我才會主動跟他說話。",
-       "vi": ""
+       "vi": "A: Tính cách anh ấy rất đặc biệt, bình thường cũng rất ít nói chuyện với người khác. B: Ừ, trừ phi rất kiên nhẫn, nếu không muốn chung sống với anh ấy không dễ. A: Vì vậy, trừ phi có việc rất quan trọng, tôi mới chủ động nói chuyện với anh ấy.",
+       "py": "A: Tā de gèxìng fēicháng dútè, píngcháng yě zǒngshì hěnshǎo gēn biérén shuōhuà. B: ń, chúfēi hěn yǒu nàixìng, bùrán xiǎng gēn tā xiāngchǔ bú tài róngyì. A: Yīnwèi zhèyàng, chúfēi yǒu hěn zhòngyào de shì, wǒ cái huì zhǔdòng gēn tā shuōhuà."
       },
       {
-       "hz": "「除非」是連詞(Conj)，用來說明某個情況發生的必要條件。",
-       "vi": ""
+       "hz": "「除非」是連詞，用來說明某個情況發生的必要條件。",
+       "vi": "“除非” là liên từ, dùng để nói điều kiện cần thiết để một tình huống xảy ra.",
+       "py": "“Chúfēi” shì liáncí, yònglái shuōmíng mǒugè qíngkuàng fāshēng de bìyàotiáojiàn."
       },
       {
        "hz": "小孩：這裡有好多玩具，買一個給我啦！",
-       "vi": ""
+       "vi": "Trẻ con: Ở đây nhiều đồ chơi quá, mua cho con một cái đi mà!",
+       "py": "Xiǎohái: Zhèlǐ yǒu hǎoduō wánjù, mǎi yígè gěi wǒ la!"
       },
       {
        "hz": "A：老師，那篇報告能不能讓我晚兩天再交？",
-       "vi": ""
+       "vi": "A: Thưa thầy, bài báo cáo đó cho em nộp muộn hai ngày được không ạ?",
+       "py": "A: Lǎoshī, nà piān bàogào néng bùnéng ràng wǒ wǎn liǎngtiān zài jiāo?"
       },
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       },
       {
        "hz": "A：他說要讓體重輕點兒，打算每天早上慢跑。現在跑得怎麼樣了？ B：他是這麼想，但常不想起床，結果只跑了幾次就不跑了II. ……（也）是這麼想，不過/可是/但……",
-       "vi": ""
+       "vi": "A: Anh ấy nói muốn giảm cân, định sáng nào cũng chạy bộ. Bây giờ chạy đến đâu rồi? B: Anh ấy nghĩ vậy thôi, nhưng hay lười dậy, kết quả chạy được mấy lần là thôi. II. …(cũng) nghĩ vậy, nhưng / có điều…",
+       "py": "A: Tā shuō yào ràng tǐzhòng qīng diǎn'ér, dǎsuàn měitiān zǎoshàng mànpǎo. Xiànzài pǎo de zěnmeyàng le? B: Tā shì zhème xiǎng, dàn cháng bùxiǎng qǐchuáng, jiéguǒ zhǐ pǎo le jǐcì jiù bù pǎo le II.…… (yě) shì zhème xiǎng, búguò / kěshì / dàn……"
       },
       {
        "hz": "A：從高雄搭火車到臺北很方便，而且平常票也不難買。",
-       "vi": ""
+       "vi": "A: Từ Cao Hùng đi tàu hoả đến Đài Bắc rất tiện, hơn nữa bình thường vé cũng không khó mua.",
+       "py": "A: Cóng Gāoxióng dā huǒchē dào Táiběi hěn fāngbiàn, érqiě píngcháng piào yě bùnán mǎi."
       },
       {
        "hz": "A：在我的國家，家庭主婦大多認為整理房間是件痛苦的事。",
-       "vi": ""
+       "vi": "A: Ở nước tôi, phần lớn các bà nội trợ cho rằng dọn dẹp nhà cửa là việc khổ sở.",
+       "py": "A: Zài wǒ de guójiā, jiātíngzhǔfù dàduō rènwéi zhěnglǐ fángjiān shì jiàn tòngkǔ de shì."
       },
       {
        "hz": "A：這部電影作品不夠成熟，為什麼還有那麼多觀眾喜歡呢？",
-       "vi": ""
+       "vi": "A: Bộ phim này chưa đủ chín muồi, sao vẫn có nhiều khán giả thích vậy?",
+       "py": "A: Zhèbù diànyǐng zuòpǐn búgòu chéngshú, wèishénme háiyǒu nàme duō guānzhòng xǐhuān ne?"
       },
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -252,67 +293,83 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：妳男友每天都開車帶妳來上班，妳還真幸福呢。B：不過，他有時太關心我了，反而讓我心裡很不自在。A：這樣啊。感情的事，每個人的感覺還真是不同呢。",
-       "vi": ""
+       "vi": "A: Ngày nào bạn trai cũng lái xe đưa chị đi làm, chị hạnh phúc thật đấy. B: Có điều, đôi khi anh ấy quan tâm tôi quá, ngược lại khiến tôi thấy không thoải mái. A: Vậy à. Chuyện tình cảm, cảm nhận của mỗi người đúng là khác nhau thật.",
+       "py": "A: Nǐ nányǒu měitiān dōu kāichē dài nǐ lái shàngbān, nǐ hái zhēnxìngfú ne. B: Búguò, tā yǒushí tài guānxīn wǒ le, fǎn'ér ràng wǒ xīnlǐ hěn búzìzài. A: Zhèyàng a. Gǎnqíng de shì, měigè rén de gǎnjué hái zhēnshì bùtóng ne."
       },
       {
-       "hz": "「還」在本語法中是副詞(Adv)，說話的人覺得出現了沒想到的情況。「還」常跟「真」、「挺」、「蠻/滿」（本書第14課）一起使用。",
-       "vi": ""
+       "hz": "「還」在本語法中是副詞，說話的人覺得出現了沒想到的情況。「還」常跟「真」、「挺」、「蠻/滿」（本書第14課）一起使用。",
+       "vi": "“還” trong mẫu ngữ pháp này là phó từ, người nói thấy xuất hiện tình huống không ngờ tới. “還” thường dùng cùng “真”, “挺”, “蠻/滿” (bài 14 của sách này).",
+       "py": "“Hái” zài běn yǔfǎ zhōng shì fùcí, shuōhuà de rén juéde chūxiàn le méixiǎngdào de qíngkuàng. “Hái” cháng gēn “zhēn”, “tǐng”, “mán / mǎn” (běnshū dì 14 kè) yìqǐ shǐyòng."
       },
       {
        "hz": "請用「還」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “還” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “hái” wánchéng yǐxià de duìhuà."
       },
       {
-       "hz": "A：我想在六十歲前退休，然後到世界各地旅行。這樣的夢想，   我想大家都有。B：不一定，我就沒想過。我想做到不能動才退休。",
-       "vi": ""
+       "hz": "A：我想在六十歲前退休，然後到世界各地旅行。這樣的夢想，我想大家都有。B：不一定，我就沒想過。我想做到不能動才退休。",
+       "vi": "A: Tôi muốn nghỉ hưu trước sáu mươi tuổi, rồi đi du lịch khắp thế giới. Ước mơ này chắc ai cũng có. B: Chưa chắc, tôi thì chưa từng nghĩ vậy. Tôi muốn làm đến khi không cử động được nữa mới nghỉ.",
+       "py": "A: Wǒ xiǎng zài liùshísuì qián tuìxiū, ránhòu dào shìjiègèdì lǚxíng. Zhèyàng de mèngxiǎng, wǒ xiǎng dàjiā dōu yǒu. B: Bù yídìng, wǒ jiù méi xiǎng guò. Wǒ xiǎngzuòdào bùnéng dòng cái tuìxiū."
       },
       {
        "hz": "A：我覺得年齡還小的孩子不應該使用手機或平板電腦，這些產品對他們來說一點好處都沒有。你說呢？",
-       "vi": ""
+       "vi": "A: Tôi thấy trẻ còn nhỏ tuổi không nên dùng điện thoại hay máy tính bảng, những sản phẩm này chẳng có lợi gì cho chúng cả. Bạn thấy sao?",
+       "py": "A: Wǒ juéde niánlíng hái xiǎo de háizi bù yīnggāi shǐyòng shǒujī huò píngbǎn diànnǎo, zhèxiē chǎnpǐn duì tāmen láishuō yìdiǎn hǎochù dōu méiyǒu. Nǐ shuō ne?"
       },
       {
        "hz": "A：我想世界上所有的發明都對人類有貢獻，沒有用的發明是不存在的。你認為呢？",
-       "vi": ""
+       "vi": "A: Tôi nghĩ mọi phát minh trên thế giới đều có đóng góp cho nhân loại, không tồn tại phát minh vô dụng. Bạn nghĩ sao?",
+       "py": "A: Wǒ xiǎng shìjiè shàng suǒyǒu de fāmíng dōu duì rénlèi yǒu gòngxiàn, méiyǒu yòng de fāmíng shì bù cúnzài de. Nǐ rènwéi ne?"
       },
       {
        "hz": "請用「就」來完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “就” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “jiù” lái wánchéng yǐxià de duìhuà."
       },
       {
        "hz": "作者提到時代進步對交朋友的方式有什麼影響？你覺得這樣的影響是好是壞？為什麼？",
-       "vi": ""
+       "vi": "Tác giả nói sự tiến bộ của thời đại ảnh hưởng thế nào đến cách kết bạn? Bạn thấy ảnh hưởng đó tốt hay xấu? Tại sao?",
+       "py": "Zuòzhě tídào shídài jìnbù duì jiāopéngyǒu de fāngshì yǒu shénme yǐngxiǎng? Nǐ juéde zhèyàng de yǐngxiǎng shì hǎo shì huài? Wèishénme?"
       },
       {
        "hz": "華人常說：「在家靠父母，出外靠朋友。」在你的國家也有這樣的說法嗎？請你用一、兩個生活上的例子來說明。",
-       "vi": ""
+       "vi": "Người Hoa hay nói: “Ở nhà nhờ cha mẹ, ra ngoài nhờ bạn bè.” Ở nước bạn có cách nói tương tự không? Hãy lấy một, hai ví dụ trong cuộc sống để giải thích.",
+       "py": "Huárén cháng shuō: “Zàijiā kào fùmǔ, chūwài kào péngyǒu.” zài nǐ de guójiā yě yǒu zhèyàng de shuōfǎ ma? Qǐng nǐ yòng yì, liǎnggè shēnghuó shàng de lìzi lái shuōmíng."
       },
       {
        "hz": "作者對個性在交友上的影響有什麼樣的看法？除了個性以外，你認為哪些事對交友也有影響？",
-       "vi": ""
+       "vi": "Tác giả nhìn nhận thế nào về ảnh hưởng của tính cách đến việc kết bạn? Ngoài tính cách, bạn nghĩ còn những điều gì ảnh hưởng đến việc kết bạn?",
+       "py": "Zuòzhě duì gèxìng zài jiāoyǒu shàng de yǐngxiǎng yǒu shénmeyàng de kànfǎ? Chúle gèxìng yǐwài, nǐ rènwéi nǎxiē shì duì jiāoyǒu yě yǒu yǐngxiǎng?"
       },
       {
        "hz": "要是對方的個性、興趣或觀念跟自己相同，你認為是不是就一定能夠跟對方變成好友？",
-       "vi": ""
+       "vi": "Nếu tính cách, sở thích hay quan niệm của đối phương giống mình, bạn có nghĩ nhất định sẽ trở thành bạn thân không?",
+       "py": "Yàoshì duìfāng de gèxìng, xìngqù huò guānniàn gēn zìjǐ xiāngtóng, nǐ rènwéi shìbúshì jiù yídìng nénggòu gēn duìfāng biànchéng hǎoyǒu?"
       },
       {
        "hz": "作者提到跟朋友發生誤會時的處理方式，他是怎麼說的？除了這些方式，你認為還可以怎麼做？",
-       "vi": ""
+       "vi": "Tác giả nói gì về cách xử lý khi xảy ra hiểu lầm với bạn bè? Ngoài những cách đó, bạn nghĩ còn có thể làm gì?",
+       "py": "Zuòzhě tídào gēn péngyǒu fāshēng wùhuì shí de chǔlǐ fāngshì, tā shì zěnme shuō de? Chúle zhèxiē fāngshì, nǐ rènwéi hái kěyǐ zěnme zuò?"
       },
       {
        "hz": "如果想讓自己跟朋友之間的感情更好，作者認為可以怎麼做？你呢？你覺得做哪些事可以加深友誼，哪些事反而會令人失去友誼？",
-       "vi": ""
+       "vi": "Nếu muốn tình cảm giữa mình và bạn bè tốt hơn, tác giả cho rằng có thể làm gì? Còn bạn? Bạn nghĩ làm những việc gì có thể thắt chặt tình bạn, những việc gì ngược lại khiến mất đi tình bạn?",
+       "py": "Rúguǒ xiǎng ràng zìjǐ gēn péngyǒu zhījiān de gǎnqíng gènghǎo, zuòzhě rènwéi kěyǐ zěnme zuò? Nǐ ne? Nǐ juéde zuò nǎxiē shì kěyǐ jiāshēn yǒuyí, nǎxiē shì fǎn'ér huì lìngrén shīqù yǒuyí?"
       },
       {
        "hz": "就你的經驗來說，用真心和誠對人容不容易？為什麼？",
-       "vi": ""
+       "vi": "Theo kinh nghiệm của bạn, đối xử với người khác bằng sự chân thành có dễ không? Tại sao?",
+       "py": "Jiù nǐ de jīngyàn láishuō, yòng zhēnxīn hàn chéng duì rén róng bù róngyì? Wèishénme?"
       },
       {
        "hz": "作者談到，要是一個人沒有知心好友，就失去了使自己生活更豐富的機會。你同意這樣的說法嗎？為什麼？",
-       "vi": ""
+       "vi": "Tác giả nói nếu một người không có bạn tri kỷ thì sẽ mất đi cơ hội làm cuộc sống mình phong phú hơn. Bạn có đồng ý không? Tại sao?",
+       "py": "Zuòzhě tándào, yàoshì yígè rén méiyǒu zhīxīn hǎoyǒu, jiù shīqù le shǐ zìjǐ shēnghuó gèng fēngfù de jīhuì. Nǐ tóngyì zhèyàng de shuōfǎ ma? Wèishénme?"
       },
       {
        "hz": "在家靠父母，出外靠朋友。",
-       "vi": ""
+       "vi": "Ở nhà nhờ cha mẹ, ra ngoài nhờ bạn bè.",
+       "py": "Zàijiā kào fùmǔ, chūwài kào péngyǒu."
       }
      ],
      "answer": null
@@ -329,12 +386,14 @@ export const thoidaiGrammar4 = {
      "formula": null,
      "examples": [
       {
-       "hz": "我煩惱的事隨著年齡增加。            （年齡增加，煩惱的事也多了） 2. 我的快樂隨著幫助別人而增加。        （因為幫人，然後快樂增加了）     3. 隨著年齡增加，體會到的事情也越多。    （年齡增加，體會一樣也越多） 4. 隨著考試越來越近，而使我越來越緊張。（因為考試近，讓我緊張起來）「隨著」是介詞(Prep.)，表示某件事改變了，另一件事也跟著變化。",
-       "vi": ""
+       "hz": "我煩惱的事隨著年齡增加。 （年齡增加，煩惱的事也多了） 2. 我的快樂隨著幫助別人而增加。 （因為幫人，然後快樂增加了） 3. 隨著年齡增加，體會到的事情也越多。 （年齡增加，體會一樣也越多） 4. 隨著考試越來越近，而使我越來越緊張。（因為考試近，讓我緊張起來）「隨著」是介詞，表示某件事改變了，另一件事也跟著變化。",
+       "vi": "Chuyện phiền muộn của tôi tăng theo tuổi tác. (tuổi càng lớn, chuyện phiền muộn càng nhiều) Niềm vui của tôi tăng lên nhờ giúp đỡ người khác. (vì giúp người nên niềm vui tăng lên) Cùng với tuổi tác tăng lên, những điều thấm thía cũng nhiều hơn. (tuổi tăng, trải nghiệm cũng tăng theo) Kỳ thi càng đến gần, tôi càng căng thẳng. (vì kỳ thi gần mà tôi căng thẳng) “隨著” là giới từ, diễn tả khi một việc thay đổi thì việc khác cũng thay đổi theo.",
+       "py": "Wǒ fánnǎo de shì suí zhe niánlíng zēngjiā. (niánlíng zēngjiā, fánnǎo de shì yě duō le) 2. Wǒ de kuàilè suí zhe bāngzhù biérén ér zēngjiā. (yīnwèi bāng rén, ránhòu kuàilè zēngjiā le) 3. Suí zhe niánlíng zēngjiā, tǐhuì dào de shìqíng yě yuè duō. (niánlíng zēngjiā, tǐhuì yíyàng yě yuè duō) 4. Suí zhe kǎoshì yuèláiyuèjìn, ér shǐ wǒ yuèláiyuè jǐnzhāng. (yīnwèi kǎoshì jìn, ràng wǒ jǐnzhāng qǐlái) “suí zhe” shì jiècí, biǎoshì mǒujiànshì gǎibiàn le, lìng yíjiàn shì yě gēn zhe biànhuà."
       },
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -352,15 +411,18 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "人有了錢不見得就不煩惱，但想用錢卻沒錢時一定更煩惱。2. 每位學生的家長不見得都能理解學校的教育方式。",
-       "vi": ""
+       "vi": "Người có tiền chưa chắc đã không phiền muộn, nhưng muốn tiêu tiền mà không có tiền thì chắc chắn còn phiền muộn hơn. Phụ huynh của học sinh chưa chắc ai cũng hiểu được phương pháp giáo dục của nhà trường.",
+       "py": "Rén yǒuleqián bújiànde jiù bù fánnǎo, dàn xiǎng yòngqián què méi qián shí yídìng gèng fánnǎo. 2. Měiwèi xuéshēng de jiāzhǎng bújiànde dōu néng lǐjiě xuéxiào de jiàoyù fāngshì."
       },
       {
        "hz": "A：研究科學的人，大概都沒空深入地了解藝術。",
-       "vi": ""
+       "vi": "A: Người nghiên cứu khoa học có lẽ đều không có thời gian tìm hiểu sâu về nghệ thuật.",
+       "py": "A: Yánjiù kēxué de rén, dàgài dōu méikòng shēnrù dì liǎojiě yìshù."
       },
       {
        "hz": "A：我聽阿姨說，結了婚以後，麻煩事就不斷地發生。還是單身請用「不見得」完成以下的對話。",
-       "vi": ""
+       "vi": "A: Tôi nghe dì nói sau khi kết hôn chuyện phiền phức cứ xảy ra liên tục. Vẫn là độc thân… Hãy dùng “不見得” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "A: Wǒ tīng āyí shuō, jiélehūn yǐhòu, máfánshì jiù búduàn dì fāshēng. Háishì dānshēn qǐng yòng “bújiànde” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -380,43 +442,53 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：他的個性非常獨特，平常也總是很少跟別人說話。B：嗯，除非很有耐性，不然想跟他相處不太容易。A：因為這樣，除非有很重要的事，我才會主動跟他說話。",
-       "vi": ""
+       "vi": "A: Tính cách anh ấy rất đặc biệt, bình thường cũng rất ít nói chuyện với người khác. B: Ừ, trừ phi rất kiên nhẫn, nếu không muốn chung sống với anh ấy không dễ. A: Vì vậy, trừ phi có việc rất quan trọng, tôi mới chủ động nói chuyện với anh ấy.",
+       "py": "A: Tā de gèxìng fēicháng dútè, píngcháng yě zǒngshì hěnshǎo gēn biérén shuōhuà. B: ń, chúfēi hěn yǒu nàixìng, bùrán xiǎng gēn tā xiāngchǔ bú tài róngyì. A: Yīnwèi zhèyàng, chúfēi yǒu hěn zhòngyào de shì, wǒ cái huì zhǔdòng gēn tā shuōhuà."
       },
       {
-       "hz": "「除非」是連詞(Conj)，用來說明某個情況發生的必要條件。",
-       "vi": ""
+       "hz": "「除非」是連詞，用來說明某個情況發生的必要條件。",
+       "vi": "“除非” là liên từ, dùng để nói điều kiện cần thiết để một tình huống xảy ra.",
+       "py": "“Chúfēi” shì liáncí, yònglái shuōmíng mǒugè qíngkuàng fāshēng de bìyàotiáojiàn."
       },
       {
        "hz": "小孩：這裡有好多玩具，買一個給我啦！",
-       "vi": ""
+       "vi": "Trẻ con: Ở đây nhiều đồ chơi quá, mua cho con một cái đi mà!",
+       "py": "Xiǎohái: Zhèlǐ yǒu hǎoduō wánjù, mǎi yígè gěi wǒ la!"
       },
       {
        "hz": "A：老師，那篇報告能不能讓我晚兩天再交？",
-       "vi": ""
+       "vi": "A: Thưa thầy, bài báo cáo đó cho em nộp muộn hai ngày được không ạ?",
+       "py": "A: Lǎoshī, nà piān bàogào néng bùnéng ràng wǒ wǎn liǎngtiān zài jiāo?"
       },
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       },
       {
        "hz": "A：他說要讓體重輕點兒，打算每天早上慢跑。現在跑得怎麼樣了？ B：他是這麼想，但常不想起床，結果只跑了幾次就不跑了II. ……（也）是這麼想，不過/可是/但……",
-       "vi": ""
+       "vi": "A: Anh ấy nói muốn giảm cân, định sáng nào cũng chạy bộ. Bây giờ chạy đến đâu rồi? B: Anh ấy nghĩ vậy thôi, nhưng hay lười dậy, kết quả chạy được mấy lần là thôi. II. …(cũng) nghĩ vậy, nhưng / có điều…",
+       "py": "A: Tā shuō yào ràng tǐzhòng qīng diǎn'ér, dǎsuàn měitiān zǎoshàng mànpǎo. Xiànzài pǎo de zěnmeyàng le? B: Tā shì zhème xiǎng, dàn cháng bùxiǎng qǐchuáng, jiéguǒ zhǐ pǎo le jǐcì jiù bù pǎo le II.…… (yě) shì zhème xiǎng, búguò / kěshì / dàn……"
       },
       {
        "hz": "A：從高雄搭火車到臺北很方便，而且平常票也不難買。",
-       "vi": ""
+       "vi": "A: Từ Cao Hùng đi tàu hoả đến Đài Bắc rất tiện, hơn nữa bình thường vé cũng không khó mua.",
+       "py": "A: Cóng Gāoxióng dā huǒchē dào Táiběi hěn fāngbiàn, érqiě píngcháng piào yě bùnán mǎi."
       },
       {
        "hz": "A：在我的國家，家庭主婦大多認為整理房間是件痛苦的事。",
-       "vi": ""
+       "vi": "A: Ở nước tôi, phần lớn các bà nội trợ cho rằng dọn dẹp nhà cửa là việc khổ sở.",
+       "py": "A: Zài wǒ de guójiā, jiātíngzhǔfù dàduō rènwéi zhěnglǐ fángjiān shì jiàn tòngkǔ de shì."
       },
       {
        "hz": "A：這部電影作品不夠成熟，為什麼還有那麼多觀眾喜歡呢？",
-       "vi": ""
+       "vi": "A: Bộ phim này chưa đủ chín muồi, sao vẫn có nhiều khán giả thích vậy?",
+       "py": "A: Zhèbù diànyǐng zuòpǐn búgòu chéngshú, wèishénme háiyǒu nàme duō guānzhòng xǐhuān ne?"
       },
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -434,67 +506,83 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：妳男友每天都開車帶妳來上班，妳還真幸福呢。B：不過，他有時太關心我了，反而讓我心裡很不自在。A：這樣啊。感情的事，每個人的感覺還真是不同呢。",
-       "vi": ""
+       "vi": "A: Ngày nào bạn trai cũng lái xe đưa chị đi làm, chị hạnh phúc thật đấy. B: Có điều, đôi khi anh ấy quan tâm tôi quá, ngược lại khiến tôi thấy không thoải mái. A: Vậy à. Chuyện tình cảm, cảm nhận của mỗi người đúng là khác nhau thật.",
+       "py": "A: Nǐ nányǒu měitiān dōu kāichē dài nǐ lái shàngbān, nǐ hái zhēnxìngfú ne. B: Búguò, tā yǒushí tài guānxīn wǒ le, fǎn'ér ràng wǒ xīnlǐ hěn búzìzài. A: Zhèyàng a. Gǎnqíng de shì, měigè rén de gǎnjué hái zhēnshì bùtóng ne."
       },
       {
-       "hz": "「還」在本語法中是副詞(Adv)，說話的人覺得出現了沒想到的情況。「還」常跟「真」、「挺」、「蠻/滿」（本書第14課）一起使用。",
-       "vi": ""
+       "hz": "「還」在本語法中是副詞，說話的人覺得出現了沒想到的情況。「還」常跟「真」、「挺」、「蠻/滿」（本書第14課）一起使用。",
+       "vi": "“還” trong mẫu ngữ pháp này là phó từ, người nói thấy xuất hiện tình huống không ngờ tới. “還” thường dùng cùng “真”, “挺”, “蠻/滿” (bài 14 của sách này).",
+       "py": "“Hái” zài běn yǔfǎ zhōng shì fùcí, shuōhuà de rén juéde chūxiàn le méixiǎngdào de qíngkuàng. “Hái” cháng gēn “zhēn”, “tǐng”, “mán / mǎn” (běnshū dì 14 kè) yìqǐ shǐyòng."
       },
       {
        "hz": "請用「還」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “還” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “hái” wánchéng yǐxià de duìhuà."
       },
       {
-       "hz": "A：我想在六十歲前退休，然後到世界各地旅行。這樣的夢想，   我想大家都有。B：不一定，我就沒想過。我想做到不能動才退休。",
-       "vi": ""
+       "hz": "A：我想在六十歲前退休，然後到世界各地旅行。這樣的夢想，我想大家都有。B：不一定，我就沒想過。我想做到不能動才退休。",
+       "vi": "A: Tôi muốn nghỉ hưu trước sáu mươi tuổi, rồi đi du lịch khắp thế giới. Ước mơ này chắc ai cũng có. B: Chưa chắc, tôi thì chưa từng nghĩ vậy. Tôi muốn làm đến khi không cử động được nữa mới nghỉ.",
+       "py": "A: Wǒ xiǎng zài liùshísuì qián tuìxiū, ránhòu dào shìjiègèdì lǚxíng. Zhèyàng de mèngxiǎng, wǒ xiǎng dàjiā dōu yǒu. B: Bù yídìng, wǒ jiù méi xiǎng guò. Wǒ xiǎngzuòdào bùnéng dòng cái tuìxiū."
       },
       {
        "hz": "A：我覺得年齡還小的孩子不應該使用手機或平板電腦，這些產品對他們來說一點好處都沒有。你說呢？",
-       "vi": ""
+       "vi": "A: Tôi thấy trẻ còn nhỏ tuổi không nên dùng điện thoại hay máy tính bảng, những sản phẩm này chẳng có lợi gì cho chúng cả. Bạn thấy sao?",
+       "py": "A: Wǒ juéde niánlíng hái xiǎo de háizi bù yīnggāi shǐyòng shǒujī huò píngbǎn diànnǎo, zhèxiē chǎnpǐn duì tāmen láishuō yìdiǎn hǎochù dōu méiyǒu. Nǐ shuō ne?"
       },
       {
        "hz": "A：我想世界上所有的發明都對人類有貢獻，沒有用的發明是不存在的。你認為呢？",
-       "vi": ""
+       "vi": "A: Tôi nghĩ mọi phát minh trên thế giới đều có đóng góp cho nhân loại, không tồn tại phát minh vô dụng. Bạn nghĩ sao?",
+       "py": "A: Wǒ xiǎng shìjiè shàng suǒyǒu de fāmíng dōu duì rénlèi yǒu gòngxiàn, méiyǒu yòng de fāmíng shì bù cúnzài de. Nǐ rènwéi ne?"
       },
       {
        "hz": "請用「就」來完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “就” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “jiù” lái wánchéng yǐxià de duìhuà."
       },
       {
        "hz": "作者提到時代進步對交朋友的方式有什麼影響？你覺得這樣的影響是好是壞？為什麼？",
-       "vi": ""
+       "vi": "Tác giả nói sự tiến bộ của thời đại ảnh hưởng thế nào đến cách kết bạn? Bạn thấy ảnh hưởng đó tốt hay xấu? Tại sao?",
+       "py": "Zuòzhě tídào shídài jìnbù duì jiāopéngyǒu de fāngshì yǒu shénme yǐngxiǎng? Nǐ juéde zhèyàng de yǐngxiǎng shì hǎo shì huài? Wèishénme?"
       },
       {
        "hz": "華人常說：「在家靠父母，出外靠朋友。」在你的國家也有這樣的說法嗎？請你用一、兩個生活上的例子來說明。",
-       "vi": ""
+       "vi": "Người Hoa hay nói: “Ở nhà nhờ cha mẹ, ra ngoài nhờ bạn bè.” Ở nước bạn có cách nói tương tự không? Hãy lấy một, hai ví dụ trong cuộc sống để giải thích.",
+       "py": "Huárén cháng shuō: “Zàijiā kào fùmǔ, chūwài kào péngyǒu.” zài nǐ de guójiā yě yǒu zhèyàng de shuōfǎ ma? Qǐng nǐ yòng yì, liǎnggè shēnghuó shàng de lìzi lái shuōmíng."
       },
       {
        "hz": "作者對個性在交友上的影響有什麼樣的看法？除了個性以外，你認為哪些事對交友也有影響？",
-       "vi": ""
+       "vi": "Tác giả nhìn nhận thế nào về ảnh hưởng của tính cách đến việc kết bạn? Ngoài tính cách, bạn nghĩ còn những điều gì ảnh hưởng đến việc kết bạn?",
+       "py": "Zuòzhě duì gèxìng zài jiāoyǒu shàng de yǐngxiǎng yǒu shénmeyàng de kànfǎ? Chúle gèxìng yǐwài, nǐ rènwéi nǎxiē shì duì jiāoyǒu yě yǒu yǐngxiǎng?"
       },
       {
        "hz": "要是對方的個性、興趣或觀念跟自己相同，你認為是不是就一定能夠跟對方變成好友？",
-       "vi": ""
+       "vi": "Nếu tính cách, sở thích hay quan niệm của đối phương giống mình, bạn có nghĩ nhất định sẽ trở thành bạn thân không?",
+       "py": "Yàoshì duìfāng de gèxìng, xìngqù huò guānniàn gēn zìjǐ xiāngtóng, nǐ rènwéi shìbúshì jiù yídìng nénggòu gēn duìfāng biànchéng hǎoyǒu?"
       },
       {
        "hz": "作者提到跟朋友發生誤會時的處理方式，他是怎麼說的？除了這些方式，你認為還可以怎麼做？",
-       "vi": ""
+       "vi": "Tác giả nói gì về cách xử lý khi xảy ra hiểu lầm với bạn bè? Ngoài những cách đó, bạn nghĩ còn có thể làm gì?",
+       "py": "Zuòzhě tídào gēn péngyǒu fāshēng wùhuì shí de chǔlǐ fāngshì, tā shì zěnme shuō de? Chúle zhèxiē fāngshì, nǐ rènwéi hái kěyǐ zěnme zuò?"
       },
       {
        "hz": "如果想讓自己跟朋友之間的感情更好，作者認為可以怎麼做？你呢？你覺得做哪些事可以加深友誼，哪些事反而會令人失去友誼？",
-       "vi": ""
+       "vi": "Nếu muốn tình cảm giữa mình và bạn bè tốt hơn, tác giả cho rằng có thể làm gì? Còn bạn? Bạn nghĩ làm những việc gì có thể thắt chặt tình bạn, những việc gì ngược lại khiến mất đi tình bạn?",
+       "py": "Rúguǒ xiǎng ràng zìjǐ gēn péngyǒu zhījiān de gǎnqíng gènghǎo, zuòzhě rènwéi kěyǐ zěnme zuò? Nǐ ne? Nǐ juéde zuò nǎxiē shì kěyǐ jiāshēn yǒuyí, nǎxiē shì fǎn'ér huì lìngrén shīqù yǒuyí?"
       },
       {
        "hz": "就你的經驗來說，用真心和誠對人容不容易？為什麼？",
-       "vi": ""
+       "vi": "Theo kinh nghiệm của bạn, đối xử với người khác bằng sự chân thành có dễ không? Tại sao?",
+       "py": "Jiù nǐ de jīngyàn láishuō, yòng zhēnxīn hàn chéng duì rén róng bù róngyì? Wèishénme?"
       },
       {
        "hz": "作者談到，要是一個人沒有知心好友，就失去了使自己生活更豐富的機會。你同意這樣的說法嗎？為什麼？",
-       "vi": ""
+       "vi": "Tác giả nói nếu một người không có bạn tri kỷ thì sẽ mất đi cơ hội làm cuộc sống mình phong phú hơn. Bạn có đồng ý không? Tại sao?",
+       "py": "Zuòzhě tándào, yàoshì yígè rén méiyǒu zhīxīn hǎoyǒu, jiù shīqù le shǐ zìjǐ shēnghuó gèng fēngfù de jīhuì. Nǐ tóngyì zhèyàng de shuōfǎ ma? Wèishénme?"
       },
       {
        "hz": "在家靠父母，出外靠朋友。",
-       "vi": ""
+       "vi": "Ở nhà nhờ cha mẹ, ra ngoài nhờ bạn bè.",
+       "py": "Zàijiā kào fùmǔ, chūwài kào péngyǒu."
       }
      ],
      "answer": null
@@ -511,12 +599,14 @@ export const thoidaiGrammar4 = {
      "formula": null,
      "examples": [
       {
-       "hz": "我煩惱的事隨著年齡增加。            （年齡增加，煩惱的事也多了） 2. 我的快樂隨著幫助別人而增加。        （因為幫人，然後快樂增加了）     3. 隨著年齡增加，體會到的事情也越多。    （年齡增加，體會一樣也越多） 4. 隨著考試越來越近，而使我越來越緊張。（因為考試近，讓我緊張起來）「隨著」是介詞(Prep.)，表示某件事改變了，另一件事也跟著變化。",
-       "vi": ""
+       "hz": "我煩惱的事隨著年齡增加。 （年齡增加，煩惱的事也多了） 2. 我的快樂隨著幫助別人而增加。 （因為幫人，然後快樂增加了） 3. 隨著年齡增加，體會到的事情也越多。 （年齡增加，體會一樣也越多） 4. 隨著考試越來越近，而使我越來越緊張。（因為考試近，讓我緊張起來）「隨著」是介詞，表示某件事改變了，另一件事也跟著變化。",
+       "vi": "Chuyện phiền muộn của tôi tăng theo tuổi tác. (tuổi càng lớn, chuyện phiền muộn càng nhiều) Niềm vui của tôi tăng lên nhờ giúp đỡ người khác. (vì giúp người nên niềm vui tăng lên) Cùng với tuổi tác tăng lên, những điều thấm thía cũng nhiều hơn. (tuổi tăng, trải nghiệm cũng tăng theo) Kỳ thi càng đến gần, tôi càng căng thẳng. (vì kỳ thi gần mà tôi căng thẳng) “隨著” là giới từ, diễn tả khi một việc thay đổi thì việc khác cũng thay đổi theo.",
+       "py": "Wǒ fánnǎo de shì suí zhe niánlíng zēngjiā. (niánlíng zēngjiā, fánnǎo de shì yě duō le) 2. Wǒ de kuàilè suí zhe bāngzhù biérén ér zēngjiā. (yīnwèi bāng rén, ránhòu kuàilè zēngjiā le) 3. Suí zhe niánlíng zēngjiā, tǐhuì dào de shìqíng yě yuè duō. (niánlíng zēngjiā, tǐhuì yíyàng yě yuè duō) 4. Suí zhe kǎoshì yuèláiyuèjìn, ér shǐ wǒ yuèláiyuè jǐnzhāng. (yīnwèi kǎoshì jìn, ràng wǒ jǐnzhāng qǐlái) “suí zhe” shì jiècí, biǎoshì mǒujiànshì gǎibiàn le, lìng yíjiàn shì yě gēn zhe biànhuà."
       },
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -534,15 +624,18 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "人有了錢不見得就不煩惱，但想用錢卻沒錢時一定更煩惱。2. 每位學生的家長不見得都能理解學校的教育方式。",
-       "vi": ""
+       "vi": "Người có tiền chưa chắc đã không phiền muộn, nhưng muốn tiêu tiền mà không có tiền thì chắc chắn còn phiền muộn hơn. Phụ huynh của học sinh chưa chắc ai cũng hiểu được phương pháp giáo dục của nhà trường.",
+       "py": "Rén yǒuleqián bújiànde jiù bù fánnǎo, dàn xiǎng yòngqián què méi qián shí yídìng gèng fánnǎo. 2. Měiwèi xuéshēng de jiāzhǎng bújiànde dōu néng lǐjiě xuéxiào de jiàoyù fāngshì."
       },
       {
        "hz": "A：研究科學的人，大概都沒空深入地了解藝術。",
-       "vi": ""
+       "vi": "A: Người nghiên cứu khoa học có lẽ đều không có thời gian tìm hiểu sâu về nghệ thuật.",
+       "py": "A: Yánjiù kēxué de rén, dàgài dōu méikòng shēnrù dì liǎojiě yìshù."
       },
       {
        "hz": "A：我聽阿姨說，結了婚以後，麻煩事就不斷地發生。還是單身請用「不見得」完成以下的對話。",
-       "vi": ""
+       "vi": "A: Tôi nghe dì nói sau khi kết hôn chuyện phiền phức cứ xảy ra liên tục. Vẫn là độc thân… Hãy dùng “不見得” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "A: Wǒ tīng āyí shuō, jiélehūn yǐhòu, máfánshì jiù búduàn dì fāshēng. Háishì dānshēn qǐng yòng “bújiànde” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -562,43 +655,53 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：他的個性非常獨特，平常也總是很少跟別人說話。B：嗯，除非很有耐性，不然想跟他相處不太容易。A：因為這樣，除非有很重要的事，我才會主動跟他說話。",
-       "vi": ""
+       "vi": "A: Tính cách anh ấy rất đặc biệt, bình thường cũng rất ít nói chuyện với người khác. B: Ừ, trừ phi rất kiên nhẫn, nếu không muốn chung sống với anh ấy không dễ. A: Vì vậy, trừ phi có việc rất quan trọng, tôi mới chủ động nói chuyện với anh ấy.",
+       "py": "A: Tā de gèxìng fēicháng dútè, píngcháng yě zǒngshì hěnshǎo gēn biérén shuōhuà. B: ń, chúfēi hěn yǒu nàixìng, bùrán xiǎng gēn tā xiāngchǔ bú tài róngyì. A: Yīnwèi zhèyàng, chúfēi yǒu hěn zhòngyào de shì, wǒ cái huì zhǔdòng gēn tā shuōhuà."
       },
       {
-       "hz": "「除非」是連詞(Conj)，用來說明某個情況發生的必要條件。",
-       "vi": ""
+       "hz": "「除非」是連詞，用來說明某個情況發生的必要條件。",
+       "vi": "“除非” là liên từ, dùng để nói điều kiện cần thiết để một tình huống xảy ra.",
+       "py": "“Chúfēi” shì liáncí, yònglái shuōmíng mǒugè qíngkuàng fāshēng de bìyàotiáojiàn."
       },
       {
        "hz": "小孩：這裡有好多玩具，買一個給我啦！",
-       "vi": ""
+       "vi": "Trẻ con: Ở đây nhiều đồ chơi quá, mua cho con một cái đi mà!",
+       "py": "Xiǎohái: Zhèlǐ yǒu hǎoduō wánjù, mǎi yígè gěi wǒ la!"
       },
       {
        "hz": "A：老師，那篇報告能不能讓我晚兩天再交？",
-       "vi": ""
+       "vi": "A: Thưa thầy, bài báo cáo đó cho em nộp muộn hai ngày được không ạ?",
+       "py": "A: Lǎoshī, nà piān bàogào néng bùnéng ràng wǒ wǎn liǎngtiān zài jiāo?"
       },
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       },
       {
        "hz": "A：他說要讓體重輕點兒，打算每天早上慢跑。現在跑得怎麼樣了？ B：他是這麼想，但常不想起床，結果只跑了幾次就不跑了II. ……（也）是這麼想，不過/可是/但……",
-       "vi": ""
+       "vi": "A: Anh ấy nói muốn giảm cân, định sáng nào cũng chạy bộ. Bây giờ chạy đến đâu rồi? B: Anh ấy nghĩ vậy thôi, nhưng hay lười dậy, kết quả chạy được mấy lần là thôi. II. …(cũng) nghĩ vậy, nhưng / có điều…",
+       "py": "A: Tā shuō yào ràng tǐzhòng qīng diǎn'ér, dǎsuàn měitiān zǎoshàng mànpǎo. Xiànzài pǎo de zěnmeyàng le? B: Tā shì zhème xiǎng, dàn cháng bùxiǎng qǐchuáng, jiéguǒ zhǐ pǎo le jǐcì jiù bù pǎo le II.…… (yě) shì zhème xiǎng, búguò / kěshì / dàn……"
       },
       {
        "hz": "A：從高雄搭火車到臺北很方便，而且平常票也不難買。",
-       "vi": ""
+       "vi": "A: Từ Cao Hùng đi tàu hoả đến Đài Bắc rất tiện, hơn nữa bình thường vé cũng không khó mua.",
+       "py": "A: Cóng Gāoxióng dā huǒchē dào Táiběi hěn fāngbiàn, érqiě píngcháng piào yě bùnán mǎi."
       },
       {
        "hz": "A：在我的國家，家庭主婦大多認為整理房間是件痛苦的事。",
-       "vi": ""
+       "vi": "A: Ở nước tôi, phần lớn các bà nội trợ cho rằng dọn dẹp nhà cửa là việc khổ sở.",
+       "py": "A: Zài wǒ de guójiā, jiātíngzhǔfù dàduō rènwéi zhěnglǐ fángjiān shì jiàn tòngkǔ de shì."
       },
       {
        "hz": "A：這部電影作品不夠成熟，為什麼還有那麼多觀眾喜歡呢？",
-       "vi": ""
+       "vi": "A: Bộ phim này chưa đủ chín muồi, sao vẫn có nhiều khán giả thích vậy?",
+       "py": "A: Zhèbù diànyǐng zuòpǐn búgòu chéngshú, wèishénme háiyǒu nàme duō guānzhòng xǐhuān ne?"
       },
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -616,67 +719,83 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：妳男友每天都開車帶妳來上班，妳還真幸福呢。B：不過，他有時太關心我了，反而讓我心裡很不自在。A：這樣啊。感情的事，每個人的感覺還真是不同呢。",
-       "vi": ""
+       "vi": "A: Ngày nào bạn trai cũng lái xe đưa chị đi làm, chị hạnh phúc thật đấy. B: Có điều, đôi khi anh ấy quan tâm tôi quá, ngược lại khiến tôi thấy không thoải mái. A: Vậy à. Chuyện tình cảm, cảm nhận của mỗi người đúng là khác nhau thật.",
+       "py": "A: Nǐ nányǒu měitiān dōu kāichē dài nǐ lái shàngbān, nǐ hái zhēnxìngfú ne. B: Búguò, tā yǒushí tài guānxīn wǒ le, fǎn'ér ràng wǒ xīnlǐ hěn búzìzài. A: Zhèyàng a. Gǎnqíng de shì, měigè rén de gǎnjué hái zhēnshì bùtóng ne."
       },
       {
-       "hz": "「還」在本語法中是副詞(Adv)，說話的人覺得出現了沒想到的情況。「還」常跟「真」、「挺」、「蠻/滿」（本書第14課）一起使用。",
-       "vi": ""
+       "hz": "「還」在本語法中是副詞，說話的人覺得出現了沒想到的情況。「還」常跟「真」、「挺」、「蠻/滿」（本書第14課）一起使用。",
+       "vi": "“還” trong mẫu ngữ pháp này là phó từ, người nói thấy xuất hiện tình huống không ngờ tới. “還” thường dùng cùng “真”, “挺”, “蠻/滿” (bài 14 của sách này).",
+       "py": "“Hái” zài běn yǔfǎ zhōng shì fùcí, shuōhuà de rén juéde chūxiàn le méixiǎngdào de qíngkuàng. “Hái” cháng gēn “zhēn”, “tǐng”, “mán / mǎn” (běnshū dì 14 kè) yìqǐ shǐyòng."
       },
       {
        "hz": "請用「還」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “還” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “hái” wánchéng yǐxià de duìhuà."
       },
       {
-       "hz": "A：我想在六十歲前退休，然後到世界各地旅行。這樣的夢想，   我想大家都有。B：不一定，我就沒想過。我想做到不能動才退休。",
-       "vi": ""
+       "hz": "A：我想在六十歲前退休，然後到世界各地旅行。這樣的夢想，我想大家都有。B：不一定，我就沒想過。我想做到不能動才退休。",
+       "vi": "A: Tôi muốn nghỉ hưu trước sáu mươi tuổi, rồi đi du lịch khắp thế giới. Ước mơ này chắc ai cũng có. B: Chưa chắc, tôi thì chưa từng nghĩ vậy. Tôi muốn làm đến khi không cử động được nữa mới nghỉ.",
+       "py": "A: Wǒ xiǎng zài liùshísuì qián tuìxiū, ránhòu dào shìjiègèdì lǚxíng. Zhèyàng de mèngxiǎng, wǒ xiǎng dàjiā dōu yǒu. B: Bù yídìng, wǒ jiù méi xiǎng guò. Wǒ xiǎngzuòdào bùnéng dòng cái tuìxiū."
       },
       {
        "hz": "A：我覺得年齡還小的孩子不應該使用手機或平板電腦，這些產品對他們來說一點好處都沒有。你說呢？",
-       "vi": ""
+       "vi": "A: Tôi thấy trẻ còn nhỏ tuổi không nên dùng điện thoại hay máy tính bảng, những sản phẩm này chẳng có lợi gì cho chúng cả. Bạn thấy sao?",
+       "py": "A: Wǒ juéde niánlíng hái xiǎo de háizi bù yīnggāi shǐyòng shǒujī huò píngbǎn diànnǎo, zhèxiē chǎnpǐn duì tāmen láishuō yìdiǎn hǎochù dōu méiyǒu. Nǐ shuō ne?"
       },
       {
        "hz": "A：我想世界上所有的發明都對人類有貢獻，沒有用的發明是不存在的。你認為呢？",
-       "vi": ""
+       "vi": "A: Tôi nghĩ mọi phát minh trên thế giới đều có đóng góp cho nhân loại, không tồn tại phát minh vô dụng. Bạn nghĩ sao?",
+       "py": "A: Wǒ xiǎng shìjiè shàng suǒyǒu de fāmíng dōu duì rénlèi yǒu gòngxiàn, méiyǒu yòng de fāmíng shì bù cúnzài de. Nǐ rènwéi ne?"
       },
       {
        "hz": "請用「就」來完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “就” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “jiù” lái wánchéng yǐxià de duìhuà."
       },
       {
        "hz": "作者提到時代進步對交朋友的方式有什麼影響？你覺得這樣的影響是好是壞？為什麼？",
-       "vi": ""
+       "vi": "Tác giả nói sự tiến bộ của thời đại ảnh hưởng thế nào đến cách kết bạn? Bạn thấy ảnh hưởng đó tốt hay xấu? Tại sao?",
+       "py": "Zuòzhě tídào shídài jìnbù duì jiāopéngyǒu de fāngshì yǒu shénme yǐngxiǎng? Nǐ juéde zhèyàng de yǐngxiǎng shì hǎo shì huài? Wèishénme?"
       },
       {
        "hz": "華人常說：「在家靠父母，出外靠朋友。」在你的國家也有這樣的說法嗎？請你用一、兩個生活上的例子來說明。",
-       "vi": ""
+       "vi": "Người Hoa hay nói: “Ở nhà nhờ cha mẹ, ra ngoài nhờ bạn bè.” Ở nước bạn có cách nói tương tự không? Hãy lấy một, hai ví dụ trong cuộc sống để giải thích.",
+       "py": "Huárén cháng shuō: “Zàijiā kào fùmǔ, chūwài kào péngyǒu.” zài nǐ de guójiā yě yǒu zhèyàng de shuōfǎ ma? Qǐng nǐ yòng yì, liǎnggè shēnghuó shàng de lìzi lái shuōmíng."
       },
       {
        "hz": "作者對個性在交友上的影響有什麼樣的看法？除了個性以外，你認為哪些事對交友也有影響？",
-       "vi": ""
+       "vi": "Tác giả nhìn nhận thế nào về ảnh hưởng của tính cách đến việc kết bạn? Ngoài tính cách, bạn nghĩ còn những điều gì ảnh hưởng đến việc kết bạn?",
+       "py": "Zuòzhě duì gèxìng zài jiāoyǒu shàng de yǐngxiǎng yǒu shénmeyàng de kànfǎ? Chúle gèxìng yǐwài, nǐ rènwéi nǎxiē shì duì jiāoyǒu yě yǒu yǐngxiǎng?"
       },
       {
        "hz": "要是對方的個性、興趣或觀念跟自己相同，你認為是不是就一定能夠跟對方變成好友？",
-       "vi": ""
+       "vi": "Nếu tính cách, sở thích hay quan niệm của đối phương giống mình, bạn có nghĩ nhất định sẽ trở thành bạn thân không?",
+       "py": "Yàoshì duìfāng de gèxìng, xìngqù huò guānniàn gēn zìjǐ xiāngtóng, nǐ rènwéi shìbúshì jiù yídìng nénggòu gēn duìfāng biànchéng hǎoyǒu?"
       },
       {
        "hz": "作者提到跟朋友發生誤會時的處理方式，他是怎麼說的？除了這些方式，你認為還可以怎麼做？",
-       "vi": ""
+       "vi": "Tác giả nói gì về cách xử lý khi xảy ra hiểu lầm với bạn bè? Ngoài những cách đó, bạn nghĩ còn có thể làm gì?",
+       "py": "Zuòzhě tídào gēn péngyǒu fāshēng wùhuì shí de chǔlǐ fāngshì, tā shì zěnme shuō de? Chúle zhèxiē fāngshì, nǐ rènwéi hái kěyǐ zěnme zuò?"
       },
       {
        "hz": "如果想讓自己跟朋友之間的感情更好，作者認為可以怎麼做？你呢？你覺得做哪些事可以加深友誼，哪些事反而會令人失去友誼？",
-       "vi": ""
+       "vi": "Nếu muốn tình cảm giữa mình và bạn bè tốt hơn, tác giả cho rằng có thể làm gì? Còn bạn? Bạn nghĩ làm những việc gì có thể thắt chặt tình bạn, những việc gì ngược lại khiến mất đi tình bạn?",
+       "py": "Rúguǒ xiǎng ràng zìjǐ gēn péngyǒu zhījiān de gǎnqíng gènghǎo, zuòzhě rènwéi kěyǐ zěnme zuò? Nǐ ne? Nǐ juéde zuò nǎxiē shì kěyǐ jiāshēn yǒuyí, nǎxiē shì fǎn'ér huì lìngrén shīqù yǒuyí?"
       },
       {
        "hz": "就你的經驗來說，用真心和誠對人容不容易？為什麼？",
-       "vi": ""
+       "vi": "Theo kinh nghiệm của bạn, đối xử với người khác bằng sự chân thành có dễ không? Tại sao?",
+       "py": "Jiù nǐ de jīngyàn láishuō, yòng zhēnxīn hàn chéng duì rén róng bù róngyì? Wèishénme?"
       },
       {
        "hz": "作者談到，要是一個人沒有知心好友，就失去了使自己生活更豐富的機會。你同意這樣的說法嗎？為什麼？",
-       "vi": ""
+       "vi": "Tác giả nói nếu một người không có bạn tri kỷ thì sẽ mất đi cơ hội làm cuộc sống mình phong phú hơn. Bạn có đồng ý không? Tại sao?",
+       "py": "Zuòzhě tándào, yàoshì yígè rén méiyǒu zhīxīn hǎoyǒu, jiù shīqù le shǐ zìjǐ shēnghuó gèng fēngfù de jīhuì. Nǐ tóngyì zhèyàng de shuōfǎ ma? Wèishénme?"
       },
       {
        "hz": "在家靠父母，出外靠朋友。",
-       "vi": ""
+       "vi": "Ở nhà nhờ cha mẹ, ra ngoài nhờ bạn bè.",
+       "py": "Zàijiā kào fùmǔ, chūwài kào péngyǒu."
       }
      ],
      "answer": null
@@ -693,12 +812,14 @@ export const thoidaiGrammar4 = {
      "formula": null,
      "examples": [
       {
-       "hz": "我煩惱的事隨著年齡增加。            （年齡增加，煩惱的事也多了） 2. 我的快樂隨著幫助別人而增加。        （因為幫人，然後快樂增加了）     3. 隨著年齡增加，體會到的事情也越多。    （年齡增加，體會一樣也越多） 4. 隨著考試越來越近，而使我越來越緊張。（因為考試近，讓我緊張起來）「隨著」是介詞(Prep.)，表示某件事改變了，另一件事也跟著變化。",
-       "vi": ""
+       "hz": "我煩惱的事隨著年齡增加。 （年齡增加，煩惱的事也多了） 2. 我的快樂隨著幫助別人而增加。 （因為幫人，然後快樂增加了） 3. 隨著年齡增加，體會到的事情也越多。 （年齡增加，體會一樣也越多） 4. 隨著考試越來越近，而使我越來越緊張。（因為考試近，讓我緊張起來）「隨著」是介詞，表示某件事改變了，另一件事也跟著變化。",
+       "vi": "Chuyện phiền muộn của tôi tăng theo tuổi tác. (tuổi càng lớn, chuyện phiền muộn càng nhiều) Niềm vui của tôi tăng lên nhờ giúp đỡ người khác. (vì giúp người nên niềm vui tăng lên) Cùng với tuổi tác tăng lên, những điều thấm thía cũng nhiều hơn. (tuổi tăng, trải nghiệm cũng tăng theo) Kỳ thi càng đến gần, tôi càng căng thẳng. (vì kỳ thi gần mà tôi căng thẳng) “隨著” là giới từ, diễn tả khi một việc thay đổi thì việc khác cũng thay đổi theo.",
+       "py": "Wǒ fánnǎo de shì suí zhe niánlíng zēngjiā. (niánlíng zēngjiā, fánnǎo de shì yě duō le) 2. Wǒ de kuàilè suí zhe bāngzhù biérén ér zēngjiā. (yīnwèi bāng rén, ránhòu kuàilè zēngjiā le) 3. Suí zhe niánlíng zēngjiā, tǐhuì dào de shìqíng yě yuè duō. (niánlíng zēngjiā, tǐhuì yíyàng yě yuè duō) 4. Suí zhe kǎoshì yuèláiyuèjìn, ér shǐ wǒ yuèláiyuè jǐnzhāng. (yīnwèi kǎoshì jìn, ràng wǒ jǐnzhāng qǐlái) “suí zhe” shì jiècí, biǎoshì mǒujiànshì gǎibiàn le, lìng yíjiàn shì yě gēn zhe biànhuà."
       },
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -716,15 +837,18 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "人有了錢不見得就不煩惱，但想用錢卻沒錢時一定更煩惱。2. 每位學生的家長不見得都能理解學校的教育方式。",
-       "vi": ""
+       "vi": "Người có tiền chưa chắc đã không phiền muộn, nhưng muốn tiêu tiền mà không có tiền thì chắc chắn còn phiền muộn hơn. Phụ huynh của học sinh chưa chắc ai cũng hiểu được phương pháp giáo dục của nhà trường.",
+       "py": "Rén yǒuleqián bújiànde jiù bù fánnǎo, dàn xiǎng yòngqián què méi qián shí yídìng gèng fánnǎo. 2. Měiwèi xuéshēng de jiāzhǎng bújiànde dōu néng lǐjiě xuéxiào de jiàoyù fāngshì."
       },
       {
        "hz": "A：研究科學的人，大概都沒空深入地了解藝術。",
-       "vi": ""
+       "vi": "A: Người nghiên cứu khoa học có lẽ đều không có thời gian tìm hiểu sâu về nghệ thuật.",
+       "py": "A: Yánjiù kēxué de rén, dàgài dōu méikòng shēnrù dì liǎojiě yìshù."
       },
       {
        "hz": "A：我聽阿姨說，結了婚以後，麻煩事就不斷地發生。還是單身請用「不見得」完成以下的對話。",
-       "vi": ""
+       "vi": "A: Tôi nghe dì nói sau khi kết hôn chuyện phiền phức cứ xảy ra liên tục. Vẫn là độc thân… Hãy dùng “不見得” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "A: Wǒ tīng āyí shuō, jiélehūn yǐhòu, máfánshì jiù búduàn dì fāshēng. Háishì dānshēn qǐng yòng “bújiànde” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -744,27 +868,33 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：晚餐我晚一點再吃，現在我想看一下客戶的計畫書。 B：飯菜都要涼了，你還是先吃飯，等會兒再忙吧。 A：（看看時間）沒想到都八點了。也好，等吃過飯再看。",
-       "vi": ""
+       "vi": "A: Bữa tối lát nữa tôi ăn, bây giờ tôi muốn xem bản kế hoạch của khách hàng. B: Cơm canh sắp nguội hết rồi, anh ăn cơm trước đi, lát nữa hãy làm tiếp. A: (nhìn đồng hồ) Không ngờ đã tám giờ rồi. Cũng được, ăn xong rồi xem.",
+       "py": "A: Wǎncān wǒ wǎnyìdiǎn zài chī, xiànzài wǒ xiǎng kàn yíxià kèhù de jìhuàshū. B: Fàncài dōu yào liáng le, nǐ háishì xiān chīfàn, děnghuì'er zài máng ba. A: (kànkàn shíjiān) méixiǎngdào dōu bādiǎn le. Yěhǎo, děng chīguòfàn zài kàn."
       },
       {
        "hz": "請用「都……了」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “都……了” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “dōu…… le” wánchéng yǐxià de duìhuà."
       },
       {
        "hz": "A：我們等了那麼久，小謝還沒來，他肯定又忘了時間了。 B：早知道他那麼迷糊，我就會提醒他了。 A：唉，早知道就不約他了。",
-       "vi": ""
+       "vi": "A: Chúng ta đợi lâu như vậy mà Tiểu Tạ vẫn chưa đến, chắc chắn lại quên giờ rồi. B: Biết trước cậu ấy đãng trí thế thì tôi đã nhắc cậu ấy rồi. A: Haiz, biết trước thế thì đã không hẹn cậu ấy.",
+       "py": "A: Wǒmen děng le nàme jiǔ, xiǎo xiè hái méi lái, tā kěndìng yòu wàng le shíjiān le. B: Zǎo zhīdào tā nàme míhū, wǒ jiù huì tíxǐng tā le. A: Āi, zǎo zhīdào jiù bù yuē tā le."
       },
       {
        "hz": "II.早知道就……了 / 早知道……，就……了",
-       "vi": ""
+       "vi": "II. Biết trước thì đã… / Biết trước… thì đã…",
+       "py": "II. Zǎo zhīdào jiù…… le / zǎo zhīdào……, jiù…… le"
       },
       {
        "hz": "A：儘管我上個星期就去排隊買演唱會的票了，還是買不到。聽說上網比較好買。",
-       "vi": ""
+       "vi": "A: Mặc dù tuần trước tôi đã đi xếp hàng mua vé hoà nhạc, vẫn không mua được. Nghe nói mua trên mạng dễ hơn.",
+       "py": "A: Jǐnguǎn wǒ shànggèxīngqí jiù qù páiduì mǎi yǎnchànghuì de piào le, háishì mǎibúdào. Tīngshuō shàngwǎng bǐjiào hǎo mǎi."
       },
       {
        "hz": "請用「早知道」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “早知道” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “zǎo zhīdào” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -782,31 +912,38 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：我今天身體一下子冷，一下子熱，不知道怎麼了？B：看來你可能是感冒了，最好去看醫生吧。",
-       "vi": ""
+       "vi": "A: Hôm nay người tôi lúc thì lạnh lúc thì nóng, không biết bị làm sao? B: Xem ra bạn bị cảm rồi, tốt nhất nên đi khám bác sĩ.",
+       "py": "A: Wǒ jīntiān shēntǐ yíxiàzi lěng, yíxiàzi rè, bù zhīdào zěnme le? B: Kànlái nǐ kěnéng shì gǎnmào le, zuìhǎo qù kàn yīshēng ba."
       },
       {
        "hz": "A：都快下班了，老闆現在還給我們新工作，這是什麼意思？",
-       "vi": ""
+       "vi": "A: Sắp tan làm rồi mà ông chủ còn giao việc mới, thế là ý gì?",
+       "py": "A: Dōu kuàixiàbān le, lǎobǎn xiànzài huángěi wǒmen xīn gōngzuò, zhè shì shénme yìsi?"
       },
       {
        "hz": "B：你別想了。老闆那麼小氣，能多放幾天假我就很滿意了。",
-       "vi": ""
+       "vi": "B: Bạn đừng mơ nữa. Ông chủ keo kiệt như vậy, được nghỉ thêm mấy ngày là tôi mãn nguyện rồi.",
+       "py": "B: Nǐ bié xiǎng le. Lǎobǎn nàme xiǎoqì, néng duō fàng jǐtiān jiǎ wǒ jiù hěn mǎnyì le."
       },
       {
        "hz": "請用「看來」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “看來” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “kànlái” wánchéng yǐxià de duìhuà."
       },
       {
        "hz": "A：在那麼多明星當中，你為什麼最欣賞她呢？ B：她不只很紅，更棒的是常去醫院陪老人，因此我很喜歡她。",
-       "vi": ""
+       "vi": "A: Trong bao nhiêu ngôi sao, sao bạn lại thích cô ấy nhất? B: Cô ấy không chỉ rất nổi tiếng mà hay hơn nữa là thường đến bệnh viện chăm người già, vì vậy tôi rất thích cô ấy.",
+       "py": "A: Zài nàme duō míngxīng dāngzhōng, nǐ wèishénme zuì xīnshǎng tā ne? B: Tā bù zhǐ hěn hóng, gèng bàng de shì cháng qù yīyuàn péi lǎorén, yīncǐ wǒ hěn xǐhuān tā."
       },
       {
        "hz": "A：你為什麼想感謝小張，還說如果不是他，就沒有今天的你？",
-       "vi": ""
+       "vi": "A: Sao bạn lại muốn cảm ơn Tiểu Trương, còn nói nếu không có cậu ấy thì không có bạn của ngày hôm nay?",
+       "py": "A: Nǐ wèishénme xiǎng gǎnxiè xiǎozhāng, hái shuō rúguǒ búshì tā, jiù méiyǒu jīntiān de nǐ?"
       },
       {
        "hz": "請參考以下的詞完成對話。（參考詞：珍貴、麻煩、美好、幸福、快樂、要緊、便利、特別）",
-       "vi": ""
+       "vi": "Hãy tham khảo các từ dưới đây để hoàn thành hội thoại. (Từ tham khảo: quý giá, phiền phức, tốt đẹp, hạnh phúc, vui vẻ, quan trọng, tiện lợi, đặc biệt)",
+       "py": "Qǐng cānkǎo yǐxià de cí wánchéng duìhuà. (cānkǎo cí: Zhēnguì, máfán, měihǎo, xìngfú, kuàilè, yàojǐn, biànlì, tèbié)"
       }
      ],
      "answer": null
@@ -824,23 +961,28 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：說到「浪漫」這個詞，你第一個想到的是什麼？ B：我想到去年看過的那部愛情電影，結局真的讓人感動。",
-       "vi": ""
+       "vi": "A: Nói đến từ “lãng mạn”, điều đầu tiên bạn nghĩ đến là gì? B: Tôi nghĩ đến bộ phim tình cảm xem năm ngoái, cái kết thật sự khiến người ta cảm động.",
+       "py": "A: Shuō dào “làngmàn” zhège cí, nǐ dìyígè xiǎngdào de shì shénme? B: Wǒ xiǎngdào qùnián kànguò de nà bù àiqíng diànyǐng, jiéjú zhēnde ràng rén gǎndòng."
       },
       {
        "hz": "跟別人談話時，對其中某個主題說出自己的看法或是想到的事情。用法是：「說到/談到＋【主題】，【個人意見或經驗】」。",
-       "vi": ""
+       "vi": "Khi nói chuyện với người khác, bày tỏ suy nghĩ hoặc điều mình nghĩ tới về một chủ đề nào đó. Cách dùng: “說到/談到 + [chủ đề], [ý kiến hoặc trải nghiệm cá nhân]”.",
+       "py": "Gēn biérén tánhuà shí, duì qízhōng mǒugè zhǔtí shuōchū zìjǐ de kànfǎ huòshì xiǎngdào de shìqíng. Yòngfǎ shì: “Shuō dào / tándào ＋ 【 zhǔtí 】, 【 gèrén yìjiàn huò jīngyàn 】”."
       },
       {
        "hz": "A：從小到大，哪一件事讓你很難忘記？",
-       "vi": ""
+       "vi": "A: Từ nhỏ đến lớn, chuyện gì khiến bạn khó quên nhất?",
+       "py": "A: Cóngxiǎodàodà, nǎ yíjiàn shì ràng nǐ hěn nán wàngjì?"
       },
       {
        "hz": "請用「說到/談到」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “說到/談到” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “shuō dào / tándào” wánchéng yǐxià de duìhuà."
       },
       {
        "hz": "他剛去超市買了一把刷子，想趁週末時好好把浴室刷乾淨。",
-       "vi": ""
+       "vi": "Anh ấy vừa đi siêu thị mua một cái bàn chải, định tranh thủ cuối tuần cọ sạch phòng tắm.",
+       "py": "Tā gāng qù chāoshì mǎi le yìbǎ shuāzi, xiǎng chèn zhōumò shí hǎohǎo bǎ yùshì shuā gānjìng."
       }
      ],
      "answer": null
@@ -858,7 +1000,8 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -875,20 +1018,24 @@ export const thoidaiGrammar4 = {
      "formula": "「否則」是連詞，表示如果跟「否則」前面說的情況不同，就會發生「否則」之後的事情。「否則」後的「的話」可不用。",
      "examples": [
       {
-       "hz": "A：教授每個星期都要求我們寫讀書報告，目的到底是什麼？B：我想那是為了訓練你們的閱讀理解能力，否則的話，只看書卻   不深入思考，對你們一點幫助都沒有。A：那他至少應該告訴我們寫報告時應注意的重點，否則寫再多也   很難進步。",
-       "vi": ""
+       "hz": "A：教授每個星期都要求我們寫讀書報告，目的到底是什麼？B：我想那是為了訓練你們的閱讀理解能力，否則的話，只看書卻不深入思考，對你們一點幫助都沒有。A：那他至少應該告訴我們寫報告時應注意的重點，否則寫再多也很難進步。",
+       "vi": "A: Tuần nào giáo sư cũng yêu cầu chúng ta viết báo cáo đọc sách, rốt cuộc mục đích là gì? B: Tôi nghĩ đó là để rèn khả năng đọc hiểu của các bạn, nếu không thì chỉ đọc sách mà không suy nghĩ sâu thì chẳng giúp ích gì cho các bạn cả. A: Vậy ít nhất thầy cũng nên nói cho chúng ta những điểm cần chú ý khi viết báo cáo, nếu không viết bao nhiêu cũng khó tiến bộ.",
+       "py": "A: Jiàoshòu měigè xīngqí dōu yāoqiú wǒmen xiě dúshū bàogào, mùdì dàodǐ shì shénme? B: Wǒ xiǎng nà shì wèile xùnliàn nǐmen de yuèdú lǐjiěnénglì, fǒuzé dehuà, zhǐ kànshū què bù shēnrù sīkǎo, duì nǐmen yìdiǎn bāngzhù dōu méiyǒu. A: Nà tā zhìshǎo yīnggāi gàosù wǒmen xiě bàogào shí yīng zhùyì de zhòngdiǎn, fǒuzé xiě zài duō yě hěn nán jìnbù."
       },
       {
        "hz": "A：你認為大學該不該讓學生帶手機來上課？",
-       "vi": ""
+       "vi": "A: Bạn nghĩ đại học có nên cho sinh viên mang điện thoại vào lớp không?",
+       "py": "A: Nǐ rènwéi dàxué gāibùgāi ràng xuéshēng dài shǒujī lái shàngkè?"
       },
       {
        "hz": "A：我認為世界上沒有任何事比錢更重要，有錢才能幸福。",
-       "vi": ""
+       "vi": "A: Tôi nghĩ trên đời không có gì quan trọng hơn tiền, có tiền mới hạnh phúc được.",
+       "py": "A: Wǒ rènwéi shìjiè shàng méiyǒu rènhé shì bǐ qián gèng zhòngyào, yǒuqián cáinéng xìngfú."
       },
       {
        "hz": "請用「否則（的話）」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “否則（的話）” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “fǒuzé (dehuà)” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -905,16 +1052,19 @@ export const thoidaiGrammar4 = {
      "formula": "A：我的室友太吵了，學校宿舍還有其他房間嗎？我想換房間。B：不好意思，其他房間都住滿了，而且按照規定是不能換的。 「滿」是助詞(Ptc)，放在動詞後，表示情況或動作(Action)到了某個程度、條件。用法：「【情況、動作】滿＋【某個程度、條件】」。",
      "examples": [
       {
-       "hz": "A：春天到了，不知道國家公園裡的花開(to blossom)得怎麼樣了？",
-       "vi": ""
+       "hz": "A：春天到了，不知道國家公園裡的花開得怎麼樣了？",
+       "vi": "A: Mùa xuân đến rồi, không biết hoa trong vườn quốc gia nở thế nào rồi?",
+       "py": "A: Chūntiān dào le, bù zhīdào guójiā gōngyuán lǐ de huā kāi de zěnmeyàng le?"
       },
       {
        "hz": "A：我想拿畢業活動的影片給教授看，方便跟你借隨身碟嗎？",
-       "vi": ""
+       "vi": "A: Tôi muốn mang video hoạt động tốt nghiệp cho giáo sư xem, bạn cho tôi mượn USB được không?",
+       "py": "A: Wǒ xiǎng ná bìyè huódòng de yǐngpiàn gěi jiàoshòu kàn, fāngbiàn gēn nǐ jiè suíshēn dié ma?"
       },
       {
        "hz": "請用「V滿」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “V滿” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “V mǎn” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -934,27 +1084,33 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：晚餐我晚一點再吃，現在我想看一下客戶的計畫書。 B：飯菜都要涼了，你還是先吃飯，等會兒再忙吧。 A：（看看時間）沒想到都八點了。也好，等吃過飯再看。",
-       "vi": ""
+       "vi": "A: Bữa tối lát nữa tôi ăn, bây giờ tôi muốn xem bản kế hoạch của khách hàng. B: Cơm canh sắp nguội hết rồi, anh ăn cơm trước đi, lát nữa hãy làm tiếp. A: (nhìn đồng hồ) Không ngờ đã tám giờ rồi. Cũng được, ăn xong rồi xem.",
+       "py": "A: Wǎncān wǒ wǎnyìdiǎn zài chī, xiànzài wǒ xiǎng kàn yíxià kèhù de jìhuàshū. B: Fàncài dōu yào liáng le, nǐ háishì xiān chīfàn, děnghuì'er zài máng ba. A: (kànkàn shíjiān) méixiǎngdào dōu bādiǎn le. Yěhǎo, děng chīguòfàn zài kàn."
       },
       {
        "hz": "請用「都……了」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “都……了” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “dōu…… le” wánchéng yǐxià de duìhuà."
       },
       {
        "hz": "A：我們等了那麼久，小謝還沒來，他肯定又忘了時間了。 B：早知道他那麼迷糊，我就會提醒他了。 A：唉，早知道就不約他了。",
-       "vi": ""
+       "vi": "A: Chúng ta đợi lâu như vậy mà Tiểu Tạ vẫn chưa đến, chắc chắn lại quên giờ rồi. B: Biết trước cậu ấy đãng trí thế thì tôi đã nhắc cậu ấy rồi. A: Haiz, biết trước thế thì đã không hẹn cậu ấy.",
+       "py": "A: Wǒmen děng le nàme jiǔ, xiǎo xiè hái méi lái, tā kěndìng yòu wàng le shíjiān le. B: Zǎo zhīdào tā nàme míhū, wǒ jiù huì tíxǐng tā le. A: Āi, zǎo zhīdào jiù bù yuē tā le."
       },
       {
        "hz": "II.早知道就……了 / 早知道……，就……了",
-       "vi": ""
+       "vi": "II. Biết trước thì đã… / Biết trước… thì đã…",
+       "py": "II. Zǎo zhīdào jiù…… le / zǎo zhīdào……, jiù…… le"
       },
       {
        "hz": "A：儘管我上個星期就去排隊買演唱會的票了，還是買不到。聽說上網比較好買。",
-       "vi": ""
+       "vi": "A: Mặc dù tuần trước tôi đã đi xếp hàng mua vé hoà nhạc, vẫn không mua được. Nghe nói mua trên mạng dễ hơn.",
+       "py": "A: Jǐnguǎn wǒ shànggèxīngqí jiù qù páiduì mǎi yǎnchànghuì de piào le, háishì mǎibúdào. Tīngshuō shàngwǎng bǐjiào hǎo mǎi."
       },
       {
        "hz": "請用「早知道」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “早知道” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “zǎo zhīdào” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -972,31 +1128,38 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：我今天身體一下子冷，一下子熱，不知道怎麼了？B：看來你可能是感冒了，最好去看醫生吧。",
-       "vi": ""
+       "vi": "A: Hôm nay người tôi lúc thì lạnh lúc thì nóng, không biết bị làm sao? B: Xem ra bạn bị cảm rồi, tốt nhất nên đi khám bác sĩ.",
+       "py": "A: Wǒ jīntiān shēntǐ yíxiàzi lěng, yíxiàzi rè, bù zhīdào zěnme le? B: Kànlái nǐ kěnéng shì gǎnmào le, zuìhǎo qù kàn yīshēng ba."
       },
       {
        "hz": "A：都快下班了，老闆現在還給我們新工作，這是什麼意思？",
-       "vi": ""
+       "vi": "A: Sắp tan làm rồi mà ông chủ còn giao việc mới, thế là ý gì?",
+       "py": "A: Dōu kuàixiàbān le, lǎobǎn xiànzài huángěi wǒmen xīn gōngzuò, zhè shì shénme yìsi?"
       },
       {
        "hz": "B：你別想了。老闆那麼小氣，能多放幾天假我就很滿意了。",
-       "vi": ""
+       "vi": "B: Bạn đừng mơ nữa. Ông chủ keo kiệt như vậy, được nghỉ thêm mấy ngày là tôi mãn nguyện rồi.",
+       "py": "B: Nǐ bié xiǎng le. Lǎobǎn nàme xiǎoqì, néng duō fàng jǐtiān jiǎ wǒ jiù hěn mǎnyì le."
       },
       {
        "hz": "請用「看來」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “看來” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “kànlái” wánchéng yǐxià de duìhuà."
       },
       {
        "hz": "A：在那麼多明星當中，你為什麼最欣賞她呢？ B：她不只很紅，更棒的是常去醫院陪老人，因此我很喜歡她。",
-       "vi": ""
+       "vi": "A: Trong bao nhiêu ngôi sao, sao bạn lại thích cô ấy nhất? B: Cô ấy không chỉ rất nổi tiếng mà hay hơn nữa là thường đến bệnh viện chăm người già, vì vậy tôi rất thích cô ấy.",
+       "py": "A: Zài nàme duō míngxīng dāngzhōng, nǐ wèishénme zuì xīnshǎng tā ne? B: Tā bù zhǐ hěn hóng, gèng bàng de shì cháng qù yīyuàn péi lǎorén, yīncǐ wǒ hěn xǐhuān tā."
       },
       {
        "hz": "A：你為什麼想感謝小張，還說如果不是他，就沒有今天的你？",
-       "vi": ""
+       "vi": "A: Sao bạn lại muốn cảm ơn Tiểu Trương, còn nói nếu không có cậu ấy thì không có bạn của ngày hôm nay?",
+       "py": "A: Nǐ wèishénme xiǎng gǎnxiè xiǎozhāng, hái shuō rúguǒ búshì tā, jiù méiyǒu jīntiān de nǐ?"
       },
       {
        "hz": "請參考以下的詞完成對話。（參考詞：珍貴、麻煩、美好、幸福、快樂、要緊、便利、特別）",
-       "vi": ""
+       "vi": "Hãy tham khảo các từ dưới đây để hoàn thành hội thoại. (Từ tham khảo: quý giá, phiền phức, tốt đẹp, hạnh phúc, vui vẻ, quan trọng, tiện lợi, đặc biệt)",
+       "py": "Qǐng cānkǎo yǐxià de cí wánchéng duìhuà. (cānkǎo cí: Zhēnguì, máfán, měihǎo, xìngfú, kuàilè, yàojǐn, biànlì, tèbié)"
       }
      ],
      "answer": null
@@ -1014,23 +1177,28 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：說到「浪漫」這個詞，你第一個想到的是什麼？ B：我想到去年看過的那部愛情電影，結局真的讓人感動。",
-       "vi": ""
+       "vi": "A: Nói đến từ “lãng mạn”, điều đầu tiên bạn nghĩ đến là gì? B: Tôi nghĩ đến bộ phim tình cảm xem năm ngoái, cái kết thật sự khiến người ta cảm động.",
+       "py": "A: Shuō dào “làngmàn” zhège cí, nǐ dìyígè xiǎngdào de shì shénme? B: Wǒ xiǎngdào qùnián kànguò de nà bù àiqíng diànyǐng, jiéjú zhēnde ràng rén gǎndòng."
       },
       {
        "hz": "跟別人談話時，對其中某個主題說出自己的看法或是想到的事情。用法是：「說到/談到＋【主題】，【個人意見或經驗】」。",
-       "vi": ""
+       "vi": "Khi nói chuyện với người khác, bày tỏ suy nghĩ hoặc điều mình nghĩ tới về một chủ đề nào đó. Cách dùng: “說到/談到 + [chủ đề], [ý kiến hoặc trải nghiệm cá nhân]”.",
+       "py": "Gēn biérén tánhuà shí, duì qízhōng mǒugè zhǔtí shuōchū zìjǐ de kànfǎ huòshì xiǎngdào de shìqíng. Yòngfǎ shì: “Shuō dào / tándào ＋ 【 zhǔtí 】, 【 gèrén yìjiàn huò jīngyàn 】”."
       },
       {
        "hz": "A：從小到大，哪一件事讓你很難忘記？",
-       "vi": ""
+       "vi": "A: Từ nhỏ đến lớn, chuyện gì khiến bạn khó quên nhất?",
+       "py": "A: Cóngxiǎodàodà, nǎ yíjiàn shì ràng nǐ hěn nán wàngjì?"
       },
       {
        "hz": "請用「說到/談到」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “說到/談到” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “shuō dào / tándào” wánchéng yǐxià de duìhuà."
       },
       {
        "hz": "他剛去超市買了一把刷子，想趁週末時好好把浴室刷乾淨。",
-       "vi": ""
+       "vi": "Anh ấy vừa đi siêu thị mua một cái bàn chải, định tranh thủ cuối tuần cọ sạch phòng tắm.",
+       "py": "Tā gāng qù chāoshì mǎi le yìbǎ shuāzi, xiǎng chèn zhōumò shí hǎohǎo bǎ yùshì shuā gānjìng."
       }
      ],
      "answer": null
@@ -1048,7 +1216,8 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -1065,20 +1234,24 @@ export const thoidaiGrammar4 = {
      "formula": "「否則」是連詞，表示如果跟「否則」前面說的情況不同，就會發生「否則」之後的事情。「否則」後的「的話」可不用。",
      "examples": [
       {
-       "hz": "A：教授每個星期都要求我們寫讀書報告，目的到底是什麼？B：我想那是為了訓練你們的閱讀理解能力，否則的話，只看書卻   不深入思考，對你們一點幫助都沒有。A：那他至少應該告訴我們寫報告時應注意的重點，否則寫再多也   很難進步。",
-       "vi": ""
+       "hz": "A：教授每個星期都要求我們寫讀書報告，目的到底是什麼？B：我想那是為了訓練你們的閱讀理解能力，否則的話，只看書卻不深入思考，對你們一點幫助都沒有。A：那他至少應該告訴我們寫報告時應注意的重點，否則寫再多也很難進步。",
+       "vi": "A: Tuần nào giáo sư cũng yêu cầu chúng ta viết báo cáo đọc sách, rốt cuộc mục đích là gì? B: Tôi nghĩ đó là để rèn khả năng đọc hiểu của các bạn, nếu không thì chỉ đọc sách mà không suy nghĩ sâu thì chẳng giúp ích gì cho các bạn cả. A: Vậy ít nhất thầy cũng nên nói cho chúng ta những điểm cần chú ý khi viết báo cáo, nếu không viết bao nhiêu cũng khó tiến bộ.",
+       "py": "A: Jiàoshòu měigè xīngqí dōu yāoqiú wǒmen xiě dúshū bàogào, mùdì dàodǐ shì shénme? B: Wǒ xiǎng nà shì wèile xùnliàn nǐmen de yuèdú lǐjiěnénglì, fǒuzé dehuà, zhǐ kànshū què bù shēnrù sīkǎo, duì nǐmen yìdiǎn bāngzhù dōu méiyǒu. A: Nà tā zhìshǎo yīnggāi gàosù wǒmen xiě bàogào shí yīng zhùyì de zhòngdiǎn, fǒuzé xiě zài duō yě hěn nán jìnbù."
       },
       {
        "hz": "A：你認為大學該不該讓學生帶手機來上課？",
-       "vi": ""
+       "vi": "A: Bạn nghĩ đại học có nên cho sinh viên mang điện thoại vào lớp không?",
+       "py": "A: Nǐ rènwéi dàxué gāibùgāi ràng xuéshēng dài shǒujī lái shàngkè?"
       },
       {
        "hz": "A：我認為世界上沒有任何事比錢更重要，有錢才能幸福。",
-       "vi": ""
+       "vi": "A: Tôi nghĩ trên đời không có gì quan trọng hơn tiền, có tiền mới hạnh phúc được.",
+       "py": "A: Wǒ rènwéi shìjiè shàng méiyǒu rènhé shì bǐ qián gèng zhòngyào, yǒuqián cáinéng xìngfú."
       },
       {
        "hz": "請用「否則（的話）」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “否則（的話）” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “fǒuzé (dehuà)” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -1095,16 +1268,19 @@ export const thoidaiGrammar4 = {
      "formula": "A：我的室友太吵了，學校宿舍還有其他房間嗎？我想換房間。B：不好意思，其他房間都住滿了，而且按照規定是不能換的。 「滿」是助詞(Ptc)，放在動詞後，表示情況或動作(Action)到了某個程度、條件。用法：「【情況、動作】滿＋【某個程度、條件】」。",
      "examples": [
       {
-       "hz": "A：春天到了，不知道國家公園裡的花開(to blossom)得怎麼樣了？",
-       "vi": ""
+       "hz": "A：春天到了，不知道國家公園裡的花開得怎麼樣了？",
+       "vi": "A: Mùa xuân đến rồi, không biết hoa trong vườn quốc gia nở thế nào rồi?",
+       "py": "A: Chūntiān dào le, bù zhīdào guójiā gōngyuán lǐ de huā kāi de zěnmeyàng le?"
       },
       {
        "hz": "A：我想拿畢業活動的影片給教授看，方便跟你借隨身碟嗎？",
-       "vi": ""
+       "vi": "A: Tôi muốn mang video hoạt động tốt nghiệp cho giáo sư xem, bạn cho tôi mượn USB được không?",
+       "py": "A: Wǒ xiǎng ná bìyè huódòng de yǐngpiàn gěi jiàoshòu kàn, fāngbiàn gēn nǐ jiè suíshēn dié ma?"
       },
       {
        "hz": "請用「V滿」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “V滿” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “V mǎn” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -1124,27 +1300,33 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：晚餐我晚一點再吃，現在我想看一下客戶的計畫書。 B：飯菜都要涼了，你還是先吃飯，等會兒再忙吧。 A：（看看時間）沒想到都八點了。也好，等吃過飯再看。",
-       "vi": ""
+       "vi": "A: Bữa tối lát nữa tôi ăn, bây giờ tôi muốn xem bản kế hoạch của khách hàng. B: Cơm canh sắp nguội hết rồi, anh ăn cơm trước đi, lát nữa hãy làm tiếp. A: (nhìn đồng hồ) Không ngờ đã tám giờ rồi. Cũng được, ăn xong rồi xem.",
+       "py": "A: Wǎncān wǒ wǎnyìdiǎn zài chī, xiànzài wǒ xiǎng kàn yíxià kèhù de jìhuàshū. B: Fàncài dōu yào liáng le, nǐ háishì xiān chīfàn, děnghuì'er zài máng ba. A: (kànkàn shíjiān) méixiǎngdào dōu bādiǎn le. Yěhǎo, děng chīguòfàn zài kàn."
       },
       {
        "hz": "請用「都……了」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “都……了” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “dōu…… le” wánchéng yǐxià de duìhuà."
       },
       {
        "hz": "A：我們等了那麼久，小謝還沒來，他肯定又忘了時間了。 B：早知道他那麼迷糊，我就會提醒他了。 A：唉，早知道就不約他了。",
-       "vi": ""
+       "vi": "A: Chúng ta đợi lâu như vậy mà Tiểu Tạ vẫn chưa đến, chắc chắn lại quên giờ rồi. B: Biết trước cậu ấy đãng trí thế thì tôi đã nhắc cậu ấy rồi. A: Haiz, biết trước thế thì đã không hẹn cậu ấy.",
+       "py": "A: Wǒmen děng le nàme jiǔ, xiǎo xiè hái méi lái, tā kěndìng yòu wàng le shíjiān le. B: Zǎo zhīdào tā nàme míhū, wǒ jiù huì tíxǐng tā le. A: Āi, zǎo zhīdào jiù bù yuē tā le."
       },
       {
        "hz": "II.早知道就……了 / 早知道……，就……了",
-       "vi": ""
+       "vi": "II. Biết trước thì đã… / Biết trước… thì đã…",
+       "py": "II. Zǎo zhīdào jiù…… le / zǎo zhīdào……, jiù…… le"
       },
       {
        "hz": "A：儘管我上個星期就去排隊買演唱會的票了，還是買不到。聽說上網比較好買。",
-       "vi": ""
+       "vi": "A: Mặc dù tuần trước tôi đã đi xếp hàng mua vé hoà nhạc, vẫn không mua được. Nghe nói mua trên mạng dễ hơn.",
+       "py": "A: Jǐnguǎn wǒ shànggèxīngqí jiù qù páiduì mǎi yǎnchànghuì de piào le, háishì mǎibúdào. Tīngshuō shàngwǎng bǐjiào hǎo mǎi."
       },
       {
        "hz": "請用「早知道」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “早知道” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “zǎo zhīdào” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -1162,31 +1344,38 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：我今天身體一下子冷，一下子熱，不知道怎麼了？B：看來你可能是感冒了，最好去看醫生吧。",
-       "vi": ""
+       "vi": "A: Hôm nay người tôi lúc thì lạnh lúc thì nóng, không biết bị làm sao? B: Xem ra bạn bị cảm rồi, tốt nhất nên đi khám bác sĩ.",
+       "py": "A: Wǒ jīntiān shēntǐ yíxiàzi lěng, yíxiàzi rè, bù zhīdào zěnme le? B: Kànlái nǐ kěnéng shì gǎnmào le, zuìhǎo qù kàn yīshēng ba."
       },
       {
        "hz": "A：都快下班了，老闆現在還給我們新工作，這是什麼意思？",
-       "vi": ""
+       "vi": "A: Sắp tan làm rồi mà ông chủ còn giao việc mới, thế là ý gì?",
+       "py": "A: Dōu kuàixiàbān le, lǎobǎn xiànzài huángěi wǒmen xīn gōngzuò, zhè shì shénme yìsi?"
       },
       {
        "hz": "B：你別想了。老闆那麼小氣，能多放幾天假我就很滿意了。",
-       "vi": ""
+       "vi": "B: Bạn đừng mơ nữa. Ông chủ keo kiệt như vậy, được nghỉ thêm mấy ngày là tôi mãn nguyện rồi.",
+       "py": "B: Nǐ bié xiǎng le. Lǎobǎn nàme xiǎoqì, néng duō fàng jǐtiān jiǎ wǒ jiù hěn mǎnyì le."
       },
       {
        "hz": "請用「看來」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “看來” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “kànlái” wánchéng yǐxià de duìhuà."
       },
       {
        "hz": "A：在那麼多明星當中，你為什麼最欣賞她呢？ B：她不只很紅，更棒的是常去醫院陪老人，因此我很喜歡她。",
-       "vi": ""
+       "vi": "A: Trong bao nhiêu ngôi sao, sao bạn lại thích cô ấy nhất? B: Cô ấy không chỉ rất nổi tiếng mà hay hơn nữa là thường đến bệnh viện chăm người già, vì vậy tôi rất thích cô ấy.",
+       "py": "A: Zài nàme duō míngxīng dāngzhōng, nǐ wèishénme zuì xīnshǎng tā ne? B: Tā bù zhǐ hěn hóng, gèng bàng de shì cháng qù yīyuàn péi lǎorén, yīncǐ wǒ hěn xǐhuān tā."
       },
       {
        "hz": "A：你為什麼想感謝小張，還說如果不是他，就沒有今天的你？",
-       "vi": ""
+       "vi": "A: Sao bạn lại muốn cảm ơn Tiểu Trương, còn nói nếu không có cậu ấy thì không có bạn của ngày hôm nay?",
+       "py": "A: Nǐ wèishénme xiǎng gǎnxiè xiǎozhāng, hái shuō rúguǒ búshì tā, jiù méiyǒu jīntiān de nǐ?"
       },
       {
        "hz": "請參考以下的詞完成對話。（參考詞：珍貴、麻煩、美好、幸福、快樂、要緊、便利、特別）",
-       "vi": ""
+       "vi": "Hãy tham khảo các từ dưới đây để hoàn thành hội thoại. (Từ tham khảo: quý giá, phiền phức, tốt đẹp, hạnh phúc, vui vẻ, quan trọng, tiện lợi, đặc biệt)",
+       "py": "Qǐng cānkǎo yǐxià de cí wánchéng duìhuà. (cānkǎo cí: Zhēnguì, máfán, měihǎo, xìngfú, kuàilè, yàojǐn, biànlì, tèbié)"
       }
      ],
      "answer": null
@@ -1204,23 +1393,28 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：說到「浪漫」這個詞，你第一個想到的是什麼？ B：我想到去年看過的那部愛情電影，結局真的讓人感動。",
-       "vi": ""
+       "vi": "A: Nói đến từ “lãng mạn”, điều đầu tiên bạn nghĩ đến là gì? B: Tôi nghĩ đến bộ phim tình cảm xem năm ngoái, cái kết thật sự khiến người ta cảm động.",
+       "py": "A: Shuō dào “làngmàn” zhège cí, nǐ dìyígè xiǎngdào de shì shénme? B: Wǒ xiǎngdào qùnián kànguò de nà bù àiqíng diànyǐng, jiéjú zhēnde ràng rén gǎndòng."
       },
       {
        "hz": "跟別人談話時，對其中某個主題說出自己的看法或是想到的事情。用法是：「說到/談到＋【主題】，【個人意見或經驗】」。",
-       "vi": ""
+       "vi": "Khi nói chuyện với người khác, bày tỏ suy nghĩ hoặc điều mình nghĩ tới về một chủ đề nào đó. Cách dùng: “說到/談到 + [chủ đề], [ý kiến hoặc trải nghiệm cá nhân]”.",
+       "py": "Gēn biérén tánhuà shí, duì qízhōng mǒugè zhǔtí shuōchū zìjǐ de kànfǎ huòshì xiǎngdào de shìqíng. Yòngfǎ shì: “Shuō dào / tándào ＋ 【 zhǔtí 】, 【 gèrén yìjiàn huò jīngyàn 】”."
       },
       {
        "hz": "A：從小到大，哪一件事讓你很難忘記？",
-       "vi": ""
+       "vi": "A: Từ nhỏ đến lớn, chuyện gì khiến bạn khó quên nhất?",
+       "py": "A: Cóngxiǎodàodà, nǎ yíjiàn shì ràng nǐ hěn nán wàngjì?"
       },
       {
        "hz": "請用「說到/談到」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “說到/談到” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “shuō dào / tándào” wánchéng yǐxià de duìhuà."
       },
       {
        "hz": "他剛去超市買了一把刷子，想趁週末時好好把浴室刷乾淨。",
-       "vi": ""
+       "vi": "Anh ấy vừa đi siêu thị mua một cái bàn chải, định tranh thủ cuối tuần cọ sạch phòng tắm.",
+       "py": "Tā gāng qù chāoshì mǎi le yìbǎ shuāzi, xiǎng chèn zhōumò shí hǎohǎo bǎ yùshì shuā gānjìng."
       }
      ],
      "answer": null
@@ -1238,7 +1432,8 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -1255,20 +1450,24 @@ export const thoidaiGrammar4 = {
      "formula": "「否則」是連詞，表示如果跟「否則」前面說的情況不同，就會發生「否則」之後的事情。「否則」後的「的話」可不用。",
      "examples": [
       {
-       "hz": "A：教授每個星期都要求我們寫讀書報告，目的到底是什麼？B：我想那是為了訓練你們的閱讀理解能力，否則的話，只看書卻   不深入思考，對你們一點幫助都沒有。A：那他至少應該告訴我們寫報告時應注意的重點，否則寫再多也   很難進步。",
-       "vi": ""
+       "hz": "A：教授每個星期都要求我們寫讀書報告，目的到底是什麼？B：我想那是為了訓練你們的閱讀理解能力，否則的話，只看書卻不深入思考，對你們一點幫助都沒有。A：那他至少應該告訴我們寫報告時應注意的重點，否則寫再多也很難進步。",
+       "vi": "A: Tuần nào giáo sư cũng yêu cầu chúng ta viết báo cáo đọc sách, rốt cuộc mục đích là gì? B: Tôi nghĩ đó là để rèn khả năng đọc hiểu của các bạn, nếu không thì chỉ đọc sách mà không suy nghĩ sâu thì chẳng giúp ích gì cho các bạn cả. A: Vậy ít nhất thầy cũng nên nói cho chúng ta những điểm cần chú ý khi viết báo cáo, nếu không viết bao nhiêu cũng khó tiến bộ.",
+       "py": "A: Jiàoshòu měigè xīngqí dōu yāoqiú wǒmen xiě dúshū bàogào, mùdì dàodǐ shì shénme? B: Wǒ xiǎng nà shì wèile xùnliàn nǐmen de yuèdú lǐjiěnénglì, fǒuzé dehuà, zhǐ kànshū què bù shēnrù sīkǎo, duì nǐmen yìdiǎn bāngzhù dōu méiyǒu. A: Nà tā zhìshǎo yīnggāi gàosù wǒmen xiě bàogào shí yīng zhùyì de zhòngdiǎn, fǒuzé xiě zài duō yě hěn nán jìnbù."
       },
       {
        "hz": "A：你認為大學該不該讓學生帶手機來上課？",
-       "vi": ""
+       "vi": "A: Bạn nghĩ đại học có nên cho sinh viên mang điện thoại vào lớp không?",
+       "py": "A: Nǐ rènwéi dàxué gāibùgāi ràng xuéshēng dài shǒujī lái shàngkè?"
       },
       {
        "hz": "A：我認為世界上沒有任何事比錢更重要，有錢才能幸福。",
-       "vi": ""
+       "vi": "A: Tôi nghĩ trên đời không có gì quan trọng hơn tiền, có tiền mới hạnh phúc được.",
+       "py": "A: Wǒ rènwéi shìjiè shàng méiyǒu rènhé shì bǐ qián gèng zhòngyào, yǒuqián cáinéng xìngfú."
       },
       {
        "hz": "請用「否則（的話）」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “否則（的話）” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “fǒuzé (dehuà)” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -1285,16 +1484,19 @@ export const thoidaiGrammar4 = {
      "formula": "A：我的室友太吵了，學校宿舍還有其他房間嗎？我想換房間。B：不好意思，其他房間都住滿了，而且按照規定是不能換的。 「滿」是助詞(Ptc)，放在動詞後，表示情況或動作(Action)到了某個程度、條件。用法：「【情況、動作】滿＋【某個程度、條件】」。",
      "examples": [
       {
-       "hz": "A：春天到了，不知道國家公園裡的花開(to blossom)得怎麼樣了？",
-       "vi": ""
+       "hz": "A：春天到了，不知道國家公園裡的花開得怎麼樣了？",
+       "vi": "A: Mùa xuân đến rồi, không biết hoa trong vườn quốc gia nở thế nào rồi?",
+       "py": "A: Chūntiān dào le, bù zhīdào guójiā gōngyuán lǐ de huā kāi de zěnmeyàng le?"
       },
       {
        "hz": "A：我想拿畢業活動的影片給教授看，方便跟你借隨身碟嗎？",
-       "vi": ""
+       "vi": "A: Tôi muốn mang video hoạt động tốt nghiệp cho giáo sư xem, bạn cho tôi mượn USB được không?",
+       "py": "A: Wǒ xiǎng ná bìyè huódòng de yǐngpiàn gěi jiàoshòu kàn, fāngbiàn gēn nǐ jiè suíshēn dié ma?"
       },
       {
        "hz": "請用「V滿」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “V滿” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “V mǎn” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -1314,27 +1516,33 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：晚餐我晚一點再吃，現在我想看一下客戶的計畫書。 B：飯菜都要涼了，你還是先吃飯，等會兒再忙吧。 A：（看看時間）沒想到都八點了。也好，等吃過飯再看。",
-       "vi": ""
+       "vi": "A: Bữa tối lát nữa tôi ăn, bây giờ tôi muốn xem bản kế hoạch của khách hàng. B: Cơm canh sắp nguội hết rồi, anh ăn cơm trước đi, lát nữa hãy làm tiếp. A: (nhìn đồng hồ) Không ngờ đã tám giờ rồi. Cũng được, ăn xong rồi xem.",
+       "py": "A: Wǎncān wǒ wǎnyìdiǎn zài chī, xiànzài wǒ xiǎng kàn yíxià kèhù de jìhuàshū. B: Fàncài dōu yào liáng le, nǐ háishì xiān chīfàn, děnghuì'er zài máng ba. A: (kànkàn shíjiān) méixiǎngdào dōu bādiǎn le. Yěhǎo, děng chīguòfàn zài kàn."
       },
       {
        "hz": "請用「都……了」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “都……了” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “dōu…… le” wánchéng yǐxià de duìhuà."
       },
       {
        "hz": "A：我們等了那麼久，小謝還沒來，他肯定又忘了時間了。 B：早知道他那麼迷糊，我就會提醒他了。 A：唉，早知道就不約他了。",
-       "vi": ""
+       "vi": "A: Chúng ta đợi lâu như vậy mà Tiểu Tạ vẫn chưa đến, chắc chắn lại quên giờ rồi. B: Biết trước cậu ấy đãng trí thế thì tôi đã nhắc cậu ấy rồi. A: Haiz, biết trước thế thì đã không hẹn cậu ấy.",
+       "py": "A: Wǒmen děng le nàme jiǔ, xiǎo xiè hái méi lái, tā kěndìng yòu wàng le shíjiān le. B: Zǎo zhīdào tā nàme míhū, wǒ jiù huì tíxǐng tā le. A: Āi, zǎo zhīdào jiù bù yuē tā le."
       },
       {
        "hz": "II.早知道就……了 / 早知道……，就……了",
-       "vi": ""
+       "vi": "II. Biết trước thì đã… / Biết trước… thì đã…",
+       "py": "II. Zǎo zhīdào jiù…… le / zǎo zhīdào……, jiù…… le"
       },
       {
        "hz": "A：儘管我上個星期就去排隊買演唱會的票了，還是買不到。聽說上網比較好買。",
-       "vi": ""
+       "vi": "A: Mặc dù tuần trước tôi đã đi xếp hàng mua vé hoà nhạc, vẫn không mua được. Nghe nói mua trên mạng dễ hơn.",
+       "py": "A: Jǐnguǎn wǒ shànggèxīngqí jiù qù páiduì mǎi yǎnchànghuì de piào le, háishì mǎibúdào. Tīngshuō shàngwǎng bǐjiào hǎo mǎi."
       },
       {
        "hz": "請用「早知道」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “早知道” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “zǎo zhīdào” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -1352,31 +1560,38 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：我今天身體一下子冷，一下子熱，不知道怎麼了？B：看來你可能是感冒了，最好去看醫生吧。",
-       "vi": ""
+       "vi": "A: Hôm nay người tôi lúc thì lạnh lúc thì nóng, không biết bị làm sao? B: Xem ra bạn bị cảm rồi, tốt nhất nên đi khám bác sĩ.",
+       "py": "A: Wǒ jīntiān shēntǐ yíxiàzi lěng, yíxiàzi rè, bù zhīdào zěnme le? B: Kànlái nǐ kěnéng shì gǎnmào le, zuìhǎo qù kàn yīshēng ba."
       },
       {
        "hz": "A：都快下班了，老闆現在還給我們新工作，這是什麼意思？",
-       "vi": ""
+       "vi": "A: Sắp tan làm rồi mà ông chủ còn giao việc mới, thế là ý gì?",
+       "py": "A: Dōu kuàixiàbān le, lǎobǎn xiànzài huángěi wǒmen xīn gōngzuò, zhè shì shénme yìsi?"
       },
       {
        "hz": "B：你別想了。老闆那麼小氣，能多放幾天假我就很滿意了。",
-       "vi": ""
+       "vi": "B: Bạn đừng mơ nữa. Ông chủ keo kiệt như vậy, được nghỉ thêm mấy ngày là tôi mãn nguyện rồi.",
+       "py": "B: Nǐ bié xiǎng le. Lǎobǎn nàme xiǎoqì, néng duō fàng jǐtiān jiǎ wǒ jiù hěn mǎnyì le."
       },
       {
        "hz": "請用「看來」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “看來” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “kànlái” wánchéng yǐxià de duìhuà."
       },
       {
        "hz": "A：在那麼多明星當中，你為什麼最欣賞她呢？ B：她不只很紅，更棒的是常去醫院陪老人，因此我很喜歡她。",
-       "vi": ""
+       "vi": "A: Trong bao nhiêu ngôi sao, sao bạn lại thích cô ấy nhất? B: Cô ấy không chỉ rất nổi tiếng mà hay hơn nữa là thường đến bệnh viện chăm người già, vì vậy tôi rất thích cô ấy.",
+       "py": "A: Zài nàme duō míngxīng dāngzhōng, nǐ wèishénme zuì xīnshǎng tā ne? B: Tā bù zhǐ hěn hóng, gèng bàng de shì cháng qù yīyuàn péi lǎorén, yīncǐ wǒ hěn xǐhuān tā."
       },
       {
        "hz": "A：你為什麼想感謝小張，還說如果不是他，就沒有今天的你？",
-       "vi": ""
+       "vi": "A: Sao bạn lại muốn cảm ơn Tiểu Trương, còn nói nếu không có cậu ấy thì không có bạn của ngày hôm nay?",
+       "py": "A: Nǐ wèishénme xiǎng gǎnxiè xiǎozhāng, hái shuō rúguǒ búshì tā, jiù méiyǒu jīntiān de nǐ?"
       },
       {
        "hz": "請參考以下的詞完成對話。（參考詞：珍貴、麻煩、美好、幸福、快樂、要緊、便利、特別）",
-       "vi": ""
+       "vi": "Hãy tham khảo các từ dưới đây để hoàn thành hội thoại. (Từ tham khảo: quý giá, phiền phức, tốt đẹp, hạnh phúc, vui vẻ, quan trọng, tiện lợi, đặc biệt)",
+       "py": "Qǐng cānkǎo yǐxià de cí wánchéng duìhuà. (cānkǎo cí: Zhēnguì, máfán, měihǎo, xìngfú, kuàilè, yàojǐn, biànlì, tèbié)"
       }
      ],
      "answer": null
@@ -1394,23 +1609,28 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：說到「浪漫」這個詞，你第一個想到的是什麼？ B：我想到去年看過的那部愛情電影，結局真的讓人感動。",
-       "vi": ""
+       "vi": "A: Nói đến từ “lãng mạn”, điều đầu tiên bạn nghĩ đến là gì? B: Tôi nghĩ đến bộ phim tình cảm xem năm ngoái, cái kết thật sự khiến người ta cảm động.",
+       "py": "A: Shuō dào “làngmàn” zhège cí, nǐ dìyígè xiǎngdào de shì shénme? B: Wǒ xiǎngdào qùnián kànguò de nà bù àiqíng diànyǐng, jiéjú zhēnde ràng rén gǎndòng."
       },
       {
        "hz": "跟別人談話時，對其中某個主題說出自己的看法或是想到的事情。用法是：「說到/談到＋【主題】，【個人意見或經驗】」。",
-       "vi": ""
+       "vi": "Khi nói chuyện với người khác, bày tỏ suy nghĩ hoặc điều mình nghĩ tới về một chủ đề nào đó. Cách dùng: “說到/談到 + [chủ đề], [ý kiến hoặc trải nghiệm cá nhân]”.",
+       "py": "Gēn biérén tánhuà shí, duì qízhōng mǒugè zhǔtí shuōchū zìjǐ de kànfǎ huòshì xiǎngdào de shìqíng. Yòngfǎ shì: “Shuō dào / tándào ＋ 【 zhǔtí 】, 【 gèrén yìjiàn huò jīngyàn 】”."
       },
       {
        "hz": "A：從小到大，哪一件事讓你很難忘記？",
-       "vi": ""
+       "vi": "A: Từ nhỏ đến lớn, chuyện gì khiến bạn khó quên nhất?",
+       "py": "A: Cóngxiǎodàodà, nǎ yíjiàn shì ràng nǐ hěn nán wàngjì?"
       },
       {
        "hz": "請用「說到/談到」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “說到/談到” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “shuō dào / tándào” wánchéng yǐxià de duìhuà."
       },
       {
        "hz": "他剛去超市買了一把刷子，想趁週末時好好把浴室刷乾淨。",
-       "vi": ""
+       "vi": "Anh ấy vừa đi siêu thị mua một cái bàn chải, định tranh thủ cuối tuần cọ sạch phòng tắm.",
+       "py": "Tā gāng qù chāoshì mǎi le yìbǎ shuāzi, xiǎng chèn zhōumò shí hǎohǎo bǎ yùshì shuā gānjìng."
       }
      ],
      "answer": null
@@ -1428,7 +1648,8 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -1445,20 +1666,24 @@ export const thoidaiGrammar4 = {
      "formula": "「否則」是連詞，表示如果跟「否則」前面說的情況不同，就會發生「否則」之後的事情。「否則」後的「的話」可不用。",
      "examples": [
       {
-       "hz": "A：教授每個星期都要求我們寫讀書報告，目的到底是什麼？B：我想那是為了訓練你們的閱讀理解能力，否則的話，只看書卻   不深入思考，對你們一點幫助都沒有。A：那他至少應該告訴我們寫報告時應注意的重點，否則寫再多也   很難進步。",
-       "vi": ""
+       "hz": "A：教授每個星期都要求我們寫讀書報告，目的到底是什麼？B：我想那是為了訓練你們的閱讀理解能力，否則的話，只看書卻不深入思考，對你們一點幫助都沒有。A：那他至少應該告訴我們寫報告時應注意的重點，否則寫再多也很難進步。",
+       "vi": "A: Tuần nào giáo sư cũng yêu cầu chúng ta viết báo cáo đọc sách, rốt cuộc mục đích là gì? B: Tôi nghĩ đó là để rèn khả năng đọc hiểu của các bạn, nếu không thì chỉ đọc sách mà không suy nghĩ sâu thì chẳng giúp ích gì cho các bạn cả. A: Vậy ít nhất thầy cũng nên nói cho chúng ta những điểm cần chú ý khi viết báo cáo, nếu không viết bao nhiêu cũng khó tiến bộ.",
+       "py": "A: Jiàoshòu měigè xīngqí dōu yāoqiú wǒmen xiě dúshū bàogào, mùdì dàodǐ shì shénme? B: Wǒ xiǎng nà shì wèile xùnliàn nǐmen de yuèdú lǐjiěnénglì, fǒuzé dehuà, zhǐ kànshū què bù shēnrù sīkǎo, duì nǐmen yìdiǎn bāngzhù dōu méiyǒu. A: Nà tā zhìshǎo yīnggāi gàosù wǒmen xiě bàogào shí yīng zhùyì de zhòngdiǎn, fǒuzé xiě zài duō yě hěn nán jìnbù."
       },
       {
        "hz": "A：你認為大學該不該讓學生帶手機來上課？",
-       "vi": ""
+       "vi": "A: Bạn nghĩ đại học có nên cho sinh viên mang điện thoại vào lớp không?",
+       "py": "A: Nǐ rènwéi dàxué gāibùgāi ràng xuéshēng dài shǒujī lái shàngkè?"
       },
       {
        "hz": "A：我認為世界上沒有任何事比錢更重要，有錢才能幸福。",
-       "vi": ""
+       "vi": "A: Tôi nghĩ trên đời không có gì quan trọng hơn tiền, có tiền mới hạnh phúc được.",
+       "py": "A: Wǒ rènwéi shìjiè shàng méiyǒu rènhé shì bǐ qián gèng zhòngyào, yǒuqián cáinéng xìngfú."
       },
       {
        "hz": "請用「否則（的話）」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “否則（的話）” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “fǒuzé (dehuà)” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -1475,16 +1700,19 @@ export const thoidaiGrammar4 = {
      "formula": "A：我的室友太吵了，學校宿舍還有其他房間嗎？我想換房間。B：不好意思，其他房間都住滿了，而且按照規定是不能換的。 「滿」是助詞(Ptc)，放在動詞後，表示情況或動作(Action)到了某個程度、條件。用法：「【情況、動作】滿＋【某個程度、條件】」。",
      "examples": [
       {
-       "hz": "A：春天到了，不知道國家公園裡的花開(to blossom)得怎麼樣了？",
-       "vi": ""
+       "hz": "A：春天到了，不知道國家公園裡的花開得怎麼樣了？",
+       "vi": "A: Mùa xuân đến rồi, không biết hoa trong vườn quốc gia nở thế nào rồi?",
+       "py": "A: Chūntiān dào le, bù zhīdào guójiā gōngyuán lǐ de huā kāi de zěnmeyàng le?"
       },
       {
        "hz": "A：我想拿畢業活動的影片給教授看，方便跟你借隨身碟嗎？",
-       "vi": ""
+       "vi": "A: Tôi muốn mang video hoạt động tốt nghiệp cho giáo sư xem, bạn cho tôi mượn USB được không?",
+       "py": "A: Wǒ xiǎng ná bìyè huódòng de yǐngpiàn gěi jiàoshòu kàn, fāngbiàn gēn nǐ jiè suíshēn dié ma?"
       },
       {
        "hz": "請用「V滿」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “V滿” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “V mǎn” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -1503,20 +1731,24 @@ export const thoidaiGrammar4 = {
      "formula": "「省得」是助動詞(Vaux)，後面放動詞或動詞短語(Verb phrase)。表示說話的人希望有「省得」之前的情況，或是用「省得」前提到的方式，才能避免「省得」之後的事發生。",
      "examples": [
       {
-       "hz": "A：你家離公司有點兒遠，你每天都走路來上班，不累嗎？    B：是有一點兒累，不過走路對健康好，也省得多花交通費。 A：我覺得每天來回很花時間，希望公司能讓我們在家上班，    省得出門。",
-       "vi": ""
+       "hz": "A：你家離公司有點兒遠，你每天都走路來上班，不累嗎？ B：是有一點兒累，不過走路對健康好，也省得多花交通費。 A：我覺得每天來回很花時間，希望公司能讓我們在家上班，省得出門。",
+       "vi": "A: Nhà bạn hơi xa công ty, ngày nào bạn cũng đi bộ đi làm, không mệt à? B: Cũng hơi mệt, nhưng đi bộ tốt cho sức khoẻ, cũng đỡ tốn tiền đi lại. A: Tôi thấy ngày nào cũng đi đi về về rất mất thời gian, mong công ty cho chúng ta làm ở nhà, đỡ phải ra ngoài.",
+       "py": "A: Nǐjiā lí gōngsī yǒudiǎn'ér yuǎn, nǐ měitiān dōu zǒulù lái shàngbān, bú lèi ma? B: Shì yǒu yìdiǎn'ér lèi, búguò zǒulù duì jiànkāng hǎo, yě shěngde duō huā jiāotōngfèi. A: Wǒ juéde měitiān láihuí hěn huā shíjiān, xīwàng gōngsī néng ràng wǒmen zàijiā shàngbān, shěngde chūmén."
       },
       {
        "hz": "張同學要去國外某個大學參加研討會議，不過那所學校的面積相當大，加上他是第一次去，有點擔心找不到路。",
-       "vi": ""
+       "vi": "Bạn Trương định sang một trường đại học ở nước ngoài dự hội thảo, nhưng trường đó diện tích khá rộng, lại là lần đầu đi nên hơi lo không tìm được đường.",
+       "py": "Zhāng tóngxué yào qù guówài mǒugè dàxué cānjiā yántǎo huìyì, búguò nà suǒ xuéxiào de miànjī xiāngdāng dà, jiāshàng tā shì dìyīcì qù, yǒudiǎn dānxīn zhǎo búdào lù."
       },
       {
        "hz": "高阿姨想去朋友推薦的小吃店，不過聽說那家店有開有時沒開，有點兒麻煩。",
-       "vi": ""
+       "vi": "Dì Cao muốn đến quán ăn vặt bạn giới thiệu, nhưng nghe nói quán đó lúc mở lúc không, hơi phiền.",
+       "py": "Gāo āyí xiǎng qù péngyǒu tuījiàn de xiǎochīdiàn, búguò tīngshuō nà jiā diàn yǒu kāi yǒushí méi kāi, yǒudiǎn'ér máfán."
       },
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -1533,24 +1765,29 @@ export const thoidaiGrammar4 = {
      "formula": "「並且」、「並」在本語法中是連詞，有兩種意思： ⑴ 表示幾個動作(action)同時或前後進行，或是幾種狀態同時存在。",
      "examples": [
       {
-       "hz": "臺灣的風景很漂亮，並且 當地的人們也很親切。2. 我們一起開會討論，並/並且 決定了公司以後的發展方向。3. 他給了我很多寶貴的建議，並/並且 在工作時幫了我不少忙。",
-       "vi": ""
+       "hz": "臺灣的風景很漂亮，並且當地的人們也很親切。2. 我們一起開會討論，並/並且決定了公司以後的發展方向。3. 他給了我很多寶貴的建議，並/並且在工作時幫了我不少忙。",
+       "vi": "Phong cảnh Đài Loan rất đẹp, đồng thời người dân địa phương cũng rất thân thiện. Chúng tôi cùng họp thảo luận và đã quyết định hướng phát triển sau này của công ty. Anh ấy cho tôi nhiều lời khuyên quý báu, đồng thời giúp tôi không ít trong công việc.",
+       "py": "Táiwān de fēngjǐng hěnpiàoliàng, bìngqiě dāngdì de rénmen yě hěn qīnqiè. 2. Wǒmen yìqǐ kāihuìtǎolùn, bìng / bìngqiě juédìng le gōngsī yǐhòu de fāzhǎn fāngxiàng. 3. Tā gěi le wǒ hěnduō bǎoguì de jiànyì, bìng / bìngqiě zài gōngzuò shí bāng le wǒ bùshǎo máng."
       },
       {
        "hz": "⑵ 跟「而且」一樣，有更進一步的意思。",
-       "vi": ""
+       "vi": "(2) Giống “而且”, mang nghĩa tăng tiến thêm một bước.",
+       "py": "⑵ gēn “érqiě” yíyàng, yǒu gèngjìnyíbù de yìsi."
       },
       {
        "hz": "A：說到生活與居住環境，什麼樣的環境最能夠吸引你？",
-       "vi": ""
+       "vi": "A: Nói đến môi trường sống và cư trú, môi trường như thế nào thu hút bạn nhất?",
+       "py": "A: Shuō dào shēnghuó yǔ jūzhù huánjìng, shénmeyàng de huánjìng zuì nénggòu xīyǐn nǐ?"
       },
       {
        "hz": "A：假如請你來發明一樣新產品，你最想做出什麼樣的商品？",
-       "vi": ""
+       "vi": "A: Giả sử mời bạn phát minh một sản phẩm mới, bạn muốn làm ra sản phẩm như thế nào nhất?",
+       "py": "A: Jiǎrú qǐng nǐ lái fāmíng yíyàng xīn chǎnpǐn, nǐ zuì xiǎng zuòchū shénmeyàng de shāngpǐn?"
       },
       {
        "hz": "請用「並/並且」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “並/並且” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “bìng / bìngqiě” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -1567,124 +1804,154 @@ export const thoidaiGrammar4 = {
      "formula": "跟「不但……而且……」意思與用法相同，表示有「不但」後面的情形，進一步還有「並且」後面提到的情形。「並且」後面的句子常跟著「也」、「還」、「都」、「連」等詞。 「哪裡/哪兒」在本語法中是副詞，表示說話的人用反問(Rhetorical question)的方式，來表達自己不同意對方的意見，或是覺得對方說的不是事實。 說話的人用反問的方式，表示之所以發生某件事，都是因為「誰叫」後面的原因。一般常用在說話的人覺得不太好、不太喜歡的情況。 the gains do not make up for the losses 「下來」在本語法中是用在時間的名詞(noun)，表示事情經過一段時間。 II.（再）加上「（再）加上」在本語法中是連詞，表示前面說明理由(reason)或原因後，「（再）加上」之後是更主要的理由或原因。 III.各有各的N意思是前面提到的人事物，每個都有與其他人事物不同的地方。用法：「【人事物】＋各有各的【不同點/特色】」。",
      "examples": [
       {
-       "hz": "這裡不但安靜，並且很漂亮。                 （主語相同）2. 不但臺灣人喜歡吃餃子，並且外國朋友也喜歡。 （主語不同）",
-       "vi": ""
+       "hz": "這裡不但安靜，並且很漂亮。 （主語相同）2. 不但臺灣人喜歡吃餃子，並且外國朋友也喜歡。 （主語不同）",
+       "vi": "Ở đây không những yên tĩnh mà còn rất đẹp. (cùng chủ ngữ) Không những người Đài Loan thích ăn sủi cảo mà bạn bè nước ngoài cũng thích. (khác chủ ngữ)",
+       "py": "Zhèlǐ búdàn ānjìng, bìngqiě hěnpiàoliàng. (zhǔyǔ xiāngtóng) 2. Búdàn táiwānrén xǐhuān chījiǎozi, bìngqiě wàiguó péngyǒu yě xǐhuān. (zhǔyǔ bùtóng)"
       },
       {
        "hz": "A：你們手機店的顧客為什麼都喜愛這種牌子的手機？",
-       "vi": ""
+       "vi": "A: Tại sao khách hàng ở cửa hàng điện thoại của các anh đều thích điện thoại nhãn hiệu này?",
+       "py": "A: Nǐmen shǒujīdiàn de gùkè wèishénme dōu xǐ'ài zhèzhǒng páizi de shǒujī?"
       },
       {
        "hz": "A：你為什麼選擇來參加我們公司的面試?",
-       "vi": ""
+       "vi": "A: Tại sao bạn chọn đến dự phỏng vấn ở công ty chúng tôi?",
+       "py": "A: Nǐ wèishénme xuǎnzé lái cānjiā wǒmen gōngsī de miànshì?"
       },
       {
        "hz": "請用「不但……，並且 (也/還/都/連)……」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “不但……，並且 (也/還/都/連)……” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “búdàn……, bìngqiě (yě / hái / dōu / lián)……” wánchéng yǐxià de duìhuà."
       },
       {
        "hz": "A：你說我騙你，我哪裡騙妳了？ B：你哪兒沒騙我？你說你單身，昨晚你太太卻打了電話給我。A：妳別相信她，她只是我以前的同事，哪裡是我太太？",
-       "vi": ""
+       "vi": "A: Em nói anh lừa em, anh lừa em chỗ nào? B: Anh có chỗ nào không lừa em? Anh nói anh độc thân, thế mà tối qua vợ anh gọi điện cho em. A: Em đừng tin cô ta, cô ta chỉ là đồng nghiệp cũ của anh, vợ anh gì chứ?",
+       "py": "A: Nǐ shuō wǒ piàn nǐ, wǒ nǎlǐ piàn nǐ le? B: Nǐ nǎ'ér méi piàn wǒ? Nǐ shuō nǐ dānshēn, zuówǎn nǐ tàitai què dǎ le diànhuà gěi wǒ. A: Nǐ bié xiāngxìn tā, tā zhǐshì wǒ yǐqián de tóngshì, nǎlǐ shì wǒ tàitai?"
       },
       {
        "hz": "III.哪裡/哪兒……？",
-       "vi": ""
+       "vi": "III. Đâu có… / Làm gì có…?",
+       "py": "III. Nǎlǐ / nǎ'ér……?"
       },
       {
        "hz": "A：我認為每所學校都得發展線上課程，使學生在家也能上課。",
-       "vi": ""
+       "vi": "A: Tôi nghĩ trường nào cũng phải phát triển khoá học trực tuyến, để học sinh ở nhà cũng học được.",
+       "py": "A: Wǒ rènwéi měi suǒ xuéxiào dōu děi fāzhǎn xiàn shàng kèchéng, shǐ xuéshēng zàijiā yě néng shàngkè."
       },
       {
        "hz": "A：你怎麼一個人在這裡擦眼淚？是不是碰到什麼麻煩了？",
-       "vi": ""
+       "vi": "A: Sao bạn lại ngồi đây một mình lau nước mắt? Có phải gặp chuyện gì phiền phức không?",
+       "py": "A: Nǐ zěnme yígè rén zài zhèlǐ cā yǎnlèi? Shìbúshì pèngdào shénme máfán le?"
       },
       {
        "hz": "我才掉眼淚的。謝謝你關心我。",
-       "vi": ""
+       "vi": "…tôi mới rơi nước mắt. Cảm ơn bạn đã quan tâm đến tôi.",
+       "py": "Wǒ cái diào yǎnlèi de. Xièxie nǐ guānxīn wǒ."
       },
       {
        "hz": "請用「哪/哪裡……？」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “哪/哪裡……？” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “nǎ / nǎlǐ……?” wánchéng yǐxià de duìhuà."
       },
       {
-       "hz": "A：上個星期經理要我聯絡那位客戶，結果我一忙就忘了，經理   還發脾氣罵我呢。B：誰叫你忘了聯絡？要是害公司失去這筆生意，你就糟糕了。",
-       "vi": ""
+       "hz": "A：上個星期經理要我聯絡那位客戶，結果我一忙就忘了，經理還發脾氣罵我呢。B：誰叫你忘了聯絡？要是害公司失去這筆生意，你就糟糕了。",
+       "vi": "A: Tuần trước giám đốc bảo tôi liên lạc với vị khách hàng đó, kết quả tôi bận quá nên quên mất, giám đốc còn nổi giận mắng tôi nữa. B: Ai bảo anh quên liên lạc? Nếu làm công ty mất vụ làm ăn này thì anh gay to rồi.",
+       "py": "A: Shànggèxīngqí jīnglǐ yào wǒ liánluò nàwèi kèhù, jiéguǒ wǒ yì máng jiù wàng le, jīnglǐ hái fāpíqì mà wǒ ne. B: Shéi jiào nǐ wàng le liánluò? Yàoshì hài gōngsī shīqù zhèbǐ shēngyì, nǐ jiù zāogāo le."
       },
       {
        "hz": "A：奇怪，我剛剛跟他打招呼，他怎麼都沒反應？",
-       "vi": ""
+       "vi": "A: Lạ thật, vừa rồi tôi chào anh ấy, sao anh ấy chẳng phản ứng gì cả?",
+       "py": "A: Qíguài, wǒ gānggāng gēn tā dǎzhāohū, tā zěnme dōu méi fǎnyìng?"
       },
       {
        "hz": "B：是你自己的問題。之前你亂罵他，也沒跟他道歉。",
-       "vi": ""
+       "vi": "B: Là do chính bạn đấy. Trước đây bạn mắng bừa anh ấy mà cũng không xin lỗi.",
+       "py": "B: Shì nǐ zìjǐ de wèntí. Zhīqián nǐ luànmà tā, yě méi gēn tā dàoqiàn."
       },
       {
        "hz": "A：這公園附近的交通一向很好，最近怎麼發生那麼多車禍呢?",
-       "vi": ""
+       "vi": "A: Giao thông quanh công viên này xưa nay vẫn rất tốt, sao dạo này xảy ra nhiều tai nạn thế?",
+       "py": "A: Zhè gōngyuán fùjìn de jiāotōng yíxiàng hěn hǎo, zuìjìn zěnme fāshēng nàme duō chēhuò ne?"
       },
       {
        "hz": "B：這都是因為酒後開車的人越來越多了。",
-       "vi": ""
+       "vi": "B: Đó đều là vì người lái xe sau khi uống rượu ngày càng nhiều.",
+       "py": "B: Zhè dōu shìyīnwèi jiǔhòu kāichē de rén yuèláiyuè duō le."
       },
       {
        "hz": "請用「誰叫」來改寫以下句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “誰叫” để viết lại phần gạch chân trong các câu dưới đây.",
+       "py": "Qǐng yòng “shéi jiào” lái gǎixiě yǐxià jùzi zhōng huàxiàn de bùfèn."
       },
       {
        "hz": "A：這位新歌星歌唱得好聽，不知道寫歌寫得怎麼樣？B：半年下來，他已經發表十首新歌了，而且大部分都很紅。",
-       "vi": ""
+       "vi": "A: Ca sĩ mới này hát hay, không biết sáng tác thì thế nào? B: Nửa năm nay, anh ấy đã phát hành mười bài hát mới, mà phần lớn đều rất nổi.",
+       "py": "A: Zhèwèi xīn gēxīng gēchàng de hǎotīng, bù zhīdào xiěgē xiě de zěnmeyàng? B: Bànnián xiàlái, tā yǐjīng fābiǎo shíshǒu xīn gē le, érqiě dàbùfèn dōu hěn hóng."
       },
       {
        "hz": "A：喂，我是小周，你在義大利旅行，一切都順利嗎？",
-       "vi": ""
+       "vi": "A: A lô, tôi là Tiểu Châu đây, bạn đi du lịch ở Ý, mọi việc đều suôn sẻ chứ?",
+       "py": "A: Wèi, wǒ shì xiǎo zhōu, nǐ zài yìdàlì lǚxíng, yíqiè dōu shùnlì ma?"
       },
       {
        "hz": "A：你到哪裡去了，皮膚怎麼變得那麼紅？",
-       "vi": ""
+       "vi": "A: Bạn đi đâu về vậy, sao da đỏ thế?",
+       "py": "A: Nǐ dào nǎlǐ qù le, pífū zěnme biànde nàme hóng?"
       },
       {
        "hz": "請用「(時間) +下來」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “(thời gian) + 下來” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “(shíjiān) + xiàlái” wánchéng yǐxià de duìhuà."
       },
       {
-       "hz": "A：我想利用假日去當地有名的寺廟旅遊，你去不去？B：假日遊客太多太吵，再加上我去過好幾次了，所以想去其他地   方旅行。",
-       "vi": ""
+       "hz": "A：我想利用假日去當地有名的寺廟旅遊，你去不去？B：假日遊客太多太吵，再加上我去過好幾次了，所以想去其他地方旅行。",
+       "vi": "A: Tôi muốn tranh thủ ngày nghỉ đi du lịch ngôi chùa nổi tiếng ở địa phương, bạn có đi không? B: Ngày nghỉ khách du lịch đông quá, ồn quá, thêm vào đó tôi đã đi mấy lần rồi, nên muốn đi chỗ khác.",
+       "py": "A: Wǒ xiǎng lìyòng jiàrì qù dāngdì yǒumíng de sìmiào lǚyóu, nǐ qùbúqù? B: Jiàrì yóukè tài duō tài chǎo, zài jiāshàng wǒ qùguò hǎo jǐcì le, suǒyǐ xiǎng qù qítā dìfāng lǚxíng."
       },
       {
        "hz": "A：這家企業為什麼沒幾年就變成世界前十名的企業？",
-       "vi": ""
+       "vi": "A: Tại sao doanh nghiệp này chỉ trong vài năm đã trở thành một trong mười doanh nghiệp hàng đầu thế giới?",
+       "py": "A: Zhèjiā qìyè wèishénme méi jǐnián jiù biànchéng shìjiè qiánshímíng de qìyè?"
       },
       {
        "hz": "B：企業內外資源豐富，對員工訓練相當重視，使他們的實力比其他企業強。",
-       "vi": ""
+       "vi": "B: Nguồn lực trong và ngoài doanh nghiệp phong phú, lại rất coi trọng đào tạo nhân viên, khiến thực lực của họ mạnh hơn các doanh nghiệp khác.",
+       "py": "B: Qìyè nèiwài zīyuán fēngfù, duì yuángōng xùnliàn xiāngdāng zhòngshì, shǐ tāmen de shílì bǐ qítā qìyè qiáng."
       },
       {
        "hz": "A：妳為什麼說要是我們結婚，一定可以生出很棒的孩子?",
-       "vi": ""
+       "vi": "A: Sao em lại nói nếu chúng ta kết hôn thì chắc chắn sẽ sinh ra những đứa con tuyệt vời?",
+       "py": "A: Nǐ wèishénme shuō yàoshì wǒmen jiéhūn, yídìng kěyǐ shēngchū hěnbàng de háizi?"
       },
       {
        "hz": "B：你那麼聰明，我那麼美麗，生出來的孩子一定很優秀。",
-       "vi": ""
+       "vi": "B: Anh thông minh như vậy, em xinh đẹp như vậy, con sinh ra chắc chắn rất giỏi.",
+       "py": "B: Nǐ nàme cōngmíng, wǒ nàme měilì, shēng chūlái de háizi yídìng hěn yōuxiù."
       },
       {
        "hz": "請把「（再）加上」放在句子B中合適的位置。",
-       "vi": ""
+       "vi": "Hãy đặt “（再）加上” vào vị trí thích hợp trong câu B.",
+       "py": "Qǐng bǎ “(zài) jiāshàng” fàngzài jùzi B zhōng héshì de wèizhì."
       },
       {
-       "hz": "A：你跟你大學的同學到現在還在聯絡嗎？B：我的同學各有各的理想，畢業以後也是各有各的工作，因此平   常很少聯絡。",
-       "vi": ""
+       "hz": "A：你跟你大學的同學到現在還在聯絡嗎？B：我的同學各有各的理想，畢業以後也是各有各的工作，因此平常很少聯絡。",
+       "vi": "A: Bạn và các bạn đại học đến giờ vẫn còn liên lạc chứ? B: Các bạn tôi mỗi người một lý tưởng, sau khi tốt nghiệp cũng mỗi người một công việc, vì vậy bình thường ít liên lạc.",
+       "py": "A: Nǐ gēn nǐ dàxué de tóngxué dào xiànzài hái zài liánluò ma? B: Wǒ de tóngxué gè yǒu gè de lǐxiǎng, bìyè yǐhòu yě shì gè yǒu gè de gōngzuò, yīncǐ píngcháng hěnshǎo liánluò."
       },
       {
        "hz": "A：我剛進大學，選課時不知道該選哪一門，怎麼辦？",
-       "vi": ""
+       "vi": "A: Tôi mới vào đại học, lúc chọn môn không biết nên chọn môn nào, phải làm sao đây?",
+       "py": "A: Wǒ gāng jìn dàxué, xuǎnkè shí bù zhīdào gāi xuǎn nǎ yìmén, zěnmebàn?"
       },
       {
        "hz": "A：在世界各地有名的風景地點之中，你最喜歡哪一個地方？",
-       "vi": ""
+       "vi": "A: Trong các địa điểm phong cảnh nổi tiếng trên khắp thế giới, bạn thích nơi nào nhất?",
+       "py": "A: Zài shìjiègèdì yǒumíng de fēngjǐng dìdiǎn zhīzhōng, nǐ zuì xǐhuān nǎ yígè dìfāng?"
       },
       {
        "hz": "請用「各有各的N」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “各有各的N” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “gè yǒu gè de N” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -1703,20 +1970,24 @@ export const thoidaiGrammar4 = {
      "formula": "「省得」是助動詞(Vaux)，後面放動詞或動詞短語(Verb phrase)。表示說話的人希望有「省得」之前的情況，或是用「省得」前提到的方式，才能避免「省得」之後的事發生。",
      "examples": [
       {
-       "hz": "A：你家離公司有點兒遠，你每天都走路來上班，不累嗎？    B：是有一點兒累，不過走路對健康好，也省得多花交通費。 A：我覺得每天來回很花時間，希望公司能讓我們在家上班，    省得出門。",
-       "vi": ""
+       "hz": "A：你家離公司有點兒遠，你每天都走路來上班，不累嗎？ B：是有一點兒累，不過走路對健康好，也省得多花交通費。 A：我覺得每天來回很花時間，希望公司能讓我們在家上班，省得出門。",
+       "vi": "A: Nhà bạn hơi xa công ty, ngày nào bạn cũng đi bộ đi làm, không mệt à? B: Cũng hơi mệt, nhưng đi bộ tốt cho sức khoẻ, cũng đỡ tốn tiền đi lại. A: Tôi thấy ngày nào cũng đi đi về về rất mất thời gian, mong công ty cho chúng ta làm ở nhà, đỡ phải ra ngoài.",
+       "py": "A: Nǐjiā lí gōngsī yǒudiǎn'ér yuǎn, nǐ měitiān dōu zǒulù lái shàngbān, bú lèi ma? B: Shì yǒu yìdiǎn'ér lèi, búguò zǒulù duì jiànkāng hǎo, yě shěngde duō huā jiāotōngfèi. A: Wǒ juéde měitiān láihuí hěn huā shíjiān, xīwàng gōngsī néng ràng wǒmen zàijiā shàngbān, shěngde chūmén."
       },
       {
        "hz": "張同學要去國外某個大學參加研討會議，不過那所學校的面積相當大，加上他是第一次去，有點擔心找不到路。",
-       "vi": ""
+       "vi": "Bạn Trương định sang một trường đại học ở nước ngoài dự hội thảo, nhưng trường đó diện tích khá rộng, lại là lần đầu đi nên hơi lo không tìm được đường.",
+       "py": "Zhāng tóngxué yào qù guówài mǒugè dàxué cānjiā yántǎo huìyì, búguò nà suǒ xuéxiào de miànjī xiāngdāng dà, jiāshàng tā shì dìyīcì qù, yǒudiǎn dānxīn zhǎo búdào lù."
       },
       {
        "hz": "高阿姨想去朋友推薦的小吃店，不過聽說那家店有開有時沒開，有點兒麻煩。",
-       "vi": ""
+       "vi": "Dì Cao muốn đến quán ăn vặt bạn giới thiệu, nhưng nghe nói quán đó lúc mở lúc không, hơi phiền.",
+       "py": "Gāo āyí xiǎng qù péngyǒu tuījiàn de xiǎochīdiàn, búguò tīngshuō nà jiā diàn yǒu kāi yǒushí méi kāi, yǒudiǎn'ér máfán."
       },
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -1733,24 +2004,29 @@ export const thoidaiGrammar4 = {
      "formula": "「並且」、「並」在本語法中是連詞，有兩種意思： ⑴ 表示幾個動作(action)同時或前後進行，或是幾種狀態同時存在。",
      "examples": [
       {
-       "hz": "臺灣的風景很漂亮，並且 當地的人們也很親切。2. 我們一起開會討論，並/並且 決定了公司以後的發展方向。3. 他給了我很多寶貴的建議，並/並且 在工作時幫了我不少忙。",
-       "vi": ""
+       "hz": "臺灣的風景很漂亮，並且當地的人們也很親切。2. 我們一起開會討論，並/並且決定了公司以後的發展方向。3. 他給了我很多寶貴的建議，並/並且在工作時幫了我不少忙。",
+       "vi": "Phong cảnh Đài Loan rất đẹp, đồng thời người dân địa phương cũng rất thân thiện. Chúng tôi cùng họp thảo luận và đã quyết định hướng phát triển sau này của công ty. Anh ấy cho tôi nhiều lời khuyên quý báu, đồng thời giúp tôi không ít trong công việc.",
+       "py": "Táiwān de fēngjǐng hěnpiàoliàng, bìngqiě dāngdì de rénmen yě hěn qīnqiè. 2. Wǒmen yìqǐ kāihuìtǎolùn, bìng / bìngqiě juédìng le gōngsī yǐhòu de fāzhǎn fāngxiàng. 3. Tā gěi le wǒ hěnduō bǎoguì de jiànyì, bìng / bìngqiě zài gōngzuò shí bāng le wǒ bùshǎo máng."
       },
       {
        "hz": "⑵ 跟「而且」一樣，有更進一步的意思。",
-       "vi": ""
+       "vi": "(2) Giống “而且”, mang nghĩa tăng tiến thêm một bước.",
+       "py": "⑵ gēn “érqiě” yíyàng, yǒu gèngjìnyíbù de yìsi."
       },
       {
        "hz": "A：說到生活與居住環境，什麼樣的環境最能夠吸引你？",
-       "vi": ""
+       "vi": "A: Nói đến môi trường sống và cư trú, môi trường như thế nào thu hút bạn nhất?",
+       "py": "A: Shuō dào shēnghuó yǔ jūzhù huánjìng, shénmeyàng de huánjìng zuì nénggòu xīyǐn nǐ?"
       },
       {
        "hz": "A：假如請你來發明一樣新產品，你最想做出什麼樣的商品？",
-       "vi": ""
+       "vi": "A: Giả sử mời bạn phát minh một sản phẩm mới, bạn muốn làm ra sản phẩm như thế nào nhất?",
+       "py": "A: Jiǎrú qǐng nǐ lái fāmíng yíyàng xīn chǎnpǐn, nǐ zuì xiǎng zuòchū shénmeyàng de shāngpǐn?"
       },
       {
        "hz": "請用「並/並且」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “並/並且” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “bìng / bìngqiě” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -1767,124 +2043,154 @@ export const thoidaiGrammar4 = {
      "formula": "跟「不但……而且……」意思與用法相同，表示有「不但」後面的情形，進一步還有「並且」後面提到的情形。「並且」後面的句子常跟著「也」、「還」、「都」、「連」等詞。 「哪裡/哪兒」在本語法中是副詞，表示說話的人用反問(Rhetorical question)的方式，來表達自己不同意對方的意見，或是覺得對方說的不是事實。 說話的人用反問的方式，表示之所以發生某件事，都是因為「誰叫」後面的原因。一般常用在說話的人覺得不太好、不太喜歡的情況。 the gains do not make up for the losses 「下來」在本語法中是用在時間的名詞(noun)，表示事情經過一段時間。 II.（再）加上「（再）加上」在本語法中是連詞，表示前面說明理由(reason)或原因後，「（再）加上」之後是更主要的理由或原因。 III.各有各的N意思是前面提到的人事物，每個都有與其他人事物不同的地方。用法：「【人事物】＋各有各的【不同點/特色】」。",
      "examples": [
       {
-       "hz": "這裡不但安靜，並且很漂亮。                 （主語相同）2. 不但臺灣人喜歡吃餃子，並且外國朋友也喜歡。 （主語不同）",
-       "vi": ""
+       "hz": "這裡不但安靜，並且很漂亮。 （主語相同）2. 不但臺灣人喜歡吃餃子，並且外國朋友也喜歡。 （主語不同）",
+       "vi": "Ở đây không những yên tĩnh mà còn rất đẹp. (cùng chủ ngữ) Không những người Đài Loan thích ăn sủi cảo mà bạn bè nước ngoài cũng thích. (khác chủ ngữ)",
+       "py": "Zhèlǐ búdàn ānjìng, bìngqiě hěnpiàoliàng. (zhǔyǔ xiāngtóng) 2. Búdàn táiwānrén xǐhuān chījiǎozi, bìngqiě wàiguó péngyǒu yě xǐhuān. (zhǔyǔ bùtóng)"
       },
       {
        "hz": "A：你們手機店的顧客為什麼都喜愛這種牌子的手機？",
-       "vi": ""
+       "vi": "A: Tại sao khách hàng ở cửa hàng điện thoại của các anh đều thích điện thoại nhãn hiệu này?",
+       "py": "A: Nǐmen shǒujīdiàn de gùkè wèishénme dōu xǐ'ài zhèzhǒng páizi de shǒujī?"
       },
       {
        "hz": "A：你為什麼選擇來參加我們公司的面試?",
-       "vi": ""
+       "vi": "A: Tại sao bạn chọn đến dự phỏng vấn ở công ty chúng tôi?",
+       "py": "A: Nǐ wèishénme xuǎnzé lái cānjiā wǒmen gōngsī de miànshì?"
       },
       {
        "hz": "請用「不但……，並且 (也/還/都/連)……」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “不但……，並且 (也/還/都/連)……” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “búdàn……, bìngqiě (yě / hái / dōu / lián)……” wánchéng yǐxià de duìhuà."
       },
       {
        "hz": "A：你說我騙你，我哪裡騙妳了？ B：你哪兒沒騙我？你說你單身，昨晚你太太卻打了電話給我。A：妳別相信她，她只是我以前的同事，哪裡是我太太？",
-       "vi": ""
+       "vi": "A: Em nói anh lừa em, anh lừa em chỗ nào? B: Anh có chỗ nào không lừa em? Anh nói anh độc thân, thế mà tối qua vợ anh gọi điện cho em. A: Em đừng tin cô ta, cô ta chỉ là đồng nghiệp cũ của anh, vợ anh gì chứ?",
+       "py": "A: Nǐ shuō wǒ piàn nǐ, wǒ nǎlǐ piàn nǐ le? B: Nǐ nǎ'ér méi piàn wǒ? Nǐ shuō nǐ dānshēn, zuówǎn nǐ tàitai què dǎ le diànhuà gěi wǒ. A: Nǐ bié xiāngxìn tā, tā zhǐshì wǒ yǐqián de tóngshì, nǎlǐ shì wǒ tàitai?"
       },
       {
        "hz": "III.哪裡/哪兒……？",
-       "vi": ""
+       "vi": "III. Đâu có… / Làm gì có…?",
+       "py": "III. Nǎlǐ / nǎ'ér……?"
       },
       {
        "hz": "A：我認為每所學校都得發展線上課程，使學生在家也能上課。",
-       "vi": ""
+       "vi": "A: Tôi nghĩ trường nào cũng phải phát triển khoá học trực tuyến, để học sinh ở nhà cũng học được.",
+       "py": "A: Wǒ rènwéi měi suǒ xuéxiào dōu děi fāzhǎn xiàn shàng kèchéng, shǐ xuéshēng zàijiā yě néng shàngkè."
       },
       {
        "hz": "A：你怎麼一個人在這裡擦眼淚？是不是碰到什麼麻煩了？",
-       "vi": ""
+       "vi": "A: Sao bạn lại ngồi đây một mình lau nước mắt? Có phải gặp chuyện gì phiền phức không?",
+       "py": "A: Nǐ zěnme yígè rén zài zhèlǐ cā yǎnlèi? Shìbúshì pèngdào shénme máfán le?"
       },
       {
        "hz": "我才掉眼淚的。謝謝你關心我。",
-       "vi": ""
+       "vi": "…tôi mới rơi nước mắt. Cảm ơn bạn đã quan tâm đến tôi.",
+       "py": "Wǒ cái diào yǎnlèi de. Xièxie nǐ guānxīn wǒ."
       },
       {
        "hz": "請用「哪/哪裡……？」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “哪/哪裡……？” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “nǎ / nǎlǐ……?” wánchéng yǐxià de duìhuà."
       },
       {
-       "hz": "A：上個星期經理要我聯絡那位客戶，結果我一忙就忘了，經理   還發脾氣罵我呢。B：誰叫你忘了聯絡？要是害公司失去這筆生意，你就糟糕了。",
-       "vi": ""
+       "hz": "A：上個星期經理要我聯絡那位客戶，結果我一忙就忘了，經理還發脾氣罵我呢。B：誰叫你忘了聯絡？要是害公司失去這筆生意，你就糟糕了。",
+       "vi": "A: Tuần trước giám đốc bảo tôi liên lạc với vị khách hàng đó, kết quả tôi bận quá nên quên mất, giám đốc còn nổi giận mắng tôi nữa. B: Ai bảo anh quên liên lạc? Nếu làm công ty mất vụ làm ăn này thì anh gay to rồi.",
+       "py": "A: Shànggèxīngqí jīnglǐ yào wǒ liánluò nàwèi kèhù, jiéguǒ wǒ yì máng jiù wàng le, jīnglǐ hái fāpíqì mà wǒ ne. B: Shéi jiào nǐ wàng le liánluò? Yàoshì hài gōngsī shīqù zhèbǐ shēngyì, nǐ jiù zāogāo le."
       },
       {
        "hz": "A：奇怪，我剛剛跟他打招呼，他怎麼都沒反應？",
-       "vi": ""
+       "vi": "A: Lạ thật, vừa rồi tôi chào anh ấy, sao anh ấy chẳng phản ứng gì cả?",
+       "py": "A: Qíguài, wǒ gānggāng gēn tā dǎzhāohū, tā zěnme dōu méi fǎnyìng?"
       },
       {
        "hz": "B：是你自己的問題。之前你亂罵他，也沒跟他道歉。",
-       "vi": ""
+       "vi": "B: Là do chính bạn đấy. Trước đây bạn mắng bừa anh ấy mà cũng không xin lỗi.",
+       "py": "B: Shì nǐ zìjǐ de wèntí. Zhīqián nǐ luànmà tā, yě méi gēn tā dàoqiàn."
       },
       {
        "hz": "A：這公園附近的交通一向很好，最近怎麼發生那麼多車禍呢?",
-       "vi": ""
+       "vi": "A: Giao thông quanh công viên này xưa nay vẫn rất tốt, sao dạo này xảy ra nhiều tai nạn thế?",
+       "py": "A: Zhè gōngyuán fùjìn de jiāotōng yíxiàng hěn hǎo, zuìjìn zěnme fāshēng nàme duō chēhuò ne?"
       },
       {
        "hz": "B：這都是因為酒後開車的人越來越多了。",
-       "vi": ""
+       "vi": "B: Đó đều là vì người lái xe sau khi uống rượu ngày càng nhiều.",
+       "py": "B: Zhè dōu shìyīnwèi jiǔhòu kāichē de rén yuèláiyuè duō le."
       },
       {
        "hz": "請用「誰叫」來改寫以下句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “誰叫” để viết lại phần gạch chân trong các câu dưới đây.",
+       "py": "Qǐng yòng “shéi jiào” lái gǎixiě yǐxià jùzi zhōng huàxiàn de bùfèn."
       },
       {
        "hz": "A：這位新歌星歌唱得好聽，不知道寫歌寫得怎麼樣？B：半年下來，他已經發表十首新歌了，而且大部分都很紅。",
-       "vi": ""
+       "vi": "A: Ca sĩ mới này hát hay, không biết sáng tác thì thế nào? B: Nửa năm nay, anh ấy đã phát hành mười bài hát mới, mà phần lớn đều rất nổi.",
+       "py": "A: Zhèwèi xīn gēxīng gēchàng de hǎotīng, bù zhīdào xiěgē xiě de zěnmeyàng? B: Bànnián xiàlái, tā yǐjīng fābiǎo shíshǒu xīn gē le, érqiě dàbùfèn dōu hěn hóng."
       },
       {
        "hz": "A：喂，我是小周，你在義大利旅行，一切都順利嗎？",
-       "vi": ""
+       "vi": "A: A lô, tôi là Tiểu Châu đây, bạn đi du lịch ở Ý, mọi việc đều suôn sẻ chứ?",
+       "py": "A: Wèi, wǒ shì xiǎo zhōu, nǐ zài yìdàlì lǚxíng, yíqiè dōu shùnlì ma?"
       },
       {
        "hz": "A：你到哪裡去了，皮膚怎麼變得那麼紅？",
-       "vi": ""
+       "vi": "A: Bạn đi đâu về vậy, sao da đỏ thế?",
+       "py": "A: Nǐ dào nǎlǐ qù le, pífū zěnme biànde nàme hóng?"
       },
       {
        "hz": "請用「(時間) +下來」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “(thời gian) + 下來” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “(shíjiān) + xiàlái” wánchéng yǐxià de duìhuà."
       },
       {
-       "hz": "A：我想利用假日去當地有名的寺廟旅遊，你去不去？B：假日遊客太多太吵，再加上我去過好幾次了，所以想去其他地   方旅行。",
-       "vi": ""
+       "hz": "A：我想利用假日去當地有名的寺廟旅遊，你去不去？B：假日遊客太多太吵，再加上我去過好幾次了，所以想去其他地方旅行。",
+       "vi": "A: Tôi muốn tranh thủ ngày nghỉ đi du lịch ngôi chùa nổi tiếng ở địa phương, bạn có đi không? B: Ngày nghỉ khách du lịch đông quá, ồn quá, thêm vào đó tôi đã đi mấy lần rồi, nên muốn đi chỗ khác.",
+       "py": "A: Wǒ xiǎng lìyòng jiàrì qù dāngdì yǒumíng de sìmiào lǚyóu, nǐ qùbúqù? B: Jiàrì yóukè tài duō tài chǎo, zài jiāshàng wǒ qùguò hǎo jǐcì le, suǒyǐ xiǎng qù qítā dìfāng lǚxíng."
       },
       {
        "hz": "A：這家企業為什麼沒幾年就變成世界前十名的企業？",
-       "vi": ""
+       "vi": "A: Tại sao doanh nghiệp này chỉ trong vài năm đã trở thành một trong mười doanh nghiệp hàng đầu thế giới?",
+       "py": "A: Zhèjiā qìyè wèishénme méi jǐnián jiù biànchéng shìjiè qiánshímíng de qìyè?"
       },
       {
        "hz": "B：企業內外資源豐富，對員工訓練相當重視，使他們的實力比其他企業強。",
-       "vi": ""
+       "vi": "B: Nguồn lực trong và ngoài doanh nghiệp phong phú, lại rất coi trọng đào tạo nhân viên, khiến thực lực của họ mạnh hơn các doanh nghiệp khác.",
+       "py": "B: Qìyè nèiwài zīyuán fēngfù, duì yuángōng xùnliàn xiāngdāng zhòngshì, shǐ tāmen de shílì bǐ qítā qìyè qiáng."
       },
       {
        "hz": "A：妳為什麼說要是我們結婚，一定可以生出很棒的孩子?",
-       "vi": ""
+       "vi": "A: Sao em lại nói nếu chúng ta kết hôn thì chắc chắn sẽ sinh ra những đứa con tuyệt vời?",
+       "py": "A: Nǐ wèishénme shuō yàoshì wǒmen jiéhūn, yídìng kěyǐ shēngchū hěnbàng de háizi?"
       },
       {
        "hz": "B：你那麼聰明，我那麼美麗，生出來的孩子一定很優秀。",
-       "vi": ""
+       "vi": "B: Anh thông minh như vậy, em xinh đẹp như vậy, con sinh ra chắc chắn rất giỏi.",
+       "py": "B: Nǐ nàme cōngmíng, wǒ nàme měilì, shēng chūlái de háizi yídìng hěn yōuxiù."
       },
       {
        "hz": "請把「（再）加上」放在句子B中合適的位置。",
-       "vi": ""
+       "vi": "Hãy đặt “（再）加上” vào vị trí thích hợp trong câu B.",
+       "py": "Qǐng bǎ “(zài) jiāshàng” fàngzài jùzi B zhōng héshì de wèizhì."
       },
       {
-       "hz": "A：你跟你大學的同學到現在還在聯絡嗎？B：我的同學各有各的理想，畢業以後也是各有各的工作，因此平   常很少聯絡。",
-       "vi": ""
+       "hz": "A：你跟你大學的同學到現在還在聯絡嗎？B：我的同學各有各的理想，畢業以後也是各有各的工作，因此平常很少聯絡。",
+       "vi": "A: Bạn và các bạn đại học đến giờ vẫn còn liên lạc chứ? B: Các bạn tôi mỗi người một lý tưởng, sau khi tốt nghiệp cũng mỗi người một công việc, vì vậy bình thường ít liên lạc.",
+       "py": "A: Nǐ gēn nǐ dàxué de tóngxué dào xiànzài hái zài liánluò ma? B: Wǒ de tóngxué gè yǒu gè de lǐxiǎng, bìyè yǐhòu yě shì gè yǒu gè de gōngzuò, yīncǐ píngcháng hěnshǎo liánluò."
       },
       {
        "hz": "A：我剛進大學，選課時不知道該選哪一門，怎麼辦？",
-       "vi": ""
+       "vi": "A: Tôi mới vào đại học, lúc chọn môn không biết nên chọn môn nào, phải làm sao đây?",
+       "py": "A: Wǒ gāng jìn dàxué, xuǎnkè shí bù zhīdào gāi xuǎn nǎ yìmén, zěnmebàn?"
       },
       {
        "hz": "A：在世界各地有名的風景地點之中，你最喜歡哪一個地方？",
-       "vi": ""
+       "vi": "A: Trong các địa điểm phong cảnh nổi tiếng trên khắp thế giới, bạn thích nơi nào nhất?",
+       "py": "A: Zài shìjiègèdì yǒumíng de fēngjǐng dìdiǎn zhīzhōng, nǐ zuì xǐhuān nǎ yígè dìfāng?"
       },
       {
        "hz": "請用「各有各的N」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “各有各的N” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “gè yǒu gè de N” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -1903,20 +2209,24 @@ export const thoidaiGrammar4 = {
      "formula": "「省得」是助動詞(Vaux)，後面放動詞或動詞短語(Verb phrase)。表示說話的人希望有「省得」之前的情況，或是用「省得」前提到的方式，才能避免「省得」之後的事發生。",
      "examples": [
       {
-       "hz": "A：你家離公司有點兒遠，你每天都走路來上班，不累嗎？    B：是有一點兒累，不過走路對健康好，也省得多花交通費。 A：我覺得每天來回很花時間，希望公司能讓我們在家上班，    省得出門。",
-       "vi": ""
+       "hz": "A：你家離公司有點兒遠，你每天都走路來上班，不累嗎？ B：是有一點兒累，不過走路對健康好，也省得多花交通費。 A：我覺得每天來回很花時間，希望公司能讓我們在家上班，省得出門。",
+       "vi": "A: Nhà bạn hơi xa công ty, ngày nào bạn cũng đi bộ đi làm, không mệt à? B: Cũng hơi mệt, nhưng đi bộ tốt cho sức khoẻ, cũng đỡ tốn tiền đi lại. A: Tôi thấy ngày nào cũng đi đi về về rất mất thời gian, mong công ty cho chúng ta làm ở nhà, đỡ phải ra ngoài.",
+       "py": "A: Nǐjiā lí gōngsī yǒudiǎn'ér yuǎn, nǐ měitiān dōu zǒulù lái shàngbān, bú lèi ma? B: Shì yǒu yìdiǎn'ér lèi, búguò zǒulù duì jiànkāng hǎo, yě shěngde duō huā jiāotōngfèi. A: Wǒ juéde měitiān láihuí hěn huā shíjiān, xīwàng gōngsī néng ràng wǒmen zàijiā shàngbān, shěngde chūmén."
       },
       {
        "hz": "張同學要去國外某個大學參加研討會議，不過那所學校的面積相當大，加上他是第一次去，有點擔心找不到路。",
-       "vi": ""
+       "vi": "Bạn Trương định sang một trường đại học ở nước ngoài dự hội thảo, nhưng trường đó diện tích khá rộng, lại là lần đầu đi nên hơi lo không tìm được đường.",
+       "py": "Zhāng tóngxué yào qù guówài mǒugè dàxué cānjiā yántǎo huìyì, búguò nà suǒ xuéxiào de miànjī xiāngdāng dà, jiāshàng tā shì dìyīcì qù, yǒudiǎn dānxīn zhǎo búdào lù."
       },
       {
        "hz": "高阿姨想去朋友推薦的小吃店，不過聽說那家店有開有時沒開，有點兒麻煩。",
-       "vi": ""
+       "vi": "Dì Cao muốn đến quán ăn vặt bạn giới thiệu, nhưng nghe nói quán đó lúc mở lúc không, hơi phiền.",
+       "py": "Gāo āyí xiǎng qù péngyǒu tuījiàn de xiǎochīdiàn, búguò tīngshuō nà jiā diàn yǒu kāi yǒushí méi kāi, yǒudiǎn'ér máfán."
       },
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -1933,24 +2243,29 @@ export const thoidaiGrammar4 = {
      "formula": "「並且」、「並」在本語法中是連詞，有兩種意思： ⑴ 表示幾個動作(action)同時或前後進行，或是幾種狀態同時存在。",
      "examples": [
       {
-       "hz": "臺灣的風景很漂亮，並且 當地的人們也很親切。2. 我們一起開會討論，並/並且 決定了公司以後的發展方向。3. 他給了我很多寶貴的建議，並/並且 在工作時幫了我不少忙。",
-       "vi": ""
+       "hz": "臺灣的風景很漂亮，並且當地的人們也很親切。2. 我們一起開會討論，並/並且決定了公司以後的發展方向。3. 他給了我很多寶貴的建議，並/並且在工作時幫了我不少忙。",
+       "vi": "Phong cảnh Đài Loan rất đẹp, đồng thời người dân địa phương cũng rất thân thiện. Chúng tôi cùng họp thảo luận và đã quyết định hướng phát triển sau này của công ty. Anh ấy cho tôi nhiều lời khuyên quý báu, đồng thời giúp tôi không ít trong công việc.",
+       "py": "Táiwān de fēngjǐng hěnpiàoliàng, bìngqiě dāngdì de rénmen yě hěn qīnqiè. 2. Wǒmen yìqǐ kāihuìtǎolùn, bìng / bìngqiě juédìng le gōngsī yǐhòu de fāzhǎn fāngxiàng. 3. Tā gěi le wǒ hěnduō bǎoguì de jiànyì, bìng / bìngqiě zài gōngzuò shí bāng le wǒ bùshǎo máng."
       },
       {
        "hz": "⑵ 跟「而且」一樣，有更進一步的意思。",
-       "vi": ""
+       "vi": "(2) Giống “而且”, mang nghĩa tăng tiến thêm một bước.",
+       "py": "⑵ gēn “érqiě” yíyàng, yǒu gèngjìnyíbù de yìsi."
       },
       {
        "hz": "A：說到生活與居住環境，什麼樣的環境最能夠吸引你？",
-       "vi": ""
+       "vi": "A: Nói đến môi trường sống và cư trú, môi trường như thế nào thu hút bạn nhất?",
+       "py": "A: Shuō dào shēnghuó yǔ jūzhù huánjìng, shénmeyàng de huánjìng zuì nénggòu xīyǐn nǐ?"
       },
       {
        "hz": "A：假如請你來發明一樣新產品，你最想做出什麼樣的商品？",
-       "vi": ""
+       "vi": "A: Giả sử mời bạn phát minh một sản phẩm mới, bạn muốn làm ra sản phẩm như thế nào nhất?",
+       "py": "A: Jiǎrú qǐng nǐ lái fāmíng yíyàng xīn chǎnpǐn, nǐ zuì xiǎng zuòchū shénmeyàng de shāngpǐn?"
       },
       {
        "hz": "請用「並/並且」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “並/並且” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “bìng / bìngqiě” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -1967,124 +2282,154 @@ export const thoidaiGrammar4 = {
      "formula": "跟「不但……而且……」意思與用法相同，表示有「不但」後面的情形，進一步還有「並且」後面提到的情形。「並且」後面的句子常跟著「也」、「還」、「都」、「連」等詞。 「哪裡/哪兒」在本語法中是副詞，表示說話的人用反問(Rhetorical question)的方式，來表達自己不同意對方的意見，或是覺得對方說的不是事實。 說話的人用反問的方式，表示之所以發生某件事，都是因為「誰叫」後面的原因。一般常用在說話的人覺得不太好、不太喜歡的情況。 the gains do not make up for the losses 「下來」在本語法中是用在時間的名詞(noun)，表示事情經過一段時間。 II.（再）加上「（再）加上」在本語法中是連詞，表示前面說明理由(reason)或原因後，「（再）加上」之後是更主要的理由或原因。 III.各有各的N意思是前面提到的人事物，每個都有與其他人事物不同的地方。用法：「【人事物】＋各有各的【不同點/特色】」。",
      "examples": [
       {
-       "hz": "這裡不但安靜，並且很漂亮。                 （主語相同）2. 不但臺灣人喜歡吃餃子，並且外國朋友也喜歡。 （主語不同）",
-       "vi": ""
+       "hz": "這裡不但安靜，並且很漂亮。 （主語相同）2. 不但臺灣人喜歡吃餃子，並且外國朋友也喜歡。 （主語不同）",
+       "vi": "Ở đây không những yên tĩnh mà còn rất đẹp. (cùng chủ ngữ) Không những người Đài Loan thích ăn sủi cảo mà bạn bè nước ngoài cũng thích. (khác chủ ngữ)",
+       "py": "Zhèlǐ búdàn ānjìng, bìngqiě hěnpiàoliàng. (zhǔyǔ xiāngtóng) 2. Búdàn táiwānrén xǐhuān chījiǎozi, bìngqiě wàiguó péngyǒu yě xǐhuān. (zhǔyǔ bùtóng)"
       },
       {
        "hz": "A：你們手機店的顧客為什麼都喜愛這種牌子的手機？",
-       "vi": ""
+       "vi": "A: Tại sao khách hàng ở cửa hàng điện thoại của các anh đều thích điện thoại nhãn hiệu này?",
+       "py": "A: Nǐmen shǒujīdiàn de gùkè wèishénme dōu xǐ'ài zhèzhǒng páizi de shǒujī?"
       },
       {
        "hz": "A：你為什麼選擇來參加我們公司的面試?",
-       "vi": ""
+       "vi": "A: Tại sao bạn chọn đến dự phỏng vấn ở công ty chúng tôi?",
+       "py": "A: Nǐ wèishénme xuǎnzé lái cānjiā wǒmen gōngsī de miànshì?"
       },
       {
        "hz": "請用「不但……，並且 (也/還/都/連)……」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “不但……，並且 (也/還/都/連)……” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “búdàn……, bìngqiě (yě / hái / dōu / lián)……” wánchéng yǐxià de duìhuà."
       },
       {
        "hz": "A：你說我騙你，我哪裡騙妳了？ B：你哪兒沒騙我？你說你單身，昨晚你太太卻打了電話給我。A：妳別相信她，她只是我以前的同事，哪裡是我太太？",
-       "vi": ""
+       "vi": "A: Em nói anh lừa em, anh lừa em chỗ nào? B: Anh có chỗ nào không lừa em? Anh nói anh độc thân, thế mà tối qua vợ anh gọi điện cho em. A: Em đừng tin cô ta, cô ta chỉ là đồng nghiệp cũ của anh, vợ anh gì chứ?",
+       "py": "A: Nǐ shuō wǒ piàn nǐ, wǒ nǎlǐ piàn nǐ le? B: Nǐ nǎ'ér méi piàn wǒ? Nǐ shuō nǐ dānshēn, zuówǎn nǐ tàitai què dǎ le diànhuà gěi wǒ. A: Nǐ bié xiāngxìn tā, tā zhǐshì wǒ yǐqián de tóngshì, nǎlǐ shì wǒ tàitai?"
       },
       {
        "hz": "III.哪裡/哪兒……？",
-       "vi": ""
+       "vi": "III. Đâu có… / Làm gì có…?",
+       "py": "III. Nǎlǐ / nǎ'ér……?"
       },
       {
        "hz": "A：我認為每所學校都得發展線上課程，使學生在家也能上課。",
-       "vi": ""
+       "vi": "A: Tôi nghĩ trường nào cũng phải phát triển khoá học trực tuyến, để học sinh ở nhà cũng học được.",
+       "py": "A: Wǒ rènwéi měi suǒ xuéxiào dōu děi fāzhǎn xiàn shàng kèchéng, shǐ xuéshēng zàijiā yě néng shàngkè."
       },
       {
        "hz": "A：你怎麼一個人在這裡擦眼淚？是不是碰到什麼麻煩了？",
-       "vi": ""
+       "vi": "A: Sao bạn lại ngồi đây một mình lau nước mắt? Có phải gặp chuyện gì phiền phức không?",
+       "py": "A: Nǐ zěnme yígè rén zài zhèlǐ cā yǎnlèi? Shìbúshì pèngdào shénme máfán le?"
       },
       {
        "hz": "我才掉眼淚的。謝謝你關心我。",
-       "vi": ""
+       "vi": "…tôi mới rơi nước mắt. Cảm ơn bạn đã quan tâm đến tôi.",
+       "py": "Wǒ cái diào yǎnlèi de. Xièxie nǐ guānxīn wǒ."
       },
       {
        "hz": "請用「哪/哪裡……？」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “哪/哪裡……？” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “nǎ / nǎlǐ……?” wánchéng yǐxià de duìhuà."
       },
       {
-       "hz": "A：上個星期經理要我聯絡那位客戶，結果我一忙就忘了，經理   還發脾氣罵我呢。B：誰叫你忘了聯絡？要是害公司失去這筆生意，你就糟糕了。",
-       "vi": ""
+       "hz": "A：上個星期經理要我聯絡那位客戶，結果我一忙就忘了，經理還發脾氣罵我呢。B：誰叫你忘了聯絡？要是害公司失去這筆生意，你就糟糕了。",
+       "vi": "A: Tuần trước giám đốc bảo tôi liên lạc với vị khách hàng đó, kết quả tôi bận quá nên quên mất, giám đốc còn nổi giận mắng tôi nữa. B: Ai bảo anh quên liên lạc? Nếu làm công ty mất vụ làm ăn này thì anh gay to rồi.",
+       "py": "A: Shànggèxīngqí jīnglǐ yào wǒ liánluò nàwèi kèhù, jiéguǒ wǒ yì máng jiù wàng le, jīnglǐ hái fāpíqì mà wǒ ne. B: Shéi jiào nǐ wàng le liánluò? Yàoshì hài gōngsī shīqù zhèbǐ shēngyì, nǐ jiù zāogāo le."
       },
       {
        "hz": "A：奇怪，我剛剛跟他打招呼，他怎麼都沒反應？",
-       "vi": ""
+       "vi": "A: Lạ thật, vừa rồi tôi chào anh ấy, sao anh ấy chẳng phản ứng gì cả?",
+       "py": "A: Qíguài, wǒ gānggāng gēn tā dǎzhāohū, tā zěnme dōu méi fǎnyìng?"
       },
       {
        "hz": "B：是你自己的問題。之前你亂罵他，也沒跟他道歉。",
-       "vi": ""
+       "vi": "B: Là do chính bạn đấy. Trước đây bạn mắng bừa anh ấy mà cũng không xin lỗi.",
+       "py": "B: Shì nǐ zìjǐ de wèntí. Zhīqián nǐ luànmà tā, yě méi gēn tā dàoqiàn."
       },
       {
        "hz": "A：這公園附近的交通一向很好，最近怎麼發生那麼多車禍呢?",
-       "vi": ""
+       "vi": "A: Giao thông quanh công viên này xưa nay vẫn rất tốt, sao dạo này xảy ra nhiều tai nạn thế?",
+       "py": "A: Zhè gōngyuán fùjìn de jiāotōng yíxiàng hěn hǎo, zuìjìn zěnme fāshēng nàme duō chēhuò ne?"
       },
       {
        "hz": "B：這都是因為酒後開車的人越來越多了。",
-       "vi": ""
+       "vi": "B: Đó đều là vì người lái xe sau khi uống rượu ngày càng nhiều.",
+       "py": "B: Zhè dōu shìyīnwèi jiǔhòu kāichē de rén yuèláiyuè duō le."
       },
       {
        "hz": "請用「誰叫」來改寫以下句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “誰叫” để viết lại phần gạch chân trong các câu dưới đây.",
+       "py": "Qǐng yòng “shéi jiào” lái gǎixiě yǐxià jùzi zhōng huàxiàn de bùfèn."
       },
       {
        "hz": "A：這位新歌星歌唱得好聽，不知道寫歌寫得怎麼樣？B：半年下來，他已經發表十首新歌了，而且大部分都很紅。",
-       "vi": ""
+       "vi": "A: Ca sĩ mới này hát hay, không biết sáng tác thì thế nào? B: Nửa năm nay, anh ấy đã phát hành mười bài hát mới, mà phần lớn đều rất nổi.",
+       "py": "A: Zhèwèi xīn gēxīng gēchàng de hǎotīng, bù zhīdào xiěgē xiě de zěnmeyàng? B: Bànnián xiàlái, tā yǐjīng fābiǎo shíshǒu xīn gē le, érqiě dàbùfèn dōu hěn hóng."
       },
       {
        "hz": "A：喂，我是小周，你在義大利旅行，一切都順利嗎？",
-       "vi": ""
+       "vi": "A: A lô, tôi là Tiểu Châu đây, bạn đi du lịch ở Ý, mọi việc đều suôn sẻ chứ?",
+       "py": "A: Wèi, wǒ shì xiǎo zhōu, nǐ zài yìdàlì lǚxíng, yíqiè dōu shùnlì ma?"
       },
       {
        "hz": "A：你到哪裡去了，皮膚怎麼變得那麼紅？",
-       "vi": ""
+       "vi": "A: Bạn đi đâu về vậy, sao da đỏ thế?",
+       "py": "A: Nǐ dào nǎlǐ qù le, pífū zěnme biànde nàme hóng?"
       },
       {
        "hz": "請用「(時間) +下來」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “(thời gian) + 下來” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “(shíjiān) + xiàlái” wánchéng yǐxià de duìhuà."
       },
       {
-       "hz": "A：我想利用假日去當地有名的寺廟旅遊，你去不去？B：假日遊客太多太吵，再加上我去過好幾次了，所以想去其他地   方旅行。",
-       "vi": ""
+       "hz": "A：我想利用假日去當地有名的寺廟旅遊，你去不去？B：假日遊客太多太吵，再加上我去過好幾次了，所以想去其他地方旅行。",
+       "vi": "A: Tôi muốn tranh thủ ngày nghỉ đi du lịch ngôi chùa nổi tiếng ở địa phương, bạn có đi không? B: Ngày nghỉ khách du lịch đông quá, ồn quá, thêm vào đó tôi đã đi mấy lần rồi, nên muốn đi chỗ khác.",
+       "py": "A: Wǒ xiǎng lìyòng jiàrì qù dāngdì yǒumíng de sìmiào lǚyóu, nǐ qùbúqù? B: Jiàrì yóukè tài duō tài chǎo, zài jiāshàng wǒ qùguò hǎo jǐcì le, suǒyǐ xiǎng qù qítā dìfāng lǚxíng."
       },
       {
        "hz": "A：這家企業為什麼沒幾年就變成世界前十名的企業？",
-       "vi": ""
+       "vi": "A: Tại sao doanh nghiệp này chỉ trong vài năm đã trở thành một trong mười doanh nghiệp hàng đầu thế giới?",
+       "py": "A: Zhèjiā qìyè wèishénme méi jǐnián jiù biànchéng shìjiè qiánshímíng de qìyè?"
       },
       {
        "hz": "B：企業內外資源豐富，對員工訓練相當重視，使他們的實力比其他企業強。",
-       "vi": ""
+       "vi": "B: Nguồn lực trong và ngoài doanh nghiệp phong phú, lại rất coi trọng đào tạo nhân viên, khiến thực lực của họ mạnh hơn các doanh nghiệp khác.",
+       "py": "B: Qìyè nèiwài zīyuán fēngfù, duì yuángōng xùnliàn xiāngdāng zhòngshì, shǐ tāmen de shílì bǐ qítā qìyè qiáng."
       },
       {
        "hz": "A：妳為什麼說要是我們結婚，一定可以生出很棒的孩子?",
-       "vi": ""
+       "vi": "A: Sao em lại nói nếu chúng ta kết hôn thì chắc chắn sẽ sinh ra những đứa con tuyệt vời?",
+       "py": "A: Nǐ wèishénme shuō yàoshì wǒmen jiéhūn, yídìng kěyǐ shēngchū hěnbàng de háizi?"
       },
       {
        "hz": "B：你那麼聰明，我那麼美麗，生出來的孩子一定很優秀。",
-       "vi": ""
+       "vi": "B: Anh thông minh như vậy, em xinh đẹp như vậy, con sinh ra chắc chắn rất giỏi.",
+       "py": "B: Nǐ nàme cōngmíng, wǒ nàme měilì, shēng chūlái de háizi yídìng hěn yōuxiù."
       },
       {
        "hz": "請把「（再）加上」放在句子B中合適的位置。",
-       "vi": ""
+       "vi": "Hãy đặt “（再）加上” vào vị trí thích hợp trong câu B.",
+       "py": "Qǐng bǎ “(zài) jiāshàng” fàngzài jùzi B zhōng héshì de wèizhì."
       },
       {
-       "hz": "A：你跟你大學的同學到現在還在聯絡嗎？B：我的同學各有各的理想，畢業以後也是各有各的工作，因此平   常很少聯絡。",
-       "vi": ""
+       "hz": "A：你跟你大學的同學到現在還在聯絡嗎？B：我的同學各有各的理想，畢業以後也是各有各的工作，因此平常很少聯絡。",
+       "vi": "A: Bạn và các bạn đại học đến giờ vẫn còn liên lạc chứ? B: Các bạn tôi mỗi người một lý tưởng, sau khi tốt nghiệp cũng mỗi người một công việc, vì vậy bình thường ít liên lạc.",
+       "py": "A: Nǐ gēn nǐ dàxué de tóngxué dào xiànzài hái zài liánluò ma? B: Wǒ de tóngxué gè yǒu gè de lǐxiǎng, bìyè yǐhòu yě shì gè yǒu gè de gōngzuò, yīncǐ píngcháng hěnshǎo liánluò."
       },
       {
        "hz": "A：我剛進大學，選課時不知道該選哪一門，怎麼辦？",
-       "vi": ""
+       "vi": "A: Tôi mới vào đại học, lúc chọn môn không biết nên chọn môn nào, phải làm sao đây?",
+       "py": "A: Wǒ gāng jìn dàxué, xuǎnkè shí bù zhīdào gāi xuǎn nǎ yìmén, zěnmebàn?"
       },
       {
        "hz": "A：在世界各地有名的風景地點之中，你最喜歡哪一個地方？",
-       "vi": ""
+       "vi": "A: Trong các địa điểm phong cảnh nổi tiếng trên khắp thế giới, bạn thích nơi nào nhất?",
+       "py": "A: Zài shìjiègèdì yǒumíng de fēngjǐng dìdiǎn zhīzhōng, nǐ zuì xǐhuān nǎ yígè dìfāng?"
       },
       {
        "hz": "請用「各有各的N」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “各有各的N” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “gè yǒu gè de N” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -2103,20 +2448,24 @@ export const thoidaiGrammar4 = {
      "formula": "「省得」是助動詞(Vaux)，後面放動詞或動詞短語(Verb phrase)。表示說話的人希望有「省得」之前的情況，或是用「省得」前提到的方式，才能避免「省得」之後的事發生。",
      "examples": [
       {
-       "hz": "A：你家離公司有點兒遠，你每天都走路來上班，不累嗎？    B：是有一點兒累，不過走路對健康好，也省得多花交通費。 A：我覺得每天來回很花時間，希望公司能讓我們在家上班，    省得出門。",
-       "vi": ""
+       "hz": "A：你家離公司有點兒遠，你每天都走路來上班，不累嗎？ B：是有一點兒累，不過走路對健康好，也省得多花交通費。 A：我覺得每天來回很花時間，希望公司能讓我們在家上班，省得出門。",
+       "vi": "A: Nhà bạn hơi xa công ty, ngày nào bạn cũng đi bộ đi làm, không mệt à? B: Cũng hơi mệt, nhưng đi bộ tốt cho sức khoẻ, cũng đỡ tốn tiền đi lại. A: Tôi thấy ngày nào cũng đi đi về về rất mất thời gian, mong công ty cho chúng ta làm ở nhà, đỡ phải ra ngoài.",
+       "py": "A: Nǐjiā lí gōngsī yǒudiǎn'ér yuǎn, nǐ měitiān dōu zǒulù lái shàngbān, bú lèi ma? B: Shì yǒu yìdiǎn'ér lèi, búguò zǒulù duì jiànkāng hǎo, yě shěngde duō huā jiāotōngfèi. A: Wǒ juéde měitiān láihuí hěn huā shíjiān, xīwàng gōngsī néng ràng wǒmen zàijiā shàngbān, shěngde chūmén."
       },
       {
        "hz": "張同學要去國外某個大學參加研討會議，不過那所學校的面積相當大，加上他是第一次去，有點擔心找不到路。",
-       "vi": ""
+       "vi": "Bạn Trương định sang một trường đại học ở nước ngoài dự hội thảo, nhưng trường đó diện tích khá rộng, lại là lần đầu đi nên hơi lo không tìm được đường.",
+       "py": "Zhāng tóngxué yào qù guówài mǒugè dàxué cānjiā yántǎo huìyì, búguò nà suǒ xuéxiào de miànjī xiāngdāng dà, jiāshàng tā shì dìyīcì qù, yǒudiǎn dānxīn zhǎo búdào lù."
       },
       {
        "hz": "高阿姨想去朋友推薦的小吃店，不過聽說那家店有開有時沒開，有點兒麻煩。",
-       "vi": ""
+       "vi": "Dì Cao muốn đến quán ăn vặt bạn giới thiệu, nhưng nghe nói quán đó lúc mở lúc không, hơi phiền.",
+       "py": "Gāo āyí xiǎng qù péngyǒu tuījiàn de xiǎochīdiàn, búguò tīngshuō nà jiā diàn yǒu kāi yǒushí méi kāi, yǒudiǎn'ér máfán."
       },
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -2133,24 +2482,29 @@ export const thoidaiGrammar4 = {
      "formula": "「並且」、「並」在本語法中是連詞，有兩種意思： ⑴ 表示幾個動作(action)同時或前後進行，或是幾種狀態同時存在。",
      "examples": [
       {
-       "hz": "臺灣的風景很漂亮，並且 當地的人們也很親切。2. 我們一起開會討論，並/並且 決定了公司以後的發展方向。3. 他給了我很多寶貴的建議，並/並且 在工作時幫了我不少忙。",
-       "vi": ""
+       "hz": "臺灣的風景很漂亮，並且當地的人們也很親切。2. 我們一起開會討論，並/並且決定了公司以後的發展方向。3. 他給了我很多寶貴的建議，並/並且在工作時幫了我不少忙。",
+       "vi": "Phong cảnh Đài Loan rất đẹp, đồng thời người dân địa phương cũng rất thân thiện. Chúng tôi cùng họp thảo luận và đã quyết định hướng phát triển sau này của công ty. Anh ấy cho tôi nhiều lời khuyên quý báu, đồng thời giúp tôi không ít trong công việc.",
+       "py": "Táiwān de fēngjǐng hěnpiàoliàng, bìngqiě dāngdì de rénmen yě hěn qīnqiè. 2. Wǒmen yìqǐ kāihuìtǎolùn, bìng / bìngqiě juédìng le gōngsī yǐhòu de fāzhǎn fāngxiàng. 3. Tā gěi le wǒ hěnduō bǎoguì de jiànyì, bìng / bìngqiě zài gōngzuò shí bāng le wǒ bùshǎo máng."
       },
       {
        "hz": "⑵ 跟「而且」一樣，有更進一步的意思。",
-       "vi": ""
+       "vi": "(2) Giống “而且”, mang nghĩa tăng tiến thêm một bước.",
+       "py": "⑵ gēn “érqiě” yíyàng, yǒu gèngjìnyíbù de yìsi."
       },
       {
        "hz": "A：說到生活與居住環境，什麼樣的環境最能夠吸引你？",
-       "vi": ""
+       "vi": "A: Nói đến môi trường sống và cư trú, môi trường như thế nào thu hút bạn nhất?",
+       "py": "A: Shuō dào shēnghuó yǔ jūzhù huánjìng, shénmeyàng de huánjìng zuì nénggòu xīyǐn nǐ?"
       },
       {
        "hz": "A：假如請你來發明一樣新產品，你最想做出什麼樣的商品？",
-       "vi": ""
+       "vi": "A: Giả sử mời bạn phát minh một sản phẩm mới, bạn muốn làm ra sản phẩm như thế nào nhất?",
+       "py": "A: Jiǎrú qǐng nǐ lái fāmíng yíyàng xīn chǎnpǐn, nǐ zuì xiǎng zuòchū shénmeyàng de shāngpǐn?"
       },
       {
        "hz": "請用「並/並且」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “並/並且” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “bìng / bìngqiě” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -2167,124 +2521,154 @@ export const thoidaiGrammar4 = {
      "formula": "跟「不但……而且……」意思與用法相同，表示有「不但」後面的情形，進一步還有「並且」後面提到的情形。「並且」後面的句子常跟著「也」、「還」、「都」、「連」等詞。 「哪裡/哪兒」在本語法中是副詞，表示說話的人用反問(Rhetorical question)的方式，來表達自己不同意對方的意見，或是覺得對方說的不是事實。 說話的人用反問的方式，表示之所以發生某件事，都是因為「誰叫」後面的原因。一般常用在說話的人覺得不太好、不太喜歡的情況。 the gains do not make up for the losses 「下來」在本語法中是用在時間的名詞(noun)，表示事情經過一段時間。 II.（再）加上「（再）加上」在本語法中是連詞，表示前面說明理由(reason)或原因後，「（再）加上」之後是更主要的理由或原因。 III.各有各的N意思是前面提到的人事物，每個都有與其他人事物不同的地方。用法：「【人事物】＋各有各的【不同點/特色】」。",
      "examples": [
       {
-       "hz": "這裡不但安靜，並且很漂亮。                 （主語相同）2. 不但臺灣人喜歡吃餃子，並且外國朋友也喜歡。 （主語不同）",
-       "vi": ""
+       "hz": "這裡不但安靜，並且很漂亮。 （主語相同）2. 不但臺灣人喜歡吃餃子，並且外國朋友也喜歡。 （主語不同）",
+       "vi": "Ở đây không những yên tĩnh mà còn rất đẹp. (cùng chủ ngữ) Không những người Đài Loan thích ăn sủi cảo mà bạn bè nước ngoài cũng thích. (khác chủ ngữ)",
+       "py": "Zhèlǐ búdàn ānjìng, bìngqiě hěnpiàoliàng. (zhǔyǔ xiāngtóng) 2. Búdàn táiwānrén xǐhuān chījiǎozi, bìngqiě wàiguó péngyǒu yě xǐhuān. (zhǔyǔ bùtóng)"
       },
       {
        "hz": "A：你們手機店的顧客為什麼都喜愛這種牌子的手機？",
-       "vi": ""
+       "vi": "A: Tại sao khách hàng ở cửa hàng điện thoại của các anh đều thích điện thoại nhãn hiệu này?",
+       "py": "A: Nǐmen shǒujīdiàn de gùkè wèishénme dōu xǐ'ài zhèzhǒng páizi de shǒujī?"
       },
       {
        "hz": "A：你為什麼選擇來參加我們公司的面試?",
-       "vi": ""
+       "vi": "A: Tại sao bạn chọn đến dự phỏng vấn ở công ty chúng tôi?",
+       "py": "A: Nǐ wèishénme xuǎnzé lái cānjiā wǒmen gōngsī de miànshì?"
       },
       {
        "hz": "請用「不但……，並且 (也/還/都/連)……」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “不但……，並且 (也/還/都/連)……” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “búdàn……, bìngqiě (yě / hái / dōu / lián)……” wánchéng yǐxià de duìhuà."
       },
       {
        "hz": "A：你說我騙你，我哪裡騙妳了？ B：你哪兒沒騙我？你說你單身，昨晚你太太卻打了電話給我。A：妳別相信她，她只是我以前的同事，哪裡是我太太？",
-       "vi": ""
+       "vi": "A: Em nói anh lừa em, anh lừa em chỗ nào? B: Anh có chỗ nào không lừa em? Anh nói anh độc thân, thế mà tối qua vợ anh gọi điện cho em. A: Em đừng tin cô ta, cô ta chỉ là đồng nghiệp cũ của anh, vợ anh gì chứ?",
+       "py": "A: Nǐ shuō wǒ piàn nǐ, wǒ nǎlǐ piàn nǐ le? B: Nǐ nǎ'ér méi piàn wǒ? Nǐ shuō nǐ dānshēn, zuówǎn nǐ tàitai què dǎ le diànhuà gěi wǒ. A: Nǐ bié xiāngxìn tā, tā zhǐshì wǒ yǐqián de tóngshì, nǎlǐ shì wǒ tàitai?"
       },
       {
        "hz": "III.哪裡/哪兒……？",
-       "vi": ""
+       "vi": "III. Đâu có… / Làm gì có…?",
+       "py": "III. Nǎlǐ / nǎ'ér……?"
       },
       {
        "hz": "A：我認為每所學校都得發展線上課程，使學生在家也能上課。",
-       "vi": ""
+       "vi": "A: Tôi nghĩ trường nào cũng phải phát triển khoá học trực tuyến, để học sinh ở nhà cũng học được.",
+       "py": "A: Wǒ rènwéi měi suǒ xuéxiào dōu děi fāzhǎn xiàn shàng kèchéng, shǐ xuéshēng zàijiā yě néng shàngkè."
       },
       {
        "hz": "A：你怎麼一個人在這裡擦眼淚？是不是碰到什麼麻煩了？",
-       "vi": ""
+       "vi": "A: Sao bạn lại ngồi đây một mình lau nước mắt? Có phải gặp chuyện gì phiền phức không?",
+       "py": "A: Nǐ zěnme yígè rén zài zhèlǐ cā yǎnlèi? Shìbúshì pèngdào shénme máfán le?"
       },
       {
        "hz": "我才掉眼淚的。謝謝你關心我。",
-       "vi": ""
+       "vi": "…tôi mới rơi nước mắt. Cảm ơn bạn đã quan tâm đến tôi.",
+       "py": "Wǒ cái diào yǎnlèi de. Xièxie nǐ guānxīn wǒ."
       },
       {
        "hz": "請用「哪/哪裡……？」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “哪/哪裡……？” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “nǎ / nǎlǐ……?” wánchéng yǐxià de duìhuà."
       },
       {
-       "hz": "A：上個星期經理要我聯絡那位客戶，結果我一忙就忘了，經理   還發脾氣罵我呢。B：誰叫你忘了聯絡？要是害公司失去這筆生意，你就糟糕了。",
-       "vi": ""
+       "hz": "A：上個星期經理要我聯絡那位客戶，結果我一忙就忘了，經理還發脾氣罵我呢。B：誰叫你忘了聯絡？要是害公司失去這筆生意，你就糟糕了。",
+       "vi": "A: Tuần trước giám đốc bảo tôi liên lạc với vị khách hàng đó, kết quả tôi bận quá nên quên mất, giám đốc còn nổi giận mắng tôi nữa. B: Ai bảo anh quên liên lạc? Nếu làm công ty mất vụ làm ăn này thì anh gay to rồi.",
+       "py": "A: Shànggèxīngqí jīnglǐ yào wǒ liánluò nàwèi kèhù, jiéguǒ wǒ yì máng jiù wàng le, jīnglǐ hái fāpíqì mà wǒ ne. B: Shéi jiào nǐ wàng le liánluò? Yàoshì hài gōngsī shīqù zhèbǐ shēngyì, nǐ jiù zāogāo le."
       },
       {
        "hz": "A：奇怪，我剛剛跟他打招呼，他怎麼都沒反應？",
-       "vi": ""
+       "vi": "A: Lạ thật, vừa rồi tôi chào anh ấy, sao anh ấy chẳng phản ứng gì cả?",
+       "py": "A: Qíguài, wǒ gānggāng gēn tā dǎzhāohū, tā zěnme dōu méi fǎnyìng?"
       },
       {
        "hz": "B：是你自己的問題。之前你亂罵他，也沒跟他道歉。",
-       "vi": ""
+       "vi": "B: Là do chính bạn đấy. Trước đây bạn mắng bừa anh ấy mà cũng không xin lỗi.",
+       "py": "B: Shì nǐ zìjǐ de wèntí. Zhīqián nǐ luànmà tā, yě méi gēn tā dàoqiàn."
       },
       {
        "hz": "A：這公園附近的交通一向很好，最近怎麼發生那麼多車禍呢?",
-       "vi": ""
+       "vi": "A: Giao thông quanh công viên này xưa nay vẫn rất tốt, sao dạo này xảy ra nhiều tai nạn thế?",
+       "py": "A: Zhè gōngyuán fùjìn de jiāotōng yíxiàng hěn hǎo, zuìjìn zěnme fāshēng nàme duō chēhuò ne?"
       },
       {
        "hz": "B：這都是因為酒後開車的人越來越多了。",
-       "vi": ""
+       "vi": "B: Đó đều là vì người lái xe sau khi uống rượu ngày càng nhiều.",
+       "py": "B: Zhè dōu shìyīnwèi jiǔhòu kāichē de rén yuèláiyuè duō le."
       },
       {
        "hz": "請用「誰叫」來改寫以下句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “誰叫” để viết lại phần gạch chân trong các câu dưới đây.",
+       "py": "Qǐng yòng “shéi jiào” lái gǎixiě yǐxià jùzi zhōng huàxiàn de bùfèn."
       },
       {
        "hz": "A：這位新歌星歌唱得好聽，不知道寫歌寫得怎麼樣？B：半年下來，他已經發表十首新歌了，而且大部分都很紅。",
-       "vi": ""
+       "vi": "A: Ca sĩ mới này hát hay, không biết sáng tác thì thế nào? B: Nửa năm nay, anh ấy đã phát hành mười bài hát mới, mà phần lớn đều rất nổi.",
+       "py": "A: Zhèwèi xīn gēxīng gēchàng de hǎotīng, bù zhīdào xiěgē xiě de zěnmeyàng? B: Bànnián xiàlái, tā yǐjīng fābiǎo shíshǒu xīn gē le, érqiě dàbùfèn dōu hěn hóng."
       },
       {
        "hz": "A：喂，我是小周，你在義大利旅行，一切都順利嗎？",
-       "vi": ""
+       "vi": "A: A lô, tôi là Tiểu Châu đây, bạn đi du lịch ở Ý, mọi việc đều suôn sẻ chứ?",
+       "py": "A: Wèi, wǒ shì xiǎo zhōu, nǐ zài yìdàlì lǚxíng, yíqiè dōu shùnlì ma?"
       },
       {
        "hz": "A：你到哪裡去了，皮膚怎麼變得那麼紅？",
-       "vi": ""
+       "vi": "A: Bạn đi đâu về vậy, sao da đỏ thế?",
+       "py": "A: Nǐ dào nǎlǐ qù le, pífū zěnme biànde nàme hóng?"
       },
       {
        "hz": "請用「(時間) +下來」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “(thời gian) + 下來” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “(shíjiān) + xiàlái” wánchéng yǐxià de duìhuà."
       },
       {
-       "hz": "A：我想利用假日去當地有名的寺廟旅遊，你去不去？B：假日遊客太多太吵，再加上我去過好幾次了，所以想去其他地   方旅行。",
-       "vi": ""
+       "hz": "A：我想利用假日去當地有名的寺廟旅遊，你去不去？B：假日遊客太多太吵，再加上我去過好幾次了，所以想去其他地方旅行。",
+       "vi": "A: Tôi muốn tranh thủ ngày nghỉ đi du lịch ngôi chùa nổi tiếng ở địa phương, bạn có đi không? B: Ngày nghỉ khách du lịch đông quá, ồn quá, thêm vào đó tôi đã đi mấy lần rồi, nên muốn đi chỗ khác.",
+       "py": "A: Wǒ xiǎng lìyòng jiàrì qù dāngdì yǒumíng de sìmiào lǚyóu, nǐ qùbúqù? B: Jiàrì yóukè tài duō tài chǎo, zài jiāshàng wǒ qùguò hǎo jǐcì le, suǒyǐ xiǎng qù qítā dìfāng lǚxíng."
       },
       {
        "hz": "A：這家企業為什麼沒幾年就變成世界前十名的企業？",
-       "vi": ""
+       "vi": "A: Tại sao doanh nghiệp này chỉ trong vài năm đã trở thành một trong mười doanh nghiệp hàng đầu thế giới?",
+       "py": "A: Zhèjiā qìyè wèishénme méi jǐnián jiù biànchéng shìjiè qiánshímíng de qìyè?"
       },
       {
        "hz": "B：企業內外資源豐富，對員工訓練相當重視，使他們的實力比其他企業強。",
-       "vi": ""
+       "vi": "B: Nguồn lực trong và ngoài doanh nghiệp phong phú, lại rất coi trọng đào tạo nhân viên, khiến thực lực của họ mạnh hơn các doanh nghiệp khác.",
+       "py": "B: Qìyè nèiwài zīyuán fēngfù, duì yuángōng xùnliàn xiāngdāng zhòngshì, shǐ tāmen de shílì bǐ qítā qìyè qiáng."
       },
       {
        "hz": "A：妳為什麼說要是我們結婚，一定可以生出很棒的孩子?",
-       "vi": ""
+       "vi": "A: Sao em lại nói nếu chúng ta kết hôn thì chắc chắn sẽ sinh ra những đứa con tuyệt vời?",
+       "py": "A: Nǐ wèishénme shuō yàoshì wǒmen jiéhūn, yídìng kěyǐ shēngchū hěnbàng de háizi?"
       },
       {
        "hz": "B：你那麼聰明，我那麼美麗，生出來的孩子一定很優秀。",
-       "vi": ""
+       "vi": "B: Anh thông minh như vậy, em xinh đẹp như vậy, con sinh ra chắc chắn rất giỏi.",
+       "py": "B: Nǐ nàme cōngmíng, wǒ nàme měilì, shēng chūlái de háizi yídìng hěn yōuxiù."
       },
       {
        "hz": "請把「（再）加上」放在句子B中合適的位置。",
-       "vi": ""
+       "vi": "Hãy đặt “（再）加上” vào vị trí thích hợp trong câu B.",
+       "py": "Qǐng bǎ “(zài) jiāshàng” fàngzài jùzi B zhōng héshì de wèizhì."
       },
       {
-       "hz": "A：你跟你大學的同學到現在還在聯絡嗎？B：我的同學各有各的理想，畢業以後也是各有各的工作，因此平   常很少聯絡。",
-       "vi": ""
+       "hz": "A：你跟你大學的同學到現在還在聯絡嗎？B：我的同學各有各的理想，畢業以後也是各有各的工作，因此平常很少聯絡。",
+       "vi": "A: Bạn và các bạn đại học đến giờ vẫn còn liên lạc chứ? B: Các bạn tôi mỗi người một lý tưởng, sau khi tốt nghiệp cũng mỗi người một công việc, vì vậy bình thường ít liên lạc.",
+       "py": "A: Nǐ gēn nǐ dàxué de tóngxué dào xiànzài hái zài liánluò ma? B: Wǒ de tóngxué gè yǒu gè de lǐxiǎng, bìyè yǐhòu yě shì gè yǒu gè de gōngzuò, yīncǐ píngcháng hěnshǎo liánluò."
       },
       {
        "hz": "A：我剛進大學，選課時不知道該選哪一門，怎麼辦？",
-       "vi": ""
+       "vi": "A: Tôi mới vào đại học, lúc chọn môn không biết nên chọn môn nào, phải làm sao đây?",
+       "py": "A: Wǒ gāng jìn dàxué, xuǎnkè shí bù zhīdào gāi xuǎn nǎ yìmén, zěnmebàn?"
       },
       {
        "hz": "A：在世界各地有名的風景地點之中，你最喜歡哪一個地方？",
-       "vi": ""
+       "vi": "A: Trong các địa điểm phong cảnh nổi tiếng trên khắp thế giới, bạn thích nơi nào nhất?",
+       "py": "A: Zài shìjiègèdì yǒumíng de fēngjǐng dìdiǎn zhīzhōng, nǐ zuì xǐhuān nǎ yígè dìfāng?"
       },
       {
        "hz": "請用「各有各的N」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “各有各的N” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “gè yǒu gè de N” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -2303,84 +2687,104 @@ export const thoidaiGrammar4 = {
      "formula": "「而已」是助詞，放在句子最後。表示說話的人覺得程度或情況沒什麼特別或是重要的。 II.(二)才Nu-M-(N) 而已「才」是副詞，後面是數量(quantity)與名詞時，表示數量很少，只有一點兒。加上「而已」一起使用時，表示說話的人認為數量只有這些，影響或程度相當低。 III. （也）就是說……表示說話的人用另一種方式再次說明自己剛剛談的情況、理由，或是跟對方確認剛才聽到的內容。「也」在這個語法中可以不用。",
      "examples": [
       {
-       "hz": "A：在我班上，有幾個學生一點兒禮貌都不懂，怎麼說都不聽，   真是麻煩死了！B：他們還是小孩子而已，你教他們的時候應該更有耐心。",
-       "vi": ""
+       "hz": "A：在我班上，有幾個學生一點兒禮貌都不懂，怎麼說都不聽，真是麻煩死了！B：他們還是小孩子而已，你教他們的時候應該更有耐心。",
+       "vi": "A: Lớp tôi có mấy học sinh chẳng biết lễ phép gì cả, nói thế nào cũng không nghe, phiền chết đi được! B: Chúng chỉ là trẻ con thôi mà, khi dạy chúng bạn nên kiên nhẫn hơn.",
+       "py": "A: Zài wǒ bānshàng, yǒu jǐgè xuéshēng yìdiǎn'ér lǐmào dōu bù dǒng, zěnme shuō dōu bù tīng, zhēnshì máfán sǐ le! B: Tāmen háishì xiǎoháizi éryǐ, nǐ jiào tāmen de shíhòu yīnggāi gèng yǒu nàixīn."
       },
       {
        "hz": "A：你們部門那件商品計畫，進行得還順利嗎？",
-       "vi": ""
+       "vi": "A: Kế hoạch sản phẩm đó của bộ phận các anh tiến hành vẫn suôn sẻ chứ?",
+       "py": "A: Nǐmen bùmén nà jiàn shāngpǐn jìhuà, jìnxíng de hái shùnlì ma?"
       },
       {
        "hz": "B：目前還只在調查市場情況，並找出產品的設計方向，但是已經遇到不少困難了，得想想辦法克服才行。",
-       "vi": ""
+       "vi": "B: Hiện giờ mới chỉ đang khảo sát tình hình thị trường và tìm ra hướng thiết kế sản phẩm, nhưng đã gặp không ít khó khăn, phải nghĩ cách khắc phục mới được.",
+       "py": "B: Mùqián hái zhǐ zài diàochá shìchǎng qíngkuàng, bìng zhǎochū chǎnpǐn de shèjì fāngxiàng, dànshì yǐjīng yùdào bùshǎo kùnnán le, de xiǎngxiǎng bànfǎ kèfú cái xíng."
       },
       {
        "hz": "A：那位總統選舉前說的跟選舉後做的完全不同，真是讓人不滿。",
-       "vi": ""
+       "vi": "A: Vị tổng thống đó nói trước bầu cử và làm sau bầu cử hoàn toàn khác nhau, thật khiến người ta bất mãn.",
+       "py": "A: Nàwèi zǒngtǒng xuǎnjǔ qián shuō de gēn xuǎnjǔ hòu zuò de wánquán bùtóng, zhēnshì ràng rén bùmǎn."
       },
       {
        "hz": "B：他只想到自己的利益，從來沒思考過怎麼改善人民的生活。",
-       "vi": ""
+       "vi": "B: Ông ta chỉ nghĩ đến lợi ích của bản thân, chưa từng suy nghĩ làm sao cải thiện đời sống nhân dân.",
+       "py": "B: Tā zhǐ xiǎngdào zìjǐ de lìyì, cónglái méi sīkǎo guò zěnme gǎishàn rénmín de shēnghuó."
       },
       {
        "hz": "請把「而已」放在以下畫線句子中合適的位置。",
-       "vi": ""
+       "vi": "Hãy đặt “而已” vào vị trí thích hợp trong các câu gạch chân dưới đây.",
+       "py": "Qǐng bǎ “éryǐ” fàngzài yǐxià huàxiàn jùzi zhōng héshì de wèizhì."
       },
       {
        "hz": "上課時間過了五分鐘，教室裡才一位學生而已。2. 一個包子才五塊錢而已，很便宜。3. 他學中文的時間才一個星期而已，就能用中文買東西了。",
-       "vi": ""
+       "vi": "1. Giờ học đã qua năm phút mà trong lớp mới có một học sinh thôi. 2. Một cái bánh bao chỉ có năm đồng thôi, rẻ lắm. 3. Anh ấy học tiếng Trung mới được một tuần thôi mà đã dùng tiếng Trung mua đồ được rồi.",
+       "py": "Shàngkè shíjiān guò le wǔfēnzhōng, jiàoshì lǐ cái yíwèi xuéshēng éryǐ. 2. Yígè bāozi cái wǔkuài qián éryǐ, hěn piányi. 3. Tā xué zhōngwén de shíjiān cái yígè xīngqí éryǐ, jiù néng yòng zhōngwén mǎi dōngxī le."
       },
       {
        "hz": "那位導演拍的新電影雖然很受歡迎，不過一個月下來賺的錢只有一百多萬。",
-       "vi": ""
+       "vi": "Bộ phim mới của đạo diễn đó tuy rất được yêu thích, nhưng một tháng nay số tiền kiếm được chỉ có hơn một triệu.",
+       "py": "Nàwèi dǎoyǎn pāi de xīn diànyǐng suīrán hěn shòuhuānyíng, búguò yígèyuè xiàlái zhuàn de qián zhǐyǒu yìbǎiduōwàn."
       },
       {
        "hz": "這個家庭的生活困難，每月收到的社會福利金也只有五千元，不能幫助他們解決問題。",
-       "vi": ""
+       "vi": "Gia đình này sống khó khăn, tiền phúc lợi xã hội nhận hằng tháng cũng chỉ có năm nghìn đồng, không giúp họ giải quyết được vấn đề.",
+       "py": "Zhège jiātíng de shēnghuó kùnnán, měiyuè shōudào de shèhuì fúlìjīn yě zhǐyǒu wǔqiānyuán, bùnéng bāngzhù tāmen jiějuéwèntí."
       },
       {
        "hz": "請用「才Nu-M-(N)而已」改寫以下的句子。",
-       "vi": ""
+       "vi": "Hãy dùng “才Nu-M-(N)而已” để viết lại các câu dưới đây.",
+       "py": "Qǐng yòng “cái Nu - M - éryǐ” gǎixiě yǐxià de jùzi."
       },
       {
-       "hz": "A：寫主題報告的時候，最好別寫不相關的事，否則看的人很難   掌握你的重點。B：我懂了。（也）就是說內容盡可能按照主題來寫。",
-       "vi": ""
+       "hz": "A：寫主題報告的時候，最好別寫不相關的事，否則看的人很難掌握你的重點。B：我懂了。（也）就是說內容盡可能按照主題來寫。",
+       "vi": "A: Khi viết báo cáo chuyên đề, tốt nhất đừng viết những chuyện không liên quan, nếu không người đọc rất khó nắm được trọng tâm của bạn. B: Tôi hiểu rồi. Nghĩa là nội dung nên bám sát chủ đề hết mức có thể.",
+       "py": "A: Xiě zhǔtí bàogào de shíhòu, zuìhǎo bié xiě bù xiāngguān de shì, fǒuzé kàn de rén hěn nán zhǎngwò nǐ de zhòngdiǎn. B: Wǒ dǒng le. (yě) jiùshìshuō nèiróng jǐnkěnéng ànzhào zhǔtí lái xiě."
       },
       {
        "hz": "A：你去買手機的時候，記得「貨比三家不吃虧」。",
-       "vi": ""
+       "vi": "A: Khi đi mua điện thoại, nhớ là “so sánh ba cửa hàng thì không thiệt”.",
+       "py": "A: Nǐ qù mǎishǒujī de shíhòu, jìde “huòbǐsānjiā bù chīkuī”."
       },
       {
        "hz": "A：周經理星期三要我們小組在三天以內完成這份計畫，所以我們晚上不得不加班。",
-       "vi": ""
+       "vi": "A: Thứ Tư giám đốc Châu yêu cầu nhóm chúng ta hoàn thành bản kế hoạch này trong vòng ba ngày, nên buổi tối chúng ta buộc phải tăng ca.",
+       "py": "A: Zhōu jīnglǐ xīngqísān yào wǒmen xiǎozǔ zài sāntiān yǐnèi wánchéng zhèfèn jìhuà, suǒyǐ wǒmen wǎnshàng bùdébù jiābān."
       },
       {
        "hz": "A：對啊，快累死我了。",
-       "vi": ""
+       "vi": "A: Đúng vậy, tôi sắp mệt chết rồi.",
+       "py": "A: Duì a, kuài lèisǐ wǒ le."
       },
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       },
       {
-       "hz": "雖然假日的火車票難訂，平時的票 倒/倒是 很好訂。（不過）2.這山區從來沒下過雪，今年 倒/倒是 下了好幾次。  （沒想到）3.你說得 倒/倒是 輕鬆。你以為做生意賺錢很容易嗎？（怪別人）V.倒 / 倒是「倒/倒是」在本語法中是副詞，兩個用法相同，前一冊已學過「……倒是……，不過/可是/但是/就是……」語法。",
-       "vi": ""
+       "hz": "雖然假日的火車票難訂，平時的票倒/倒是很好訂。（不過）2.這山區從來沒下過雪，今年倒/倒是下了好幾次。 （沒想到）3.你說得倒/倒是輕鬆。你以為做生意賺錢很容易嗎？（怪別人）V.倒 / 倒是「倒/倒是」在本語法中是副詞，兩個用法相同，前一冊已學過「……倒是……，不過/可是/但是/就是……」語法。",
+       "vi": "1. Tuy vé tàu ngày nghỉ khó đặt, nhưng vé ngày thường thì lại rất dễ đặt. (nhưng) 2. Vùng núi này chưa bao giờ có tuyết, năm nay lại rơi mấy lần liền. (không ngờ) 3. Bạn nói thì nhẹ nhàng lắm. Bạn tưởng làm ăn kiếm tiền dễ lắm à? (trách người khác) V. 倒 / 倒是: Trong mẫu ngữ pháp này “倒/倒是” là phó từ, hai cách dùng như nhau; quyển trước đã học mẫu “……倒是……，不過/可是/但是/就是……”.",
+       "py": "Suīrán jiàrì de huǒchēpiào nán dìng, píngshí de piào dào / dào shì hěn hǎo dìng. (búguò) 2. Zhè shānqū cónglái méi xiàguò xuě, jīnnián dào / dào shì xià le hǎo jǐcì. (méixiǎngdào) 3. Nǐ shuō de dào / dào shì qīngsōng. Nǐ yǐwéi zuòshēngyì zhuànqián hěn róngyì ma? (guài biérén) V. Dào / dào shì “dào / dào shì” zài běn yǔfǎ zhōng shì fùcí, liǎnggè yòngfǎ xiāngtóng, qián yícè yǐ xué guò “…… dào shì……, búguò / kěshì / dànshì / jiùshì……” yǔfǎ."
       },
       {
        "hz": "（一）「倒/倒是」：「不過」的意思1. A：不少人在年輕時總是喜歡過一、兩位明星，你呢？",
-       "vi": ""
+       "vi": "(1) “倒/倒是” mang nghĩa “nhưng”. 1. A: Nhiều người khi còn trẻ thường thích một, hai ngôi sao, còn bạn?",
+       "py": "(yī) “dào / dào shì”: “Búguò” de yìsi 1. A: Bùshǎo rén zài niánqīng shí zǒngshì xǐhuān guò yì, liǎngwèi míngxīng, nǐ ne?"
       },
       {
        "hz": "（二）「倒/倒是」：「反而」的意思2. A：最近的天氣真的不太穩定，看氣象報告也沒用。",
-       "vi": ""
+       "vi": "(2) “倒/倒是” mang nghĩa “ngược lại”. 2. A: Dạo này thời tiết thật không ổn định, xem dự báo thời tiết cũng vô ích.",
+       "py": "(èr) “dào / dào shì”: “Fǎn'ér” de yìsi 2. A: Zuìjìn de tiānqì zhēnde bú tài wěndìng, kàn qìxiàngbàogào yě méiyòng."
       },
       {
        "hz": "A：照顧孩子哪裡難了？你為什麼就是不願意幫忙呢？",
-       "vi": ""
+       "vi": "A: Chăm con khó chỗ nào? Sao anh cứ nhất định không chịu giúp?",
+       "py": "A: Zhàogù háizi nǎlǐ nán le? Nǐ wèishénme jiùshì bú yuànyì bāngmáng ne?"
       },
       {
        "hz": "請用「倒/倒是」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “倒/倒是” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “dào / dào shì” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -2398,47 +2802,58 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：在臺灣，在每家商店買東西時，都可以跟老闆講價嗎？B：不見得。拿便利商店來說，店裡的東西都無法講價。",
-       "vi": ""
+       "vi": "A: Ở Đài Loan, mua đồ ở cửa hàng nào cũng có thể trả giá với chủ không? B: Chưa chắc. Lấy cửa hàng tiện lợi làm ví dụ, đồ trong đó đều không trả giá được.",
+       "py": "A: Zài Táiwān, zài měijiā shāngdiàn mǎi dōngxī shí, dōu kěyǐ gēn lǎobǎn jiǎngjià ma? B: Bújiànde. Ná biànlìshāngdiàn láishuō, diànlǐ de dōngxī dōu wúfǎ jiǎngjià."
       },
       {
        "hz": "A：你說你家每個人的愛好都不相同，所以一到週末，大家都去做自己喜愛的事。",
-       "vi": ""
+       "vi": "A: Bạn nói mỗi người trong nhà bạn có sở thích khác nhau, nên cứ đến cuối tuần là mọi người đi làm việc mình thích.",
+       "py": "A: Nǐ shuō nǐjiā měigè rén de àihào dōu bù xiāngtóng, suǒyǐ yí dào zhōumò, dàjiā dōu qù zuò zìjǐ xǐ'ài de shì."
       },
       {
        "hz": "A：要是有人請你去訪問一般民眾對環境保護的看法，在訪問時有哪些方面是你認為應該注意的？",
-       "vi": ""
+       "vi": "A: Nếu có người nhờ bạn đi phỏng vấn người dân bình thường về quan điểm bảo vệ môi trường, khi phỏng vấn bạn cho rằng nên chú ý những mặt nào?",
+       "py": "A: Yàoshì yǒurén qǐng nǐ qù fǎngwèn yìbān mínzhòng duì huánjìngbǎohù de kànfǎ, zài fǎngwèn shí yǒu nǎxiēfāngmiàn shì nǐ rènwéi yīnggāi zhùyì de?"
       },
       {
        "hz": "請用「拿……來說」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “拿……來說” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “ná…… láishuō” wánchéng yǐxià de duìhuà."
       },
       {
-       "hz": "A：聽說有幾家公司想請你去工作，你為什麼選擇那家？B：那家公司的薪水、福利都不錯，另外還為員工安排職業訓練，   相當吸引我。",
-       "vi": ""
+       "hz": "A：聽說有幾家公司想請你去工作，你為什麼選擇那家？B：那家公司的薪水、福利都不錯，另外還為員工安排職業訓練，相當吸引我。",
+       "vi": "A: Nghe nói có mấy công ty muốn mời bạn làm việc, sao bạn chọn công ty đó? B: Lương và phúc lợi của công ty đó đều khá, ngoài ra còn sắp xếp đào tạo nghề cho nhân viên, rất thu hút tôi.",
+       "py": "A: Tīngshuō yǒu jǐjiā gōngsī xiǎng qǐng nǐ qù gōngzuò, nǐ wèishénme xuǎnzé nà jiā? B: Nà jiā gōngsī de xīnshuǐ, fúlì dōu búcuò, lìngwài hái wèi yuángōng ānpái zhíyè xùnliàn, xiāngdāng xīyǐn wǒ."
       },
       {
        "hz": "A：這附近的超市不少，你為什麼還是習慣到那家超市購買呢？",
-       "vi": ""
+       "vi": "A: Quanh đây có không ít siêu thị, sao bạn vẫn quen đến siêu thị đó mua đồ?",
+       "py": "A: Zhè fùjìn de chāoshì bùshǎo, nǐ wèishénme háishì xíguàn dào nà jiā chāoshì gòumǎi ne?"
       },
       {
        "hz": "A：下週五晚上朋友跟我約好去看電影，要看哪一部還沒決定。",
-       "vi": ""
+       "vi": "A: Tối thứ Sáu tuần sau bạn hẹn tôi đi xem phim, nhưng chưa quyết định xem phim nào.",
+       "py": "A: Xià zhōuwǔ wǎnshàng péngyǒu gēn wǒ yuē hǎo qù kàn diànyǐng, yào kàn nǎyíbù hái méi juédìng."
       },
       {
        "hz": "能不能請你推薦一下？",
-       "vi": ""
+       "vi": "Bạn giới thiệu giúp tôi được không?",
+       "py": "Néng bùnéng qǐng nǐ tuījiàn yíxià?"
       },
       {
        "hz": "請用「另外」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “另外” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “lìngwài” wánchéng yǐxià de duìhuà."
       },
       {
        "hz": "A：電影在家看就好，你為什麼要去電影院看？B：好電影值得在電影院看，只有那裡能給觀眾帶來最佳享受。",
-       "vi": ""
+       "vi": "A: Xem phim ở nhà là được rồi, sao bạn phải đến rạp xem? B: Phim hay đáng được xem ở rạp, chỉ ở đó mới mang lại cho khán giả trải nghiệm tốt nhất.",
+       "py": "A: Diànyǐng zàijiā kàn jiù hǎo, nǐ wèishénme yào qù diànyǐngyuàn kàn? B: Hǎo diànyǐng zhíde zài diànyǐngyuàn kàn, zhǐyǒu nàlǐ néng gěi guānzhòng dàilái zuìjiā xiǎngshòu."
       },
       {
-       "hz": "生活周圍每件大大小小的事情，對你我來說都是有意義的。 請你看看以下的句子想一想，然後寫下來。",
-       "vi": ""
+       "hz": "生活周圍每件大大小小的事情，對你我來說都是有意義的。請你看看以下的句子想一想，然後寫下來。",
+       "vi": "Mọi chuyện lớn nhỏ quanh cuộc sống đều có ý nghĩa với bạn và tôi. Hãy đọc các câu dưới đây, suy nghĩ rồi viết ra.",
+       "py": "Shēnghuó zhōuwéi měijiàn dàdàxiǎoxiǎo de shìqíng, duì nǐ wǒ láishuō dōu shì yǒu yìyì de. Qǐng nǐ kànkàn yǐxià de jùzi xiǎngyìxiǎng, ránhòu xiě xiàlái."
       }
      ],
      "answer": null
@@ -2457,84 +2872,104 @@ export const thoidaiGrammar4 = {
      "formula": "「而已」是助詞，放在句子最後。表示說話的人覺得程度或情況沒什麼特別或是重要的。 II.(二)才Nu-M-(N) 而已「才」是副詞，後面是數量(quantity)與名詞時，表示數量很少，只有一點兒。加上「而已」一起使用時，表示說話的人認為數量只有這些，影響或程度相當低。 III. （也）就是說……表示說話的人用另一種方式再次說明自己剛剛談的情況、理由，或是跟對方確認剛才聽到的內容。「也」在這個語法中可以不用。",
      "examples": [
       {
-       "hz": "A：在我班上，有幾個學生一點兒禮貌都不懂，怎麼說都不聽，   真是麻煩死了！B：他們還是小孩子而已，你教他們的時候應該更有耐心。",
-       "vi": ""
+       "hz": "A：在我班上，有幾個學生一點兒禮貌都不懂，怎麼說都不聽，真是麻煩死了！B：他們還是小孩子而已，你教他們的時候應該更有耐心。",
+       "vi": "A: Lớp tôi có mấy học sinh chẳng biết lễ phép gì cả, nói thế nào cũng không nghe, phiền chết đi được! B: Chúng chỉ là trẻ con thôi mà, khi dạy chúng bạn nên kiên nhẫn hơn.",
+       "py": "A: Zài wǒ bānshàng, yǒu jǐgè xuéshēng yìdiǎn'ér lǐmào dōu bù dǒng, zěnme shuō dōu bù tīng, zhēnshì máfán sǐ le! B: Tāmen háishì xiǎoháizi éryǐ, nǐ jiào tāmen de shíhòu yīnggāi gèng yǒu nàixīn."
       },
       {
        "hz": "A：你們部門那件商品計畫，進行得還順利嗎？",
-       "vi": ""
+       "vi": "A: Kế hoạch sản phẩm đó của bộ phận các anh tiến hành vẫn suôn sẻ chứ?",
+       "py": "A: Nǐmen bùmén nà jiàn shāngpǐn jìhuà, jìnxíng de hái shùnlì ma?"
       },
       {
        "hz": "B：目前還只在調查市場情況，並找出產品的設計方向，但是已經遇到不少困難了，得想想辦法克服才行。",
-       "vi": ""
+       "vi": "B: Hiện giờ mới chỉ đang khảo sát tình hình thị trường và tìm ra hướng thiết kế sản phẩm, nhưng đã gặp không ít khó khăn, phải nghĩ cách khắc phục mới được.",
+       "py": "B: Mùqián hái zhǐ zài diàochá shìchǎng qíngkuàng, bìng zhǎochū chǎnpǐn de shèjì fāngxiàng, dànshì yǐjīng yùdào bùshǎo kùnnán le, de xiǎngxiǎng bànfǎ kèfú cái xíng."
       },
       {
        "hz": "A：那位總統選舉前說的跟選舉後做的完全不同，真是讓人不滿。",
-       "vi": ""
+       "vi": "A: Vị tổng thống đó nói trước bầu cử và làm sau bầu cử hoàn toàn khác nhau, thật khiến người ta bất mãn.",
+       "py": "A: Nàwèi zǒngtǒng xuǎnjǔ qián shuō de gēn xuǎnjǔ hòu zuò de wánquán bùtóng, zhēnshì ràng rén bùmǎn."
       },
       {
        "hz": "B：他只想到自己的利益，從來沒思考過怎麼改善人民的生活。",
-       "vi": ""
+       "vi": "B: Ông ta chỉ nghĩ đến lợi ích của bản thân, chưa từng suy nghĩ làm sao cải thiện đời sống nhân dân.",
+       "py": "B: Tā zhǐ xiǎngdào zìjǐ de lìyì, cónglái méi sīkǎo guò zěnme gǎishàn rénmín de shēnghuó."
       },
       {
        "hz": "請把「而已」放在以下畫線句子中合適的位置。",
-       "vi": ""
+       "vi": "Hãy đặt “而已” vào vị trí thích hợp trong các câu gạch chân dưới đây.",
+       "py": "Qǐng bǎ “éryǐ” fàngzài yǐxià huàxiàn jùzi zhōng héshì de wèizhì."
       },
       {
        "hz": "上課時間過了五分鐘，教室裡才一位學生而已。2. 一個包子才五塊錢而已，很便宜。3. 他學中文的時間才一個星期而已，就能用中文買東西了。",
-       "vi": ""
+       "vi": "1. Giờ học đã qua năm phút mà trong lớp mới có một học sinh thôi. 2. Một cái bánh bao chỉ có năm đồng thôi, rẻ lắm. 3. Anh ấy học tiếng Trung mới được một tuần thôi mà đã dùng tiếng Trung mua đồ được rồi.",
+       "py": "Shàngkè shíjiān guò le wǔfēnzhōng, jiàoshì lǐ cái yíwèi xuéshēng éryǐ. 2. Yígè bāozi cái wǔkuài qián éryǐ, hěn piányi. 3. Tā xué zhōngwén de shíjiān cái yígè xīngqí éryǐ, jiù néng yòng zhōngwén mǎi dōngxī le."
       },
       {
        "hz": "那位導演拍的新電影雖然很受歡迎，不過一個月下來賺的錢只有一百多萬。",
-       "vi": ""
+       "vi": "Bộ phim mới của đạo diễn đó tuy rất được yêu thích, nhưng một tháng nay số tiền kiếm được chỉ có hơn một triệu.",
+       "py": "Nàwèi dǎoyǎn pāi de xīn diànyǐng suīrán hěn shòuhuānyíng, búguò yígèyuè xiàlái zhuàn de qián zhǐyǒu yìbǎiduōwàn."
       },
       {
        "hz": "這個家庭的生活困難，每月收到的社會福利金也只有五千元，不能幫助他們解決問題。",
-       "vi": ""
+       "vi": "Gia đình này sống khó khăn, tiền phúc lợi xã hội nhận hằng tháng cũng chỉ có năm nghìn đồng, không giúp họ giải quyết được vấn đề.",
+       "py": "Zhège jiātíng de shēnghuó kùnnán, měiyuè shōudào de shèhuì fúlìjīn yě zhǐyǒu wǔqiānyuán, bùnéng bāngzhù tāmen jiějuéwèntí."
       },
       {
        "hz": "請用「才Nu-M-(N)而已」改寫以下的句子。",
-       "vi": ""
+       "vi": "Hãy dùng “才Nu-M-(N)而已” để viết lại các câu dưới đây.",
+       "py": "Qǐng yòng “cái Nu - M - éryǐ” gǎixiě yǐxià de jùzi."
       },
       {
-       "hz": "A：寫主題報告的時候，最好別寫不相關的事，否則看的人很難   掌握你的重點。B：我懂了。（也）就是說內容盡可能按照主題來寫。",
-       "vi": ""
+       "hz": "A：寫主題報告的時候，最好別寫不相關的事，否則看的人很難掌握你的重點。B：我懂了。（也）就是說內容盡可能按照主題來寫。",
+       "vi": "A: Khi viết báo cáo chuyên đề, tốt nhất đừng viết những chuyện không liên quan, nếu không người đọc rất khó nắm được trọng tâm của bạn. B: Tôi hiểu rồi. Nghĩa là nội dung nên bám sát chủ đề hết mức có thể.",
+       "py": "A: Xiě zhǔtí bàogào de shíhòu, zuìhǎo bié xiě bù xiāngguān de shì, fǒuzé kàn de rén hěn nán zhǎngwò nǐ de zhòngdiǎn. B: Wǒ dǒng le. (yě) jiùshìshuō nèiróng jǐnkěnéng ànzhào zhǔtí lái xiě."
       },
       {
        "hz": "A：你去買手機的時候，記得「貨比三家不吃虧」。",
-       "vi": ""
+       "vi": "A: Khi đi mua điện thoại, nhớ là “so sánh ba cửa hàng thì không thiệt”.",
+       "py": "A: Nǐ qù mǎishǒujī de shíhòu, jìde “huòbǐsānjiā bù chīkuī”."
       },
       {
        "hz": "A：周經理星期三要我們小組在三天以內完成這份計畫，所以我們晚上不得不加班。",
-       "vi": ""
+       "vi": "A: Thứ Tư giám đốc Châu yêu cầu nhóm chúng ta hoàn thành bản kế hoạch này trong vòng ba ngày, nên buổi tối chúng ta buộc phải tăng ca.",
+       "py": "A: Zhōu jīnglǐ xīngqísān yào wǒmen xiǎozǔ zài sāntiān yǐnèi wánchéng zhèfèn jìhuà, suǒyǐ wǒmen wǎnshàng bùdébù jiābān."
       },
       {
        "hz": "A：對啊，快累死我了。",
-       "vi": ""
+       "vi": "A: Đúng vậy, tôi sắp mệt chết rồi.",
+       "py": "A: Duì a, kuài lèisǐ wǒ le."
       },
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       },
       {
-       "hz": "雖然假日的火車票難訂，平時的票 倒/倒是 很好訂。（不過）2.這山區從來沒下過雪，今年 倒/倒是 下了好幾次。  （沒想到）3.你說得 倒/倒是 輕鬆。你以為做生意賺錢很容易嗎？（怪別人）V.倒 / 倒是「倒/倒是」在本語法中是副詞，兩個用法相同，前一冊已學過「……倒是……，不過/可是/但是/就是……」語法。",
-       "vi": ""
+       "hz": "雖然假日的火車票難訂，平時的票倒/倒是很好訂。（不過）2.這山區從來沒下過雪，今年倒/倒是下了好幾次。 （沒想到）3.你說得倒/倒是輕鬆。你以為做生意賺錢很容易嗎？（怪別人）V.倒 / 倒是「倒/倒是」在本語法中是副詞，兩個用法相同，前一冊已學過「……倒是……，不過/可是/但是/就是……」語法。",
+       "vi": "1. Tuy vé tàu ngày nghỉ khó đặt, nhưng vé ngày thường thì lại rất dễ đặt. (nhưng) 2. Vùng núi này chưa bao giờ có tuyết, năm nay lại rơi mấy lần liền. (không ngờ) 3. Bạn nói thì nhẹ nhàng lắm. Bạn tưởng làm ăn kiếm tiền dễ lắm à? (trách người khác) V. 倒 / 倒是: Trong mẫu ngữ pháp này “倒/倒是” là phó từ, hai cách dùng như nhau; quyển trước đã học mẫu “……倒是……，不過/可是/但是/就是……”.",
+       "py": "Suīrán jiàrì de huǒchēpiào nán dìng, píngshí de piào dào / dào shì hěn hǎo dìng. (búguò) 2. Zhè shānqū cónglái méi xiàguò xuě, jīnnián dào / dào shì xià le hǎo jǐcì. (méixiǎngdào) 3. Nǐ shuō de dào / dào shì qīngsōng. Nǐ yǐwéi zuòshēngyì zhuànqián hěn róngyì ma? (guài biérén) V. Dào / dào shì “dào / dào shì” zài běn yǔfǎ zhōng shì fùcí, liǎnggè yòngfǎ xiāngtóng, qián yícè yǐ xué guò “…… dào shì……, búguò / kěshì / dànshì / jiùshì……” yǔfǎ."
       },
       {
        "hz": "（一）「倒/倒是」：「不過」的意思1. A：不少人在年輕時總是喜歡過一、兩位明星，你呢？",
-       "vi": ""
+       "vi": "(1) “倒/倒是” mang nghĩa “nhưng”. 1. A: Nhiều người khi còn trẻ thường thích một, hai ngôi sao, còn bạn?",
+       "py": "(yī) “dào / dào shì”: “Búguò” de yìsi 1. A: Bùshǎo rén zài niánqīng shí zǒngshì xǐhuān guò yì, liǎngwèi míngxīng, nǐ ne?"
       },
       {
        "hz": "（二）「倒/倒是」：「反而」的意思2. A：最近的天氣真的不太穩定，看氣象報告也沒用。",
-       "vi": ""
+       "vi": "(2) “倒/倒是” mang nghĩa “ngược lại”. 2. A: Dạo này thời tiết thật không ổn định, xem dự báo thời tiết cũng vô ích.",
+       "py": "(èr) “dào / dào shì”: “Fǎn'ér” de yìsi 2. A: Zuìjìn de tiānqì zhēnde bú tài wěndìng, kàn qìxiàngbàogào yě méiyòng."
       },
       {
        "hz": "A：照顧孩子哪裡難了？你為什麼就是不願意幫忙呢？",
-       "vi": ""
+       "vi": "A: Chăm con khó chỗ nào? Sao anh cứ nhất định không chịu giúp?",
+       "py": "A: Zhàogù háizi nǎlǐ nán le? Nǐ wèishénme jiùshì bú yuànyì bāngmáng ne?"
       },
       {
        "hz": "請用「倒/倒是」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “倒/倒是” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “dào / dào shì” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -2552,47 +2987,58 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：在臺灣，在每家商店買東西時，都可以跟老闆講價嗎？B：不見得。拿便利商店來說，店裡的東西都無法講價。",
-       "vi": ""
+       "vi": "A: Ở Đài Loan, mua đồ ở cửa hàng nào cũng có thể trả giá với chủ không? B: Chưa chắc. Lấy cửa hàng tiện lợi làm ví dụ, đồ trong đó đều không trả giá được.",
+       "py": "A: Zài Táiwān, zài měijiā shāngdiàn mǎi dōngxī shí, dōu kěyǐ gēn lǎobǎn jiǎngjià ma? B: Bújiànde. Ná biànlìshāngdiàn láishuō, diànlǐ de dōngxī dōu wúfǎ jiǎngjià."
       },
       {
        "hz": "A：你說你家每個人的愛好都不相同，所以一到週末，大家都去做自己喜愛的事。",
-       "vi": ""
+       "vi": "A: Bạn nói mỗi người trong nhà bạn có sở thích khác nhau, nên cứ đến cuối tuần là mọi người đi làm việc mình thích.",
+       "py": "A: Nǐ shuō nǐjiā měigè rén de àihào dōu bù xiāngtóng, suǒyǐ yí dào zhōumò, dàjiā dōu qù zuò zìjǐ xǐ'ài de shì."
       },
       {
        "hz": "A：要是有人請你去訪問一般民眾對環境保護的看法，在訪問時有哪些方面是你認為應該注意的？",
-       "vi": ""
+       "vi": "A: Nếu có người nhờ bạn đi phỏng vấn người dân bình thường về quan điểm bảo vệ môi trường, khi phỏng vấn bạn cho rằng nên chú ý những mặt nào?",
+       "py": "A: Yàoshì yǒurén qǐng nǐ qù fǎngwèn yìbān mínzhòng duì huánjìngbǎohù de kànfǎ, zài fǎngwèn shí yǒu nǎxiēfāngmiàn shì nǐ rènwéi yīnggāi zhùyì de?"
       },
       {
        "hz": "請用「拿……來說」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “拿……來說” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “ná…… láishuō” wánchéng yǐxià de duìhuà."
       },
       {
-       "hz": "A：聽說有幾家公司想請你去工作，你為什麼選擇那家？B：那家公司的薪水、福利都不錯，另外還為員工安排職業訓練，   相當吸引我。",
-       "vi": ""
+       "hz": "A：聽說有幾家公司想請你去工作，你為什麼選擇那家？B：那家公司的薪水、福利都不錯，另外還為員工安排職業訓練，相當吸引我。",
+       "vi": "A: Nghe nói có mấy công ty muốn mời bạn làm việc, sao bạn chọn công ty đó? B: Lương và phúc lợi của công ty đó đều khá, ngoài ra còn sắp xếp đào tạo nghề cho nhân viên, rất thu hút tôi.",
+       "py": "A: Tīngshuō yǒu jǐjiā gōngsī xiǎng qǐng nǐ qù gōngzuò, nǐ wèishénme xuǎnzé nà jiā? B: Nà jiā gōngsī de xīnshuǐ, fúlì dōu búcuò, lìngwài hái wèi yuángōng ānpái zhíyè xùnliàn, xiāngdāng xīyǐn wǒ."
       },
       {
        "hz": "A：這附近的超市不少，你為什麼還是習慣到那家超市購買呢？",
-       "vi": ""
+       "vi": "A: Quanh đây có không ít siêu thị, sao bạn vẫn quen đến siêu thị đó mua đồ?",
+       "py": "A: Zhè fùjìn de chāoshì bùshǎo, nǐ wèishénme háishì xíguàn dào nà jiā chāoshì gòumǎi ne?"
       },
       {
        "hz": "A：下週五晚上朋友跟我約好去看電影，要看哪一部還沒決定。",
-       "vi": ""
+       "vi": "A: Tối thứ Sáu tuần sau bạn hẹn tôi đi xem phim, nhưng chưa quyết định xem phim nào.",
+       "py": "A: Xià zhōuwǔ wǎnshàng péngyǒu gēn wǒ yuē hǎo qù kàn diànyǐng, yào kàn nǎyíbù hái méi juédìng."
       },
       {
        "hz": "能不能請你推薦一下？",
-       "vi": ""
+       "vi": "Bạn giới thiệu giúp tôi được không?",
+       "py": "Néng bùnéng qǐng nǐ tuījiàn yíxià?"
       },
       {
        "hz": "請用「另外」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “另外” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “lìngwài” wánchéng yǐxià de duìhuà."
       },
       {
        "hz": "A：電影在家看就好，你為什麼要去電影院看？B：好電影值得在電影院看，只有那裡能給觀眾帶來最佳享受。",
-       "vi": ""
+       "vi": "A: Xem phim ở nhà là được rồi, sao bạn phải đến rạp xem? B: Phim hay đáng được xem ở rạp, chỉ ở đó mới mang lại cho khán giả trải nghiệm tốt nhất.",
+       "py": "A: Diànyǐng zàijiā kàn jiù hǎo, nǐ wèishénme yào qù diànyǐngyuàn kàn? B: Hǎo diànyǐng zhíde zài diànyǐngyuàn kàn, zhǐyǒu nàlǐ néng gěi guānzhòng dàilái zuìjiā xiǎngshòu."
       },
       {
-       "hz": "生活周圍每件大大小小的事情，對你我來說都是有意義的。 請你看看以下的句子想一想，然後寫下來。",
-       "vi": ""
+       "hz": "生活周圍每件大大小小的事情，對你我來說都是有意義的。請你看看以下的句子想一想，然後寫下來。",
+       "vi": "Mọi chuyện lớn nhỏ quanh cuộc sống đều có ý nghĩa với bạn và tôi. Hãy đọc các câu dưới đây, suy nghĩ rồi viết ra.",
+       "py": "Shēnghuó zhōuwéi měijiàn dàdàxiǎoxiǎo de shìqíng, duì nǐ wǒ láishuō dōu shì yǒu yìyì de. Qǐng nǐ kànkàn yǐxià de jùzi xiǎngyìxiǎng, ránhòu xiě xiàlái."
       }
      ],
      "answer": null
@@ -2611,84 +3057,104 @@ export const thoidaiGrammar4 = {
      "formula": "「而已」是助詞，放在句子最後。表示說話的人覺得程度或情況沒什麼特別或是重要的。 II.(二)才Nu-M-(N) 而已「才」是副詞，後面是數量(quantity)與名詞時，表示數量很少，只有一點兒。加上「而已」一起使用時，表示說話的人認為數量只有這些，影響或程度相當低。 III. （也）就是說……表示說話的人用另一種方式再次說明自己剛剛談的情況、理由，或是跟對方確認剛才聽到的內容。「也」在這個語法中可以不用。",
      "examples": [
       {
-       "hz": "A：在我班上，有幾個學生一點兒禮貌都不懂，怎麼說都不聽，   真是麻煩死了！B：他們還是小孩子而已，你教他們的時候應該更有耐心。",
-       "vi": ""
+       "hz": "A：在我班上，有幾個學生一點兒禮貌都不懂，怎麼說都不聽，真是麻煩死了！B：他們還是小孩子而已，你教他們的時候應該更有耐心。",
+       "vi": "A: Lớp tôi có mấy học sinh chẳng biết lễ phép gì cả, nói thế nào cũng không nghe, phiền chết đi được! B: Chúng chỉ là trẻ con thôi mà, khi dạy chúng bạn nên kiên nhẫn hơn.",
+       "py": "A: Zài wǒ bānshàng, yǒu jǐgè xuéshēng yìdiǎn'ér lǐmào dōu bù dǒng, zěnme shuō dōu bù tīng, zhēnshì máfán sǐ le! B: Tāmen háishì xiǎoháizi éryǐ, nǐ jiào tāmen de shíhòu yīnggāi gèng yǒu nàixīn."
       },
       {
        "hz": "A：你們部門那件商品計畫，進行得還順利嗎？",
-       "vi": ""
+       "vi": "A: Kế hoạch sản phẩm đó của bộ phận các anh tiến hành vẫn suôn sẻ chứ?",
+       "py": "A: Nǐmen bùmén nà jiàn shāngpǐn jìhuà, jìnxíng de hái shùnlì ma?"
       },
       {
        "hz": "B：目前還只在調查市場情況，並找出產品的設計方向，但是已經遇到不少困難了，得想想辦法克服才行。",
-       "vi": ""
+       "vi": "B: Hiện giờ mới chỉ đang khảo sát tình hình thị trường và tìm ra hướng thiết kế sản phẩm, nhưng đã gặp không ít khó khăn, phải nghĩ cách khắc phục mới được.",
+       "py": "B: Mùqián hái zhǐ zài diàochá shìchǎng qíngkuàng, bìng zhǎochū chǎnpǐn de shèjì fāngxiàng, dànshì yǐjīng yùdào bùshǎo kùnnán le, de xiǎngxiǎng bànfǎ kèfú cái xíng."
       },
       {
        "hz": "A：那位總統選舉前說的跟選舉後做的完全不同，真是讓人不滿。",
-       "vi": ""
+       "vi": "A: Vị tổng thống đó nói trước bầu cử và làm sau bầu cử hoàn toàn khác nhau, thật khiến người ta bất mãn.",
+       "py": "A: Nàwèi zǒngtǒng xuǎnjǔ qián shuō de gēn xuǎnjǔ hòu zuò de wánquán bùtóng, zhēnshì ràng rén bùmǎn."
       },
       {
        "hz": "B：他只想到自己的利益，從來沒思考過怎麼改善人民的生活。",
-       "vi": ""
+       "vi": "B: Ông ta chỉ nghĩ đến lợi ích của bản thân, chưa từng suy nghĩ làm sao cải thiện đời sống nhân dân.",
+       "py": "B: Tā zhǐ xiǎngdào zìjǐ de lìyì, cónglái méi sīkǎo guò zěnme gǎishàn rénmín de shēnghuó."
       },
       {
        "hz": "請把「而已」放在以下畫線句子中合適的位置。",
-       "vi": ""
+       "vi": "Hãy đặt “而已” vào vị trí thích hợp trong các câu gạch chân dưới đây.",
+       "py": "Qǐng bǎ “éryǐ” fàngzài yǐxià huàxiàn jùzi zhōng héshì de wèizhì."
       },
       {
        "hz": "上課時間過了五分鐘，教室裡才一位學生而已。2. 一個包子才五塊錢而已，很便宜。3. 他學中文的時間才一個星期而已，就能用中文買東西了。",
-       "vi": ""
+       "vi": "1. Giờ học đã qua năm phút mà trong lớp mới có một học sinh thôi. 2. Một cái bánh bao chỉ có năm đồng thôi, rẻ lắm. 3. Anh ấy học tiếng Trung mới được một tuần thôi mà đã dùng tiếng Trung mua đồ được rồi.",
+       "py": "Shàngkè shíjiān guò le wǔfēnzhōng, jiàoshì lǐ cái yíwèi xuéshēng éryǐ. 2. Yígè bāozi cái wǔkuài qián éryǐ, hěn piányi. 3. Tā xué zhōngwén de shíjiān cái yígè xīngqí éryǐ, jiù néng yòng zhōngwén mǎi dōngxī le."
       },
       {
        "hz": "那位導演拍的新電影雖然很受歡迎，不過一個月下來賺的錢只有一百多萬。",
-       "vi": ""
+       "vi": "Bộ phim mới của đạo diễn đó tuy rất được yêu thích, nhưng một tháng nay số tiền kiếm được chỉ có hơn một triệu.",
+       "py": "Nàwèi dǎoyǎn pāi de xīn diànyǐng suīrán hěn shòuhuānyíng, búguò yígèyuè xiàlái zhuàn de qián zhǐyǒu yìbǎiduōwàn."
       },
       {
        "hz": "這個家庭的生活困難，每月收到的社會福利金也只有五千元，不能幫助他們解決問題。",
-       "vi": ""
+       "vi": "Gia đình này sống khó khăn, tiền phúc lợi xã hội nhận hằng tháng cũng chỉ có năm nghìn đồng, không giúp họ giải quyết được vấn đề.",
+       "py": "Zhège jiātíng de shēnghuó kùnnán, měiyuè shōudào de shèhuì fúlìjīn yě zhǐyǒu wǔqiānyuán, bùnéng bāngzhù tāmen jiějuéwèntí."
       },
       {
        "hz": "請用「才Nu-M-(N)而已」改寫以下的句子。",
-       "vi": ""
+       "vi": "Hãy dùng “才Nu-M-(N)而已” để viết lại các câu dưới đây.",
+       "py": "Qǐng yòng “cái Nu - M - éryǐ” gǎixiě yǐxià de jùzi."
       },
       {
-       "hz": "A：寫主題報告的時候，最好別寫不相關的事，否則看的人很難   掌握你的重點。B：我懂了。（也）就是說內容盡可能按照主題來寫。",
-       "vi": ""
+       "hz": "A：寫主題報告的時候，最好別寫不相關的事，否則看的人很難掌握你的重點。B：我懂了。（也）就是說內容盡可能按照主題來寫。",
+       "vi": "A: Khi viết báo cáo chuyên đề, tốt nhất đừng viết những chuyện không liên quan, nếu không người đọc rất khó nắm được trọng tâm của bạn. B: Tôi hiểu rồi. Nghĩa là nội dung nên bám sát chủ đề hết mức có thể.",
+       "py": "A: Xiě zhǔtí bàogào de shíhòu, zuìhǎo bié xiě bù xiāngguān de shì, fǒuzé kàn de rén hěn nán zhǎngwò nǐ de zhòngdiǎn. B: Wǒ dǒng le. (yě) jiùshìshuō nèiróng jǐnkěnéng ànzhào zhǔtí lái xiě."
       },
       {
        "hz": "A：你去買手機的時候，記得「貨比三家不吃虧」。",
-       "vi": ""
+       "vi": "A: Khi đi mua điện thoại, nhớ là “so sánh ba cửa hàng thì không thiệt”.",
+       "py": "A: Nǐ qù mǎishǒujī de shíhòu, jìde “huòbǐsānjiā bù chīkuī”."
       },
       {
        "hz": "A：周經理星期三要我們小組在三天以內完成這份計畫，所以我們晚上不得不加班。",
-       "vi": ""
+       "vi": "A: Thứ Tư giám đốc Châu yêu cầu nhóm chúng ta hoàn thành bản kế hoạch này trong vòng ba ngày, nên buổi tối chúng ta buộc phải tăng ca.",
+       "py": "A: Zhōu jīnglǐ xīngqísān yào wǒmen xiǎozǔ zài sāntiān yǐnèi wánchéng zhèfèn jìhuà, suǒyǐ wǒmen wǎnshàng bùdébù jiābān."
       },
       {
        "hz": "A：對啊，快累死我了。",
-       "vi": ""
+       "vi": "A: Đúng vậy, tôi sắp mệt chết rồi.",
+       "py": "A: Duì a, kuài lèisǐ wǒ le."
       },
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       },
       {
-       "hz": "雖然假日的火車票難訂，平時的票 倒/倒是 很好訂。（不過）2.這山區從來沒下過雪，今年 倒/倒是 下了好幾次。  （沒想到）3.你說得 倒/倒是 輕鬆。你以為做生意賺錢很容易嗎？（怪別人）V.倒 / 倒是「倒/倒是」在本語法中是副詞，兩個用法相同，前一冊已學過「……倒是……，不過/可是/但是/就是……」語法。",
-       "vi": ""
+       "hz": "雖然假日的火車票難訂，平時的票倒/倒是很好訂。（不過）2.這山區從來沒下過雪，今年倒/倒是下了好幾次。 （沒想到）3.你說得倒/倒是輕鬆。你以為做生意賺錢很容易嗎？（怪別人）V.倒 / 倒是「倒/倒是」在本語法中是副詞，兩個用法相同，前一冊已學過「……倒是……，不過/可是/但是/就是……」語法。",
+       "vi": "1. Tuy vé tàu ngày nghỉ khó đặt, nhưng vé ngày thường thì lại rất dễ đặt. (nhưng) 2. Vùng núi này chưa bao giờ có tuyết, năm nay lại rơi mấy lần liền. (không ngờ) 3. Bạn nói thì nhẹ nhàng lắm. Bạn tưởng làm ăn kiếm tiền dễ lắm à? (trách người khác) V. 倒 / 倒是: Trong mẫu ngữ pháp này “倒/倒是” là phó từ, hai cách dùng như nhau; quyển trước đã học mẫu “……倒是……，不過/可是/但是/就是……”.",
+       "py": "Suīrán jiàrì de huǒchēpiào nán dìng, píngshí de piào dào / dào shì hěn hǎo dìng. (búguò) 2. Zhè shānqū cónglái méi xiàguò xuě, jīnnián dào / dào shì xià le hǎo jǐcì. (méixiǎngdào) 3. Nǐ shuō de dào / dào shì qīngsōng. Nǐ yǐwéi zuòshēngyì zhuànqián hěn róngyì ma? (guài biérén) V. Dào / dào shì “dào / dào shì” zài běn yǔfǎ zhōng shì fùcí, liǎnggè yòngfǎ xiāngtóng, qián yícè yǐ xué guò “…… dào shì……, búguò / kěshì / dànshì / jiùshì……” yǔfǎ."
       },
       {
        "hz": "（一）「倒/倒是」：「不過」的意思1. A：不少人在年輕時總是喜歡過一、兩位明星，你呢？",
-       "vi": ""
+       "vi": "(1) “倒/倒是” mang nghĩa “nhưng”. 1. A: Nhiều người khi còn trẻ thường thích một, hai ngôi sao, còn bạn?",
+       "py": "(yī) “dào / dào shì”: “Búguò” de yìsi 1. A: Bùshǎo rén zài niánqīng shí zǒngshì xǐhuān guò yì, liǎngwèi míngxīng, nǐ ne?"
       },
       {
        "hz": "（二）「倒/倒是」：「反而」的意思2. A：最近的天氣真的不太穩定，看氣象報告也沒用。",
-       "vi": ""
+       "vi": "(2) “倒/倒是” mang nghĩa “ngược lại”. 2. A: Dạo này thời tiết thật không ổn định, xem dự báo thời tiết cũng vô ích.",
+       "py": "(èr) “dào / dào shì”: “Fǎn'ér” de yìsi 2. A: Zuìjìn de tiānqì zhēnde bú tài wěndìng, kàn qìxiàngbàogào yě méiyòng."
       },
       {
        "hz": "A：照顧孩子哪裡難了？你為什麼就是不願意幫忙呢？",
-       "vi": ""
+       "vi": "A: Chăm con khó chỗ nào? Sao anh cứ nhất định không chịu giúp?",
+       "py": "A: Zhàogù háizi nǎlǐ nán le? Nǐ wèishénme jiùshì bú yuànyì bāngmáng ne?"
       },
       {
        "hz": "請用「倒/倒是」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “倒/倒是” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “dào / dào shì” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -2706,47 +3172,58 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：在臺灣，在每家商店買東西時，都可以跟老闆講價嗎？B：不見得。拿便利商店來說，店裡的東西都無法講價。",
-       "vi": ""
+       "vi": "A: Ở Đài Loan, mua đồ ở cửa hàng nào cũng có thể trả giá với chủ không? B: Chưa chắc. Lấy cửa hàng tiện lợi làm ví dụ, đồ trong đó đều không trả giá được.",
+       "py": "A: Zài Táiwān, zài měijiā shāngdiàn mǎi dōngxī shí, dōu kěyǐ gēn lǎobǎn jiǎngjià ma? B: Bújiànde. Ná biànlìshāngdiàn láishuō, diànlǐ de dōngxī dōu wúfǎ jiǎngjià."
       },
       {
        "hz": "A：你說你家每個人的愛好都不相同，所以一到週末，大家都去做自己喜愛的事。",
-       "vi": ""
+       "vi": "A: Bạn nói mỗi người trong nhà bạn có sở thích khác nhau, nên cứ đến cuối tuần là mọi người đi làm việc mình thích.",
+       "py": "A: Nǐ shuō nǐjiā měigè rén de àihào dōu bù xiāngtóng, suǒyǐ yí dào zhōumò, dàjiā dōu qù zuò zìjǐ xǐ'ài de shì."
       },
       {
        "hz": "A：要是有人請你去訪問一般民眾對環境保護的看法，在訪問時有哪些方面是你認為應該注意的？",
-       "vi": ""
+       "vi": "A: Nếu có người nhờ bạn đi phỏng vấn người dân bình thường về quan điểm bảo vệ môi trường, khi phỏng vấn bạn cho rằng nên chú ý những mặt nào?",
+       "py": "A: Yàoshì yǒurén qǐng nǐ qù fǎngwèn yìbān mínzhòng duì huánjìngbǎohù de kànfǎ, zài fǎngwèn shí yǒu nǎxiēfāngmiàn shì nǐ rènwéi yīnggāi zhùyì de?"
       },
       {
        "hz": "請用「拿……來說」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “拿……來說” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “ná…… láishuō” wánchéng yǐxià de duìhuà."
       },
       {
-       "hz": "A：聽說有幾家公司想請你去工作，你為什麼選擇那家？B：那家公司的薪水、福利都不錯，另外還為員工安排職業訓練，   相當吸引我。",
-       "vi": ""
+       "hz": "A：聽說有幾家公司想請你去工作，你為什麼選擇那家？B：那家公司的薪水、福利都不錯，另外還為員工安排職業訓練，相當吸引我。",
+       "vi": "A: Nghe nói có mấy công ty muốn mời bạn làm việc, sao bạn chọn công ty đó? B: Lương và phúc lợi của công ty đó đều khá, ngoài ra còn sắp xếp đào tạo nghề cho nhân viên, rất thu hút tôi.",
+       "py": "A: Tīngshuō yǒu jǐjiā gōngsī xiǎng qǐng nǐ qù gōngzuò, nǐ wèishénme xuǎnzé nà jiā? B: Nà jiā gōngsī de xīnshuǐ, fúlì dōu búcuò, lìngwài hái wèi yuángōng ānpái zhíyè xùnliàn, xiāngdāng xīyǐn wǒ."
       },
       {
        "hz": "A：這附近的超市不少，你為什麼還是習慣到那家超市購買呢？",
-       "vi": ""
+       "vi": "A: Quanh đây có không ít siêu thị, sao bạn vẫn quen đến siêu thị đó mua đồ?",
+       "py": "A: Zhè fùjìn de chāoshì bùshǎo, nǐ wèishénme háishì xíguàn dào nà jiā chāoshì gòumǎi ne?"
       },
       {
        "hz": "A：下週五晚上朋友跟我約好去看電影，要看哪一部還沒決定。",
-       "vi": ""
+       "vi": "A: Tối thứ Sáu tuần sau bạn hẹn tôi đi xem phim, nhưng chưa quyết định xem phim nào.",
+       "py": "A: Xià zhōuwǔ wǎnshàng péngyǒu gēn wǒ yuē hǎo qù kàn diànyǐng, yào kàn nǎyíbù hái méi juédìng."
       },
       {
        "hz": "能不能請你推薦一下？",
-       "vi": ""
+       "vi": "Bạn giới thiệu giúp tôi được không?",
+       "py": "Néng bùnéng qǐng nǐ tuījiàn yíxià?"
       },
       {
        "hz": "請用「另外」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “另外” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “lìngwài” wánchéng yǐxià de duìhuà."
       },
       {
        "hz": "A：電影在家看就好，你為什麼要去電影院看？B：好電影值得在電影院看，只有那裡能給觀眾帶來最佳享受。",
-       "vi": ""
+       "vi": "A: Xem phim ở nhà là được rồi, sao bạn phải đến rạp xem? B: Phim hay đáng được xem ở rạp, chỉ ở đó mới mang lại cho khán giả trải nghiệm tốt nhất.",
+       "py": "A: Diànyǐng zàijiā kàn jiù hǎo, nǐ wèishénme yào qù diànyǐngyuàn kàn? B: Hǎo diànyǐng zhíde zài diànyǐngyuàn kàn, zhǐyǒu nàlǐ néng gěi guānzhòng dàilái zuìjiā xiǎngshòu."
       },
       {
-       "hz": "生活周圍每件大大小小的事情，對你我來說都是有意義的。 請你看看以下的句子想一想，然後寫下來。",
-       "vi": ""
+       "hz": "生活周圍每件大大小小的事情，對你我來說都是有意義的。請你看看以下的句子想一想，然後寫下來。",
+       "vi": "Mọi chuyện lớn nhỏ quanh cuộc sống đều có ý nghĩa với bạn và tôi. Hãy đọc các câu dưới đây, suy nghĩ rồi viết ra.",
+       "py": "Shēnghuó zhōuwéi měijiàn dàdàxiǎoxiǎo de shìqíng, duì nǐ wǒ láishuō dōu shì yǒu yìyì de. Qǐng nǐ kànkàn yǐxià de jùzi xiǎngyìxiǎng, ránhòu xiě xiàlái."
       }
      ],
      "answer": null
@@ -2765,84 +3242,104 @@ export const thoidaiGrammar4 = {
      "formula": "「而已」是助詞，放在句子最後。表示說話的人覺得程度或情況沒什麼特別或是重要的。 II.(二)才Nu-M-(N) 而已「才」是副詞，後面是數量(quantity)與名詞時，表示數量很少，只有一點兒。加上「而已」一起使用時，表示說話的人認為數量只有這些，影響或程度相當低。 III. （也）就是說……表示說話的人用另一種方式再次說明自己剛剛談的情況、理由，或是跟對方確認剛才聽到的內容。「也」在這個語法中可以不用。",
      "examples": [
       {
-       "hz": "A：在我班上，有幾個學生一點兒禮貌都不懂，怎麼說都不聽，   真是麻煩死了！B：他們還是小孩子而已，你教他們的時候應該更有耐心。",
-       "vi": ""
+       "hz": "A：在我班上，有幾個學生一點兒禮貌都不懂，怎麼說都不聽，真是麻煩死了！B：他們還是小孩子而已，你教他們的時候應該更有耐心。",
+       "vi": "A: Lớp tôi có mấy học sinh chẳng biết lễ phép gì cả, nói thế nào cũng không nghe, phiền chết đi được! B: Chúng chỉ là trẻ con thôi mà, khi dạy chúng bạn nên kiên nhẫn hơn.",
+       "py": "A: Zài wǒ bānshàng, yǒu jǐgè xuéshēng yìdiǎn'ér lǐmào dōu bù dǒng, zěnme shuō dōu bù tīng, zhēnshì máfán sǐ le! B: Tāmen háishì xiǎoháizi éryǐ, nǐ jiào tāmen de shíhòu yīnggāi gèng yǒu nàixīn."
       },
       {
        "hz": "A：你們部門那件商品計畫，進行得還順利嗎？",
-       "vi": ""
+       "vi": "A: Kế hoạch sản phẩm đó của bộ phận các anh tiến hành vẫn suôn sẻ chứ?",
+       "py": "A: Nǐmen bùmén nà jiàn shāngpǐn jìhuà, jìnxíng de hái shùnlì ma?"
       },
       {
        "hz": "B：目前還只在調查市場情況，並找出產品的設計方向，但是已經遇到不少困難了，得想想辦法克服才行。",
-       "vi": ""
+       "vi": "B: Hiện giờ mới chỉ đang khảo sát tình hình thị trường và tìm ra hướng thiết kế sản phẩm, nhưng đã gặp không ít khó khăn, phải nghĩ cách khắc phục mới được.",
+       "py": "B: Mùqián hái zhǐ zài diàochá shìchǎng qíngkuàng, bìng zhǎochū chǎnpǐn de shèjì fāngxiàng, dànshì yǐjīng yùdào bùshǎo kùnnán le, de xiǎngxiǎng bànfǎ kèfú cái xíng."
       },
       {
        "hz": "A：那位總統選舉前說的跟選舉後做的完全不同，真是讓人不滿。",
-       "vi": ""
+       "vi": "A: Vị tổng thống đó nói trước bầu cử và làm sau bầu cử hoàn toàn khác nhau, thật khiến người ta bất mãn.",
+       "py": "A: Nàwèi zǒngtǒng xuǎnjǔ qián shuō de gēn xuǎnjǔ hòu zuò de wánquán bùtóng, zhēnshì ràng rén bùmǎn."
       },
       {
        "hz": "B：他只想到自己的利益，從來沒思考過怎麼改善人民的生活。",
-       "vi": ""
+       "vi": "B: Ông ta chỉ nghĩ đến lợi ích của bản thân, chưa từng suy nghĩ làm sao cải thiện đời sống nhân dân.",
+       "py": "B: Tā zhǐ xiǎngdào zìjǐ de lìyì, cónglái méi sīkǎo guò zěnme gǎishàn rénmín de shēnghuó."
       },
       {
        "hz": "請把「而已」放在以下畫線句子中合適的位置。",
-       "vi": ""
+       "vi": "Hãy đặt “而已” vào vị trí thích hợp trong các câu gạch chân dưới đây.",
+       "py": "Qǐng bǎ “éryǐ” fàngzài yǐxià huàxiàn jùzi zhōng héshì de wèizhì."
       },
       {
        "hz": "上課時間過了五分鐘，教室裡才一位學生而已。2. 一個包子才五塊錢而已，很便宜。3. 他學中文的時間才一個星期而已，就能用中文買東西了。",
-       "vi": ""
+       "vi": "1. Giờ học đã qua năm phút mà trong lớp mới có một học sinh thôi. 2. Một cái bánh bao chỉ có năm đồng thôi, rẻ lắm. 3. Anh ấy học tiếng Trung mới được một tuần thôi mà đã dùng tiếng Trung mua đồ được rồi.",
+       "py": "Shàngkè shíjiān guò le wǔfēnzhōng, jiàoshì lǐ cái yíwèi xuéshēng éryǐ. 2. Yígè bāozi cái wǔkuài qián éryǐ, hěn piányi. 3. Tā xué zhōngwén de shíjiān cái yígè xīngqí éryǐ, jiù néng yòng zhōngwén mǎi dōngxī le."
       },
       {
        "hz": "那位導演拍的新電影雖然很受歡迎，不過一個月下來賺的錢只有一百多萬。",
-       "vi": ""
+       "vi": "Bộ phim mới của đạo diễn đó tuy rất được yêu thích, nhưng một tháng nay số tiền kiếm được chỉ có hơn một triệu.",
+       "py": "Nàwèi dǎoyǎn pāi de xīn diànyǐng suīrán hěn shòuhuānyíng, búguò yígèyuè xiàlái zhuàn de qián zhǐyǒu yìbǎiduōwàn."
       },
       {
        "hz": "這個家庭的生活困難，每月收到的社會福利金也只有五千元，不能幫助他們解決問題。",
-       "vi": ""
+       "vi": "Gia đình này sống khó khăn, tiền phúc lợi xã hội nhận hằng tháng cũng chỉ có năm nghìn đồng, không giúp họ giải quyết được vấn đề.",
+       "py": "Zhège jiātíng de shēnghuó kùnnán, měiyuè shōudào de shèhuì fúlìjīn yě zhǐyǒu wǔqiānyuán, bùnéng bāngzhù tāmen jiějuéwèntí."
       },
       {
        "hz": "請用「才Nu-M-(N)而已」改寫以下的句子。",
-       "vi": ""
+       "vi": "Hãy dùng “才Nu-M-(N)而已” để viết lại các câu dưới đây.",
+       "py": "Qǐng yòng “cái Nu - M - éryǐ” gǎixiě yǐxià de jùzi."
       },
       {
-       "hz": "A：寫主題報告的時候，最好別寫不相關的事，否則看的人很難   掌握你的重點。B：我懂了。（也）就是說內容盡可能按照主題來寫。",
-       "vi": ""
+       "hz": "A：寫主題報告的時候，最好別寫不相關的事，否則看的人很難掌握你的重點。B：我懂了。（也）就是說內容盡可能按照主題來寫。",
+       "vi": "A: Khi viết báo cáo chuyên đề, tốt nhất đừng viết những chuyện không liên quan, nếu không người đọc rất khó nắm được trọng tâm của bạn. B: Tôi hiểu rồi. Nghĩa là nội dung nên bám sát chủ đề hết mức có thể.",
+       "py": "A: Xiě zhǔtí bàogào de shíhòu, zuìhǎo bié xiě bù xiāngguān de shì, fǒuzé kàn de rén hěn nán zhǎngwò nǐ de zhòngdiǎn. B: Wǒ dǒng le. (yě) jiùshìshuō nèiróng jǐnkěnéng ànzhào zhǔtí lái xiě."
       },
       {
        "hz": "A：你去買手機的時候，記得「貨比三家不吃虧」。",
-       "vi": ""
+       "vi": "A: Khi đi mua điện thoại, nhớ là “so sánh ba cửa hàng thì không thiệt”.",
+       "py": "A: Nǐ qù mǎishǒujī de shíhòu, jìde “huòbǐsānjiā bù chīkuī”."
       },
       {
        "hz": "A：周經理星期三要我們小組在三天以內完成這份計畫，所以我們晚上不得不加班。",
-       "vi": ""
+       "vi": "A: Thứ Tư giám đốc Châu yêu cầu nhóm chúng ta hoàn thành bản kế hoạch này trong vòng ba ngày, nên buổi tối chúng ta buộc phải tăng ca.",
+       "py": "A: Zhōu jīnglǐ xīngqísān yào wǒmen xiǎozǔ zài sāntiān yǐnèi wánchéng zhèfèn jìhuà, suǒyǐ wǒmen wǎnshàng bùdébù jiābān."
       },
       {
        "hz": "A：對啊，快累死我了。",
-       "vi": ""
+       "vi": "A: Đúng vậy, tôi sắp mệt chết rồi.",
+       "py": "A: Duì a, kuài lèisǐ wǒ le."
       },
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       },
       {
-       "hz": "雖然假日的火車票難訂，平時的票 倒/倒是 很好訂。（不過）2.這山區從來沒下過雪，今年 倒/倒是 下了好幾次。  （沒想到）3.你說得 倒/倒是 輕鬆。你以為做生意賺錢很容易嗎？（怪別人）V.倒 / 倒是「倒/倒是」在本語法中是副詞，兩個用法相同，前一冊已學過「……倒是……，不過/可是/但是/就是……」語法。",
-       "vi": ""
+       "hz": "雖然假日的火車票難訂，平時的票倒/倒是很好訂。（不過）2.這山區從來沒下過雪，今年倒/倒是下了好幾次。 （沒想到）3.你說得倒/倒是輕鬆。你以為做生意賺錢很容易嗎？（怪別人）V.倒 / 倒是「倒/倒是」在本語法中是副詞，兩個用法相同，前一冊已學過「……倒是……，不過/可是/但是/就是……」語法。",
+       "vi": "1. Tuy vé tàu ngày nghỉ khó đặt, nhưng vé ngày thường thì lại rất dễ đặt. (nhưng) 2. Vùng núi này chưa bao giờ có tuyết, năm nay lại rơi mấy lần liền. (không ngờ) 3. Bạn nói thì nhẹ nhàng lắm. Bạn tưởng làm ăn kiếm tiền dễ lắm à? (trách người khác) V. 倒 / 倒是: Trong mẫu ngữ pháp này “倒/倒是” là phó từ, hai cách dùng như nhau; quyển trước đã học mẫu “……倒是……，不過/可是/但是/就是……”.",
+       "py": "Suīrán jiàrì de huǒchēpiào nán dìng, píngshí de piào dào / dào shì hěn hǎo dìng. (búguò) 2. Zhè shānqū cónglái méi xiàguò xuě, jīnnián dào / dào shì xià le hǎo jǐcì. (méixiǎngdào) 3. Nǐ shuō de dào / dào shì qīngsōng. Nǐ yǐwéi zuòshēngyì zhuànqián hěn róngyì ma? (guài biérén) V. Dào / dào shì “dào / dào shì” zài běn yǔfǎ zhōng shì fùcí, liǎnggè yòngfǎ xiāngtóng, qián yícè yǐ xué guò “…… dào shì……, búguò / kěshì / dànshì / jiùshì……” yǔfǎ."
       },
       {
        "hz": "（一）「倒/倒是」：「不過」的意思1. A：不少人在年輕時總是喜歡過一、兩位明星，你呢？",
-       "vi": ""
+       "vi": "(1) “倒/倒是” mang nghĩa “nhưng”. 1. A: Nhiều người khi còn trẻ thường thích một, hai ngôi sao, còn bạn?",
+       "py": "(yī) “dào / dào shì”: “Búguò” de yìsi 1. A: Bùshǎo rén zài niánqīng shí zǒngshì xǐhuān guò yì, liǎngwèi míngxīng, nǐ ne?"
       },
       {
        "hz": "（二）「倒/倒是」：「反而」的意思2. A：最近的天氣真的不太穩定，看氣象報告也沒用。",
-       "vi": ""
+       "vi": "(2) “倒/倒是” mang nghĩa “ngược lại”. 2. A: Dạo này thời tiết thật không ổn định, xem dự báo thời tiết cũng vô ích.",
+       "py": "(èr) “dào / dào shì”: “Fǎn'ér” de yìsi 2. A: Zuìjìn de tiānqì zhēnde bú tài wěndìng, kàn qìxiàngbàogào yě méiyòng."
       },
       {
        "hz": "A：照顧孩子哪裡難了？你為什麼就是不願意幫忙呢？",
-       "vi": ""
+       "vi": "A: Chăm con khó chỗ nào? Sao anh cứ nhất định không chịu giúp?",
+       "py": "A: Zhàogù háizi nǎlǐ nán le? Nǐ wèishénme jiùshì bú yuànyì bāngmáng ne?"
       },
       {
        "hz": "請用「倒/倒是」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “倒/倒是” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “dào / dào shì” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -2860,47 +3357,58 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：在臺灣，在每家商店買東西時，都可以跟老闆講價嗎？B：不見得。拿便利商店來說，店裡的東西都無法講價。",
-       "vi": ""
+       "vi": "A: Ở Đài Loan, mua đồ ở cửa hàng nào cũng có thể trả giá với chủ không? B: Chưa chắc. Lấy cửa hàng tiện lợi làm ví dụ, đồ trong đó đều không trả giá được.",
+       "py": "A: Zài Táiwān, zài měijiā shāngdiàn mǎi dōngxī shí, dōu kěyǐ gēn lǎobǎn jiǎngjià ma? B: Bújiànde. Ná biànlìshāngdiàn láishuō, diànlǐ de dōngxī dōu wúfǎ jiǎngjià."
       },
       {
        "hz": "A：你說你家每個人的愛好都不相同，所以一到週末，大家都去做自己喜愛的事。",
-       "vi": ""
+       "vi": "A: Bạn nói mỗi người trong nhà bạn có sở thích khác nhau, nên cứ đến cuối tuần là mọi người đi làm việc mình thích.",
+       "py": "A: Nǐ shuō nǐjiā měigè rén de àihào dōu bù xiāngtóng, suǒyǐ yí dào zhōumò, dàjiā dōu qù zuò zìjǐ xǐ'ài de shì."
       },
       {
        "hz": "A：要是有人請你去訪問一般民眾對環境保護的看法，在訪問時有哪些方面是你認為應該注意的？",
-       "vi": ""
+       "vi": "A: Nếu có người nhờ bạn đi phỏng vấn người dân bình thường về quan điểm bảo vệ môi trường, khi phỏng vấn bạn cho rằng nên chú ý những mặt nào?",
+       "py": "A: Yàoshì yǒurén qǐng nǐ qù fǎngwèn yìbān mínzhòng duì huánjìngbǎohù de kànfǎ, zài fǎngwèn shí yǒu nǎxiēfāngmiàn shì nǐ rènwéi yīnggāi zhùyì de?"
       },
       {
        "hz": "請用「拿……來說」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “拿……來說” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “ná…… láishuō” wánchéng yǐxià de duìhuà."
       },
       {
-       "hz": "A：聽說有幾家公司想請你去工作，你為什麼選擇那家？B：那家公司的薪水、福利都不錯，另外還為員工安排職業訓練，   相當吸引我。",
-       "vi": ""
+       "hz": "A：聽說有幾家公司想請你去工作，你為什麼選擇那家？B：那家公司的薪水、福利都不錯，另外還為員工安排職業訓練，相當吸引我。",
+       "vi": "A: Nghe nói có mấy công ty muốn mời bạn làm việc, sao bạn chọn công ty đó? B: Lương và phúc lợi của công ty đó đều khá, ngoài ra còn sắp xếp đào tạo nghề cho nhân viên, rất thu hút tôi.",
+       "py": "A: Tīngshuō yǒu jǐjiā gōngsī xiǎng qǐng nǐ qù gōngzuò, nǐ wèishénme xuǎnzé nà jiā? B: Nà jiā gōngsī de xīnshuǐ, fúlì dōu búcuò, lìngwài hái wèi yuángōng ānpái zhíyè xùnliàn, xiāngdāng xīyǐn wǒ."
       },
       {
        "hz": "A：這附近的超市不少，你為什麼還是習慣到那家超市購買呢？",
-       "vi": ""
+       "vi": "A: Quanh đây có không ít siêu thị, sao bạn vẫn quen đến siêu thị đó mua đồ?",
+       "py": "A: Zhè fùjìn de chāoshì bùshǎo, nǐ wèishénme háishì xíguàn dào nà jiā chāoshì gòumǎi ne?"
       },
       {
        "hz": "A：下週五晚上朋友跟我約好去看電影，要看哪一部還沒決定。",
-       "vi": ""
+       "vi": "A: Tối thứ Sáu tuần sau bạn hẹn tôi đi xem phim, nhưng chưa quyết định xem phim nào.",
+       "py": "A: Xià zhōuwǔ wǎnshàng péngyǒu gēn wǒ yuē hǎo qù kàn diànyǐng, yào kàn nǎyíbù hái méi juédìng."
       },
       {
        "hz": "能不能請你推薦一下？",
-       "vi": ""
+       "vi": "Bạn giới thiệu giúp tôi được không?",
+       "py": "Néng bùnéng qǐng nǐ tuījiàn yíxià?"
       },
       {
        "hz": "請用「另外」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “另外” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “lìngwài” wánchéng yǐxià de duìhuà."
       },
       {
        "hz": "A：電影在家看就好，你為什麼要去電影院看？B：好電影值得在電影院看，只有那裡能給觀眾帶來最佳享受。",
-       "vi": ""
+       "vi": "A: Xem phim ở nhà là được rồi, sao bạn phải đến rạp xem? B: Phim hay đáng được xem ở rạp, chỉ ở đó mới mang lại cho khán giả trải nghiệm tốt nhất.",
+       "py": "A: Diànyǐng zàijiā kàn jiù hǎo, nǐ wèishénme yào qù diànyǐngyuàn kàn? B: Hǎo diànyǐng zhíde zài diànyǐngyuàn kàn, zhǐyǒu nàlǐ néng gěi guānzhòng dàilái zuìjiā xiǎngshòu."
       },
       {
-       "hz": "生活周圍每件大大小小的事情，對你我來說都是有意義的。 請你看看以下的句子想一想，然後寫下來。",
-       "vi": ""
+       "hz": "生活周圍每件大大小小的事情，對你我來說都是有意義的。請你看看以下的句子想一想，然後寫下來。",
+       "vi": "Mọi chuyện lớn nhỏ quanh cuộc sống đều có ý nghĩa với bạn và tôi. Hãy đọc các câu dưới đây, suy nghĩ rồi viết ra.",
+       "py": "Shēnghuó zhōuwéi měijiàn dàdàxiǎoxiǎo de shìqíng, duì nǐ wǒ láishuō dōu shì yǒu yìyì de. Qǐng nǐ kànkàn yǐxià de jùzi xiǎngyìxiǎng, ránhòu xiě xiàlái."
       }
      ],
      "answer": null
@@ -2920,27 +3428,33 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "他的個性跟過去完全相反，已經不是我所認識的他了。2.大家在會議中所說的建議，對公司發展新技術很有幫助。",
-       "vi": ""
+       "vi": "1. Tính cách anh ấy hoàn toàn trái ngược với trước đây, đã không còn là anh ấy mà tôi quen biết nữa. 2. Những đề xuất mà mọi người đưa ra trong cuộc họp rất có ích cho việc công ty phát triển công nghệ mới.",
+       "py": "Tā de gèxìng gēn guòqù wánquán xiāngfǎn, yǐjīng búshì wǒ suǒ rènshì de tā le. 2. Dàjiā zài huìyì zhōng suǒshuō de jiànyì, duì gōngsī fāzhǎn xīn jìshù hěn yǒu bāngzhù."
       },
       {
        "hz": "請用「S所V的O」來改寫以下句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “S所V的O” để viết lại phần gạch chân trong các câu dưới đây.",
+       "py": "Qǐng yòng “S suǒ V de O” lái gǎixiě yǐxià jùzi zhōng huàxiàn de bùfèn."
       },
       {
        "hz": "我把房間裡那條黑色繩子看成蛇，嚇了我一大跳。",
-       "vi": ""
+       "vi": "Tôi nhìn sợi dây thừng màu đen trong phòng thành con rắn, làm tôi giật cả mình.",
+       "py": "Wǒ bǎ fángjiān lǐ nàtiáo hēisè shéngzi kànchéng shé, xià le wǒ yídàtiào."
       },
       {
        "hz": "A：趙先生每天做好幾份工作，他的身體大概受不了吧？",
-       "vi": ""
+       "vi": "A: Ngày nào anh Triệu cũng làm mấy công việc, sức khoẻ anh ấy chắc không chịu nổi đâu nhỉ?",
+       "py": "A: Zhào xiānshēng měitiān zuò hǎojǐfèn gōngzuò, tā de shēntǐ dàgài shòubùliǎo ba?"
       },
       {
        "hz": "B：沒辦法，他太太生病了，兩個孩子年紀又小，整個家庭只能2. A：我看到你常去關心那位爺爺的情況，他一切都還好嗎？",
-       "vi": ""
+       "vi": "B: Không còn cách nào, vợ anh ấy bị ốm, hai con lại còn nhỏ, cả gia đình chỉ có thể… 2. A: Tôi thấy bạn hay đến hỏi thăm tình hình ông cụ đó, ông ấy vẫn ổn cả chứ?",
+       "py": "B: Méi bànfǎ, tā tàitai shēngbìng le, liǎnggè háizi niánjì yòu xiǎo, zhěnggè jiātíng zhǐnéng 2. A: Wǒ kàndào nǐ cháng qù guānxīn nàwèi yéye de qíngkuàng, tā yíqiè dōu háihǎo ma?"
       },
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -2958,23 +3472,28 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：我看你最近常練習長跑，是準備參加比賽嗎？B：我跑步是跑著玩的，沒想過去比賽。",
-       "vi": ""
+       "vi": "A: Tôi thấy dạo này bạn hay tập chạy đường dài, định tham gia thi đấu à? B: Tôi chạy cho vui thôi, chưa từng nghĩ đến chuyện thi.",
+       "py": "A: Wǒ kàn nǐ zuìjìn cháng liànxí chángpǎo, shì zhǔnbèi cānjiā bǐsài ma? B: Wǒ pǎobù shì pǎo zhe wán de, méi xiǎng guòqù bǐsài."
       },
       {
-       "hz": "真的。這裡的「V」是一個字的動詞(Verb)。",
-       "vi": ""
+       "hz": "真的。這裡的「V」是一個字的動詞。",
+       "vi": "Thật đấy. “V” ở đây là động từ một chữ.",
+       "py": "Zhēnde. Zhèlǐ de “V” shì yígè zì de dòngcí."
       },
       {
        "hz": "A：你來臺灣學中文，是因為將來想在臺灣工作或念書嗎？",
-       "vi": ""
+       "vi": "A: Bạn đến Đài Loan học tiếng Trung là vì sau này muốn làm việc hoặc học ở Đài Loan à?",
+       "py": "A: Nǐ lái Táiwān xué zhōngwén, shìyīnwèi jiānglái xiǎng zài Táiwān gōngzuò huò niànshū ma?"
       },
       {
        "hz": "A：你每天都那麼認真練習吉他，是為了參加學校活動嗎？",
-       "vi": ""
+       "vi": "A: Ngày nào bạn cũng chăm chỉ tập đàn guitar như vậy, là để tham gia hoạt động của trường à?",
+       "py": "A: Nǐ měitiān dōu nàme rènzhēn liànxí jítā, shì wèile cānjiā xuéxiào huódòng ma?"
       },
       {
        "hz": "請用「V著玩」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “V著玩” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “V zhe wán” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -2992,27 +3511,33 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：氣象報告說這個週末的天氣不穩定，山區可能會下大雨。B：天氣不好嗎？這樣一來，也只能晚幾天再去山上露營了。",
-       "vi": ""
+       "vi": "A: Dự báo thời tiết nói cuối tuần này thời tiết không ổn định, vùng núi có thể mưa to. B: Thời tiết xấu à? Như vậy thì chỉ có thể lùi vài ngày nữa mới lên núi cắm trại được.",
+       "py": "A: Qìxiàngbàogào shuō zhège zhōumò de tiānqì bù wěndìng, shānqū kěnéng huì xià dàyǔ. B: Tiānqì bùhǎo ma? Zhèyàngyìlái, yě zhǐnéng wǎn jǐtiān zài qù shānshàng lùyíng le."
       },
       {
-       "hz": "「這樣一來」是短語。在「這樣一來」前面是說話的人已知道的情況，「這樣一來」後面是根據前面的情況，說明可能產生的影響或結果(result)。",
-       "vi": ""
+       "hz": "「這樣一來」是短語。在「這樣一來」前面是說話的人已知道的情況，「這樣一來」後面是根據前面的情況，說明可能產生的影響或結果。",
+       "vi": "“這樣一來” là một cụm từ. Phía trước “這樣一來” là tình huống người nói đã biết, phía sau “這樣一來” dựa vào tình huống đó để nói rõ ảnh hưởng hoặc kết quả có thể xảy ra.",
+       "py": "“Zhèyàngyìlái” shì duǎnyǔ. Zài “zhèyàngyìlái” qiánmiàn shì shuōhuà de rén yǐ zhīdào de qíngkuàng, “zhèyàngyìlái” hòumiàn shì gēnjù qiánmiàn de qíngkuàng, shuōmíng kěnéng chǎnshēng de yǐngxiǎng huò jiéguǒ."
       },
       {
        "hz": "我們公司的產品應該表現出自己的風格，就能夠吸引顧客購買。",
-       "vi": ""
+       "vi": "Sản phẩm của công ty chúng ta nên thể hiện phong cách riêng, như vậy mới thu hút được khách hàng mua.",
+       "py": "Wǒmen gōngsī de chǎnpǐn yīnggāi biǎoxiàn chū zìjǐ de fēnggé, jiù nénggòu xīyǐn gùkè gòumǎi."
       },
       {
        "hz": "最近我國一直鼓勵留學生來念書，多多少少可以減輕國內大學的學生人數越來越少的問題。",
-       "vi": ""
+       "vi": "Gần đây nước ta luôn khuyến khích du học sinh đến học, như vậy ít nhiều có thể giảm bớt vấn đề số sinh viên các trường đại học trong nước ngày càng ít.",
+       "py": "Zuìjìn wǒguó yìzhí gǔlì liúxuéshēng lái niànshū, duōduōshǎoshǎo kěyǐ jiǎnqīng guónèi dàxué de xuéshēng rénshù yuèláiyuèshǎo de wèntí."
       },
       {
        "hz": "你常常自己只吃自己想吃的食物，有營養的反而不吃，對健康可能有不好的影響。",
-       "vi": ""
+       "vi": "Bạn thường chỉ ăn những món mình thích, món có dinh dưỡng thì lại không ăn, như vậy có thể ảnh hưởng xấu đến sức khoẻ.",
+       "py": "Nǐ chángcháng zìjǐ zhǐ chī zìjǐ xiǎng chī de shíwù, yǒu yíngyǎng de fǎn'ér bùchī, duì jiànkāng kěnéng yǒu bùhǎo de yǐngxiǎng."
       },
       {
        "hz": "請把「這樣一來」放在以下句子中合適的位置。",
-       "vi": ""
+       "vi": "Hãy đặt “這樣一來” vào vị trí thích hợp trong các câu dưới đây.",
+       "py": "Qǐng bǎ “zhèyàngyìlái” fàngzài yǐxià jùzi zhōng héshì de wèizhì."
       }
      ],
      "answer": null
@@ -3032,27 +3557,33 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "他的個性跟過去完全相反，已經不是我所認識的他了。2.大家在會議中所說的建議，對公司發展新技術很有幫助。",
-       "vi": ""
+       "vi": "1. Tính cách anh ấy hoàn toàn trái ngược với trước đây, đã không còn là anh ấy mà tôi quen biết nữa. 2. Những đề xuất mà mọi người đưa ra trong cuộc họp rất có ích cho việc công ty phát triển công nghệ mới.",
+       "py": "Tā de gèxìng gēn guòqù wánquán xiāngfǎn, yǐjīng búshì wǒ suǒ rènshì de tā le. 2. Dàjiā zài huìyì zhōng suǒshuō de jiànyì, duì gōngsī fāzhǎn xīn jìshù hěn yǒu bāngzhù."
       },
       {
        "hz": "請用「S所V的O」來改寫以下句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “S所V的O” để viết lại phần gạch chân trong các câu dưới đây.",
+       "py": "Qǐng yòng “S suǒ V de O” lái gǎixiě yǐxià jùzi zhōng huàxiàn de bùfèn."
       },
       {
        "hz": "我把房間裡那條黑色繩子看成蛇，嚇了我一大跳。",
-       "vi": ""
+       "vi": "Tôi nhìn sợi dây thừng màu đen trong phòng thành con rắn, làm tôi giật cả mình.",
+       "py": "Wǒ bǎ fángjiān lǐ nàtiáo hēisè shéngzi kànchéng shé, xià le wǒ yídàtiào."
       },
       {
        "hz": "A：趙先生每天做好幾份工作，他的身體大概受不了吧？",
-       "vi": ""
+       "vi": "A: Ngày nào anh Triệu cũng làm mấy công việc, sức khoẻ anh ấy chắc không chịu nổi đâu nhỉ?",
+       "py": "A: Zhào xiānshēng měitiān zuò hǎojǐfèn gōngzuò, tā de shēntǐ dàgài shòubùliǎo ba?"
       },
       {
        "hz": "B：沒辦法，他太太生病了，兩個孩子年紀又小，整個家庭只能2. A：我看到你常去關心那位爺爺的情況，他一切都還好嗎？",
-       "vi": ""
+       "vi": "B: Không còn cách nào, vợ anh ấy bị ốm, hai con lại còn nhỏ, cả gia đình chỉ có thể… 2. A: Tôi thấy bạn hay đến hỏi thăm tình hình ông cụ đó, ông ấy vẫn ổn cả chứ?",
+       "py": "B: Méi bànfǎ, tā tàitai shēngbìng le, liǎnggè háizi niánjì yòu xiǎo, zhěnggè jiātíng zhǐnéng 2. A: Wǒ kàndào nǐ cháng qù guānxīn nàwèi yéye de qíngkuàng, tā yíqiè dōu háihǎo ma?"
       },
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -3070,23 +3601,28 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：我看你最近常練習長跑，是準備參加比賽嗎？B：我跑步是跑著玩的，沒想過去比賽。",
-       "vi": ""
+       "vi": "A: Tôi thấy dạo này bạn hay tập chạy đường dài, định tham gia thi đấu à? B: Tôi chạy cho vui thôi, chưa từng nghĩ đến chuyện thi.",
+       "py": "A: Wǒ kàn nǐ zuìjìn cháng liànxí chángpǎo, shì zhǔnbèi cānjiā bǐsài ma? B: Wǒ pǎobù shì pǎo zhe wán de, méi xiǎng guòqù bǐsài."
       },
       {
-       "hz": "真的。這裡的「V」是一個字的動詞(Verb)。",
-       "vi": ""
+       "hz": "真的。這裡的「V」是一個字的動詞。",
+       "vi": "Thật đấy. “V” ở đây là động từ một chữ.",
+       "py": "Zhēnde. Zhèlǐ de “V” shì yígè zì de dòngcí."
       },
       {
        "hz": "A：你來臺灣學中文，是因為將來想在臺灣工作或念書嗎？",
-       "vi": ""
+       "vi": "A: Bạn đến Đài Loan học tiếng Trung là vì sau này muốn làm việc hoặc học ở Đài Loan à?",
+       "py": "A: Nǐ lái Táiwān xué zhōngwén, shìyīnwèi jiānglái xiǎng zài Táiwān gōngzuò huò niànshū ma?"
       },
       {
        "hz": "A：你每天都那麼認真練習吉他，是為了參加學校活動嗎？",
-       "vi": ""
+       "vi": "A: Ngày nào bạn cũng chăm chỉ tập đàn guitar như vậy, là để tham gia hoạt động của trường à?",
+       "py": "A: Nǐ měitiān dōu nàme rènzhēn liànxí jítā, shì wèile cānjiā xuéxiào huódòng ma?"
       },
       {
        "hz": "請用「V著玩」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “V著玩” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “V zhe wán” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -3104,27 +3640,33 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：氣象報告說這個週末的天氣不穩定，山區可能會下大雨。B：天氣不好嗎？這樣一來，也只能晚幾天再去山上露營了。",
-       "vi": ""
+       "vi": "A: Dự báo thời tiết nói cuối tuần này thời tiết không ổn định, vùng núi có thể mưa to. B: Thời tiết xấu à? Như vậy thì chỉ có thể lùi vài ngày nữa mới lên núi cắm trại được.",
+       "py": "A: Qìxiàngbàogào shuō zhège zhōumò de tiānqì bù wěndìng, shānqū kěnéng huì xià dàyǔ. B: Tiānqì bùhǎo ma? Zhèyàngyìlái, yě zhǐnéng wǎn jǐtiān zài qù shānshàng lùyíng le."
       },
       {
-       "hz": "「這樣一來」是短語。在「這樣一來」前面是說話的人已知道的情況，「這樣一來」後面是根據前面的情況，說明可能產生的影響或結果(result)。",
-       "vi": ""
+       "hz": "「這樣一來」是短語。在「這樣一來」前面是說話的人已知道的情況，「這樣一來」後面是根據前面的情況，說明可能產生的影響或結果。",
+       "vi": "“這樣一來” là một cụm từ. Phía trước “這樣一來” là tình huống người nói đã biết, phía sau “這樣一來” dựa vào tình huống đó để nói rõ ảnh hưởng hoặc kết quả có thể xảy ra.",
+       "py": "“Zhèyàngyìlái” shì duǎnyǔ. Zài “zhèyàngyìlái” qiánmiàn shì shuōhuà de rén yǐ zhīdào de qíngkuàng, “zhèyàngyìlái” hòumiàn shì gēnjù qiánmiàn de qíngkuàng, shuōmíng kěnéng chǎnshēng de yǐngxiǎng huò jiéguǒ."
       },
       {
        "hz": "我們公司的產品應該表現出自己的風格，就能夠吸引顧客購買。",
-       "vi": ""
+       "vi": "Sản phẩm của công ty chúng ta nên thể hiện phong cách riêng, như vậy mới thu hút được khách hàng mua.",
+       "py": "Wǒmen gōngsī de chǎnpǐn yīnggāi biǎoxiàn chū zìjǐ de fēnggé, jiù nénggòu xīyǐn gùkè gòumǎi."
       },
       {
        "hz": "最近我國一直鼓勵留學生來念書，多多少少可以減輕國內大學的學生人數越來越少的問題。",
-       "vi": ""
+       "vi": "Gần đây nước ta luôn khuyến khích du học sinh đến học, như vậy ít nhiều có thể giảm bớt vấn đề số sinh viên các trường đại học trong nước ngày càng ít.",
+       "py": "Zuìjìn wǒguó yìzhí gǔlì liúxuéshēng lái niànshū, duōduōshǎoshǎo kěyǐ jiǎnqīng guónèi dàxué de xuéshēng rénshù yuèláiyuèshǎo de wèntí."
       },
       {
        "hz": "你常常自己只吃自己想吃的食物，有營養的反而不吃，對健康可能有不好的影響。",
-       "vi": ""
+       "vi": "Bạn thường chỉ ăn những món mình thích, món có dinh dưỡng thì lại không ăn, như vậy có thể ảnh hưởng xấu đến sức khoẻ.",
+       "py": "Nǐ chángcháng zìjǐ zhǐ chī zìjǐ xiǎng chī de shíwù, yǒu yíngyǎng de fǎn'ér bùchī, duì jiànkāng kěnéng yǒu bùhǎo de yǐngxiǎng."
       },
       {
        "hz": "請把「這樣一來」放在以下句子中合適的位置。",
-       "vi": ""
+       "vi": "Hãy đặt “這樣一來” vào vị trí thích hợp trong các câu dưới đây.",
+       "py": "Qǐng bǎ “zhèyàngyìlái” fàngzài yǐxià jùzi zhōng héshì de wèizhì."
       }
      ],
      "answer": null
@@ -3144,27 +3686,33 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "他的個性跟過去完全相反，已經不是我所認識的他了。2.大家在會議中所說的建議，對公司發展新技術很有幫助。",
-       "vi": ""
+       "vi": "1. Tính cách anh ấy hoàn toàn trái ngược với trước đây, đã không còn là anh ấy mà tôi quen biết nữa. 2. Những đề xuất mà mọi người đưa ra trong cuộc họp rất có ích cho việc công ty phát triển công nghệ mới.",
+       "py": "Tā de gèxìng gēn guòqù wánquán xiāngfǎn, yǐjīng búshì wǒ suǒ rènshì de tā le. 2. Dàjiā zài huìyì zhōng suǒshuō de jiànyì, duì gōngsī fāzhǎn xīn jìshù hěn yǒu bāngzhù."
       },
       {
        "hz": "請用「S所V的O」來改寫以下句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “S所V的O” để viết lại phần gạch chân trong các câu dưới đây.",
+       "py": "Qǐng yòng “S suǒ V de O” lái gǎixiě yǐxià jùzi zhōng huàxiàn de bùfèn."
       },
       {
        "hz": "我把房間裡那條黑色繩子看成蛇，嚇了我一大跳。",
-       "vi": ""
+       "vi": "Tôi nhìn sợi dây thừng màu đen trong phòng thành con rắn, làm tôi giật cả mình.",
+       "py": "Wǒ bǎ fángjiān lǐ nàtiáo hēisè shéngzi kànchéng shé, xià le wǒ yídàtiào."
       },
       {
        "hz": "A：趙先生每天做好幾份工作，他的身體大概受不了吧？",
-       "vi": ""
+       "vi": "A: Ngày nào anh Triệu cũng làm mấy công việc, sức khoẻ anh ấy chắc không chịu nổi đâu nhỉ?",
+       "py": "A: Zhào xiānshēng měitiān zuò hǎojǐfèn gōngzuò, tā de shēntǐ dàgài shòubùliǎo ba?"
       },
       {
        "hz": "B：沒辦法，他太太生病了，兩個孩子年紀又小，整個家庭只能2. A：我看到你常去關心那位爺爺的情況，他一切都還好嗎？",
-       "vi": ""
+       "vi": "B: Không còn cách nào, vợ anh ấy bị ốm, hai con lại còn nhỏ, cả gia đình chỉ có thể… 2. A: Tôi thấy bạn hay đến hỏi thăm tình hình ông cụ đó, ông ấy vẫn ổn cả chứ?",
+       "py": "B: Méi bànfǎ, tā tàitai shēngbìng le, liǎnggè háizi niánjì yòu xiǎo, zhěnggè jiātíng zhǐnéng 2. A: Wǒ kàndào nǐ cháng qù guānxīn nàwèi yéye de qíngkuàng, tā yíqiè dōu háihǎo ma?"
       },
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -3182,23 +3730,28 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：我看你最近常練習長跑，是準備參加比賽嗎？B：我跑步是跑著玩的，沒想過去比賽。",
-       "vi": ""
+       "vi": "A: Tôi thấy dạo này bạn hay tập chạy đường dài, định tham gia thi đấu à? B: Tôi chạy cho vui thôi, chưa từng nghĩ đến chuyện thi.",
+       "py": "A: Wǒ kàn nǐ zuìjìn cháng liànxí chángpǎo, shì zhǔnbèi cānjiā bǐsài ma? B: Wǒ pǎobù shì pǎo zhe wán de, méi xiǎng guòqù bǐsài."
       },
       {
-       "hz": "真的。這裡的「V」是一個字的動詞(Verb)。",
-       "vi": ""
+       "hz": "真的。這裡的「V」是一個字的動詞。",
+       "vi": "Thật đấy. “V” ở đây là động từ một chữ.",
+       "py": "Zhēnde. Zhèlǐ de “V” shì yígè zì de dòngcí."
       },
       {
        "hz": "A：你來臺灣學中文，是因為將來想在臺灣工作或念書嗎？",
-       "vi": ""
+       "vi": "A: Bạn đến Đài Loan học tiếng Trung là vì sau này muốn làm việc hoặc học ở Đài Loan à?",
+       "py": "A: Nǐ lái Táiwān xué zhōngwén, shìyīnwèi jiānglái xiǎng zài Táiwān gōngzuò huò niànshū ma?"
       },
       {
        "hz": "A：你每天都那麼認真練習吉他，是為了參加學校活動嗎？",
-       "vi": ""
+       "vi": "A: Ngày nào bạn cũng chăm chỉ tập đàn guitar như vậy, là để tham gia hoạt động của trường à?",
+       "py": "A: Nǐ měitiān dōu nàme rènzhēn liànxí jítā, shì wèile cānjiā xuéxiào huódòng ma?"
       },
       {
        "hz": "請用「V著玩」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “V著玩” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “V zhe wán” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -3216,27 +3769,33 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：氣象報告說這個週末的天氣不穩定，山區可能會下大雨。B：天氣不好嗎？這樣一來，也只能晚幾天再去山上露營了。",
-       "vi": ""
+       "vi": "A: Dự báo thời tiết nói cuối tuần này thời tiết không ổn định, vùng núi có thể mưa to. B: Thời tiết xấu à? Như vậy thì chỉ có thể lùi vài ngày nữa mới lên núi cắm trại được.",
+       "py": "A: Qìxiàngbàogào shuō zhège zhōumò de tiānqì bù wěndìng, shānqū kěnéng huì xià dàyǔ. B: Tiānqì bùhǎo ma? Zhèyàngyìlái, yě zhǐnéng wǎn jǐtiān zài qù shānshàng lùyíng le."
       },
       {
-       "hz": "「這樣一來」是短語。在「這樣一來」前面是說話的人已知道的情況，「這樣一來」後面是根據前面的情況，說明可能產生的影響或結果(result)。",
-       "vi": ""
+       "hz": "「這樣一來」是短語。在「這樣一來」前面是說話的人已知道的情況，「這樣一來」後面是根據前面的情況，說明可能產生的影響或結果。",
+       "vi": "“這樣一來” là một cụm từ. Phía trước “這樣一來” là tình huống người nói đã biết, phía sau “這樣一來” dựa vào tình huống đó để nói rõ ảnh hưởng hoặc kết quả có thể xảy ra.",
+       "py": "“Zhèyàngyìlái” shì duǎnyǔ. Zài “zhèyàngyìlái” qiánmiàn shì shuōhuà de rén yǐ zhīdào de qíngkuàng, “zhèyàngyìlái” hòumiàn shì gēnjù qiánmiàn de qíngkuàng, shuōmíng kěnéng chǎnshēng de yǐngxiǎng huò jiéguǒ."
       },
       {
        "hz": "我們公司的產品應該表現出自己的風格，就能夠吸引顧客購買。",
-       "vi": ""
+       "vi": "Sản phẩm của công ty chúng ta nên thể hiện phong cách riêng, như vậy mới thu hút được khách hàng mua.",
+       "py": "Wǒmen gōngsī de chǎnpǐn yīnggāi biǎoxiàn chū zìjǐ de fēnggé, jiù nénggòu xīyǐn gùkè gòumǎi."
       },
       {
        "hz": "最近我國一直鼓勵留學生來念書，多多少少可以減輕國內大學的學生人數越來越少的問題。",
-       "vi": ""
+       "vi": "Gần đây nước ta luôn khuyến khích du học sinh đến học, như vậy ít nhiều có thể giảm bớt vấn đề số sinh viên các trường đại học trong nước ngày càng ít.",
+       "py": "Zuìjìn wǒguó yìzhí gǔlì liúxuéshēng lái niànshū, duōduōshǎoshǎo kěyǐ jiǎnqīng guónèi dàxué de xuéshēng rénshù yuèláiyuèshǎo de wèntí."
       },
       {
        "hz": "你常常自己只吃自己想吃的食物，有營養的反而不吃，對健康可能有不好的影響。",
-       "vi": ""
+       "vi": "Bạn thường chỉ ăn những món mình thích, món có dinh dưỡng thì lại không ăn, như vậy có thể ảnh hưởng xấu đến sức khoẻ.",
+       "py": "Nǐ chángcháng zìjǐ zhǐ chī zìjǐ xiǎng chī de shíwù, yǒu yíngyǎng de fǎn'ér bùchī, duì jiànkāng kěnéng yǒu bùhǎo de yǐngxiǎng."
       },
       {
        "hz": "請把「這樣一來」放在以下句子中合適的位置。",
-       "vi": ""
+       "vi": "Hãy đặt “這樣一來” vào vị trí thích hợp trong các câu dưới đây.",
+       "py": "Qǐng bǎ “zhèyàngyìlái” fàngzài yǐxià jùzi zhōng héshì de wèizhì."
       }
      ],
      "answer": null
@@ -3256,27 +3815,33 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "他的個性跟過去完全相反，已經不是我所認識的他了。2.大家在會議中所說的建議，對公司發展新技術很有幫助。",
-       "vi": ""
+       "vi": "1. Tính cách anh ấy hoàn toàn trái ngược với trước đây, đã không còn là anh ấy mà tôi quen biết nữa. 2. Những đề xuất mà mọi người đưa ra trong cuộc họp rất có ích cho việc công ty phát triển công nghệ mới.",
+       "py": "Tā de gèxìng gēn guòqù wánquán xiāngfǎn, yǐjīng búshì wǒ suǒ rènshì de tā le. 2. Dàjiā zài huìyì zhōng suǒshuō de jiànyì, duì gōngsī fāzhǎn xīn jìshù hěn yǒu bāngzhù."
       },
       {
        "hz": "請用「S所V的O」來改寫以下句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “S所V的O” để viết lại phần gạch chân trong các câu dưới đây.",
+       "py": "Qǐng yòng “S suǒ V de O” lái gǎixiě yǐxià jùzi zhōng huàxiàn de bùfèn."
       },
       {
        "hz": "我把房間裡那條黑色繩子看成蛇，嚇了我一大跳。",
-       "vi": ""
+       "vi": "Tôi nhìn sợi dây thừng màu đen trong phòng thành con rắn, làm tôi giật cả mình.",
+       "py": "Wǒ bǎ fángjiān lǐ nàtiáo hēisè shéngzi kànchéng shé, xià le wǒ yídàtiào."
       },
       {
        "hz": "A：趙先生每天做好幾份工作，他的身體大概受不了吧？",
-       "vi": ""
+       "vi": "A: Ngày nào anh Triệu cũng làm mấy công việc, sức khoẻ anh ấy chắc không chịu nổi đâu nhỉ?",
+       "py": "A: Zhào xiānshēng měitiān zuò hǎojǐfèn gōngzuò, tā de shēntǐ dàgài shòubùliǎo ba?"
       },
       {
        "hz": "B：沒辦法，他太太生病了，兩個孩子年紀又小，整個家庭只能2. A：我看到你常去關心那位爺爺的情況，他一切都還好嗎？",
-       "vi": ""
+       "vi": "B: Không còn cách nào, vợ anh ấy bị ốm, hai con lại còn nhỏ, cả gia đình chỉ có thể… 2. A: Tôi thấy bạn hay đến hỏi thăm tình hình ông cụ đó, ông ấy vẫn ổn cả chứ?",
+       "py": "B: Méi bànfǎ, tā tàitai shēngbìng le, liǎnggè háizi niánjì yòu xiǎo, zhěnggè jiātíng zhǐnéng 2. A: Wǒ kàndào nǐ cháng qù guānxīn nàwèi yéye de qíngkuàng, tā yíqiè dōu háihǎo ma?"
       },
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -3294,23 +3859,28 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：我看你最近常練習長跑，是準備參加比賽嗎？B：我跑步是跑著玩的，沒想過去比賽。",
-       "vi": ""
+       "vi": "A: Tôi thấy dạo này bạn hay tập chạy đường dài, định tham gia thi đấu à? B: Tôi chạy cho vui thôi, chưa từng nghĩ đến chuyện thi.",
+       "py": "A: Wǒ kàn nǐ zuìjìn cháng liànxí chángpǎo, shì zhǔnbèi cānjiā bǐsài ma? B: Wǒ pǎobù shì pǎo zhe wán de, méi xiǎng guòqù bǐsài."
       },
       {
-       "hz": "真的。這裡的「V」是一個字的動詞(Verb)。",
-       "vi": ""
+       "hz": "真的。這裡的「V」是一個字的動詞。",
+       "vi": "Thật đấy. “V” ở đây là động từ một chữ.",
+       "py": "Zhēnde. Zhèlǐ de “V” shì yígè zì de dòngcí."
       },
       {
        "hz": "A：你來臺灣學中文，是因為將來想在臺灣工作或念書嗎？",
-       "vi": ""
+       "vi": "A: Bạn đến Đài Loan học tiếng Trung là vì sau này muốn làm việc hoặc học ở Đài Loan à?",
+       "py": "A: Nǐ lái Táiwān xué zhōngwén, shìyīnwèi jiānglái xiǎng zài Táiwān gōngzuò huò niànshū ma?"
       },
       {
        "hz": "A：你每天都那麼認真練習吉他，是為了參加學校活動嗎？",
-       "vi": ""
+       "vi": "A: Ngày nào bạn cũng chăm chỉ tập đàn guitar như vậy, là để tham gia hoạt động của trường à?",
+       "py": "A: Nǐ měitiān dōu nàme rènzhēn liànxí jítā, shì wèile cānjiā xuéxiào huódòng ma?"
       },
       {
        "hz": "請用「V著玩」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “V著玩” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “V zhe wán” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -3328,27 +3898,33 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：氣象報告說這個週末的天氣不穩定，山區可能會下大雨。B：天氣不好嗎？這樣一來，也只能晚幾天再去山上露營了。",
-       "vi": ""
+       "vi": "A: Dự báo thời tiết nói cuối tuần này thời tiết không ổn định, vùng núi có thể mưa to. B: Thời tiết xấu à? Như vậy thì chỉ có thể lùi vài ngày nữa mới lên núi cắm trại được.",
+       "py": "A: Qìxiàngbàogào shuō zhège zhōumò de tiānqì bù wěndìng, shānqū kěnéng huì xià dàyǔ. B: Tiānqì bùhǎo ma? Zhèyàngyìlái, yě zhǐnéng wǎn jǐtiān zài qù shānshàng lùyíng le."
       },
       {
-       "hz": "「這樣一來」是短語。在「這樣一來」前面是說話的人已知道的情況，「這樣一來」後面是根據前面的情況，說明可能產生的影響或結果(result)。",
-       "vi": ""
+       "hz": "「這樣一來」是短語。在「這樣一來」前面是說話的人已知道的情況，「這樣一來」後面是根據前面的情況，說明可能產生的影響或結果。",
+       "vi": "“這樣一來” là một cụm từ. Phía trước “這樣一來” là tình huống người nói đã biết, phía sau “這樣一來” dựa vào tình huống đó để nói rõ ảnh hưởng hoặc kết quả có thể xảy ra.",
+       "py": "“Zhèyàngyìlái” shì duǎnyǔ. Zài “zhèyàngyìlái” qiánmiàn shì shuōhuà de rén yǐ zhīdào de qíngkuàng, “zhèyàngyìlái” hòumiàn shì gēnjù qiánmiàn de qíngkuàng, shuōmíng kěnéng chǎnshēng de yǐngxiǎng huò jiéguǒ."
       },
       {
        "hz": "我們公司的產品應該表現出自己的風格，就能夠吸引顧客購買。",
-       "vi": ""
+       "vi": "Sản phẩm của công ty chúng ta nên thể hiện phong cách riêng, như vậy mới thu hút được khách hàng mua.",
+       "py": "Wǒmen gōngsī de chǎnpǐn yīnggāi biǎoxiàn chū zìjǐ de fēnggé, jiù nénggòu xīyǐn gùkè gòumǎi."
       },
       {
        "hz": "最近我國一直鼓勵留學生來念書，多多少少可以減輕國內大學的學生人數越來越少的問題。",
-       "vi": ""
+       "vi": "Gần đây nước ta luôn khuyến khích du học sinh đến học, như vậy ít nhiều có thể giảm bớt vấn đề số sinh viên các trường đại học trong nước ngày càng ít.",
+       "py": "Zuìjìn wǒguó yìzhí gǔlì liúxuéshēng lái niànshū, duōduōshǎoshǎo kěyǐ jiǎnqīng guónèi dàxué de xuéshēng rénshù yuèláiyuèshǎo de wèntí."
       },
       {
        "hz": "你常常自己只吃自己想吃的食物，有營養的反而不吃，對健康可能有不好的影響。",
-       "vi": ""
+       "vi": "Bạn thường chỉ ăn những món mình thích, món có dinh dưỡng thì lại không ăn, như vậy có thể ảnh hưởng xấu đến sức khoẻ.",
+       "py": "Nǐ chángcháng zìjǐ zhǐ chī zìjǐ xiǎng chī de shíwù, yǒu yíngyǎng de fǎn'ér bùchī, duì jiànkāng kěnéng yǒu bùhǎo de yǐngxiǎng."
       },
       {
        "hz": "請把「這樣一來」放在以下句子中合適的位置。",
-       "vi": ""
+       "vi": "Hãy đặt “這樣一來” vào vị trí thích hợp trong các câu dưới đây.",
+       "py": "Qǐng bǎ “zhèyàngyìlái” fàngzài yǐxià jùzi zhōng héshì de wèizhì."
       }
      ],
      "answer": null
@@ -3367,28 +3943,34 @@ export const thoidaiGrammar4 = {
      "formula": "「V住」的意思是使動作穩定不變，像：「記住」、「拿住」、「停住」、「站住」等等。「V得住, V不住 」的意思是「可以V住, 不能V住」。 III.改V表示說話的人因為不想做某件事，或得不到想要的結果，而把原來做的事換成「改」後面的動作或行為「V」。 1. A：不好意思，昨天我幫你訂十二月二十四日上午九點往日本的",
      "examples": [
       {
-       "hz": "A：老闆剛剛說的事，你們都記住了嗎？B：剛剛我在想別的事，沒記住。再說，老闆一次說了那麼多，我   哪裡記得住？C：就算記不住也別擔心，我用手機錄下來了。",
-       "vi": ""
+       "hz": "A：老闆剛剛說的事，你們都記住了嗎？B：剛剛我在想別的事，沒記住。再說，老闆一次說了那麼多，我哪裡記得住？C：就算記不住也別擔心，我用手機錄下來了。",
+       "vi": "A: Những việc ông chủ vừa nói, các bạn nhớ hết chưa? B: Vừa rồi tôi đang nghĩ chuyện khác nên không nhớ. Hơn nữa, ông chủ nói một lần nhiều như vậy, tôi làm sao nhớ nổi? C: Dù không nhớ được cũng đừng lo, tôi đã ghi âm bằng điện thoại rồi.",
+       "py": "A: Lǎobǎn gānggāng shuō de shì, nǐmen dōu jìzhù le ma? B: Gānggāng wǒ zài xiǎng biéde shì, méi jìzhù. Zàishuō, lǎobǎn yícì shuō le nàme duō, wǒ nǎlǐ jìdezhù? C: Jiùsuàn jìbúzhù yě bié dānxīn, wǒ yòng shǒujī lùxiàlái le."
       },
       {
        "hz": "A：老師要我練習寫「龍」，我寫了幾遍，可是沒辦法記太久，很快就忘了。",
-       "vi": ""
+       "vi": "A: Cô giáo bảo tôi tập viết chữ “龍”, tôi viết mấy lần rồi mà không nhớ được lâu, rất nhanh đã quên.",
+       "py": "A: Lǎoshī yào wǒ liànxí xiě “lóng”, wǒ xiě le jǐbiàn, kěshì méi bànfǎ jì tàijiǔ, hěnkuài jiù wàng le."
       },
       {
        "hz": "以下的話換成「V住/V得住/V不住/沒V住」，可以怎麼說？",
-       "vi": ""
+       "vi": "Những câu dưới đây nếu đổi sang dùng “V住/V得住/V不住/沒V住” thì có thể nói thế nào?",
+       "py": "Yǐxià dehuà huànchéng “V zhù / V de zhù / V búzhù / méi V zhù”, kěyǐ zěnme shuō?"
       },
       {
        "hz": "華語文中心原來安排好在十二月三十一號辦晚會，但當天晚上有不少同學不方便參加，中心決定在當天中午改辦茶會。",
-       "vi": ""
+       "vi": "Trung tâm Hoa ngữ ban đầu đã sắp xếp tổ chức dạ hội vào ngày 31 tháng 12, nhưng tối hôm đó nhiều bạn không tiện tham gia, trung tâm quyết định đổi sang tổ chức tiệc trà vào buổi trưa hôm đó.",
+       "py": "Huá yǔwén zhōngxīn yuánlái ānpái hǎo zài shí'èryuè sānshíyí hào bàn wǎnhuì, dàn dàngtiān wǎnshàng yǒu bùshǎo tóngxué bù fāngbiàn cānjiā, zhōngxīn juédìng zài dàngtiān zhōngwǔ gǎibàn cháhuì."
       },
       {
        "hz": "飛機，結果沒訂到。",
-       "vi": ""
+       "vi": "…máy bay, kết quả không đặt được.",
+       "py": "Fēijī, jiéguǒ méi dìng dào."
       },
       {
        "hz": "A：有人建議我跑步健身，但對我來說實在激烈了點兒，想換個請用「改V」完成以下的對話。",
-       "vi": ""
+       "vi": "A: Có người khuyên tôi chạy bộ rèn luyện sức khoẻ, nhưng với tôi thì hơi quá sức, muốn đổi sang… Hãy dùng “改V” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "A: Yǒurén jiànyì wǒ pǎobù jiànshēn, dàn duì wǒ láishuō shízài jīliè le diǎn'ér, xiǎng huàn gè qǐng yòng “gǎi V” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -3406,43 +3988,53 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：請你相信我，我所說的每一句話都是真的。B：從開始戀愛到現在，你沒有一次沒說假話的。你這個騙子！",
-       "vi": ""
+       "vi": "A: Hãy tin anh, mỗi câu anh nói đều là thật. B: Từ lúc bắt đầu yêu đến giờ, chưa lần nào anh không nói dối. Đồ lừa đảo!",
+       "py": "A: Qǐng nǐ xiāngxìn wǒ, wǒ suǒshuō de měi yíjù huà dōu shì zhēnde. B: Cóng kāishǐ liàn'ài dào xiànzài, nǐ méiyǒu yícì méi shuō jiǎhuà de. Nǐ zhège piànzi!"
       },
       {
        "hz": "來過花蓮太魯閣的遊客都覺得，每個地點的風景都很美。",
-       "vi": ""
+       "vi": "Khách du lịch từng đến Thái Lỗ Các ở Hoa Liên đều thấy phong cảnh ở mỗi địa điểm đều rất đẹp.",
+       "py": "Lái guò Huālián tàilǔgé de yóukè dōu juéde, měigè dìdiǎn de fēngjǐng dōu hěn měi."
       },
       {
        "hz": "現在是臺灣的夏天，從夏天的第一天到最後一天，每天都非常熱。",
-       "vi": ""
+       "vi": "Bây giờ là mùa hè ở Đài Loan, từ ngày đầu tiên đến ngày cuối cùng của mùa hè, ngày nào cũng rất nóng.",
+       "py": "Xiànzài shì Táiwān de xiàtiān, cóng xiàtiān de dìyītiān dào zuìhòu yìtiān, měitiān dōu fēicháng rè."
       },
       {
        "hz": "請用「沒有一M(N)+不/ 沒……的」改寫句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “沒有一M(N)+不/沒……的” để viết lại phần gạch chân trong câu.",
+       "py": "Qǐng yòng “méiyǒu yí M + bù / méi…… de” gǎixiě jùzi zhōng huàxiàn de bùfèn."
       },
       {
        "hz": "臺上一分鐘，臺下十年功",
-       "vi": ""
+       "vi": "Một phút trên sân khấu, mười năm khổ luyện dưới sân khấu.",
+       "py": "Táishàng yìfēnzhōng, táixià shínián gōng"
       },
       {
-       "hz": "A：今天天氣真熱，我買一些冰淇淋回來，大家一起吃吧。B：這種冰淇淋太好吃了，我寧可肚子疼，也要吃到飽。C：我一吃冰淇淋就變胖。雖然我愛吃，但我寧可一輩子不吃，   也不要變胖。D：冰淇淋是我最愛的點心。我寧願變胖，也要吃冰淇淋。E：聽說吃冰的會越吃越渴。我寧願熱一點，也不要吃冰。",
-       "vi": ""
+       "hz": "A：今天天氣真熱，我買一些冰淇淋回來，大家一起吃吧。B：這種冰淇淋太好吃了，我寧可肚子疼，也要吃到飽。C：我一吃冰淇淋就變胖。雖然我愛吃，但我寧可一輩子不吃，也不要變胖。D：冰淇淋是我最愛的點心。我寧願變胖，也要吃冰淇淋。E：聽說吃冰的會越吃越渴。我寧願熱一點，也不要吃冰。",
+       "vi": "A: Hôm nay trời nóng thật, tôi mua ít kem về, mọi người cùng ăn nhé. B: Loại kem này ngon quá, tôi thà đau bụng cũng phải ăn cho no. C: Tôi cứ ăn kem là béo. Tuy tôi thích ăn, nhưng tôi thà cả đời không ăn, còn hơn bị béo. D: Kem là món tráng miệng tôi thích nhất. Tôi thà béo lên cũng phải ăn kem. E: Nghe nói ăn đồ lạnh càng ăn càng khát. Tôi thà nóng một chút, cũng không ăn đồ lạnh.",
+       "py": "A: Jīntiāntiānqì zhēn rè, wǒ mǎi yìxiē bīngqílín huílái, dàjiā yìqǐ chī ba. B: Zhèzhǒng bīngqílín tài hǎochī le, wǒ nìngkě dùziténg, yě yào chī dào bǎo. C: Wǒ yì chī bīngqílín jiù biàn pàng. Suīrán wǒ ài chī, dàn wǒ nìngkě yíbèizi bùchī, yě búyào biàn pàng. D: Bīngqílín shì wǒ zuì ài de diǎnxīn. Wǒ nìngyuàn biàn pàng, yě yào chī bīngqílín. E: Tīngshuō chī bīng de huì yuè chī yuè kě. Wǒ nìngyuàn rè yìdiǎn, yě búyào chī bīng."
       },
       {
        "hz": "I.寧願/寧可……(，)也要/也不……",
-       "vi": ""
+       "vi": "I. Thà… (,) cũng phải / cũng không…",
+       "py": "I. Nìngyuàn / nìngkě…… (,) yě yào / yě bù……"
       },
       {
        "hz": "A：這個學期的最後一天，老師不是安排考試，就是讓大家上臺報告。你選哪一個？",
-       "vi": ""
+       "vi": "A: Ngày cuối cùng của học kỳ này, thầy giáo không cho thi thì sẽ cho mọi người lên thuyết trình. Bạn chọn cái nào?",
+       "py": "A: Zhège xuéqí de zuìhòu yìtiān, lǎoshī búshì ānpái kǎoshì, jiùshì ràng dàjiā shàngtái bàogào. Nǐ xuǎn nǎ yígè?"
       },
       {
        "hz": "A：下午就要考試了，你還要去海邊衝浪啊？你不怕被當嗎？",
-       "vi": ""
+       "vi": "A: Chiều nay thi rồi mà bạn còn đi biển lướt sóng à? Bạn không sợ bị trượt sao?",
+       "py": "A: Xiàwǔ jiùyào kǎoshì le, nǐ háiyào qù hǎibiān chōnglàng a? Nǐ búpà bèi dāng ma?"
       },
       {
        "hz": "請用「寧願/寧可……(，)也要/也不…… 」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “寧願/寧可……(，)也要/也不……” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “nìngyuàn / nìngkě…… (,) yě yào / yě bù……” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -3460,15 +4052,18 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：錢先生之前投資了不少生意，一定賺了不少錢吧？B：可能是運氣不好，他賠了很多錢，還說以後再也不投資了。A：這樣啊？難怪他最近再也沒跟別人談投資的事了。",
-       "vi": ""
+       "vi": "A: Trước đây ông Tiền đầu tư không ít việc làm ăn, chắc kiếm được nhiều tiền lắm nhỉ? B: Có lẽ vận không may, ông ấy lỗ rất nhiều tiền, còn nói sau này không bao giờ đầu tư nữa. A: Vậy à? Thảo nào dạo này ông ấy không còn bàn chuyện đầu tư với ai nữa.",
+       "py": "A: Qián xiānshēng zhīqián tóuzī le bùshǎo shēngyì, yídìng zhuàn le bùshǎo qián ba? B: Kěnéng shì yùnqì bùhǎo, tā péi le hěnduō qián, hái shuō yǐhòu zàiyě bù tóuzī le. A: Zhèyàng a? Nánguài tā zuìjìn zàiyě méi gēn biérén tán tóuzī de shì le."
       },
       {
        "hz": "A：報紙上說看過那部電影的觀眾，反應都很不錯。上週你去2. A：你那位模特兒女友呢？怎麼好幾個月都沒見到她了？",
-       "vi": ""
+       "vi": "A: Báo nói khán giả đã xem bộ phim đó đều phản hồi rất tốt. Tuần trước bạn đi… 2. A: Cô bạn gái người mẫu của bạn đâu rồi? Sao mấy tháng rồi không thấy cô ấy?",
+       "py": "A: Bàozhǐ shàng shuō kànguò nà bù diànyǐng de guānzhòng, fǎnyìng dōu hěn búcuò. Shàngzhōu nǐ qù 2. A: Nǐ nàwèi mótè'ér nǚyǒu ne? Zěnme hǎojǐgè yuè dōu méi jiàndào tā le?"
       },
       {
        "hz": "B：她發現我常在半夜跟其他女生聊天，因此跟我大吵了一架，請用「再也＋不/沒……了」完成以下的對話。",
-       "vi": ""
+       "vi": "B: Cô ấy phát hiện tôi hay nói chuyện với các cô gái khác lúc nửa đêm, vì vậy cãi nhau to với tôi… Hãy dùng “再也＋不/沒……了” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "B: Tā fāxiàn wǒ cháng zài bànyè gēn qítā nǚshēng liáotiān, yīncǐ gēn wǒ dàchǎo le yíjià, qǐng yòng “zàiyě ＋ bù / méi…… le” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -3485,16 +4080,19 @@ export const thoidaiGrammar4 = {
      "formula": "「好」在本語法中是連詞。表示說話的人用某種方式，讓「好」後面的目的順利完成。",
      "examples": [
       {
-       "hz": "我給他一些錢好幫助他。\t（我給他錢，才能幫助他）2. 妳快準備資料好開會。\t（妳快準備，才能開會）3. 快睡覺好早起。\t\t（快睡覺，才能早起）",
-       "vi": ""
+       "hz": "我給他一些錢好幫助他。\t（我給他錢，才能幫助他）2. 妳快準備資料好開會。\t（妳快準備，才能開會）3. 快睡覺好早起。 （快睡覺，才能早起）",
+       "vi": "1. Tôi cho anh ấy ít tiền để giúp anh ấy. (tôi cho anh ấy tiền thì mới giúp được anh ấy) 2. Em mau chuẩn bị tài liệu để còn họp. (em chuẩn bị nhanh thì mới họp được) 3. Mau đi ngủ để còn dậy sớm. (ngủ sớm thì mới dậy sớm được)",
+       "py": "Wǒ gěi tā yìxiē qián hǎo bāngzhù tā. (wǒ gěi tā qián, cáinéng bāngzhù tā) 2. Nǐ kuài zhǔnbèi zīliào hǎo kāihuì. (nǐ kuài zhǔnbèi, cáinéng kāihuì) 3. Kuài shuìjiào hǎo zǎoqǐ. (kuài shuìjiào, cáinéng zǎoqǐ)"
       },
       {
        "hz": "A：我想把這間房間當作健身房，但對怎麼布置一點兒主意都沒有，想請你幫忙。",
-       "vi": ""
+       "vi": "A: Tôi muốn biến căn phòng này thành phòng tập gym, nhưng chẳng có ý tưởng gì về cách bố trí, muốn nhờ bạn giúp.",
+       "py": "A: Wǒ xiǎng bǎ zhè jiān fángjiān dàngzuò jiànshēnfáng, dàn duì zěnme bùzhì yìdiǎn'ér zhǔyì dōu méiyǒu, xiǎng qǐng nǐ bāngmáng."
       },
       {
        "hz": "請用「好」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “好” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “hǎo” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -3513,28 +4111,34 @@ export const thoidaiGrammar4 = {
      "formula": "「V住」的意思是使動作穩定不變，像：「記住」、「拿住」、「停住」、「站住」等等。「V得住, V不住 」的意思是「可以V住, 不能V住」。 III.改V表示說話的人因為不想做某件事，或得不到想要的結果，而把原來做的事換成「改」後面的動作或行為「V」。 1. A：不好意思，昨天我幫你訂十二月二十四日上午九點往日本的",
      "examples": [
       {
-       "hz": "A：老闆剛剛說的事，你們都記住了嗎？B：剛剛我在想別的事，沒記住。再說，老闆一次說了那麼多，我   哪裡記得住？C：就算記不住也別擔心，我用手機錄下來了。",
-       "vi": ""
+       "hz": "A：老闆剛剛說的事，你們都記住了嗎？B：剛剛我在想別的事，沒記住。再說，老闆一次說了那麼多，我哪裡記得住？C：就算記不住也別擔心，我用手機錄下來了。",
+       "vi": "A: Những việc ông chủ vừa nói, các bạn nhớ hết chưa? B: Vừa rồi tôi đang nghĩ chuyện khác nên không nhớ. Hơn nữa, ông chủ nói một lần nhiều như vậy, tôi làm sao nhớ nổi? C: Dù không nhớ được cũng đừng lo, tôi đã ghi âm bằng điện thoại rồi.",
+       "py": "A: Lǎobǎn gānggāng shuō de shì, nǐmen dōu jìzhù le ma? B: Gānggāng wǒ zài xiǎng biéde shì, méi jìzhù. Zàishuō, lǎobǎn yícì shuō le nàme duō, wǒ nǎlǐ jìdezhù? C: Jiùsuàn jìbúzhù yě bié dānxīn, wǒ yòng shǒujī lùxiàlái le."
       },
       {
        "hz": "A：老師要我練習寫「龍」，我寫了幾遍，可是沒辦法記太久，很快就忘了。",
-       "vi": ""
+       "vi": "A: Cô giáo bảo tôi tập viết chữ “龍”, tôi viết mấy lần rồi mà không nhớ được lâu, rất nhanh đã quên.",
+       "py": "A: Lǎoshī yào wǒ liànxí xiě “lóng”, wǒ xiě le jǐbiàn, kěshì méi bànfǎ jì tàijiǔ, hěnkuài jiù wàng le."
       },
       {
        "hz": "以下的話換成「V住/V得住/V不住/沒V住」，可以怎麼說？",
-       "vi": ""
+       "vi": "Những câu dưới đây nếu đổi sang dùng “V住/V得住/V不住/沒V住” thì có thể nói thế nào?",
+       "py": "Yǐxià dehuà huànchéng “V zhù / V de zhù / V búzhù / méi V zhù”, kěyǐ zěnme shuō?"
       },
       {
        "hz": "華語文中心原來安排好在十二月三十一號辦晚會，但當天晚上有不少同學不方便參加，中心決定在當天中午改辦茶會。",
-       "vi": ""
+       "vi": "Trung tâm Hoa ngữ ban đầu đã sắp xếp tổ chức dạ hội vào ngày 31 tháng 12, nhưng tối hôm đó nhiều bạn không tiện tham gia, trung tâm quyết định đổi sang tổ chức tiệc trà vào buổi trưa hôm đó.",
+       "py": "Huá yǔwén zhōngxīn yuánlái ānpái hǎo zài shí'èryuè sānshíyí hào bàn wǎnhuì, dàn dàngtiān wǎnshàng yǒu bùshǎo tóngxué bù fāngbiàn cānjiā, zhōngxīn juédìng zài dàngtiān zhōngwǔ gǎibàn cháhuì."
       },
       {
        "hz": "飛機，結果沒訂到。",
-       "vi": ""
+       "vi": "…máy bay, kết quả không đặt được.",
+       "py": "Fēijī, jiéguǒ méi dìng dào."
       },
       {
        "hz": "A：有人建議我跑步健身，但對我來說實在激烈了點兒，想換個請用「改V」完成以下的對話。",
-       "vi": ""
+       "vi": "A: Có người khuyên tôi chạy bộ rèn luyện sức khoẻ, nhưng với tôi thì hơi quá sức, muốn đổi sang… Hãy dùng “改V” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "A: Yǒurén jiànyì wǒ pǎobù jiànshēn, dàn duì wǒ láishuō shízài jīliè le diǎn'ér, xiǎng huàn gè qǐng yòng “gǎi V” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -3552,43 +4156,53 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：請你相信我，我所說的每一句話都是真的。B：從開始戀愛到現在，你沒有一次沒說假話的。你這個騙子！",
-       "vi": ""
+       "vi": "A: Hãy tin anh, mỗi câu anh nói đều là thật. B: Từ lúc bắt đầu yêu đến giờ, chưa lần nào anh không nói dối. Đồ lừa đảo!",
+       "py": "A: Qǐng nǐ xiāngxìn wǒ, wǒ suǒshuō de měi yíjù huà dōu shì zhēnde. B: Cóng kāishǐ liàn'ài dào xiànzài, nǐ méiyǒu yícì méi shuō jiǎhuà de. Nǐ zhège piànzi!"
       },
       {
        "hz": "來過花蓮太魯閣的遊客都覺得，每個地點的風景都很美。",
-       "vi": ""
+       "vi": "Khách du lịch từng đến Thái Lỗ Các ở Hoa Liên đều thấy phong cảnh ở mỗi địa điểm đều rất đẹp.",
+       "py": "Lái guò Huālián tàilǔgé de yóukè dōu juéde, měigè dìdiǎn de fēngjǐng dōu hěn měi."
       },
       {
        "hz": "現在是臺灣的夏天，從夏天的第一天到最後一天，每天都非常熱。",
-       "vi": ""
+       "vi": "Bây giờ là mùa hè ở Đài Loan, từ ngày đầu tiên đến ngày cuối cùng của mùa hè, ngày nào cũng rất nóng.",
+       "py": "Xiànzài shì Táiwān de xiàtiān, cóng xiàtiān de dìyītiān dào zuìhòu yìtiān, měitiān dōu fēicháng rè."
       },
       {
        "hz": "請用「沒有一M(N)+不/ 沒……的」改寫句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “沒有一M(N)+不/沒……的” để viết lại phần gạch chân trong câu.",
+       "py": "Qǐng yòng “méiyǒu yí M + bù / méi…… de” gǎixiě jùzi zhōng huàxiàn de bùfèn."
       },
       {
        "hz": "臺上一分鐘，臺下十年功",
-       "vi": ""
+       "vi": "Một phút trên sân khấu, mười năm khổ luyện dưới sân khấu.",
+       "py": "Táishàng yìfēnzhōng, táixià shínián gōng"
       },
       {
-       "hz": "A：今天天氣真熱，我買一些冰淇淋回來，大家一起吃吧。B：這種冰淇淋太好吃了，我寧可肚子疼，也要吃到飽。C：我一吃冰淇淋就變胖。雖然我愛吃，但我寧可一輩子不吃，   也不要變胖。D：冰淇淋是我最愛的點心。我寧願變胖，也要吃冰淇淋。E：聽說吃冰的會越吃越渴。我寧願熱一點，也不要吃冰。",
-       "vi": ""
+       "hz": "A：今天天氣真熱，我買一些冰淇淋回來，大家一起吃吧。B：這種冰淇淋太好吃了，我寧可肚子疼，也要吃到飽。C：我一吃冰淇淋就變胖。雖然我愛吃，但我寧可一輩子不吃，也不要變胖。D：冰淇淋是我最愛的點心。我寧願變胖，也要吃冰淇淋。E：聽說吃冰的會越吃越渴。我寧願熱一點，也不要吃冰。",
+       "vi": "A: Hôm nay trời nóng thật, tôi mua ít kem về, mọi người cùng ăn nhé. B: Loại kem này ngon quá, tôi thà đau bụng cũng phải ăn cho no. C: Tôi cứ ăn kem là béo. Tuy tôi thích ăn, nhưng tôi thà cả đời không ăn, còn hơn bị béo. D: Kem là món tráng miệng tôi thích nhất. Tôi thà béo lên cũng phải ăn kem. E: Nghe nói ăn đồ lạnh càng ăn càng khát. Tôi thà nóng một chút, cũng không ăn đồ lạnh.",
+       "py": "A: Jīntiāntiānqì zhēn rè, wǒ mǎi yìxiē bīngqílín huílái, dàjiā yìqǐ chī ba. B: Zhèzhǒng bīngqílín tài hǎochī le, wǒ nìngkě dùziténg, yě yào chī dào bǎo. C: Wǒ yì chī bīngqílín jiù biàn pàng. Suīrán wǒ ài chī, dàn wǒ nìngkě yíbèizi bùchī, yě búyào biàn pàng. D: Bīngqílín shì wǒ zuì ài de diǎnxīn. Wǒ nìngyuàn biàn pàng, yě yào chī bīngqílín. E: Tīngshuō chī bīng de huì yuè chī yuè kě. Wǒ nìngyuàn rè yìdiǎn, yě búyào chī bīng."
       },
       {
        "hz": "I.寧願/寧可……(，)也要/也不……",
-       "vi": ""
+       "vi": "I. Thà… (,) cũng phải / cũng không…",
+       "py": "I. Nìngyuàn / nìngkě…… (,) yě yào / yě bù……"
       },
       {
        "hz": "A：這個學期的最後一天，老師不是安排考試，就是讓大家上臺報告。你選哪一個？",
-       "vi": ""
+       "vi": "A: Ngày cuối cùng của học kỳ này, thầy giáo không cho thi thì sẽ cho mọi người lên thuyết trình. Bạn chọn cái nào?",
+       "py": "A: Zhège xuéqí de zuìhòu yìtiān, lǎoshī búshì ānpái kǎoshì, jiùshì ràng dàjiā shàngtái bàogào. Nǐ xuǎn nǎ yígè?"
       },
       {
        "hz": "A：下午就要考試了，你還要去海邊衝浪啊？你不怕被當嗎？",
-       "vi": ""
+       "vi": "A: Chiều nay thi rồi mà bạn còn đi biển lướt sóng à? Bạn không sợ bị trượt sao?",
+       "py": "A: Xiàwǔ jiùyào kǎoshì le, nǐ háiyào qù hǎibiān chōnglàng a? Nǐ búpà bèi dāng ma?"
       },
       {
        "hz": "請用「寧願/寧可……(，)也要/也不…… 」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “寧願/寧可……(，)也要/也不……” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “nìngyuàn / nìngkě…… (,) yě yào / yě bù……” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -3606,15 +4220,18 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：錢先生之前投資了不少生意，一定賺了不少錢吧？B：可能是運氣不好，他賠了很多錢，還說以後再也不投資了。A：這樣啊？難怪他最近再也沒跟別人談投資的事了。",
-       "vi": ""
+       "vi": "A: Trước đây ông Tiền đầu tư không ít việc làm ăn, chắc kiếm được nhiều tiền lắm nhỉ? B: Có lẽ vận không may, ông ấy lỗ rất nhiều tiền, còn nói sau này không bao giờ đầu tư nữa. A: Vậy à? Thảo nào dạo này ông ấy không còn bàn chuyện đầu tư với ai nữa.",
+       "py": "A: Qián xiānshēng zhīqián tóuzī le bùshǎo shēngyì, yídìng zhuàn le bùshǎo qián ba? B: Kěnéng shì yùnqì bùhǎo, tā péi le hěnduō qián, hái shuō yǐhòu zàiyě bù tóuzī le. A: Zhèyàng a? Nánguài tā zuìjìn zàiyě méi gēn biérén tán tóuzī de shì le."
       },
       {
        "hz": "A：報紙上說看過那部電影的觀眾，反應都很不錯。上週你去2. A：你那位模特兒女友呢？怎麼好幾個月都沒見到她了？",
-       "vi": ""
+       "vi": "A: Báo nói khán giả đã xem bộ phim đó đều phản hồi rất tốt. Tuần trước bạn đi… 2. A: Cô bạn gái người mẫu của bạn đâu rồi? Sao mấy tháng rồi không thấy cô ấy?",
+       "py": "A: Bàozhǐ shàng shuō kànguò nà bù diànyǐng de guānzhòng, fǎnyìng dōu hěn búcuò. Shàngzhōu nǐ qù 2. A: Nǐ nàwèi mótè'ér nǚyǒu ne? Zěnme hǎojǐgè yuè dōu méi jiàndào tā le?"
       },
       {
        "hz": "B：她發現我常在半夜跟其他女生聊天，因此跟我大吵了一架，請用「再也＋不/沒……了」完成以下的對話。",
-       "vi": ""
+       "vi": "B: Cô ấy phát hiện tôi hay nói chuyện với các cô gái khác lúc nửa đêm, vì vậy cãi nhau to với tôi… Hãy dùng “再也＋不/沒……了” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "B: Tā fāxiàn wǒ cháng zài bànyè gēn qítā nǚshēng liáotiān, yīncǐ gēn wǒ dàchǎo le yíjià, qǐng yòng “zàiyě ＋ bù / méi…… le” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -3631,16 +4248,19 @@ export const thoidaiGrammar4 = {
      "formula": "「好」在本語法中是連詞。表示說話的人用某種方式，讓「好」後面的目的順利完成。",
      "examples": [
       {
-       "hz": "我給他一些錢好幫助他。\t（我給他錢，才能幫助他）2. 妳快準備資料好開會。\t（妳快準備，才能開會）3. 快睡覺好早起。\t\t（快睡覺，才能早起）",
-       "vi": ""
+       "hz": "我給他一些錢好幫助他。\t（我給他錢，才能幫助他）2. 妳快準備資料好開會。\t（妳快準備，才能開會）3. 快睡覺好早起。 （快睡覺，才能早起）",
+       "vi": "1. Tôi cho anh ấy ít tiền để giúp anh ấy. (tôi cho anh ấy tiền thì mới giúp được anh ấy) 2. Em mau chuẩn bị tài liệu để còn họp. (em chuẩn bị nhanh thì mới họp được) 3. Mau đi ngủ để còn dậy sớm. (ngủ sớm thì mới dậy sớm được)",
+       "py": "Wǒ gěi tā yìxiē qián hǎo bāngzhù tā. (wǒ gěi tā qián, cáinéng bāngzhù tā) 2. Nǐ kuài zhǔnbèi zīliào hǎo kāihuì. (nǐ kuài zhǔnbèi, cáinéng kāihuì) 3. Kuài shuìjiào hǎo zǎoqǐ. (kuài shuìjiào, cáinéng zǎoqǐ)"
       },
       {
        "hz": "A：我想把這間房間當作健身房，但對怎麼布置一點兒主意都沒有，想請你幫忙。",
-       "vi": ""
+       "vi": "A: Tôi muốn biến căn phòng này thành phòng tập gym, nhưng chẳng có ý tưởng gì về cách bố trí, muốn nhờ bạn giúp.",
+       "py": "A: Wǒ xiǎng bǎ zhè jiān fángjiān dàngzuò jiànshēnfáng, dàn duì zěnme bùzhì yìdiǎn'ér zhǔyì dōu méiyǒu, xiǎng qǐng nǐ bāngmáng."
       },
       {
        "hz": "請用「好」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “好” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “hǎo” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -3659,28 +4279,34 @@ export const thoidaiGrammar4 = {
      "formula": "「V住」的意思是使動作穩定不變，像：「記住」、「拿住」、「停住」、「站住」等等。「V得住, V不住 」的意思是「可以V住, 不能V住」。 III.改V表示說話的人因為不想做某件事，或得不到想要的結果，而把原來做的事換成「改」後面的動作或行為「V」。 1. A：不好意思，昨天我幫你訂十二月二十四日上午九點往日本的",
      "examples": [
       {
-       "hz": "A：老闆剛剛說的事，你們都記住了嗎？B：剛剛我在想別的事，沒記住。再說，老闆一次說了那麼多，我   哪裡記得住？C：就算記不住也別擔心，我用手機錄下來了。",
-       "vi": ""
+       "hz": "A：老闆剛剛說的事，你們都記住了嗎？B：剛剛我在想別的事，沒記住。再說，老闆一次說了那麼多，我哪裡記得住？C：就算記不住也別擔心，我用手機錄下來了。",
+       "vi": "A: Những việc ông chủ vừa nói, các bạn nhớ hết chưa? B: Vừa rồi tôi đang nghĩ chuyện khác nên không nhớ. Hơn nữa, ông chủ nói một lần nhiều như vậy, tôi làm sao nhớ nổi? C: Dù không nhớ được cũng đừng lo, tôi đã ghi âm bằng điện thoại rồi.",
+       "py": "A: Lǎobǎn gānggāng shuō de shì, nǐmen dōu jìzhù le ma? B: Gānggāng wǒ zài xiǎng biéde shì, méi jìzhù. Zàishuō, lǎobǎn yícì shuō le nàme duō, wǒ nǎlǐ jìdezhù? C: Jiùsuàn jìbúzhù yě bié dānxīn, wǒ yòng shǒujī lùxiàlái le."
       },
       {
        "hz": "A：老師要我練習寫「龍」，我寫了幾遍，可是沒辦法記太久，很快就忘了。",
-       "vi": ""
+       "vi": "A: Cô giáo bảo tôi tập viết chữ “龍”, tôi viết mấy lần rồi mà không nhớ được lâu, rất nhanh đã quên.",
+       "py": "A: Lǎoshī yào wǒ liànxí xiě “lóng”, wǒ xiě le jǐbiàn, kěshì méi bànfǎ jì tàijiǔ, hěnkuài jiù wàng le."
       },
       {
        "hz": "以下的話換成「V住/V得住/V不住/沒V住」，可以怎麼說？",
-       "vi": ""
+       "vi": "Những câu dưới đây nếu đổi sang dùng “V住/V得住/V不住/沒V住” thì có thể nói thế nào?",
+       "py": "Yǐxià dehuà huànchéng “V zhù / V de zhù / V búzhù / méi V zhù”, kěyǐ zěnme shuō?"
       },
       {
        "hz": "華語文中心原來安排好在十二月三十一號辦晚會，但當天晚上有不少同學不方便參加，中心決定在當天中午改辦茶會。",
-       "vi": ""
+       "vi": "Trung tâm Hoa ngữ ban đầu đã sắp xếp tổ chức dạ hội vào ngày 31 tháng 12, nhưng tối hôm đó nhiều bạn không tiện tham gia, trung tâm quyết định đổi sang tổ chức tiệc trà vào buổi trưa hôm đó.",
+       "py": "Huá yǔwén zhōngxīn yuánlái ānpái hǎo zài shí'èryuè sānshíyí hào bàn wǎnhuì, dàn dàngtiān wǎnshàng yǒu bùshǎo tóngxué bù fāngbiàn cānjiā, zhōngxīn juédìng zài dàngtiān zhōngwǔ gǎibàn cháhuì."
       },
       {
        "hz": "飛機，結果沒訂到。",
-       "vi": ""
+       "vi": "…máy bay, kết quả không đặt được.",
+       "py": "Fēijī, jiéguǒ méi dìng dào."
       },
       {
        "hz": "A：有人建議我跑步健身，但對我來說實在激烈了點兒，想換個請用「改V」完成以下的對話。",
-       "vi": ""
+       "vi": "A: Có người khuyên tôi chạy bộ rèn luyện sức khoẻ, nhưng với tôi thì hơi quá sức, muốn đổi sang… Hãy dùng “改V” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "A: Yǒurén jiànyì wǒ pǎobù jiànshēn, dàn duì wǒ láishuō shízài jīliè le diǎn'ér, xiǎng huàn gè qǐng yòng “gǎi V” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -3698,43 +4324,53 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：請你相信我，我所說的每一句話都是真的。B：從開始戀愛到現在，你沒有一次沒說假話的。你這個騙子！",
-       "vi": ""
+       "vi": "A: Hãy tin anh, mỗi câu anh nói đều là thật. B: Từ lúc bắt đầu yêu đến giờ, chưa lần nào anh không nói dối. Đồ lừa đảo!",
+       "py": "A: Qǐng nǐ xiāngxìn wǒ, wǒ suǒshuō de měi yíjù huà dōu shì zhēnde. B: Cóng kāishǐ liàn'ài dào xiànzài, nǐ méiyǒu yícì méi shuō jiǎhuà de. Nǐ zhège piànzi!"
       },
       {
        "hz": "來過花蓮太魯閣的遊客都覺得，每個地點的風景都很美。",
-       "vi": ""
+       "vi": "Khách du lịch từng đến Thái Lỗ Các ở Hoa Liên đều thấy phong cảnh ở mỗi địa điểm đều rất đẹp.",
+       "py": "Lái guò Huālián tàilǔgé de yóukè dōu juéde, měigè dìdiǎn de fēngjǐng dōu hěn měi."
       },
       {
        "hz": "現在是臺灣的夏天，從夏天的第一天到最後一天，每天都非常熱。",
-       "vi": ""
+       "vi": "Bây giờ là mùa hè ở Đài Loan, từ ngày đầu tiên đến ngày cuối cùng của mùa hè, ngày nào cũng rất nóng.",
+       "py": "Xiànzài shì Táiwān de xiàtiān, cóng xiàtiān de dìyītiān dào zuìhòu yìtiān, měitiān dōu fēicháng rè."
       },
       {
        "hz": "請用「沒有一M(N)+不/ 沒……的」改寫句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “沒有一M(N)+不/沒……的” để viết lại phần gạch chân trong câu.",
+       "py": "Qǐng yòng “méiyǒu yí M + bù / méi…… de” gǎixiě jùzi zhōng huàxiàn de bùfèn."
       },
       {
        "hz": "臺上一分鐘，臺下十年功",
-       "vi": ""
+       "vi": "Một phút trên sân khấu, mười năm khổ luyện dưới sân khấu.",
+       "py": "Táishàng yìfēnzhōng, táixià shínián gōng"
       },
       {
-       "hz": "A：今天天氣真熱，我買一些冰淇淋回來，大家一起吃吧。B：這種冰淇淋太好吃了，我寧可肚子疼，也要吃到飽。C：我一吃冰淇淋就變胖。雖然我愛吃，但我寧可一輩子不吃，   也不要變胖。D：冰淇淋是我最愛的點心。我寧願變胖，也要吃冰淇淋。E：聽說吃冰的會越吃越渴。我寧願熱一點，也不要吃冰。",
-       "vi": ""
+       "hz": "A：今天天氣真熱，我買一些冰淇淋回來，大家一起吃吧。B：這種冰淇淋太好吃了，我寧可肚子疼，也要吃到飽。C：我一吃冰淇淋就變胖。雖然我愛吃，但我寧可一輩子不吃，也不要變胖。D：冰淇淋是我最愛的點心。我寧願變胖，也要吃冰淇淋。E：聽說吃冰的會越吃越渴。我寧願熱一點，也不要吃冰。",
+       "vi": "A: Hôm nay trời nóng thật, tôi mua ít kem về, mọi người cùng ăn nhé. B: Loại kem này ngon quá, tôi thà đau bụng cũng phải ăn cho no. C: Tôi cứ ăn kem là béo. Tuy tôi thích ăn, nhưng tôi thà cả đời không ăn, còn hơn bị béo. D: Kem là món tráng miệng tôi thích nhất. Tôi thà béo lên cũng phải ăn kem. E: Nghe nói ăn đồ lạnh càng ăn càng khát. Tôi thà nóng một chút, cũng không ăn đồ lạnh.",
+       "py": "A: Jīntiāntiānqì zhēn rè, wǒ mǎi yìxiē bīngqílín huílái, dàjiā yìqǐ chī ba. B: Zhèzhǒng bīngqílín tài hǎochī le, wǒ nìngkě dùziténg, yě yào chī dào bǎo. C: Wǒ yì chī bīngqílín jiù biàn pàng. Suīrán wǒ ài chī, dàn wǒ nìngkě yíbèizi bùchī, yě búyào biàn pàng. D: Bīngqílín shì wǒ zuì ài de diǎnxīn. Wǒ nìngyuàn biàn pàng, yě yào chī bīngqílín. E: Tīngshuō chī bīng de huì yuè chī yuè kě. Wǒ nìngyuàn rè yìdiǎn, yě búyào chī bīng."
       },
       {
        "hz": "I.寧願/寧可……(，)也要/也不……",
-       "vi": ""
+       "vi": "I. Thà… (,) cũng phải / cũng không…",
+       "py": "I. Nìngyuàn / nìngkě…… (,) yě yào / yě bù……"
       },
       {
        "hz": "A：這個學期的最後一天，老師不是安排考試，就是讓大家上臺報告。你選哪一個？",
-       "vi": ""
+       "vi": "A: Ngày cuối cùng của học kỳ này, thầy giáo không cho thi thì sẽ cho mọi người lên thuyết trình. Bạn chọn cái nào?",
+       "py": "A: Zhège xuéqí de zuìhòu yìtiān, lǎoshī búshì ānpái kǎoshì, jiùshì ràng dàjiā shàngtái bàogào. Nǐ xuǎn nǎ yígè?"
       },
       {
        "hz": "A：下午就要考試了，你還要去海邊衝浪啊？你不怕被當嗎？",
-       "vi": ""
+       "vi": "A: Chiều nay thi rồi mà bạn còn đi biển lướt sóng à? Bạn không sợ bị trượt sao?",
+       "py": "A: Xiàwǔ jiùyào kǎoshì le, nǐ háiyào qù hǎibiān chōnglàng a? Nǐ búpà bèi dāng ma?"
       },
       {
        "hz": "請用「寧願/寧可……(，)也要/也不…… 」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “寧願/寧可……(，)也要/也不……” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “nìngyuàn / nìngkě…… (,) yě yào / yě bù……” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -3752,15 +4388,18 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：錢先生之前投資了不少生意，一定賺了不少錢吧？B：可能是運氣不好，他賠了很多錢，還說以後再也不投資了。A：這樣啊？難怪他最近再也沒跟別人談投資的事了。",
-       "vi": ""
+       "vi": "A: Trước đây ông Tiền đầu tư không ít việc làm ăn, chắc kiếm được nhiều tiền lắm nhỉ? B: Có lẽ vận không may, ông ấy lỗ rất nhiều tiền, còn nói sau này không bao giờ đầu tư nữa. A: Vậy à? Thảo nào dạo này ông ấy không còn bàn chuyện đầu tư với ai nữa.",
+       "py": "A: Qián xiānshēng zhīqián tóuzī le bùshǎo shēngyì, yídìng zhuàn le bùshǎo qián ba? B: Kěnéng shì yùnqì bùhǎo, tā péi le hěnduō qián, hái shuō yǐhòu zàiyě bù tóuzī le. A: Zhèyàng a? Nánguài tā zuìjìn zàiyě méi gēn biérén tán tóuzī de shì le."
       },
       {
        "hz": "A：報紙上說看過那部電影的觀眾，反應都很不錯。上週你去2. A：你那位模特兒女友呢？怎麼好幾個月都沒見到她了？",
-       "vi": ""
+       "vi": "A: Báo nói khán giả đã xem bộ phim đó đều phản hồi rất tốt. Tuần trước bạn đi… 2. A: Cô bạn gái người mẫu của bạn đâu rồi? Sao mấy tháng rồi không thấy cô ấy?",
+       "py": "A: Bàozhǐ shàng shuō kànguò nà bù diànyǐng de guānzhòng, fǎnyìng dōu hěn búcuò. Shàngzhōu nǐ qù 2. A: Nǐ nàwèi mótè'ér nǚyǒu ne? Zěnme hǎojǐgè yuè dōu méi jiàndào tā le?"
       },
       {
        "hz": "B：她發現我常在半夜跟其他女生聊天，因此跟我大吵了一架，請用「再也＋不/沒……了」完成以下的對話。",
-       "vi": ""
+       "vi": "B: Cô ấy phát hiện tôi hay nói chuyện với các cô gái khác lúc nửa đêm, vì vậy cãi nhau to với tôi… Hãy dùng “再也＋不/沒……了” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "B: Tā fāxiàn wǒ cháng zài bànyè gēn qítā nǚshēng liáotiān, yīncǐ gēn wǒ dàchǎo le yíjià, qǐng yòng “zàiyě ＋ bù / méi…… le” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -3777,16 +4416,19 @@ export const thoidaiGrammar4 = {
      "formula": "「好」在本語法中是連詞。表示說話的人用某種方式，讓「好」後面的目的順利完成。",
      "examples": [
       {
-       "hz": "我給他一些錢好幫助他。\t（我給他錢，才能幫助他）2. 妳快準備資料好開會。\t（妳快準備，才能開會）3. 快睡覺好早起。\t\t（快睡覺，才能早起）",
-       "vi": ""
+       "hz": "我給他一些錢好幫助他。\t（我給他錢，才能幫助他）2. 妳快準備資料好開會。\t（妳快準備，才能開會）3. 快睡覺好早起。 （快睡覺，才能早起）",
+       "vi": "1. Tôi cho anh ấy ít tiền để giúp anh ấy. (tôi cho anh ấy tiền thì mới giúp được anh ấy) 2. Em mau chuẩn bị tài liệu để còn họp. (em chuẩn bị nhanh thì mới họp được) 3. Mau đi ngủ để còn dậy sớm. (ngủ sớm thì mới dậy sớm được)",
+       "py": "Wǒ gěi tā yìxiē qián hǎo bāngzhù tā. (wǒ gěi tā qián, cáinéng bāngzhù tā) 2. Nǐ kuài zhǔnbèi zīliào hǎo kāihuì. (nǐ kuài zhǔnbèi, cáinéng kāihuì) 3. Kuài shuìjiào hǎo zǎoqǐ. (kuài shuìjiào, cáinéng zǎoqǐ)"
       },
       {
        "hz": "A：我想把這間房間當作健身房，但對怎麼布置一點兒主意都沒有，想請你幫忙。",
-       "vi": ""
+       "vi": "A: Tôi muốn biến căn phòng này thành phòng tập gym, nhưng chẳng có ý tưởng gì về cách bố trí, muốn nhờ bạn giúp.",
+       "py": "A: Wǒ xiǎng bǎ zhè jiān fángjiān dàngzuò jiànshēnfáng, dàn duì zěnme bùzhì yìdiǎn'ér zhǔyì dōu méiyǒu, xiǎng qǐng nǐ bāngmáng."
       },
       {
        "hz": "請用「好」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “好” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “hǎo” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -3805,28 +4447,34 @@ export const thoidaiGrammar4 = {
      "formula": "「V住」的意思是使動作穩定不變，像：「記住」、「拿住」、「停住」、「站住」等等。「V得住, V不住 」的意思是「可以V住, 不能V住」。 III.改V表示說話的人因為不想做某件事，或得不到想要的結果，而把原來做的事換成「改」後面的動作或行為「V」。 1. A：不好意思，昨天我幫你訂十二月二十四日上午九點往日本的",
      "examples": [
       {
-       "hz": "A：老闆剛剛說的事，你們都記住了嗎？B：剛剛我在想別的事，沒記住。再說，老闆一次說了那麼多，我   哪裡記得住？C：就算記不住也別擔心，我用手機錄下來了。",
-       "vi": ""
+       "hz": "A：老闆剛剛說的事，你們都記住了嗎？B：剛剛我在想別的事，沒記住。再說，老闆一次說了那麼多，我哪裡記得住？C：就算記不住也別擔心，我用手機錄下來了。",
+       "vi": "A: Những việc ông chủ vừa nói, các bạn nhớ hết chưa? B: Vừa rồi tôi đang nghĩ chuyện khác nên không nhớ. Hơn nữa, ông chủ nói một lần nhiều như vậy, tôi làm sao nhớ nổi? C: Dù không nhớ được cũng đừng lo, tôi đã ghi âm bằng điện thoại rồi.",
+       "py": "A: Lǎobǎn gānggāng shuō de shì, nǐmen dōu jìzhù le ma? B: Gānggāng wǒ zài xiǎng biéde shì, méi jìzhù. Zàishuō, lǎobǎn yícì shuō le nàme duō, wǒ nǎlǐ jìdezhù? C: Jiùsuàn jìbúzhù yě bié dānxīn, wǒ yòng shǒujī lùxiàlái le."
       },
       {
        "hz": "A：老師要我練習寫「龍」，我寫了幾遍，可是沒辦法記太久，很快就忘了。",
-       "vi": ""
+       "vi": "A: Cô giáo bảo tôi tập viết chữ “龍”, tôi viết mấy lần rồi mà không nhớ được lâu, rất nhanh đã quên.",
+       "py": "A: Lǎoshī yào wǒ liànxí xiě “lóng”, wǒ xiě le jǐbiàn, kěshì méi bànfǎ jì tàijiǔ, hěnkuài jiù wàng le."
       },
       {
        "hz": "以下的話換成「V住/V得住/V不住/沒V住」，可以怎麼說？",
-       "vi": ""
+       "vi": "Những câu dưới đây nếu đổi sang dùng “V住/V得住/V不住/沒V住” thì có thể nói thế nào?",
+       "py": "Yǐxià dehuà huànchéng “V zhù / V de zhù / V búzhù / méi V zhù”, kěyǐ zěnme shuō?"
       },
       {
        "hz": "華語文中心原來安排好在十二月三十一號辦晚會，但當天晚上有不少同學不方便參加，中心決定在當天中午改辦茶會。",
-       "vi": ""
+       "vi": "Trung tâm Hoa ngữ ban đầu đã sắp xếp tổ chức dạ hội vào ngày 31 tháng 12, nhưng tối hôm đó nhiều bạn không tiện tham gia, trung tâm quyết định đổi sang tổ chức tiệc trà vào buổi trưa hôm đó.",
+       "py": "Huá yǔwén zhōngxīn yuánlái ānpái hǎo zài shí'èryuè sānshíyí hào bàn wǎnhuì, dàn dàngtiān wǎnshàng yǒu bùshǎo tóngxué bù fāngbiàn cānjiā, zhōngxīn juédìng zài dàngtiān zhōngwǔ gǎibàn cháhuì."
       },
       {
        "hz": "飛機，結果沒訂到。",
-       "vi": ""
+       "vi": "…máy bay, kết quả không đặt được.",
+       "py": "Fēijī, jiéguǒ méi dìng dào."
       },
       {
        "hz": "A：有人建議我跑步健身，但對我來說實在激烈了點兒，想換個請用「改V」完成以下的對話。",
-       "vi": ""
+       "vi": "A: Có người khuyên tôi chạy bộ rèn luyện sức khoẻ, nhưng với tôi thì hơi quá sức, muốn đổi sang… Hãy dùng “改V” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "A: Yǒurén jiànyì wǒ pǎobù jiànshēn, dàn duì wǒ láishuō shízài jīliè le diǎn'ér, xiǎng huàn gè qǐng yòng “gǎi V” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -3844,43 +4492,53 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：請你相信我，我所說的每一句話都是真的。B：從開始戀愛到現在，你沒有一次沒說假話的。你這個騙子！",
-       "vi": ""
+       "vi": "A: Hãy tin anh, mỗi câu anh nói đều là thật. B: Từ lúc bắt đầu yêu đến giờ, chưa lần nào anh không nói dối. Đồ lừa đảo!",
+       "py": "A: Qǐng nǐ xiāngxìn wǒ, wǒ suǒshuō de měi yíjù huà dōu shì zhēnde. B: Cóng kāishǐ liàn'ài dào xiànzài, nǐ méiyǒu yícì méi shuō jiǎhuà de. Nǐ zhège piànzi!"
       },
       {
        "hz": "來過花蓮太魯閣的遊客都覺得，每個地點的風景都很美。",
-       "vi": ""
+       "vi": "Khách du lịch từng đến Thái Lỗ Các ở Hoa Liên đều thấy phong cảnh ở mỗi địa điểm đều rất đẹp.",
+       "py": "Lái guò Huālián tàilǔgé de yóukè dōu juéde, měigè dìdiǎn de fēngjǐng dōu hěn měi."
       },
       {
        "hz": "現在是臺灣的夏天，從夏天的第一天到最後一天，每天都非常熱。",
-       "vi": ""
+       "vi": "Bây giờ là mùa hè ở Đài Loan, từ ngày đầu tiên đến ngày cuối cùng của mùa hè, ngày nào cũng rất nóng.",
+       "py": "Xiànzài shì Táiwān de xiàtiān, cóng xiàtiān de dìyītiān dào zuìhòu yìtiān, měitiān dōu fēicháng rè."
       },
       {
        "hz": "請用「沒有一M(N)+不/ 沒……的」改寫句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “沒有一M(N)+不/沒……的” để viết lại phần gạch chân trong câu.",
+       "py": "Qǐng yòng “méiyǒu yí M + bù / méi…… de” gǎixiě jùzi zhōng huàxiàn de bùfèn."
       },
       {
        "hz": "臺上一分鐘，臺下十年功",
-       "vi": ""
+       "vi": "Một phút trên sân khấu, mười năm khổ luyện dưới sân khấu.",
+       "py": "Táishàng yìfēnzhōng, táixià shínián gōng"
       },
       {
-       "hz": "A：今天天氣真熱，我買一些冰淇淋回來，大家一起吃吧。B：這種冰淇淋太好吃了，我寧可肚子疼，也要吃到飽。C：我一吃冰淇淋就變胖。雖然我愛吃，但我寧可一輩子不吃，   也不要變胖。D：冰淇淋是我最愛的點心。我寧願變胖，也要吃冰淇淋。E：聽說吃冰的會越吃越渴。我寧願熱一點，也不要吃冰。",
-       "vi": ""
+       "hz": "A：今天天氣真熱，我買一些冰淇淋回來，大家一起吃吧。B：這種冰淇淋太好吃了，我寧可肚子疼，也要吃到飽。C：我一吃冰淇淋就變胖。雖然我愛吃，但我寧可一輩子不吃，也不要變胖。D：冰淇淋是我最愛的點心。我寧願變胖，也要吃冰淇淋。E：聽說吃冰的會越吃越渴。我寧願熱一點，也不要吃冰。",
+       "vi": "A: Hôm nay trời nóng thật, tôi mua ít kem về, mọi người cùng ăn nhé. B: Loại kem này ngon quá, tôi thà đau bụng cũng phải ăn cho no. C: Tôi cứ ăn kem là béo. Tuy tôi thích ăn, nhưng tôi thà cả đời không ăn, còn hơn bị béo. D: Kem là món tráng miệng tôi thích nhất. Tôi thà béo lên cũng phải ăn kem. E: Nghe nói ăn đồ lạnh càng ăn càng khát. Tôi thà nóng một chút, cũng không ăn đồ lạnh.",
+       "py": "A: Jīntiāntiānqì zhēn rè, wǒ mǎi yìxiē bīngqílín huílái, dàjiā yìqǐ chī ba. B: Zhèzhǒng bīngqílín tài hǎochī le, wǒ nìngkě dùziténg, yě yào chī dào bǎo. C: Wǒ yì chī bīngqílín jiù biàn pàng. Suīrán wǒ ài chī, dàn wǒ nìngkě yíbèizi bùchī, yě búyào biàn pàng. D: Bīngqílín shì wǒ zuì ài de diǎnxīn. Wǒ nìngyuàn biàn pàng, yě yào chī bīngqílín. E: Tīngshuō chī bīng de huì yuè chī yuè kě. Wǒ nìngyuàn rè yìdiǎn, yě búyào chī bīng."
       },
       {
        "hz": "I.寧願/寧可……(，)也要/也不……",
-       "vi": ""
+       "vi": "I. Thà… (,) cũng phải / cũng không…",
+       "py": "I. Nìngyuàn / nìngkě…… (,) yě yào / yě bù……"
       },
       {
        "hz": "A：這個學期的最後一天，老師不是安排考試，就是讓大家上臺報告。你選哪一個？",
-       "vi": ""
+       "vi": "A: Ngày cuối cùng của học kỳ này, thầy giáo không cho thi thì sẽ cho mọi người lên thuyết trình. Bạn chọn cái nào?",
+       "py": "A: Zhège xuéqí de zuìhòu yìtiān, lǎoshī búshì ānpái kǎoshì, jiùshì ràng dàjiā shàngtái bàogào. Nǐ xuǎn nǎ yígè?"
       },
       {
        "hz": "A：下午就要考試了，你還要去海邊衝浪啊？你不怕被當嗎？",
-       "vi": ""
+       "vi": "A: Chiều nay thi rồi mà bạn còn đi biển lướt sóng à? Bạn không sợ bị trượt sao?",
+       "py": "A: Xiàwǔ jiùyào kǎoshì le, nǐ háiyào qù hǎibiān chōnglàng a? Nǐ búpà bèi dāng ma?"
       },
       {
        "hz": "請用「寧願/寧可……(，)也要/也不…… 」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “寧願/寧可……(，)也要/也不……” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “nìngyuàn / nìngkě…… (,) yě yào / yě bù……” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -3898,15 +4556,18 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：錢先生之前投資了不少生意，一定賺了不少錢吧？B：可能是運氣不好，他賠了很多錢，還說以後再也不投資了。A：這樣啊？難怪他最近再也沒跟別人談投資的事了。",
-       "vi": ""
+       "vi": "A: Trước đây ông Tiền đầu tư không ít việc làm ăn, chắc kiếm được nhiều tiền lắm nhỉ? B: Có lẽ vận không may, ông ấy lỗ rất nhiều tiền, còn nói sau này không bao giờ đầu tư nữa. A: Vậy à? Thảo nào dạo này ông ấy không còn bàn chuyện đầu tư với ai nữa.",
+       "py": "A: Qián xiānshēng zhīqián tóuzī le bùshǎo shēngyì, yídìng zhuàn le bùshǎo qián ba? B: Kěnéng shì yùnqì bùhǎo, tā péi le hěnduō qián, hái shuō yǐhòu zàiyě bù tóuzī le. A: Zhèyàng a? Nánguài tā zuìjìn zàiyě méi gēn biérén tán tóuzī de shì le."
       },
       {
        "hz": "A：報紙上說看過那部電影的觀眾，反應都很不錯。上週你去2. A：你那位模特兒女友呢？怎麼好幾個月都沒見到她了？",
-       "vi": ""
+       "vi": "A: Báo nói khán giả đã xem bộ phim đó đều phản hồi rất tốt. Tuần trước bạn đi… 2. A: Cô bạn gái người mẫu của bạn đâu rồi? Sao mấy tháng rồi không thấy cô ấy?",
+       "py": "A: Bàozhǐ shàng shuō kànguò nà bù diànyǐng de guānzhòng, fǎnyìng dōu hěn búcuò. Shàngzhōu nǐ qù 2. A: Nǐ nàwèi mótè'ér nǚyǒu ne? Zěnme hǎojǐgè yuè dōu méi jiàndào tā le?"
       },
       {
        "hz": "B：她發現我常在半夜跟其他女生聊天，因此跟我大吵了一架，請用「再也＋不/沒……了」完成以下的對話。",
-       "vi": ""
+       "vi": "B: Cô ấy phát hiện tôi hay nói chuyện với các cô gái khác lúc nửa đêm, vì vậy cãi nhau to với tôi… Hãy dùng “再也＋不/沒……了” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "B: Tā fāxiàn wǒ cháng zài bànyè gēn qítā nǚshēng liáotiān, yīncǐ gēn wǒ dàchǎo le yíjià, qǐng yòng “zàiyě ＋ bù / méi…… le” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -3923,16 +4584,19 @@ export const thoidaiGrammar4 = {
      "formula": "「好」在本語法中是連詞。表示說話的人用某種方式，讓「好」後面的目的順利完成。",
      "examples": [
       {
-       "hz": "我給他一些錢好幫助他。\t（我給他錢，才能幫助他）2. 妳快準備資料好開會。\t（妳快準備，才能開會）3. 快睡覺好早起。\t\t（快睡覺，才能早起）",
-       "vi": ""
+       "hz": "我給他一些錢好幫助他。\t（我給他錢，才能幫助他）2. 妳快準備資料好開會。\t（妳快準備，才能開會）3. 快睡覺好早起。 （快睡覺，才能早起）",
+       "vi": "1. Tôi cho anh ấy ít tiền để giúp anh ấy. (tôi cho anh ấy tiền thì mới giúp được anh ấy) 2. Em mau chuẩn bị tài liệu để còn họp. (em chuẩn bị nhanh thì mới họp được) 3. Mau đi ngủ để còn dậy sớm. (ngủ sớm thì mới dậy sớm được)",
+       "py": "Wǒ gěi tā yìxiē qián hǎo bāngzhù tā. (wǒ gěi tā qián, cáinéng bāngzhù tā) 2. Nǐ kuài zhǔnbèi zīliào hǎo kāihuì. (nǐ kuài zhǔnbèi, cáinéng kāihuì) 3. Kuài shuìjiào hǎo zǎoqǐ. (kuài shuìjiào, cáinéng zǎoqǐ)"
       },
       {
        "hz": "A：我想把這間房間當作健身房，但對怎麼布置一點兒主意都沒有，想請你幫忙。",
-       "vi": ""
+       "vi": "A: Tôi muốn biến căn phòng này thành phòng tập gym, nhưng chẳng có ý tưởng gì về cách bố trí, muốn nhờ bạn giúp.",
+       "py": "A: Wǒ xiǎng bǎ zhè jiān fángjiān dàngzuò jiànshēnfáng, dàn duì zěnme bùzhì yìdiǎn'ér zhǔyì dōu méiyǒu, xiǎng qǐng nǐ bāngmáng."
       },
       {
        "hz": "請用「好」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “好” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “hǎo” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -3952,23 +4616,28 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：你在準備下午的會議資料嗎？有沒有我能幫忙的？ B：謝謝。那就麻煩你把這些資料一份一份地擺在桌子上。",
-       "vi": ""
+       "vi": "A: Bạn đang chuẩn bị tài liệu cho cuộc họp chiều nay à? Có gì tôi giúp được không? B: Cảm ơn. Vậy phiền bạn xếp từng bản tài liệu này lên bàn nhé.",
+       "py": "A: Nǐ zài zhǔnbèi xiàwǔ de huìyì zīliào ma? Yǒuméiyǒu wǒ néng bāngmáng de? B: Xièxie. Nà jiù máfán nǐ bǎ zhèxiē zīliào yífèn yífèn dì bǎizài zhuōzi shàng."
       },
       {
        "hz": "表示一次一個，分很多次來做一件事。",
-       "vi": ""
+       "vi": "Diễn tả mỗi lần một cái, chia làm nhiều lần để làm một việc.",
+       "py": "Biǎoshì yícì yígè, fēn hěn duōcì lái zuò yíjiàn shì."
       },
       {
        "hz": "A：放假好無聊啊！每天坐在家裡，都不知道要做什麼才好。",
-       "vi": ""
+       "vi": "A: Nghỉ lễ chán quá! Ngày nào cũng ngồi ở nhà, chẳng biết làm gì cho phải.",
+       "py": "A: Fàngjià hǎo wúliáo a! Měitiān zuòzài jiālǐ, dōu bù zhīdào yào zuò shénme cái hǎo."
       },
       {
        "hz": "A：我明白過新年前得把家裡整理乾淨，不過看到家裡到處都那麼亂，讓我不知道從哪裡開始掃起。",
-       "vi": ""
+       "vi": "A: Tôi biết trước Tết phải dọn dẹp nhà cửa sạch sẽ, nhưng thấy nhà chỗ nào cũng bừa bộn như vậy, tôi không biết bắt đầu quét từ đâu.",
+       "py": "A: Wǒ míngbái guò xīnnián qián děi bǎ jiālǐ zhěnglǐ gānjìng, búguò kàndào jiālǐ dàochù dōu nàme luàn, ràng wǒ bù zhīdào cóng nǎlǐ kāishǐ sǎo qǐ."
       },
       {
        "hz": "B：既然妳的孩子都回家團圓了，不如叫他們一起幫忙，然後請用「一M一M地」完成以下的對話。",
-       "vi": ""
+       "vi": "B: Các con chị đã về nhà đoàn tụ rồi, chi bằng gọi chúng cùng giúp, sau đó… Hãy dùng “一M一M地” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "B: Jìrán nǐ de háizi dōu huíjiā tuányuán le, bùrú jiào tāmen yìqǐ bāngmáng, ránhòu qǐng yòng “yì M yí M dì” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -3985,20 +4654,24 @@ export const thoidaiGrammar4 = {
      "formula": "「反正」是副詞，表示說話的人認為不管有什麼情況，還是做什麼事，對結果都沒有影響。",
      "examples": [
       {
-       "hz": "A：剛剛車禍，我不小心弄壞對方的車子，好像要賠不少錢，怎   麼辦？B：你別急。反正你買了汽車保險，交給保險公司處理就行了。",
-       "vi": ""
+       "hz": "A：剛剛車禍，我不小心弄壞對方的車子，好像要賠不少錢，怎麼辦？B：你別急。反正你買了汽車保險，交給保險公司處理就行了。",
+       "vi": "A: Vừa rồi bị tai nạn, tôi không cẩn thận làm hỏng xe của người ta, hình như phải đền nhiều tiền, làm sao đây? B: Bạn đừng cuống. Dù sao bạn cũng mua bảo hiểm ô tô rồi, giao cho công ty bảo hiểm xử lý là được.",
+       "py": "A: Gānggāng chēhuò, wǒ bù xiǎoxīn nònghuài duìfāng de chēzi, hǎoxiàng yào péi bùshǎo qián, zěnmebàn? B: Nǐ biéjí. Fǎnzhèng nǐ mǎi le qìchēbǎoxiǎn, jiāogěi bǎoxiǎngōngsī chǔlǐ jiùxíngle."
       },
       {
        "hz": "A：昨晚真是不好意思，讓你加班加到那麼晚，還害你錯過了最後一班公車。",
-       "vi": ""
+       "vi": "A: Tối qua thật ngại quá, để bạn tăng ca muộn như vậy, còn làm bạn lỡ chuyến xe buýt cuối cùng.",
+       "py": "A: Zuówǎn zhēnshì bùhǎoyìsī, ràng nǐ jiābān jiā dào nàme wǎn, hái hài nǐ cuòguò le zuìhòu yìbān gōngchē."
       },
       {
        "hz": "A：我的手機沒電了，方便跟你借手機嗎？我想跟同事聯絡。",
-       "vi": ""
+       "vi": "A: Điện thoại tôi hết pin rồi, cho tôi mượn điện thoại được không? Tôi muốn liên lạc với đồng nghiệp.",
+       "py": "A: Wǒ de shǒujī méi diàn le, fāngbiàn gēn nǐ jiè shǒujī ma? Wǒ xiǎng gēn tóngshì liánluò."
       },
       {
        "hz": "請用「反正」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “反正” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “fǎnzhèng” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -4016,19 +4689,23 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：我們這組的報告，拿到的分數怎麼這麼低啊？B：一點都不覺得奇怪。因為我們各寫各的，沒有好好整理。",
-       "vi": ""
+       "vi": "A: Sao báo cáo của nhóm mình điểm thấp vậy? B: Chẳng thấy lạ chút nào. Vì mỗi người viết một kiểu, không sắp xếp tử tế.",
+       "py": "A: Wǒmen zhè zǔ de bàogào, nádào de fēnshù zěnme zhème dī a? B: Yìdiǎn dōu bù juéde qíguài. Yīnwèi wǒmen gè xiě gè de, méiyǒu hǎohǎo zhěnglǐ."
       },
       {
        "hz": "我不想找小王加入這次小組計畫，是因為他總認為每個人都只要做自己工作就好，那種觀念會影響我們的計畫進行。",
-       "vi": ""
+       "vi": "Tôi không muốn rủ Tiểu Vương tham gia kế hoạch nhóm lần này, vì anh ấy luôn cho rằng mỗi người chỉ cần làm việc của mình là được, quan niệm đó sẽ ảnh hưởng đến tiến độ kế hoạch của chúng tôi.",
+       "py": "Wǒ bùxiǎng zhǎo xiǎo wáng jiārù zhècì xiǎozǔ jìhuà, shìyīnwèi tā zǒng rènwéi měigè rén dōu zhǐyào zuò zìjǐ gōngzuò jiù hǎo, nàzhǒng guānniàn huì yǐngxiǎng wǒmen de jìhuà jìnxíng."
       },
       {
        "hz": "我的室友每個人都選自己喜歡的社團，美麗想參加電腦社，小安要去音樂社，我只喜歡玩桌上遊戲，當然選桌遊社。。",
-       "vi": ""
+       "vi": "Mỗi bạn cùng phòng của tôi đều chọn câu lạc bộ mình thích, Mỹ Lệ muốn vào câu lạc bộ máy tính, Tiểu An định vào câu lạc bộ âm nhạc, tôi chỉ thích chơi board game, đương nhiên chọn câu lạc bộ board game.",
+       "py": "Wǒ de shìyǒu měigè rén dōu xuǎn zìjǐ xǐhuān de shètuán, měilì xiǎng cānjiā diànnǎo shè, xiǎo ān yào qù yīnyuè shè, wǒ zhǐ xǐhuān wán zhuōshàng yóuxì, dāngrán xuǎn zhuō yóu shè.."
       },
       {
        "hz": "請用「各V各的(O)」改寫以下句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “各V各的(O)” để viết lại phần gạch chân trong các câu dưới đây.",
+       "py": "Qǐng yòng “gè V gè de” gǎixiě yǐxià jùzi zhōng huàxiàn de bùfèn."
       }
      ],
      "answer": null
@@ -4045,20 +4722,24 @@ export const thoidaiGrammar4 = {
      "formula": "「千萬」在本語法中是副詞，用來告訴別人必須注意、小心的事情。「千萬」後面常用「要」、「得」、「別」、「不能」等詞。",
      "examples": [
       {
-       "hz": "A：有位很帥的軍人在社群網站上說他很喜歡我，不過現在碰到了    困難，求我借一筆錢給他，還說事情解決後要跟我結婚。B：電視新聞裡常看到這種騙子，你千萬別借錢給他。A：真的嗎？難怪有人跟我說，在網路交友千萬要注意。",
-       "vi": ""
+       "hz": "A：有位很帥的軍人在社群網站上說他很喜歡我，不過現在碰到了困難，求我借一筆錢給他，還說事情解決後要跟我結婚。B：電視新聞裡常看到這種騙子，你千萬別借錢給他。A：真的嗎？難怪有人跟我說，在網路交友千萬要注意。",
+       "vi": "A: Có một anh quân nhân rất đẹp trai nói trên mạng xã hội là rất thích tôi, nhưng giờ đang gặp khó khăn, xin tôi cho vay một khoản tiền, còn nói giải quyết xong sẽ cưới tôi. B: Trên thời sự thường thấy loại lừa đảo này, bạn tuyệt đối đừng cho anh ta vay tiền. A: Thật à? Thảo nào có người nói với tôi kết bạn trên mạng nhất định phải cẩn thận.",
+       "py": "A: Yǒu wèi hěn shuài de jūnrén zài shèqún wǎngzhàn shàng shuō tā hěn xǐhuān wǒ, búguò xiànzài pèngdào le kùnnán, qiú wǒ jiè yìbǐ qián gěi tā, hái shuō shìqíng jiějué hòu yào gēn wǒ jiéhūn. B: Diànshìxīnwén lǐ chángkàndào zhèzhǒng piànzi, nǐ qiānwànbié jièqián gěi tā. A: Zhēnde ma? Nánguài yǒurén gēn wǒ shuō, zài wǎnglù jiāoyǒu qiānwàn yào zhùyì."
       },
       {
        "hz": "A：在你的國家，送禮要注意哪些事情？",
-       "vi": ""
+       "vi": "A: Ở nước bạn, tặng quà cần chú ý những gì?",
+       "py": "A: Zài nǐ de guójiā, sònglǐ yào zhùyì nǎxiē shìqíng?"
       },
       {
        "hz": "A：這個週末他想一個人去爬那座高山。雖然是第一次去，不過他對爬山很有經驗，應該沒問題。",
-       "vi": ""
+       "vi": "A: Cuối tuần này anh ấy muốn một mình đi leo ngọn núi cao đó. Tuy là lần đầu đi, nhưng anh ấy rất có kinh nghiệm leo núi, chắc không có vấn đề gì.",
+       "py": "A: Zhège zhōumò tā xiǎng yígè rén qù pá nà zuò gāoshān. Suīrán shì dìyīcì qù, búguò tā duì páshān hěn yǒu jīngyàn, yīnggāi méi wèntí."
       },
       {
        "hz": "請用「千萬」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “千萬” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “qiānwàn” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -4075,20 +4756,24 @@ export const thoidaiGrammar4 = {
      "formula": "「照」是副詞。「照V 」表示完全按照某個辦法去做某件事，或是行為表現跟之前完全相同。這裡的「V」是一個字的動詞。",
      "examples": [
       {
-       "hz": "A：電視新聞說那個表演團體到國外時，不巧碰上地震。後來他   們跑到戶外後還是照演，真了不起。B：沒錯。雖然我不認為所有的表演團體碰到這種情況都應該照   做，不過還是想為他們的態度鼓掌。",
-       "vi": ""
+       "hz": "A：電視新聞說那個表演團體到國外時，不巧碰上地震。後來他們跑到戶外後還是照演，真了不起。B：沒錯。雖然我不認為所有的表演團體碰到這種情況都應該照做，不過還是想為他們的態度鼓掌。",
+       "vi": "A: Thời sự nói đoàn biểu diễn đó khi ra nước ngoài không may gặp động đất. Sau khi chạy ra ngoài trời, họ vẫn biểu diễn như thường, thật đáng nể. B: Đúng vậy. Tuy tôi không cho rằng đoàn biểu diễn nào gặp tình huống này cũng nên làm như vậy, nhưng vẫn muốn vỗ tay cho thái độ của họ.",
+       "py": "A: Diànshìxīnwén shuō nàge biǎoyǎn tuántǐ dào guówài shí, bùqiǎo pèngshàng dìzhèn. Hòulái tāmen pǎo dào hùwài hòu háishì zhào yǎn, zhēn liǎobùqǐ. B: Méicuò. Suīrán wǒ bú rènwéi suǒyǒu de biǎoyǎn tuántǐ pèngdào zhèzhǒng qíngkuàng dōu yīnggāi zhào zuò, búguò háishì xiǎng wèi tāmen de tàidù gǔzhǎng."
       },
       {
        "hz": "每次到了半夜，我就聽見樓上鄰居家的狗叫聲。雖然我們公寓規定不能養貓、狗，不過他們不聽，還是一樣養狗。",
-       "vi": ""
+       "vi": "Cứ đến nửa đêm là tôi lại nghe thấy tiếng chó sủa nhà hàng xóm tầng trên. Tuy chung cư chúng tôi quy định không được nuôi chó mèo, nhưng họ không nghe, vẫn nuôi chó như thường.",
+       "py": "Měicì dào le bànyè, wǒ jiù tīngjiàn lóushàng línjūjiā de gǒujiàoshēng. Suīrán wǒmen gōngyù guīdìng bùnéng yǎngmāo, gǒu, búguò tāmen bù tīng, háishì yíyàng yǎng gǒu."
       },
       {
        "hz": "他今天身體很不舒服，不過因為有個計畫得趕在明天以前交給老闆，所以今天還是一樣來公司上班。",
-       "vi": ""
+       "vi": "Hôm nay anh ấy rất mệt trong người, nhưng vì có một kế hoạch phải kịp nộp cho ông chủ trước ngày mai, nên hôm nay vẫn đến công ty làm như thường.",
+       "py": "Tā jīntiān shēntǐ hěn bù shūfú, búguò yīnwèi yǒu gè jìhuà děi gǎn zài míngtiān yǐqián jiāogěi lǎobǎn, suǒyǐ jīntiān háishì yíyàng lái gōngsī shàngbān."
       },
       {
        "hz": "請用「照V」改寫以下句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “照V” để viết lại phần gạch chân trong các câu dưới đây.",
+       "py": "Qǐng yòng “zhào V” gǎixiě yǐxià jùzi zhōng huàxiàn de bùfèn."
       }
      ],
      "answer": null
@@ -4106,31 +4791,38 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：那對夫婦看起來感情不錯，怎麼離婚了呢？B：你可別亂說，他們只是暫時分開住，好讓自己冷靜一下。",
-       "vi": ""
+       "vi": "A: Đôi vợ chồng đó trông tình cảm lắm mà, sao lại ly hôn? B: Bạn đừng nói bừa, họ chỉ tạm thời ở riêng, để bản thân bình tĩnh lại thôi.",
+       "py": "A: Nà duì fūfù kànqǐlái gǎnqíng búcuò, zěnme líhūn le ne? B: Nǐ kě bié luànshuō, tāmen zhǐshì zhànshí fēnkāi zhù, hǎo ràng zìjǐ lěngjìng yíxià."
       },
       {
        "hz": "「只是」是副詞，有「僅」、「不過是」的意思，表示程度少或輕。",
-       "vi": ""
+       "vi": "“只是” là phó từ, có nghĩa “chỉ”, “chẳng qua là”, diễn tả mức độ ít hoặc nhẹ.",
+       "py": "“Zhǐshì” shì fùcí, yǒu “jǐn”, “búguò shì” de yìsi, biǎoshì chéngdù shǎo huò qīng."
       },
       {
        "hz": "A：你怎麼把裝漢堡的袋子打開了？你不知道搭捷運時不能吃東2. A：我們那麼多年沒見了，前晚在舞會上見面時，你為什麼要假裝不認識我？",
-       "vi": ""
+       "vi": "A: Sao bạn lại mở túi đựng hamburger? Bạn không biết đi tàu điện ngầm thì không được ăn… 2. A: Chúng ta bao nhiêu năm không gặp, tối hôm kia gặp nhau ở buổi khiêu vũ, sao bạn lại giả vờ không quen tôi?",
+       "py": "A: Nǐ zěnme bǎ zhuāng hànbǎo de dàizi dǎkāi le? Nǐ bù zhīdào dā jiéyùn shí bùnéng chī dōng 2. A: Wǒmen nàme duōnián méi jiàn le, qián wǎn zài wǔhuì shàng jiànmiàn shí, nǐ wèishénme yào jiǎzhuāng bú rènshì wǒ?"
       },
       {
        "hz": "請用「只是」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “只是” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “zhǐshì” wánchéng yǐxià de duìhuà."
       },
       {
        "hz": "A：那個地區的交通不方便，對觀光活動的影響應該不小吧？B：別看當地交通不方便，其實去觀光的遊客還挺多的。",
-       "vi": ""
+       "vi": "A: Giao thông khu vực đó không thuận tiện, chắc ảnh hưởng không nhỏ đến hoạt động du lịch nhỉ? B: Đừng thấy giao thông ở đó bất tiện, thực ra khách đến tham quan khá đông.",
+       "py": "A: Nàge dìqū de jiāotōng bù fāngbiàn, duì guānguāng huódòng de yǐngxiǎng yīnggāi bùxiǎo ba? B: Bié kàn dāngdì jiāotōng bù fāngbiàn, qíshí qù guānguāng de yóukè hái tǐng duō de."
       },
       {
        "hz": "A：你看那位先生每天穿名牌服裝、開進口車，他家裡應該很有2. A：我們的老闆似乎早晚都在處理一大堆文件，應該沒什麼空從事休閒活動吧？",
-       "vi": ""
+       "vi": "A: Bạn xem ông kia ngày nào cũng mặc đồ hàng hiệu, lái xe nhập khẩu, nhà ông ấy chắc rất… 2. A: Ông chủ chúng ta hình như sáng tối đều xử lý cả đống giấy tờ, chắc chẳng có thời gian cho hoạt động giải trí nhỉ?",
+       "py": "A: Nǐ kàn nàwèi xiānshēng měitiān chuān míngpáifúzhuāng, kāi jìnkǒuchē, tā jiālǐ yīnggāi hěn yǒu 2. A: Wǒmen de lǎobǎn sìhū zǎowǎn dōu zài chǔlǐ yídàduī wénjiàn, yīnggāi méishénme kōng cóngshì xiūxiánhuódòng ba?"
       },
       {
        "hz": "請用「別看……，其實……」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “別看……，其實……” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “bié kàn……, qíshí……” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -4150,23 +4842,28 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：你在準備下午的會議資料嗎？有沒有我能幫忙的？ B：謝謝。那就麻煩你把這些資料一份一份地擺在桌子上。",
-       "vi": ""
+       "vi": "A: Bạn đang chuẩn bị tài liệu cho cuộc họp chiều nay à? Có gì tôi giúp được không? B: Cảm ơn. Vậy phiền bạn xếp từng bản tài liệu này lên bàn nhé.",
+       "py": "A: Nǐ zài zhǔnbèi xiàwǔ de huìyì zīliào ma? Yǒuméiyǒu wǒ néng bāngmáng de? B: Xièxie. Nà jiù máfán nǐ bǎ zhèxiē zīliào yífèn yífèn dì bǎizài zhuōzi shàng."
       },
       {
        "hz": "表示一次一個，分很多次來做一件事。",
-       "vi": ""
+       "vi": "Diễn tả mỗi lần một cái, chia làm nhiều lần để làm một việc.",
+       "py": "Biǎoshì yícì yígè, fēn hěn duōcì lái zuò yíjiàn shì."
       },
       {
        "hz": "A：放假好無聊啊！每天坐在家裡，都不知道要做什麼才好。",
-       "vi": ""
+       "vi": "A: Nghỉ lễ chán quá! Ngày nào cũng ngồi ở nhà, chẳng biết làm gì cho phải.",
+       "py": "A: Fàngjià hǎo wúliáo a! Měitiān zuòzài jiālǐ, dōu bù zhīdào yào zuò shénme cái hǎo."
       },
       {
        "hz": "A：我明白過新年前得把家裡整理乾淨，不過看到家裡到處都那麼亂，讓我不知道從哪裡開始掃起。",
-       "vi": ""
+       "vi": "A: Tôi biết trước Tết phải dọn dẹp nhà cửa sạch sẽ, nhưng thấy nhà chỗ nào cũng bừa bộn như vậy, tôi không biết bắt đầu quét từ đâu.",
+       "py": "A: Wǒ míngbái guò xīnnián qián děi bǎ jiālǐ zhěnglǐ gānjìng, búguò kàndào jiālǐ dàochù dōu nàme luàn, ràng wǒ bù zhīdào cóng nǎlǐ kāishǐ sǎo qǐ."
       },
       {
        "hz": "B：既然妳的孩子都回家團圓了，不如叫他們一起幫忙，然後請用「一M一M地」完成以下的對話。",
-       "vi": ""
+       "vi": "B: Các con chị đã về nhà đoàn tụ rồi, chi bằng gọi chúng cùng giúp, sau đó… Hãy dùng “一M一M地” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "B: Jìrán nǐ de háizi dōu huíjiā tuányuán le, bùrú jiào tāmen yìqǐ bāngmáng, ránhòu qǐng yòng “yì M yí M dì” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -4183,20 +4880,24 @@ export const thoidaiGrammar4 = {
      "formula": "「反正」是副詞，表示說話的人認為不管有什麼情況，還是做什麼事，對結果都沒有影響。",
      "examples": [
       {
-       "hz": "A：剛剛車禍，我不小心弄壞對方的車子，好像要賠不少錢，怎   麼辦？B：你別急。反正你買了汽車保險，交給保險公司處理就行了。",
-       "vi": ""
+       "hz": "A：剛剛車禍，我不小心弄壞對方的車子，好像要賠不少錢，怎麼辦？B：你別急。反正你買了汽車保險，交給保險公司處理就行了。",
+       "vi": "A: Vừa rồi bị tai nạn, tôi không cẩn thận làm hỏng xe của người ta, hình như phải đền nhiều tiền, làm sao đây? B: Bạn đừng cuống. Dù sao bạn cũng mua bảo hiểm ô tô rồi, giao cho công ty bảo hiểm xử lý là được.",
+       "py": "A: Gānggāng chēhuò, wǒ bù xiǎoxīn nònghuài duìfāng de chēzi, hǎoxiàng yào péi bùshǎo qián, zěnmebàn? B: Nǐ biéjí. Fǎnzhèng nǐ mǎi le qìchēbǎoxiǎn, jiāogěi bǎoxiǎngōngsī chǔlǐ jiùxíngle."
       },
       {
        "hz": "A：昨晚真是不好意思，讓你加班加到那麼晚，還害你錯過了最後一班公車。",
-       "vi": ""
+       "vi": "A: Tối qua thật ngại quá, để bạn tăng ca muộn như vậy, còn làm bạn lỡ chuyến xe buýt cuối cùng.",
+       "py": "A: Zuówǎn zhēnshì bùhǎoyìsī, ràng nǐ jiābān jiā dào nàme wǎn, hái hài nǐ cuòguò le zuìhòu yìbān gōngchē."
       },
       {
        "hz": "A：我的手機沒電了，方便跟你借手機嗎？我想跟同事聯絡。",
-       "vi": ""
+       "vi": "A: Điện thoại tôi hết pin rồi, cho tôi mượn điện thoại được không? Tôi muốn liên lạc với đồng nghiệp.",
+       "py": "A: Wǒ de shǒujī méi diàn le, fāngbiàn gēn nǐ jiè shǒujī ma? Wǒ xiǎng gēn tóngshì liánluò."
       },
       {
        "hz": "請用「反正」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “反正” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “fǎnzhèng” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -4214,19 +4915,23 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：我們這組的報告，拿到的分數怎麼這麼低啊？B：一點都不覺得奇怪。因為我們各寫各的，沒有好好整理。",
-       "vi": ""
+       "vi": "A: Sao báo cáo của nhóm mình điểm thấp vậy? B: Chẳng thấy lạ chút nào. Vì mỗi người viết một kiểu, không sắp xếp tử tế.",
+       "py": "A: Wǒmen zhè zǔ de bàogào, nádào de fēnshù zěnme zhème dī a? B: Yìdiǎn dōu bù juéde qíguài. Yīnwèi wǒmen gè xiě gè de, méiyǒu hǎohǎo zhěnglǐ."
       },
       {
        "hz": "我不想找小王加入這次小組計畫，是因為他總認為每個人都只要做自己工作就好，那種觀念會影響我們的計畫進行。",
-       "vi": ""
+       "vi": "Tôi không muốn rủ Tiểu Vương tham gia kế hoạch nhóm lần này, vì anh ấy luôn cho rằng mỗi người chỉ cần làm việc của mình là được, quan niệm đó sẽ ảnh hưởng đến tiến độ kế hoạch của chúng tôi.",
+       "py": "Wǒ bùxiǎng zhǎo xiǎo wáng jiārù zhècì xiǎozǔ jìhuà, shìyīnwèi tā zǒng rènwéi měigè rén dōu zhǐyào zuò zìjǐ gōngzuò jiù hǎo, nàzhǒng guānniàn huì yǐngxiǎng wǒmen de jìhuà jìnxíng."
       },
       {
        "hz": "我的室友每個人都選自己喜歡的社團，美麗想參加電腦社，小安要去音樂社，我只喜歡玩桌上遊戲，當然選桌遊社。。",
-       "vi": ""
+       "vi": "Mỗi bạn cùng phòng của tôi đều chọn câu lạc bộ mình thích, Mỹ Lệ muốn vào câu lạc bộ máy tính, Tiểu An định vào câu lạc bộ âm nhạc, tôi chỉ thích chơi board game, đương nhiên chọn câu lạc bộ board game.",
+       "py": "Wǒ de shìyǒu měigè rén dōu xuǎn zìjǐ xǐhuān de shètuán, měilì xiǎng cānjiā diànnǎo shè, xiǎo ān yào qù yīnyuè shè, wǒ zhǐ xǐhuān wán zhuōshàng yóuxì, dāngrán xuǎn zhuō yóu shè.."
       },
       {
        "hz": "請用「各V各的(O)」改寫以下句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “各V各的(O)” để viết lại phần gạch chân trong các câu dưới đây.",
+       "py": "Qǐng yòng “gè V gè de” gǎixiě yǐxià jùzi zhōng huàxiàn de bùfèn."
       }
      ],
      "answer": null
@@ -4243,20 +4948,24 @@ export const thoidaiGrammar4 = {
      "formula": "「千萬」在本語法中是副詞，用來告訴別人必須注意、小心的事情。「千萬」後面常用「要」、「得」、「別」、「不能」等詞。",
      "examples": [
       {
-       "hz": "A：有位很帥的軍人在社群網站上說他很喜歡我，不過現在碰到了    困難，求我借一筆錢給他，還說事情解決後要跟我結婚。B：電視新聞裡常看到這種騙子，你千萬別借錢給他。A：真的嗎？難怪有人跟我說，在網路交友千萬要注意。",
-       "vi": ""
+       "hz": "A：有位很帥的軍人在社群網站上說他很喜歡我，不過現在碰到了困難，求我借一筆錢給他，還說事情解決後要跟我結婚。B：電視新聞裡常看到這種騙子，你千萬別借錢給他。A：真的嗎？難怪有人跟我說，在網路交友千萬要注意。",
+       "vi": "A: Có một anh quân nhân rất đẹp trai nói trên mạng xã hội là rất thích tôi, nhưng giờ đang gặp khó khăn, xin tôi cho vay một khoản tiền, còn nói giải quyết xong sẽ cưới tôi. B: Trên thời sự thường thấy loại lừa đảo này, bạn tuyệt đối đừng cho anh ta vay tiền. A: Thật à? Thảo nào có người nói với tôi kết bạn trên mạng nhất định phải cẩn thận.",
+       "py": "A: Yǒu wèi hěn shuài de jūnrén zài shèqún wǎngzhàn shàng shuō tā hěn xǐhuān wǒ, búguò xiànzài pèngdào le kùnnán, qiú wǒ jiè yìbǐ qián gěi tā, hái shuō shìqíng jiějué hòu yào gēn wǒ jiéhūn. B: Diànshìxīnwén lǐ chángkàndào zhèzhǒng piànzi, nǐ qiānwànbié jièqián gěi tā. A: Zhēnde ma? Nánguài yǒurén gēn wǒ shuō, zài wǎnglù jiāoyǒu qiānwàn yào zhùyì."
       },
       {
        "hz": "A：在你的國家，送禮要注意哪些事情？",
-       "vi": ""
+       "vi": "A: Ở nước bạn, tặng quà cần chú ý những gì?",
+       "py": "A: Zài nǐ de guójiā, sònglǐ yào zhùyì nǎxiē shìqíng?"
       },
       {
        "hz": "A：這個週末他想一個人去爬那座高山。雖然是第一次去，不過他對爬山很有經驗，應該沒問題。",
-       "vi": ""
+       "vi": "A: Cuối tuần này anh ấy muốn một mình đi leo ngọn núi cao đó. Tuy là lần đầu đi, nhưng anh ấy rất có kinh nghiệm leo núi, chắc không có vấn đề gì.",
+       "py": "A: Zhège zhōumò tā xiǎng yígè rén qù pá nà zuò gāoshān. Suīrán shì dìyīcì qù, búguò tā duì páshān hěn yǒu jīngyàn, yīnggāi méi wèntí."
       },
       {
        "hz": "請用「千萬」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “千萬” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “qiānwàn” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -4273,20 +4982,24 @@ export const thoidaiGrammar4 = {
      "formula": "「照」是副詞。「照V 」表示完全按照某個辦法去做某件事，或是行為表現跟之前完全相同。這裡的「V」是一個字的動詞。",
      "examples": [
       {
-       "hz": "A：電視新聞說那個表演團體到國外時，不巧碰上地震。後來他   們跑到戶外後還是照演，真了不起。B：沒錯。雖然我不認為所有的表演團體碰到這種情況都應該照   做，不過還是想為他們的態度鼓掌。",
-       "vi": ""
+       "hz": "A：電視新聞說那個表演團體到國外時，不巧碰上地震。後來他們跑到戶外後還是照演，真了不起。B：沒錯。雖然我不認為所有的表演團體碰到這種情況都應該照做，不過還是想為他們的態度鼓掌。",
+       "vi": "A: Thời sự nói đoàn biểu diễn đó khi ra nước ngoài không may gặp động đất. Sau khi chạy ra ngoài trời, họ vẫn biểu diễn như thường, thật đáng nể. B: Đúng vậy. Tuy tôi không cho rằng đoàn biểu diễn nào gặp tình huống này cũng nên làm như vậy, nhưng vẫn muốn vỗ tay cho thái độ của họ.",
+       "py": "A: Diànshìxīnwén shuō nàge biǎoyǎn tuántǐ dào guówài shí, bùqiǎo pèngshàng dìzhèn. Hòulái tāmen pǎo dào hùwài hòu háishì zhào yǎn, zhēn liǎobùqǐ. B: Méicuò. Suīrán wǒ bú rènwéi suǒyǒu de biǎoyǎn tuántǐ pèngdào zhèzhǒng qíngkuàng dōu yīnggāi zhào zuò, búguò háishì xiǎng wèi tāmen de tàidù gǔzhǎng."
       },
       {
        "hz": "每次到了半夜，我就聽見樓上鄰居家的狗叫聲。雖然我們公寓規定不能養貓、狗，不過他們不聽，還是一樣養狗。",
-       "vi": ""
+       "vi": "Cứ đến nửa đêm là tôi lại nghe thấy tiếng chó sủa nhà hàng xóm tầng trên. Tuy chung cư chúng tôi quy định không được nuôi chó mèo, nhưng họ không nghe, vẫn nuôi chó như thường.",
+       "py": "Měicì dào le bànyè, wǒ jiù tīngjiàn lóushàng línjūjiā de gǒujiàoshēng. Suīrán wǒmen gōngyù guīdìng bùnéng yǎngmāo, gǒu, búguò tāmen bù tīng, háishì yíyàng yǎng gǒu."
       },
       {
        "hz": "他今天身體很不舒服，不過因為有個計畫得趕在明天以前交給老闆，所以今天還是一樣來公司上班。",
-       "vi": ""
+       "vi": "Hôm nay anh ấy rất mệt trong người, nhưng vì có một kế hoạch phải kịp nộp cho ông chủ trước ngày mai, nên hôm nay vẫn đến công ty làm như thường.",
+       "py": "Tā jīntiān shēntǐ hěn bù shūfú, búguò yīnwèi yǒu gè jìhuà děi gǎn zài míngtiān yǐqián jiāogěi lǎobǎn, suǒyǐ jīntiān háishì yíyàng lái gōngsī shàngbān."
       },
       {
        "hz": "請用「照V」改寫以下句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “照V” để viết lại phần gạch chân trong các câu dưới đây.",
+       "py": "Qǐng yòng “zhào V” gǎixiě yǐxià jùzi zhōng huàxiàn de bùfèn."
       }
      ],
      "answer": null
@@ -4304,31 +5017,38 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：那對夫婦看起來感情不錯，怎麼離婚了呢？B：你可別亂說，他們只是暫時分開住，好讓自己冷靜一下。",
-       "vi": ""
+       "vi": "A: Đôi vợ chồng đó trông tình cảm lắm mà, sao lại ly hôn? B: Bạn đừng nói bừa, họ chỉ tạm thời ở riêng, để bản thân bình tĩnh lại thôi.",
+       "py": "A: Nà duì fūfù kànqǐlái gǎnqíng búcuò, zěnme líhūn le ne? B: Nǐ kě bié luànshuō, tāmen zhǐshì zhànshí fēnkāi zhù, hǎo ràng zìjǐ lěngjìng yíxià."
       },
       {
        "hz": "「只是」是副詞，有「僅」、「不過是」的意思，表示程度少或輕。",
-       "vi": ""
+       "vi": "“只是” là phó từ, có nghĩa “chỉ”, “chẳng qua là”, diễn tả mức độ ít hoặc nhẹ.",
+       "py": "“Zhǐshì” shì fùcí, yǒu “jǐn”, “búguò shì” de yìsi, biǎoshì chéngdù shǎo huò qīng."
       },
       {
        "hz": "A：你怎麼把裝漢堡的袋子打開了？你不知道搭捷運時不能吃東2. A：我們那麼多年沒見了，前晚在舞會上見面時，你為什麼要假裝不認識我？",
-       "vi": ""
+       "vi": "A: Sao bạn lại mở túi đựng hamburger? Bạn không biết đi tàu điện ngầm thì không được ăn… 2. A: Chúng ta bao nhiêu năm không gặp, tối hôm kia gặp nhau ở buổi khiêu vũ, sao bạn lại giả vờ không quen tôi?",
+       "py": "A: Nǐ zěnme bǎ zhuāng hànbǎo de dàizi dǎkāi le? Nǐ bù zhīdào dā jiéyùn shí bùnéng chī dōng 2. A: Wǒmen nàme duōnián méi jiàn le, qián wǎn zài wǔhuì shàng jiànmiàn shí, nǐ wèishénme yào jiǎzhuāng bú rènshì wǒ?"
       },
       {
        "hz": "請用「只是」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “只是” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “zhǐshì” wánchéng yǐxià de duìhuà."
       },
       {
        "hz": "A：那個地區的交通不方便，對觀光活動的影響應該不小吧？B：別看當地交通不方便，其實去觀光的遊客還挺多的。",
-       "vi": ""
+       "vi": "A: Giao thông khu vực đó không thuận tiện, chắc ảnh hưởng không nhỏ đến hoạt động du lịch nhỉ? B: Đừng thấy giao thông ở đó bất tiện, thực ra khách đến tham quan khá đông.",
+       "py": "A: Nàge dìqū de jiāotōng bù fāngbiàn, duì guānguāng huódòng de yǐngxiǎng yīnggāi bùxiǎo ba? B: Bié kàn dāngdì jiāotōng bù fāngbiàn, qíshí qù guānguāng de yóukè hái tǐng duō de."
       },
       {
        "hz": "A：你看那位先生每天穿名牌服裝、開進口車，他家裡應該很有2. A：我們的老闆似乎早晚都在處理一大堆文件，應該沒什麼空從事休閒活動吧？",
-       "vi": ""
+       "vi": "A: Bạn xem ông kia ngày nào cũng mặc đồ hàng hiệu, lái xe nhập khẩu, nhà ông ấy chắc rất… 2. A: Ông chủ chúng ta hình như sáng tối đều xử lý cả đống giấy tờ, chắc chẳng có thời gian cho hoạt động giải trí nhỉ?",
+       "py": "A: Nǐ kàn nàwèi xiānshēng měitiān chuān míngpáifúzhuāng, kāi jìnkǒuchē, tā jiālǐ yīnggāi hěn yǒu 2. A: Wǒmen de lǎobǎn sìhū zǎowǎn dōu zài chǔlǐ yídàduī wénjiàn, yīnggāi méishénme kōng cóngshì xiūxiánhuódòng ba?"
       },
       {
        "hz": "請用「別看……，其實……」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “別看……，其實……” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “bié kàn……, qíshí……” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -4348,23 +5068,28 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：你在準備下午的會議資料嗎？有沒有我能幫忙的？ B：謝謝。那就麻煩你把這些資料一份一份地擺在桌子上。",
-       "vi": ""
+       "vi": "A: Bạn đang chuẩn bị tài liệu cho cuộc họp chiều nay à? Có gì tôi giúp được không? B: Cảm ơn. Vậy phiền bạn xếp từng bản tài liệu này lên bàn nhé.",
+       "py": "A: Nǐ zài zhǔnbèi xiàwǔ de huìyì zīliào ma? Yǒuméiyǒu wǒ néng bāngmáng de? B: Xièxie. Nà jiù máfán nǐ bǎ zhèxiē zīliào yífèn yífèn dì bǎizài zhuōzi shàng."
       },
       {
        "hz": "表示一次一個，分很多次來做一件事。",
-       "vi": ""
+       "vi": "Diễn tả mỗi lần một cái, chia làm nhiều lần để làm một việc.",
+       "py": "Biǎoshì yícì yígè, fēn hěn duōcì lái zuò yíjiàn shì."
       },
       {
        "hz": "A：放假好無聊啊！每天坐在家裡，都不知道要做什麼才好。",
-       "vi": ""
+       "vi": "A: Nghỉ lễ chán quá! Ngày nào cũng ngồi ở nhà, chẳng biết làm gì cho phải.",
+       "py": "A: Fàngjià hǎo wúliáo a! Měitiān zuòzài jiālǐ, dōu bù zhīdào yào zuò shénme cái hǎo."
       },
       {
        "hz": "A：我明白過新年前得把家裡整理乾淨，不過看到家裡到處都那麼亂，讓我不知道從哪裡開始掃起。",
-       "vi": ""
+       "vi": "A: Tôi biết trước Tết phải dọn dẹp nhà cửa sạch sẽ, nhưng thấy nhà chỗ nào cũng bừa bộn như vậy, tôi không biết bắt đầu quét từ đâu.",
+       "py": "A: Wǒ míngbái guò xīnnián qián děi bǎ jiālǐ zhěnglǐ gānjìng, búguò kàndào jiālǐ dàochù dōu nàme luàn, ràng wǒ bù zhīdào cóng nǎlǐ kāishǐ sǎo qǐ."
       },
       {
        "hz": "B：既然妳的孩子都回家團圓了，不如叫他們一起幫忙，然後請用「一M一M地」完成以下的對話。",
-       "vi": ""
+       "vi": "B: Các con chị đã về nhà đoàn tụ rồi, chi bằng gọi chúng cùng giúp, sau đó… Hãy dùng “一M一M地” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "B: Jìrán nǐ de háizi dōu huíjiā tuányuán le, bùrú jiào tāmen yìqǐ bāngmáng, ránhòu qǐng yòng “yì M yí M dì” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -4381,20 +5106,24 @@ export const thoidaiGrammar4 = {
      "formula": "「反正」是副詞，表示說話的人認為不管有什麼情況，還是做什麼事，對結果都沒有影響。",
      "examples": [
       {
-       "hz": "A：剛剛車禍，我不小心弄壞對方的車子，好像要賠不少錢，怎   麼辦？B：你別急。反正你買了汽車保險，交給保險公司處理就行了。",
-       "vi": ""
+       "hz": "A：剛剛車禍，我不小心弄壞對方的車子，好像要賠不少錢，怎麼辦？B：你別急。反正你買了汽車保險，交給保險公司處理就行了。",
+       "vi": "A: Vừa rồi bị tai nạn, tôi không cẩn thận làm hỏng xe của người ta, hình như phải đền nhiều tiền, làm sao đây? B: Bạn đừng cuống. Dù sao bạn cũng mua bảo hiểm ô tô rồi, giao cho công ty bảo hiểm xử lý là được.",
+       "py": "A: Gānggāng chēhuò, wǒ bù xiǎoxīn nònghuài duìfāng de chēzi, hǎoxiàng yào péi bùshǎo qián, zěnmebàn? B: Nǐ biéjí. Fǎnzhèng nǐ mǎi le qìchēbǎoxiǎn, jiāogěi bǎoxiǎngōngsī chǔlǐ jiùxíngle."
       },
       {
        "hz": "A：昨晚真是不好意思，讓你加班加到那麼晚，還害你錯過了最後一班公車。",
-       "vi": ""
+       "vi": "A: Tối qua thật ngại quá, để bạn tăng ca muộn như vậy, còn làm bạn lỡ chuyến xe buýt cuối cùng.",
+       "py": "A: Zuówǎn zhēnshì bùhǎoyìsī, ràng nǐ jiābān jiā dào nàme wǎn, hái hài nǐ cuòguò le zuìhòu yìbān gōngchē."
       },
       {
        "hz": "A：我的手機沒電了，方便跟你借手機嗎？我想跟同事聯絡。",
-       "vi": ""
+       "vi": "A: Điện thoại tôi hết pin rồi, cho tôi mượn điện thoại được không? Tôi muốn liên lạc với đồng nghiệp.",
+       "py": "A: Wǒ de shǒujī méi diàn le, fāngbiàn gēn nǐ jiè shǒujī ma? Wǒ xiǎng gēn tóngshì liánluò."
       },
       {
        "hz": "請用「反正」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “反正” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “fǎnzhèng” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -4412,19 +5141,23 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：我們這組的報告，拿到的分數怎麼這麼低啊？B：一點都不覺得奇怪。因為我們各寫各的，沒有好好整理。",
-       "vi": ""
+       "vi": "A: Sao báo cáo của nhóm mình điểm thấp vậy? B: Chẳng thấy lạ chút nào. Vì mỗi người viết một kiểu, không sắp xếp tử tế.",
+       "py": "A: Wǒmen zhè zǔ de bàogào, nádào de fēnshù zěnme zhème dī a? B: Yìdiǎn dōu bù juéde qíguài. Yīnwèi wǒmen gè xiě gè de, méiyǒu hǎohǎo zhěnglǐ."
       },
       {
        "hz": "我不想找小王加入這次小組計畫，是因為他總認為每個人都只要做自己工作就好，那種觀念會影響我們的計畫進行。",
-       "vi": ""
+       "vi": "Tôi không muốn rủ Tiểu Vương tham gia kế hoạch nhóm lần này, vì anh ấy luôn cho rằng mỗi người chỉ cần làm việc của mình là được, quan niệm đó sẽ ảnh hưởng đến tiến độ kế hoạch của chúng tôi.",
+       "py": "Wǒ bùxiǎng zhǎo xiǎo wáng jiārù zhècì xiǎozǔ jìhuà, shìyīnwèi tā zǒng rènwéi měigè rén dōu zhǐyào zuò zìjǐ gōngzuò jiù hǎo, nàzhǒng guānniàn huì yǐngxiǎng wǒmen de jìhuà jìnxíng."
       },
       {
        "hz": "我的室友每個人都選自己喜歡的社團，美麗想參加電腦社，小安要去音樂社，我只喜歡玩桌上遊戲，當然選桌遊社。。",
-       "vi": ""
+       "vi": "Mỗi bạn cùng phòng của tôi đều chọn câu lạc bộ mình thích, Mỹ Lệ muốn vào câu lạc bộ máy tính, Tiểu An định vào câu lạc bộ âm nhạc, tôi chỉ thích chơi board game, đương nhiên chọn câu lạc bộ board game.",
+       "py": "Wǒ de shìyǒu měigè rén dōu xuǎn zìjǐ xǐhuān de shètuán, měilì xiǎng cānjiā diànnǎo shè, xiǎo ān yào qù yīnyuè shè, wǒ zhǐ xǐhuān wán zhuōshàng yóuxì, dāngrán xuǎn zhuō yóu shè.."
       },
       {
        "hz": "請用「各V各的(O)」改寫以下句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “各V各的(O)” để viết lại phần gạch chân trong các câu dưới đây.",
+       "py": "Qǐng yòng “gè V gè de” gǎixiě yǐxià jùzi zhōng huàxiàn de bùfèn."
       }
      ],
      "answer": null
@@ -4441,20 +5174,24 @@ export const thoidaiGrammar4 = {
      "formula": "「千萬」在本語法中是副詞，用來告訴別人必須注意、小心的事情。「千萬」後面常用「要」、「得」、「別」、「不能」等詞。",
      "examples": [
       {
-       "hz": "A：有位很帥的軍人在社群網站上說他很喜歡我，不過現在碰到了    困難，求我借一筆錢給他，還說事情解決後要跟我結婚。B：電視新聞裡常看到這種騙子，你千萬別借錢給他。A：真的嗎？難怪有人跟我說，在網路交友千萬要注意。",
-       "vi": ""
+       "hz": "A：有位很帥的軍人在社群網站上說他很喜歡我，不過現在碰到了困難，求我借一筆錢給他，還說事情解決後要跟我結婚。B：電視新聞裡常看到這種騙子，你千萬別借錢給他。A：真的嗎？難怪有人跟我說，在網路交友千萬要注意。",
+       "vi": "A: Có một anh quân nhân rất đẹp trai nói trên mạng xã hội là rất thích tôi, nhưng giờ đang gặp khó khăn, xin tôi cho vay một khoản tiền, còn nói giải quyết xong sẽ cưới tôi. B: Trên thời sự thường thấy loại lừa đảo này, bạn tuyệt đối đừng cho anh ta vay tiền. A: Thật à? Thảo nào có người nói với tôi kết bạn trên mạng nhất định phải cẩn thận.",
+       "py": "A: Yǒu wèi hěn shuài de jūnrén zài shèqún wǎngzhàn shàng shuō tā hěn xǐhuān wǒ, búguò xiànzài pèngdào le kùnnán, qiú wǒ jiè yìbǐ qián gěi tā, hái shuō shìqíng jiějué hòu yào gēn wǒ jiéhūn. B: Diànshìxīnwén lǐ chángkàndào zhèzhǒng piànzi, nǐ qiānwànbié jièqián gěi tā. A: Zhēnde ma? Nánguài yǒurén gēn wǒ shuō, zài wǎnglù jiāoyǒu qiānwàn yào zhùyì."
       },
       {
        "hz": "A：在你的國家，送禮要注意哪些事情？",
-       "vi": ""
+       "vi": "A: Ở nước bạn, tặng quà cần chú ý những gì?",
+       "py": "A: Zài nǐ de guójiā, sònglǐ yào zhùyì nǎxiē shìqíng?"
       },
       {
        "hz": "A：這個週末他想一個人去爬那座高山。雖然是第一次去，不過他對爬山很有經驗，應該沒問題。",
-       "vi": ""
+       "vi": "A: Cuối tuần này anh ấy muốn một mình đi leo ngọn núi cao đó. Tuy là lần đầu đi, nhưng anh ấy rất có kinh nghiệm leo núi, chắc không có vấn đề gì.",
+       "py": "A: Zhège zhōumò tā xiǎng yígè rén qù pá nà zuò gāoshān. Suīrán shì dìyīcì qù, búguò tā duì páshān hěn yǒu jīngyàn, yīnggāi méi wèntí."
       },
       {
        "hz": "請用「千萬」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “千萬” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “qiānwàn” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -4471,20 +5208,24 @@ export const thoidaiGrammar4 = {
      "formula": "「照」是副詞。「照V 」表示完全按照某個辦法去做某件事，或是行為表現跟之前完全相同。這裡的「V」是一個字的動詞。",
      "examples": [
       {
-       "hz": "A：電視新聞說那個表演團體到國外時，不巧碰上地震。後來他   們跑到戶外後還是照演，真了不起。B：沒錯。雖然我不認為所有的表演團體碰到這種情況都應該照   做，不過還是想為他們的態度鼓掌。",
-       "vi": ""
+       "hz": "A：電視新聞說那個表演團體到國外時，不巧碰上地震。後來他們跑到戶外後還是照演，真了不起。B：沒錯。雖然我不認為所有的表演團體碰到這種情況都應該照做，不過還是想為他們的態度鼓掌。",
+       "vi": "A: Thời sự nói đoàn biểu diễn đó khi ra nước ngoài không may gặp động đất. Sau khi chạy ra ngoài trời, họ vẫn biểu diễn như thường, thật đáng nể. B: Đúng vậy. Tuy tôi không cho rằng đoàn biểu diễn nào gặp tình huống này cũng nên làm như vậy, nhưng vẫn muốn vỗ tay cho thái độ của họ.",
+       "py": "A: Diànshìxīnwén shuō nàge biǎoyǎn tuántǐ dào guówài shí, bùqiǎo pèngshàng dìzhèn. Hòulái tāmen pǎo dào hùwài hòu háishì zhào yǎn, zhēn liǎobùqǐ. B: Méicuò. Suīrán wǒ bú rènwéi suǒyǒu de biǎoyǎn tuántǐ pèngdào zhèzhǒng qíngkuàng dōu yīnggāi zhào zuò, búguò háishì xiǎng wèi tāmen de tàidù gǔzhǎng."
       },
       {
        "hz": "每次到了半夜，我就聽見樓上鄰居家的狗叫聲。雖然我們公寓規定不能養貓、狗，不過他們不聽，還是一樣養狗。",
-       "vi": ""
+       "vi": "Cứ đến nửa đêm là tôi lại nghe thấy tiếng chó sủa nhà hàng xóm tầng trên. Tuy chung cư chúng tôi quy định không được nuôi chó mèo, nhưng họ không nghe, vẫn nuôi chó như thường.",
+       "py": "Měicì dào le bànyè, wǒ jiù tīngjiàn lóushàng línjūjiā de gǒujiàoshēng. Suīrán wǒmen gōngyù guīdìng bùnéng yǎngmāo, gǒu, búguò tāmen bù tīng, háishì yíyàng yǎng gǒu."
       },
       {
        "hz": "他今天身體很不舒服，不過因為有個計畫得趕在明天以前交給老闆，所以今天還是一樣來公司上班。",
-       "vi": ""
+       "vi": "Hôm nay anh ấy rất mệt trong người, nhưng vì có một kế hoạch phải kịp nộp cho ông chủ trước ngày mai, nên hôm nay vẫn đến công ty làm như thường.",
+       "py": "Tā jīntiān shēntǐ hěn bù shūfú, búguò yīnwèi yǒu gè jìhuà děi gǎn zài míngtiān yǐqián jiāogěi lǎobǎn, suǒyǐ jīntiān háishì yíyàng lái gōngsī shàngbān."
       },
       {
        "hz": "請用「照V」改寫以下句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “照V” để viết lại phần gạch chân trong các câu dưới đây.",
+       "py": "Qǐng yòng “zhào V” gǎixiě yǐxià jùzi zhōng huàxiàn de bùfèn."
       }
      ],
      "answer": null
@@ -4502,31 +5243,38 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：那對夫婦看起來感情不錯，怎麼離婚了呢？B：你可別亂說，他們只是暫時分開住，好讓自己冷靜一下。",
-       "vi": ""
+       "vi": "A: Đôi vợ chồng đó trông tình cảm lắm mà, sao lại ly hôn? B: Bạn đừng nói bừa, họ chỉ tạm thời ở riêng, để bản thân bình tĩnh lại thôi.",
+       "py": "A: Nà duì fūfù kànqǐlái gǎnqíng búcuò, zěnme líhūn le ne? B: Nǐ kě bié luànshuō, tāmen zhǐshì zhànshí fēnkāi zhù, hǎo ràng zìjǐ lěngjìng yíxià."
       },
       {
        "hz": "「只是」是副詞，有「僅」、「不過是」的意思，表示程度少或輕。",
-       "vi": ""
+       "vi": "“只是” là phó từ, có nghĩa “chỉ”, “chẳng qua là”, diễn tả mức độ ít hoặc nhẹ.",
+       "py": "“Zhǐshì” shì fùcí, yǒu “jǐn”, “búguò shì” de yìsi, biǎoshì chéngdù shǎo huò qīng."
       },
       {
        "hz": "A：你怎麼把裝漢堡的袋子打開了？你不知道搭捷運時不能吃東2. A：我們那麼多年沒見了，前晚在舞會上見面時，你為什麼要假裝不認識我？",
-       "vi": ""
+       "vi": "A: Sao bạn lại mở túi đựng hamburger? Bạn không biết đi tàu điện ngầm thì không được ăn… 2. A: Chúng ta bao nhiêu năm không gặp, tối hôm kia gặp nhau ở buổi khiêu vũ, sao bạn lại giả vờ không quen tôi?",
+       "py": "A: Nǐ zěnme bǎ zhuāng hànbǎo de dàizi dǎkāi le? Nǐ bù zhīdào dā jiéyùn shí bùnéng chī dōng 2. A: Wǒmen nàme duōnián méi jiàn le, qián wǎn zài wǔhuì shàng jiànmiàn shí, nǐ wèishénme yào jiǎzhuāng bú rènshì wǒ?"
       },
       {
        "hz": "請用「只是」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “只是” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “zhǐshì” wánchéng yǐxià de duìhuà."
       },
       {
        "hz": "A：那個地區的交通不方便，對觀光活動的影響應該不小吧？B：別看當地交通不方便，其實去觀光的遊客還挺多的。",
-       "vi": ""
+       "vi": "A: Giao thông khu vực đó không thuận tiện, chắc ảnh hưởng không nhỏ đến hoạt động du lịch nhỉ? B: Đừng thấy giao thông ở đó bất tiện, thực ra khách đến tham quan khá đông.",
+       "py": "A: Nàge dìqū de jiāotōng bù fāngbiàn, duì guānguāng huódòng de yǐngxiǎng yīnggāi bùxiǎo ba? B: Bié kàn dāngdì jiāotōng bù fāngbiàn, qíshí qù guānguāng de yóukè hái tǐng duō de."
       },
       {
        "hz": "A：你看那位先生每天穿名牌服裝、開進口車，他家裡應該很有2. A：我們的老闆似乎早晚都在處理一大堆文件，應該沒什麼空從事休閒活動吧？",
-       "vi": ""
+       "vi": "A: Bạn xem ông kia ngày nào cũng mặc đồ hàng hiệu, lái xe nhập khẩu, nhà ông ấy chắc rất… 2. A: Ông chủ chúng ta hình như sáng tối đều xử lý cả đống giấy tờ, chắc chẳng có thời gian cho hoạt động giải trí nhỉ?",
+       "py": "A: Nǐ kàn nàwèi xiānshēng měitiān chuān míngpáifúzhuāng, kāi jìnkǒuchē, tā jiālǐ yīnggāi hěn yǒu 2. A: Wǒmen de lǎobǎn sìhū zǎowǎn dōu zài chǔlǐ yídàduī wénjiàn, yīnggāi méishénme kōng cóngshì xiūxiánhuódòng ba?"
       },
       {
        "hz": "請用「別看……，其實……」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “別看……，其實……” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “bié kàn……, qíshí……” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -4546,23 +5294,28 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：你在準備下午的會議資料嗎？有沒有我能幫忙的？ B：謝謝。那就麻煩你把這些資料一份一份地擺在桌子上。",
-       "vi": ""
+       "vi": "A: Bạn đang chuẩn bị tài liệu cho cuộc họp chiều nay à? Có gì tôi giúp được không? B: Cảm ơn. Vậy phiền bạn xếp từng bản tài liệu này lên bàn nhé.",
+       "py": "A: Nǐ zài zhǔnbèi xiàwǔ de huìyì zīliào ma? Yǒuméiyǒu wǒ néng bāngmáng de? B: Xièxie. Nà jiù máfán nǐ bǎ zhèxiē zīliào yífèn yífèn dì bǎizài zhuōzi shàng."
       },
       {
        "hz": "表示一次一個，分很多次來做一件事。",
-       "vi": ""
+       "vi": "Diễn tả mỗi lần một cái, chia làm nhiều lần để làm một việc.",
+       "py": "Biǎoshì yícì yígè, fēn hěn duōcì lái zuò yíjiàn shì."
       },
       {
        "hz": "A：放假好無聊啊！每天坐在家裡，都不知道要做什麼才好。",
-       "vi": ""
+       "vi": "A: Nghỉ lễ chán quá! Ngày nào cũng ngồi ở nhà, chẳng biết làm gì cho phải.",
+       "py": "A: Fàngjià hǎo wúliáo a! Měitiān zuòzài jiālǐ, dōu bù zhīdào yào zuò shénme cái hǎo."
       },
       {
        "hz": "A：我明白過新年前得把家裡整理乾淨，不過看到家裡到處都那麼亂，讓我不知道從哪裡開始掃起。",
-       "vi": ""
+       "vi": "A: Tôi biết trước Tết phải dọn dẹp nhà cửa sạch sẽ, nhưng thấy nhà chỗ nào cũng bừa bộn như vậy, tôi không biết bắt đầu quét từ đâu.",
+       "py": "A: Wǒ míngbái guò xīnnián qián děi bǎ jiālǐ zhěnglǐ gānjìng, búguò kàndào jiālǐ dàochù dōu nàme luàn, ràng wǒ bù zhīdào cóng nǎlǐ kāishǐ sǎo qǐ."
       },
       {
        "hz": "B：既然妳的孩子都回家團圓了，不如叫他們一起幫忙，然後請用「一M一M地」完成以下的對話。",
-       "vi": ""
+       "vi": "B: Các con chị đã về nhà đoàn tụ rồi, chi bằng gọi chúng cùng giúp, sau đó… Hãy dùng “一M一M地” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "B: Jìrán nǐ de háizi dōu huíjiā tuányuán le, bùrú jiào tāmen yìqǐ bāngmáng, ránhòu qǐng yòng “yì M yí M dì” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -4579,20 +5332,24 @@ export const thoidaiGrammar4 = {
      "formula": "「反正」是副詞，表示說話的人認為不管有什麼情況，還是做什麼事，對結果都沒有影響。",
      "examples": [
       {
-       "hz": "A：剛剛車禍，我不小心弄壞對方的車子，好像要賠不少錢，怎   麼辦？B：你別急。反正你買了汽車保險，交給保險公司處理就行了。",
-       "vi": ""
+       "hz": "A：剛剛車禍，我不小心弄壞對方的車子，好像要賠不少錢，怎麼辦？B：你別急。反正你買了汽車保險，交給保險公司處理就行了。",
+       "vi": "A: Vừa rồi bị tai nạn, tôi không cẩn thận làm hỏng xe của người ta, hình như phải đền nhiều tiền, làm sao đây? B: Bạn đừng cuống. Dù sao bạn cũng mua bảo hiểm ô tô rồi, giao cho công ty bảo hiểm xử lý là được.",
+       "py": "A: Gānggāng chēhuò, wǒ bù xiǎoxīn nònghuài duìfāng de chēzi, hǎoxiàng yào péi bùshǎo qián, zěnmebàn? B: Nǐ biéjí. Fǎnzhèng nǐ mǎi le qìchēbǎoxiǎn, jiāogěi bǎoxiǎngōngsī chǔlǐ jiùxíngle."
       },
       {
        "hz": "A：昨晚真是不好意思，讓你加班加到那麼晚，還害你錯過了最後一班公車。",
-       "vi": ""
+       "vi": "A: Tối qua thật ngại quá, để bạn tăng ca muộn như vậy, còn làm bạn lỡ chuyến xe buýt cuối cùng.",
+       "py": "A: Zuówǎn zhēnshì bùhǎoyìsī, ràng nǐ jiābān jiā dào nàme wǎn, hái hài nǐ cuòguò le zuìhòu yìbān gōngchē."
       },
       {
        "hz": "A：我的手機沒電了，方便跟你借手機嗎？我想跟同事聯絡。",
-       "vi": ""
+       "vi": "A: Điện thoại tôi hết pin rồi, cho tôi mượn điện thoại được không? Tôi muốn liên lạc với đồng nghiệp.",
+       "py": "A: Wǒ de shǒujī méi diàn le, fāngbiàn gēn nǐ jiè shǒujī ma? Wǒ xiǎng gēn tóngshì liánluò."
       },
       {
        "hz": "請用「反正」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “反正” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “fǎnzhèng” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -4610,19 +5367,23 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：我們這組的報告，拿到的分數怎麼這麼低啊？B：一點都不覺得奇怪。因為我們各寫各的，沒有好好整理。",
-       "vi": ""
+       "vi": "A: Sao báo cáo của nhóm mình điểm thấp vậy? B: Chẳng thấy lạ chút nào. Vì mỗi người viết một kiểu, không sắp xếp tử tế.",
+       "py": "A: Wǒmen zhè zǔ de bàogào, nádào de fēnshù zěnme zhème dī a? B: Yìdiǎn dōu bù juéde qíguài. Yīnwèi wǒmen gè xiě gè de, méiyǒu hǎohǎo zhěnglǐ."
       },
       {
        "hz": "我不想找小王加入這次小組計畫，是因為他總認為每個人都只要做自己工作就好，那種觀念會影響我們的計畫進行。",
-       "vi": ""
+       "vi": "Tôi không muốn rủ Tiểu Vương tham gia kế hoạch nhóm lần này, vì anh ấy luôn cho rằng mỗi người chỉ cần làm việc của mình là được, quan niệm đó sẽ ảnh hưởng đến tiến độ kế hoạch của chúng tôi.",
+       "py": "Wǒ bùxiǎng zhǎo xiǎo wáng jiārù zhècì xiǎozǔ jìhuà, shìyīnwèi tā zǒng rènwéi měigè rén dōu zhǐyào zuò zìjǐ gōngzuò jiù hǎo, nàzhǒng guānniàn huì yǐngxiǎng wǒmen de jìhuà jìnxíng."
       },
       {
        "hz": "我的室友每個人都選自己喜歡的社團，美麗想參加電腦社，小安要去音樂社，我只喜歡玩桌上遊戲，當然選桌遊社。。",
-       "vi": ""
+       "vi": "Mỗi bạn cùng phòng của tôi đều chọn câu lạc bộ mình thích, Mỹ Lệ muốn vào câu lạc bộ máy tính, Tiểu An định vào câu lạc bộ âm nhạc, tôi chỉ thích chơi board game, đương nhiên chọn câu lạc bộ board game.",
+       "py": "Wǒ de shìyǒu měigè rén dōu xuǎn zìjǐ xǐhuān de shètuán, měilì xiǎng cānjiā diànnǎo shè, xiǎo ān yào qù yīnyuè shè, wǒ zhǐ xǐhuān wán zhuōshàng yóuxì, dāngrán xuǎn zhuō yóu shè.."
       },
       {
        "hz": "請用「各V各的(O)」改寫以下句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “各V各的(O)” để viết lại phần gạch chân trong các câu dưới đây.",
+       "py": "Qǐng yòng “gè V gè de” gǎixiě yǐxià jùzi zhōng huàxiàn de bùfèn."
       }
      ],
      "answer": null
@@ -4639,20 +5400,24 @@ export const thoidaiGrammar4 = {
      "formula": "「千萬」在本語法中是副詞，用來告訴別人必須注意、小心的事情。「千萬」後面常用「要」、「得」、「別」、「不能」等詞。",
      "examples": [
       {
-       "hz": "A：有位很帥的軍人在社群網站上說他很喜歡我，不過現在碰到了    困難，求我借一筆錢給他，還說事情解決後要跟我結婚。B：電視新聞裡常看到這種騙子，你千萬別借錢給他。A：真的嗎？難怪有人跟我說，在網路交友千萬要注意。",
-       "vi": ""
+       "hz": "A：有位很帥的軍人在社群網站上說他很喜歡我，不過現在碰到了困難，求我借一筆錢給他，還說事情解決後要跟我結婚。B：電視新聞裡常看到這種騙子，你千萬別借錢給他。A：真的嗎？難怪有人跟我說，在網路交友千萬要注意。",
+       "vi": "A: Có một anh quân nhân rất đẹp trai nói trên mạng xã hội là rất thích tôi, nhưng giờ đang gặp khó khăn, xin tôi cho vay một khoản tiền, còn nói giải quyết xong sẽ cưới tôi. B: Trên thời sự thường thấy loại lừa đảo này, bạn tuyệt đối đừng cho anh ta vay tiền. A: Thật à? Thảo nào có người nói với tôi kết bạn trên mạng nhất định phải cẩn thận.",
+       "py": "A: Yǒu wèi hěn shuài de jūnrén zài shèqún wǎngzhàn shàng shuō tā hěn xǐhuān wǒ, búguò xiànzài pèngdào le kùnnán, qiú wǒ jiè yìbǐ qián gěi tā, hái shuō shìqíng jiějué hòu yào gēn wǒ jiéhūn. B: Diànshìxīnwén lǐ chángkàndào zhèzhǒng piànzi, nǐ qiānwànbié jièqián gěi tā. A: Zhēnde ma? Nánguài yǒurén gēn wǒ shuō, zài wǎnglù jiāoyǒu qiānwàn yào zhùyì."
       },
       {
        "hz": "A：在你的國家，送禮要注意哪些事情？",
-       "vi": ""
+       "vi": "A: Ở nước bạn, tặng quà cần chú ý những gì?",
+       "py": "A: Zài nǐ de guójiā, sònglǐ yào zhùyì nǎxiē shìqíng?"
       },
       {
        "hz": "A：這個週末他想一個人去爬那座高山。雖然是第一次去，不過他對爬山很有經驗，應該沒問題。",
-       "vi": ""
+       "vi": "A: Cuối tuần này anh ấy muốn một mình đi leo ngọn núi cao đó. Tuy là lần đầu đi, nhưng anh ấy rất có kinh nghiệm leo núi, chắc không có vấn đề gì.",
+       "py": "A: Zhège zhōumò tā xiǎng yígè rén qù pá nà zuò gāoshān. Suīrán shì dìyīcì qù, búguò tā duì páshān hěn yǒu jīngyàn, yīnggāi méi wèntí."
       },
       {
        "hz": "請用「千萬」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “千萬” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “qiānwàn” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -4669,20 +5434,24 @@ export const thoidaiGrammar4 = {
      "formula": "「照」是副詞。「照V 」表示完全按照某個辦法去做某件事，或是行為表現跟之前完全相同。這裡的「V」是一個字的動詞。",
      "examples": [
       {
-       "hz": "A：電視新聞說那個表演團體到國外時，不巧碰上地震。後來他   們跑到戶外後還是照演，真了不起。B：沒錯。雖然我不認為所有的表演團體碰到這種情況都應該照   做，不過還是想為他們的態度鼓掌。",
-       "vi": ""
+       "hz": "A：電視新聞說那個表演團體到國外時，不巧碰上地震。後來他們跑到戶外後還是照演，真了不起。B：沒錯。雖然我不認為所有的表演團體碰到這種情況都應該照做，不過還是想為他們的態度鼓掌。",
+       "vi": "A: Thời sự nói đoàn biểu diễn đó khi ra nước ngoài không may gặp động đất. Sau khi chạy ra ngoài trời, họ vẫn biểu diễn như thường, thật đáng nể. B: Đúng vậy. Tuy tôi không cho rằng đoàn biểu diễn nào gặp tình huống này cũng nên làm như vậy, nhưng vẫn muốn vỗ tay cho thái độ của họ.",
+       "py": "A: Diànshìxīnwén shuō nàge biǎoyǎn tuántǐ dào guówài shí, bùqiǎo pèngshàng dìzhèn. Hòulái tāmen pǎo dào hùwài hòu háishì zhào yǎn, zhēn liǎobùqǐ. B: Méicuò. Suīrán wǒ bú rènwéi suǒyǒu de biǎoyǎn tuántǐ pèngdào zhèzhǒng qíngkuàng dōu yīnggāi zhào zuò, búguò háishì xiǎng wèi tāmen de tàidù gǔzhǎng."
       },
       {
        "hz": "每次到了半夜，我就聽見樓上鄰居家的狗叫聲。雖然我們公寓規定不能養貓、狗，不過他們不聽，還是一樣養狗。",
-       "vi": ""
+       "vi": "Cứ đến nửa đêm là tôi lại nghe thấy tiếng chó sủa nhà hàng xóm tầng trên. Tuy chung cư chúng tôi quy định không được nuôi chó mèo, nhưng họ không nghe, vẫn nuôi chó như thường.",
+       "py": "Měicì dào le bànyè, wǒ jiù tīngjiàn lóushàng línjūjiā de gǒujiàoshēng. Suīrán wǒmen gōngyù guīdìng bùnéng yǎngmāo, gǒu, búguò tāmen bù tīng, háishì yíyàng yǎng gǒu."
       },
       {
        "hz": "他今天身體很不舒服，不過因為有個計畫得趕在明天以前交給老闆，所以今天還是一樣來公司上班。",
-       "vi": ""
+       "vi": "Hôm nay anh ấy rất mệt trong người, nhưng vì có một kế hoạch phải kịp nộp cho ông chủ trước ngày mai, nên hôm nay vẫn đến công ty làm như thường.",
+       "py": "Tā jīntiān shēntǐ hěn bù shūfú, búguò yīnwèi yǒu gè jìhuà děi gǎn zài míngtiān yǐqián jiāogěi lǎobǎn, suǒyǐ jīntiān háishì yíyàng lái gōngsī shàngbān."
       },
       {
        "hz": "請用「照V」改寫以下句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “照V” để viết lại phần gạch chân trong các câu dưới đây.",
+       "py": "Qǐng yòng “zhào V” gǎixiě yǐxià jùzi zhōng huàxiàn de bùfèn."
       }
      ],
      "answer": null
@@ -4700,31 +5469,38 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：那對夫婦看起來感情不錯，怎麼離婚了呢？B：你可別亂說，他們只是暫時分開住，好讓自己冷靜一下。",
-       "vi": ""
+       "vi": "A: Đôi vợ chồng đó trông tình cảm lắm mà, sao lại ly hôn? B: Bạn đừng nói bừa, họ chỉ tạm thời ở riêng, để bản thân bình tĩnh lại thôi.",
+       "py": "A: Nà duì fūfù kànqǐlái gǎnqíng búcuò, zěnme líhūn le ne? B: Nǐ kě bié luànshuō, tāmen zhǐshì zhànshí fēnkāi zhù, hǎo ràng zìjǐ lěngjìng yíxià."
       },
       {
        "hz": "「只是」是副詞，有「僅」、「不過是」的意思，表示程度少或輕。",
-       "vi": ""
+       "vi": "“只是” là phó từ, có nghĩa “chỉ”, “chẳng qua là”, diễn tả mức độ ít hoặc nhẹ.",
+       "py": "“Zhǐshì” shì fùcí, yǒu “jǐn”, “búguò shì” de yìsi, biǎoshì chéngdù shǎo huò qīng."
       },
       {
        "hz": "A：你怎麼把裝漢堡的袋子打開了？你不知道搭捷運時不能吃東2. A：我們那麼多年沒見了，前晚在舞會上見面時，你為什麼要假裝不認識我？",
-       "vi": ""
+       "vi": "A: Sao bạn lại mở túi đựng hamburger? Bạn không biết đi tàu điện ngầm thì không được ăn… 2. A: Chúng ta bao nhiêu năm không gặp, tối hôm kia gặp nhau ở buổi khiêu vũ, sao bạn lại giả vờ không quen tôi?",
+       "py": "A: Nǐ zěnme bǎ zhuāng hànbǎo de dàizi dǎkāi le? Nǐ bù zhīdào dā jiéyùn shí bùnéng chī dōng 2. A: Wǒmen nàme duōnián méi jiàn le, qián wǎn zài wǔhuì shàng jiànmiàn shí, nǐ wèishénme yào jiǎzhuāng bú rènshì wǒ?"
       },
       {
        "hz": "請用「只是」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “只是” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “zhǐshì” wánchéng yǐxià de duìhuà."
       },
       {
        "hz": "A：那個地區的交通不方便，對觀光活動的影響應該不小吧？B：別看當地交通不方便，其實去觀光的遊客還挺多的。",
-       "vi": ""
+       "vi": "A: Giao thông khu vực đó không thuận tiện, chắc ảnh hưởng không nhỏ đến hoạt động du lịch nhỉ? B: Đừng thấy giao thông ở đó bất tiện, thực ra khách đến tham quan khá đông.",
+       "py": "A: Nàge dìqū de jiāotōng bù fāngbiàn, duì guānguāng huódòng de yǐngxiǎng yīnggāi bùxiǎo ba? B: Bié kàn dāngdì jiāotōng bù fāngbiàn, qíshí qù guānguāng de yóukè hái tǐng duō de."
       },
       {
        "hz": "A：你看那位先生每天穿名牌服裝、開進口車，他家裡應該很有2. A：我們的老闆似乎早晚都在處理一大堆文件，應該沒什麼空從事休閒活動吧？",
-       "vi": ""
+       "vi": "A: Bạn xem ông kia ngày nào cũng mặc đồ hàng hiệu, lái xe nhập khẩu, nhà ông ấy chắc rất… 2. A: Ông chủ chúng ta hình như sáng tối đều xử lý cả đống giấy tờ, chắc chẳng có thời gian cho hoạt động giải trí nhỉ?",
+       "py": "A: Nǐ kàn nàwèi xiānshēng měitiān chuān míngpáifúzhuāng, kāi jìnkǒuchē, tā jiālǐ yīnggāi hěn yǒu 2. A: Wǒmen de lǎobǎn sìhū zǎowǎn dōu zài chǔlǐ yídàduī wénjiàn, yīnggāi méishénme kōng cóngshì xiūxiánhuódòng ba?"
       },
       {
        "hz": "請用「別看……，其實……」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “別看……，其實……” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “bié kàn……, qíshí……” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -4743,20 +5519,24 @@ export const thoidaiGrammar4 = {
      "formula": "「接」在本語法中是及物狀態動詞(Vst)；助詞「著」表示事情在某種狀態，可不寫。表示說話的人認為一樣的動作、情況不斷出現，次數很多，而且後面緊連著前面發生。",
      "examples": [
       {
-       "hz": "A：張媽媽，你兒子的牙齒問題怎麼那麼嚴重？B：他常趁我不在家時喝汽水，一罐接著一罐，停不下來。結果   牙齒就被他弄壞了。",
-       "vi": ""
+       "hz": "A：張媽媽，你兒子的牙齒問題怎麼那麼嚴重？B：他常趁我不在家時喝汽水，一罐接著一罐，停不下來。結果牙齒就被他弄壞了。",
+       "vi": "A: Chị Trương, sao răng của con trai chị có vấn đề nghiêm trọng thế? B: Nó hay tranh thủ lúc tôi không ở nhà uống nước ngọt, hết lon này đến lon khác, không dừng được. Kết quả là răng bị nó làm hỏng.",
+       "py": "A: Zhāng māma, nǐ érzi de yáchǐ wèntí zěnme nàme yánzhòng? B: Tā cháng chèn wǒ bú zàijiā shí hē qìshuǐ, yíguàn jiē zhe yíguàn, tíngbúxiàlái. Jiéguǒ yáchǐ jiù bèi tā nònghuàile."
       },
       {
        "hz": "以前我閱讀中文是一句話看完，再繼續看下一句話，現在是一段看完，再繼續看下一段，速度自然地就變快了。",
-       "vi": ""
+       "vi": "Trước đây tôi đọc tiếng Trung là đọc xong một câu rồi mới đọc câu tiếp theo, bây giờ là đọc xong một đoạn rồi mới đọc đoạn tiếp theo, tốc độ tự nhiên nhanh hơn.",
+       "py": "Yǐqián wǒ yuèdú zhōngwén shì yíjù huà kàn wán, zài jìxù kàn xià yíjù huà, xiànzài shì yíduàn kàn wán, zài jìxù kàn xià yíduàn, sùdù zìrán dì jiù biàn kuài le."
       },
       {
        "hz": "我聽見公園裡有貓叫聲，一聲叫完，又叫一聲，叫個不停。聽起來很可憐，就把小貓帶回家了。",
-       "vi": ""
+       "vi": "Tôi nghe thấy tiếng mèo kêu trong công viên, kêu xong một tiếng lại kêu thêm tiếng nữa, kêu không ngớt. Nghe rất tội nghiệp, nên tôi mang mèo con về nhà.",
+       "py": "Wǒ tīngjiàn gōngyuán lǐ yǒu māojiàoshēng, yìshēng jiào wán, yòu jiào yìshēng, jiàogèbùtíng. Tīng qǐlái hěn kělián, jiù bǎ xiǎomāo dàihuíjiā le."
       },
       {
        "hz": "請用「一M接(著)一M」改寫以下句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “一M接(著)一M” để viết lại phần gạch chân trong các câu dưới đây.",
+       "py": "Qǐng yòng “yì M jiē (zhe) yì M” gǎixiě yǐxià jùzi zhōng huàxiàn de bùfèn."
       }
      ],
      "answer": null
@@ -4774,23 +5554,28 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：在我農場工作的人，一小時的薪水大約六百元左右。B：哇，比我教中文所賺的錢還多！我能到你的農場工作嗎？",
-       "vi": ""
+       "vi": "A: Người làm việc ở nông trại của tôi lương một giờ khoảng sáu trăm đồng. B: Oa, còn nhiều hơn tiền tôi dạy tiếng Trung kiếm được! Tôi đến làm ở nông trại của bạn được không?",
+       "py": "A: Zài wǒ nóngchǎng gōngzuò de rén, yì xiǎoshí de xīnshuǐ dàyuē liùbǎiyuán zuǒyòu. B: Wa, bǐ wǒ jiào zhōngwén suǒ zhuàn de qián hái duō! Wǒ néng dào nǐ de nóngchǎng gōngzuò ma?"
       },
       {
-       "hz": "「左右」在本語法中是名詞(Noun)，放在數量的後面，表示大概的數字。",
-       "vi": ""
+       "hz": "「左右」在本語法中是名詞，放在數量的後面，表示大概的數字。",
+       "vi": "Trong mẫu ngữ pháp này “左右” là danh từ, đặt sau số lượng, diễn tả con số ước chừng.",
+       "py": "“Zuǒyòu” zài běn yǔfǎ zhōng shì míngcí, fàngzài shùliàng de hòumiàn, biǎoshì dàgài de shùzì."
       },
       {
        "hz": "說到我國與其他國家的合作情況，目前差不多有七十個國家跟我國維持良好的貿易關係。",
-       "vi": ""
+       "vi": "Nói đến tình hình hợp tác giữa nước ta với các nước khác, hiện nay có khoảng bảy mươi nước duy trì quan hệ thương mại tốt với nước ta.",
+       "py": "Shuō dào wǒguó yǔ qítā guójiā de hézuò qíngkuàng, mùqián chàbuduō yǒu qīshígè guójiā gēn wǒguó wéichí liánghǎo de màoyì guānxì."
       },
       {
        "hz": "他常去佛寺拜拜。差不多是七歲的時候，他就開始信佛教，跟著家人一起拜拜了。",
-       "vi": ""
+       "vi": "Anh ấy hay đến chùa lễ Phật. Khoảng năm bảy tuổi, anh ấy đã bắt đầu theo đạo Phật, cùng gia đình đi lễ.",
+       "py": "Tā cháng qù fósì bàibài. Chàbuduō shì qīsuì de shíhòu, tā jiù kāishǐ xìnfójiào, gēn zhe jiārén yìqǐ bàibài le."
       },
       {
        "hz": "請用「……左右」改寫以下句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “……左右” để viết lại phần gạch chân trong các câu dưới đây.",
+       "py": "Qǐng yòng “…… zuǒyòu” gǎixiě yǐxià jùzi zhōng huàxiàn de bùfèn."
       }
      ],
      "answer": null
@@ -4808,19 +5593,23 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：這間會議室看起來還不小，少說能坐三百個人。B：是啊。音響設備都是名牌的，少說也要花幾千萬元吧。",
-       "vi": ""
+       "vi": "A: Phòng họp này trông cũng không nhỏ, ít nhất ngồi được ba trăm người. B: Đúng vậy. Thiết bị âm thanh đều là hàng hiệu, ít nhất cũng phải tốn mấy chục triệu.",
+       "py": "A: Zhè jiān huìyìshì kànqǐlái hái bùxiǎo, shǎo shuō néng zuò sānbǎigè rén. B: Shì a. Yīnxiǎngshèbèi dōu shì míngpái de, shǎo shuō yě yào huā jǐqiānwànyuán ba."
       },
       {
-       "hz": "A：他那棟新買的房屋又大又漂亮，加上離市區也近， 我猜房價B：你猜得還真準！聽說他為了買房，可是儲蓄了好久呢。",
-       "vi": ""
+       "hz": "A：他那棟新買的房屋又大又漂亮，加上離市區也近，我猜房價B：你猜得還真準！聽說他為了買房，可是儲蓄了好久呢。",
+       "vi": "A: Căn nhà anh ấy mới mua vừa to vừa đẹp, lại gần trung tâm, tôi đoán giá nhà… B: Bạn đoán chuẩn thật đấy! Nghe nói anh ấy đã tiết kiệm rất lâu để mua nhà.",
+       "py": "A: Tā nàdòng xīn mǎi de fángwū yòu dà yòu piàoliàng, jiāshàng lí shìqū yě jìn, wǒ cāi fángjià B: Nǐ cāi de hái zhēn zhǔn! Tīngshuō tā wèile mǎifáng, kěshì chǔxù le hǎojiǔ ne."
       },
       {
        "hz": "A：你不是常說沒錢可用嗎？看看你今天的服裝，從頭到腳都是B：你誤會了，是某公司要我當一個宣傳廣告裡的主角，我才跟他們借了幾套服裝的。",
-       "vi": ""
+       "vi": "A: Chẳng phải bạn hay nói không có tiền tiêu sao? Nhìn quần áo hôm nay của bạn xem, từ đầu đến chân đều là… B: Bạn hiểu lầm rồi, có công ty mời tôi làm nhân vật chính trong một quảng cáo, tôi mới mượn họ mấy bộ quần áo.",
+       "py": "A: Nǐ búshì cháng shuō méi qián kěyòng ma? Kànkàn nǐ jīntiān de fúzhuāng, cóngtóudàojiǎo dōu shì B: Nǐ wùhuì le, shì mǒu gōngsī yào wǒ dāng yígè xuānchuán guǎnggào lǐ de zhǔjué, wǒ cái gēn tāmen jiè le jǐtào fúzhuāng de."
       },
       {
        "hz": "請用「少說（也）……」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “少說（也）……” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “shǎo shuō (yě)……” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -4838,15 +5627,18 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：我認為大家都必須參加地球日活動，用行動來愛地球。",
-       "vi": ""
+       "vi": "A: Tôi cho rằng mọi người đều phải tham gia hoạt động Ngày Trái Đất, dùng hành động để yêu Trái Đất.",
+       "py": "A: Wǒ rènwéi dàjiā dōu bìxū cānjiā dìqiúrì huódòng, yòng xíngdòng lái ài dìqiú."
       },
       {
        "hz": "A：我們公司的暑期旅遊活動，請問怎麼報名？",
-       "vi": ""
+       "vi": "A: Hoạt động du lịch hè của công ty chúng ta đăng ký thế nào ạ?",
+       "py": "A: Wǒmen gōngsī de shǔqí lǚyóu huódòng, qǐngwèn zěnme bàomíng?"
       },
       {
        "hz": "請用「難道」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “難道” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “nándào” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -4863,20 +5655,24 @@ export const thoidaiGrammar4 = {
      "formula": "「果然」是副詞，表示實際情況與之前聽過、所想過的相同。用法：「【人事物】＋果然【之前所猜、所了解的情況或印象】」。",
      "examples": [
       {
-       "hz": "A：我們昨晚在網站上看到的那雙鞋，最後你買了嗎？B：沒買。因為你說價錢太便宜了，鞋子的樣子也有點奇怪。早   上才知道有人被騙。你說的話果然沒錯。",
-       "vi": ""
+       "hz": "A：我們昨晚在網站上看到的那雙鞋，最後你買了嗎？B：沒買。因為你說價錢太便宜了，鞋子的樣子也有點奇怪。早上才知道有人被騙。你說的話果然沒錯。",
+       "vi": "A: Đôi giày chúng ta thấy trên trang web tối qua, cuối cùng bạn có mua không? B: Không mua. Vì bạn nói giá rẻ quá, kiểu giày cũng hơi lạ. Sáng nay mới biết có người bị lừa. Bạn nói quả nhiên không sai.",
+       "py": "A: Wǒmen zuówǎn zài wǎngzhàn shàng kàndào de nàshuāng xié, zuìhòu nǐ mǎi le ma? B: Méi mǎi. Yīnwèi nǐ shuō jiàqián tài piányi le, xiézi de yàngzi yě yǒudiǎn qíguài. Zǎoshàng cái zhīdào yǒurén bèi piàn. Nǐ shuō dehuà guǒrán méicuò."
       },
       {
        "hz": "A：這餐桌上的菜都是我太太親自準備的，不知道合不合您和大嫂的口味？",
-       "vi": ""
+       "vi": "A: Các món trên bàn này đều do vợ tôi tự tay chuẩn bị, không biết có hợp khẩu vị của anh và chị không?",
+       "py": "A: Zhè cānzhuōshàng de cài dōu shì wǒ tàitai qīnzì zhǔnbèi de, bù zhīdào hé bùhé nín hàn dàsǎo de kǒuwèi?"
       },
       {
        "hz": "A：客戶看過我們的產品設計報告後，給了幾個建議。你對那些建議有什麼想法？",
-       "vi": ""
+       "vi": "A: Khách hàng xem xong báo cáo thiết kế sản phẩm của chúng ta đã đưa ra vài đề xuất. Anh nghĩ sao về những đề xuất đó?",
+       "py": "A: Kèhù kànguò wǒmen de chǎnpǐnshèjì bàogào hòu, gěi le jǐgè jiànyì. Nǐ duì nàxiē jiànyì yǒu shénme xiǎngfǎ?"
       },
       {
        "hz": "請用「果然」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “果然” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “guǒrán” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -4894,19 +5690,23 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：我想買商業華語教材，可是不知道哪一套比較合適。B：在選擇教材上要是有問題，你可以問學校的老師。",
-       "vi": ""
+       "vi": "A: Tôi muốn mua giáo trình tiếng Hoa thương mại, nhưng không biết bộ nào phù hợp hơn. B: Nếu có vấn đề về việc chọn giáo trình, bạn có thể hỏi thầy cô ở trường.",
+       "py": "A: Wǒ xiǎng mǎi shāngyè huáyǔ jiàocái, kěshì bù zhīdào nǎ yítào bǐjiào héshì. B: Zài xuǎnzé jiàocái shàng yàoshì yǒu wèntí, nǐ kěyǐ wèn xuéxiào de lǎoshī."
       },
       {
        "hz": "有些人在結了婚以後，還是習慣用單身時的態度與觀念來考慮事情。要是這樣做，在婚後關係方面當然會產生問題。",
-       "vi": ""
+       "vi": "Có những người sau khi kết hôn vẫn quen dùng thái độ và quan niệm lúc độc thân để suy nghĩ mọi việc. Nếu làm vậy thì về mặt quan hệ sau hôn nhân đương nhiên sẽ nảy sinh vấn đề.",
+       "py": "Yǒuxiē rén zài jiélehūn yǐhòu, háishì xíguàn yòng dānshēn shí de tàidù yǔ guānniàn lái kǎolǜ shìqíng. Yàoshì zhèyàng zuò, zài hūnhòu guānxì fāngmiàn dāngrán huì chǎnshēng wèntí."
       },
       {
        "hz": "如果想有效地解決我們公司目前的問題，在員工人數方面可能得先減少四分之一；其次必須在產品設計方面重新思考，如此公司才有未來。",
-       "vi": ""
+       "vi": "Nếu muốn giải quyết hiệu quả vấn đề hiện nay của công ty, về mặt số lượng nhân viên có lẽ phải giảm một phần tư trước; tiếp đó phải suy nghĩ lại về mặt thiết kế sản phẩm, như vậy công ty mới có tương lai.",
+       "py": "Rúguǒ xiǎng yǒuxiào dì jiějué wǒmen gōngsī mùqián de wèntí, zài yuángōng rénshù fāngmiàn kěnéng děi xiān jiǎnshǎo sìfēnzhīyì; qícì bìxū zài chǎnpǐnshèjì fāngmiàn chóngxīn sīkǎo, rúcǐ gōngsī cái yǒu wèilái."
       },
       {
        "hz": "請用「在……上」來改寫以下句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “在……上” để viết lại phần gạch chân trong các câu dưới đây.",
+       "py": "Qǐng yòng “zài…… shàng” lái gǎixiě yǐxià jùzi zhōng huàxiàn de bùfèn."
       }
      ],
      "answer": null
@@ -4924,19 +5724,23 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：明年春節我們約好去國外自助旅行，你有沒有想去的地方？B：我還沒出過國，什麼都不懂。你覺得怎麼好玩就怎麼安排。",
-       "vi": ""
+       "vi": "A: Tết năm sau chúng ta hẹn đi du lịch tự túc nước ngoài, bạn có nơi nào muốn đi không? B: Tôi chưa ra nước ngoài bao giờ, chẳng biết gì cả. Bạn thấy thế nào vui thì cứ sắp xếp thế ấy.",
+       "py": "A: Míngnián chūnjié wǒmen yuē hǎo qù guówài zìzhù lǚxíng, nǐ yǒuméiyǒu xiǎng qù de dìfāng? B: Wǒ hái méi chūguò guó, shénme dōu bù dǒng. Nǐ juéde zěnme hǎowán jiù zěnme ānpái."
       },
       {
        "hz": "A：晚上同學們約好要去臺中的夜市，你想搭計程車、騎腳踏車或是走路去？",
-       "vi": ""
+       "vi": "A: Tối nay các bạn hẹn đi chợ đêm Đài Trung, bạn muốn đi taxi, đi xe đạp hay đi bộ?",
+       "py": "A: Wǎnshàng tóngxuémen yuē hǎo yào qù Táizhōng de yèshì, nǐ xiǎng dā jìchéngchē, qí jiǎotàchē huòshì zǒulù qù?"
       },
       {
-       "hz": "A：今天超市特價，我買了一大塊豬肉。今晚你想吃烤的、炸的，        還是弄個湯？",
-       "vi": ""
+       "hz": "A：今天超市特價，我買了一大塊豬肉。今晚你想吃烤的、炸的，還是弄個湯？",
+       "vi": "A: Hôm nay siêu thị giảm giá, tôi mua một miếng thịt lợn to. Tối nay bạn muốn ăn nướng, rán hay nấu canh?",
+       "py": "A: Jīntiān chāoshì tèjià, wǒ mǎi le yídàkuài zhūròu. Jīnwǎn nǐ xiǎng chī kǎo de, zhà de, háishì nòng gè tāng?"
       },
       {
        "hz": "請用「怎麼Vs就怎麼V」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “怎麼Vs就怎麼V” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “zěnme Vs jiù zěnme V” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -4953,16 +5757,19 @@ export const thoidaiGrammar4 = {
      "formula": "「說不定」是副詞，表示事情不確定，但還是有可能。在「不一定」、「說不定」、「也許」、「可能」、「大概」中，「說不定」發生的機會比「不一定」高，比「也許」低。",
      "examples": [
       {
-       "hz": "A：他的麵包店因生意不好關門了，我有點兒擔心他的情況。B：他以前太驕傲了，總是不聽別人的建議。經過這次挫折後，   說不定能令他改變自己。",
-       "vi": ""
+       "hz": "A：他的麵包店因生意不好關門了，我有點兒擔心他的情況。B：他以前太驕傲了，總是不聽別人的建議。經過這次挫折後，說不定能令他改變自己。",
+       "vi": "A: Tiệm bánh mì của anh ấy đóng cửa vì làm ăn không tốt, tôi hơi lo cho anh ấy. B: Trước đây anh ấy kiêu ngạo quá, lúc nào cũng không nghe lời khuyên của người khác. Sau lần thất bại này, biết đâu lại khiến anh ấy thay đổi bản thân.",
+       "py": "A: Tā de miànbāodiàn yīn shēngyì bùhǎo guānmén le, wǒ yǒudiǎn'ér dānxīn tā de qíngkuàng. B: Tā yǐqián tài jiāo'ào le, zǒngshì bù tīng biérén de jiànyì. Jīngguò zhècì cuòzhé hòu, shuōbúdìng néng lìng tā gǎibiàn zìjǐ."
       },
       {
        "hz": "A：再過兩天就要到海邊露營了。不知道那時候的天氣怎麼樣？",
-       "vi": ""
+       "vi": "A: Hai ngày nữa là đi cắm trại ở biển rồi. Không biết lúc đó thời tiết thế nào?",
+       "py": "A: Zài guò liǎngtiān jiùyào dào hǎibiān lùyíng le. Bù zhīdào nà shíhòu de tiānqì zěnmeyàng?"
       },
       {
        "hz": "A：離演唱會開始的時間還早，你為什麼一大早就要出門去排隊請用「說不定」來完成以下的對話。",
-       "vi": ""
+       "vi": "A: Còn lâu mới đến giờ buổi hoà nhạc bắt đầu, sao sáng sớm bạn đã ra ngoài xếp hàng… Hãy dùng “說不定” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "A: Lí yǎnchànghuì kāishǐ de shíjiān hái zǎo, nǐ wèishénme yídàzǎo jiùyào chūmén qù páiduì qǐng yòng “shuōbúdìng” lái wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -4981,20 +5788,24 @@ export const thoidaiGrammar4 = {
      "formula": "「接」在本語法中是及物狀態動詞(Vst)；助詞「著」表示事情在某種狀態，可不寫。表示說話的人認為一樣的動作、情況不斷出現，次數很多，而且後面緊連著前面發生。",
      "examples": [
       {
-       "hz": "A：張媽媽，你兒子的牙齒問題怎麼那麼嚴重？B：他常趁我不在家時喝汽水，一罐接著一罐，停不下來。結果   牙齒就被他弄壞了。",
-       "vi": ""
+       "hz": "A：張媽媽，你兒子的牙齒問題怎麼那麼嚴重？B：他常趁我不在家時喝汽水，一罐接著一罐，停不下來。結果牙齒就被他弄壞了。",
+       "vi": "A: Chị Trương, sao răng của con trai chị có vấn đề nghiêm trọng thế? B: Nó hay tranh thủ lúc tôi không ở nhà uống nước ngọt, hết lon này đến lon khác, không dừng được. Kết quả là răng bị nó làm hỏng.",
+       "py": "A: Zhāng māma, nǐ érzi de yáchǐ wèntí zěnme nàme yánzhòng? B: Tā cháng chèn wǒ bú zàijiā shí hē qìshuǐ, yíguàn jiē zhe yíguàn, tíngbúxiàlái. Jiéguǒ yáchǐ jiù bèi tā nònghuàile."
       },
       {
        "hz": "以前我閱讀中文是一句話看完，再繼續看下一句話，現在是一段看完，再繼續看下一段，速度自然地就變快了。",
-       "vi": ""
+       "vi": "Trước đây tôi đọc tiếng Trung là đọc xong một câu rồi mới đọc câu tiếp theo, bây giờ là đọc xong một đoạn rồi mới đọc đoạn tiếp theo, tốc độ tự nhiên nhanh hơn.",
+       "py": "Yǐqián wǒ yuèdú zhōngwén shì yíjù huà kàn wán, zài jìxù kàn xià yíjù huà, xiànzài shì yíduàn kàn wán, zài jìxù kàn xià yíduàn, sùdù zìrán dì jiù biàn kuài le."
       },
       {
        "hz": "我聽見公園裡有貓叫聲，一聲叫完，又叫一聲，叫個不停。聽起來很可憐，就把小貓帶回家了。",
-       "vi": ""
+       "vi": "Tôi nghe thấy tiếng mèo kêu trong công viên, kêu xong một tiếng lại kêu thêm tiếng nữa, kêu không ngớt. Nghe rất tội nghiệp, nên tôi mang mèo con về nhà.",
+       "py": "Wǒ tīngjiàn gōngyuán lǐ yǒu māojiàoshēng, yìshēng jiào wán, yòu jiào yìshēng, jiàogèbùtíng. Tīng qǐlái hěn kělián, jiù bǎ xiǎomāo dàihuíjiā le."
       },
       {
        "hz": "請用「一M接(著)一M」改寫以下句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “一M接(著)一M” để viết lại phần gạch chân trong các câu dưới đây.",
+       "py": "Qǐng yòng “yì M jiē (zhe) yì M” gǎixiě yǐxià jùzi zhōng huàxiàn de bùfèn."
       }
      ],
      "answer": null
@@ -5012,23 +5823,28 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：在我農場工作的人，一小時的薪水大約六百元左右。B：哇，比我教中文所賺的錢還多！我能到你的農場工作嗎？",
-       "vi": ""
+       "vi": "A: Người làm việc ở nông trại của tôi lương một giờ khoảng sáu trăm đồng. B: Oa, còn nhiều hơn tiền tôi dạy tiếng Trung kiếm được! Tôi đến làm ở nông trại của bạn được không?",
+       "py": "A: Zài wǒ nóngchǎng gōngzuò de rén, yì xiǎoshí de xīnshuǐ dàyuē liùbǎiyuán zuǒyòu. B: Wa, bǐ wǒ jiào zhōngwén suǒ zhuàn de qián hái duō! Wǒ néng dào nǐ de nóngchǎng gōngzuò ma?"
       },
       {
-       "hz": "「左右」在本語法中是名詞(Noun)，放在數量的後面，表示大概的數字。",
-       "vi": ""
+       "hz": "「左右」在本語法中是名詞，放在數量的後面，表示大概的數字。",
+       "vi": "Trong mẫu ngữ pháp này “左右” là danh từ, đặt sau số lượng, diễn tả con số ước chừng.",
+       "py": "“Zuǒyòu” zài běn yǔfǎ zhōng shì míngcí, fàngzài shùliàng de hòumiàn, biǎoshì dàgài de shùzì."
       },
       {
        "hz": "說到我國與其他國家的合作情況，目前差不多有七十個國家跟我國維持良好的貿易關係。",
-       "vi": ""
+       "vi": "Nói đến tình hình hợp tác giữa nước ta với các nước khác, hiện nay có khoảng bảy mươi nước duy trì quan hệ thương mại tốt với nước ta.",
+       "py": "Shuō dào wǒguó yǔ qítā guójiā de hézuò qíngkuàng, mùqián chàbuduō yǒu qīshígè guójiā gēn wǒguó wéichí liánghǎo de màoyì guānxì."
       },
       {
        "hz": "他常去佛寺拜拜。差不多是七歲的時候，他就開始信佛教，跟著家人一起拜拜了。",
-       "vi": ""
+       "vi": "Anh ấy hay đến chùa lễ Phật. Khoảng năm bảy tuổi, anh ấy đã bắt đầu theo đạo Phật, cùng gia đình đi lễ.",
+       "py": "Tā cháng qù fósì bàibài. Chàbuduō shì qīsuì de shíhòu, tā jiù kāishǐ xìnfójiào, gēn zhe jiārén yìqǐ bàibài le."
       },
       {
        "hz": "請用「……左右」改寫以下句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “……左右” để viết lại phần gạch chân trong các câu dưới đây.",
+       "py": "Qǐng yòng “…… zuǒyòu” gǎixiě yǐxià jùzi zhōng huàxiàn de bùfèn."
       }
      ],
      "answer": null
@@ -5046,19 +5862,23 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：這間會議室看起來還不小，少說能坐三百個人。B：是啊。音響設備都是名牌的，少說也要花幾千萬元吧。",
-       "vi": ""
+       "vi": "A: Phòng họp này trông cũng không nhỏ, ít nhất ngồi được ba trăm người. B: Đúng vậy. Thiết bị âm thanh đều là hàng hiệu, ít nhất cũng phải tốn mấy chục triệu.",
+       "py": "A: Zhè jiān huìyìshì kànqǐlái hái bùxiǎo, shǎo shuō néng zuò sānbǎigè rén. B: Shì a. Yīnxiǎngshèbèi dōu shì míngpái de, shǎo shuō yě yào huā jǐqiānwànyuán ba."
       },
       {
-       "hz": "A：他那棟新買的房屋又大又漂亮，加上離市區也近， 我猜房價B：你猜得還真準！聽說他為了買房，可是儲蓄了好久呢。",
-       "vi": ""
+       "hz": "A：他那棟新買的房屋又大又漂亮，加上離市區也近，我猜房價B：你猜得還真準！聽說他為了買房，可是儲蓄了好久呢。",
+       "vi": "A: Căn nhà anh ấy mới mua vừa to vừa đẹp, lại gần trung tâm, tôi đoán giá nhà… B: Bạn đoán chuẩn thật đấy! Nghe nói anh ấy đã tiết kiệm rất lâu để mua nhà.",
+       "py": "A: Tā nàdòng xīn mǎi de fángwū yòu dà yòu piàoliàng, jiāshàng lí shìqū yě jìn, wǒ cāi fángjià B: Nǐ cāi de hái zhēn zhǔn! Tīngshuō tā wèile mǎifáng, kěshì chǔxù le hǎojiǔ ne."
       },
       {
        "hz": "A：你不是常說沒錢可用嗎？看看你今天的服裝，從頭到腳都是B：你誤會了，是某公司要我當一個宣傳廣告裡的主角，我才跟他們借了幾套服裝的。",
-       "vi": ""
+       "vi": "A: Chẳng phải bạn hay nói không có tiền tiêu sao? Nhìn quần áo hôm nay của bạn xem, từ đầu đến chân đều là… B: Bạn hiểu lầm rồi, có công ty mời tôi làm nhân vật chính trong một quảng cáo, tôi mới mượn họ mấy bộ quần áo.",
+       "py": "A: Nǐ búshì cháng shuō méi qián kěyòng ma? Kànkàn nǐ jīntiān de fúzhuāng, cóngtóudàojiǎo dōu shì B: Nǐ wùhuì le, shì mǒu gōngsī yào wǒ dāng yígè xuānchuán guǎnggào lǐ de zhǔjué, wǒ cái gēn tāmen jiè le jǐtào fúzhuāng de."
       },
       {
        "hz": "請用「少說（也）……」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “少說（也）……” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “shǎo shuō (yě)……” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -5076,15 +5896,18 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：我認為大家都必須參加地球日活動，用行動來愛地球。",
-       "vi": ""
+       "vi": "A: Tôi cho rằng mọi người đều phải tham gia hoạt động Ngày Trái Đất, dùng hành động để yêu Trái Đất.",
+       "py": "A: Wǒ rènwéi dàjiā dōu bìxū cānjiā dìqiúrì huódòng, yòng xíngdòng lái ài dìqiú."
       },
       {
        "hz": "A：我們公司的暑期旅遊活動，請問怎麼報名？",
-       "vi": ""
+       "vi": "A: Hoạt động du lịch hè của công ty chúng ta đăng ký thế nào ạ?",
+       "py": "A: Wǒmen gōngsī de shǔqí lǚyóu huódòng, qǐngwèn zěnme bàomíng?"
       },
       {
        "hz": "請用「難道」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “難道” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “nándào” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -5101,20 +5924,24 @@ export const thoidaiGrammar4 = {
      "formula": "「果然」是副詞，表示實際情況與之前聽過、所想過的相同。用法：「【人事物】＋果然【之前所猜、所了解的情況或印象】」。",
      "examples": [
       {
-       "hz": "A：我們昨晚在網站上看到的那雙鞋，最後你買了嗎？B：沒買。因為你說價錢太便宜了，鞋子的樣子也有點奇怪。早   上才知道有人被騙。你說的話果然沒錯。",
-       "vi": ""
+       "hz": "A：我們昨晚在網站上看到的那雙鞋，最後你買了嗎？B：沒買。因為你說價錢太便宜了，鞋子的樣子也有點奇怪。早上才知道有人被騙。你說的話果然沒錯。",
+       "vi": "A: Đôi giày chúng ta thấy trên trang web tối qua, cuối cùng bạn có mua không? B: Không mua. Vì bạn nói giá rẻ quá, kiểu giày cũng hơi lạ. Sáng nay mới biết có người bị lừa. Bạn nói quả nhiên không sai.",
+       "py": "A: Wǒmen zuówǎn zài wǎngzhàn shàng kàndào de nàshuāng xié, zuìhòu nǐ mǎi le ma? B: Méi mǎi. Yīnwèi nǐ shuō jiàqián tài piányi le, xiézi de yàngzi yě yǒudiǎn qíguài. Zǎoshàng cái zhīdào yǒurén bèi piàn. Nǐ shuō dehuà guǒrán méicuò."
       },
       {
        "hz": "A：這餐桌上的菜都是我太太親自準備的，不知道合不合您和大嫂的口味？",
-       "vi": ""
+       "vi": "A: Các món trên bàn này đều do vợ tôi tự tay chuẩn bị, không biết có hợp khẩu vị của anh và chị không?",
+       "py": "A: Zhè cānzhuōshàng de cài dōu shì wǒ tàitai qīnzì zhǔnbèi de, bù zhīdào hé bùhé nín hàn dàsǎo de kǒuwèi?"
       },
       {
        "hz": "A：客戶看過我們的產品設計報告後，給了幾個建議。你對那些建議有什麼想法？",
-       "vi": ""
+       "vi": "A: Khách hàng xem xong báo cáo thiết kế sản phẩm của chúng ta đã đưa ra vài đề xuất. Anh nghĩ sao về những đề xuất đó?",
+       "py": "A: Kèhù kànguò wǒmen de chǎnpǐnshèjì bàogào hòu, gěi le jǐgè jiànyì. Nǐ duì nàxiē jiànyì yǒu shénme xiǎngfǎ?"
       },
       {
        "hz": "請用「果然」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “果然” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “guǒrán” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -5132,19 +5959,23 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：我想買商業華語教材，可是不知道哪一套比較合適。B：在選擇教材上要是有問題，你可以問學校的老師。",
-       "vi": ""
+       "vi": "A: Tôi muốn mua giáo trình tiếng Hoa thương mại, nhưng không biết bộ nào phù hợp hơn. B: Nếu có vấn đề về việc chọn giáo trình, bạn có thể hỏi thầy cô ở trường.",
+       "py": "A: Wǒ xiǎng mǎi shāngyè huáyǔ jiàocái, kěshì bù zhīdào nǎ yítào bǐjiào héshì. B: Zài xuǎnzé jiàocái shàng yàoshì yǒu wèntí, nǐ kěyǐ wèn xuéxiào de lǎoshī."
       },
       {
        "hz": "有些人在結了婚以後，還是習慣用單身時的態度與觀念來考慮事情。要是這樣做，在婚後關係方面當然會產生問題。",
-       "vi": ""
+       "vi": "Có những người sau khi kết hôn vẫn quen dùng thái độ và quan niệm lúc độc thân để suy nghĩ mọi việc. Nếu làm vậy thì về mặt quan hệ sau hôn nhân đương nhiên sẽ nảy sinh vấn đề.",
+       "py": "Yǒuxiē rén zài jiélehūn yǐhòu, háishì xíguàn yòng dānshēn shí de tàidù yǔ guānniàn lái kǎolǜ shìqíng. Yàoshì zhèyàng zuò, zài hūnhòu guānxì fāngmiàn dāngrán huì chǎnshēng wèntí."
       },
       {
        "hz": "如果想有效地解決我們公司目前的問題，在員工人數方面可能得先減少四分之一；其次必須在產品設計方面重新思考，如此公司才有未來。",
-       "vi": ""
+       "vi": "Nếu muốn giải quyết hiệu quả vấn đề hiện nay của công ty, về mặt số lượng nhân viên có lẽ phải giảm một phần tư trước; tiếp đó phải suy nghĩ lại về mặt thiết kế sản phẩm, như vậy công ty mới có tương lai.",
+       "py": "Rúguǒ xiǎng yǒuxiào dì jiějué wǒmen gōngsī mùqián de wèntí, zài yuángōng rénshù fāngmiàn kěnéng děi xiān jiǎnshǎo sìfēnzhīyì; qícì bìxū zài chǎnpǐnshèjì fāngmiàn chóngxīn sīkǎo, rúcǐ gōngsī cái yǒu wèilái."
       },
       {
        "hz": "請用「在……上」來改寫以下句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “在……上” để viết lại phần gạch chân trong các câu dưới đây.",
+       "py": "Qǐng yòng “zài…… shàng” lái gǎixiě yǐxià jùzi zhōng huàxiàn de bùfèn."
       }
      ],
      "answer": null
@@ -5162,19 +5993,23 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：明年春節我們約好去國外自助旅行，你有沒有想去的地方？B：我還沒出過國，什麼都不懂。你覺得怎麼好玩就怎麼安排。",
-       "vi": ""
+       "vi": "A: Tết năm sau chúng ta hẹn đi du lịch tự túc nước ngoài, bạn có nơi nào muốn đi không? B: Tôi chưa ra nước ngoài bao giờ, chẳng biết gì cả. Bạn thấy thế nào vui thì cứ sắp xếp thế ấy.",
+       "py": "A: Míngnián chūnjié wǒmen yuē hǎo qù guówài zìzhù lǚxíng, nǐ yǒuméiyǒu xiǎng qù de dìfāng? B: Wǒ hái méi chūguò guó, shénme dōu bù dǒng. Nǐ juéde zěnme hǎowán jiù zěnme ānpái."
       },
       {
        "hz": "A：晚上同學們約好要去臺中的夜市，你想搭計程車、騎腳踏車或是走路去？",
-       "vi": ""
+       "vi": "A: Tối nay các bạn hẹn đi chợ đêm Đài Trung, bạn muốn đi taxi, đi xe đạp hay đi bộ?",
+       "py": "A: Wǎnshàng tóngxuémen yuē hǎo yào qù Táizhōng de yèshì, nǐ xiǎng dā jìchéngchē, qí jiǎotàchē huòshì zǒulù qù?"
       },
       {
-       "hz": "A：今天超市特價，我買了一大塊豬肉。今晚你想吃烤的、炸的，        還是弄個湯？",
-       "vi": ""
+       "hz": "A：今天超市特價，我買了一大塊豬肉。今晚你想吃烤的、炸的，還是弄個湯？",
+       "vi": "A: Hôm nay siêu thị giảm giá, tôi mua một miếng thịt lợn to. Tối nay bạn muốn ăn nướng, rán hay nấu canh?",
+       "py": "A: Jīntiān chāoshì tèjià, wǒ mǎi le yídàkuài zhūròu. Jīnwǎn nǐ xiǎng chī kǎo de, zhà de, háishì nòng gè tāng?"
       },
       {
        "hz": "請用「怎麼Vs就怎麼V」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “怎麼Vs就怎麼V” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “zěnme Vs jiù zěnme V” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -5191,16 +6026,19 @@ export const thoidaiGrammar4 = {
      "formula": "「說不定」是副詞，表示事情不確定，但還是有可能。在「不一定」、「說不定」、「也許」、「可能」、「大概」中，「說不定」發生的機會比「不一定」高，比「也許」低。",
      "examples": [
       {
-       "hz": "A：他的麵包店因生意不好關門了，我有點兒擔心他的情況。B：他以前太驕傲了，總是不聽別人的建議。經過這次挫折後，   說不定能令他改變自己。",
-       "vi": ""
+       "hz": "A：他的麵包店因生意不好關門了，我有點兒擔心他的情況。B：他以前太驕傲了，總是不聽別人的建議。經過這次挫折後，說不定能令他改變自己。",
+       "vi": "A: Tiệm bánh mì của anh ấy đóng cửa vì làm ăn không tốt, tôi hơi lo cho anh ấy. B: Trước đây anh ấy kiêu ngạo quá, lúc nào cũng không nghe lời khuyên của người khác. Sau lần thất bại này, biết đâu lại khiến anh ấy thay đổi bản thân.",
+       "py": "A: Tā de miànbāodiàn yīn shēngyì bùhǎo guānmén le, wǒ yǒudiǎn'ér dānxīn tā de qíngkuàng. B: Tā yǐqián tài jiāo'ào le, zǒngshì bù tīng biérén de jiànyì. Jīngguò zhècì cuòzhé hòu, shuōbúdìng néng lìng tā gǎibiàn zìjǐ."
       },
       {
        "hz": "A：再過兩天就要到海邊露營了。不知道那時候的天氣怎麼樣？",
-       "vi": ""
+       "vi": "A: Hai ngày nữa là đi cắm trại ở biển rồi. Không biết lúc đó thời tiết thế nào?",
+       "py": "A: Zài guò liǎngtiān jiùyào dào hǎibiān lùyíng le. Bù zhīdào nà shíhòu de tiānqì zěnmeyàng?"
       },
       {
        "hz": "A：離演唱會開始的時間還早，你為什麼一大早就要出門去排隊請用「說不定」來完成以下的對話。",
-       "vi": ""
+       "vi": "A: Còn lâu mới đến giờ buổi hoà nhạc bắt đầu, sao sáng sớm bạn đã ra ngoài xếp hàng… Hãy dùng “說不定” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "A: Lí yǎnchànghuì kāishǐ de shíjiān hái zǎo, nǐ wèishénme yídàzǎo jiùyào chūmén qù páiduì qǐng yòng “shuōbúdìng” lái wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -5219,20 +6057,24 @@ export const thoidaiGrammar4 = {
      "formula": "「接」在本語法中是及物狀態動詞(Vst)；助詞「著」表示事情在某種狀態，可不寫。表示說話的人認為一樣的動作、情況不斷出現，次數很多，而且後面緊連著前面發生。",
      "examples": [
       {
-       "hz": "A：張媽媽，你兒子的牙齒問題怎麼那麼嚴重？B：他常趁我不在家時喝汽水，一罐接著一罐，停不下來。結果   牙齒就被他弄壞了。",
-       "vi": ""
+       "hz": "A：張媽媽，你兒子的牙齒問題怎麼那麼嚴重？B：他常趁我不在家時喝汽水，一罐接著一罐，停不下來。結果牙齒就被他弄壞了。",
+       "vi": "A: Chị Trương, sao răng của con trai chị có vấn đề nghiêm trọng thế? B: Nó hay tranh thủ lúc tôi không ở nhà uống nước ngọt, hết lon này đến lon khác, không dừng được. Kết quả là răng bị nó làm hỏng.",
+       "py": "A: Zhāng māma, nǐ érzi de yáchǐ wèntí zěnme nàme yánzhòng? B: Tā cháng chèn wǒ bú zàijiā shí hē qìshuǐ, yíguàn jiē zhe yíguàn, tíngbúxiàlái. Jiéguǒ yáchǐ jiù bèi tā nònghuàile."
       },
       {
        "hz": "以前我閱讀中文是一句話看完，再繼續看下一句話，現在是一段看完，再繼續看下一段，速度自然地就變快了。",
-       "vi": ""
+       "vi": "Trước đây tôi đọc tiếng Trung là đọc xong một câu rồi mới đọc câu tiếp theo, bây giờ là đọc xong một đoạn rồi mới đọc đoạn tiếp theo, tốc độ tự nhiên nhanh hơn.",
+       "py": "Yǐqián wǒ yuèdú zhōngwén shì yíjù huà kàn wán, zài jìxù kàn xià yíjù huà, xiànzài shì yíduàn kàn wán, zài jìxù kàn xià yíduàn, sùdù zìrán dì jiù biàn kuài le."
       },
       {
        "hz": "我聽見公園裡有貓叫聲，一聲叫完，又叫一聲，叫個不停。聽起來很可憐，就把小貓帶回家了。",
-       "vi": ""
+       "vi": "Tôi nghe thấy tiếng mèo kêu trong công viên, kêu xong một tiếng lại kêu thêm tiếng nữa, kêu không ngớt. Nghe rất tội nghiệp, nên tôi mang mèo con về nhà.",
+       "py": "Wǒ tīngjiàn gōngyuán lǐ yǒu māojiàoshēng, yìshēng jiào wán, yòu jiào yìshēng, jiàogèbùtíng. Tīng qǐlái hěn kělián, jiù bǎ xiǎomāo dàihuíjiā le."
       },
       {
        "hz": "請用「一M接(著)一M」改寫以下句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “一M接(著)一M” để viết lại phần gạch chân trong các câu dưới đây.",
+       "py": "Qǐng yòng “yì M jiē (zhe) yì M” gǎixiě yǐxià jùzi zhōng huàxiàn de bùfèn."
       }
      ],
      "answer": null
@@ -5250,23 +6092,28 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：在我農場工作的人，一小時的薪水大約六百元左右。B：哇，比我教中文所賺的錢還多！我能到你的農場工作嗎？",
-       "vi": ""
+       "vi": "A: Người làm việc ở nông trại của tôi lương một giờ khoảng sáu trăm đồng. B: Oa, còn nhiều hơn tiền tôi dạy tiếng Trung kiếm được! Tôi đến làm ở nông trại của bạn được không?",
+       "py": "A: Zài wǒ nóngchǎng gōngzuò de rén, yì xiǎoshí de xīnshuǐ dàyuē liùbǎiyuán zuǒyòu. B: Wa, bǐ wǒ jiào zhōngwén suǒ zhuàn de qián hái duō! Wǒ néng dào nǐ de nóngchǎng gōngzuò ma?"
       },
       {
-       "hz": "「左右」在本語法中是名詞(Noun)，放在數量的後面，表示大概的數字。",
-       "vi": ""
+       "hz": "「左右」在本語法中是名詞，放在數量的後面，表示大概的數字。",
+       "vi": "Trong mẫu ngữ pháp này “左右” là danh từ, đặt sau số lượng, diễn tả con số ước chừng.",
+       "py": "“Zuǒyòu” zài běn yǔfǎ zhōng shì míngcí, fàngzài shùliàng de hòumiàn, biǎoshì dàgài de shùzì."
       },
       {
        "hz": "說到我國與其他國家的合作情況，目前差不多有七十個國家跟我國維持良好的貿易關係。",
-       "vi": ""
+       "vi": "Nói đến tình hình hợp tác giữa nước ta với các nước khác, hiện nay có khoảng bảy mươi nước duy trì quan hệ thương mại tốt với nước ta.",
+       "py": "Shuō dào wǒguó yǔ qítā guójiā de hézuò qíngkuàng, mùqián chàbuduō yǒu qīshígè guójiā gēn wǒguó wéichí liánghǎo de màoyì guānxì."
       },
       {
        "hz": "他常去佛寺拜拜。差不多是七歲的時候，他就開始信佛教，跟著家人一起拜拜了。",
-       "vi": ""
+       "vi": "Anh ấy hay đến chùa lễ Phật. Khoảng năm bảy tuổi, anh ấy đã bắt đầu theo đạo Phật, cùng gia đình đi lễ.",
+       "py": "Tā cháng qù fósì bàibài. Chàbuduō shì qīsuì de shíhòu, tā jiù kāishǐ xìnfójiào, gēn zhe jiārén yìqǐ bàibài le."
       },
       {
        "hz": "請用「……左右」改寫以下句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “……左右” để viết lại phần gạch chân trong các câu dưới đây.",
+       "py": "Qǐng yòng “…… zuǒyòu” gǎixiě yǐxià jùzi zhōng huàxiàn de bùfèn."
       }
      ],
      "answer": null
@@ -5284,19 +6131,23 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：這間會議室看起來還不小，少說能坐三百個人。B：是啊。音響設備都是名牌的，少說也要花幾千萬元吧。",
-       "vi": ""
+       "vi": "A: Phòng họp này trông cũng không nhỏ, ít nhất ngồi được ba trăm người. B: Đúng vậy. Thiết bị âm thanh đều là hàng hiệu, ít nhất cũng phải tốn mấy chục triệu.",
+       "py": "A: Zhè jiān huìyìshì kànqǐlái hái bùxiǎo, shǎo shuō néng zuò sānbǎigè rén. B: Shì a. Yīnxiǎngshèbèi dōu shì míngpái de, shǎo shuō yě yào huā jǐqiānwànyuán ba."
       },
       {
-       "hz": "A：他那棟新買的房屋又大又漂亮，加上離市區也近， 我猜房價B：你猜得還真準！聽說他為了買房，可是儲蓄了好久呢。",
-       "vi": ""
+       "hz": "A：他那棟新買的房屋又大又漂亮，加上離市區也近，我猜房價B：你猜得還真準！聽說他為了買房，可是儲蓄了好久呢。",
+       "vi": "A: Căn nhà anh ấy mới mua vừa to vừa đẹp, lại gần trung tâm, tôi đoán giá nhà… B: Bạn đoán chuẩn thật đấy! Nghe nói anh ấy đã tiết kiệm rất lâu để mua nhà.",
+       "py": "A: Tā nàdòng xīn mǎi de fángwū yòu dà yòu piàoliàng, jiāshàng lí shìqū yě jìn, wǒ cāi fángjià B: Nǐ cāi de hái zhēn zhǔn! Tīngshuō tā wèile mǎifáng, kěshì chǔxù le hǎojiǔ ne."
       },
       {
        "hz": "A：你不是常說沒錢可用嗎？看看你今天的服裝，從頭到腳都是B：你誤會了，是某公司要我當一個宣傳廣告裡的主角，我才跟他們借了幾套服裝的。",
-       "vi": ""
+       "vi": "A: Chẳng phải bạn hay nói không có tiền tiêu sao? Nhìn quần áo hôm nay của bạn xem, từ đầu đến chân đều là… B: Bạn hiểu lầm rồi, có công ty mời tôi làm nhân vật chính trong một quảng cáo, tôi mới mượn họ mấy bộ quần áo.",
+       "py": "A: Nǐ búshì cháng shuō méi qián kěyòng ma? Kànkàn nǐ jīntiān de fúzhuāng, cóngtóudàojiǎo dōu shì B: Nǐ wùhuì le, shì mǒu gōngsī yào wǒ dāng yígè xuānchuán guǎnggào lǐ de zhǔjué, wǒ cái gēn tāmen jiè le jǐtào fúzhuāng de."
       },
       {
        "hz": "請用「少說（也）……」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “少說（也）……” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “shǎo shuō (yě)……” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -5314,15 +6165,18 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：我認為大家都必須參加地球日活動，用行動來愛地球。",
-       "vi": ""
+       "vi": "A: Tôi cho rằng mọi người đều phải tham gia hoạt động Ngày Trái Đất, dùng hành động để yêu Trái Đất.",
+       "py": "A: Wǒ rènwéi dàjiā dōu bìxū cānjiā dìqiúrì huódòng, yòng xíngdòng lái ài dìqiú."
       },
       {
        "hz": "A：我們公司的暑期旅遊活動，請問怎麼報名？",
-       "vi": ""
+       "vi": "A: Hoạt động du lịch hè của công ty chúng ta đăng ký thế nào ạ?",
+       "py": "A: Wǒmen gōngsī de shǔqí lǚyóu huódòng, qǐngwèn zěnme bàomíng?"
       },
       {
        "hz": "請用「難道」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “難道” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “nándào” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -5339,20 +6193,24 @@ export const thoidaiGrammar4 = {
      "formula": "「果然」是副詞，表示實際情況與之前聽過、所想過的相同。用法：「【人事物】＋果然【之前所猜、所了解的情況或印象】」。",
      "examples": [
       {
-       "hz": "A：我們昨晚在網站上看到的那雙鞋，最後你買了嗎？B：沒買。因為你說價錢太便宜了，鞋子的樣子也有點奇怪。早   上才知道有人被騙。你說的話果然沒錯。",
-       "vi": ""
+       "hz": "A：我們昨晚在網站上看到的那雙鞋，最後你買了嗎？B：沒買。因為你說價錢太便宜了，鞋子的樣子也有點奇怪。早上才知道有人被騙。你說的話果然沒錯。",
+       "vi": "A: Đôi giày chúng ta thấy trên trang web tối qua, cuối cùng bạn có mua không? B: Không mua. Vì bạn nói giá rẻ quá, kiểu giày cũng hơi lạ. Sáng nay mới biết có người bị lừa. Bạn nói quả nhiên không sai.",
+       "py": "A: Wǒmen zuówǎn zài wǎngzhàn shàng kàndào de nàshuāng xié, zuìhòu nǐ mǎi le ma? B: Méi mǎi. Yīnwèi nǐ shuō jiàqián tài piányi le, xiézi de yàngzi yě yǒudiǎn qíguài. Zǎoshàng cái zhīdào yǒurén bèi piàn. Nǐ shuō dehuà guǒrán méicuò."
       },
       {
        "hz": "A：這餐桌上的菜都是我太太親自準備的，不知道合不合您和大嫂的口味？",
-       "vi": ""
+       "vi": "A: Các món trên bàn này đều do vợ tôi tự tay chuẩn bị, không biết có hợp khẩu vị của anh và chị không?",
+       "py": "A: Zhè cānzhuōshàng de cài dōu shì wǒ tàitai qīnzì zhǔnbèi de, bù zhīdào hé bùhé nín hàn dàsǎo de kǒuwèi?"
       },
       {
        "hz": "A：客戶看過我們的產品設計報告後，給了幾個建議。你對那些建議有什麼想法？",
-       "vi": ""
+       "vi": "A: Khách hàng xem xong báo cáo thiết kế sản phẩm của chúng ta đã đưa ra vài đề xuất. Anh nghĩ sao về những đề xuất đó?",
+       "py": "A: Kèhù kànguò wǒmen de chǎnpǐnshèjì bàogào hòu, gěi le jǐgè jiànyì. Nǐ duì nàxiē jiànyì yǒu shénme xiǎngfǎ?"
       },
       {
        "hz": "請用「果然」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “果然” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “guǒrán” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -5370,19 +6228,23 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：我想買商業華語教材，可是不知道哪一套比較合適。B：在選擇教材上要是有問題，你可以問學校的老師。",
-       "vi": ""
+       "vi": "A: Tôi muốn mua giáo trình tiếng Hoa thương mại, nhưng không biết bộ nào phù hợp hơn. B: Nếu có vấn đề về việc chọn giáo trình, bạn có thể hỏi thầy cô ở trường.",
+       "py": "A: Wǒ xiǎng mǎi shāngyè huáyǔ jiàocái, kěshì bù zhīdào nǎ yítào bǐjiào héshì. B: Zài xuǎnzé jiàocái shàng yàoshì yǒu wèntí, nǐ kěyǐ wèn xuéxiào de lǎoshī."
       },
       {
        "hz": "有些人在結了婚以後，還是習慣用單身時的態度與觀念來考慮事情。要是這樣做，在婚後關係方面當然會產生問題。",
-       "vi": ""
+       "vi": "Có những người sau khi kết hôn vẫn quen dùng thái độ và quan niệm lúc độc thân để suy nghĩ mọi việc. Nếu làm vậy thì về mặt quan hệ sau hôn nhân đương nhiên sẽ nảy sinh vấn đề.",
+       "py": "Yǒuxiē rén zài jiélehūn yǐhòu, háishì xíguàn yòng dānshēn shí de tàidù yǔ guānniàn lái kǎolǜ shìqíng. Yàoshì zhèyàng zuò, zài hūnhòu guānxì fāngmiàn dāngrán huì chǎnshēng wèntí."
       },
       {
        "hz": "如果想有效地解決我們公司目前的問題，在員工人數方面可能得先減少四分之一；其次必須在產品設計方面重新思考，如此公司才有未來。",
-       "vi": ""
+       "vi": "Nếu muốn giải quyết hiệu quả vấn đề hiện nay của công ty, về mặt số lượng nhân viên có lẽ phải giảm một phần tư trước; tiếp đó phải suy nghĩ lại về mặt thiết kế sản phẩm, như vậy công ty mới có tương lai.",
+       "py": "Rúguǒ xiǎng yǒuxiào dì jiějué wǒmen gōngsī mùqián de wèntí, zài yuángōng rénshù fāngmiàn kěnéng děi xiān jiǎnshǎo sìfēnzhīyì; qícì bìxū zài chǎnpǐnshèjì fāngmiàn chóngxīn sīkǎo, rúcǐ gōngsī cái yǒu wèilái."
       },
       {
        "hz": "請用「在……上」來改寫以下句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “在……上” để viết lại phần gạch chân trong các câu dưới đây.",
+       "py": "Qǐng yòng “zài…… shàng” lái gǎixiě yǐxià jùzi zhōng huàxiàn de bùfèn."
       }
      ],
      "answer": null
@@ -5400,19 +6262,23 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：明年春節我們約好去國外自助旅行，你有沒有想去的地方？B：我還沒出過國，什麼都不懂。你覺得怎麼好玩就怎麼安排。",
-       "vi": ""
+       "vi": "A: Tết năm sau chúng ta hẹn đi du lịch tự túc nước ngoài, bạn có nơi nào muốn đi không? B: Tôi chưa ra nước ngoài bao giờ, chẳng biết gì cả. Bạn thấy thế nào vui thì cứ sắp xếp thế ấy.",
+       "py": "A: Míngnián chūnjié wǒmen yuē hǎo qù guówài zìzhù lǚxíng, nǐ yǒuméiyǒu xiǎng qù de dìfāng? B: Wǒ hái méi chūguò guó, shénme dōu bù dǒng. Nǐ juéde zěnme hǎowán jiù zěnme ānpái."
       },
       {
        "hz": "A：晚上同學們約好要去臺中的夜市，你想搭計程車、騎腳踏車或是走路去？",
-       "vi": ""
+       "vi": "A: Tối nay các bạn hẹn đi chợ đêm Đài Trung, bạn muốn đi taxi, đi xe đạp hay đi bộ?",
+       "py": "A: Wǎnshàng tóngxuémen yuē hǎo yào qù Táizhōng de yèshì, nǐ xiǎng dā jìchéngchē, qí jiǎotàchē huòshì zǒulù qù?"
       },
       {
-       "hz": "A：今天超市特價，我買了一大塊豬肉。今晚你想吃烤的、炸的，        還是弄個湯？",
-       "vi": ""
+       "hz": "A：今天超市特價，我買了一大塊豬肉。今晚你想吃烤的、炸的，還是弄個湯？",
+       "vi": "A: Hôm nay siêu thị giảm giá, tôi mua một miếng thịt lợn to. Tối nay bạn muốn ăn nướng, rán hay nấu canh?",
+       "py": "A: Jīntiān chāoshì tèjià, wǒ mǎi le yídàkuài zhūròu. Jīnwǎn nǐ xiǎng chī kǎo de, zhà de, háishì nòng gè tāng?"
       },
       {
        "hz": "請用「怎麼Vs就怎麼V」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “怎麼Vs就怎麼V” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “zěnme Vs jiù zěnme V” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -5429,16 +6295,19 @@ export const thoidaiGrammar4 = {
      "formula": "「說不定」是副詞，表示事情不確定，但還是有可能。在「不一定」、「說不定」、「也許」、「可能」、「大概」中，「說不定」發生的機會比「不一定」高，比「也許」低。",
      "examples": [
       {
-       "hz": "A：他的麵包店因生意不好關門了，我有點兒擔心他的情況。B：他以前太驕傲了，總是不聽別人的建議。經過這次挫折後，   說不定能令他改變自己。",
-       "vi": ""
+       "hz": "A：他的麵包店因生意不好關門了，我有點兒擔心他的情況。B：他以前太驕傲了，總是不聽別人的建議。經過這次挫折後，說不定能令他改變自己。",
+       "vi": "A: Tiệm bánh mì của anh ấy đóng cửa vì làm ăn không tốt, tôi hơi lo cho anh ấy. B: Trước đây anh ấy kiêu ngạo quá, lúc nào cũng không nghe lời khuyên của người khác. Sau lần thất bại này, biết đâu lại khiến anh ấy thay đổi bản thân.",
+       "py": "A: Tā de miànbāodiàn yīn shēngyì bùhǎo guānmén le, wǒ yǒudiǎn'ér dānxīn tā de qíngkuàng. B: Tā yǐqián tài jiāo'ào le, zǒngshì bù tīng biérén de jiànyì. Jīngguò zhècì cuòzhé hòu, shuōbúdìng néng lìng tā gǎibiàn zìjǐ."
       },
       {
        "hz": "A：再過兩天就要到海邊露營了。不知道那時候的天氣怎麼樣？",
-       "vi": ""
+       "vi": "A: Hai ngày nữa là đi cắm trại ở biển rồi. Không biết lúc đó thời tiết thế nào?",
+       "py": "A: Zài guò liǎngtiān jiùyào dào hǎibiān lùyíng le. Bù zhīdào nà shíhòu de tiānqì zěnmeyàng?"
       },
       {
        "hz": "A：離演唱會開始的時間還早，你為什麼一大早就要出門去排隊請用「說不定」來完成以下的對話。",
-       "vi": ""
+       "vi": "A: Còn lâu mới đến giờ buổi hoà nhạc bắt đầu, sao sáng sớm bạn đã ra ngoài xếp hàng… Hãy dùng “說不定” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "A: Lí yǎnchànghuì kāishǐ de shíjiān hái zǎo, nǐ wèishénme yídàzǎo jiùyào chūmén qù páiduì qǐng yòng “shuōbúdìng” lái wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -5457,20 +6326,24 @@ export const thoidaiGrammar4 = {
      "formula": "「接」在本語法中是及物狀態動詞(Vst)；助詞「著」表示事情在某種狀態，可不寫。表示說話的人認為一樣的動作、情況不斷出現，次數很多，而且後面緊連著前面發生。",
      "examples": [
       {
-       "hz": "A：張媽媽，你兒子的牙齒問題怎麼那麼嚴重？B：他常趁我不在家時喝汽水，一罐接著一罐，停不下來。結果   牙齒就被他弄壞了。",
-       "vi": ""
+       "hz": "A：張媽媽，你兒子的牙齒問題怎麼那麼嚴重？B：他常趁我不在家時喝汽水，一罐接著一罐，停不下來。結果牙齒就被他弄壞了。",
+       "vi": "A: Chị Trương, sao răng của con trai chị có vấn đề nghiêm trọng thế? B: Nó hay tranh thủ lúc tôi không ở nhà uống nước ngọt, hết lon này đến lon khác, không dừng được. Kết quả là răng bị nó làm hỏng.",
+       "py": "A: Zhāng māma, nǐ érzi de yáchǐ wèntí zěnme nàme yánzhòng? B: Tā cháng chèn wǒ bú zàijiā shí hē qìshuǐ, yíguàn jiē zhe yíguàn, tíngbúxiàlái. Jiéguǒ yáchǐ jiù bèi tā nònghuàile."
       },
       {
        "hz": "以前我閱讀中文是一句話看完，再繼續看下一句話，現在是一段看完，再繼續看下一段，速度自然地就變快了。",
-       "vi": ""
+       "vi": "Trước đây tôi đọc tiếng Trung là đọc xong một câu rồi mới đọc câu tiếp theo, bây giờ là đọc xong một đoạn rồi mới đọc đoạn tiếp theo, tốc độ tự nhiên nhanh hơn.",
+       "py": "Yǐqián wǒ yuèdú zhōngwén shì yíjù huà kàn wán, zài jìxù kàn xià yíjù huà, xiànzài shì yíduàn kàn wán, zài jìxù kàn xià yíduàn, sùdù zìrán dì jiù biàn kuài le."
       },
       {
        "hz": "我聽見公園裡有貓叫聲，一聲叫完，又叫一聲，叫個不停。聽起來很可憐，就把小貓帶回家了。",
-       "vi": ""
+       "vi": "Tôi nghe thấy tiếng mèo kêu trong công viên, kêu xong một tiếng lại kêu thêm tiếng nữa, kêu không ngớt. Nghe rất tội nghiệp, nên tôi mang mèo con về nhà.",
+       "py": "Wǒ tīngjiàn gōngyuán lǐ yǒu māojiàoshēng, yìshēng jiào wán, yòu jiào yìshēng, jiàogèbùtíng. Tīng qǐlái hěn kělián, jiù bǎ xiǎomāo dàihuíjiā le."
       },
       {
        "hz": "請用「一M接(著)一M」改寫以下句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “一M接(著)一M” để viết lại phần gạch chân trong các câu dưới đây.",
+       "py": "Qǐng yòng “yì M jiē (zhe) yì M” gǎixiě yǐxià jùzi zhōng huàxiàn de bùfèn."
       }
      ],
      "answer": null
@@ -5488,23 +6361,28 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：在我農場工作的人，一小時的薪水大約六百元左右。B：哇，比我教中文所賺的錢還多！我能到你的農場工作嗎？",
-       "vi": ""
+       "vi": "A: Người làm việc ở nông trại của tôi lương một giờ khoảng sáu trăm đồng. B: Oa, còn nhiều hơn tiền tôi dạy tiếng Trung kiếm được! Tôi đến làm ở nông trại của bạn được không?",
+       "py": "A: Zài wǒ nóngchǎng gōngzuò de rén, yì xiǎoshí de xīnshuǐ dàyuē liùbǎiyuán zuǒyòu. B: Wa, bǐ wǒ jiào zhōngwén suǒ zhuàn de qián hái duō! Wǒ néng dào nǐ de nóngchǎng gōngzuò ma?"
       },
       {
-       "hz": "「左右」在本語法中是名詞(Noun)，放在數量的後面，表示大概的數字。",
-       "vi": ""
+       "hz": "「左右」在本語法中是名詞，放在數量的後面，表示大概的數字。",
+       "vi": "Trong mẫu ngữ pháp này “左右” là danh từ, đặt sau số lượng, diễn tả con số ước chừng.",
+       "py": "“Zuǒyòu” zài běn yǔfǎ zhōng shì míngcí, fàngzài shùliàng de hòumiàn, biǎoshì dàgài de shùzì."
       },
       {
        "hz": "說到我國與其他國家的合作情況，目前差不多有七十個國家跟我國維持良好的貿易關係。",
-       "vi": ""
+       "vi": "Nói đến tình hình hợp tác giữa nước ta với các nước khác, hiện nay có khoảng bảy mươi nước duy trì quan hệ thương mại tốt với nước ta.",
+       "py": "Shuō dào wǒguó yǔ qítā guójiā de hézuò qíngkuàng, mùqián chàbuduō yǒu qīshígè guójiā gēn wǒguó wéichí liánghǎo de màoyì guānxì."
       },
       {
        "hz": "他常去佛寺拜拜。差不多是七歲的時候，他就開始信佛教，跟著家人一起拜拜了。",
-       "vi": ""
+       "vi": "Anh ấy hay đến chùa lễ Phật. Khoảng năm bảy tuổi, anh ấy đã bắt đầu theo đạo Phật, cùng gia đình đi lễ.",
+       "py": "Tā cháng qù fósì bàibài. Chàbuduō shì qīsuì de shíhòu, tā jiù kāishǐ xìnfójiào, gēn zhe jiārén yìqǐ bàibài le."
       },
       {
        "hz": "請用「……左右」改寫以下句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “……左右” để viết lại phần gạch chân trong các câu dưới đây.",
+       "py": "Qǐng yòng “…… zuǒyòu” gǎixiě yǐxià jùzi zhōng huàxiàn de bùfèn."
       }
      ],
      "answer": null
@@ -5522,19 +6400,23 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：這間會議室看起來還不小，少說能坐三百個人。B：是啊。音響設備都是名牌的，少說也要花幾千萬元吧。",
-       "vi": ""
+       "vi": "A: Phòng họp này trông cũng không nhỏ, ít nhất ngồi được ba trăm người. B: Đúng vậy. Thiết bị âm thanh đều là hàng hiệu, ít nhất cũng phải tốn mấy chục triệu.",
+       "py": "A: Zhè jiān huìyìshì kànqǐlái hái bùxiǎo, shǎo shuō néng zuò sānbǎigè rén. B: Shì a. Yīnxiǎngshèbèi dōu shì míngpái de, shǎo shuō yě yào huā jǐqiānwànyuán ba."
       },
       {
-       "hz": "A：他那棟新買的房屋又大又漂亮，加上離市區也近， 我猜房價B：你猜得還真準！聽說他為了買房，可是儲蓄了好久呢。",
-       "vi": ""
+       "hz": "A：他那棟新買的房屋又大又漂亮，加上離市區也近，我猜房價B：你猜得還真準！聽說他為了買房，可是儲蓄了好久呢。",
+       "vi": "A: Căn nhà anh ấy mới mua vừa to vừa đẹp, lại gần trung tâm, tôi đoán giá nhà… B: Bạn đoán chuẩn thật đấy! Nghe nói anh ấy đã tiết kiệm rất lâu để mua nhà.",
+       "py": "A: Tā nàdòng xīn mǎi de fángwū yòu dà yòu piàoliàng, jiāshàng lí shìqū yě jìn, wǒ cāi fángjià B: Nǐ cāi de hái zhēn zhǔn! Tīngshuō tā wèile mǎifáng, kěshì chǔxù le hǎojiǔ ne."
       },
       {
        "hz": "A：你不是常說沒錢可用嗎？看看你今天的服裝，從頭到腳都是B：你誤會了，是某公司要我當一個宣傳廣告裡的主角，我才跟他們借了幾套服裝的。",
-       "vi": ""
+       "vi": "A: Chẳng phải bạn hay nói không có tiền tiêu sao? Nhìn quần áo hôm nay của bạn xem, từ đầu đến chân đều là… B: Bạn hiểu lầm rồi, có công ty mời tôi làm nhân vật chính trong một quảng cáo, tôi mới mượn họ mấy bộ quần áo.",
+       "py": "A: Nǐ búshì cháng shuō méi qián kěyòng ma? Kànkàn nǐ jīntiān de fúzhuāng, cóngtóudàojiǎo dōu shì B: Nǐ wùhuì le, shì mǒu gōngsī yào wǒ dāng yígè xuānchuán guǎnggào lǐ de zhǔjué, wǒ cái gēn tāmen jiè le jǐtào fúzhuāng de."
       },
       {
        "hz": "請用「少說（也）……」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “少說（也）……” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “shǎo shuō (yě)……” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -5552,15 +6434,18 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：我認為大家都必須參加地球日活動，用行動來愛地球。",
-       "vi": ""
+       "vi": "A: Tôi cho rằng mọi người đều phải tham gia hoạt động Ngày Trái Đất, dùng hành động để yêu Trái Đất.",
+       "py": "A: Wǒ rènwéi dàjiā dōu bìxū cānjiā dìqiúrì huódòng, yòng xíngdòng lái ài dìqiú."
       },
       {
        "hz": "A：我們公司的暑期旅遊活動，請問怎麼報名？",
-       "vi": ""
+       "vi": "A: Hoạt động du lịch hè của công ty chúng ta đăng ký thế nào ạ?",
+       "py": "A: Wǒmen gōngsī de shǔqí lǚyóu huódòng, qǐngwèn zěnme bàomíng?"
       },
       {
        "hz": "請用「難道」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “難道” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “nándào” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -5577,20 +6462,24 @@ export const thoidaiGrammar4 = {
      "formula": "「果然」是副詞，表示實際情況與之前聽過、所想過的相同。用法：「【人事物】＋果然【之前所猜、所了解的情況或印象】」。",
      "examples": [
       {
-       "hz": "A：我們昨晚在網站上看到的那雙鞋，最後你買了嗎？B：沒買。因為你說價錢太便宜了，鞋子的樣子也有點奇怪。早   上才知道有人被騙。你說的話果然沒錯。",
-       "vi": ""
+       "hz": "A：我們昨晚在網站上看到的那雙鞋，最後你買了嗎？B：沒買。因為你說價錢太便宜了，鞋子的樣子也有點奇怪。早上才知道有人被騙。你說的話果然沒錯。",
+       "vi": "A: Đôi giày chúng ta thấy trên trang web tối qua, cuối cùng bạn có mua không? B: Không mua. Vì bạn nói giá rẻ quá, kiểu giày cũng hơi lạ. Sáng nay mới biết có người bị lừa. Bạn nói quả nhiên không sai.",
+       "py": "A: Wǒmen zuówǎn zài wǎngzhàn shàng kàndào de nàshuāng xié, zuìhòu nǐ mǎi le ma? B: Méi mǎi. Yīnwèi nǐ shuō jiàqián tài piányi le, xiézi de yàngzi yě yǒudiǎn qíguài. Zǎoshàng cái zhīdào yǒurén bèi piàn. Nǐ shuō dehuà guǒrán méicuò."
       },
       {
        "hz": "A：這餐桌上的菜都是我太太親自準備的，不知道合不合您和大嫂的口味？",
-       "vi": ""
+       "vi": "A: Các món trên bàn này đều do vợ tôi tự tay chuẩn bị, không biết có hợp khẩu vị của anh và chị không?",
+       "py": "A: Zhè cānzhuōshàng de cài dōu shì wǒ tàitai qīnzì zhǔnbèi de, bù zhīdào hé bùhé nín hàn dàsǎo de kǒuwèi?"
       },
       {
        "hz": "A：客戶看過我們的產品設計報告後，給了幾個建議。你對那些建議有什麼想法？",
-       "vi": ""
+       "vi": "A: Khách hàng xem xong báo cáo thiết kế sản phẩm của chúng ta đã đưa ra vài đề xuất. Anh nghĩ sao về những đề xuất đó?",
+       "py": "A: Kèhù kànguò wǒmen de chǎnpǐnshèjì bàogào hòu, gěi le jǐgè jiànyì. Nǐ duì nàxiē jiànyì yǒu shénme xiǎngfǎ?"
       },
       {
        "hz": "請用「果然」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “果然” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “guǒrán” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -5608,19 +6497,23 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：我想買商業華語教材，可是不知道哪一套比較合適。B：在選擇教材上要是有問題，你可以問學校的老師。",
-       "vi": ""
+       "vi": "A: Tôi muốn mua giáo trình tiếng Hoa thương mại, nhưng không biết bộ nào phù hợp hơn. B: Nếu có vấn đề về việc chọn giáo trình, bạn có thể hỏi thầy cô ở trường.",
+       "py": "A: Wǒ xiǎng mǎi shāngyè huáyǔ jiàocái, kěshì bù zhīdào nǎ yítào bǐjiào héshì. B: Zài xuǎnzé jiàocái shàng yàoshì yǒu wèntí, nǐ kěyǐ wèn xuéxiào de lǎoshī."
       },
       {
        "hz": "有些人在結了婚以後，還是習慣用單身時的態度與觀念來考慮事情。要是這樣做，在婚後關係方面當然會產生問題。",
-       "vi": ""
+       "vi": "Có những người sau khi kết hôn vẫn quen dùng thái độ và quan niệm lúc độc thân để suy nghĩ mọi việc. Nếu làm vậy thì về mặt quan hệ sau hôn nhân đương nhiên sẽ nảy sinh vấn đề.",
+       "py": "Yǒuxiē rén zài jiélehūn yǐhòu, háishì xíguàn yòng dānshēn shí de tàidù yǔ guānniàn lái kǎolǜ shìqíng. Yàoshì zhèyàng zuò, zài hūnhòu guānxì fāngmiàn dāngrán huì chǎnshēng wèntí."
       },
       {
        "hz": "如果想有效地解決我們公司目前的問題，在員工人數方面可能得先減少四分之一；其次必須在產品設計方面重新思考，如此公司才有未來。",
-       "vi": ""
+       "vi": "Nếu muốn giải quyết hiệu quả vấn đề hiện nay của công ty, về mặt số lượng nhân viên có lẽ phải giảm một phần tư trước; tiếp đó phải suy nghĩ lại về mặt thiết kế sản phẩm, như vậy công ty mới có tương lai.",
+       "py": "Rúguǒ xiǎng yǒuxiào dì jiějué wǒmen gōngsī mùqián de wèntí, zài yuángōng rénshù fāngmiàn kěnéng děi xiān jiǎnshǎo sìfēnzhīyì; qícì bìxū zài chǎnpǐnshèjì fāngmiàn chóngxīn sīkǎo, rúcǐ gōngsī cái yǒu wèilái."
       },
       {
        "hz": "請用「在……上」來改寫以下句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “在……上” để viết lại phần gạch chân trong các câu dưới đây.",
+       "py": "Qǐng yòng “zài…… shàng” lái gǎixiě yǐxià jùzi zhōng huàxiàn de bùfèn."
       }
      ],
      "answer": null
@@ -5638,19 +6531,23 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：明年春節我們約好去國外自助旅行，你有沒有想去的地方？B：我還沒出過國，什麼都不懂。你覺得怎麼好玩就怎麼安排。",
-       "vi": ""
+       "vi": "A: Tết năm sau chúng ta hẹn đi du lịch tự túc nước ngoài, bạn có nơi nào muốn đi không? B: Tôi chưa ra nước ngoài bao giờ, chẳng biết gì cả. Bạn thấy thế nào vui thì cứ sắp xếp thế ấy.",
+       "py": "A: Míngnián chūnjié wǒmen yuē hǎo qù guówài zìzhù lǚxíng, nǐ yǒuméiyǒu xiǎng qù de dìfāng? B: Wǒ hái méi chūguò guó, shénme dōu bù dǒng. Nǐ juéde zěnme hǎowán jiù zěnme ānpái."
       },
       {
        "hz": "A：晚上同學們約好要去臺中的夜市，你想搭計程車、騎腳踏車或是走路去？",
-       "vi": ""
+       "vi": "A: Tối nay các bạn hẹn đi chợ đêm Đài Trung, bạn muốn đi taxi, đi xe đạp hay đi bộ?",
+       "py": "A: Wǎnshàng tóngxuémen yuē hǎo yào qù Táizhōng de yèshì, nǐ xiǎng dā jìchéngchē, qí jiǎotàchē huòshì zǒulù qù?"
       },
       {
-       "hz": "A：今天超市特價，我買了一大塊豬肉。今晚你想吃烤的、炸的，        還是弄個湯？",
-       "vi": ""
+       "hz": "A：今天超市特價，我買了一大塊豬肉。今晚你想吃烤的、炸的，還是弄個湯？",
+       "vi": "A: Hôm nay siêu thị giảm giá, tôi mua một miếng thịt lợn to. Tối nay bạn muốn ăn nướng, rán hay nấu canh?",
+       "py": "A: Jīntiān chāoshì tèjià, wǒ mǎi le yídàkuài zhūròu. Jīnwǎn nǐ xiǎng chī kǎo de, zhà de, háishì nòng gè tāng?"
       },
       {
        "hz": "請用「怎麼Vs就怎麼V」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “怎麼Vs就怎麼V” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “zěnme Vs jiù zěnme V” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -5667,16 +6564,19 @@ export const thoidaiGrammar4 = {
      "formula": "「說不定」是副詞，表示事情不確定，但還是有可能。在「不一定」、「說不定」、「也許」、「可能」、「大概」中，「說不定」發生的機會比「不一定」高，比「也許」低。",
      "examples": [
       {
-       "hz": "A：他的麵包店因生意不好關門了，我有點兒擔心他的情況。B：他以前太驕傲了，總是不聽別人的建議。經過這次挫折後，   說不定能令他改變自己。",
-       "vi": ""
+       "hz": "A：他的麵包店因生意不好關門了，我有點兒擔心他的情況。B：他以前太驕傲了，總是不聽別人的建議。經過這次挫折後，說不定能令他改變自己。",
+       "vi": "A: Tiệm bánh mì của anh ấy đóng cửa vì làm ăn không tốt, tôi hơi lo cho anh ấy. B: Trước đây anh ấy kiêu ngạo quá, lúc nào cũng không nghe lời khuyên của người khác. Sau lần thất bại này, biết đâu lại khiến anh ấy thay đổi bản thân.",
+       "py": "A: Tā de miànbāodiàn yīn shēngyì bùhǎo guānmén le, wǒ yǒudiǎn'ér dānxīn tā de qíngkuàng. B: Tā yǐqián tài jiāo'ào le, zǒngshì bù tīng biérén de jiànyì. Jīngguò zhècì cuòzhé hòu, shuōbúdìng néng lìng tā gǎibiàn zìjǐ."
       },
       {
        "hz": "A：再過兩天就要到海邊露營了。不知道那時候的天氣怎麼樣？",
-       "vi": ""
+       "vi": "A: Hai ngày nữa là đi cắm trại ở biển rồi. Không biết lúc đó thời tiết thế nào?",
+       "py": "A: Zài guò liǎngtiān jiùyào dào hǎibiān lùyíng le. Bù zhīdào nà shíhòu de tiānqì zěnmeyàng?"
       },
       {
        "hz": "A：離演唱會開始的時間還早，你為什麼一大早就要出門去排隊請用「說不定」來完成以下的對話。",
-       "vi": ""
+       "vi": "A: Còn lâu mới đến giờ buổi hoà nhạc bắt đầu, sao sáng sớm bạn đã ra ngoài xếp hàng… Hãy dùng “說不定” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "A: Lí yǎnchànghuì kāishǐ de shíjiān hái zǎo, nǐ wèishénme yídàzǎo jiùyào chūmén qù páiduì qǐng yòng “shuōbúdìng” lái wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -5695,20 +6595,24 @@ export const thoidaiGrammar4 = {
      "formula": "「明明」是副詞，表示說話的人認為「明明」後面的事情、情況很明顯、很清楚，不過在說話時看到或聽到的，跟自己原來所知道的不同。",
      "examples": [
       {
-       "hz": "那個男的又花心又常發脾氣，缺點明明那麼多，實在無法理解   張小姐為什麼還那麼愛他。2. 我剛離開教室沒多久，手機就不見了，我明明放在書上的。",
-       "vi": ""
+       "hz": "那個男的又花心又常發脾氣，缺點明明那麼多，實在無法理解張小姐為什麼還那麼愛他。2. 我剛離開教室沒多久，手機就不見了，我明明放在書上的。",
+       "vi": "1. Anh chàng đó vừa trăng hoa vừa hay nổi nóng, khuyết điểm rõ ràng nhiều như vậy, thật không hiểu nổi sao cô Trương vẫn yêu anh ta đến thế. 2. Tôi vừa ra khỏi lớp chưa bao lâu thì điện thoại đã mất, rõ ràng tôi để trên quyển sách mà.",
+       "py": "Nàge nán de yòu huāxīn yòu cháng fāpíqì, quēdiǎn míngmíng nàme duō, shízài wúfǎ lǐjiě Zhāng xiǎojiě wèishénme hái nàme ài tā. 2. Wǒ gāng líkāi jiàoshì méiduōjiǔ, shǒujī jiù bújiàn le, wǒ míngmíng fàngzài shūshàng de."
       },
       {
        "hz": "廁所門口寫得很清楚，寫著「馬桶修理中，請不要使用」，可是剛剛還是有人進去用了，真讓人受不了。",
-       "vi": ""
+       "vi": "Ở cửa nhà vệ sinh đã ghi rất rõ “Bồn cầu đang sửa, xin đừng sử dụng”, vậy mà vừa rồi vẫn có người vào dùng, thật không chịu nổi.",
+       "py": "Cèsuǒ ménkǒu xiě de hěn qīngchǔ, xiě zhe “mǎtǒng xiūlǐ zhōng, qǐng búyào shǐyòng”, kěshì gānggāng háishì yǒurén jìnqù yòng le, zhēnràngrén shòubùliǎo."
       },
       {
        "hz": "我國的社會福利制度在各方面都很理想，這點是可以確定的，不過似乎不管怎麼改變，總是有人不滿意。",
-       "vi": ""
+       "vi": "Chế độ phúc lợi xã hội nước ta về mọi mặt đều rất lý tưởng, điều này là chắc chắn, nhưng dường như dù thay đổi thế nào vẫn luôn có người không hài lòng.",
+       "py": "Wǒguó de shèhuì fúlìzhìdù zài gè fāngmiàn dōu hěn lǐxiǎng, zhèdiǎn shì kěyǐ quèdìng de, búguò sìhū bùguǎnzěnme gǎibiàn, zǒngshì yǒurén bù mǎnyì."
       },
       {
        "hz": "請用「明明」來改寫以下句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “明明” để viết lại phần gạch chân trong các câu dưới đây.",
+       "py": "Qǐng yòng “míngmíng” lái gǎixiě yǐxià jùzi zhōng huàxiàn de bùfèn."
       }
      ],
      "answer": null
@@ -5725,24 +6629,29 @@ export const thoidaiGrammar4 = {
      "formula": "「的確」是副詞，表示說話的人肯定別人所說的事情或看法，認為完全符合實際情況。用法是「【某人事物】＋的確【同意或肯定的情況】」。",
      "examples": [
       {
-       "hz": "A：老李寫的舞臺劇劇本，大家都覺得不錯。不知道你讀過以後有   沒有什麼想法？B：他寫的劇本的確很精彩，讓我忍不住讀了又讀。",
-       "vi": ""
+       "hz": "A：老李寫的舞臺劇劇本，大家都覺得不錯。不知道你讀過以後有沒有什麼想法？B：他寫的劇本的確很精彩，讓我忍不住讀了又讀。",
+       "vi": "A: Kịch bản kịch sân khấu anh Lý viết, mọi người đều thấy hay. Không biết bạn đọc xong có suy nghĩ gì không? B: Kịch bản anh ấy viết đúng là rất đặc sắc, khiến tôi không kìm được mà đọc đi đọc lại.",
+       "py": "A: Lǎolǐ xiě de wǔtáijù jùběn, dàjiā dōu juéde búcuò. Bù zhīdào nǐ dú guò yǐhòu yǒuméiyǒu shénme xiǎngfǎ? B: Tā xiě de jùběn díquè hěn jīngcǎi, ràng wǒ rěnbúzhù dú le yòu dú."
       },
       {
        "hz": "A：聽說你早上差點兒坐上那班發生意外的火車，是老闆的電話救了你。這是真的嗎？",
-       "vi": ""
+       "vi": "A: Nghe nói sáng nay bạn suýt lên chuyến tàu gặp nạn đó, là cuộc điện thoại của ông chủ đã cứu bạn. Chuyện đó có thật không?",
+       "py": "A: Tīngshuō nǐ zǎoshàng chàdiǎn'ér zuò shàng nà bān fāshēngyìwài de huǒchē, shì lǎobǎn de diànhuà jiù le nǐ. Zhè shì zhēnde ma?"
       },
       {
        "hz": "A：那個小張大事小事都找人吵架，你還說他是很溫柔的人。",
-       "vi": ""
+       "vi": "A: Cậu Tiểu Trương đó chuyện lớn chuyện nhỏ gì cũng gây sự cãi nhau, thế mà bạn còn nói cậu ấy là người rất dịu dàng.",
+       "py": "A: Nàge xiǎozhāng dàshì xiǎoshì dōu zhǎo rén chǎojià, nǐ hái shuō tā shì hěn wēnróu de rén."
       },
       {
        "hz": "他到底給了你多少好處？",
-       "vi": ""
+       "vi": "Rốt cuộc cậu ta đã cho bạn bao nhiêu lợi lộc?",
+       "py": "Tā dàodǐ gěi le nǐ duōshǎo hǎochù?"
       },
       {
        "hz": "請用「的確」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “的確” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “díquè” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -5759,36 +6668,44 @@ export const thoidaiGrammar4 = {
      "formula": "「免得」是助動詞，後面放動詞或動詞短句。「免得」有能夠避免的意思，表示用前句提到的方式，或是因為有前句的情況，才能避免「免得」後面的情況。通常用在說話的人認為影響較大的事。 「何必」是副詞，表示說話的人以反問的方式，告訴別人不需要做「何必」之後的事情。句子最後常用「呢」，以問號結束句子。",
      "examples": [
       {
-       "hz": "A：我把蛋糕放在桌上，想等會兒再吃。你為什麼說別放太久，是   怕蛋糕不新鮮嗎？B：你應該早點兒吃完或是放在冰箱，免得螞蟻爬滿蛋糕，你就吃   不成了。",
-       "vi": ""
+       "hz": "A：我把蛋糕放在桌上，想等會兒再吃。你為什麼說別放太久，是怕蛋糕不新鮮嗎？B：你應該早點兒吃完或是放在冰箱，免得螞蟻爬滿蛋糕，你就吃不成了。",
+       "vi": "A: Tôi để bánh kem trên bàn, định lát nữa ăn. Sao bạn nói đừng để lâu, sợ bánh không tươi à? B: Bạn nên ăn sớm hoặc cho vào tủ lạnh, kẻo kiến bò đầy bánh thì bạn không ăn được nữa.",
+       "py": "A: Wǒ bǎ dàngāo fàngzài zhuōshàng, xiǎng děnghuì'er zài chī. Nǐ wèishénme shuō bié fàng tàijiǔ, shì pà dàngāo bù xīnxiān ma? B: Nǐ yīnggāi zǎodiǎn'ér chī wán huòshì fàngzài bīngxiāng, miǎnde mǎyǐ pámǎn dàngāo, nǐ jiù chī bùchéng le."
       },
       {
        "hz": "A：我第一次參加正式的網球比賽，請問教練，有沒有應該注意2. A：中午在湖邊野餐，真是一種享受。時間差不多了，準備回家吧。",
-       "vi": ""
+       "vi": "A: Lần đầu tôi tham gia giải quần vợt chính thức, thưa huấn luyện viên, có gì cần chú ý không ạ? 2. A: Buổi trưa đi dã ngoại bên hồ thật là thú vị. Cũng đến giờ rồi, chuẩn bị về nhà thôi.",
+       "py": "A: Wǒ dìyīcì cānjiā zhèngshì de wǎngqiú bǐsài, qǐngwèn jiàoliàn, yǒuméiyǒu yīnggāi zhùyì 2. A: Zhōngwǔ zài húbiān yěcān, zhēnshì yìzhǒng xiǎngshòu. Shíjiān chàbuduō le, zhǔnbèi huíjiāba."
       },
       {
        "hz": "請用「免得」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “免得” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “miǎnde” wánchéng yǐxià de duìhuà."
       },
       {
        "hz": "國家法律制度無法在一夜之間改變，需要長期討論與調整。",
-       "vi": ""
+       "vi": "Chế độ pháp luật quốc gia không thể thay đổi trong một đêm, cần thảo luận và điều chỉnh lâu dài.",
+       "py": "Guójiā fǎlǜ zhìdù wúfǎ zài yíyèzhījiān gǎibiàn, xūyào chángqí tǎolùn yǔ tiáozhěng."
       },
       {
        "hz": "A：葉老闆長得又矮又胖，說話也不客氣，一點優點都沒有。B：你不喜歡他就算了，何必說他的壞話呢？",
-       "vi": ""
+       "vi": "A: Ông chủ Diệp vừa lùn vừa béo, nói chuyện cũng không khách sáo, chẳng có ưu điểm gì. B: Bạn không thích ông ấy thì thôi, cần gì phải nói xấu ông ấy?",
+       "py": "A: Yè lǎobǎn zhǎng de yòu ǎi yòu pàng, shuōhuà yě bú kèqì, yìdiǎn yōudiǎn dōu méiyǒu. B: Nǐ bù xǐhuān tā jiùsuàn le, hébì shuō tā de huàihuà ne?"
       },
       {
        "hz": "A：再兩天就是農曆新年了，要不要買幾個燈籠放在家裡布置？",
-       "vi": ""
+       "vi": "A: Hai ngày nữa là Tết Âm lịch rồi, có nên mua mấy chiếc đèn lồng để trang trí trong nhà không?",
+       "py": "A: Zài liǎngtiān jiùshì nónglì xīnnián le, yào búyào mǎi jǐgè dēnglóng fàngzài jiālǐ bùzhì?"
       },
       {
        "hz": "A：那個新同事總認為自己是正確的。開會時我忍不住，就跟他大吵了一架。",
-       "vi": ""
+       "vi": "A: Anh đồng nghiệp mới đó lúc nào cũng cho mình là đúng. Lúc họp tôi không nhịn được nên đã cãi nhau to với anh ta.",
+       "py": "A: Nàge xīn tóngshì zǒng rènwéi zìjǐ shì zhèngquè de. Kāihuì shí wǒ rěnbúzhù, jiù gēn tā dàchǎo le yíjià."
       },
       {
        "hz": "請用「何必」來完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “何必” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “hébì” lái wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -5806,19 +6723,23 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：一個人得怎麼做，事業才能有成就？B：努力和用心學習當然很重要，此外也必須參考別人的意見。",
-       "vi": ""
+       "vi": "A: Một người phải làm thế nào thì sự nghiệp mới có thành tựu? B: Nỗ lực và chịu khó học hỏi đương nhiên rất quan trọng, ngoài ra còn phải tham khảo ý kiến người khác.",
+       "py": "A: Yígè rén de zěnme zuò, shìyè cáinéng yǒu chéngjiù? B: Nǔlì hàn yòngxīn xuéxí dāngrán hěn zhòngyào, cǐwài yě bìxū cānkǎo biérén de yìjiàn."
       },
       {
        "hz": "A：為什麼有那麼多外國公司選擇到你們國家開工廠呢？",
-       "vi": ""
+       "vi": "A: Tại sao có nhiều công ty nước ngoài chọn đến nước các bạn mở nhà máy như vậy?",
+       "py": "A: Wèishénme yǒu nàme duō wàiguó gōngsī xuǎnzé dào nǐmen guójiā kāi gōngchǎng ne?"
       },
       {
        "hz": "A：最近去你們那個地區觀光的遊客怎麼那麼多？",
-       "vi": ""
+       "vi": "A: Dạo này sao khách du lịch đến khu vực của các bạn đông thế?",
+       "py": "A: Zuìjìn qù nǐmen nàge dìqū guānguāng de yóukè zěnme nàme duō?"
       },
       {
        "hz": "請用「此外」來完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “此外” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “cǐwài” lái wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -5835,24 +6756,29 @@ export const thoidaiGrammar4 = {
      "formula": "⑴ 「A受到【情況、行為】」：表示A得到某個事物，或是碰到不好的情況。 ⑵ 「C受到B的【情況、行為】」：表示因為B，使C得到某個事物，或是碰到不好的情況。說明1、2中的【情況、行為】常用名詞或名詞短語來說明。",
      "examples": [
       {
-       "hz": "⑴ 那位同事努力了很久，能力終於受到老闆(的)重視。⑵ 他因為親人去世受到了很大的影響。     ⑶ 這個國家目前正受到其他國家(的)批評。",
-       "vi": ""
+       "hz": "⑴ 那位同事努力了很久，能力終於受到老闆(的)重視。⑵ 他因為親人去世受到了很大的影響。 ⑶ 這個國家目前正受到其他國家(的)批評。",
+       "vi": "(1) Đồng nghiệp đó nỗ lực rất lâu, năng lực cuối cùng cũng được ông chủ coi trọng. (2) Anh ấy chịu ảnh hưởng rất lớn vì người thân qua đời. (3) Nước này hiện đang bị các nước khác chỉ trích.",
+       "py": "⑴ nàwèi tóngshì nǔlì le hěn jiǔ, nénglì zhōngyú shòudào lǎobǎn (de) zhòngshì. ⑵ tā yīnwèi qīnrén qùshì shòudào le hěndà de yǐngxiǎng. ⑶ zhège guójiā mùqián zhèng shòudào qítā guójiā (de) pīpíng."
       },
       {
-       "hz": "「受到」是及物變化動詞(Vpt)，常見的用法有兩種：",
-       "vi": ""
+       "hz": "「受到」是及物變化動詞，常見的用法有兩種：",
+       "vi": "“受到” là động từ biến hoá cập vật, thường có hai cách dùng:",
+       "py": "“Shòudào” shì jí wù biànhuà dòngcí, chángjiàn de yòngfǎ yǒu liǎngzhǒng:"
       },
       {
        "hz": "因為氣候的關係，香蕉長得特別快，價格就便宜了。",
-       "vi": ""
+       "vi": "Do khí hậu, chuối lớn đặc biệt nhanh, giá cả cũng rẻ đi.",
+       "py": "Yīnwèi qìhòu de guānxì, xiāngjiāo zhǎng de tèbié kuài, jiàgé jiù piányi le."
       },
       {
        "hz": "我把做點心當成一生的事業，都是因為我的高中老師給我鼓勵。我現在所有的成就，全都要感謝他。",
-       "vi": ""
+       "vi": "Tôi coi làm bánh ngọt là sự nghiệp cả đời, đều là nhờ thầy giáo cấp ba đã động viên tôi. Mọi thành tựu hiện nay của tôi đều phải cảm ơn thầy.",
+       "py": "Wǒ bǎ zuò diǎnxīn dàngchéng yìshēng de shìyè, dōu shìyīnwèi wǒ de gāozhōng lǎoshī gěi wǒ gǔlì. Wǒ xiànzài suǒyǒu de chéngjiù, quándōu yào gǎnxiè tā."
       },
       {
        "hz": "請用「受到」來改寫以下句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “受到” để viết lại phần gạch chân trong các câu dưới đây.",
+       "py": "Qǐng yòng “shòudào” lái gǎixiě yǐxià jùzi zhōng huàxiàn de bùfèn."
       }
      ],
      "answer": null
@@ -5870,43 +6796,53 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "我們國家的總統很受人民支持。（「支持」當動詞時，「受」是介詞）2.他碰到困難時常受好友的鼓勵。（「鼓勵」當名詞時，「受」是動詞）3.我在公司工作時，想法常受限制。（「限制」當動詞時，「受」是介詞；「限制」當名詞時，「受」是動詞）「受」可當介詞或及物狀態動詞，跟「受到」一樣都有被動的意思。",
-       "vi": ""
+       "vi": "1. Tổng thống nước ta rất được nhân dân ủng hộ. (khi “支持” là động từ thì “受” là giới từ) 2. Khi gặp khó khăn anh ấy thường được bạn thân động viên. (khi “鼓勵” là danh từ thì “受” là động từ) 3. Khi làm việc ở công ty, suy nghĩ của tôi thường bị hạn chế. (khi “限制” là động từ thì “受” là giới từ; khi “限制” là danh từ thì “受” là động từ) “受” có thể làm giới từ hoặc động từ trạng thái cập vật, giống “受到” đều mang nghĩa bị động.",
+       "py": "Wǒmen guójiā de zǒngtǒng hěn shòu rénmín zhīchí. (“zhīchí” dāng dòngcí shí, “shòu” shì jiècí) 2. Tā pèngdàokùnnán shícháng shòu hǎoyǒu de gǔlì. (“gǔlì” dāng míngcí shí, “shòu” shì dòngcí) 3. Wǒ zài gōngsī gōngzuò shí, xiǎngfǎ cháng shòuxiànzhì. (“xiànzhì” dāng dòngcí shí, “shòu” shì jiècí; “xiànzhì” dāng míngcí shí, “shòu” shì dòngcí) “shòu” kě dāng jiècí huò jí wù zhuàngtài dòngcí, gēn “shòudào” yíyàng dōu yǒu bèidòng de yìsi."
       },
       {
        "hz": "⑴ 「受」是介詞時，常見用法是「受【人事物】＋【行為、影響】」、「受【行為、影響】」。這裡的【行為、影響】較常用狀態動詞或動詞來說明。",
-       "vi": ""
+       "vi": "(1) Khi “受” là giới từ, cách dùng thường gặp là “受【người/sự/vật】＋【hành vi, ảnh hưởng】”, “受【hành vi, ảnh hưởng】”. 【hành vi, ảnh hưởng】 ở đây thường dùng động từ trạng thái hoặc động từ để diễn đạt.",
+       "py": "⑴ “shòu” shì jiècí shí, chángjiàn yòngfǎ shì “shòu 【 rén shìwù 】 ＋ 【 xíngwéi, yǐngxiǎng 】”, “shòu 【 xíngwéi, yǐngxiǎng 】”. Zhèlǐ de 【 xíngwéi, yǐngxiǎng 】 jiào chángyòng zhuàngtài dòngcí huò dòngcí lái shuōmíng."
       },
       {
        "hz": "⑵ 「受」是及物狀態動詞時，常見用法是「受【人事物】的【行為、影響】」。這裡的【行為、影響】常用名詞或名詞短語來說明。",
-       "vi": ""
+       "vi": "(2) Khi “受” là động từ trạng thái cập vật, cách dùng thường gặp là “受【người/sự/vật】的【hành vi, ảnh hưởng】”. 【hành vi, ảnh hưởng】 ở đây thường dùng danh từ hoặc cụm danh từ để diễn đạt.",
+       "py": "⑵ “shòu” shì jí wù zhuàngtài dòngcí shí, chángjiàn yòngfǎ shì “shòu 【 rén shìwù 】 de 【 xíngwéi, yǐngxiǎng 】”. Zhèlǐ de 【 xíngwéi, yǐngxiǎng 】 chángyòng míngcí huò míngcí duǎnyǔ lái shuōmíng."
       },
       {
-       "hz": "（     ）1. 這首新歌十分受到年輕人歡迎。",
-       "vi": ""
+       "hz": "（ ）1. 這首新歌十分受到年輕人歡迎。",
+       "vi": "(  ) 1. Bài hát mới này rất được giới trẻ yêu thích.",
+       "py": "1. Zhè shǒu xīn gē shífēn shòudào niánqīngrén huānyíng."
       },
       {
-       "hz": "（     ）2. 我的車子受同事弄壞了，他打算賠我錢。",
-       "vi": ""
+       "hz": "（ ）2. 我的車子受同事弄壞了，他打算賠我錢。",
+       "vi": "(  ) 2. Xe của tôi bị đồng nghiệp làm hỏng, anh ấy định đền tiền cho tôi.",
+       "py": "2. Wǒ de chēzi shòu tóngshì nònghuàile, tā dǎsuàn péi wǒ qián."
       },
       {
-       "hz": "（     ）3. 他被朋友影響而有了吸毒的習慣。",
-       "vi": ""
+       "hz": "（ ）3. 他被朋友影響而有了吸毒的習慣。",
+       "vi": "(  ) 3. Anh ấy bị bạn bè ảnh hưởng mà có thói quen hút chích ma tuý.",
+       "py": "3. Tā bèi péngyǒu yǐngxiǎng ér yǒu le xīdú de xíguàn."
       },
       {
-       "hz": "（     ）4. 這本小說讓我深深地被感動。",
-       "vi": ""
+       "hz": "（ ）4. 這本小說讓我深深地被感動。",
+       "vi": "(  ) 4. Quyển tiểu thuyết này khiến tôi vô cùng xúc động.",
+       "py": "4. Zhèběn xiǎoshuō ràng wǒ shēnshēndì bèi gǎndòng."
       },
       {
-       "hz": "（     ）5. 這次地震最被影響的是東部地區。",
-       "vi": ""
+       "hz": "（ ）5. 這次地震最被影響的是東部地區。",
+       "vi": "(  ) 5. Trận động đất lần này, khu vực bị ảnh hưởng nhiều nhất là miền Đông.",
+       "py": "5. Zhècì dìzhèn zuì bèi yǐngxiǎng de shì dōngbù dìqū."
       },
       {
-       "hz": "（     ）6. 員工的意見如果能受到重視，公司也會發展得更好。",
-       "vi": ""
+       "hz": "（ ）6. 員工的意見如果能受到重視，公司也會發展得更好。",
+       "vi": "(  ) 6. Nếu ý kiến của nhân viên được coi trọng thì công ty cũng sẽ phát triển tốt hơn.",
+       "py": "6. Yuángōng de yìjiàn rúguǒ néng shòudàozhòngshì, gōngsī yě huì fāzhǎn de gènghǎo."
       },
       {
        "hz": "以下的句子中，「受到」、「受」、「被」的用法對不對？",
-       "vi": ""
+       "vi": "Trong các câu dưới đây, cách dùng “受到”, “受”, “被” đúng hay sai?",
+       "py": "Yǐxià de jùzi zhōng, “shòudào”, “shòu”, “bèi” de yòngfǎ duì bú duì?"
       }
      ],
      "answer": null
@@ -5925,20 +6861,24 @@ export const thoidaiGrammar4 = {
      "formula": "「明明」是副詞，表示說話的人認為「明明」後面的事情、情況很明顯、很清楚，不過在說話時看到或聽到的，跟自己原來所知道的不同。",
      "examples": [
       {
-       "hz": "那個男的又花心又常發脾氣，缺點明明那麼多，實在無法理解   張小姐為什麼還那麼愛他。2. 我剛離開教室沒多久，手機就不見了，我明明放在書上的。",
-       "vi": ""
+       "hz": "那個男的又花心又常發脾氣，缺點明明那麼多，實在無法理解張小姐為什麼還那麼愛他。2. 我剛離開教室沒多久，手機就不見了，我明明放在書上的。",
+       "vi": "1. Anh chàng đó vừa trăng hoa vừa hay nổi nóng, khuyết điểm rõ ràng nhiều như vậy, thật không hiểu nổi sao cô Trương vẫn yêu anh ta đến thế. 2. Tôi vừa ra khỏi lớp chưa bao lâu thì điện thoại đã mất, rõ ràng tôi để trên quyển sách mà.",
+       "py": "Nàge nán de yòu huāxīn yòu cháng fāpíqì, quēdiǎn míngmíng nàme duō, shízài wúfǎ lǐjiě Zhāng xiǎojiě wèishénme hái nàme ài tā. 2. Wǒ gāng líkāi jiàoshì méiduōjiǔ, shǒujī jiù bújiàn le, wǒ míngmíng fàngzài shūshàng de."
       },
       {
        "hz": "廁所門口寫得很清楚，寫著「馬桶修理中，請不要使用」，可是剛剛還是有人進去用了，真讓人受不了。",
-       "vi": ""
+       "vi": "Ở cửa nhà vệ sinh đã ghi rất rõ “Bồn cầu đang sửa, xin đừng sử dụng”, vậy mà vừa rồi vẫn có người vào dùng, thật không chịu nổi.",
+       "py": "Cèsuǒ ménkǒu xiě de hěn qīngchǔ, xiě zhe “mǎtǒng xiūlǐ zhōng, qǐng búyào shǐyòng”, kěshì gānggāng háishì yǒurén jìnqù yòng le, zhēnràngrén shòubùliǎo."
       },
       {
        "hz": "我國的社會福利制度在各方面都很理想，這點是可以確定的，不過似乎不管怎麼改變，總是有人不滿意。",
-       "vi": ""
+       "vi": "Chế độ phúc lợi xã hội nước ta về mọi mặt đều rất lý tưởng, điều này là chắc chắn, nhưng dường như dù thay đổi thế nào vẫn luôn có người không hài lòng.",
+       "py": "Wǒguó de shèhuì fúlìzhìdù zài gè fāngmiàn dōu hěn lǐxiǎng, zhèdiǎn shì kěyǐ quèdìng de, búguò sìhū bùguǎnzěnme gǎibiàn, zǒngshì yǒurén bù mǎnyì."
       },
       {
        "hz": "請用「明明」來改寫以下句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “明明” để viết lại phần gạch chân trong các câu dưới đây.",
+       "py": "Qǐng yòng “míngmíng” lái gǎixiě yǐxià jùzi zhōng huàxiàn de bùfèn."
       }
      ],
      "answer": null
@@ -5955,24 +6895,29 @@ export const thoidaiGrammar4 = {
      "formula": "「的確」是副詞，表示說話的人肯定別人所說的事情或看法，認為完全符合實際情況。用法是「【某人事物】＋的確【同意或肯定的情況】」。",
      "examples": [
       {
-       "hz": "A：老李寫的舞臺劇劇本，大家都覺得不錯。不知道你讀過以後有   沒有什麼想法？B：他寫的劇本的確很精彩，讓我忍不住讀了又讀。",
-       "vi": ""
+       "hz": "A：老李寫的舞臺劇劇本，大家都覺得不錯。不知道你讀過以後有沒有什麼想法？B：他寫的劇本的確很精彩，讓我忍不住讀了又讀。",
+       "vi": "A: Kịch bản kịch sân khấu anh Lý viết, mọi người đều thấy hay. Không biết bạn đọc xong có suy nghĩ gì không? B: Kịch bản anh ấy viết đúng là rất đặc sắc, khiến tôi không kìm được mà đọc đi đọc lại.",
+       "py": "A: Lǎolǐ xiě de wǔtáijù jùběn, dàjiā dōu juéde búcuò. Bù zhīdào nǐ dú guò yǐhòu yǒuméiyǒu shénme xiǎngfǎ? B: Tā xiě de jùběn díquè hěn jīngcǎi, ràng wǒ rěnbúzhù dú le yòu dú."
       },
       {
        "hz": "A：聽說你早上差點兒坐上那班發生意外的火車，是老闆的電話救了你。這是真的嗎？",
-       "vi": ""
+       "vi": "A: Nghe nói sáng nay bạn suýt lên chuyến tàu gặp nạn đó, là cuộc điện thoại của ông chủ đã cứu bạn. Chuyện đó có thật không?",
+       "py": "A: Tīngshuō nǐ zǎoshàng chàdiǎn'ér zuò shàng nà bān fāshēngyìwài de huǒchē, shì lǎobǎn de diànhuà jiù le nǐ. Zhè shì zhēnde ma?"
       },
       {
        "hz": "A：那個小張大事小事都找人吵架，你還說他是很溫柔的人。",
-       "vi": ""
+       "vi": "A: Cậu Tiểu Trương đó chuyện lớn chuyện nhỏ gì cũng gây sự cãi nhau, thế mà bạn còn nói cậu ấy là người rất dịu dàng.",
+       "py": "A: Nàge xiǎozhāng dàshì xiǎoshì dōu zhǎo rén chǎojià, nǐ hái shuō tā shì hěn wēnróu de rén."
       },
       {
        "hz": "他到底給了你多少好處？",
-       "vi": ""
+       "vi": "Rốt cuộc cậu ta đã cho bạn bao nhiêu lợi lộc?",
+       "py": "Tā dàodǐ gěi le nǐ duōshǎo hǎochù?"
       },
       {
        "hz": "請用「的確」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “的確” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “díquè” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -5989,36 +6934,44 @@ export const thoidaiGrammar4 = {
      "formula": "「免得」是助動詞，後面放動詞或動詞短句。「免得」有能夠避免的意思，表示用前句提到的方式，或是因為有前句的情況，才能避免「免得」後面的情況。通常用在說話的人認為影響較大的事。 「何必」是副詞，表示說話的人以反問的方式，告訴別人不需要做「何必」之後的事情。句子最後常用「呢」，以問號結束句子。",
      "examples": [
       {
-       "hz": "A：我把蛋糕放在桌上，想等會兒再吃。你為什麼說別放太久，是   怕蛋糕不新鮮嗎？B：你應該早點兒吃完或是放在冰箱，免得螞蟻爬滿蛋糕，你就吃   不成了。",
-       "vi": ""
+       "hz": "A：我把蛋糕放在桌上，想等會兒再吃。你為什麼說別放太久，是怕蛋糕不新鮮嗎？B：你應該早點兒吃完或是放在冰箱，免得螞蟻爬滿蛋糕，你就吃不成了。",
+       "vi": "A: Tôi để bánh kem trên bàn, định lát nữa ăn. Sao bạn nói đừng để lâu, sợ bánh không tươi à? B: Bạn nên ăn sớm hoặc cho vào tủ lạnh, kẻo kiến bò đầy bánh thì bạn không ăn được nữa.",
+       "py": "A: Wǒ bǎ dàngāo fàngzài zhuōshàng, xiǎng děnghuì'er zài chī. Nǐ wèishénme shuō bié fàng tàijiǔ, shì pà dàngāo bù xīnxiān ma? B: Nǐ yīnggāi zǎodiǎn'ér chī wán huòshì fàngzài bīngxiāng, miǎnde mǎyǐ pámǎn dàngāo, nǐ jiù chī bùchéng le."
       },
       {
        "hz": "A：我第一次參加正式的網球比賽，請問教練，有沒有應該注意2. A：中午在湖邊野餐，真是一種享受。時間差不多了，準備回家吧。",
-       "vi": ""
+       "vi": "A: Lần đầu tôi tham gia giải quần vợt chính thức, thưa huấn luyện viên, có gì cần chú ý không ạ? 2. A: Buổi trưa đi dã ngoại bên hồ thật là thú vị. Cũng đến giờ rồi, chuẩn bị về nhà thôi.",
+       "py": "A: Wǒ dìyīcì cānjiā zhèngshì de wǎngqiú bǐsài, qǐngwèn jiàoliàn, yǒuméiyǒu yīnggāi zhùyì 2. A: Zhōngwǔ zài húbiān yěcān, zhēnshì yìzhǒng xiǎngshòu. Shíjiān chàbuduō le, zhǔnbèi huíjiāba."
       },
       {
        "hz": "請用「免得」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “免得” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “miǎnde” wánchéng yǐxià de duìhuà."
       },
       {
        "hz": "國家法律制度無法在一夜之間改變，需要長期討論與調整。",
-       "vi": ""
+       "vi": "Chế độ pháp luật quốc gia không thể thay đổi trong một đêm, cần thảo luận và điều chỉnh lâu dài.",
+       "py": "Guójiā fǎlǜ zhìdù wúfǎ zài yíyèzhījiān gǎibiàn, xūyào chángqí tǎolùn yǔ tiáozhěng."
       },
       {
        "hz": "A：葉老闆長得又矮又胖，說話也不客氣，一點優點都沒有。B：你不喜歡他就算了，何必說他的壞話呢？",
-       "vi": ""
+       "vi": "A: Ông chủ Diệp vừa lùn vừa béo, nói chuyện cũng không khách sáo, chẳng có ưu điểm gì. B: Bạn không thích ông ấy thì thôi, cần gì phải nói xấu ông ấy?",
+       "py": "A: Yè lǎobǎn zhǎng de yòu ǎi yòu pàng, shuōhuà yě bú kèqì, yìdiǎn yōudiǎn dōu méiyǒu. B: Nǐ bù xǐhuān tā jiùsuàn le, hébì shuō tā de huàihuà ne?"
       },
       {
        "hz": "A：再兩天就是農曆新年了，要不要買幾個燈籠放在家裡布置？",
-       "vi": ""
+       "vi": "A: Hai ngày nữa là Tết Âm lịch rồi, có nên mua mấy chiếc đèn lồng để trang trí trong nhà không?",
+       "py": "A: Zài liǎngtiān jiùshì nónglì xīnnián le, yào búyào mǎi jǐgè dēnglóng fàngzài jiālǐ bùzhì?"
       },
       {
        "hz": "A：那個新同事總認為自己是正確的。開會時我忍不住，就跟他大吵了一架。",
-       "vi": ""
+       "vi": "A: Anh đồng nghiệp mới đó lúc nào cũng cho mình là đúng. Lúc họp tôi không nhịn được nên đã cãi nhau to với anh ta.",
+       "py": "A: Nàge xīn tóngshì zǒng rènwéi zìjǐ shì zhèngquè de. Kāihuì shí wǒ rěnbúzhù, jiù gēn tā dàchǎo le yíjià."
       },
       {
        "hz": "請用「何必」來完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “何必” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “hébì” lái wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -6036,19 +6989,23 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：一個人得怎麼做，事業才能有成就？B：努力和用心學習當然很重要，此外也必須參考別人的意見。",
-       "vi": ""
+       "vi": "A: Một người phải làm thế nào thì sự nghiệp mới có thành tựu? B: Nỗ lực và chịu khó học hỏi đương nhiên rất quan trọng, ngoài ra còn phải tham khảo ý kiến người khác.",
+       "py": "A: Yígè rén de zěnme zuò, shìyè cáinéng yǒu chéngjiù? B: Nǔlì hàn yòngxīn xuéxí dāngrán hěn zhòngyào, cǐwài yě bìxū cānkǎo biérén de yìjiàn."
       },
       {
        "hz": "A：為什麼有那麼多外國公司選擇到你們國家開工廠呢？",
-       "vi": ""
+       "vi": "A: Tại sao có nhiều công ty nước ngoài chọn đến nước các bạn mở nhà máy như vậy?",
+       "py": "A: Wèishénme yǒu nàme duō wàiguó gōngsī xuǎnzé dào nǐmen guójiā kāi gōngchǎng ne?"
       },
       {
        "hz": "A：最近去你們那個地區觀光的遊客怎麼那麼多？",
-       "vi": ""
+       "vi": "A: Dạo này sao khách du lịch đến khu vực của các bạn đông thế?",
+       "py": "A: Zuìjìn qù nǐmen nàge dìqū guānguāng de yóukè zěnme nàme duō?"
       },
       {
        "hz": "請用「此外」來完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “此外” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “cǐwài” lái wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -6065,24 +7022,29 @@ export const thoidaiGrammar4 = {
      "formula": "⑴ 「A受到【情況、行為】」：表示A得到某個事物，或是碰到不好的情況。 ⑵ 「C受到B的【情況、行為】」：表示因為B，使C得到某個事物，或是碰到不好的情況。說明1、2中的【情況、行為】常用名詞或名詞短語來說明。",
      "examples": [
       {
-       "hz": "⑴ 那位同事努力了很久，能力終於受到老闆(的)重視。⑵ 他因為親人去世受到了很大的影響。     ⑶ 這個國家目前正受到其他國家(的)批評。",
-       "vi": ""
+       "hz": "⑴ 那位同事努力了很久，能力終於受到老闆(的)重視。⑵ 他因為親人去世受到了很大的影響。 ⑶ 這個國家目前正受到其他國家(的)批評。",
+       "vi": "(1) Đồng nghiệp đó nỗ lực rất lâu, năng lực cuối cùng cũng được ông chủ coi trọng. (2) Anh ấy chịu ảnh hưởng rất lớn vì người thân qua đời. (3) Nước này hiện đang bị các nước khác chỉ trích.",
+       "py": "⑴ nàwèi tóngshì nǔlì le hěn jiǔ, nénglì zhōngyú shòudào lǎobǎn (de) zhòngshì. ⑵ tā yīnwèi qīnrén qùshì shòudào le hěndà de yǐngxiǎng. ⑶ zhège guójiā mùqián zhèng shòudào qítā guójiā (de) pīpíng."
       },
       {
-       "hz": "「受到」是及物變化動詞(Vpt)，常見的用法有兩種：",
-       "vi": ""
+       "hz": "「受到」是及物變化動詞，常見的用法有兩種：",
+       "vi": "“受到” là động từ biến hoá cập vật, thường có hai cách dùng:",
+       "py": "“Shòudào” shì jí wù biànhuà dòngcí, chángjiàn de yòngfǎ yǒu liǎngzhǒng:"
       },
       {
        "hz": "因為氣候的關係，香蕉長得特別快，價格就便宜了。",
-       "vi": ""
+       "vi": "Do khí hậu, chuối lớn đặc biệt nhanh, giá cả cũng rẻ đi.",
+       "py": "Yīnwèi qìhòu de guānxì, xiāngjiāo zhǎng de tèbié kuài, jiàgé jiù piányi le."
       },
       {
        "hz": "我把做點心當成一生的事業，都是因為我的高中老師給我鼓勵。我現在所有的成就，全都要感謝他。",
-       "vi": ""
+       "vi": "Tôi coi làm bánh ngọt là sự nghiệp cả đời, đều là nhờ thầy giáo cấp ba đã động viên tôi. Mọi thành tựu hiện nay của tôi đều phải cảm ơn thầy.",
+       "py": "Wǒ bǎ zuò diǎnxīn dàngchéng yìshēng de shìyè, dōu shìyīnwèi wǒ de gāozhōng lǎoshī gěi wǒ gǔlì. Wǒ xiànzài suǒyǒu de chéngjiù, quándōu yào gǎnxiè tā."
       },
       {
        "hz": "請用「受到」來改寫以下句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “受到” để viết lại phần gạch chân trong các câu dưới đây.",
+       "py": "Qǐng yòng “shòudào” lái gǎixiě yǐxià jùzi zhōng huàxiàn de bùfèn."
       }
      ],
      "answer": null
@@ -6100,43 +7062,53 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "我們國家的總統很受人民支持。（「支持」當動詞時，「受」是介詞）2.他碰到困難時常受好友的鼓勵。（「鼓勵」當名詞時，「受」是動詞）3.我在公司工作時，想法常受限制。（「限制」當動詞時，「受」是介詞；「限制」當名詞時，「受」是動詞）「受」可當介詞或及物狀態動詞，跟「受到」一樣都有被動的意思。",
-       "vi": ""
+       "vi": "1. Tổng thống nước ta rất được nhân dân ủng hộ. (khi “支持” là động từ thì “受” là giới từ) 2. Khi gặp khó khăn anh ấy thường được bạn thân động viên. (khi “鼓勵” là danh từ thì “受” là động từ) 3. Khi làm việc ở công ty, suy nghĩ của tôi thường bị hạn chế. (khi “限制” là động từ thì “受” là giới từ; khi “限制” là danh từ thì “受” là động từ) “受” có thể làm giới từ hoặc động từ trạng thái cập vật, giống “受到” đều mang nghĩa bị động.",
+       "py": "Wǒmen guójiā de zǒngtǒng hěn shòu rénmín zhīchí. (“zhīchí” dāng dòngcí shí, “shòu” shì jiècí) 2. Tā pèngdàokùnnán shícháng shòu hǎoyǒu de gǔlì. (“gǔlì” dāng míngcí shí, “shòu” shì dòngcí) 3. Wǒ zài gōngsī gōngzuò shí, xiǎngfǎ cháng shòuxiànzhì. (“xiànzhì” dāng dòngcí shí, “shòu” shì jiècí; “xiànzhì” dāng míngcí shí, “shòu” shì dòngcí) “shòu” kě dāng jiècí huò jí wù zhuàngtài dòngcí, gēn “shòudào” yíyàng dōu yǒu bèidòng de yìsi."
       },
       {
        "hz": "⑴ 「受」是介詞時，常見用法是「受【人事物】＋【行為、影響】」、「受【行為、影響】」。這裡的【行為、影響】較常用狀態動詞或動詞來說明。",
-       "vi": ""
+       "vi": "(1) Khi “受” là giới từ, cách dùng thường gặp là “受【người/sự/vật】＋【hành vi, ảnh hưởng】”, “受【hành vi, ảnh hưởng】”. 【hành vi, ảnh hưởng】 ở đây thường dùng động từ trạng thái hoặc động từ để diễn đạt.",
+       "py": "⑴ “shòu” shì jiècí shí, chángjiàn yòngfǎ shì “shòu 【 rén shìwù 】 ＋ 【 xíngwéi, yǐngxiǎng 】”, “shòu 【 xíngwéi, yǐngxiǎng 】”. Zhèlǐ de 【 xíngwéi, yǐngxiǎng 】 jiào chángyòng zhuàngtài dòngcí huò dòngcí lái shuōmíng."
       },
       {
        "hz": "⑵ 「受」是及物狀態動詞時，常見用法是「受【人事物】的【行為、影響】」。這裡的【行為、影響】常用名詞或名詞短語來說明。",
-       "vi": ""
+       "vi": "(2) Khi “受” là động từ trạng thái cập vật, cách dùng thường gặp là “受【người/sự/vật】的【hành vi, ảnh hưởng】”. 【hành vi, ảnh hưởng】 ở đây thường dùng danh từ hoặc cụm danh từ để diễn đạt.",
+       "py": "⑵ “shòu” shì jí wù zhuàngtài dòngcí shí, chángjiàn yòngfǎ shì “shòu 【 rén shìwù 】 de 【 xíngwéi, yǐngxiǎng 】”. Zhèlǐ de 【 xíngwéi, yǐngxiǎng 】 chángyòng míngcí huò míngcí duǎnyǔ lái shuōmíng."
       },
       {
-       "hz": "（     ）1. 這首新歌十分受到年輕人歡迎。",
-       "vi": ""
+       "hz": "（ ）1. 這首新歌十分受到年輕人歡迎。",
+       "vi": "(  ) 1. Bài hát mới này rất được giới trẻ yêu thích.",
+       "py": "1. Zhè shǒu xīn gē shífēn shòudào niánqīngrén huānyíng."
       },
       {
-       "hz": "（     ）2. 我的車子受同事弄壞了，他打算賠我錢。",
-       "vi": ""
+       "hz": "（ ）2. 我的車子受同事弄壞了，他打算賠我錢。",
+       "vi": "(  ) 2. Xe của tôi bị đồng nghiệp làm hỏng, anh ấy định đền tiền cho tôi.",
+       "py": "2. Wǒ de chēzi shòu tóngshì nònghuàile, tā dǎsuàn péi wǒ qián."
       },
       {
-       "hz": "（     ）3. 他被朋友影響而有了吸毒的習慣。",
-       "vi": ""
+       "hz": "（ ）3. 他被朋友影響而有了吸毒的習慣。",
+       "vi": "(  ) 3. Anh ấy bị bạn bè ảnh hưởng mà có thói quen hút chích ma tuý.",
+       "py": "3. Tā bèi péngyǒu yǐngxiǎng ér yǒu le xīdú de xíguàn."
       },
       {
-       "hz": "（     ）4. 這本小說讓我深深地被感動。",
-       "vi": ""
+       "hz": "（ ）4. 這本小說讓我深深地被感動。",
+       "vi": "(  ) 4. Quyển tiểu thuyết này khiến tôi vô cùng xúc động.",
+       "py": "4. Zhèběn xiǎoshuō ràng wǒ shēnshēndì bèi gǎndòng."
       },
       {
-       "hz": "（     ）5. 這次地震最被影響的是東部地區。",
-       "vi": ""
+       "hz": "（ ）5. 這次地震最被影響的是東部地區。",
+       "vi": "(  ) 5. Trận động đất lần này, khu vực bị ảnh hưởng nhiều nhất là miền Đông.",
+       "py": "5. Zhècì dìzhèn zuì bèi yǐngxiǎng de shì dōngbù dìqū."
       },
       {
-       "hz": "（     ）6. 員工的意見如果能受到重視，公司也會發展得更好。",
-       "vi": ""
+       "hz": "（ ）6. 員工的意見如果能受到重視，公司也會發展得更好。",
+       "vi": "(  ) 6. Nếu ý kiến của nhân viên được coi trọng thì công ty cũng sẽ phát triển tốt hơn.",
+       "py": "6. Yuángōng de yìjiàn rúguǒ néng shòudàozhòngshì, gōngsī yě huì fāzhǎn de gènghǎo."
       },
       {
        "hz": "以下的句子中，「受到」、「受」、「被」的用法對不對？",
-       "vi": ""
+       "vi": "Trong các câu dưới đây, cách dùng “受到”, “受”, “被” đúng hay sai?",
+       "py": "Yǐxià de jùzi zhōng, “shòudào”, “shòu”, “bèi” de yòngfǎ duì bú duì?"
       }
      ],
      "answer": null
@@ -6155,20 +7127,24 @@ export const thoidaiGrammar4 = {
      "formula": "「明明」是副詞，表示說話的人認為「明明」後面的事情、情況很明顯、很清楚，不過在說話時看到或聽到的，跟自己原來所知道的不同。",
      "examples": [
       {
-       "hz": "那個男的又花心又常發脾氣，缺點明明那麼多，實在無法理解   張小姐為什麼還那麼愛他。2. 我剛離開教室沒多久，手機就不見了，我明明放在書上的。",
-       "vi": ""
+       "hz": "那個男的又花心又常發脾氣，缺點明明那麼多，實在無法理解張小姐為什麼還那麼愛他。2. 我剛離開教室沒多久，手機就不見了，我明明放在書上的。",
+       "vi": "1. Anh chàng đó vừa trăng hoa vừa hay nổi nóng, khuyết điểm rõ ràng nhiều như vậy, thật không hiểu nổi sao cô Trương vẫn yêu anh ta đến thế. 2. Tôi vừa ra khỏi lớp chưa bao lâu thì điện thoại đã mất, rõ ràng tôi để trên quyển sách mà.",
+       "py": "Nàge nán de yòu huāxīn yòu cháng fāpíqì, quēdiǎn míngmíng nàme duō, shízài wúfǎ lǐjiě Zhāng xiǎojiě wèishénme hái nàme ài tā. 2. Wǒ gāng líkāi jiàoshì méiduōjiǔ, shǒujī jiù bújiàn le, wǒ míngmíng fàngzài shūshàng de."
       },
       {
        "hz": "廁所門口寫得很清楚，寫著「馬桶修理中，請不要使用」，可是剛剛還是有人進去用了，真讓人受不了。",
-       "vi": ""
+       "vi": "Ở cửa nhà vệ sinh đã ghi rất rõ “Bồn cầu đang sửa, xin đừng sử dụng”, vậy mà vừa rồi vẫn có người vào dùng, thật không chịu nổi.",
+       "py": "Cèsuǒ ménkǒu xiě de hěn qīngchǔ, xiě zhe “mǎtǒng xiūlǐ zhōng, qǐng búyào shǐyòng”, kěshì gānggāng háishì yǒurén jìnqù yòng le, zhēnràngrén shòubùliǎo."
       },
       {
        "hz": "我國的社會福利制度在各方面都很理想，這點是可以確定的，不過似乎不管怎麼改變，總是有人不滿意。",
-       "vi": ""
+       "vi": "Chế độ phúc lợi xã hội nước ta về mọi mặt đều rất lý tưởng, điều này là chắc chắn, nhưng dường như dù thay đổi thế nào vẫn luôn có người không hài lòng.",
+       "py": "Wǒguó de shèhuì fúlìzhìdù zài gè fāngmiàn dōu hěn lǐxiǎng, zhèdiǎn shì kěyǐ quèdìng de, búguò sìhū bùguǎnzěnme gǎibiàn, zǒngshì yǒurén bù mǎnyì."
       },
       {
        "hz": "請用「明明」來改寫以下句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “明明” để viết lại phần gạch chân trong các câu dưới đây.",
+       "py": "Qǐng yòng “míngmíng” lái gǎixiě yǐxià jùzi zhōng huàxiàn de bùfèn."
       }
      ],
      "answer": null
@@ -6185,24 +7161,29 @@ export const thoidaiGrammar4 = {
      "formula": "「的確」是副詞，表示說話的人肯定別人所說的事情或看法，認為完全符合實際情況。用法是「【某人事物】＋的確【同意或肯定的情況】」。",
      "examples": [
       {
-       "hz": "A：老李寫的舞臺劇劇本，大家都覺得不錯。不知道你讀過以後有   沒有什麼想法？B：他寫的劇本的確很精彩，讓我忍不住讀了又讀。",
-       "vi": ""
+       "hz": "A：老李寫的舞臺劇劇本，大家都覺得不錯。不知道你讀過以後有沒有什麼想法？B：他寫的劇本的確很精彩，讓我忍不住讀了又讀。",
+       "vi": "A: Kịch bản kịch sân khấu anh Lý viết, mọi người đều thấy hay. Không biết bạn đọc xong có suy nghĩ gì không? B: Kịch bản anh ấy viết đúng là rất đặc sắc, khiến tôi không kìm được mà đọc đi đọc lại.",
+       "py": "A: Lǎolǐ xiě de wǔtáijù jùběn, dàjiā dōu juéde búcuò. Bù zhīdào nǐ dú guò yǐhòu yǒuméiyǒu shénme xiǎngfǎ? B: Tā xiě de jùběn díquè hěn jīngcǎi, ràng wǒ rěnbúzhù dú le yòu dú."
       },
       {
        "hz": "A：聽說你早上差點兒坐上那班發生意外的火車，是老闆的電話救了你。這是真的嗎？",
-       "vi": ""
+       "vi": "A: Nghe nói sáng nay bạn suýt lên chuyến tàu gặp nạn đó, là cuộc điện thoại của ông chủ đã cứu bạn. Chuyện đó có thật không?",
+       "py": "A: Tīngshuō nǐ zǎoshàng chàdiǎn'ér zuò shàng nà bān fāshēngyìwài de huǒchē, shì lǎobǎn de diànhuà jiù le nǐ. Zhè shì zhēnde ma?"
       },
       {
        "hz": "A：那個小張大事小事都找人吵架，你還說他是很溫柔的人。",
-       "vi": ""
+       "vi": "A: Cậu Tiểu Trương đó chuyện lớn chuyện nhỏ gì cũng gây sự cãi nhau, thế mà bạn còn nói cậu ấy là người rất dịu dàng.",
+       "py": "A: Nàge xiǎozhāng dàshì xiǎoshì dōu zhǎo rén chǎojià, nǐ hái shuō tā shì hěn wēnróu de rén."
       },
       {
        "hz": "他到底給了你多少好處？",
-       "vi": ""
+       "vi": "Rốt cuộc cậu ta đã cho bạn bao nhiêu lợi lộc?",
+       "py": "Tā dàodǐ gěi le nǐ duōshǎo hǎochù?"
       },
       {
        "hz": "請用「的確」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “的確” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “díquè” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -6219,36 +7200,44 @@ export const thoidaiGrammar4 = {
      "formula": "「免得」是助動詞，後面放動詞或動詞短句。「免得」有能夠避免的意思，表示用前句提到的方式，或是因為有前句的情況，才能避免「免得」後面的情況。通常用在說話的人認為影響較大的事。 「何必」是副詞，表示說話的人以反問的方式，告訴別人不需要做「何必」之後的事情。句子最後常用「呢」，以問號結束句子。",
      "examples": [
       {
-       "hz": "A：我把蛋糕放在桌上，想等會兒再吃。你為什麼說別放太久，是   怕蛋糕不新鮮嗎？B：你應該早點兒吃完或是放在冰箱，免得螞蟻爬滿蛋糕，你就吃   不成了。",
-       "vi": ""
+       "hz": "A：我把蛋糕放在桌上，想等會兒再吃。你為什麼說別放太久，是怕蛋糕不新鮮嗎？B：你應該早點兒吃完或是放在冰箱，免得螞蟻爬滿蛋糕，你就吃不成了。",
+       "vi": "A: Tôi để bánh kem trên bàn, định lát nữa ăn. Sao bạn nói đừng để lâu, sợ bánh không tươi à? B: Bạn nên ăn sớm hoặc cho vào tủ lạnh, kẻo kiến bò đầy bánh thì bạn không ăn được nữa.",
+       "py": "A: Wǒ bǎ dàngāo fàngzài zhuōshàng, xiǎng děnghuì'er zài chī. Nǐ wèishénme shuō bié fàng tàijiǔ, shì pà dàngāo bù xīnxiān ma? B: Nǐ yīnggāi zǎodiǎn'ér chī wán huòshì fàngzài bīngxiāng, miǎnde mǎyǐ pámǎn dàngāo, nǐ jiù chī bùchéng le."
       },
       {
        "hz": "A：我第一次參加正式的網球比賽，請問教練，有沒有應該注意2. A：中午在湖邊野餐，真是一種享受。時間差不多了，準備回家吧。",
-       "vi": ""
+       "vi": "A: Lần đầu tôi tham gia giải quần vợt chính thức, thưa huấn luyện viên, có gì cần chú ý không ạ? 2. A: Buổi trưa đi dã ngoại bên hồ thật là thú vị. Cũng đến giờ rồi, chuẩn bị về nhà thôi.",
+       "py": "A: Wǒ dìyīcì cānjiā zhèngshì de wǎngqiú bǐsài, qǐngwèn jiàoliàn, yǒuméiyǒu yīnggāi zhùyì 2. A: Zhōngwǔ zài húbiān yěcān, zhēnshì yìzhǒng xiǎngshòu. Shíjiān chàbuduō le, zhǔnbèi huíjiāba."
       },
       {
        "hz": "請用「免得」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “免得” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “miǎnde” wánchéng yǐxià de duìhuà."
       },
       {
        "hz": "國家法律制度無法在一夜之間改變，需要長期討論與調整。",
-       "vi": ""
+       "vi": "Chế độ pháp luật quốc gia không thể thay đổi trong một đêm, cần thảo luận và điều chỉnh lâu dài.",
+       "py": "Guójiā fǎlǜ zhìdù wúfǎ zài yíyèzhījiān gǎibiàn, xūyào chángqí tǎolùn yǔ tiáozhěng."
       },
       {
        "hz": "A：葉老闆長得又矮又胖，說話也不客氣，一點優點都沒有。B：你不喜歡他就算了，何必說他的壞話呢？",
-       "vi": ""
+       "vi": "A: Ông chủ Diệp vừa lùn vừa béo, nói chuyện cũng không khách sáo, chẳng có ưu điểm gì. B: Bạn không thích ông ấy thì thôi, cần gì phải nói xấu ông ấy?",
+       "py": "A: Yè lǎobǎn zhǎng de yòu ǎi yòu pàng, shuōhuà yě bú kèqì, yìdiǎn yōudiǎn dōu méiyǒu. B: Nǐ bù xǐhuān tā jiùsuàn le, hébì shuō tā de huàihuà ne?"
       },
       {
        "hz": "A：再兩天就是農曆新年了，要不要買幾個燈籠放在家裡布置？",
-       "vi": ""
+       "vi": "A: Hai ngày nữa là Tết Âm lịch rồi, có nên mua mấy chiếc đèn lồng để trang trí trong nhà không?",
+       "py": "A: Zài liǎngtiān jiùshì nónglì xīnnián le, yào búyào mǎi jǐgè dēnglóng fàngzài jiālǐ bùzhì?"
       },
       {
        "hz": "A：那個新同事總認為自己是正確的。開會時我忍不住，就跟他大吵了一架。",
-       "vi": ""
+       "vi": "A: Anh đồng nghiệp mới đó lúc nào cũng cho mình là đúng. Lúc họp tôi không nhịn được nên đã cãi nhau to với anh ta.",
+       "py": "A: Nàge xīn tóngshì zǒng rènwéi zìjǐ shì zhèngquè de. Kāihuì shí wǒ rěnbúzhù, jiù gēn tā dàchǎo le yíjià."
       },
       {
        "hz": "請用「何必」來完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “何必” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “hébì” lái wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -6266,19 +7255,23 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：一個人得怎麼做，事業才能有成就？B：努力和用心學習當然很重要，此外也必須參考別人的意見。",
-       "vi": ""
+       "vi": "A: Một người phải làm thế nào thì sự nghiệp mới có thành tựu? B: Nỗ lực và chịu khó học hỏi đương nhiên rất quan trọng, ngoài ra còn phải tham khảo ý kiến người khác.",
+       "py": "A: Yígè rén de zěnme zuò, shìyè cáinéng yǒu chéngjiù? B: Nǔlì hàn yòngxīn xuéxí dāngrán hěn zhòngyào, cǐwài yě bìxū cānkǎo biérén de yìjiàn."
       },
       {
        "hz": "A：為什麼有那麼多外國公司選擇到你們國家開工廠呢？",
-       "vi": ""
+       "vi": "A: Tại sao có nhiều công ty nước ngoài chọn đến nước các bạn mở nhà máy như vậy?",
+       "py": "A: Wèishénme yǒu nàme duō wàiguó gōngsī xuǎnzé dào nǐmen guójiā kāi gōngchǎng ne?"
       },
       {
        "hz": "A：最近去你們那個地區觀光的遊客怎麼那麼多？",
-       "vi": ""
+       "vi": "A: Dạo này sao khách du lịch đến khu vực của các bạn đông thế?",
+       "py": "A: Zuìjìn qù nǐmen nàge dìqū guānguāng de yóukè zěnme nàme duō?"
       },
       {
        "hz": "請用「此外」來完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “此外” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “cǐwài” lái wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -6295,24 +7288,29 @@ export const thoidaiGrammar4 = {
      "formula": "⑴ 「A受到【情況、行為】」：表示A得到某個事物，或是碰到不好的情況。 ⑵ 「C受到B的【情況、行為】」：表示因為B，使C得到某個事物，或是碰到不好的情況。說明1、2中的【情況、行為】常用名詞或名詞短語來說明。",
      "examples": [
       {
-       "hz": "⑴ 那位同事努力了很久，能力終於受到老闆(的)重視。⑵ 他因為親人去世受到了很大的影響。     ⑶ 這個國家目前正受到其他國家(的)批評。",
-       "vi": ""
+       "hz": "⑴ 那位同事努力了很久，能力終於受到老闆(的)重視。⑵ 他因為親人去世受到了很大的影響。 ⑶ 這個國家目前正受到其他國家(的)批評。",
+       "vi": "(1) Đồng nghiệp đó nỗ lực rất lâu, năng lực cuối cùng cũng được ông chủ coi trọng. (2) Anh ấy chịu ảnh hưởng rất lớn vì người thân qua đời. (3) Nước này hiện đang bị các nước khác chỉ trích.",
+       "py": "⑴ nàwèi tóngshì nǔlì le hěn jiǔ, nénglì zhōngyú shòudào lǎobǎn (de) zhòngshì. ⑵ tā yīnwèi qīnrén qùshì shòudào le hěndà de yǐngxiǎng. ⑶ zhège guójiā mùqián zhèng shòudào qítā guójiā (de) pīpíng."
       },
       {
-       "hz": "「受到」是及物變化動詞(Vpt)，常見的用法有兩種：",
-       "vi": ""
+       "hz": "「受到」是及物變化動詞，常見的用法有兩種：",
+       "vi": "“受到” là động từ biến hoá cập vật, thường có hai cách dùng:",
+       "py": "“Shòudào” shì jí wù biànhuà dòngcí, chángjiàn de yòngfǎ yǒu liǎngzhǒng:"
       },
       {
        "hz": "因為氣候的關係，香蕉長得特別快，價格就便宜了。",
-       "vi": ""
+       "vi": "Do khí hậu, chuối lớn đặc biệt nhanh, giá cả cũng rẻ đi.",
+       "py": "Yīnwèi qìhòu de guānxì, xiāngjiāo zhǎng de tèbié kuài, jiàgé jiù piányi le."
       },
       {
        "hz": "我把做點心當成一生的事業，都是因為我的高中老師給我鼓勵。我現在所有的成就，全都要感謝他。",
-       "vi": ""
+       "vi": "Tôi coi làm bánh ngọt là sự nghiệp cả đời, đều là nhờ thầy giáo cấp ba đã động viên tôi. Mọi thành tựu hiện nay của tôi đều phải cảm ơn thầy.",
+       "py": "Wǒ bǎ zuò diǎnxīn dàngchéng yìshēng de shìyè, dōu shìyīnwèi wǒ de gāozhōng lǎoshī gěi wǒ gǔlì. Wǒ xiànzài suǒyǒu de chéngjiù, quándōu yào gǎnxiè tā."
       },
       {
        "hz": "請用「受到」來改寫以下句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “受到” để viết lại phần gạch chân trong các câu dưới đây.",
+       "py": "Qǐng yòng “shòudào” lái gǎixiě yǐxià jùzi zhōng huàxiàn de bùfèn."
       }
      ],
      "answer": null
@@ -6330,43 +7328,53 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "我們國家的總統很受人民支持。（「支持」當動詞時，「受」是介詞）2.他碰到困難時常受好友的鼓勵。（「鼓勵」當名詞時，「受」是動詞）3.我在公司工作時，想法常受限制。（「限制」當動詞時，「受」是介詞；「限制」當名詞時，「受」是動詞）「受」可當介詞或及物狀態動詞，跟「受到」一樣都有被動的意思。",
-       "vi": ""
+       "vi": "1. Tổng thống nước ta rất được nhân dân ủng hộ. (khi “支持” là động từ thì “受” là giới từ) 2. Khi gặp khó khăn anh ấy thường được bạn thân động viên. (khi “鼓勵” là danh từ thì “受” là động từ) 3. Khi làm việc ở công ty, suy nghĩ của tôi thường bị hạn chế. (khi “限制” là động từ thì “受” là giới từ; khi “限制” là danh từ thì “受” là động từ) “受” có thể làm giới từ hoặc động từ trạng thái cập vật, giống “受到” đều mang nghĩa bị động.",
+       "py": "Wǒmen guójiā de zǒngtǒng hěn shòu rénmín zhīchí. (“zhīchí” dāng dòngcí shí, “shòu” shì jiècí) 2. Tā pèngdàokùnnán shícháng shòu hǎoyǒu de gǔlì. (“gǔlì” dāng míngcí shí, “shòu” shì dòngcí) 3. Wǒ zài gōngsī gōngzuò shí, xiǎngfǎ cháng shòuxiànzhì. (“xiànzhì” dāng dòngcí shí, “shòu” shì jiècí; “xiànzhì” dāng míngcí shí, “shòu” shì dòngcí) “shòu” kě dāng jiècí huò jí wù zhuàngtài dòngcí, gēn “shòudào” yíyàng dōu yǒu bèidòng de yìsi."
       },
       {
        "hz": "⑴ 「受」是介詞時，常見用法是「受【人事物】＋【行為、影響】」、「受【行為、影響】」。這裡的【行為、影響】較常用狀態動詞或動詞來說明。",
-       "vi": ""
+       "vi": "(1) Khi “受” là giới từ, cách dùng thường gặp là “受【người/sự/vật】＋【hành vi, ảnh hưởng】”, “受【hành vi, ảnh hưởng】”. 【hành vi, ảnh hưởng】 ở đây thường dùng động từ trạng thái hoặc động từ để diễn đạt.",
+       "py": "⑴ “shòu” shì jiècí shí, chángjiàn yòngfǎ shì “shòu 【 rén shìwù 】 ＋ 【 xíngwéi, yǐngxiǎng 】”, “shòu 【 xíngwéi, yǐngxiǎng 】”. Zhèlǐ de 【 xíngwéi, yǐngxiǎng 】 jiào chángyòng zhuàngtài dòngcí huò dòngcí lái shuōmíng."
       },
       {
        "hz": "⑵ 「受」是及物狀態動詞時，常見用法是「受【人事物】的【行為、影響】」。這裡的【行為、影響】常用名詞或名詞短語來說明。",
-       "vi": ""
+       "vi": "(2) Khi “受” là động từ trạng thái cập vật, cách dùng thường gặp là “受【người/sự/vật】的【hành vi, ảnh hưởng】”. 【hành vi, ảnh hưởng】 ở đây thường dùng danh từ hoặc cụm danh từ để diễn đạt.",
+       "py": "⑵ “shòu” shì jí wù zhuàngtài dòngcí shí, chángjiàn yòngfǎ shì “shòu 【 rén shìwù 】 de 【 xíngwéi, yǐngxiǎng 】”. Zhèlǐ de 【 xíngwéi, yǐngxiǎng 】 chángyòng míngcí huò míngcí duǎnyǔ lái shuōmíng."
       },
       {
-       "hz": "（     ）1. 這首新歌十分受到年輕人歡迎。",
-       "vi": ""
+       "hz": "（ ）1. 這首新歌十分受到年輕人歡迎。",
+       "vi": "(  ) 1. Bài hát mới này rất được giới trẻ yêu thích.",
+       "py": "1. Zhè shǒu xīn gē shífēn shòudào niánqīngrén huānyíng."
       },
       {
-       "hz": "（     ）2. 我的車子受同事弄壞了，他打算賠我錢。",
-       "vi": ""
+       "hz": "（ ）2. 我的車子受同事弄壞了，他打算賠我錢。",
+       "vi": "(  ) 2. Xe của tôi bị đồng nghiệp làm hỏng, anh ấy định đền tiền cho tôi.",
+       "py": "2. Wǒ de chēzi shòu tóngshì nònghuàile, tā dǎsuàn péi wǒ qián."
       },
       {
-       "hz": "（     ）3. 他被朋友影響而有了吸毒的習慣。",
-       "vi": ""
+       "hz": "（ ）3. 他被朋友影響而有了吸毒的習慣。",
+       "vi": "(  ) 3. Anh ấy bị bạn bè ảnh hưởng mà có thói quen hút chích ma tuý.",
+       "py": "3. Tā bèi péngyǒu yǐngxiǎng ér yǒu le xīdú de xíguàn."
       },
       {
-       "hz": "（     ）4. 這本小說讓我深深地被感動。",
-       "vi": ""
+       "hz": "（ ）4. 這本小說讓我深深地被感動。",
+       "vi": "(  ) 4. Quyển tiểu thuyết này khiến tôi vô cùng xúc động.",
+       "py": "4. Zhèběn xiǎoshuō ràng wǒ shēnshēndì bèi gǎndòng."
       },
       {
-       "hz": "（     ）5. 這次地震最被影響的是東部地區。",
-       "vi": ""
+       "hz": "（ ）5. 這次地震最被影響的是東部地區。",
+       "vi": "(  ) 5. Trận động đất lần này, khu vực bị ảnh hưởng nhiều nhất là miền Đông.",
+       "py": "5. Zhècì dìzhèn zuì bèi yǐngxiǎng de shì dōngbù dìqū."
       },
       {
-       "hz": "（     ）6. 員工的意見如果能受到重視，公司也會發展得更好。",
-       "vi": ""
+       "hz": "（ ）6. 員工的意見如果能受到重視，公司也會發展得更好。",
+       "vi": "(  ) 6. Nếu ý kiến của nhân viên được coi trọng thì công ty cũng sẽ phát triển tốt hơn.",
+       "py": "6. Yuángōng de yìjiàn rúguǒ néng shòudàozhòngshì, gōngsī yě huì fāzhǎn de gènghǎo."
       },
       {
        "hz": "以下的句子中，「受到」、「受」、「被」的用法對不對？",
-       "vi": ""
+       "vi": "Trong các câu dưới đây, cách dùng “受到”, “受”, “被” đúng hay sai?",
+       "py": "Yǐxià de jùzi zhōng, “shòudào”, “shòu”, “bèi” de yòngfǎ duì bú duì?"
       }
      ],
      "answer": null
@@ -6385,20 +7393,24 @@ export const thoidaiGrammar4 = {
      "formula": "「明明」是副詞，表示說話的人認為「明明」後面的事情、情況很明顯、很清楚，不過在說話時看到或聽到的，跟自己原來所知道的不同。",
      "examples": [
       {
-       "hz": "那個男的又花心又常發脾氣，缺點明明那麼多，實在無法理解   張小姐為什麼還那麼愛他。2. 我剛離開教室沒多久，手機就不見了，我明明放在書上的。",
-       "vi": ""
+       "hz": "那個男的又花心又常發脾氣，缺點明明那麼多，實在無法理解張小姐為什麼還那麼愛他。2. 我剛離開教室沒多久，手機就不見了，我明明放在書上的。",
+       "vi": "1. Anh chàng đó vừa trăng hoa vừa hay nổi nóng, khuyết điểm rõ ràng nhiều như vậy, thật không hiểu nổi sao cô Trương vẫn yêu anh ta đến thế. 2. Tôi vừa ra khỏi lớp chưa bao lâu thì điện thoại đã mất, rõ ràng tôi để trên quyển sách mà.",
+       "py": "Nàge nán de yòu huāxīn yòu cháng fāpíqì, quēdiǎn míngmíng nàme duō, shízài wúfǎ lǐjiě Zhāng xiǎojiě wèishénme hái nàme ài tā. 2. Wǒ gāng líkāi jiàoshì méiduōjiǔ, shǒujī jiù bújiàn le, wǒ míngmíng fàngzài shūshàng de."
       },
       {
        "hz": "廁所門口寫得很清楚，寫著「馬桶修理中，請不要使用」，可是剛剛還是有人進去用了，真讓人受不了。",
-       "vi": ""
+       "vi": "Ở cửa nhà vệ sinh đã ghi rất rõ “Bồn cầu đang sửa, xin đừng sử dụng”, vậy mà vừa rồi vẫn có người vào dùng, thật không chịu nổi.",
+       "py": "Cèsuǒ ménkǒu xiě de hěn qīngchǔ, xiě zhe “mǎtǒng xiūlǐ zhōng, qǐng búyào shǐyòng”, kěshì gānggāng háishì yǒurén jìnqù yòng le, zhēnràngrén shòubùliǎo."
       },
       {
        "hz": "我國的社會福利制度在各方面都很理想，這點是可以確定的，不過似乎不管怎麼改變，總是有人不滿意。",
-       "vi": ""
+       "vi": "Chế độ phúc lợi xã hội nước ta về mọi mặt đều rất lý tưởng, điều này là chắc chắn, nhưng dường như dù thay đổi thế nào vẫn luôn có người không hài lòng.",
+       "py": "Wǒguó de shèhuì fúlìzhìdù zài gè fāngmiàn dōu hěn lǐxiǎng, zhèdiǎn shì kěyǐ quèdìng de, búguò sìhū bùguǎnzěnme gǎibiàn, zǒngshì yǒurén bù mǎnyì."
       },
       {
        "hz": "請用「明明」來改寫以下句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “明明” để viết lại phần gạch chân trong các câu dưới đây.",
+       "py": "Qǐng yòng “míngmíng” lái gǎixiě yǐxià jùzi zhōng huàxiàn de bùfèn."
       }
      ],
      "answer": null
@@ -6415,24 +7427,29 @@ export const thoidaiGrammar4 = {
      "formula": "「的確」是副詞，表示說話的人肯定別人所說的事情或看法，認為完全符合實際情況。用法是「【某人事物】＋的確【同意或肯定的情況】」。",
      "examples": [
       {
-       "hz": "A：老李寫的舞臺劇劇本，大家都覺得不錯。不知道你讀過以後有   沒有什麼想法？B：他寫的劇本的確很精彩，讓我忍不住讀了又讀。",
-       "vi": ""
+       "hz": "A：老李寫的舞臺劇劇本，大家都覺得不錯。不知道你讀過以後有沒有什麼想法？B：他寫的劇本的確很精彩，讓我忍不住讀了又讀。",
+       "vi": "A: Kịch bản kịch sân khấu anh Lý viết, mọi người đều thấy hay. Không biết bạn đọc xong có suy nghĩ gì không? B: Kịch bản anh ấy viết đúng là rất đặc sắc, khiến tôi không kìm được mà đọc đi đọc lại.",
+       "py": "A: Lǎolǐ xiě de wǔtáijù jùběn, dàjiā dōu juéde búcuò. Bù zhīdào nǐ dú guò yǐhòu yǒuméiyǒu shénme xiǎngfǎ? B: Tā xiě de jùběn díquè hěn jīngcǎi, ràng wǒ rěnbúzhù dú le yòu dú."
       },
       {
        "hz": "A：聽說你早上差點兒坐上那班發生意外的火車，是老闆的電話救了你。這是真的嗎？",
-       "vi": ""
+       "vi": "A: Nghe nói sáng nay bạn suýt lên chuyến tàu gặp nạn đó, là cuộc điện thoại của ông chủ đã cứu bạn. Chuyện đó có thật không?",
+       "py": "A: Tīngshuō nǐ zǎoshàng chàdiǎn'ér zuò shàng nà bān fāshēngyìwài de huǒchē, shì lǎobǎn de diànhuà jiù le nǐ. Zhè shì zhēnde ma?"
       },
       {
        "hz": "A：那個小張大事小事都找人吵架，你還說他是很溫柔的人。",
-       "vi": ""
+       "vi": "A: Cậu Tiểu Trương đó chuyện lớn chuyện nhỏ gì cũng gây sự cãi nhau, thế mà bạn còn nói cậu ấy là người rất dịu dàng.",
+       "py": "A: Nàge xiǎozhāng dàshì xiǎoshì dōu zhǎo rén chǎojià, nǐ hái shuō tā shì hěn wēnróu de rén."
       },
       {
        "hz": "他到底給了你多少好處？",
-       "vi": ""
+       "vi": "Rốt cuộc cậu ta đã cho bạn bao nhiêu lợi lộc?",
+       "py": "Tā dàodǐ gěi le nǐ duōshǎo hǎochù?"
       },
       {
        "hz": "請用「的確」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “的確” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “díquè” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -6449,36 +7466,44 @@ export const thoidaiGrammar4 = {
      "formula": "「免得」是助動詞，後面放動詞或動詞短句。「免得」有能夠避免的意思，表示用前句提到的方式，或是因為有前句的情況，才能避免「免得」後面的情況。通常用在說話的人認為影響較大的事。 「何必」是副詞，表示說話的人以反問的方式，告訴別人不需要做「何必」之後的事情。句子最後常用「呢」，以問號結束句子。",
      "examples": [
       {
-       "hz": "A：我把蛋糕放在桌上，想等會兒再吃。你為什麼說別放太久，是   怕蛋糕不新鮮嗎？B：你應該早點兒吃完或是放在冰箱，免得螞蟻爬滿蛋糕，你就吃   不成了。",
-       "vi": ""
+       "hz": "A：我把蛋糕放在桌上，想等會兒再吃。你為什麼說別放太久，是怕蛋糕不新鮮嗎？B：你應該早點兒吃完或是放在冰箱，免得螞蟻爬滿蛋糕，你就吃不成了。",
+       "vi": "A: Tôi để bánh kem trên bàn, định lát nữa ăn. Sao bạn nói đừng để lâu, sợ bánh không tươi à? B: Bạn nên ăn sớm hoặc cho vào tủ lạnh, kẻo kiến bò đầy bánh thì bạn không ăn được nữa.",
+       "py": "A: Wǒ bǎ dàngāo fàngzài zhuōshàng, xiǎng děnghuì'er zài chī. Nǐ wèishénme shuō bié fàng tàijiǔ, shì pà dàngāo bù xīnxiān ma? B: Nǐ yīnggāi zǎodiǎn'ér chī wán huòshì fàngzài bīngxiāng, miǎnde mǎyǐ pámǎn dàngāo, nǐ jiù chī bùchéng le."
       },
       {
        "hz": "A：我第一次參加正式的網球比賽，請問教練，有沒有應該注意2. A：中午在湖邊野餐，真是一種享受。時間差不多了，準備回家吧。",
-       "vi": ""
+       "vi": "A: Lần đầu tôi tham gia giải quần vợt chính thức, thưa huấn luyện viên, có gì cần chú ý không ạ? 2. A: Buổi trưa đi dã ngoại bên hồ thật là thú vị. Cũng đến giờ rồi, chuẩn bị về nhà thôi.",
+       "py": "A: Wǒ dìyīcì cānjiā zhèngshì de wǎngqiú bǐsài, qǐngwèn jiàoliàn, yǒuméiyǒu yīnggāi zhùyì 2. A: Zhōngwǔ zài húbiān yěcān, zhēnshì yìzhǒng xiǎngshòu. Shíjiān chàbuduō le, zhǔnbèi huíjiāba."
       },
       {
        "hz": "請用「免得」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “免得” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “miǎnde” wánchéng yǐxià de duìhuà."
       },
       {
        "hz": "國家法律制度無法在一夜之間改變，需要長期討論與調整。",
-       "vi": ""
+       "vi": "Chế độ pháp luật quốc gia không thể thay đổi trong một đêm, cần thảo luận và điều chỉnh lâu dài.",
+       "py": "Guójiā fǎlǜ zhìdù wúfǎ zài yíyèzhījiān gǎibiàn, xūyào chángqí tǎolùn yǔ tiáozhěng."
       },
       {
        "hz": "A：葉老闆長得又矮又胖，說話也不客氣，一點優點都沒有。B：你不喜歡他就算了，何必說他的壞話呢？",
-       "vi": ""
+       "vi": "A: Ông chủ Diệp vừa lùn vừa béo, nói chuyện cũng không khách sáo, chẳng có ưu điểm gì. B: Bạn không thích ông ấy thì thôi, cần gì phải nói xấu ông ấy?",
+       "py": "A: Yè lǎobǎn zhǎng de yòu ǎi yòu pàng, shuōhuà yě bú kèqì, yìdiǎn yōudiǎn dōu méiyǒu. B: Nǐ bù xǐhuān tā jiùsuàn le, hébì shuō tā de huàihuà ne?"
       },
       {
        "hz": "A：再兩天就是農曆新年了，要不要買幾個燈籠放在家裡布置？",
-       "vi": ""
+       "vi": "A: Hai ngày nữa là Tết Âm lịch rồi, có nên mua mấy chiếc đèn lồng để trang trí trong nhà không?",
+       "py": "A: Zài liǎngtiān jiùshì nónglì xīnnián le, yào búyào mǎi jǐgè dēnglóng fàngzài jiālǐ bùzhì?"
       },
       {
        "hz": "A：那個新同事總認為自己是正確的。開會時我忍不住，就跟他大吵了一架。",
-       "vi": ""
+       "vi": "A: Anh đồng nghiệp mới đó lúc nào cũng cho mình là đúng. Lúc họp tôi không nhịn được nên đã cãi nhau to với anh ta.",
+       "py": "A: Nàge xīn tóngshì zǒng rènwéi zìjǐ shì zhèngquè de. Kāihuì shí wǒ rěnbúzhù, jiù gēn tā dàchǎo le yíjià."
       },
       {
        "hz": "請用「何必」來完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “何必” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “hébì” lái wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -6496,19 +7521,23 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：一個人得怎麼做，事業才能有成就？B：努力和用心學習當然很重要，此外也必須參考別人的意見。",
-       "vi": ""
+       "vi": "A: Một người phải làm thế nào thì sự nghiệp mới có thành tựu? B: Nỗ lực và chịu khó học hỏi đương nhiên rất quan trọng, ngoài ra còn phải tham khảo ý kiến người khác.",
+       "py": "A: Yígè rén de zěnme zuò, shìyè cáinéng yǒu chéngjiù? B: Nǔlì hàn yòngxīn xuéxí dāngrán hěn zhòngyào, cǐwài yě bìxū cānkǎo biérén de yìjiàn."
       },
       {
        "hz": "A：為什麼有那麼多外國公司選擇到你們國家開工廠呢？",
-       "vi": ""
+       "vi": "A: Tại sao có nhiều công ty nước ngoài chọn đến nước các bạn mở nhà máy như vậy?",
+       "py": "A: Wèishénme yǒu nàme duō wàiguó gōngsī xuǎnzé dào nǐmen guójiā kāi gōngchǎng ne?"
       },
       {
        "hz": "A：最近去你們那個地區觀光的遊客怎麼那麼多？",
-       "vi": ""
+       "vi": "A: Dạo này sao khách du lịch đến khu vực của các bạn đông thế?",
+       "py": "A: Zuìjìn qù nǐmen nàge dìqū guānguāng de yóukè zěnme nàme duō?"
       },
       {
        "hz": "請用「此外」來完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “此外” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “cǐwài” lái wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -6525,24 +7554,29 @@ export const thoidaiGrammar4 = {
      "formula": "⑴ 「A受到【情況、行為】」：表示A得到某個事物，或是碰到不好的情況。 ⑵ 「C受到B的【情況、行為】」：表示因為B，使C得到某個事物，或是碰到不好的情況。說明1、2中的【情況、行為】常用名詞或名詞短語來說明。",
      "examples": [
       {
-       "hz": "⑴ 那位同事努力了很久，能力終於受到老闆(的)重視。⑵ 他因為親人去世受到了很大的影響。     ⑶ 這個國家目前正受到其他國家(的)批評。",
-       "vi": ""
+       "hz": "⑴ 那位同事努力了很久，能力終於受到老闆(的)重視。⑵ 他因為親人去世受到了很大的影響。 ⑶ 這個國家目前正受到其他國家(的)批評。",
+       "vi": "(1) Đồng nghiệp đó nỗ lực rất lâu, năng lực cuối cùng cũng được ông chủ coi trọng. (2) Anh ấy chịu ảnh hưởng rất lớn vì người thân qua đời. (3) Nước này hiện đang bị các nước khác chỉ trích.",
+       "py": "⑴ nàwèi tóngshì nǔlì le hěn jiǔ, nénglì zhōngyú shòudào lǎobǎn (de) zhòngshì. ⑵ tā yīnwèi qīnrén qùshì shòudào le hěndà de yǐngxiǎng. ⑶ zhège guójiā mùqián zhèng shòudào qítā guójiā (de) pīpíng."
       },
       {
-       "hz": "「受到」是及物變化動詞(Vpt)，常見的用法有兩種：",
-       "vi": ""
+       "hz": "「受到」是及物變化動詞，常見的用法有兩種：",
+       "vi": "“受到” là động từ biến hoá cập vật, thường có hai cách dùng:",
+       "py": "“Shòudào” shì jí wù biànhuà dòngcí, chángjiàn de yòngfǎ yǒu liǎngzhǒng:"
       },
       {
        "hz": "因為氣候的關係，香蕉長得特別快，價格就便宜了。",
-       "vi": ""
+       "vi": "Do khí hậu, chuối lớn đặc biệt nhanh, giá cả cũng rẻ đi.",
+       "py": "Yīnwèi qìhòu de guānxì, xiāngjiāo zhǎng de tèbié kuài, jiàgé jiù piányi le."
       },
       {
        "hz": "我把做點心當成一生的事業，都是因為我的高中老師給我鼓勵。我現在所有的成就，全都要感謝他。",
-       "vi": ""
+       "vi": "Tôi coi làm bánh ngọt là sự nghiệp cả đời, đều là nhờ thầy giáo cấp ba đã động viên tôi. Mọi thành tựu hiện nay của tôi đều phải cảm ơn thầy.",
+       "py": "Wǒ bǎ zuò diǎnxīn dàngchéng yìshēng de shìyè, dōu shìyīnwèi wǒ de gāozhōng lǎoshī gěi wǒ gǔlì. Wǒ xiànzài suǒyǒu de chéngjiù, quándōu yào gǎnxiè tā."
       },
       {
        "hz": "請用「受到」來改寫以下句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “受到” để viết lại phần gạch chân trong các câu dưới đây.",
+       "py": "Qǐng yòng “shòudào” lái gǎixiě yǐxià jùzi zhōng huàxiàn de bùfèn."
       }
      ],
      "answer": null
@@ -6560,43 +7594,53 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "我們國家的總統很受人民支持。（「支持」當動詞時，「受」是介詞）2.他碰到困難時常受好友的鼓勵。（「鼓勵」當名詞時，「受」是動詞）3.我在公司工作時，想法常受限制。（「限制」當動詞時，「受」是介詞；「限制」當名詞時，「受」是動詞）「受」可當介詞或及物狀態動詞，跟「受到」一樣都有被動的意思。",
-       "vi": ""
+       "vi": "1. Tổng thống nước ta rất được nhân dân ủng hộ. (khi “支持” là động từ thì “受” là giới từ) 2. Khi gặp khó khăn anh ấy thường được bạn thân động viên. (khi “鼓勵” là danh từ thì “受” là động từ) 3. Khi làm việc ở công ty, suy nghĩ của tôi thường bị hạn chế. (khi “限制” là động từ thì “受” là giới từ; khi “限制” là danh từ thì “受” là động từ) “受” có thể làm giới từ hoặc động từ trạng thái cập vật, giống “受到” đều mang nghĩa bị động.",
+       "py": "Wǒmen guójiā de zǒngtǒng hěn shòu rénmín zhīchí. (“zhīchí” dāng dòngcí shí, “shòu” shì jiècí) 2. Tā pèngdàokùnnán shícháng shòu hǎoyǒu de gǔlì. (“gǔlì” dāng míngcí shí, “shòu” shì dòngcí) 3. Wǒ zài gōngsī gōngzuò shí, xiǎngfǎ cháng shòuxiànzhì. (“xiànzhì” dāng dòngcí shí, “shòu” shì jiècí; “xiànzhì” dāng míngcí shí, “shòu” shì dòngcí) “shòu” kě dāng jiècí huò jí wù zhuàngtài dòngcí, gēn “shòudào” yíyàng dōu yǒu bèidòng de yìsi."
       },
       {
        "hz": "⑴ 「受」是介詞時，常見用法是「受【人事物】＋【行為、影響】」、「受【行為、影響】」。這裡的【行為、影響】較常用狀態動詞或動詞來說明。",
-       "vi": ""
+       "vi": "(1) Khi “受” là giới từ, cách dùng thường gặp là “受【người/sự/vật】＋【hành vi, ảnh hưởng】”, “受【hành vi, ảnh hưởng】”. 【hành vi, ảnh hưởng】 ở đây thường dùng động từ trạng thái hoặc động từ để diễn đạt.",
+       "py": "⑴ “shòu” shì jiècí shí, chángjiàn yòngfǎ shì “shòu 【 rén shìwù 】 ＋ 【 xíngwéi, yǐngxiǎng 】”, “shòu 【 xíngwéi, yǐngxiǎng 】”. Zhèlǐ de 【 xíngwéi, yǐngxiǎng 】 jiào chángyòng zhuàngtài dòngcí huò dòngcí lái shuōmíng."
       },
       {
        "hz": "⑵ 「受」是及物狀態動詞時，常見用法是「受【人事物】的【行為、影響】」。這裡的【行為、影響】常用名詞或名詞短語來說明。",
-       "vi": ""
+       "vi": "(2) Khi “受” là động từ trạng thái cập vật, cách dùng thường gặp là “受【người/sự/vật】的【hành vi, ảnh hưởng】”. 【hành vi, ảnh hưởng】 ở đây thường dùng danh từ hoặc cụm danh từ để diễn đạt.",
+       "py": "⑵ “shòu” shì jí wù zhuàngtài dòngcí shí, chángjiàn yòngfǎ shì “shòu 【 rén shìwù 】 de 【 xíngwéi, yǐngxiǎng 】”. Zhèlǐ de 【 xíngwéi, yǐngxiǎng 】 chángyòng míngcí huò míngcí duǎnyǔ lái shuōmíng."
       },
       {
-       "hz": "（     ）1. 這首新歌十分受到年輕人歡迎。",
-       "vi": ""
+       "hz": "（ ）1. 這首新歌十分受到年輕人歡迎。",
+       "vi": "(  ) 1. Bài hát mới này rất được giới trẻ yêu thích.",
+       "py": "1. Zhè shǒu xīn gē shífēn shòudào niánqīngrén huānyíng."
       },
       {
-       "hz": "（     ）2. 我的車子受同事弄壞了，他打算賠我錢。",
-       "vi": ""
+       "hz": "（ ）2. 我的車子受同事弄壞了，他打算賠我錢。",
+       "vi": "(  ) 2. Xe của tôi bị đồng nghiệp làm hỏng, anh ấy định đền tiền cho tôi.",
+       "py": "2. Wǒ de chēzi shòu tóngshì nònghuàile, tā dǎsuàn péi wǒ qián."
       },
       {
-       "hz": "（     ）3. 他被朋友影響而有了吸毒的習慣。",
-       "vi": ""
+       "hz": "（ ）3. 他被朋友影響而有了吸毒的習慣。",
+       "vi": "(  ) 3. Anh ấy bị bạn bè ảnh hưởng mà có thói quen hút chích ma tuý.",
+       "py": "3. Tā bèi péngyǒu yǐngxiǎng ér yǒu le xīdú de xíguàn."
       },
       {
-       "hz": "（     ）4. 這本小說讓我深深地被感動。",
-       "vi": ""
+       "hz": "（ ）4. 這本小說讓我深深地被感動。",
+       "vi": "(  ) 4. Quyển tiểu thuyết này khiến tôi vô cùng xúc động.",
+       "py": "4. Zhèběn xiǎoshuō ràng wǒ shēnshēndì bèi gǎndòng."
       },
       {
-       "hz": "（     ）5. 這次地震最被影響的是東部地區。",
-       "vi": ""
+       "hz": "（ ）5. 這次地震最被影響的是東部地區。",
+       "vi": "(  ) 5. Trận động đất lần này, khu vực bị ảnh hưởng nhiều nhất là miền Đông.",
+       "py": "5. Zhècì dìzhèn zuì bèi yǐngxiǎng de shì dōngbù dìqū."
       },
       {
-       "hz": "（     ）6. 員工的意見如果能受到重視，公司也會發展得更好。",
-       "vi": ""
+       "hz": "（ ）6. 員工的意見如果能受到重視，公司也會發展得更好。",
+       "vi": "(  ) 6. Nếu ý kiến của nhân viên được coi trọng thì công ty cũng sẽ phát triển tốt hơn.",
+       "py": "6. Yuángōng de yìjiàn rúguǒ néng shòudàozhòngshì, gōngsī yě huì fāzhǎn de gènghǎo."
       },
       {
        "hz": "以下的句子中，「受到」、「受」、「被」的用法對不對？",
-       "vi": ""
+       "vi": "Trong các câu dưới đây, cách dùng “受到”, “受”, “被” đúng hay sai?",
+       "py": "Yǐxià de jùzi zhōng, “shòudào”, “shòu”, “bèi” de yòngfǎ duì bú duì?"
       }
      ],
      "answer": null
@@ -6615,20 +7659,24 @@ export const thoidaiGrammar4 = {
      "formula": "「大不了」是副詞，表示說話的人認為某件事不需要太擔心，最多、最壞也只是「大不了」之後的情況。「大不了」除了放在動詞前面，也可放在句子最前面。",
      "examples": [
       {
-       "hz": "A：你設計的產品很不錯，但成本太高，要大量生產也很困難，公   司無法採用。B：雖然有些失望，不過不要緊，大不了重新設計。",
-       "vi": ""
+       "hz": "A：你設計的產品很不錯，但成本太高，要大量生產也很困難，公司無法採用。B：雖然有些失望，不過不要緊，大不了重新設計。",
+       "vi": "A: Sản phẩm bạn thiết kế rất khá, nhưng giá thành quá cao, sản xuất hàng loạt cũng rất khó, công ty không thể áp dụng. B: Tuy hơi thất vọng nhưng không sao, cùng lắm thì thiết kế lại.",
+       "py": "A: Nǐ shèjì de chǎnpǐn hěn búcuò, dàn chéngběn tài gāo, yào dàliàng shēngchǎn yě hěn kùnnán, gōngsī wúfǎ cǎiyòng. B: Suīrán yǒuxiē shīwàng, búguò búyàojǐn, dàbùliǎo chóngxīn shèjì."
       },
       {
        "hz": "A：我誤會同學偷偷吃了我的點心，怎麼辦？",
-       "vi": ""
+       "vi": "A: Tôi hiểu lầm bạn cùng lớp lén ăn bánh của tôi, phải làm sao đây?",
+       "py": "A: Wǒ wùhuì tóngxué tōutōu chī le wǒ de diǎnxīn, zěnmebàn?"
       },
       {
        "hz": "A：本來跟你約好，趁春節陪你調查山區動物，不過教授忽然要我們研究室全部都留下來做化學分析，真是對不起。",
-       "vi": ""
+       "vi": "A: Vốn đã hẹn với bạn, tranh thủ dịp Tết đi cùng bạn khảo sát động vật vùng núi, nhưng giáo sư đột nhiên yêu cầu cả phòng nghiên cứu ở lại làm phân tích hoá học, thật xin lỗi.",
+       "py": "A: Běnlái gēn nǐ yuē hǎo, chèn chūnjié péi nǐ diàochá shānqū dòngwù, búguò jiàoshòu hūrán yào wǒmen yánjiūshì quánbù dōu liúxiàlái zuò huàxuéfēnxī, zhēnshì duìbùqǐ."
       },
       {
        "hz": "請用「大不了」完成以下對話。",
-       "vi": ""
+       "vi": "Hãy dùng “大不了” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “dàbùliǎo” wánchéng yǐxià duìhuà."
       }
      ],
      "answer": null
@@ -6645,20 +7693,24 @@ export const thoidaiGrammar4 = {
      "formula": "「替」在本語法中當介詞使用，「冷汗」在這裡是因為害怕而流的汗。表示因為「替」後面的某個人碰到了緊張、危險的情況，而使說話的人跟著擔心害怕。",
      "examples": [
       {
-       "hz": "A：前天你去看的那部外國電影怎麼樣？B：電影相當刺激。每次看到男女主角碰到危險時，都忍不住替他   們捏一把冷汗。",
-       "vi": ""
+       "hz": "A：前天你去看的那部外國電影怎麼樣？B：電影相當刺激。每次看到男女主角碰到危險時，都忍不住替他們捏一把冷汗。",
+       "vi": "A: Bộ phim nước ngoài bạn đi xem hôm kia thế nào? B: Phim khá gay cấn. Mỗi lần thấy nam nữ chính gặp nguy hiểm, tôi đều không kìm được mà toát mồ hôi lo cho họ.",
+       "py": "A: Qiántiān nǐ qù kàn de nà bù wàiguó diànyǐng zěnmeyàng? B: Diànyǐng xiāngdāng cìjī. Měicì kàndào nánnǚ zhǔjué pèngdào wéixiǎn shí, dōu rěnbúzhù tì tāmen niē yìbǎ lěnghàn."
       },
       {
        "hz": "我應該會替他捏一把冷汗。",
-       "vi": ""
+       "vi": "Chắc tôi sẽ toát mồ hôi lo cho anh ấy.",
+       "py": "Wǒ yīnggāi huì tì tā niē yìbǎ lěnghàn."
       },
       {
        "hz": "我會偷偷替他捏一把冷汗。",
-       "vi": ""
+       "vi": "Tôi sẽ thầm toát mồ hôi lo cho anh ấy.",
+       "py": "Wǒhuì tōutōu tì tā niē yìbǎ lěnghàn."
       },
       {
        "hz": "朋友碰到什麼情況時，會讓你替他們捏一把冷汗？請看看以下的情況，然後寫寫看。",
-       "vi": ""
+       "vi": "Khi bạn bè gặp tình huống gì thì bạn sẽ toát mồ hôi lo cho họ? Hãy xem các tình huống dưới đây rồi thử viết.",
+       "py": "Péngyǒu pèngdào shénme qíngkuàng shí, huì ràng nǐ tì tāmen niē yìbǎ lěnghàn? Qǐng kànkàn yǐxià de qíngkuàng, ránhòu xiěxiě kàn."
       }
      ],
      "answer": null
@@ -6676,23 +7728,28 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：你怎麼了，臉怎麼那麼腫？B：昨天半夜裡我的牙齒忽然痛得要命，等會兒要去醫院。A：你那麼痛，為什麼還開心得要命？B：因為要幫我看牙的，是我那位溫柔又可愛的牙醫女友啊。",
-       "vi": ""
+       "vi": "A: Bạn sao vậy, sao mặt sưng thế? B: Nửa đêm qua răng tôi bỗng đau chết đi được, lát nữa phải đi bệnh viện. A: Bạn đau như vậy, sao còn vui chết đi được thế? B: Vì người khám răng cho tôi là cô bạn gái nha sĩ vừa dịu dàng vừa đáng yêu của tôi đấy.",
+       "py": "A: Nǐ zěnme le, liǎn zěnme nàme zhǒng? B: Zuótiān bànyèlǐ wǒ de yáchǐ hūrán tòng de yàomìng, děnghuì'er yào qù yīyuàn. A: Nǐ nàme tòng, wèishénme hái kāixīn de yàomìng? B: Yīnwèi yào bāng wǒ kàn yá de, shì wǒ nàwèi wēnróu yòu kě'ài de yáyī nǚyǒu a."
       },
       {
        "hz": "有好消息啊？",
-       "vi": ""
+       "vi": "Có tin vui à?",
+       "py": "Yǒu hǎoxiāoxí a?"
       },
       {
        "hz": "B：沒錯，教授總算答應讓我當他的研究助理了！",
-       "vi": ""
+       "vi": "B: Đúng vậy, cuối cùng giáo sư cũng đồng ý cho tôi làm trợ lý nghiên cứu của thầy rồi!",
+       "py": "B: Méicuò, jiàoshòu zǒngsuàn dāyìng ràng wǒ dāng tā de yánjiù zhùlǐ le!"
       },
       {
        "hz": "B：我很少那樣批評一家餐廳，可是那家真的一點兒優點都沒有。",
-       "vi": ""
+       "vi": "B: Tôi rất ít khi chê một nhà hàng như thế, nhưng quán đó thật sự chẳng có ưu điểm gì.",
+       "py": "B: Wǒ hěnshǎo nàyàng pīpíng yìjiā cāntīng, kěshì nà jiā zhēnde yìdiǎn'ér yōudiǎn dōu méiyǒu."
       },
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -6709,20 +7766,24 @@ export const thoidaiGrammar4 = {
      "formula": "「照」在本語法中是介詞，有「按照」的意思。表示說話的人按照一般的情況、道理來判斷某件事。可放在句子的最前面、句中，或是當作短語使用。",
      "examples": [
       {
-       "hz": "A：在臺灣，學生從小學就開始學習英文，照理說每個人的英文   能力應該都很不錯，不過實際上卻不是這樣。原因是什麼？B：或許是許多學校只重視讀寫，卻很少鼓勵學生用英文表達。",
-       "vi": ""
+       "hz": "A：在臺灣，學生從小學就開始學習英文，照理說每個人的英文能力應該都很不錯，不過實際上卻不是這樣。原因是什麼？B：或許是許多學校只重視讀寫，卻很少鼓勵學生用英文表達。",
+       "vi": "A: Ở Đài Loan, học sinh bắt đầu học tiếng Anh từ tiểu học, theo lẽ thường thì khả năng tiếng Anh của ai cũng phải khá, nhưng thực tế lại không phải vậy. Nguyên nhân là gì? B: Có lẽ nhiều trường chỉ coi trọng đọc viết mà ít khuyến khích học sinh diễn đạt bằng tiếng Anh.",
+       "py": "A: Zài Táiwān, xuéshēng cóng xiǎoxué jiù kāishǐ xuéxí yīngwén, zhàolǐshuō měigè rén de yīngwén nénglì yīnggāi dōu hěn búcuò, búguò shíjìshàng què búshì zhèyàng. Yuányīn shì shénme? B: Huòxǔ shì xǔduō xuéxiào zhǐ zhòngshì dúxiě, què hěnshǎo gǔlì xuéshēng yòng yīngwén biǎodá."
       },
       {
        "hz": "A：三個星期前我把電視送去服務中心修理，可是忘了問他們需要幾天才能拿回來。",
-       "vi": ""
+       "vi": "A: Ba tuần trước tôi mang tivi đến trung tâm dịch vụ sửa, nhưng quên hỏi họ cần mấy ngày mới lấy về được.",
+       "py": "A: Sāngè xīngqí qián wǒ bǎ diànshì sòng qù fúwùzhōngxīn xiūlǐ, kěshì wàng le wèn tāmen xūyào jǐtiān cáinéng ná huílái."
       },
       {
        "hz": "A：前幾天我寫了電子郵件向那家餐廳的老闆抱怨，不過一直沒收到他的來信。",
-       "vi": ""
+       "vi": "A: Mấy hôm trước tôi viết email phàn nàn với chủ nhà hàng đó, nhưng mãi vẫn chưa nhận được thư trả lời.",
+       "py": "A: Qián jǐtiān wǒ xiě le diànziyóujiàn xiàng nà jiā cāntīng de lǎobǎn bàoyuàn, búguò yìzhí mòshōu dào tā de láixìn."
       },
       {
        "hz": "請用「照理說」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “照理說” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “zhàolǐshuō” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -6740,43 +7801,53 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：一樓明明有電梯，你為什麼帶我們從一樓走到五樓？B：你沒看到電梯前的牌子嗎？上面寫著「修理中，請勿使用」。",
-       "vi": ""
+       "vi": "A: Tầng một rõ ràng có thang máy, sao bạn lại dẫn chúng tôi đi bộ từ tầng một lên tầng năm? B: Bạn không thấy tấm biển trước thang máy à? Trên đó ghi “Đang sửa chữa, vui lòng không sử dụng”.",
+       "py": "A: Yīlóu míngmíng yǒu diàntī, nǐ wèishénme dài wǒmen cóng yìlóu zǒu dào wǔ lóu? B: Nǐ méi kàndào diàntī qián de páizi ma? Shàngmiàn xiě zhe “xiūlǐ zhōng, qǐngwù shǐyòng”."
       },
       {
        "hz": "A：我們酒也喝夠了，菜也吃飽了。等會兒我開車送你回家。",
-       "vi": ""
+       "vi": "A: Rượu chúng ta uống cũng đủ rồi, đồ ăn cũng no rồi. Lát nữa tôi lái xe đưa bạn về.",
+       "py": "A: Wǒmen jiǔ yě hēgòu le, cài yě chībǎo le. Děnghuì'er wǒ kāichē sòng nǐ huíjiā."
       },
       {
        "hz": "A：我的書包裡裝滿了書和文具用品，重死了。先放在教室裡，等上完游泳課再回來拿，應該沒關係吧？",
-       "vi": ""
+       "vi": "A: Cặp sách của tôi đầy sách và đồ dùng học tập, nặng chết đi được. Để tạm trong lớp, học bơi xong quay lại lấy chắc không sao nhỉ?",
+       "py": "A: Wǒ de shūbāo lǐ zhuāngmǎn le shū hàn wénjùyòngpǐn, zhòng sǐ le. Xiān fàngzài jiàoshì lǐ, děng shàng wán yóuyǒng kè zài huílái ná, yīnggāi méiguānxì ba?"
       },
       {
        "hz": "請用「勿V(O)」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “勿V(O)” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “wù V” wánchéng yǐxià de duìhuà."
       },
       {
-       "hz": "A：那位市長在選舉前提了很多計畫，選上以後怎麼都沒實現？B：有些政治人物就是這樣，選舉前說的是一回事，選上了以後   做的又是一回事。看多了也就不覺得奇怪了。",
-       "vi": ""
+       "hz": "A：那位市長在選舉前提了很多計畫，選上以後怎麼都沒實現？B：有些政治人物就是這樣，選舉前說的是一回事，選上了以後做的又是一回事。看多了也就不覺得奇怪了。",
+       "vi": "A: Vị thị trưởng đó trước bầu cử đưa ra nhiều kế hoạch, sao đắc cử rồi lại chẳng thực hiện gì? B: Có những chính trị gia là như vậy, trước bầu cử nói một đằng, đắc cử rồi làm một nẻo. Thấy nhiều rồi cũng chẳng thấy lạ nữa.",
+       "py": "A: Nàwèi shìzhǎng zài xuǎnjǔ qiántí le hěnduō jìhuà, xuǎn shàng yǐhòu zěnme dōu méi shíxiàn? B: Yǒuxiē zhèngzhì rénwù jiùshì zhèyàng, xuǎnjǔ qián shuō de shì yì huíshì, xuǎn shàng le yǐhòu zuò de yòu shì yì huíshì. Kàn duō le yě jiù bù juéde qíguài le."
       },
       {
        "hz": "II.A是一回事，B又是一回事",
-       "vi": ""
+       "vi": "II. A là một chuyện, B lại là chuyện khác",
+       "py": "II. A shì yì huíshì, B yòu shì yì huíshì"
       },
       {
-       "hz": "A：那個國家與你們國家的文化、語言都相同，兩國之間為什麼不         好好溝通、好好合作呢？",
-       "vi": ""
+       "hz": "A：那個國家與你們國家的文化、語言都相同，兩國之間為什麼不好好溝通、好好合作呢？",
+       "vi": "A: Nước đó và nước các bạn có văn hoá, ngôn ngữ giống nhau, tại sao hai nước không trao đổi, hợp tác tốt với nhau?",
+       "py": "A: Nàge guójiā yǔ nǐmen guójiā de wénhuà, yǔyán dōu xiāngtóng, liǎngguózhījiān wèishénme bù hǎohǎo gōutōng, hǎohǎo hézuò ne?"
       },
       {
        "hz": "A：有些單身男女想談戀愛，但又不想結婚。他們是怎麼想的？",
-       "vi": ""
+       "vi": "A: Có những nam nữ độc thân muốn yêu nhưng lại không muốn kết hôn. Họ nghĩ thế nào vậy?",
+       "py": "A: Yǒuxiē dānshēnnánnǚ xiǎng tánliàn'ài, dàn yòu bùxiǎng jiéhūn. Tāmen shì zěnme xiǎng de?"
       },
       {
        "hz": "夠依靠的對象。",
-       "vi": ""
+       "vi": "…người có thể nương tựa được.",
+       "py": "Gòu yīkào de duìxiàng."
       },
       {
        "hz": "請用「A是一回事，B又是一回事」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “A是一回事，B又是一回事” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “A shì yì huíshì, B yòu shì yì huíshì” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -6795,20 +7866,24 @@ export const thoidaiGrammar4 = {
      "formula": "「大不了」是副詞，表示說話的人認為某件事不需要太擔心，最多、最壞也只是「大不了」之後的情況。「大不了」除了放在動詞前面，也可放在句子最前面。",
      "examples": [
       {
-       "hz": "A：你設計的產品很不錯，但成本太高，要大量生產也很困難，公   司無法採用。B：雖然有些失望，不過不要緊，大不了重新設計。",
-       "vi": ""
+       "hz": "A：你設計的產品很不錯，但成本太高，要大量生產也很困難，公司無法採用。B：雖然有些失望，不過不要緊，大不了重新設計。",
+       "vi": "A: Sản phẩm bạn thiết kế rất khá, nhưng giá thành quá cao, sản xuất hàng loạt cũng rất khó, công ty không thể áp dụng. B: Tuy hơi thất vọng nhưng không sao, cùng lắm thì thiết kế lại.",
+       "py": "A: Nǐ shèjì de chǎnpǐn hěn búcuò, dàn chéngběn tài gāo, yào dàliàng shēngchǎn yě hěn kùnnán, gōngsī wúfǎ cǎiyòng. B: Suīrán yǒuxiē shīwàng, búguò búyàojǐn, dàbùliǎo chóngxīn shèjì."
       },
       {
        "hz": "A：我誤會同學偷偷吃了我的點心，怎麼辦？",
-       "vi": ""
+       "vi": "A: Tôi hiểu lầm bạn cùng lớp lén ăn bánh của tôi, phải làm sao đây?",
+       "py": "A: Wǒ wùhuì tóngxué tōutōu chī le wǒ de diǎnxīn, zěnmebàn?"
       },
       {
        "hz": "A：本來跟你約好，趁春節陪你調查山區動物，不過教授忽然要我們研究室全部都留下來做化學分析，真是對不起。",
-       "vi": ""
+       "vi": "A: Vốn đã hẹn với bạn, tranh thủ dịp Tết đi cùng bạn khảo sát động vật vùng núi, nhưng giáo sư đột nhiên yêu cầu cả phòng nghiên cứu ở lại làm phân tích hoá học, thật xin lỗi.",
+       "py": "A: Běnlái gēn nǐ yuē hǎo, chèn chūnjié péi nǐ diàochá shānqū dòngwù, búguò jiàoshòu hūrán yào wǒmen yánjiūshì quánbù dōu liúxiàlái zuò huàxuéfēnxī, zhēnshì duìbùqǐ."
       },
       {
        "hz": "請用「大不了」完成以下對話。",
-       "vi": ""
+       "vi": "Hãy dùng “大不了” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “dàbùliǎo” wánchéng yǐxià duìhuà."
       }
      ],
      "answer": null
@@ -6825,20 +7900,24 @@ export const thoidaiGrammar4 = {
      "formula": "「替」在本語法中當介詞使用，「冷汗」在這裡是因為害怕而流的汗。表示因為「替」後面的某個人碰到了緊張、危險的情況，而使說話的人跟著擔心害怕。",
      "examples": [
       {
-       "hz": "A：前天你去看的那部外國電影怎麼樣？B：電影相當刺激。每次看到男女主角碰到危險時，都忍不住替他   們捏一把冷汗。",
-       "vi": ""
+       "hz": "A：前天你去看的那部外國電影怎麼樣？B：電影相當刺激。每次看到男女主角碰到危險時，都忍不住替他們捏一把冷汗。",
+       "vi": "A: Bộ phim nước ngoài bạn đi xem hôm kia thế nào? B: Phim khá gay cấn. Mỗi lần thấy nam nữ chính gặp nguy hiểm, tôi đều không kìm được mà toát mồ hôi lo cho họ.",
+       "py": "A: Qiántiān nǐ qù kàn de nà bù wàiguó diànyǐng zěnmeyàng? B: Diànyǐng xiāngdāng cìjī. Měicì kàndào nánnǚ zhǔjué pèngdào wéixiǎn shí, dōu rěnbúzhù tì tāmen niē yìbǎ lěnghàn."
       },
       {
        "hz": "我應該會替他捏一把冷汗。",
-       "vi": ""
+       "vi": "Chắc tôi sẽ toát mồ hôi lo cho anh ấy.",
+       "py": "Wǒ yīnggāi huì tì tā niē yìbǎ lěnghàn."
       },
       {
        "hz": "我會偷偷替他捏一把冷汗。",
-       "vi": ""
+       "vi": "Tôi sẽ thầm toát mồ hôi lo cho anh ấy.",
+       "py": "Wǒhuì tōutōu tì tā niē yìbǎ lěnghàn."
       },
       {
        "hz": "朋友碰到什麼情況時，會讓你替他們捏一把冷汗？請看看以下的情況，然後寫寫看。",
-       "vi": ""
+       "vi": "Khi bạn bè gặp tình huống gì thì bạn sẽ toát mồ hôi lo cho họ? Hãy xem các tình huống dưới đây rồi thử viết.",
+       "py": "Péngyǒu pèngdào shénme qíngkuàng shí, huì ràng nǐ tì tāmen niē yìbǎ lěnghàn? Qǐng kànkàn yǐxià de qíngkuàng, ránhòu xiěxiě kàn."
       }
      ],
      "answer": null
@@ -6856,23 +7935,28 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：你怎麼了，臉怎麼那麼腫？B：昨天半夜裡我的牙齒忽然痛得要命，等會兒要去醫院。A：你那麼痛，為什麼還開心得要命？B：因為要幫我看牙的，是我那位溫柔又可愛的牙醫女友啊。",
-       "vi": ""
+       "vi": "A: Bạn sao vậy, sao mặt sưng thế? B: Nửa đêm qua răng tôi bỗng đau chết đi được, lát nữa phải đi bệnh viện. A: Bạn đau như vậy, sao còn vui chết đi được thế? B: Vì người khám răng cho tôi là cô bạn gái nha sĩ vừa dịu dàng vừa đáng yêu của tôi đấy.",
+       "py": "A: Nǐ zěnme le, liǎn zěnme nàme zhǒng? B: Zuótiān bànyèlǐ wǒ de yáchǐ hūrán tòng de yàomìng, děnghuì'er yào qù yīyuàn. A: Nǐ nàme tòng, wèishénme hái kāixīn de yàomìng? B: Yīnwèi yào bāng wǒ kàn yá de, shì wǒ nàwèi wēnróu yòu kě'ài de yáyī nǚyǒu a."
       },
       {
        "hz": "有好消息啊？",
-       "vi": ""
+       "vi": "Có tin vui à?",
+       "py": "Yǒu hǎoxiāoxí a?"
       },
       {
        "hz": "B：沒錯，教授總算答應讓我當他的研究助理了！",
-       "vi": ""
+       "vi": "B: Đúng vậy, cuối cùng giáo sư cũng đồng ý cho tôi làm trợ lý nghiên cứu của thầy rồi!",
+       "py": "B: Méicuò, jiàoshòu zǒngsuàn dāyìng ràng wǒ dāng tā de yánjiù zhùlǐ le!"
       },
       {
        "hz": "B：我很少那樣批評一家餐廳，可是那家真的一點兒優點都沒有。",
-       "vi": ""
+       "vi": "B: Tôi rất ít khi chê một nhà hàng như thế, nhưng quán đó thật sự chẳng có ưu điểm gì.",
+       "py": "B: Wǒ hěnshǎo nàyàng pīpíng yìjiā cāntīng, kěshì nà jiā zhēnde yìdiǎn'ér yōudiǎn dōu méiyǒu."
       },
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -6889,20 +7973,24 @@ export const thoidaiGrammar4 = {
      "formula": "「照」在本語法中是介詞，有「按照」的意思。表示說話的人按照一般的情況、道理來判斷某件事。可放在句子的最前面、句中，或是當作短語使用。",
      "examples": [
       {
-       "hz": "A：在臺灣，學生從小學就開始學習英文，照理說每個人的英文   能力應該都很不錯，不過實際上卻不是這樣。原因是什麼？B：或許是許多學校只重視讀寫，卻很少鼓勵學生用英文表達。",
-       "vi": ""
+       "hz": "A：在臺灣，學生從小學就開始學習英文，照理說每個人的英文能力應該都很不錯，不過實際上卻不是這樣。原因是什麼？B：或許是許多學校只重視讀寫，卻很少鼓勵學生用英文表達。",
+       "vi": "A: Ở Đài Loan, học sinh bắt đầu học tiếng Anh từ tiểu học, theo lẽ thường thì khả năng tiếng Anh của ai cũng phải khá, nhưng thực tế lại không phải vậy. Nguyên nhân là gì? B: Có lẽ nhiều trường chỉ coi trọng đọc viết mà ít khuyến khích học sinh diễn đạt bằng tiếng Anh.",
+       "py": "A: Zài Táiwān, xuéshēng cóng xiǎoxué jiù kāishǐ xuéxí yīngwén, zhàolǐshuō měigè rén de yīngwén nénglì yīnggāi dōu hěn búcuò, búguò shíjìshàng què búshì zhèyàng. Yuányīn shì shénme? B: Huòxǔ shì xǔduō xuéxiào zhǐ zhòngshì dúxiě, què hěnshǎo gǔlì xuéshēng yòng yīngwén biǎodá."
       },
       {
        "hz": "A：三個星期前我把電視送去服務中心修理，可是忘了問他們需要幾天才能拿回來。",
-       "vi": ""
+       "vi": "A: Ba tuần trước tôi mang tivi đến trung tâm dịch vụ sửa, nhưng quên hỏi họ cần mấy ngày mới lấy về được.",
+       "py": "A: Sāngè xīngqí qián wǒ bǎ diànshì sòng qù fúwùzhōngxīn xiūlǐ, kěshì wàng le wèn tāmen xūyào jǐtiān cáinéng ná huílái."
       },
       {
        "hz": "A：前幾天我寫了電子郵件向那家餐廳的老闆抱怨，不過一直沒收到他的來信。",
-       "vi": ""
+       "vi": "A: Mấy hôm trước tôi viết email phàn nàn với chủ nhà hàng đó, nhưng mãi vẫn chưa nhận được thư trả lời.",
+       "py": "A: Qián jǐtiān wǒ xiě le diànziyóujiàn xiàng nà jiā cāntīng de lǎobǎn bàoyuàn, búguò yìzhí mòshōu dào tā de láixìn."
       },
       {
        "hz": "請用「照理說」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “照理說” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “zhàolǐshuō” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -6920,43 +8008,53 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：一樓明明有電梯，你為什麼帶我們從一樓走到五樓？B：你沒看到電梯前的牌子嗎？上面寫著「修理中，請勿使用」。",
-       "vi": ""
+       "vi": "A: Tầng một rõ ràng có thang máy, sao bạn lại dẫn chúng tôi đi bộ từ tầng một lên tầng năm? B: Bạn không thấy tấm biển trước thang máy à? Trên đó ghi “Đang sửa chữa, vui lòng không sử dụng”.",
+       "py": "A: Yīlóu míngmíng yǒu diàntī, nǐ wèishénme dài wǒmen cóng yìlóu zǒu dào wǔ lóu? B: Nǐ méi kàndào diàntī qián de páizi ma? Shàngmiàn xiě zhe “xiūlǐ zhōng, qǐngwù shǐyòng”."
       },
       {
        "hz": "A：我們酒也喝夠了，菜也吃飽了。等會兒我開車送你回家。",
-       "vi": ""
+       "vi": "A: Rượu chúng ta uống cũng đủ rồi, đồ ăn cũng no rồi. Lát nữa tôi lái xe đưa bạn về.",
+       "py": "A: Wǒmen jiǔ yě hēgòu le, cài yě chībǎo le. Děnghuì'er wǒ kāichē sòng nǐ huíjiā."
       },
       {
        "hz": "A：我的書包裡裝滿了書和文具用品，重死了。先放在教室裡，等上完游泳課再回來拿，應該沒關係吧？",
-       "vi": ""
+       "vi": "A: Cặp sách của tôi đầy sách và đồ dùng học tập, nặng chết đi được. Để tạm trong lớp, học bơi xong quay lại lấy chắc không sao nhỉ?",
+       "py": "A: Wǒ de shūbāo lǐ zhuāngmǎn le shū hàn wénjùyòngpǐn, zhòng sǐ le. Xiān fàngzài jiàoshì lǐ, děng shàng wán yóuyǒng kè zài huílái ná, yīnggāi méiguānxì ba?"
       },
       {
        "hz": "請用「勿V(O)」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “勿V(O)” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “wù V” wánchéng yǐxià de duìhuà."
       },
       {
-       "hz": "A：那位市長在選舉前提了很多計畫，選上以後怎麼都沒實現？B：有些政治人物就是這樣，選舉前說的是一回事，選上了以後   做的又是一回事。看多了也就不覺得奇怪了。",
-       "vi": ""
+       "hz": "A：那位市長在選舉前提了很多計畫，選上以後怎麼都沒實現？B：有些政治人物就是這樣，選舉前說的是一回事，選上了以後做的又是一回事。看多了也就不覺得奇怪了。",
+       "vi": "A: Vị thị trưởng đó trước bầu cử đưa ra nhiều kế hoạch, sao đắc cử rồi lại chẳng thực hiện gì? B: Có những chính trị gia là như vậy, trước bầu cử nói một đằng, đắc cử rồi làm một nẻo. Thấy nhiều rồi cũng chẳng thấy lạ nữa.",
+       "py": "A: Nàwèi shìzhǎng zài xuǎnjǔ qiántí le hěnduō jìhuà, xuǎn shàng yǐhòu zěnme dōu méi shíxiàn? B: Yǒuxiē zhèngzhì rénwù jiùshì zhèyàng, xuǎnjǔ qián shuō de shì yì huíshì, xuǎn shàng le yǐhòu zuò de yòu shì yì huíshì. Kàn duō le yě jiù bù juéde qíguài le."
       },
       {
        "hz": "II.A是一回事，B又是一回事",
-       "vi": ""
+       "vi": "II. A là một chuyện, B lại là chuyện khác",
+       "py": "II. A shì yì huíshì, B yòu shì yì huíshì"
       },
       {
-       "hz": "A：那個國家與你們國家的文化、語言都相同，兩國之間為什麼不         好好溝通、好好合作呢？",
-       "vi": ""
+       "hz": "A：那個國家與你們國家的文化、語言都相同，兩國之間為什麼不好好溝通、好好合作呢？",
+       "vi": "A: Nước đó và nước các bạn có văn hoá, ngôn ngữ giống nhau, tại sao hai nước không trao đổi, hợp tác tốt với nhau?",
+       "py": "A: Nàge guójiā yǔ nǐmen guójiā de wénhuà, yǔyán dōu xiāngtóng, liǎngguózhījiān wèishénme bù hǎohǎo gōutōng, hǎohǎo hézuò ne?"
       },
       {
        "hz": "A：有些單身男女想談戀愛，但又不想結婚。他們是怎麼想的？",
-       "vi": ""
+       "vi": "A: Có những nam nữ độc thân muốn yêu nhưng lại không muốn kết hôn. Họ nghĩ thế nào vậy?",
+       "py": "A: Yǒuxiē dānshēnnánnǚ xiǎng tánliàn'ài, dàn yòu bùxiǎng jiéhūn. Tāmen shì zěnme xiǎng de?"
       },
       {
        "hz": "夠依靠的對象。",
-       "vi": ""
+       "vi": "…người có thể nương tựa được.",
+       "py": "Gòu yīkào de duìxiàng."
       },
       {
        "hz": "請用「A是一回事，B又是一回事」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “A是一回事，B又是一回事” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “A shì yì huíshì, B yòu shì yì huíshì” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -6975,20 +8073,24 @@ export const thoidaiGrammar4 = {
      "formula": "「大不了」是副詞，表示說話的人認為某件事不需要太擔心，最多、最壞也只是「大不了」之後的情況。「大不了」除了放在動詞前面，也可放在句子最前面。",
      "examples": [
       {
-       "hz": "A：你設計的產品很不錯，但成本太高，要大量生產也很困難，公   司無法採用。B：雖然有些失望，不過不要緊，大不了重新設計。",
-       "vi": ""
+       "hz": "A：你設計的產品很不錯，但成本太高，要大量生產也很困難，公司無法採用。B：雖然有些失望，不過不要緊，大不了重新設計。",
+       "vi": "A: Sản phẩm bạn thiết kế rất khá, nhưng giá thành quá cao, sản xuất hàng loạt cũng rất khó, công ty không thể áp dụng. B: Tuy hơi thất vọng nhưng không sao, cùng lắm thì thiết kế lại.",
+       "py": "A: Nǐ shèjì de chǎnpǐn hěn búcuò, dàn chéngběn tài gāo, yào dàliàng shēngchǎn yě hěn kùnnán, gōngsī wúfǎ cǎiyòng. B: Suīrán yǒuxiē shīwàng, búguò búyàojǐn, dàbùliǎo chóngxīn shèjì."
       },
       {
        "hz": "A：我誤會同學偷偷吃了我的點心，怎麼辦？",
-       "vi": ""
+       "vi": "A: Tôi hiểu lầm bạn cùng lớp lén ăn bánh của tôi, phải làm sao đây?",
+       "py": "A: Wǒ wùhuì tóngxué tōutōu chī le wǒ de diǎnxīn, zěnmebàn?"
       },
       {
        "hz": "A：本來跟你約好，趁春節陪你調查山區動物，不過教授忽然要我們研究室全部都留下來做化學分析，真是對不起。",
-       "vi": ""
+       "vi": "A: Vốn đã hẹn với bạn, tranh thủ dịp Tết đi cùng bạn khảo sát động vật vùng núi, nhưng giáo sư đột nhiên yêu cầu cả phòng nghiên cứu ở lại làm phân tích hoá học, thật xin lỗi.",
+       "py": "A: Běnlái gēn nǐ yuē hǎo, chèn chūnjié péi nǐ diàochá shānqū dòngwù, búguò jiàoshòu hūrán yào wǒmen yánjiūshì quánbù dōu liúxiàlái zuò huàxuéfēnxī, zhēnshì duìbùqǐ."
       },
       {
        "hz": "請用「大不了」完成以下對話。",
-       "vi": ""
+       "vi": "Hãy dùng “大不了” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “dàbùliǎo” wánchéng yǐxià duìhuà."
       }
      ],
      "answer": null
@@ -7005,20 +8107,24 @@ export const thoidaiGrammar4 = {
      "formula": "「替」在本語法中當介詞使用，「冷汗」在這裡是因為害怕而流的汗。表示因為「替」後面的某個人碰到了緊張、危險的情況，而使說話的人跟著擔心害怕。",
      "examples": [
       {
-       "hz": "A：前天你去看的那部外國電影怎麼樣？B：電影相當刺激。每次看到男女主角碰到危險時，都忍不住替他   們捏一把冷汗。",
-       "vi": ""
+       "hz": "A：前天你去看的那部外國電影怎麼樣？B：電影相當刺激。每次看到男女主角碰到危險時，都忍不住替他們捏一把冷汗。",
+       "vi": "A: Bộ phim nước ngoài bạn đi xem hôm kia thế nào? B: Phim khá gay cấn. Mỗi lần thấy nam nữ chính gặp nguy hiểm, tôi đều không kìm được mà toát mồ hôi lo cho họ.",
+       "py": "A: Qiántiān nǐ qù kàn de nà bù wàiguó diànyǐng zěnmeyàng? B: Diànyǐng xiāngdāng cìjī. Měicì kàndào nánnǚ zhǔjué pèngdào wéixiǎn shí, dōu rěnbúzhù tì tāmen niē yìbǎ lěnghàn."
       },
       {
        "hz": "我應該會替他捏一把冷汗。",
-       "vi": ""
+       "vi": "Chắc tôi sẽ toát mồ hôi lo cho anh ấy.",
+       "py": "Wǒ yīnggāi huì tì tā niē yìbǎ lěnghàn."
       },
       {
        "hz": "我會偷偷替他捏一把冷汗。",
-       "vi": ""
+       "vi": "Tôi sẽ thầm toát mồ hôi lo cho anh ấy.",
+       "py": "Wǒhuì tōutōu tì tā niē yìbǎ lěnghàn."
       },
       {
        "hz": "朋友碰到什麼情況時，會讓你替他們捏一把冷汗？請看看以下的情況，然後寫寫看。",
-       "vi": ""
+       "vi": "Khi bạn bè gặp tình huống gì thì bạn sẽ toát mồ hôi lo cho họ? Hãy xem các tình huống dưới đây rồi thử viết.",
+       "py": "Péngyǒu pèngdào shénme qíngkuàng shí, huì ràng nǐ tì tāmen niē yìbǎ lěnghàn? Qǐng kànkàn yǐxià de qíngkuàng, ránhòu xiěxiě kàn."
       }
      ],
      "answer": null
@@ -7036,23 +8142,28 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：你怎麼了，臉怎麼那麼腫？B：昨天半夜裡我的牙齒忽然痛得要命，等會兒要去醫院。A：你那麼痛，為什麼還開心得要命？B：因為要幫我看牙的，是我那位溫柔又可愛的牙醫女友啊。",
-       "vi": ""
+       "vi": "A: Bạn sao vậy, sao mặt sưng thế? B: Nửa đêm qua răng tôi bỗng đau chết đi được, lát nữa phải đi bệnh viện. A: Bạn đau như vậy, sao còn vui chết đi được thế? B: Vì người khám răng cho tôi là cô bạn gái nha sĩ vừa dịu dàng vừa đáng yêu của tôi đấy.",
+       "py": "A: Nǐ zěnme le, liǎn zěnme nàme zhǒng? B: Zuótiān bànyèlǐ wǒ de yáchǐ hūrán tòng de yàomìng, děnghuì'er yào qù yīyuàn. A: Nǐ nàme tòng, wèishénme hái kāixīn de yàomìng? B: Yīnwèi yào bāng wǒ kàn yá de, shì wǒ nàwèi wēnróu yòu kě'ài de yáyī nǚyǒu a."
       },
       {
        "hz": "有好消息啊？",
-       "vi": ""
+       "vi": "Có tin vui à?",
+       "py": "Yǒu hǎoxiāoxí a?"
       },
       {
        "hz": "B：沒錯，教授總算答應讓我當他的研究助理了！",
-       "vi": ""
+       "vi": "B: Đúng vậy, cuối cùng giáo sư cũng đồng ý cho tôi làm trợ lý nghiên cứu của thầy rồi!",
+       "py": "B: Méicuò, jiàoshòu zǒngsuàn dāyìng ràng wǒ dāng tā de yánjiù zhùlǐ le!"
       },
       {
        "hz": "B：我很少那樣批評一家餐廳，可是那家真的一點兒優點都沒有。",
-       "vi": ""
+       "vi": "B: Tôi rất ít khi chê một nhà hàng như thế, nhưng quán đó thật sự chẳng có ưu điểm gì.",
+       "py": "B: Wǒ hěnshǎo nàyàng pīpíng yìjiā cāntīng, kěshì nà jiā zhēnde yìdiǎn'ér yōudiǎn dōu méiyǒu."
       },
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -7069,20 +8180,24 @@ export const thoidaiGrammar4 = {
      "formula": "「照」在本語法中是介詞，有「按照」的意思。表示說話的人按照一般的情況、道理來判斷某件事。可放在句子的最前面、句中，或是當作短語使用。",
      "examples": [
       {
-       "hz": "A：在臺灣，學生從小學就開始學習英文，照理說每個人的英文   能力應該都很不錯，不過實際上卻不是這樣。原因是什麼？B：或許是許多學校只重視讀寫，卻很少鼓勵學生用英文表達。",
-       "vi": ""
+       "hz": "A：在臺灣，學生從小學就開始學習英文，照理說每個人的英文能力應該都很不錯，不過實際上卻不是這樣。原因是什麼？B：或許是許多學校只重視讀寫，卻很少鼓勵學生用英文表達。",
+       "vi": "A: Ở Đài Loan, học sinh bắt đầu học tiếng Anh từ tiểu học, theo lẽ thường thì khả năng tiếng Anh của ai cũng phải khá, nhưng thực tế lại không phải vậy. Nguyên nhân là gì? B: Có lẽ nhiều trường chỉ coi trọng đọc viết mà ít khuyến khích học sinh diễn đạt bằng tiếng Anh.",
+       "py": "A: Zài Táiwān, xuéshēng cóng xiǎoxué jiù kāishǐ xuéxí yīngwén, zhàolǐshuō měigè rén de yīngwén nénglì yīnggāi dōu hěn búcuò, búguò shíjìshàng què búshì zhèyàng. Yuányīn shì shénme? B: Huòxǔ shì xǔduō xuéxiào zhǐ zhòngshì dúxiě, què hěnshǎo gǔlì xuéshēng yòng yīngwén biǎodá."
       },
       {
        "hz": "A：三個星期前我把電視送去服務中心修理，可是忘了問他們需要幾天才能拿回來。",
-       "vi": ""
+       "vi": "A: Ba tuần trước tôi mang tivi đến trung tâm dịch vụ sửa, nhưng quên hỏi họ cần mấy ngày mới lấy về được.",
+       "py": "A: Sāngè xīngqí qián wǒ bǎ diànshì sòng qù fúwùzhōngxīn xiūlǐ, kěshì wàng le wèn tāmen xūyào jǐtiān cáinéng ná huílái."
       },
       {
        "hz": "A：前幾天我寫了電子郵件向那家餐廳的老闆抱怨，不過一直沒收到他的來信。",
-       "vi": ""
+       "vi": "A: Mấy hôm trước tôi viết email phàn nàn với chủ nhà hàng đó, nhưng mãi vẫn chưa nhận được thư trả lời.",
+       "py": "A: Qián jǐtiān wǒ xiě le diànziyóujiàn xiàng nà jiā cāntīng de lǎobǎn bàoyuàn, búguò yìzhí mòshōu dào tā de láixìn."
       },
       {
        "hz": "請用「照理說」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “照理說” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “zhàolǐshuō” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -7100,43 +8215,53 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：一樓明明有電梯，你為什麼帶我們從一樓走到五樓？B：你沒看到電梯前的牌子嗎？上面寫著「修理中，請勿使用」。",
-       "vi": ""
+       "vi": "A: Tầng một rõ ràng có thang máy, sao bạn lại dẫn chúng tôi đi bộ từ tầng một lên tầng năm? B: Bạn không thấy tấm biển trước thang máy à? Trên đó ghi “Đang sửa chữa, vui lòng không sử dụng”.",
+       "py": "A: Yīlóu míngmíng yǒu diàntī, nǐ wèishénme dài wǒmen cóng yìlóu zǒu dào wǔ lóu? B: Nǐ méi kàndào diàntī qián de páizi ma? Shàngmiàn xiě zhe “xiūlǐ zhōng, qǐngwù shǐyòng”."
       },
       {
        "hz": "A：我們酒也喝夠了，菜也吃飽了。等會兒我開車送你回家。",
-       "vi": ""
+       "vi": "A: Rượu chúng ta uống cũng đủ rồi, đồ ăn cũng no rồi. Lát nữa tôi lái xe đưa bạn về.",
+       "py": "A: Wǒmen jiǔ yě hēgòu le, cài yě chībǎo le. Děnghuì'er wǒ kāichē sòng nǐ huíjiā."
       },
       {
        "hz": "A：我的書包裡裝滿了書和文具用品，重死了。先放在教室裡，等上完游泳課再回來拿，應該沒關係吧？",
-       "vi": ""
+       "vi": "A: Cặp sách của tôi đầy sách và đồ dùng học tập, nặng chết đi được. Để tạm trong lớp, học bơi xong quay lại lấy chắc không sao nhỉ?",
+       "py": "A: Wǒ de shūbāo lǐ zhuāngmǎn le shū hàn wénjùyòngpǐn, zhòng sǐ le. Xiān fàngzài jiàoshì lǐ, děng shàng wán yóuyǒng kè zài huílái ná, yīnggāi méiguānxì ba?"
       },
       {
        "hz": "請用「勿V(O)」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “勿V(O)” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “wù V” wánchéng yǐxià de duìhuà."
       },
       {
-       "hz": "A：那位市長在選舉前提了很多計畫，選上以後怎麼都沒實現？B：有些政治人物就是這樣，選舉前說的是一回事，選上了以後   做的又是一回事。看多了也就不覺得奇怪了。",
-       "vi": ""
+       "hz": "A：那位市長在選舉前提了很多計畫，選上以後怎麼都沒實現？B：有些政治人物就是這樣，選舉前說的是一回事，選上了以後做的又是一回事。看多了也就不覺得奇怪了。",
+       "vi": "A: Vị thị trưởng đó trước bầu cử đưa ra nhiều kế hoạch, sao đắc cử rồi lại chẳng thực hiện gì? B: Có những chính trị gia là như vậy, trước bầu cử nói một đằng, đắc cử rồi làm một nẻo. Thấy nhiều rồi cũng chẳng thấy lạ nữa.",
+       "py": "A: Nàwèi shìzhǎng zài xuǎnjǔ qiántí le hěnduō jìhuà, xuǎn shàng yǐhòu zěnme dōu méi shíxiàn? B: Yǒuxiē zhèngzhì rénwù jiùshì zhèyàng, xuǎnjǔ qián shuō de shì yì huíshì, xuǎn shàng le yǐhòu zuò de yòu shì yì huíshì. Kàn duō le yě jiù bù juéde qíguài le."
       },
       {
        "hz": "II.A是一回事，B又是一回事",
-       "vi": ""
+       "vi": "II. A là một chuyện, B lại là chuyện khác",
+       "py": "II. A shì yì huíshì, B yòu shì yì huíshì"
       },
       {
-       "hz": "A：那個國家與你們國家的文化、語言都相同，兩國之間為什麼不         好好溝通、好好合作呢？",
-       "vi": ""
+       "hz": "A：那個國家與你們國家的文化、語言都相同，兩國之間為什麼不好好溝通、好好合作呢？",
+       "vi": "A: Nước đó và nước các bạn có văn hoá, ngôn ngữ giống nhau, tại sao hai nước không trao đổi, hợp tác tốt với nhau?",
+       "py": "A: Nàge guójiā yǔ nǐmen guójiā de wénhuà, yǔyán dōu xiāngtóng, liǎngguózhījiān wèishénme bù hǎohǎo gōutōng, hǎohǎo hézuò ne?"
       },
       {
        "hz": "A：有些單身男女想談戀愛，但又不想結婚。他們是怎麼想的？",
-       "vi": ""
+       "vi": "A: Có những nam nữ độc thân muốn yêu nhưng lại không muốn kết hôn. Họ nghĩ thế nào vậy?",
+       "py": "A: Yǒuxiē dānshēnnánnǚ xiǎng tánliàn'ài, dàn yòu bùxiǎng jiéhūn. Tāmen shì zěnme xiǎng de?"
       },
       {
        "hz": "夠依靠的對象。",
-       "vi": ""
+       "vi": "…người có thể nương tựa được.",
+       "py": "Gòu yīkào de duìxiàng."
       },
       {
        "hz": "請用「A是一回事，B又是一回事」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “A是一回事，B又是一回事” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “A shì yì huíshì, B yòu shì yì huíshì” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -7155,20 +8280,24 @@ export const thoidaiGrammar4 = {
      "formula": "「大不了」是副詞，表示說話的人認為某件事不需要太擔心，最多、最壞也只是「大不了」之後的情況。「大不了」除了放在動詞前面，也可放在句子最前面。",
      "examples": [
       {
-       "hz": "A：你設計的產品很不錯，但成本太高，要大量生產也很困難，公   司無法採用。B：雖然有些失望，不過不要緊，大不了重新設計。",
-       "vi": ""
+       "hz": "A：你設計的產品很不錯，但成本太高，要大量生產也很困難，公司無法採用。B：雖然有些失望，不過不要緊，大不了重新設計。",
+       "vi": "A: Sản phẩm bạn thiết kế rất khá, nhưng giá thành quá cao, sản xuất hàng loạt cũng rất khó, công ty không thể áp dụng. B: Tuy hơi thất vọng nhưng không sao, cùng lắm thì thiết kế lại.",
+       "py": "A: Nǐ shèjì de chǎnpǐn hěn búcuò, dàn chéngběn tài gāo, yào dàliàng shēngchǎn yě hěn kùnnán, gōngsī wúfǎ cǎiyòng. B: Suīrán yǒuxiē shīwàng, búguò búyàojǐn, dàbùliǎo chóngxīn shèjì."
       },
       {
        "hz": "A：我誤會同學偷偷吃了我的點心，怎麼辦？",
-       "vi": ""
+       "vi": "A: Tôi hiểu lầm bạn cùng lớp lén ăn bánh của tôi, phải làm sao đây?",
+       "py": "A: Wǒ wùhuì tóngxué tōutōu chī le wǒ de diǎnxīn, zěnmebàn?"
       },
       {
        "hz": "A：本來跟你約好，趁春節陪你調查山區動物，不過教授忽然要我們研究室全部都留下來做化學分析，真是對不起。",
-       "vi": ""
+       "vi": "A: Vốn đã hẹn với bạn, tranh thủ dịp Tết đi cùng bạn khảo sát động vật vùng núi, nhưng giáo sư đột nhiên yêu cầu cả phòng nghiên cứu ở lại làm phân tích hoá học, thật xin lỗi.",
+       "py": "A: Běnlái gēn nǐ yuē hǎo, chèn chūnjié péi nǐ diàochá shānqū dòngwù, búguò jiàoshòu hūrán yào wǒmen yánjiūshì quánbù dōu liúxiàlái zuò huàxuéfēnxī, zhēnshì duìbùqǐ."
       },
       {
        "hz": "請用「大不了」完成以下對話。",
-       "vi": ""
+       "vi": "Hãy dùng “大不了” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “dàbùliǎo” wánchéng yǐxià duìhuà."
       }
      ],
      "answer": null
@@ -7185,20 +8314,24 @@ export const thoidaiGrammar4 = {
      "formula": "「替」在本語法中當介詞使用，「冷汗」在這裡是因為害怕而流的汗。表示因為「替」後面的某個人碰到了緊張、危險的情況，而使說話的人跟著擔心害怕。",
      "examples": [
       {
-       "hz": "A：前天你去看的那部外國電影怎麼樣？B：電影相當刺激。每次看到男女主角碰到危險時，都忍不住替他   們捏一把冷汗。",
-       "vi": ""
+       "hz": "A：前天你去看的那部外國電影怎麼樣？B：電影相當刺激。每次看到男女主角碰到危險時，都忍不住替他們捏一把冷汗。",
+       "vi": "A: Bộ phim nước ngoài bạn đi xem hôm kia thế nào? B: Phim khá gay cấn. Mỗi lần thấy nam nữ chính gặp nguy hiểm, tôi đều không kìm được mà toát mồ hôi lo cho họ.",
+       "py": "A: Qiántiān nǐ qù kàn de nà bù wàiguó diànyǐng zěnmeyàng? B: Diànyǐng xiāngdāng cìjī. Měicì kàndào nánnǚ zhǔjué pèngdào wéixiǎn shí, dōu rěnbúzhù tì tāmen niē yìbǎ lěnghàn."
       },
       {
        "hz": "我應該會替他捏一把冷汗。",
-       "vi": ""
+       "vi": "Chắc tôi sẽ toát mồ hôi lo cho anh ấy.",
+       "py": "Wǒ yīnggāi huì tì tā niē yìbǎ lěnghàn."
       },
       {
        "hz": "我會偷偷替他捏一把冷汗。",
-       "vi": ""
+       "vi": "Tôi sẽ thầm toát mồ hôi lo cho anh ấy.",
+       "py": "Wǒhuì tōutōu tì tā niē yìbǎ lěnghàn."
       },
       {
        "hz": "朋友碰到什麼情況時，會讓你替他們捏一把冷汗？請看看以下的情況，然後寫寫看。",
-       "vi": ""
+       "vi": "Khi bạn bè gặp tình huống gì thì bạn sẽ toát mồ hôi lo cho họ? Hãy xem các tình huống dưới đây rồi thử viết.",
+       "py": "Péngyǒu pèngdào shénme qíngkuàng shí, huì ràng nǐ tì tāmen niē yìbǎ lěnghàn? Qǐng kànkàn yǐxià de qíngkuàng, ránhòu xiěxiě kàn."
       }
      ],
      "answer": null
@@ -7216,23 +8349,28 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：你怎麼了，臉怎麼那麼腫？B：昨天半夜裡我的牙齒忽然痛得要命，等會兒要去醫院。A：你那麼痛，為什麼還開心得要命？B：因為要幫我看牙的，是我那位溫柔又可愛的牙醫女友啊。",
-       "vi": ""
+       "vi": "A: Bạn sao vậy, sao mặt sưng thế? B: Nửa đêm qua răng tôi bỗng đau chết đi được, lát nữa phải đi bệnh viện. A: Bạn đau như vậy, sao còn vui chết đi được thế? B: Vì người khám răng cho tôi là cô bạn gái nha sĩ vừa dịu dàng vừa đáng yêu của tôi đấy.",
+       "py": "A: Nǐ zěnme le, liǎn zěnme nàme zhǒng? B: Zuótiān bànyèlǐ wǒ de yáchǐ hūrán tòng de yàomìng, děnghuì'er yào qù yīyuàn. A: Nǐ nàme tòng, wèishénme hái kāixīn de yàomìng? B: Yīnwèi yào bāng wǒ kàn yá de, shì wǒ nàwèi wēnróu yòu kě'ài de yáyī nǚyǒu a."
       },
       {
        "hz": "有好消息啊？",
-       "vi": ""
+       "vi": "Có tin vui à?",
+       "py": "Yǒu hǎoxiāoxí a?"
       },
       {
        "hz": "B：沒錯，教授總算答應讓我當他的研究助理了！",
-       "vi": ""
+       "vi": "B: Đúng vậy, cuối cùng giáo sư cũng đồng ý cho tôi làm trợ lý nghiên cứu của thầy rồi!",
+       "py": "B: Méicuò, jiàoshòu zǒngsuàn dāyìng ràng wǒ dāng tā de yánjiù zhùlǐ le!"
       },
       {
        "hz": "B：我很少那樣批評一家餐廳，可是那家真的一點兒優點都沒有。",
-       "vi": ""
+       "vi": "B: Tôi rất ít khi chê một nhà hàng như thế, nhưng quán đó thật sự chẳng có ưu điểm gì.",
+       "py": "B: Wǒ hěnshǎo nàyàng pīpíng yìjiā cāntīng, kěshì nà jiā zhēnde yìdiǎn'ér yōudiǎn dōu méiyǒu."
       },
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -7249,20 +8387,24 @@ export const thoidaiGrammar4 = {
      "formula": "「照」在本語法中是介詞，有「按照」的意思。表示說話的人按照一般的情況、道理來判斷某件事。可放在句子的最前面、句中，或是當作短語使用。",
      "examples": [
       {
-       "hz": "A：在臺灣，學生從小學就開始學習英文，照理說每個人的英文   能力應該都很不錯，不過實際上卻不是這樣。原因是什麼？B：或許是許多學校只重視讀寫，卻很少鼓勵學生用英文表達。",
-       "vi": ""
+       "hz": "A：在臺灣，學生從小學就開始學習英文，照理說每個人的英文能力應該都很不錯，不過實際上卻不是這樣。原因是什麼？B：或許是許多學校只重視讀寫，卻很少鼓勵學生用英文表達。",
+       "vi": "A: Ở Đài Loan, học sinh bắt đầu học tiếng Anh từ tiểu học, theo lẽ thường thì khả năng tiếng Anh của ai cũng phải khá, nhưng thực tế lại không phải vậy. Nguyên nhân là gì? B: Có lẽ nhiều trường chỉ coi trọng đọc viết mà ít khuyến khích học sinh diễn đạt bằng tiếng Anh.",
+       "py": "A: Zài Táiwān, xuéshēng cóng xiǎoxué jiù kāishǐ xuéxí yīngwén, zhàolǐshuō měigè rén de yīngwén nénglì yīnggāi dōu hěn búcuò, búguò shíjìshàng què búshì zhèyàng. Yuányīn shì shénme? B: Huòxǔ shì xǔduō xuéxiào zhǐ zhòngshì dúxiě, què hěnshǎo gǔlì xuéshēng yòng yīngwén biǎodá."
       },
       {
        "hz": "A：三個星期前我把電視送去服務中心修理，可是忘了問他們需要幾天才能拿回來。",
-       "vi": ""
+       "vi": "A: Ba tuần trước tôi mang tivi đến trung tâm dịch vụ sửa, nhưng quên hỏi họ cần mấy ngày mới lấy về được.",
+       "py": "A: Sāngè xīngqí qián wǒ bǎ diànshì sòng qù fúwùzhōngxīn xiūlǐ, kěshì wàng le wèn tāmen xūyào jǐtiān cáinéng ná huílái."
       },
       {
        "hz": "A：前幾天我寫了電子郵件向那家餐廳的老闆抱怨，不過一直沒收到他的來信。",
-       "vi": ""
+       "vi": "A: Mấy hôm trước tôi viết email phàn nàn với chủ nhà hàng đó, nhưng mãi vẫn chưa nhận được thư trả lời.",
+       "py": "A: Qián jǐtiān wǒ xiě le diànziyóujiàn xiàng nà jiā cāntīng de lǎobǎn bàoyuàn, búguò yìzhí mòshōu dào tā de láixìn."
       },
       {
        "hz": "請用「照理說」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “照理說” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “zhàolǐshuō” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -7280,43 +8422,53 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：一樓明明有電梯，你為什麼帶我們從一樓走到五樓？B：你沒看到電梯前的牌子嗎？上面寫著「修理中，請勿使用」。",
-       "vi": ""
+       "vi": "A: Tầng một rõ ràng có thang máy, sao bạn lại dẫn chúng tôi đi bộ từ tầng một lên tầng năm? B: Bạn không thấy tấm biển trước thang máy à? Trên đó ghi “Đang sửa chữa, vui lòng không sử dụng”.",
+       "py": "A: Yīlóu míngmíng yǒu diàntī, nǐ wèishénme dài wǒmen cóng yìlóu zǒu dào wǔ lóu? B: Nǐ méi kàndào diàntī qián de páizi ma? Shàngmiàn xiě zhe “xiūlǐ zhōng, qǐngwù shǐyòng”."
       },
       {
        "hz": "A：我們酒也喝夠了，菜也吃飽了。等會兒我開車送你回家。",
-       "vi": ""
+       "vi": "A: Rượu chúng ta uống cũng đủ rồi, đồ ăn cũng no rồi. Lát nữa tôi lái xe đưa bạn về.",
+       "py": "A: Wǒmen jiǔ yě hēgòu le, cài yě chībǎo le. Děnghuì'er wǒ kāichē sòng nǐ huíjiā."
       },
       {
        "hz": "A：我的書包裡裝滿了書和文具用品，重死了。先放在教室裡，等上完游泳課再回來拿，應該沒關係吧？",
-       "vi": ""
+       "vi": "A: Cặp sách của tôi đầy sách và đồ dùng học tập, nặng chết đi được. Để tạm trong lớp, học bơi xong quay lại lấy chắc không sao nhỉ?",
+       "py": "A: Wǒ de shūbāo lǐ zhuāngmǎn le shū hàn wénjùyòngpǐn, zhòng sǐ le. Xiān fàngzài jiàoshì lǐ, děng shàng wán yóuyǒng kè zài huílái ná, yīnggāi méiguānxì ba?"
       },
       {
        "hz": "請用「勿V(O)」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “勿V(O)” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “wù V” wánchéng yǐxià de duìhuà."
       },
       {
-       "hz": "A：那位市長在選舉前提了很多計畫，選上以後怎麼都沒實現？B：有些政治人物就是這樣，選舉前說的是一回事，選上了以後   做的又是一回事。看多了也就不覺得奇怪了。",
-       "vi": ""
+       "hz": "A：那位市長在選舉前提了很多計畫，選上以後怎麼都沒實現？B：有些政治人物就是這樣，選舉前說的是一回事，選上了以後做的又是一回事。看多了也就不覺得奇怪了。",
+       "vi": "A: Vị thị trưởng đó trước bầu cử đưa ra nhiều kế hoạch, sao đắc cử rồi lại chẳng thực hiện gì? B: Có những chính trị gia là như vậy, trước bầu cử nói một đằng, đắc cử rồi làm một nẻo. Thấy nhiều rồi cũng chẳng thấy lạ nữa.",
+       "py": "A: Nàwèi shìzhǎng zài xuǎnjǔ qiántí le hěnduō jìhuà, xuǎn shàng yǐhòu zěnme dōu méi shíxiàn? B: Yǒuxiē zhèngzhì rénwù jiùshì zhèyàng, xuǎnjǔ qián shuō de shì yì huíshì, xuǎn shàng le yǐhòu zuò de yòu shì yì huíshì. Kàn duō le yě jiù bù juéde qíguài le."
       },
       {
        "hz": "II.A是一回事，B又是一回事",
-       "vi": ""
+       "vi": "II. A là một chuyện, B lại là chuyện khác",
+       "py": "II. A shì yì huíshì, B yòu shì yì huíshì"
       },
       {
-       "hz": "A：那個國家與你們國家的文化、語言都相同，兩國之間為什麼不         好好溝通、好好合作呢？",
-       "vi": ""
+       "hz": "A：那個國家與你們國家的文化、語言都相同，兩國之間為什麼不好好溝通、好好合作呢？",
+       "vi": "A: Nước đó và nước các bạn có văn hoá, ngôn ngữ giống nhau, tại sao hai nước không trao đổi, hợp tác tốt với nhau?",
+       "py": "A: Nàge guójiā yǔ nǐmen guójiā de wénhuà, yǔyán dōu xiāngtóng, liǎngguózhījiān wèishénme bù hǎohǎo gōutōng, hǎohǎo hézuò ne?"
       },
       {
        "hz": "A：有些單身男女想談戀愛，但又不想結婚。他們是怎麼想的？",
-       "vi": ""
+       "vi": "A: Có những nam nữ độc thân muốn yêu nhưng lại không muốn kết hôn. Họ nghĩ thế nào vậy?",
+       "py": "A: Yǒuxiē dānshēnnánnǚ xiǎng tánliàn'ài, dàn yòu bùxiǎng jiéhūn. Tāmen shì zěnme xiǎng de?"
       },
       {
        "hz": "夠依靠的對象。",
-       "vi": ""
+       "vi": "…người có thể nương tựa được.",
+       "py": "Gòu yīkào de duìxiàng."
       },
       {
        "hz": "請用「A是一回事，B又是一回事」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “A是一回事，B又是一回事” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “A shì yì huíshì, B yòu shì yì huíshì” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -7336,19 +8488,23 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：你這次考試分數這麼高，還不滿意啊？太把成績當回事了吧？B：這有什麼關係？總比那些沒把考試當一回事的人好。",
-       "vi": ""
+       "vi": "A: Lần thi này bạn được điểm cao vậy mà vẫn chưa hài lòng à? Bạn coi trọng điểm số quá rồi đấy? B: Thế thì có sao? Dù sao cũng hơn những người chẳng coi kỳ thi ra gì.",
+       "py": "A: Nǐ zhècì kǎoshìfēnshù zhème gāo, hái bù mǎnyì a? Tài bǎ chéngjì dānghuíshì le ba? B: Zhè yǒu shénme guānxì? Zǒng bǐ nàxiē méi bǎ kǎoshì dāngyìhuíshì de rén hǎo."
       },
       {
        "hz": "A：小陳白天也打工，晚上也打工。他說等錢存夠了以後，想開一家茶飲店，有自己的事業。",
-       "vi": ""
+       "vi": "A: Tiểu Trần ban ngày cũng làm thêm, buổi tối cũng làm thêm. Cậu ấy nói đợi dành dụm đủ tiền sẽ mở một quán trà, có sự nghiệp của riêng mình.",
+       "py": "A: Xiǎo chén báitiān yě dǎgōng, wǎnshàng yě dǎgōng. Tā shuō děng qián cún gòu le yǐhòu, xiǎngkāi yìjiā chá yǐndiàn, yǒu zìjǐ de shìyè."
       },
       {
        "hz": "A：這整週天氣都很不穩定，他們又從沒爬過那座山，很容易發生狀況。你怎麼沒提醒他們一下？",
-       "vi": ""
+       "vi": "A: Cả tuần nay thời tiết đều không ổn định, họ lại chưa từng leo ngọn núi đó, rất dễ xảy ra sự cố. Sao bạn không nhắc họ một chút?",
+       "py": "A: Zhè zhěngzhōu tiānqì dōu hěn bù wěndìng, tāmen yòu cóngméi pá guò nà zuò shān, hěn róngyì fāshēng zhuàngkuàng. Nǐ zěnme méi tíxǐng tāmen yíxià?"
       },
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -7365,52 +8521,64 @@ export const thoidaiGrammar4 = {
      "formula": "「這下/這下子」是名詞，意思是「在這種情況時」；「可」當副詞用，有「真的」的意思。根據用法不同，有以下兩種意思：",
      "examples": [
       {
-       "hz": "A：登山社本來決定在週末舉辦露營活動，不過這幾天雨老是下   個不停，這下可好了，只能改天再去。 B：我昨天還因為有事去不了而覺得可惜，這下子可好了，我可   以報名參加了。",
-       "vi": ""
+       "hz": "A：登山社本來決定在週末舉辦露營活動，不過這幾天雨老是下個不停，這下可好了，只能改天再去。 B：我昨天還因為有事去不了而覺得可惜，這下子可好了，我可以報名參加了。",
+       "vi": "A: Câu lạc bộ leo núi vốn quyết định tổ chức cắm trại vào cuối tuần, nhưng mấy hôm nay mưa mãi không ngớt, lần này thì hay rồi, chỉ có thể để hôm khác đi. B: Hôm qua tôi còn tiếc vì có việc không đi được, lần này thì hay quá, tôi có thể đăng ký tham gia rồi.",
+       "py": "A: Dēngshān shè běnlái juédìng zài zhōumò jǔbàn lùyíng huódòng, búguò zhè jǐtiān yǔ lǎo shì xià gè bùtíng, zhè xià kěhǎo le, zhǐnéng gǎitiān zài qù. B: Wǒ zuótiān hái yīnwèi yǒushì qù bùliǎo ér juéde kěxī, zhèxiàzi kěhǎo le, wǒ kěyǐ bàomíng cānjiā le."
       },
       {
        "hz": "（1）因為前面的情況，使事情更難處理，或是不小心做錯事。",
-       "vi": ""
+       "vi": "(1) Vì tình huống phía trước mà sự việc càng khó xử lý hơn, hoặc lỡ làm sai việc.",
+       "py": "(1) yīnwèi qiánmiàn de qíngkuàng, shǐ shìqíng gèng nán chǔlǐ, huòshì bù xiǎoxīn zuòcuòshì."
       },
       {
        "hz": "（2）本來很糟的情況，因為意外的情況反而變好了。",
-       "vi": ""
+       "vi": "(2) Tình huống vốn rất tệ, nhờ một tình huống bất ngờ mà ngược lại trở nên tốt hơn.",
+       "py": "(2) běnlái hěnzāo de qíngkuàng, yīnwèi yìwài de qíngkuàng fǎn'ér biàn hǎo le."
       },
       {
        "hz": "A：你看過臺灣今天的空氣品質圖了嗎？每個地方都是紅色的，空氣受汙染的情況好嚴重。",
-       "vi": ""
+       "vi": "A: Bạn đã xem bản đồ chất lượng không khí của Đài Loan hôm nay chưa? Chỗ nào cũng màu đỏ, không khí ô nhiễm nghiêm trọng quá.",
+       "py": "A: Nǐ kànguò Táiwān jīntiān de kōngqì pǐnzhí tú le ma? Měigè dìfāng dōu shì hóngsè de, kōngqì shòu wūrǎn de qíngkuàng hǎo yánzhòng."
       },
       {
        "hz": "A：我上學期的室友搬出去時把一堆垃圾都放在宿舍房間裡。我到現在還聯絡不上他，開學了也沒來整理。真的好臭！",
-       "vi": ""
+       "vi": "A: Bạn cùng phòng học kỳ trước của tôi khi chuyển đi đã để lại cả đống rác trong phòng ký túc xá. Đến giờ tôi vẫn không liên lạc được với cậu ấy, khai giảng rồi cũng không đến dọn. Hôi thật sự!",
+       "py": "A: Wǒ shàng xuéqí de shìyǒu bānchūqù shí bǎ yìduī lèsè dōu fàngzài sùshè fángjiān lǐ. Wǒ dào xiànzài hái liánluò bú shàng tā, kāixué le yě méi lái zhěnglǐ. Zhēnde hǎo chòu!"
       },
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       },
       {
-       "hz": "他們一向聊得來。\t\t\t\t（感情、關係好）2. 這件事他一定做得來。\t\t\t（能夠做、有辦法做）3. 我喜歡臭豆腐的味道，我吃得來。\t（喜歡吃）用「V得來/V不來」時，常見的意思有三種：⑴ 感情、關係好或不好。",
-       "vi": ""
+       "hz": "他們一向聊得來。 （感情、關係好）2. 這件事他一定做得來。 （能夠做、有辦法做）3. 我喜歡臭豆腐的味道，我吃得來。\t（喜歡吃）用「V得來/V不來」時，常見的意思有三種：⑴ 感情、關係好或不好。",
+       "vi": "1. Họ xưa nay vẫn nói chuyện hợp nhau. (tình cảm, quan hệ tốt) 2. Việc này chắc chắn anh ấy làm được. (có thể làm, có cách làm) 3. Tôi thích mùi đậu phụ thối, tôi ăn được. (thích ăn) Khi dùng “V得來/V不來”, thường có ba nghĩa: (1) Tình cảm, quan hệ tốt hoặc không tốt.",
+       "py": "Tāmen yíxiàng liáode lái. (gǎnqíng, guānxì hǎo) 2. Zhèjiàn shì tā yídìng zuòdelái. (nénggòu zuò, yǒu bànfǎ zuò) 3. Wǒ xǐhuān chòudòufǔ de wèidào, wǒ chīdelái. (xǐhuān chī) yòng “V délái / V bù lái” shí, chángjiàn de yìsi yǒu sānzhǒng: ⑴ gǎnqíng, guānxì hǎo huò bùhǎo."
       },
       {
        "hz": "⑵ 能不能做、有沒有辦法做，跟「V得了/V不了」相同。",
-       "vi": ""
+       "vi": "(2) Có làm được hay không, có cách làm hay không, giống “V得了/V不了”.",
+       "py": "⑵ néng bùnéng zuò, yǒuméiyǒu bànfǎ zuò, gēn “V de le / V bùliǎo” xiāngtóng."
       },
       {
        "hz": "⑶ 喜歡或不喜歡做。",
-       "vi": ""
+       "vi": "(3) Thích hay không thích làm.",
+       "py": "⑶ xǐhuān huò bù xǐhuān zuò."
       },
       {
        "hz": "B：你每天學一點，分開學，這樣就能夠減輕學習負擔了。",
-       "vi": ""
+       "vi": "B: Mỗi ngày bạn học một ít, chia ra học, như vậy có thể giảm bớt gánh nặng học tập.",
+       "py": "B: Nǐ měitiān xué yìdiǎn, fēnkāi xué, zhèyàng jiù nénggòu jiǎnqīng xuéxí fùdān le."
       },
       {
        "hz": "A：最近活動中心有京劇的表演，你有興趣去看看嗎？",
-       "vi": ""
+       "vi": "A: Dạo này trung tâm hoạt động có biểu diễn Kinh kịch, bạn có hứng thú đi xem không?",
+       "py": "A: Zuìjìn huódòngzhōngxīn yǒu jīngjù de biǎoyǎn, nǐ yǒu xìngqù qù kànkàn ma?"
       },
       {
        "hz": "請用「V得來」或「V不來」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “V得來” hoặc “V不來” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “V délái” huò “V bù lái” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -7428,27 +8596,33 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：這項研究計畫相當困難，你怎麼主動答應負責了？ B：看在計畫完成後就會加薪的分上，我當然要去做啦！",
-       "vi": ""
+       "vi": "A: Kế hoạch nghiên cứu này khá khó, sao bạn lại chủ động nhận phụ trách? B: Nể tình kế hoạch hoàn thành sẽ được tăng lương, đương nhiên tôi phải làm chứ!",
+       "py": "A: Zhèxiàng yánjiù jìhuà xiāngdāng kùnnán, nǐ zěnme zhǔdòng dāyìng fùzé le? B: Kàn zài jìhuà wánchéng hòu jiù huì jiāxīn de fēn shàng, wǒ dāngrán yào qù zuò la!"
       },
       {
        "hz": "A：真是對不起，為了處理客戶問題，給你帶來那麼多麻煩。",
-       "vi": ""
+       "vi": "A: Thật xin lỗi, vì xử lý vấn đề của khách hàng mà gây cho bạn nhiều phiền phức như vậy.",
+       "py": "A: Zhēnshì duìbùqǐ, wèile chǔlǐ kèhù wèntí, gěi nǐ dàilái nàme duō máfán."
       },
       {
        "hz": "有困難你就說吧。",
-       "vi": ""
+       "vi": "Có khó khăn gì thì bạn cứ nói.",
+       "py": "Yǒu kùnnán nǐ jiù shuō ba."
       },
       {
        "hz": "A：你不是對那個男的沒什麼感覺，怎麼忽然答應跟他約會了？",
-       "vi": ""
+       "vi": "A: Chẳng phải bạn chẳng có cảm giác gì với anh chàng đó sao, sao đột nhiên lại đồng ý hẹn hò với anh ta?",
+       "py": "A: Nǐ búshì duì nàge nán de méishénme gǎnjué, zěnme hūrán dāyìng gēn tā yuēhuì le?"
       },
       {
        "hz": "是因為他家裡很有錢嗎？",
-       "vi": ""
+       "vi": "Có phải vì nhà anh ta rất giàu không?",
+       "py": "Shìyīnwèi tā jiālǐ hěn yǒuqián ma?"
       },
       {
        "hz": "請用「看在……的份上」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “看在……的份上” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “kàn zài…… de fèn shàng” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -7465,12 +8639,14 @@ export const thoidaiGrammar4 = {
      "formula": "「居然」是副詞，表示後面出現的情況，是說話的人感覺意外、沒想到的。「居然」除了放在動詞前以外，有時也可以放在句子最前面，多用在口語。",
      "examples": [
       {
-       "hz": "林先生去做健檢，他太太陪著他一起去做，結果檢查有問  題的居然是太太，反而他沒事。2.鄰居老何的兒子長得好快，沒想到才十二歲，居然就跟他差不  多高了。",
-       "vi": ""
+       "hz": "林先生去做健檢，他太太陪著他一起去做，結果檢查有問題的居然是太太，反而他沒事。2.鄰居老何的兒子長得好快，沒想到才十二歲，居然就跟他差不多高了。",
+       "vi": "1. Ông Lâm đi khám sức khoẻ, vợ ông cũng đi khám cùng, kết quả người có vấn đề lại là bà vợ, còn ông thì chẳng sao. 2. Con trai ông Hà hàng xóm lớn nhanh thật, không ngờ mới mười hai tuổi mà đã cao gần bằng ông.",
+       "py": "Lín xiānshēng qù zuò jiàn jiǎn, tā tàitai péi zhe tā yìqǐ qù zuò, jiéguǒ jiǎnchá yǒu wèntí de jūrán shì tàitai, fǎn'ér tā méishì. 2. Línjū lǎohé de érzi zhǎng de hǎo kuài, méixiǎngdào cái shí'èrsuì, jūrán jiù gēn tā chàbuduō gāo le."
       },
       {
        "hz": "請使用「居然」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “居然” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “jūrán” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -7487,20 +8663,24 @@ export const thoidaiGrammar4 = {
      "formula": "「起見」是連詞，表示說話的人是因為「起見」前面的目的，所以認為應該做「起見」後面提到的事，常用在口語。用法：「為了【目的】起見，【該做的事】」，句中的【目的】常用一個詞或短句。",
      "examples": [
       {
-       "hz": "A：有位剛認識的網友想約我一起用晚餐，可是他約的時間太晚   了，讓我有一點擔心。 B：你們還不熟，為了妳的安全起見，還是請他改時間比較好。",
-       "vi": ""
+       "hz": "A：有位剛認識的網友想約我一起用晚餐，可是他約的時間太晚了，讓我有一點擔心。 B：你們還不熟，為了妳的安全起見，還是請他改時間比較好。",
+       "vi": "A: Có một người bạn trên mạng mới quen muốn hẹn tôi ăn tối, nhưng giờ anh ta hẹn muộn quá, khiến tôi hơi lo. B: Hai người chưa thân, để an toàn cho bạn, tốt hơn nên bảo anh ta đổi giờ.",
+       "py": "A: Yǒu wèi gāng rènshì de wǎngyǒu xiǎng yuē wǒ yìqǐ yòng wǎncān, kěshì tā yuē de shíjiān tàiwǎn le, ràng wǒ yǒu yìdiǎn dānxīn. B: Nǐmen hái bù shú, wèile nǐ de ānquán qǐ jiàn, háishì qǐng tā gǎi shíjiān bǐjiào hǎo."
       },
       {
        "hz": "A：這班火車怎麼只開了一半，就叫大家在下一站改搭其他火車？難道發生了什麼事嗎？",
-       "vi": ""
+       "vi": "A: Sao chuyến tàu này mới chạy được một nửa đã bảo mọi người đổi sang tàu khác ở ga sau? Chẳng lẽ xảy ra chuyện gì à?",
+       "py": "A: Zhè bān huǒchē zěnme zhǐ kāi le yíbàn, jiù jiào dàjiā zài xià yízhàn gǎi dā qítā huǒchē? Nándào fāshēng le shénme shì ma?"
       },
       {
        "hz": "A：聽說經理調整了公司今後的開會方式，他是怎麼說的？",
-       "vi": ""
+       "vi": "A: Nghe nói giám đốc đã điều chỉnh cách họp của công ty từ nay về sau, ông ấy nói thế nào?",
+       "py": "A: Tīngshuō jīnglǐ tiáozhěng le gōngsī jīnhòu de kāihuì fāngshì, tā shì zěnme shuō de?"
       },
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -7520,19 +8700,23 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：你這次考試分數這麼高，還不滿意啊？太把成績當回事了吧？B：這有什麼關係？總比那些沒把考試當一回事的人好。",
-       "vi": ""
+       "vi": "A: Lần thi này bạn được điểm cao vậy mà vẫn chưa hài lòng à? Bạn coi trọng điểm số quá rồi đấy? B: Thế thì có sao? Dù sao cũng hơn những người chẳng coi kỳ thi ra gì.",
+       "py": "A: Nǐ zhècì kǎoshìfēnshù zhème gāo, hái bù mǎnyì a? Tài bǎ chéngjì dānghuíshì le ba? B: Zhè yǒu shénme guānxì? Zǒng bǐ nàxiē méi bǎ kǎoshì dāngyìhuíshì de rén hǎo."
       },
       {
        "hz": "A：小陳白天也打工，晚上也打工。他說等錢存夠了以後，想開一家茶飲店，有自己的事業。",
-       "vi": ""
+       "vi": "A: Tiểu Trần ban ngày cũng làm thêm, buổi tối cũng làm thêm. Cậu ấy nói đợi dành dụm đủ tiền sẽ mở một quán trà, có sự nghiệp của riêng mình.",
+       "py": "A: Xiǎo chén báitiān yě dǎgōng, wǎnshàng yě dǎgōng. Tā shuō děng qián cún gòu le yǐhòu, xiǎngkāi yìjiā chá yǐndiàn, yǒu zìjǐ de shìyè."
       },
       {
        "hz": "A：這整週天氣都很不穩定，他們又從沒爬過那座山，很容易發生狀況。你怎麼沒提醒他們一下？",
-       "vi": ""
+       "vi": "A: Cả tuần nay thời tiết đều không ổn định, họ lại chưa từng leo ngọn núi đó, rất dễ xảy ra sự cố. Sao bạn không nhắc họ một chút?",
+       "py": "A: Zhè zhěngzhōu tiānqì dōu hěn bù wěndìng, tāmen yòu cóngméi pá guò nà zuò shān, hěn róngyì fāshēng zhuàngkuàng. Nǐ zěnme méi tíxǐng tāmen yíxià?"
       },
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -7549,52 +8733,64 @@ export const thoidaiGrammar4 = {
      "formula": "「這下/這下子」是名詞，意思是「在這種情況時」；「可」當副詞用，有「真的」的意思。根據用法不同，有以下兩種意思：",
      "examples": [
       {
-       "hz": "A：登山社本來決定在週末舉辦露營活動，不過這幾天雨老是下   個不停，這下可好了，只能改天再去。 B：我昨天還因為有事去不了而覺得可惜，這下子可好了，我可   以報名參加了。",
-       "vi": ""
+       "hz": "A：登山社本來決定在週末舉辦露營活動，不過這幾天雨老是下個不停，這下可好了，只能改天再去。 B：我昨天還因為有事去不了而覺得可惜，這下子可好了，我可以報名參加了。",
+       "vi": "A: Câu lạc bộ leo núi vốn quyết định tổ chức cắm trại vào cuối tuần, nhưng mấy hôm nay mưa mãi không ngớt, lần này thì hay rồi, chỉ có thể để hôm khác đi. B: Hôm qua tôi còn tiếc vì có việc không đi được, lần này thì hay quá, tôi có thể đăng ký tham gia rồi.",
+       "py": "A: Dēngshān shè běnlái juédìng zài zhōumò jǔbàn lùyíng huódòng, búguò zhè jǐtiān yǔ lǎo shì xià gè bùtíng, zhè xià kěhǎo le, zhǐnéng gǎitiān zài qù. B: Wǒ zuótiān hái yīnwèi yǒushì qù bùliǎo ér juéde kěxī, zhèxiàzi kěhǎo le, wǒ kěyǐ bàomíng cānjiā le."
       },
       {
        "hz": "（1）因為前面的情況，使事情更難處理，或是不小心做錯事。",
-       "vi": ""
+       "vi": "(1) Vì tình huống phía trước mà sự việc càng khó xử lý hơn, hoặc lỡ làm sai việc.",
+       "py": "(1) yīnwèi qiánmiàn de qíngkuàng, shǐ shìqíng gèng nán chǔlǐ, huòshì bù xiǎoxīn zuòcuòshì."
       },
       {
        "hz": "（2）本來很糟的情況，因為意外的情況反而變好了。",
-       "vi": ""
+       "vi": "(2) Tình huống vốn rất tệ, nhờ một tình huống bất ngờ mà ngược lại trở nên tốt hơn.",
+       "py": "(2) běnlái hěnzāo de qíngkuàng, yīnwèi yìwài de qíngkuàng fǎn'ér biàn hǎo le."
       },
       {
        "hz": "A：你看過臺灣今天的空氣品質圖了嗎？每個地方都是紅色的，空氣受汙染的情況好嚴重。",
-       "vi": ""
+       "vi": "A: Bạn đã xem bản đồ chất lượng không khí của Đài Loan hôm nay chưa? Chỗ nào cũng màu đỏ, không khí ô nhiễm nghiêm trọng quá.",
+       "py": "A: Nǐ kànguò Táiwān jīntiān de kōngqì pǐnzhí tú le ma? Měigè dìfāng dōu shì hóngsè de, kōngqì shòu wūrǎn de qíngkuàng hǎo yánzhòng."
       },
       {
        "hz": "A：我上學期的室友搬出去時把一堆垃圾都放在宿舍房間裡。我到現在還聯絡不上他，開學了也沒來整理。真的好臭！",
-       "vi": ""
+       "vi": "A: Bạn cùng phòng học kỳ trước của tôi khi chuyển đi đã để lại cả đống rác trong phòng ký túc xá. Đến giờ tôi vẫn không liên lạc được với cậu ấy, khai giảng rồi cũng không đến dọn. Hôi thật sự!",
+       "py": "A: Wǒ shàng xuéqí de shìyǒu bānchūqù shí bǎ yìduī lèsè dōu fàngzài sùshè fángjiān lǐ. Wǒ dào xiànzài hái liánluò bú shàng tā, kāixué le yě méi lái zhěnglǐ. Zhēnde hǎo chòu!"
       },
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       },
       {
-       "hz": "他們一向聊得來。\t\t\t\t（感情、關係好）2. 這件事他一定做得來。\t\t\t（能夠做、有辦法做）3. 我喜歡臭豆腐的味道，我吃得來。\t（喜歡吃）用「V得來/V不來」時，常見的意思有三種：⑴ 感情、關係好或不好。",
-       "vi": ""
+       "hz": "他們一向聊得來。 （感情、關係好）2. 這件事他一定做得來。 （能夠做、有辦法做）3. 我喜歡臭豆腐的味道，我吃得來。\t（喜歡吃）用「V得來/V不來」時，常見的意思有三種：⑴ 感情、關係好或不好。",
+       "vi": "1. Họ xưa nay vẫn nói chuyện hợp nhau. (tình cảm, quan hệ tốt) 2. Việc này chắc chắn anh ấy làm được. (có thể làm, có cách làm) 3. Tôi thích mùi đậu phụ thối, tôi ăn được. (thích ăn) Khi dùng “V得來/V不來”, thường có ba nghĩa: (1) Tình cảm, quan hệ tốt hoặc không tốt.",
+       "py": "Tāmen yíxiàng liáode lái. (gǎnqíng, guānxì hǎo) 2. Zhèjiàn shì tā yídìng zuòdelái. (nénggòu zuò, yǒu bànfǎ zuò) 3. Wǒ xǐhuān chòudòufǔ de wèidào, wǒ chīdelái. (xǐhuān chī) yòng “V délái / V bù lái” shí, chángjiàn de yìsi yǒu sānzhǒng: ⑴ gǎnqíng, guānxì hǎo huò bùhǎo."
       },
       {
        "hz": "⑵ 能不能做、有沒有辦法做，跟「V得了/V不了」相同。",
-       "vi": ""
+       "vi": "(2) Có làm được hay không, có cách làm hay không, giống “V得了/V不了”.",
+       "py": "⑵ néng bùnéng zuò, yǒuméiyǒu bànfǎ zuò, gēn “V de le / V bùliǎo” xiāngtóng."
       },
       {
        "hz": "⑶ 喜歡或不喜歡做。",
-       "vi": ""
+       "vi": "(3) Thích hay không thích làm.",
+       "py": "⑶ xǐhuān huò bù xǐhuān zuò."
       },
       {
        "hz": "B：你每天學一點，分開學，這樣就能夠減輕學習負擔了。",
-       "vi": ""
+       "vi": "B: Mỗi ngày bạn học một ít, chia ra học, như vậy có thể giảm bớt gánh nặng học tập.",
+       "py": "B: Nǐ měitiān xué yìdiǎn, fēnkāi xué, zhèyàng jiù nénggòu jiǎnqīng xuéxí fùdān le."
       },
       {
        "hz": "A：最近活動中心有京劇的表演，你有興趣去看看嗎？",
-       "vi": ""
+       "vi": "A: Dạo này trung tâm hoạt động có biểu diễn Kinh kịch, bạn có hứng thú đi xem không?",
+       "py": "A: Zuìjìn huódòngzhōngxīn yǒu jīngjù de biǎoyǎn, nǐ yǒu xìngqù qù kànkàn ma?"
       },
       {
        "hz": "請用「V得來」或「V不來」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “V得來” hoặc “V不來” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “V délái” huò “V bù lái” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -7612,27 +8808,33 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：這項研究計畫相當困難，你怎麼主動答應負責了？ B：看在計畫完成後就會加薪的分上，我當然要去做啦！",
-       "vi": ""
+       "vi": "A: Kế hoạch nghiên cứu này khá khó, sao bạn lại chủ động nhận phụ trách? B: Nể tình kế hoạch hoàn thành sẽ được tăng lương, đương nhiên tôi phải làm chứ!",
+       "py": "A: Zhèxiàng yánjiù jìhuà xiāngdāng kùnnán, nǐ zěnme zhǔdòng dāyìng fùzé le? B: Kàn zài jìhuà wánchéng hòu jiù huì jiāxīn de fēn shàng, wǒ dāngrán yào qù zuò la!"
       },
       {
        "hz": "A：真是對不起，為了處理客戶問題，給你帶來那麼多麻煩。",
-       "vi": ""
+       "vi": "A: Thật xin lỗi, vì xử lý vấn đề của khách hàng mà gây cho bạn nhiều phiền phức như vậy.",
+       "py": "A: Zhēnshì duìbùqǐ, wèile chǔlǐ kèhù wèntí, gěi nǐ dàilái nàme duō máfán."
       },
       {
        "hz": "有困難你就說吧。",
-       "vi": ""
+       "vi": "Có khó khăn gì thì bạn cứ nói.",
+       "py": "Yǒu kùnnán nǐ jiù shuō ba."
       },
       {
        "hz": "A：你不是對那個男的沒什麼感覺，怎麼忽然答應跟他約會了？",
-       "vi": ""
+       "vi": "A: Chẳng phải bạn chẳng có cảm giác gì với anh chàng đó sao, sao đột nhiên lại đồng ý hẹn hò với anh ta?",
+       "py": "A: Nǐ búshì duì nàge nán de méishénme gǎnjué, zěnme hūrán dāyìng gēn tā yuēhuì le?"
       },
       {
        "hz": "是因為他家裡很有錢嗎？",
-       "vi": ""
+       "vi": "Có phải vì nhà anh ta rất giàu không?",
+       "py": "Shìyīnwèi tā jiālǐ hěn yǒuqián ma?"
       },
       {
        "hz": "請用「看在……的份上」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “看在……的份上” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “kàn zài…… de fèn shàng” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -7649,12 +8851,14 @@ export const thoidaiGrammar4 = {
      "formula": "「居然」是副詞，表示後面出現的情況，是說話的人感覺意外、沒想到的。「居然」除了放在動詞前以外，有時也可以放在句子最前面，多用在口語。",
      "examples": [
       {
-       "hz": "林先生去做健檢，他太太陪著他一起去做，結果檢查有問  題的居然是太太，反而他沒事。2.鄰居老何的兒子長得好快，沒想到才十二歲，居然就跟他差不  多高了。",
-       "vi": ""
+       "hz": "林先生去做健檢，他太太陪著他一起去做，結果檢查有問題的居然是太太，反而他沒事。2.鄰居老何的兒子長得好快，沒想到才十二歲，居然就跟他差不多高了。",
+       "vi": "1. Ông Lâm đi khám sức khoẻ, vợ ông cũng đi khám cùng, kết quả người có vấn đề lại là bà vợ, còn ông thì chẳng sao. 2. Con trai ông Hà hàng xóm lớn nhanh thật, không ngờ mới mười hai tuổi mà đã cao gần bằng ông.",
+       "py": "Lín xiānshēng qù zuò jiàn jiǎn, tā tàitai péi zhe tā yìqǐ qù zuò, jiéguǒ jiǎnchá yǒu wèntí de jūrán shì tàitai, fǎn'ér tā méishì. 2. Línjū lǎohé de érzi zhǎng de hǎo kuài, méixiǎngdào cái shí'èrsuì, jūrán jiù gēn tā chàbuduō gāo le."
       },
       {
        "hz": "請使用「居然」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “居然” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “jūrán” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -7671,20 +8875,24 @@ export const thoidaiGrammar4 = {
      "formula": "「起見」是連詞，表示說話的人是因為「起見」前面的目的，所以認為應該做「起見」後面提到的事，常用在口語。用法：「為了【目的】起見，【該做的事】」，句中的【目的】常用一個詞或短句。",
      "examples": [
       {
-       "hz": "A：有位剛認識的網友想約我一起用晚餐，可是他約的時間太晚   了，讓我有一點擔心。 B：你們還不熟，為了妳的安全起見，還是請他改時間比較好。",
-       "vi": ""
+       "hz": "A：有位剛認識的網友想約我一起用晚餐，可是他約的時間太晚了，讓我有一點擔心。 B：你們還不熟，為了妳的安全起見，還是請他改時間比較好。",
+       "vi": "A: Có một người bạn trên mạng mới quen muốn hẹn tôi ăn tối, nhưng giờ anh ta hẹn muộn quá, khiến tôi hơi lo. B: Hai người chưa thân, để an toàn cho bạn, tốt hơn nên bảo anh ta đổi giờ.",
+       "py": "A: Yǒu wèi gāng rènshì de wǎngyǒu xiǎng yuē wǒ yìqǐ yòng wǎncān, kěshì tā yuē de shíjiān tàiwǎn le, ràng wǒ yǒu yìdiǎn dānxīn. B: Nǐmen hái bù shú, wèile nǐ de ānquán qǐ jiàn, háishì qǐng tā gǎi shíjiān bǐjiào hǎo."
       },
       {
        "hz": "A：這班火車怎麼只開了一半，就叫大家在下一站改搭其他火車？難道發生了什麼事嗎？",
-       "vi": ""
+       "vi": "A: Sao chuyến tàu này mới chạy được một nửa đã bảo mọi người đổi sang tàu khác ở ga sau? Chẳng lẽ xảy ra chuyện gì à?",
+       "py": "A: Zhè bān huǒchē zěnme zhǐ kāi le yíbàn, jiù jiào dàjiā zài xià yízhàn gǎi dā qítā huǒchē? Nándào fāshēng le shénme shì ma?"
       },
       {
        "hz": "A：聽說經理調整了公司今後的開會方式，他是怎麼說的？",
-       "vi": ""
+       "vi": "A: Nghe nói giám đốc đã điều chỉnh cách họp của công ty từ nay về sau, ông ấy nói thế nào?",
+       "py": "A: Tīngshuō jīnglǐ tiáozhěng le gōngsī jīnhòu de kāihuì fāngshì, tā shì zěnme shuō de?"
       },
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -7704,19 +8912,23 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：你這次考試分數這麼高，還不滿意啊？太把成績當回事了吧？B：這有什麼關係？總比那些沒把考試當一回事的人好。",
-       "vi": ""
+       "vi": "A: Lần thi này bạn được điểm cao vậy mà vẫn chưa hài lòng à? Bạn coi trọng điểm số quá rồi đấy? B: Thế thì có sao? Dù sao cũng hơn những người chẳng coi kỳ thi ra gì.",
+       "py": "A: Nǐ zhècì kǎoshìfēnshù zhème gāo, hái bù mǎnyì a? Tài bǎ chéngjì dānghuíshì le ba? B: Zhè yǒu shénme guānxì? Zǒng bǐ nàxiē méi bǎ kǎoshì dāngyìhuíshì de rén hǎo."
       },
       {
        "hz": "A：小陳白天也打工，晚上也打工。他說等錢存夠了以後，想開一家茶飲店，有自己的事業。",
-       "vi": ""
+       "vi": "A: Tiểu Trần ban ngày cũng làm thêm, buổi tối cũng làm thêm. Cậu ấy nói đợi dành dụm đủ tiền sẽ mở một quán trà, có sự nghiệp của riêng mình.",
+       "py": "A: Xiǎo chén báitiān yě dǎgōng, wǎnshàng yě dǎgōng. Tā shuō děng qián cún gòu le yǐhòu, xiǎngkāi yìjiā chá yǐndiàn, yǒu zìjǐ de shìyè."
       },
       {
        "hz": "A：這整週天氣都很不穩定，他們又從沒爬過那座山，很容易發生狀況。你怎麼沒提醒他們一下？",
-       "vi": ""
+       "vi": "A: Cả tuần nay thời tiết đều không ổn định, họ lại chưa từng leo ngọn núi đó, rất dễ xảy ra sự cố. Sao bạn không nhắc họ một chút?",
+       "py": "A: Zhè zhěngzhōu tiānqì dōu hěn bù wěndìng, tāmen yòu cóngméi pá guò nà zuò shān, hěn róngyì fāshēng zhuàngkuàng. Nǐ zěnme méi tíxǐng tāmen yíxià?"
       },
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -7733,52 +8945,64 @@ export const thoidaiGrammar4 = {
      "formula": "「這下/這下子」是名詞，意思是「在這種情況時」；「可」當副詞用，有「真的」的意思。根據用法不同，有以下兩種意思：",
      "examples": [
       {
-       "hz": "A：登山社本來決定在週末舉辦露營活動，不過這幾天雨老是下   個不停，這下可好了，只能改天再去。 B：我昨天還因為有事去不了而覺得可惜，這下子可好了，我可   以報名參加了。",
-       "vi": ""
+       "hz": "A：登山社本來決定在週末舉辦露營活動，不過這幾天雨老是下個不停，這下可好了，只能改天再去。 B：我昨天還因為有事去不了而覺得可惜，這下子可好了，我可以報名參加了。",
+       "vi": "A: Câu lạc bộ leo núi vốn quyết định tổ chức cắm trại vào cuối tuần, nhưng mấy hôm nay mưa mãi không ngớt, lần này thì hay rồi, chỉ có thể để hôm khác đi. B: Hôm qua tôi còn tiếc vì có việc không đi được, lần này thì hay quá, tôi có thể đăng ký tham gia rồi.",
+       "py": "A: Dēngshān shè běnlái juédìng zài zhōumò jǔbàn lùyíng huódòng, búguò zhè jǐtiān yǔ lǎo shì xià gè bùtíng, zhè xià kěhǎo le, zhǐnéng gǎitiān zài qù. B: Wǒ zuótiān hái yīnwèi yǒushì qù bùliǎo ér juéde kěxī, zhèxiàzi kěhǎo le, wǒ kěyǐ bàomíng cānjiā le."
       },
       {
        "hz": "（1）因為前面的情況，使事情更難處理，或是不小心做錯事。",
-       "vi": ""
+       "vi": "(1) Vì tình huống phía trước mà sự việc càng khó xử lý hơn, hoặc lỡ làm sai việc.",
+       "py": "(1) yīnwèi qiánmiàn de qíngkuàng, shǐ shìqíng gèng nán chǔlǐ, huòshì bù xiǎoxīn zuòcuòshì."
       },
       {
        "hz": "（2）本來很糟的情況，因為意外的情況反而變好了。",
-       "vi": ""
+       "vi": "(2) Tình huống vốn rất tệ, nhờ một tình huống bất ngờ mà ngược lại trở nên tốt hơn.",
+       "py": "(2) běnlái hěnzāo de qíngkuàng, yīnwèi yìwài de qíngkuàng fǎn'ér biàn hǎo le."
       },
       {
        "hz": "A：你看過臺灣今天的空氣品質圖了嗎？每個地方都是紅色的，空氣受汙染的情況好嚴重。",
-       "vi": ""
+       "vi": "A: Bạn đã xem bản đồ chất lượng không khí của Đài Loan hôm nay chưa? Chỗ nào cũng màu đỏ, không khí ô nhiễm nghiêm trọng quá.",
+       "py": "A: Nǐ kànguò Táiwān jīntiān de kōngqì pǐnzhí tú le ma? Měigè dìfāng dōu shì hóngsè de, kōngqì shòu wūrǎn de qíngkuàng hǎo yánzhòng."
       },
       {
        "hz": "A：我上學期的室友搬出去時把一堆垃圾都放在宿舍房間裡。我到現在還聯絡不上他，開學了也沒來整理。真的好臭！",
-       "vi": ""
+       "vi": "A: Bạn cùng phòng học kỳ trước của tôi khi chuyển đi đã để lại cả đống rác trong phòng ký túc xá. Đến giờ tôi vẫn không liên lạc được với cậu ấy, khai giảng rồi cũng không đến dọn. Hôi thật sự!",
+       "py": "A: Wǒ shàng xuéqí de shìyǒu bānchūqù shí bǎ yìduī lèsè dōu fàngzài sùshè fángjiān lǐ. Wǒ dào xiànzài hái liánluò bú shàng tā, kāixué le yě méi lái zhěnglǐ. Zhēnde hǎo chòu!"
       },
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       },
       {
-       "hz": "他們一向聊得來。\t\t\t\t（感情、關係好）2. 這件事他一定做得來。\t\t\t（能夠做、有辦法做）3. 我喜歡臭豆腐的味道，我吃得來。\t（喜歡吃）用「V得來/V不來」時，常見的意思有三種：⑴ 感情、關係好或不好。",
-       "vi": ""
+       "hz": "他們一向聊得來。 （感情、關係好）2. 這件事他一定做得來。 （能夠做、有辦法做）3. 我喜歡臭豆腐的味道，我吃得來。\t（喜歡吃）用「V得來/V不來」時，常見的意思有三種：⑴ 感情、關係好或不好。",
+       "vi": "1. Họ xưa nay vẫn nói chuyện hợp nhau. (tình cảm, quan hệ tốt) 2. Việc này chắc chắn anh ấy làm được. (có thể làm, có cách làm) 3. Tôi thích mùi đậu phụ thối, tôi ăn được. (thích ăn) Khi dùng “V得來/V不來”, thường có ba nghĩa: (1) Tình cảm, quan hệ tốt hoặc không tốt.",
+       "py": "Tāmen yíxiàng liáode lái. (gǎnqíng, guānxì hǎo) 2. Zhèjiàn shì tā yídìng zuòdelái. (nénggòu zuò, yǒu bànfǎ zuò) 3. Wǒ xǐhuān chòudòufǔ de wèidào, wǒ chīdelái. (xǐhuān chī) yòng “V délái / V bù lái” shí, chángjiàn de yìsi yǒu sānzhǒng: ⑴ gǎnqíng, guānxì hǎo huò bùhǎo."
       },
       {
        "hz": "⑵ 能不能做、有沒有辦法做，跟「V得了/V不了」相同。",
-       "vi": ""
+       "vi": "(2) Có làm được hay không, có cách làm hay không, giống “V得了/V不了”.",
+       "py": "⑵ néng bùnéng zuò, yǒuméiyǒu bànfǎ zuò, gēn “V de le / V bùliǎo” xiāngtóng."
       },
       {
        "hz": "⑶ 喜歡或不喜歡做。",
-       "vi": ""
+       "vi": "(3) Thích hay không thích làm.",
+       "py": "⑶ xǐhuān huò bù xǐhuān zuò."
       },
       {
        "hz": "B：你每天學一點，分開學，這樣就能夠減輕學習負擔了。",
-       "vi": ""
+       "vi": "B: Mỗi ngày bạn học một ít, chia ra học, như vậy có thể giảm bớt gánh nặng học tập.",
+       "py": "B: Nǐ měitiān xué yìdiǎn, fēnkāi xué, zhèyàng jiù nénggòu jiǎnqīng xuéxí fùdān le."
       },
       {
        "hz": "A：最近活動中心有京劇的表演，你有興趣去看看嗎？",
-       "vi": ""
+       "vi": "A: Dạo này trung tâm hoạt động có biểu diễn Kinh kịch, bạn có hứng thú đi xem không?",
+       "py": "A: Zuìjìn huódòngzhōngxīn yǒu jīngjù de biǎoyǎn, nǐ yǒu xìngqù qù kànkàn ma?"
       },
       {
        "hz": "請用「V得來」或「V不來」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “V得來” hoặc “V不來” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “V délái” huò “V bù lái” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -7796,27 +9020,33 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：這項研究計畫相當困難，你怎麼主動答應負責了？ B：看在計畫完成後就會加薪的分上，我當然要去做啦！",
-       "vi": ""
+       "vi": "A: Kế hoạch nghiên cứu này khá khó, sao bạn lại chủ động nhận phụ trách? B: Nể tình kế hoạch hoàn thành sẽ được tăng lương, đương nhiên tôi phải làm chứ!",
+       "py": "A: Zhèxiàng yánjiù jìhuà xiāngdāng kùnnán, nǐ zěnme zhǔdòng dāyìng fùzé le? B: Kàn zài jìhuà wánchéng hòu jiù huì jiāxīn de fēn shàng, wǒ dāngrán yào qù zuò la!"
       },
       {
        "hz": "A：真是對不起，為了處理客戶問題，給你帶來那麼多麻煩。",
-       "vi": ""
+       "vi": "A: Thật xin lỗi, vì xử lý vấn đề của khách hàng mà gây cho bạn nhiều phiền phức như vậy.",
+       "py": "A: Zhēnshì duìbùqǐ, wèile chǔlǐ kèhù wèntí, gěi nǐ dàilái nàme duō máfán."
       },
       {
        "hz": "有困難你就說吧。",
-       "vi": ""
+       "vi": "Có khó khăn gì thì bạn cứ nói.",
+       "py": "Yǒu kùnnán nǐ jiù shuō ba."
       },
       {
        "hz": "A：你不是對那個男的沒什麼感覺，怎麼忽然答應跟他約會了？",
-       "vi": ""
+       "vi": "A: Chẳng phải bạn chẳng có cảm giác gì với anh chàng đó sao, sao đột nhiên lại đồng ý hẹn hò với anh ta?",
+       "py": "A: Nǐ búshì duì nàge nán de méishénme gǎnjué, zěnme hūrán dāyìng gēn tā yuēhuì le?"
       },
       {
        "hz": "是因為他家裡很有錢嗎？",
-       "vi": ""
+       "vi": "Có phải vì nhà anh ta rất giàu không?",
+       "py": "Shìyīnwèi tā jiālǐ hěn yǒuqián ma?"
       },
       {
        "hz": "請用「看在……的份上」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “看在……的份上” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “kàn zài…… de fèn shàng” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -7833,12 +9063,14 @@ export const thoidaiGrammar4 = {
      "formula": "「居然」是副詞，表示後面出現的情況，是說話的人感覺意外、沒想到的。「居然」除了放在動詞前以外，有時也可以放在句子最前面，多用在口語。",
      "examples": [
       {
-       "hz": "林先生去做健檢，他太太陪著他一起去做，結果檢查有問  題的居然是太太，反而他沒事。2.鄰居老何的兒子長得好快，沒想到才十二歲，居然就跟他差不  多高了。",
-       "vi": ""
+       "hz": "林先生去做健檢，他太太陪著他一起去做，結果檢查有問題的居然是太太，反而他沒事。2.鄰居老何的兒子長得好快，沒想到才十二歲，居然就跟他差不多高了。",
+       "vi": "1. Ông Lâm đi khám sức khoẻ, vợ ông cũng đi khám cùng, kết quả người có vấn đề lại là bà vợ, còn ông thì chẳng sao. 2. Con trai ông Hà hàng xóm lớn nhanh thật, không ngờ mới mười hai tuổi mà đã cao gần bằng ông.",
+       "py": "Lín xiānshēng qù zuò jiàn jiǎn, tā tàitai péi zhe tā yìqǐ qù zuò, jiéguǒ jiǎnchá yǒu wèntí de jūrán shì tàitai, fǎn'ér tā méishì. 2. Línjū lǎohé de érzi zhǎng de hǎo kuài, méixiǎngdào cái shí'èrsuì, jūrán jiù gēn tā chàbuduō gāo le."
       },
       {
        "hz": "請使用「居然」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “居然” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “jūrán” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -7855,20 +9087,24 @@ export const thoidaiGrammar4 = {
      "formula": "「起見」是連詞，表示說話的人是因為「起見」前面的目的，所以認為應該做「起見」後面提到的事，常用在口語。用法：「為了【目的】起見，【該做的事】」，句中的【目的】常用一個詞或短句。",
      "examples": [
       {
-       "hz": "A：有位剛認識的網友想約我一起用晚餐，可是他約的時間太晚   了，讓我有一點擔心。 B：你們還不熟，為了妳的安全起見，還是請他改時間比較好。",
-       "vi": ""
+       "hz": "A：有位剛認識的網友想約我一起用晚餐，可是他約的時間太晚了，讓我有一點擔心。 B：你們還不熟，為了妳的安全起見，還是請他改時間比較好。",
+       "vi": "A: Có một người bạn trên mạng mới quen muốn hẹn tôi ăn tối, nhưng giờ anh ta hẹn muộn quá, khiến tôi hơi lo. B: Hai người chưa thân, để an toàn cho bạn, tốt hơn nên bảo anh ta đổi giờ.",
+       "py": "A: Yǒu wèi gāng rènshì de wǎngyǒu xiǎng yuē wǒ yìqǐ yòng wǎncān, kěshì tā yuē de shíjiān tàiwǎn le, ràng wǒ yǒu yìdiǎn dānxīn. B: Nǐmen hái bù shú, wèile nǐ de ānquán qǐ jiàn, háishì qǐng tā gǎi shíjiān bǐjiào hǎo."
       },
       {
        "hz": "A：這班火車怎麼只開了一半，就叫大家在下一站改搭其他火車？難道發生了什麼事嗎？",
-       "vi": ""
+       "vi": "A: Sao chuyến tàu này mới chạy được một nửa đã bảo mọi người đổi sang tàu khác ở ga sau? Chẳng lẽ xảy ra chuyện gì à?",
+       "py": "A: Zhè bān huǒchē zěnme zhǐ kāi le yíbàn, jiù jiào dàjiā zài xià yízhàn gǎi dā qítā huǒchē? Nándào fāshēng le shénme shì ma?"
       },
       {
        "hz": "A：聽說經理調整了公司今後的開會方式，他是怎麼說的？",
-       "vi": ""
+       "vi": "A: Nghe nói giám đốc đã điều chỉnh cách họp của công ty từ nay về sau, ông ấy nói thế nào?",
+       "py": "A: Tīngshuō jīnglǐ tiáozhěng le gōngsī jīnhòu de kāihuì fāngshì, tā shì zěnme shuō de?"
       },
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -7888,19 +9124,23 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：你這次考試分數這麼高，還不滿意啊？太把成績當回事了吧？B：這有什麼關係？總比那些沒把考試當一回事的人好。",
-       "vi": ""
+       "vi": "A: Lần thi này bạn được điểm cao vậy mà vẫn chưa hài lòng à? Bạn coi trọng điểm số quá rồi đấy? B: Thế thì có sao? Dù sao cũng hơn những người chẳng coi kỳ thi ra gì.",
+       "py": "A: Nǐ zhècì kǎoshìfēnshù zhème gāo, hái bù mǎnyì a? Tài bǎ chéngjì dānghuíshì le ba? B: Zhè yǒu shénme guānxì? Zǒng bǐ nàxiē méi bǎ kǎoshì dāngyìhuíshì de rén hǎo."
       },
       {
        "hz": "A：小陳白天也打工，晚上也打工。他說等錢存夠了以後，想開一家茶飲店，有自己的事業。",
-       "vi": ""
+       "vi": "A: Tiểu Trần ban ngày cũng làm thêm, buổi tối cũng làm thêm. Cậu ấy nói đợi dành dụm đủ tiền sẽ mở một quán trà, có sự nghiệp của riêng mình.",
+       "py": "A: Xiǎo chén báitiān yě dǎgōng, wǎnshàng yě dǎgōng. Tā shuō děng qián cún gòu le yǐhòu, xiǎngkāi yìjiā chá yǐndiàn, yǒu zìjǐ de shìyè."
       },
       {
        "hz": "A：這整週天氣都很不穩定，他們又從沒爬過那座山，很容易發生狀況。你怎麼沒提醒他們一下？",
-       "vi": ""
+       "vi": "A: Cả tuần nay thời tiết đều không ổn định, họ lại chưa từng leo ngọn núi đó, rất dễ xảy ra sự cố. Sao bạn không nhắc họ một chút?",
+       "py": "A: Zhè zhěngzhōu tiānqì dōu hěn bù wěndìng, tāmen yòu cóngméi pá guò nà zuò shān, hěn róngyì fāshēng zhuàngkuàng. Nǐ zěnme méi tíxǐng tāmen yíxià?"
       },
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -7917,52 +9157,64 @@ export const thoidaiGrammar4 = {
      "formula": "「這下/這下子」是名詞，意思是「在這種情況時」；「可」當副詞用，有「真的」的意思。根據用法不同，有以下兩種意思：",
      "examples": [
       {
-       "hz": "A：登山社本來決定在週末舉辦露營活動，不過這幾天雨老是下   個不停，這下可好了，只能改天再去。 B：我昨天還因為有事去不了而覺得可惜，這下子可好了，我可   以報名參加了。",
-       "vi": ""
+       "hz": "A：登山社本來決定在週末舉辦露營活動，不過這幾天雨老是下個不停，這下可好了，只能改天再去。 B：我昨天還因為有事去不了而覺得可惜，這下子可好了，我可以報名參加了。",
+       "vi": "A: Câu lạc bộ leo núi vốn quyết định tổ chức cắm trại vào cuối tuần, nhưng mấy hôm nay mưa mãi không ngớt, lần này thì hay rồi, chỉ có thể để hôm khác đi. B: Hôm qua tôi còn tiếc vì có việc không đi được, lần này thì hay quá, tôi có thể đăng ký tham gia rồi.",
+       "py": "A: Dēngshān shè běnlái juédìng zài zhōumò jǔbàn lùyíng huódòng, búguò zhè jǐtiān yǔ lǎo shì xià gè bùtíng, zhè xià kěhǎo le, zhǐnéng gǎitiān zài qù. B: Wǒ zuótiān hái yīnwèi yǒushì qù bùliǎo ér juéde kěxī, zhèxiàzi kěhǎo le, wǒ kěyǐ bàomíng cānjiā le."
       },
       {
        "hz": "（1）因為前面的情況，使事情更難處理，或是不小心做錯事。",
-       "vi": ""
+       "vi": "(1) Vì tình huống phía trước mà sự việc càng khó xử lý hơn, hoặc lỡ làm sai việc.",
+       "py": "(1) yīnwèi qiánmiàn de qíngkuàng, shǐ shìqíng gèng nán chǔlǐ, huòshì bù xiǎoxīn zuòcuòshì."
       },
       {
        "hz": "（2）本來很糟的情況，因為意外的情況反而變好了。",
-       "vi": ""
+       "vi": "(2) Tình huống vốn rất tệ, nhờ một tình huống bất ngờ mà ngược lại trở nên tốt hơn.",
+       "py": "(2) běnlái hěnzāo de qíngkuàng, yīnwèi yìwài de qíngkuàng fǎn'ér biàn hǎo le."
       },
       {
        "hz": "A：你看過臺灣今天的空氣品質圖了嗎？每個地方都是紅色的，空氣受汙染的情況好嚴重。",
-       "vi": ""
+       "vi": "A: Bạn đã xem bản đồ chất lượng không khí của Đài Loan hôm nay chưa? Chỗ nào cũng màu đỏ, không khí ô nhiễm nghiêm trọng quá.",
+       "py": "A: Nǐ kànguò Táiwān jīntiān de kōngqì pǐnzhí tú le ma? Měigè dìfāng dōu shì hóngsè de, kōngqì shòu wūrǎn de qíngkuàng hǎo yánzhòng."
       },
       {
        "hz": "A：我上學期的室友搬出去時把一堆垃圾都放在宿舍房間裡。我到現在還聯絡不上他，開學了也沒來整理。真的好臭！",
-       "vi": ""
+       "vi": "A: Bạn cùng phòng học kỳ trước của tôi khi chuyển đi đã để lại cả đống rác trong phòng ký túc xá. Đến giờ tôi vẫn không liên lạc được với cậu ấy, khai giảng rồi cũng không đến dọn. Hôi thật sự!",
+       "py": "A: Wǒ shàng xuéqí de shìyǒu bānchūqù shí bǎ yìduī lèsè dōu fàngzài sùshè fángjiān lǐ. Wǒ dào xiànzài hái liánluò bú shàng tā, kāixué le yě méi lái zhěnglǐ. Zhēnde hǎo chòu!"
       },
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       },
       {
-       "hz": "他們一向聊得來。\t\t\t\t（感情、關係好）2. 這件事他一定做得來。\t\t\t（能夠做、有辦法做）3. 我喜歡臭豆腐的味道，我吃得來。\t（喜歡吃）用「V得來/V不來」時，常見的意思有三種：⑴ 感情、關係好或不好。",
-       "vi": ""
+       "hz": "他們一向聊得來。 （感情、關係好）2. 這件事他一定做得來。 （能夠做、有辦法做）3. 我喜歡臭豆腐的味道，我吃得來。\t（喜歡吃）用「V得來/V不來」時，常見的意思有三種：⑴ 感情、關係好或不好。",
+       "vi": "1. Họ xưa nay vẫn nói chuyện hợp nhau. (tình cảm, quan hệ tốt) 2. Việc này chắc chắn anh ấy làm được. (có thể làm, có cách làm) 3. Tôi thích mùi đậu phụ thối, tôi ăn được. (thích ăn) Khi dùng “V得來/V不來”, thường có ba nghĩa: (1) Tình cảm, quan hệ tốt hoặc không tốt.",
+       "py": "Tāmen yíxiàng liáode lái. (gǎnqíng, guānxì hǎo) 2. Zhèjiàn shì tā yídìng zuòdelái. (nénggòu zuò, yǒu bànfǎ zuò) 3. Wǒ xǐhuān chòudòufǔ de wèidào, wǒ chīdelái. (xǐhuān chī) yòng “V délái / V bù lái” shí, chángjiàn de yìsi yǒu sānzhǒng: ⑴ gǎnqíng, guānxì hǎo huò bùhǎo."
       },
       {
        "hz": "⑵ 能不能做、有沒有辦法做，跟「V得了/V不了」相同。",
-       "vi": ""
+       "vi": "(2) Có làm được hay không, có cách làm hay không, giống “V得了/V不了”.",
+       "py": "⑵ néng bùnéng zuò, yǒuméiyǒu bànfǎ zuò, gēn “V de le / V bùliǎo” xiāngtóng."
       },
       {
        "hz": "⑶ 喜歡或不喜歡做。",
-       "vi": ""
+       "vi": "(3) Thích hay không thích làm.",
+       "py": "⑶ xǐhuān huò bù xǐhuān zuò."
       },
       {
        "hz": "B：你每天學一點，分開學，這樣就能夠減輕學習負擔了。",
-       "vi": ""
+       "vi": "B: Mỗi ngày bạn học một ít, chia ra học, như vậy có thể giảm bớt gánh nặng học tập.",
+       "py": "B: Nǐ měitiān xué yìdiǎn, fēnkāi xué, zhèyàng jiù nénggòu jiǎnqīng xuéxí fùdān le."
       },
       {
        "hz": "A：最近活動中心有京劇的表演，你有興趣去看看嗎？",
-       "vi": ""
+       "vi": "A: Dạo này trung tâm hoạt động có biểu diễn Kinh kịch, bạn có hứng thú đi xem không?",
+       "py": "A: Zuìjìn huódòngzhōngxīn yǒu jīngjù de biǎoyǎn, nǐ yǒu xìngqù qù kànkàn ma?"
       },
       {
        "hz": "請用「V得來」或「V不來」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “V得來” hoặc “V不來” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “V délái” huò “V bù lái” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -7980,27 +9232,33 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：這項研究計畫相當困難，你怎麼主動答應負責了？ B：看在計畫完成後就會加薪的分上，我當然要去做啦！",
-       "vi": ""
+       "vi": "A: Kế hoạch nghiên cứu này khá khó, sao bạn lại chủ động nhận phụ trách? B: Nể tình kế hoạch hoàn thành sẽ được tăng lương, đương nhiên tôi phải làm chứ!",
+       "py": "A: Zhèxiàng yánjiù jìhuà xiāngdāng kùnnán, nǐ zěnme zhǔdòng dāyìng fùzé le? B: Kàn zài jìhuà wánchéng hòu jiù huì jiāxīn de fēn shàng, wǒ dāngrán yào qù zuò la!"
       },
       {
        "hz": "A：真是對不起，為了處理客戶問題，給你帶來那麼多麻煩。",
-       "vi": ""
+       "vi": "A: Thật xin lỗi, vì xử lý vấn đề của khách hàng mà gây cho bạn nhiều phiền phức như vậy.",
+       "py": "A: Zhēnshì duìbùqǐ, wèile chǔlǐ kèhù wèntí, gěi nǐ dàilái nàme duō máfán."
       },
       {
        "hz": "有困難你就說吧。",
-       "vi": ""
+       "vi": "Có khó khăn gì thì bạn cứ nói.",
+       "py": "Yǒu kùnnán nǐ jiù shuō ba."
       },
       {
        "hz": "A：你不是對那個男的沒什麼感覺，怎麼忽然答應跟他約會了？",
-       "vi": ""
+       "vi": "A: Chẳng phải bạn chẳng có cảm giác gì với anh chàng đó sao, sao đột nhiên lại đồng ý hẹn hò với anh ta?",
+       "py": "A: Nǐ búshì duì nàge nán de méishénme gǎnjué, zěnme hūrán dāyìng gēn tā yuēhuì le?"
       },
       {
        "hz": "是因為他家裡很有錢嗎？",
-       "vi": ""
+       "vi": "Có phải vì nhà anh ta rất giàu không?",
+       "py": "Shìyīnwèi tā jiālǐ hěn yǒuqián ma?"
       },
       {
        "hz": "請用「看在……的份上」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “看在……的份上” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “kàn zài…… de fèn shàng” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -8017,12 +9275,14 @@ export const thoidaiGrammar4 = {
      "formula": "「居然」是副詞，表示後面出現的情況，是說話的人感覺意外、沒想到的。「居然」除了放在動詞前以外，有時也可以放在句子最前面，多用在口語。",
      "examples": [
       {
-       "hz": "林先生去做健檢，他太太陪著他一起去做，結果檢查有問  題的居然是太太，反而他沒事。2.鄰居老何的兒子長得好快，沒想到才十二歲，居然就跟他差不  多高了。",
-       "vi": ""
+       "hz": "林先生去做健檢，他太太陪著他一起去做，結果檢查有問題的居然是太太，反而他沒事。2.鄰居老何的兒子長得好快，沒想到才十二歲，居然就跟他差不多高了。",
+       "vi": "1. Ông Lâm đi khám sức khoẻ, vợ ông cũng đi khám cùng, kết quả người có vấn đề lại là bà vợ, còn ông thì chẳng sao. 2. Con trai ông Hà hàng xóm lớn nhanh thật, không ngờ mới mười hai tuổi mà đã cao gần bằng ông.",
+       "py": "Lín xiānshēng qù zuò jiàn jiǎn, tā tàitai péi zhe tā yìqǐ qù zuò, jiéguǒ jiǎnchá yǒu wèntí de jūrán shì tàitai, fǎn'ér tā méishì. 2. Línjū lǎohé de érzi zhǎng de hǎo kuài, méixiǎngdào cái shí'èrsuì, jūrán jiù gēn tā chàbuduō gāo le."
       },
       {
        "hz": "請使用「居然」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “居然” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “jūrán” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -8039,20 +9299,24 @@ export const thoidaiGrammar4 = {
      "formula": "「起見」是連詞，表示說話的人是因為「起見」前面的目的，所以認為應該做「起見」後面提到的事，常用在口語。用法：「為了【目的】起見，【該做的事】」，句中的【目的】常用一個詞或短句。",
      "examples": [
       {
-       "hz": "A：有位剛認識的網友想約我一起用晚餐，可是他約的時間太晚   了，讓我有一點擔心。 B：你們還不熟，為了妳的安全起見，還是請他改時間比較好。",
-       "vi": ""
+       "hz": "A：有位剛認識的網友想約我一起用晚餐，可是他約的時間太晚了，讓我有一點擔心。 B：你們還不熟，為了妳的安全起見，還是請他改時間比較好。",
+       "vi": "A: Có một người bạn trên mạng mới quen muốn hẹn tôi ăn tối, nhưng giờ anh ta hẹn muộn quá, khiến tôi hơi lo. B: Hai người chưa thân, để an toàn cho bạn, tốt hơn nên bảo anh ta đổi giờ.",
+       "py": "A: Yǒu wèi gāng rènshì de wǎngyǒu xiǎng yuē wǒ yìqǐ yòng wǎncān, kěshì tā yuē de shíjiān tàiwǎn le, ràng wǒ yǒu yìdiǎn dānxīn. B: Nǐmen hái bù shú, wèile nǐ de ānquán qǐ jiàn, háishì qǐng tā gǎi shíjiān bǐjiào hǎo."
       },
       {
        "hz": "A：這班火車怎麼只開了一半，就叫大家在下一站改搭其他火車？難道發生了什麼事嗎？",
-       "vi": ""
+       "vi": "A: Sao chuyến tàu này mới chạy được một nửa đã bảo mọi người đổi sang tàu khác ở ga sau? Chẳng lẽ xảy ra chuyện gì à?",
+       "py": "A: Zhè bān huǒchē zěnme zhǐ kāi le yíbàn, jiù jiào dàjiā zài xià yízhàn gǎi dā qítā huǒchē? Nándào fāshēng le shénme shì ma?"
       },
       {
        "hz": "A：聽說經理調整了公司今後的開會方式，他是怎麼說的？",
-       "vi": ""
+       "vi": "A: Nghe nói giám đốc đã điều chỉnh cách họp của công ty từ nay về sau, ông ấy nói thế nào?",
+       "py": "A: Tīngshuō jīnglǐ tiáozhěng le gōngsī jīnhòu de kāihuì fāngshì, tā shì zěnme shuō de?"
       },
       {
        "hz": "請完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -8072,19 +9336,23 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：小周上午在會議中所提的建議，你有什麼看法？B：他的建議，我基本上都同意，不過有幾個問題想跟他仔細地討論。",
-       "vi": ""
+       "vi": "A: Bạn nghĩ sao về đề xuất Tiểu Châu đưa ra trong cuộc họp sáng nay? B: Về cơ bản tôi đồng ý với đề xuất của cậu ấy, nhưng có vài vấn đề muốn thảo luận kỹ với cậu ấy.",
+       "py": "A: Xiǎo zhōu shàngwǔ zài huìyì zhōng suǒ tí de jiànyì, nǐ yǒu shénme kànfǎ? B: Tā de jiànyì, wǒ jīběnshàng dōu tóngyì, búguò yǒu jǐgè wèntí xiǎng gēn tā zǐxì dì tǎolùn."
       },
       {
        "hz": "A：他小時候父母都在其他國家工作，那麼是誰把他帶大的？",
-       "vi": ""
+       "vi": "A: Hồi nhỏ bố mẹ anh ấy đều làm việc ở nước khác, vậy ai đã nuôi anh ấy lớn?",
+       "py": "A: Tā xiǎoshíhòu fùmǔ dōu zài qítā guójiā gōngzuò, nàme shì shéi bǎ tā dài dà de?"
       },
       {
        "hz": "A：你們臺灣的百貨公司、電影院真厲害，連颱風天都跟平常一樣開門。",
-       "vi": ""
+       "vi": "A: Trung tâm thương mại và rạp chiếu phim ở Đài Loan các bạn giỏi thật, đến ngày bão cũng mở cửa như bình thường.",
+       "py": "A: Nǐmen Táiwān de bǎihuògōngsī, diànyǐngyuàn zhēn lìhài, lián táifēng tiān dōu gēn píngcháng yíyàng kāimén."
       },
       {
        "hz": "請用「基本上」完成以下的句子。",
-       "vi": ""
+       "vi": "Hãy dùng “基本上” để hoàn thành các câu dưới đây.",
+       "py": "Qǐng yòng “jīběnshàng” wánchéng yǐxià de jùzi."
       }
      ],
      "answer": null
@@ -8101,20 +9369,24 @@ export const thoidaiGrammar4 = {
      "formula": "「多少」在本語法中是副詞，有「或多或少」、「多多少少」的意思。表示說話的人認為應該要做某件事，但是數量或程度少一些沒關係。",
      "examples": [
       {
-       "hz": "A：談到家庭教育，你認為照顧家庭是誰的義務？B：我想照顧家庭是夫妻兩人的事。工作再忙，也應該多少負擔   一些照顧家庭的責任。",
-       "vi": ""
+       "hz": "A：談到家庭教育，你認為照顧家庭是誰的義務？B：我想照顧家庭是夫妻兩人的事。工作再忙，也應該多少負擔一些照顧家庭的責任。",
+       "vi": "A: Nói đến giáo dục gia đình, bạn cho rằng chăm lo gia đình là nghĩa vụ của ai? B: Tôi nghĩ chăm lo gia đình là việc của cả hai vợ chồng. Công việc bận đến mấy cũng nên gánh vác ít nhiều trách nhiệm chăm lo gia đình.",
+       "py": "A: Tándào jiātíngjiàoyù, nǐ rènwéi zhàogù jiātíng shì shéi de yìwù? B: Wǒ xiǎng zhàogù jiātíng shì fūqī liǎng rén de shì. Gōngzuò zài máng, yě yīnggāi duōshǎo fùdān yìxiē zhàogù jiātíng de zérèn."
       },
       {
        "hz": "A：學校餐廳有個愛心拍賣活動，那個活動的目的是什麼？",
-       "vi": ""
+       "vi": "A: Nhà ăn của trường có hoạt động đấu giá từ thiện, mục đích của hoạt động đó là gì?",
+       "py": "A: Xuéxiào cāntīng yǒu gè àixīn pāimài huódòng, nàge huódòng de mùdì shì shénme?"
       },
       {
        "hz": "A：你已經有一份很好的工作了，怎麼下了班還到處去打工呢？",
-       "vi": ""
+       "vi": "A: Bạn đã có một công việc rất tốt rồi, sao tan làm còn đi làm thêm khắp nơi vậy?",
+       "py": "A: Nǐ yǐjīng yǒu yífèn hěn hǎo de gōngzuò le, zěnme xià le bān hái dàochù qù dǎgōng ne?"
       },
       {
        "hz": "請用「多少V＋一點/一些/幾M 」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “多少V＋一點/一些/幾M” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “duōshǎo V ＋ yìdiǎn / yìxiē / jǐ M” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -8132,47 +9404,58 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：這幾天我的電腦動不動就有問題，你能幫我看看嗎？B：電腦方面的問題我不懂，你還是送去電腦公司處理比較好。",
-       "vi": ""
+       "vi": "A: Mấy hôm nay máy tính của tôi hở ra là có vấn đề, bạn xem giúp tôi được không? B: Chuyện máy tính tôi không rành, bạn nên mang đến công ty máy tính xử lý thì hơn.",
+       "py": "A: Zhè jǐtiān wǒ de diànnǎo dòngbúdòng jiù yǒu wèntí, nǐ néng bāng wǒ kànkàn ma? B: Diànnǎo fāngmiàn de wèntí wǒ bù dǒng, nǐ háishì sòng qù diànnǎogōngsī chǔlǐ bǐjiào hǎo."
       },
       {
        "hz": "A：怎麼啦，你跟你先生這次又為了什麼事吵架？",
-       "vi": ""
+       "vi": "A: Sao thế, lần này bạn và chồng lại cãi nhau vì chuyện gì?",
+       "py": "A: Zěnme la, nǐ gēn nǐ xiānshēng zhècì yòu wèile shénme shì chǎojià?"
       },
       {
        "hz": "A：那個新職員是怎麼回事？看他的個人資料，還以為他很優秀，B：別擔心。等下了班，我再找他好好談談。",
-       "vi": ""
+       "vi": "A: Cậu nhân viên mới đó bị làm sao vậy? Xem hồ sơ cá nhân còn tưởng cậu ấy rất giỏi… B: Đừng lo. Đợi tan làm tôi sẽ nói chuyện tử tế với cậu ấy.",
+       "py": "A: Nàge xīn zhíyuán shì zěnmehuíshì? Kàn tā de gèrénzīliào, hái yǐwéi tā hěn yōuxiù, B: Bié dānxīn. Děng xià le bān, wǒ zài zhǎo tā hǎohǎo tántán."
       },
       {
        "hz": "請用「動不動就……」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “動不動就……” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “dòngbúdòng jiù……” wánchéng yǐxià de duìhuà."
       },
       {
        "hz": "A：春節期間的國外機票不好買，你們非選那時去旅行不可嗎？B：我們好久沒出國了，哪怕有些麻煩，我們都一定要去。",
-       "vi": ""
+       "vi": "A: Vé máy bay đi nước ngoài dịp Tết khó mua, các bạn nhất định phải đi du lịch vào lúc đó sao? B: Lâu lắm rồi chúng tôi chưa ra nước ngoài, dù có hơi phiền phức, chúng tôi cũng nhất định phải đi.",
+       "py": "A: Chūnjié qíjiān de guówài jīpiào bùhǎo mǎi, nǐmen fēi xuǎn nàshí qù lǚxíng bùkě ma? B: Wǒmen hǎojiǔméi chūguó le, nǎpà yǒuxiē máfán, wǒmen dōu yídìng yào qù."
       },
       {
        "hz": "A：張小姐真的很迷足球，不只每天看足球節目，甚至還買了不少足球相關的紀念商品。",
-       "vi": ""
+       "vi": "A: Cô Trương mê bóng đá thật, không chỉ ngày nào cũng xem chương trình bóng đá, thậm chí còn mua không ít đồ lưu niệm liên quan đến bóng đá.",
+       "py": "A: Zhāng xiǎojiě zhēnde hěn mí zúqiú, bù zhǐ měitiān kàn zúqiú jiémù, shènzhì hái mǎi le bùshǎo zúqiú xiāngguān de jìniàn shāngpǐn."
       },
       {
        "hz": "A：當人民與政府領導人的意見不同時，你認為該聽誰的？",
-       "vi": ""
+       "vi": "A: Khi ý kiến của người dân và lãnh đạo chính phủ khác nhau, bạn cho rằng nên nghe ai?",
+       "py": "A: Dāng rénmín yǔ zhèngfǔ lǐngdǎorén de yìjiàn bù tóngshí, nǐ rènwéi gāi tīng shéi de?"
       },
       {
        "hz": "請用「哪怕……，也/都……」完成以下的練習。",
-       "vi": ""
+       "vi": "Hãy dùng “哪怕……，也/都……” để hoàn thành các bài luyện tập dưới đây.",
+       "py": "Qǐng yòng “nǎpà……, yě / dōu……” wánchéng yǐxià de liànxí."
       },
       {
        "hz": "他老是一唱歌就停不下來，得先聽他把店裡所有的歌都唱過，他才願意讓別人唱，因此大家都不太願意約他去唱歌。",
-       "vi": ""
+       "vi": "Anh ấy cứ hát là không dừng lại được, phải nghe anh ấy hát hết mọi bài trong quán thì anh ấy mới chịu cho người khác hát, vì vậy mọi người đều không mấy muốn rủ anh ấy đi hát.",
+       "py": "Tā lǎo shì yí chànggē jiù tíngbúxiàlái, děi xiān tīng tā bǎ diànlǐ suǒyǒu de gē dōu chàng guò, tā cái yuànyì ràng biérén chàng, yīncǐ dàjiā dōu bú tài yuànyì yuē tā qù chànggē."
       },
       {
        "hz": "我最愛閱讀文學作品，從今年起，我希望年年都能夠讀五十本小說，目標是讀完世界上所有著名的小說。",
-       "vi": ""
+       "vi": "Tôi thích đọc tác phẩm văn học nhất, từ năm nay trở đi, tôi hy vọng năm nào cũng đọc được năm mươi cuốn tiểu thuyết, mục tiêu là đọc hết mọi cuốn tiểu thuyết nổi tiếng trên thế giới.",
+       "py": "Wǒ zuì ài yuèdú wénxuézuòpǐn, cóngjīnniánqǐ, wǒ xīwàng nián nián dōu nénggòu dú wǔshí běn xiǎoshuō, mùbiāo shì dúwán shìjiè shàng suǒyǒu zhùmíng de xiǎoshuō."
       },
       {
        "hz": "請用「V遍」改寫以下句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “V遍” để viết lại phần gạch chân trong các câu dưới đây.",
+       "py": "Qǐng yòng “V biàn” gǎixiě yǐxià jùzi zhōng huàxiàn de bùfèn."
       }
      ],
      "answer": null
@@ -8189,40 +9472,49 @@ export const thoidaiGrammar4 = {
      "formula": "「針對」是介詞，表示想法或行為是對「針對」之後的某人或某事。常見的用法：「針對【人事物】」（本課用法）、「針對【人事物】來【動作、行為】」。 2. A：你曾經說過：「生活困難的時候，更應該認為未來仍有希望。」這句話是什       麼意思？",
      "examples": [
       {
-       "hz": "A：我不知道怎麼跟他溝通，每次跟他談，他都認為我在怪他。B：你溝通時應該針對事情而不是針對人，這樣或許就能好好地   談了。A：謝謝你的建議，下次我會試著針對事情來討論的。",
-       "vi": ""
+       "hz": "A：我不知道怎麼跟他溝通，每次跟他談，他都認為我在怪他。B：你溝通時應該針對事情而不是針對人，這樣或許就能好好地談了。A：謝謝你的建議，下次我會試著針對事情來討論的。",
+       "vi": "A: Tôi không biết giao tiếp với anh ấy thế nào, lần nào nói chuyện anh ấy cũng cho rằng tôi đang trách anh ấy. B: Khi giao tiếp bạn nên nhắm vào sự việc chứ không nhắm vào con người, như vậy có lẽ sẽ nói chuyện được với nhau. A: Cảm ơn lời khuyên của bạn, lần sau tôi sẽ thử bàn bạc nhắm vào sự việc.",
+       "py": "A: Wǒ bù zhīdào zěnme gēn tā gōutōng, měicì gēn tā tán, tā dōu rènwéi wǒ zài guài tā. B: Nǐ gōutōng shí yīnggāi zhēnduì shìqíng ér búshì zhēnduì rén, zhèyàng huòxǔ jiù néng hǎohǎo dì tán le. A: Xièxie nǐ de jiànyì, xiàcì wǒ huìshì zhe zhēnduì shìqíng lái tǎolùn de."
       },
       {
        "hz": "A：你們公司的這項新化妝品，主要市場對象是哪些顧客？",
-       "vi": ""
+       "vi": "A: Mỹ phẩm mới này của công ty các bạn nhắm vào đối tượng khách hàng chính nào?",
+       "py": "A: Nǐmen gōngsī de zhèxiàng xīn huàzhuāngpǐn, zhǔyào shìchǎng duìxiàng shì nǎxiē gùkè?"
       },
       {
        "hz": "A：籃球隊上週五跟其他學校有場友誼賽，你參加比賽後有沒有請用「針對」完成以下的句子。",
-       "vi": ""
+       "vi": "A: Thứ Sáu tuần trước đội bóng rổ có trận giao hữu với trường khác, sau khi thi đấu bạn có… Hãy dùng “針對” để hoàn thành các câu dưới đây.",
+       "py": "A: Lánqiúduì shàngzhōuwǔ gēn qítā xuéxiào yǒu chǎng yǒuyísài, nǐ cānjiā bǐsài hòu yǒuméiyǒu qǐng yòng “zhēnduì” wánchéng yǐxià de jùzi."
       },
       {
-       "hz": "A：兒子把這個月的零用錢都花完了，你為什麼不再給他一些？B：有第一次，就有第二次。要是花錢花慣了，可就糟了。A：你說得對。沒有節省的習慣，就沒有儲蓄的可能，這也是為   了他好。",
-       "vi": ""
+       "hz": "A：兒子把這個月的零用錢都花完了，你為什麼不再給他一些？B：有第一次，就有第二次。要是花錢花慣了，可就糟了。A：你說得對。沒有節省的習慣，就沒有儲蓄的可能，這也是為了他好。",
+       "vi": "A: Con trai tiêu hết tiền tiêu vặt tháng này rồi, sao anh không cho nó thêm? B: Có lần thứ nhất thì sẽ có lần thứ hai. Nếu quen tiêu tiền thì gay to. A: Anh nói đúng. Không có thói quen tiết kiệm thì không thể để dành được, làm vậy cũng là vì tốt cho nó.",
+       "py": "A: Érzi bǎ zhège yuè de língyòngqián dōu huāwán le, nǐ wèishénme búzài gěi tā yìxiē? B: Yǒu dìyīcì, jiù yǒu dì'èrcì. Yàoshì huāqián huā guàn le, kě jiù zāo le. A: Nǐ shuōdeduì. Méiyǒu jiéshěng de xíguàn, jiù méiyǒu chǔxù de kěnéng, zhè yě shì wèile tā hǎo."
       },
       {
        "hz": "III.有……，就有……/沒有……，就沒有……⑴ 「有A，就有B」表示條件「A」存在，情況「B」就存在。",
-       "vi": ""
+       "vi": "III. Có…, thì có… / Không có…, thì không có… (1) “有A，就有B” diễn tả điều kiện “A” tồn tại thì tình huống “B” cũng tồn tại.",
+       "py": "III. Yǒu……, jiù yǒu…… / méiyǒu……, jiù méiyǒu…… ⑴ “yǒu A, jiù yǒu B” biǎoshì tiáojiàn “A” cúnzài, qíngkuàng “B” jiù cúnzài."
       },
       {
        "hz": "⑵ 「沒有A，就沒有B」表示條件「A」不存在，情況「B」就不存在。",
-       "vi": ""
+       "vi": "(2) “沒有A，就沒有B” diễn tả điều kiện “A” không tồn tại thì tình huống “B” cũng không tồn tại.",
+       "py": "⑵ “méiyǒu A, jiù méiyǒu B” biǎoshì tiáojiàn “A” bù cúnzài, qíngkuàng “B” jiù bù cúnzài."
       },
       {
        "hz": "⑴、⑵中的「A」、「B」是名詞或名詞短句。",
-       "vi": ""
+       "vi": "“A”, “B” trong (1), (2) là danh từ hoặc cụm danh từ.",
+       "py": "⑴, ⑵ zhōng de “A”, “B” shì míngcí huò míngcí duǎnjù."
       },
       {
        "hz": "A：我們人類不斷學習，想辦法增加新知識。那麼多的知識對人類有什麼用呢？",
-       "vi": ""
+       "vi": "A: Loài người chúng ta không ngừng học hỏi, tìm cách tăng thêm kiến thức mới. Vậy nhiều kiến thức như thế có ích gì cho loài người?",
+       "py": "A: Wǒmen rénlèi búduàn xuéxí, xiǎng bànfǎ zēngjiā xīn zhīshì. Nàme duō de zhīshì duì rénlèi yǒu shénme yòng ne?"
       },
       {
-       "hz": "請用「有……，就有……」或「「沒有……，就沒有……」  完成以下的對話。",
-       "vi": ""
+       "hz": "請用「有……，就有……」或「「沒有……，就沒有……」完成以下的對話。",
+       "vi": "Hãy dùng “有……，就有……” hoặc “沒有……，就沒有……” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “yǒu……, jiù yǒu……” huò ““méiyǒu……, jiù méiyǒu……” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -8242,19 +9534,23 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：小周上午在會議中所提的建議，你有什麼看法？B：他的建議，我基本上都同意，不過有幾個問題想跟他仔細地討論。",
-       "vi": ""
+       "vi": "A: Bạn nghĩ sao về đề xuất Tiểu Châu đưa ra trong cuộc họp sáng nay? B: Về cơ bản tôi đồng ý với đề xuất của cậu ấy, nhưng có vài vấn đề muốn thảo luận kỹ với cậu ấy.",
+       "py": "A: Xiǎo zhōu shàngwǔ zài huìyì zhōng suǒ tí de jiànyì, nǐ yǒu shénme kànfǎ? B: Tā de jiànyì, wǒ jīběnshàng dōu tóngyì, búguò yǒu jǐgè wèntí xiǎng gēn tā zǐxì dì tǎolùn."
       },
       {
        "hz": "A：他小時候父母都在其他國家工作，那麼是誰把他帶大的？",
-       "vi": ""
+       "vi": "A: Hồi nhỏ bố mẹ anh ấy đều làm việc ở nước khác, vậy ai đã nuôi anh ấy lớn?",
+       "py": "A: Tā xiǎoshíhòu fùmǔ dōu zài qítā guójiā gōngzuò, nàme shì shéi bǎ tā dài dà de?"
       },
       {
        "hz": "A：你們臺灣的百貨公司、電影院真厲害，連颱風天都跟平常一樣開門。",
-       "vi": ""
+       "vi": "A: Trung tâm thương mại và rạp chiếu phim ở Đài Loan các bạn giỏi thật, đến ngày bão cũng mở cửa như bình thường.",
+       "py": "A: Nǐmen Táiwān de bǎihuògōngsī, diànyǐngyuàn zhēn lìhài, lián táifēng tiān dōu gēn píngcháng yíyàng kāimén."
       },
       {
        "hz": "請用「基本上」完成以下的句子。",
-       "vi": ""
+       "vi": "Hãy dùng “基本上” để hoàn thành các câu dưới đây.",
+       "py": "Qǐng yòng “jīběnshàng” wánchéng yǐxià de jùzi."
       }
      ],
      "answer": null
@@ -8271,20 +9567,24 @@ export const thoidaiGrammar4 = {
      "formula": "「多少」在本語法中是副詞，有「或多或少」、「多多少少」的意思。表示說話的人認為應該要做某件事，但是數量或程度少一些沒關係。",
      "examples": [
       {
-       "hz": "A：談到家庭教育，你認為照顧家庭是誰的義務？B：我想照顧家庭是夫妻兩人的事。工作再忙，也應該多少負擔   一些照顧家庭的責任。",
-       "vi": ""
+       "hz": "A：談到家庭教育，你認為照顧家庭是誰的義務？B：我想照顧家庭是夫妻兩人的事。工作再忙，也應該多少負擔一些照顧家庭的責任。",
+       "vi": "A: Nói đến giáo dục gia đình, bạn cho rằng chăm lo gia đình là nghĩa vụ của ai? B: Tôi nghĩ chăm lo gia đình là việc của cả hai vợ chồng. Công việc bận đến mấy cũng nên gánh vác ít nhiều trách nhiệm chăm lo gia đình.",
+       "py": "A: Tándào jiātíngjiàoyù, nǐ rènwéi zhàogù jiātíng shì shéi de yìwù? B: Wǒ xiǎng zhàogù jiātíng shì fūqī liǎng rén de shì. Gōngzuò zài máng, yě yīnggāi duōshǎo fùdān yìxiē zhàogù jiātíng de zérèn."
       },
       {
        "hz": "A：學校餐廳有個愛心拍賣活動，那個活動的目的是什麼？",
-       "vi": ""
+       "vi": "A: Nhà ăn của trường có hoạt động đấu giá từ thiện, mục đích của hoạt động đó là gì?",
+       "py": "A: Xuéxiào cāntīng yǒu gè àixīn pāimài huódòng, nàge huódòng de mùdì shì shénme?"
       },
       {
        "hz": "A：你已經有一份很好的工作了，怎麼下了班還到處去打工呢？",
-       "vi": ""
+       "vi": "A: Bạn đã có một công việc rất tốt rồi, sao tan làm còn đi làm thêm khắp nơi vậy?",
+       "py": "A: Nǐ yǐjīng yǒu yífèn hěn hǎo de gōngzuò le, zěnme xià le bān hái dàochù qù dǎgōng ne?"
       },
       {
        "hz": "請用「多少V＋一點/一些/幾M 」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “多少V＋一點/一些/幾M” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “duōshǎo V ＋ yìdiǎn / yìxiē / jǐ M” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -8302,47 +9602,58 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：這幾天我的電腦動不動就有問題，你能幫我看看嗎？B：電腦方面的問題我不懂，你還是送去電腦公司處理比較好。",
-       "vi": ""
+       "vi": "A: Mấy hôm nay máy tính của tôi hở ra là có vấn đề, bạn xem giúp tôi được không? B: Chuyện máy tính tôi không rành, bạn nên mang đến công ty máy tính xử lý thì hơn.",
+       "py": "A: Zhè jǐtiān wǒ de diànnǎo dòngbúdòng jiù yǒu wèntí, nǐ néng bāng wǒ kànkàn ma? B: Diànnǎo fāngmiàn de wèntí wǒ bù dǒng, nǐ háishì sòng qù diànnǎogōngsī chǔlǐ bǐjiào hǎo."
       },
       {
        "hz": "A：怎麼啦，你跟你先生這次又為了什麼事吵架？",
-       "vi": ""
+       "vi": "A: Sao thế, lần này bạn và chồng lại cãi nhau vì chuyện gì?",
+       "py": "A: Zěnme la, nǐ gēn nǐ xiānshēng zhècì yòu wèile shénme shì chǎojià?"
       },
       {
        "hz": "A：那個新職員是怎麼回事？看他的個人資料，還以為他很優秀，B：別擔心。等下了班，我再找他好好談談。",
-       "vi": ""
+       "vi": "A: Cậu nhân viên mới đó bị làm sao vậy? Xem hồ sơ cá nhân còn tưởng cậu ấy rất giỏi… B: Đừng lo. Đợi tan làm tôi sẽ nói chuyện tử tế với cậu ấy.",
+       "py": "A: Nàge xīn zhíyuán shì zěnmehuíshì? Kàn tā de gèrénzīliào, hái yǐwéi tā hěn yōuxiù, B: Bié dānxīn. Děng xià le bān, wǒ zài zhǎo tā hǎohǎo tántán."
       },
       {
        "hz": "請用「動不動就……」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “動不動就……” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “dòngbúdòng jiù……” wánchéng yǐxià de duìhuà."
       },
       {
        "hz": "A：春節期間的國外機票不好買，你們非選那時去旅行不可嗎？B：我們好久沒出國了，哪怕有些麻煩，我們都一定要去。",
-       "vi": ""
+       "vi": "A: Vé máy bay đi nước ngoài dịp Tết khó mua, các bạn nhất định phải đi du lịch vào lúc đó sao? B: Lâu lắm rồi chúng tôi chưa ra nước ngoài, dù có hơi phiền phức, chúng tôi cũng nhất định phải đi.",
+       "py": "A: Chūnjié qíjiān de guówài jīpiào bùhǎo mǎi, nǐmen fēi xuǎn nàshí qù lǚxíng bùkě ma? B: Wǒmen hǎojiǔméi chūguó le, nǎpà yǒuxiē máfán, wǒmen dōu yídìng yào qù."
       },
       {
        "hz": "A：張小姐真的很迷足球，不只每天看足球節目，甚至還買了不少足球相關的紀念商品。",
-       "vi": ""
+       "vi": "A: Cô Trương mê bóng đá thật, không chỉ ngày nào cũng xem chương trình bóng đá, thậm chí còn mua không ít đồ lưu niệm liên quan đến bóng đá.",
+       "py": "A: Zhāng xiǎojiě zhēnde hěn mí zúqiú, bù zhǐ měitiān kàn zúqiú jiémù, shènzhì hái mǎi le bùshǎo zúqiú xiāngguān de jìniàn shāngpǐn."
       },
       {
        "hz": "A：當人民與政府領導人的意見不同時，你認為該聽誰的？",
-       "vi": ""
+       "vi": "A: Khi ý kiến của người dân và lãnh đạo chính phủ khác nhau, bạn cho rằng nên nghe ai?",
+       "py": "A: Dāng rénmín yǔ zhèngfǔ lǐngdǎorén de yìjiàn bù tóngshí, nǐ rènwéi gāi tīng shéi de?"
       },
       {
        "hz": "請用「哪怕……，也/都……」完成以下的練習。",
-       "vi": ""
+       "vi": "Hãy dùng “哪怕……，也/都……” để hoàn thành các bài luyện tập dưới đây.",
+       "py": "Qǐng yòng “nǎpà……, yě / dōu……” wánchéng yǐxià de liànxí."
       },
       {
        "hz": "他老是一唱歌就停不下來，得先聽他把店裡所有的歌都唱過，他才願意讓別人唱，因此大家都不太願意約他去唱歌。",
-       "vi": ""
+       "vi": "Anh ấy cứ hát là không dừng lại được, phải nghe anh ấy hát hết mọi bài trong quán thì anh ấy mới chịu cho người khác hát, vì vậy mọi người đều không mấy muốn rủ anh ấy đi hát.",
+       "py": "Tā lǎo shì yí chànggē jiù tíngbúxiàlái, děi xiān tīng tā bǎ diànlǐ suǒyǒu de gē dōu chàng guò, tā cái yuànyì ràng biérén chàng, yīncǐ dàjiā dōu bú tài yuànyì yuē tā qù chànggē."
       },
       {
        "hz": "我最愛閱讀文學作品，從今年起，我希望年年都能夠讀五十本小說，目標是讀完世界上所有著名的小說。",
-       "vi": ""
+       "vi": "Tôi thích đọc tác phẩm văn học nhất, từ năm nay trở đi, tôi hy vọng năm nào cũng đọc được năm mươi cuốn tiểu thuyết, mục tiêu là đọc hết mọi cuốn tiểu thuyết nổi tiếng trên thế giới.",
+       "py": "Wǒ zuì ài yuèdú wénxuézuòpǐn, cóngjīnniánqǐ, wǒ xīwàng nián nián dōu nénggòu dú wǔshí běn xiǎoshuō, mùbiāo shì dúwán shìjiè shàng suǒyǒu zhùmíng de xiǎoshuō."
       },
       {
        "hz": "請用「V遍」改寫以下句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “V遍” để viết lại phần gạch chân trong các câu dưới đây.",
+       "py": "Qǐng yòng “V biàn” gǎixiě yǐxià jùzi zhōng huàxiàn de bùfèn."
       }
      ],
      "answer": null
@@ -8359,40 +9670,49 @@ export const thoidaiGrammar4 = {
      "formula": "「針對」是介詞，表示想法或行為是對「針對」之後的某人或某事。常見的用法：「針對【人事物】」（本課用法）、「針對【人事物】來【動作、行為】」。 2. A：你曾經說過：「生活困難的時候，更應該認為未來仍有希望。」這句話是什       麼意思？",
      "examples": [
       {
-       "hz": "A：我不知道怎麼跟他溝通，每次跟他談，他都認為我在怪他。B：你溝通時應該針對事情而不是針對人，這樣或許就能好好地   談了。A：謝謝你的建議，下次我會試著針對事情來討論的。",
-       "vi": ""
+       "hz": "A：我不知道怎麼跟他溝通，每次跟他談，他都認為我在怪他。B：你溝通時應該針對事情而不是針對人，這樣或許就能好好地談了。A：謝謝你的建議，下次我會試著針對事情來討論的。",
+       "vi": "A: Tôi không biết giao tiếp với anh ấy thế nào, lần nào nói chuyện anh ấy cũng cho rằng tôi đang trách anh ấy. B: Khi giao tiếp bạn nên nhắm vào sự việc chứ không nhắm vào con người, như vậy có lẽ sẽ nói chuyện được với nhau. A: Cảm ơn lời khuyên của bạn, lần sau tôi sẽ thử bàn bạc nhắm vào sự việc.",
+       "py": "A: Wǒ bù zhīdào zěnme gēn tā gōutōng, měicì gēn tā tán, tā dōu rènwéi wǒ zài guài tā. B: Nǐ gōutōng shí yīnggāi zhēnduì shìqíng ér búshì zhēnduì rén, zhèyàng huòxǔ jiù néng hǎohǎo dì tán le. A: Xièxie nǐ de jiànyì, xiàcì wǒ huìshì zhe zhēnduì shìqíng lái tǎolùn de."
       },
       {
        "hz": "A：你們公司的這項新化妝品，主要市場對象是哪些顧客？",
-       "vi": ""
+       "vi": "A: Mỹ phẩm mới này của công ty các bạn nhắm vào đối tượng khách hàng chính nào?",
+       "py": "A: Nǐmen gōngsī de zhèxiàng xīn huàzhuāngpǐn, zhǔyào shìchǎng duìxiàng shì nǎxiē gùkè?"
       },
       {
        "hz": "A：籃球隊上週五跟其他學校有場友誼賽，你參加比賽後有沒有請用「針對」完成以下的句子。",
-       "vi": ""
+       "vi": "A: Thứ Sáu tuần trước đội bóng rổ có trận giao hữu với trường khác, sau khi thi đấu bạn có… Hãy dùng “針對” để hoàn thành các câu dưới đây.",
+       "py": "A: Lánqiúduì shàngzhōuwǔ gēn qítā xuéxiào yǒu chǎng yǒuyísài, nǐ cānjiā bǐsài hòu yǒuméiyǒu qǐng yòng “zhēnduì” wánchéng yǐxià de jùzi."
       },
       {
-       "hz": "A：兒子把這個月的零用錢都花完了，你為什麼不再給他一些？B：有第一次，就有第二次。要是花錢花慣了，可就糟了。A：你說得對。沒有節省的習慣，就沒有儲蓄的可能，這也是為   了他好。",
-       "vi": ""
+       "hz": "A：兒子把這個月的零用錢都花完了，你為什麼不再給他一些？B：有第一次，就有第二次。要是花錢花慣了，可就糟了。A：你說得對。沒有節省的習慣，就沒有儲蓄的可能，這也是為了他好。",
+       "vi": "A: Con trai tiêu hết tiền tiêu vặt tháng này rồi, sao anh không cho nó thêm? B: Có lần thứ nhất thì sẽ có lần thứ hai. Nếu quen tiêu tiền thì gay to. A: Anh nói đúng. Không có thói quen tiết kiệm thì không thể để dành được, làm vậy cũng là vì tốt cho nó.",
+       "py": "A: Érzi bǎ zhège yuè de língyòngqián dōu huāwán le, nǐ wèishénme búzài gěi tā yìxiē? B: Yǒu dìyīcì, jiù yǒu dì'èrcì. Yàoshì huāqián huā guàn le, kě jiù zāo le. A: Nǐ shuōdeduì. Méiyǒu jiéshěng de xíguàn, jiù méiyǒu chǔxù de kěnéng, zhè yě shì wèile tā hǎo."
       },
       {
        "hz": "III.有……，就有……/沒有……，就沒有……⑴ 「有A，就有B」表示條件「A」存在，情況「B」就存在。",
-       "vi": ""
+       "vi": "III. Có…, thì có… / Không có…, thì không có… (1) “有A，就有B” diễn tả điều kiện “A” tồn tại thì tình huống “B” cũng tồn tại.",
+       "py": "III. Yǒu……, jiù yǒu…… / méiyǒu……, jiù méiyǒu…… ⑴ “yǒu A, jiù yǒu B” biǎoshì tiáojiàn “A” cúnzài, qíngkuàng “B” jiù cúnzài."
       },
       {
        "hz": "⑵ 「沒有A，就沒有B」表示條件「A」不存在，情況「B」就不存在。",
-       "vi": ""
+       "vi": "(2) “沒有A，就沒有B” diễn tả điều kiện “A” không tồn tại thì tình huống “B” cũng không tồn tại.",
+       "py": "⑵ “méiyǒu A, jiù méiyǒu B” biǎoshì tiáojiàn “A” bù cúnzài, qíngkuàng “B” jiù bù cúnzài."
       },
       {
        "hz": "⑴、⑵中的「A」、「B」是名詞或名詞短句。",
-       "vi": ""
+       "vi": "“A”, “B” trong (1), (2) là danh từ hoặc cụm danh từ.",
+       "py": "⑴, ⑵ zhōng de “A”, “B” shì míngcí huò míngcí duǎnjù."
       },
       {
        "hz": "A：我們人類不斷學習，想辦法增加新知識。那麼多的知識對人類有什麼用呢？",
-       "vi": ""
+       "vi": "A: Loài người chúng ta không ngừng học hỏi, tìm cách tăng thêm kiến thức mới. Vậy nhiều kiến thức như thế có ích gì cho loài người?",
+       "py": "A: Wǒmen rénlèi búduàn xuéxí, xiǎng bànfǎ zēngjiā xīn zhīshì. Nàme duō de zhīshì duì rénlèi yǒu shénme yòng ne?"
       },
       {
-       "hz": "請用「有……，就有……」或「「沒有……，就沒有……」  完成以下的對話。",
-       "vi": ""
+       "hz": "請用「有……，就有……」或「「沒有……，就沒有……」完成以下的對話。",
+       "vi": "Hãy dùng “有……，就有……” hoặc “沒有……，就沒有……” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “yǒu……, jiù yǒu……” huò ““méiyǒu……, jiù méiyǒu……” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -8412,19 +9732,23 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：小周上午在會議中所提的建議，你有什麼看法？B：他的建議，我基本上都同意，不過有幾個問題想跟他仔細地討論。",
-       "vi": ""
+       "vi": "A: Bạn nghĩ sao về đề xuất Tiểu Châu đưa ra trong cuộc họp sáng nay? B: Về cơ bản tôi đồng ý với đề xuất của cậu ấy, nhưng có vài vấn đề muốn thảo luận kỹ với cậu ấy.",
+       "py": "A: Xiǎo zhōu shàngwǔ zài huìyì zhōng suǒ tí de jiànyì, nǐ yǒu shénme kànfǎ? B: Tā de jiànyì, wǒ jīběnshàng dōu tóngyì, búguò yǒu jǐgè wèntí xiǎng gēn tā zǐxì dì tǎolùn."
       },
       {
        "hz": "A：他小時候父母都在其他國家工作，那麼是誰把他帶大的？",
-       "vi": ""
+       "vi": "A: Hồi nhỏ bố mẹ anh ấy đều làm việc ở nước khác, vậy ai đã nuôi anh ấy lớn?",
+       "py": "A: Tā xiǎoshíhòu fùmǔ dōu zài qítā guójiā gōngzuò, nàme shì shéi bǎ tā dài dà de?"
       },
       {
        "hz": "A：你們臺灣的百貨公司、電影院真厲害，連颱風天都跟平常一樣開門。",
-       "vi": ""
+       "vi": "A: Trung tâm thương mại và rạp chiếu phim ở Đài Loan các bạn giỏi thật, đến ngày bão cũng mở cửa như bình thường.",
+       "py": "A: Nǐmen Táiwān de bǎihuògōngsī, diànyǐngyuàn zhēn lìhài, lián táifēng tiān dōu gēn píngcháng yíyàng kāimén."
       },
       {
        "hz": "請用「基本上」完成以下的句子。",
-       "vi": ""
+       "vi": "Hãy dùng “基本上” để hoàn thành các câu dưới đây.",
+       "py": "Qǐng yòng “jīběnshàng” wánchéng yǐxià de jùzi."
       }
      ],
      "answer": null
@@ -8441,20 +9765,24 @@ export const thoidaiGrammar4 = {
      "formula": "「多少」在本語法中是副詞，有「或多或少」、「多多少少」的意思。表示說話的人認為應該要做某件事，但是數量或程度少一些沒關係。",
      "examples": [
       {
-       "hz": "A：談到家庭教育，你認為照顧家庭是誰的義務？B：我想照顧家庭是夫妻兩人的事。工作再忙，也應該多少負擔   一些照顧家庭的責任。",
-       "vi": ""
+       "hz": "A：談到家庭教育，你認為照顧家庭是誰的義務？B：我想照顧家庭是夫妻兩人的事。工作再忙，也應該多少負擔一些照顧家庭的責任。",
+       "vi": "A: Nói đến giáo dục gia đình, bạn cho rằng chăm lo gia đình là nghĩa vụ của ai? B: Tôi nghĩ chăm lo gia đình là việc của cả hai vợ chồng. Công việc bận đến mấy cũng nên gánh vác ít nhiều trách nhiệm chăm lo gia đình.",
+       "py": "A: Tándào jiātíngjiàoyù, nǐ rènwéi zhàogù jiātíng shì shéi de yìwù? B: Wǒ xiǎng zhàogù jiātíng shì fūqī liǎng rén de shì. Gōngzuò zài máng, yě yīnggāi duōshǎo fùdān yìxiē zhàogù jiātíng de zérèn."
       },
       {
        "hz": "A：學校餐廳有個愛心拍賣活動，那個活動的目的是什麼？",
-       "vi": ""
+       "vi": "A: Nhà ăn của trường có hoạt động đấu giá từ thiện, mục đích của hoạt động đó là gì?",
+       "py": "A: Xuéxiào cāntīng yǒu gè àixīn pāimài huódòng, nàge huódòng de mùdì shì shénme?"
       },
       {
        "hz": "A：你已經有一份很好的工作了，怎麼下了班還到處去打工呢？",
-       "vi": ""
+       "vi": "A: Bạn đã có một công việc rất tốt rồi, sao tan làm còn đi làm thêm khắp nơi vậy?",
+       "py": "A: Nǐ yǐjīng yǒu yífèn hěn hǎo de gōngzuò le, zěnme xià le bān hái dàochù qù dǎgōng ne?"
       },
       {
        "hz": "請用「多少V＋一點/一些/幾M 」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “多少V＋一點/一些/幾M” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “duōshǎo V ＋ yìdiǎn / yìxiē / jǐ M” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -8472,47 +9800,58 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：這幾天我的電腦動不動就有問題，你能幫我看看嗎？B：電腦方面的問題我不懂，你還是送去電腦公司處理比較好。",
-       "vi": ""
+       "vi": "A: Mấy hôm nay máy tính của tôi hở ra là có vấn đề, bạn xem giúp tôi được không? B: Chuyện máy tính tôi không rành, bạn nên mang đến công ty máy tính xử lý thì hơn.",
+       "py": "A: Zhè jǐtiān wǒ de diànnǎo dòngbúdòng jiù yǒu wèntí, nǐ néng bāng wǒ kànkàn ma? B: Diànnǎo fāngmiàn de wèntí wǒ bù dǒng, nǐ háishì sòng qù diànnǎogōngsī chǔlǐ bǐjiào hǎo."
       },
       {
        "hz": "A：怎麼啦，你跟你先生這次又為了什麼事吵架？",
-       "vi": ""
+       "vi": "A: Sao thế, lần này bạn và chồng lại cãi nhau vì chuyện gì?",
+       "py": "A: Zěnme la, nǐ gēn nǐ xiānshēng zhècì yòu wèile shénme shì chǎojià?"
       },
       {
        "hz": "A：那個新職員是怎麼回事？看他的個人資料，還以為他很優秀，B：別擔心。等下了班，我再找他好好談談。",
-       "vi": ""
+       "vi": "A: Cậu nhân viên mới đó bị làm sao vậy? Xem hồ sơ cá nhân còn tưởng cậu ấy rất giỏi… B: Đừng lo. Đợi tan làm tôi sẽ nói chuyện tử tế với cậu ấy.",
+       "py": "A: Nàge xīn zhíyuán shì zěnmehuíshì? Kàn tā de gèrénzīliào, hái yǐwéi tā hěn yōuxiù, B: Bié dānxīn. Děng xià le bān, wǒ zài zhǎo tā hǎohǎo tántán."
       },
       {
        "hz": "請用「動不動就……」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “動不動就……” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “dòngbúdòng jiù……” wánchéng yǐxià de duìhuà."
       },
       {
        "hz": "A：春節期間的國外機票不好買，你們非選那時去旅行不可嗎？B：我們好久沒出國了，哪怕有些麻煩，我們都一定要去。",
-       "vi": ""
+       "vi": "A: Vé máy bay đi nước ngoài dịp Tết khó mua, các bạn nhất định phải đi du lịch vào lúc đó sao? B: Lâu lắm rồi chúng tôi chưa ra nước ngoài, dù có hơi phiền phức, chúng tôi cũng nhất định phải đi.",
+       "py": "A: Chūnjié qíjiān de guówài jīpiào bùhǎo mǎi, nǐmen fēi xuǎn nàshí qù lǚxíng bùkě ma? B: Wǒmen hǎojiǔméi chūguó le, nǎpà yǒuxiē máfán, wǒmen dōu yídìng yào qù."
       },
       {
        "hz": "A：張小姐真的很迷足球，不只每天看足球節目，甚至還買了不少足球相關的紀念商品。",
-       "vi": ""
+       "vi": "A: Cô Trương mê bóng đá thật, không chỉ ngày nào cũng xem chương trình bóng đá, thậm chí còn mua không ít đồ lưu niệm liên quan đến bóng đá.",
+       "py": "A: Zhāng xiǎojiě zhēnde hěn mí zúqiú, bù zhǐ měitiān kàn zúqiú jiémù, shènzhì hái mǎi le bùshǎo zúqiú xiāngguān de jìniàn shāngpǐn."
       },
       {
        "hz": "A：當人民與政府領導人的意見不同時，你認為該聽誰的？",
-       "vi": ""
+       "vi": "A: Khi ý kiến của người dân và lãnh đạo chính phủ khác nhau, bạn cho rằng nên nghe ai?",
+       "py": "A: Dāng rénmín yǔ zhèngfǔ lǐngdǎorén de yìjiàn bù tóngshí, nǐ rènwéi gāi tīng shéi de?"
       },
       {
        "hz": "請用「哪怕……，也/都……」完成以下的練習。",
-       "vi": ""
+       "vi": "Hãy dùng “哪怕……，也/都……” để hoàn thành các bài luyện tập dưới đây.",
+       "py": "Qǐng yòng “nǎpà……, yě / dōu……” wánchéng yǐxià de liànxí."
       },
       {
        "hz": "他老是一唱歌就停不下來，得先聽他把店裡所有的歌都唱過，他才願意讓別人唱，因此大家都不太願意約他去唱歌。",
-       "vi": ""
+       "vi": "Anh ấy cứ hát là không dừng lại được, phải nghe anh ấy hát hết mọi bài trong quán thì anh ấy mới chịu cho người khác hát, vì vậy mọi người đều không mấy muốn rủ anh ấy đi hát.",
+       "py": "Tā lǎo shì yí chànggē jiù tíngbúxiàlái, děi xiān tīng tā bǎ diànlǐ suǒyǒu de gē dōu chàng guò, tā cái yuànyì ràng biérén chàng, yīncǐ dàjiā dōu bú tài yuànyì yuē tā qù chànggē."
       },
       {
        "hz": "我最愛閱讀文學作品，從今年起，我希望年年都能夠讀五十本小說，目標是讀完世界上所有著名的小說。",
-       "vi": ""
+       "vi": "Tôi thích đọc tác phẩm văn học nhất, từ năm nay trở đi, tôi hy vọng năm nào cũng đọc được năm mươi cuốn tiểu thuyết, mục tiêu là đọc hết mọi cuốn tiểu thuyết nổi tiếng trên thế giới.",
+       "py": "Wǒ zuì ài yuèdú wénxuézuòpǐn, cóngjīnniánqǐ, wǒ xīwàng nián nián dōu nénggòu dú wǔshí běn xiǎoshuō, mùbiāo shì dúwán shìjiè shàng suǒyǒu zhùmíng de xiǎoshuō."
       },
       {
        "hz": "請用「V遍」改寫以下句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “V遍” để viết lại phần gạch chân trong các câu dưới đây.",
+       "py": "Qǐng yòng “V biàn” gǎixiě yǐxià jùzi zhōng huàxiàn de bùfèn."
       }
      ],
      "answer": null
@@ -8529,40 +9868,49 @@ export const thoidaiGrammar4 = {
      "formula": "「針對」是介詞，表示想法或行為是對「針對」之後的某人或某事。常見的用法：「針對【人事物】」（本課用法）、「針對【人事物】來【動作、行為】」。 2. A：你曾經說過：「生活困難的時候，更應該認為未來仍有希望。」這句話是什       麼意思？",
      "examples": [
       {
-       "hz": "A：我不知道怎麼跟他溝通，每次跟他談，他都認為我在怪他。B：你溝通時應該針對事情而不是針對人，這樣或許就能好好地   談了。A：謝謝你的建議，下次我會試著針對事情來討論的。",
-       "vi": ""
+       "hz": "A：我不知道怎麼跟他溝通，每次跟他談，他都認為我在怪他。B：你溝通時應該針對事情而不是針對人，這樣或許就能好好地談了。A：謝謝你的建議，下次我會試著針對事情來討論的。",
+       "vi": "A: Tôi không biết giao tiếp với anh ấy thế nào, lần nào nói chuyện anh ấy cũng cho rằng tôi đang trách anh ấy. B: Khi giao tiếp bạn nên nhắm vào sự việc chứ không nhắm vào con người, như vậy có lẽ sẽ nói chuyện được với nhau. A: Cảm ơn lời khuyên của bạn, lần sau tôi sẽ thử bàn bạc nhắm vào sự việc.",
+       "py": "A: Wǒ bù zhīdào zěnme gēn tā gōutōng, měicì gēn tā tán, tā dōu rènwéi wǒ zài guài tā. B: Nǐ gōutōng shí yīnggāi zhēnduì shìqíng ér búshì zhēnduì rén, zhèyàng huòxǔ jiù néng hǎohǎo dì tán le. A: Xièxie nǐ de jiànyì, xiàcì wǒ huìshì zhe zhēnduì shìqíng lái tǎolùn de."
       },
       {
        "hz": "A：你們公司的這項新化妝品，主要市場對象是哪些顧客？",
-       "vi": ""
+       "vi": "A: Mỹ phẩm mới này của công ty các bạn nhắm vào đối tượng khách hàng chính nào?",
+       "py": "A: Nǐmen gōngsī de zhèxiàng xīn huàzhuāngpǐn, zhǔyào shìchǎng duìxiàng shì nǎxiē gùkè?"
       },
       {
        "hz": "A：籃球隊上週五跟其他學校有場友誼賽，你參加比賽後有沒有請用「針對」完成以下的句子。",
-       "vi": ""
+       "vi": "A: Thứ Sáu tuần trước đội bóng rổ có trận giao hữu với trường khác, sau khi thi đấu bạn có… Hãy dùng “針對” để hoàn thành các câu dưới đây.",
+       "py": "A: Lánqiúduì shàngzhōuwǔ gēn qítā xuéxiào yǒu chǎng yǒuyísài, nǐ cānjiā bǐsài hòu yǒuméiyǒu qǐng yòng “zhēnduì” wánchéng yǐxià de jùzi."
       },
       {
-       "hz": "A：兒子把這個月的零用錢都花完了，你為什麼不再給他一些？B：有第一次，就有第二次。要是花錢花慣了，可就糟了。A：你說得對。沒有節省的習慣，就沒有儲蓄的可能，這也是為   了他好。",
-       "vi": ""
+       "hz": "A：兒子把這個月的零用錢都花完了，你為什麼不再給他一些？B：有第一次，就有第二次。要是花錢花慣了，可就糟了。A：你說得對。沒有節省的習慣，就沒有儲蓄的可能，這也是為了他好。",
+       "vi": "A: Con trai tiêu hết tiền tiêu vặt tháng này rồi, sao anh không cho nó thêm? B: Có lần thứ nhất thì sẽ có lần thứ hai. Nếu quen tiêu tiền thì gay to. A: Anh nói đúng. Không có thói quen tiết kiệm thì không thể để dành được, làm vậy cũng là vì tốt cho nó.",
+       "py": "A: Érzi bǎ zhège yuè de língyòngqián dōu huāwán le, nǐ wèishénme búzài gěi tā yìxiē? B: Yǒu dìyīcì, jiù yǒu dì'èrcì. Yàoshì huāqián huā guàn le, kě jiù zāo le. A: Nǐ shuōdeduì. Méiyǒu jiéshěng de xíguàn, jiù méiyǒu chǔxù de kěnéng, zhè yě shì wèile tā hǎo."
       },
       {
        "hz": "III.有……，就有……/沒有……，就沒有……⑴ 「有A，就有B」表示條件「A」存在，情況「B」就存在。",
-       "vi": ""
+       "vi": "III. Có…, thì có… / Không có…, thì không có… (1) “有A，就有B” diễn tả điều kiện “A” tồn tại thì tình huống “B” cũng tồn tại.",
+       "py": "III. Yǒu……, jiù yǒu…… / méiyǒu……, jiù méiyǒu…… ⑴ “yǒu A, jiù yǒu B” biǎoshì tiáojiàn “A” cúnzài, qíngkuàng “B” jiù cúnzài."
       },
       {
        "hz": "⑵ 「沒有A，就沒有B」表示條件「A」不存在，情況「B」就不存在。",
-       "vi": ""
+       "vi": "(2) “沒有A，就沒有B” diễn tả điều kiện “A” không tồn tại thì tình huống “B” cũng không tồn tại.",
+       "py": "⑵ “méiyǒu A, jiù méiyǒu B” biǎoshì tiáojiàn “A” bù cúnzài, qíngkuàng “B” jiù bù cúnzài."
       },
       {
        "hz": "⑴、⑵中的「A」、「B」是名詞或名詞短句。",
-       "vi": ""
+       "vi": "“A”, “B” trong (1), (2) là danh từ hoặc cụm danh từ.",
+       "py": "⑴, ⑵ zhōng de “A”, “B” shì míngcí huò míngcí duǎnjù."
       },
       {
        "hz": "A：我們人類不斷學習，想辦法增加新知識。那麼多的知識對人類有什麼用呢？",
-       "vi": ""
+       "vi": "A: Loài người chúng ta không ngừng học hỏi, tìm cách tăng thêm kiến thức mới. Vậy nhiều kiến thức như thế có ích gì cho loài người?",
+       "py": "A: Wǒmen rénlèi búduàn xuéxí, xiǎng bànfǎ zēngjiā xīn zhīshì. Nàme duō de zhīshì duì rénlèi yǒu shénme yòng ne?"
       },
       {
-       "hz": "請用「有……，就有……」或「「沒有……，就沒有……」  完成以下的對話。",
-       "vi": ""
+       "hz": "請用「有……，就有……」或「「沒有……，就沒有……」完成以下的對話。",
+       "vi": "Hãy dùng “有……，就有……” hoặc “沒有……，就沒有……” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “yǒu……, jiù yǒu……” huò ““méiyǒu……, jiù méiyǒu……” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -8582,19 +9930,23 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：小周上午在會議中所提的建議，你有什麼看法？B：他的建議，我基本上都同意，不過有幾個問題想跟他仔細地討論。",
-       "vi": ""
+       "vi": "A: Bạn nghĩ sao về đề xuất Tiểu Châu đưa ra trong cuộc họp sáng nay? B: Về cơ bản tôi đồng ý với đề xuất của cậu ấy, nhưng có vài vấn đề muốn thảo luận kỹ với cậu ấy.",
+       "py": "A: Xiǎo zhōu shàngwǔ zài huìyì zhōng suǒ tí de jiànyì, nǐ yǒu shénme kànfǎ? B: Tā de jiànyì, wǒ jīběnshàng dōu tóngyì, búguò yǒu jǐgè wèntí xiǎng gēn tā zǐxì dì tǎolùn."
       },
       {
        "hz": "A：他小時候父母都在其他國家工作，那麼是誰把他帶大的？",
-       "vi": ""
+       "vi": "A: Hồi nhỏ bố mẹ anh ấy đều làm việc ở nước khác, vậy ai đã nuôi anh ấy lớn?",
+       "py": "A: Tā xiǎoshíhòu fùmǔ dōu zài qítā guójiā gōngzuò, nàme shì shéi bǎ tā dài dà de?"
       },
       {
        "hz": "A：你們臺灣的百貨公司、電影院真厲害，連颱風天都跟平常一樣開門。",
-       "vi": ""
+       "vi": "A: Trung tâm thương mại và rạp chiếu phim ở Đài Loan các bạn giỏi thật, đến ngày bão cũng mở cửa như bình thường.",
+       "py": "A: Nǐmen Táiwān de bǎihuògōngsī, diànyǐngyuàn zhēn lìhài, lián táifēng tiān dōu gēn píngcháng yíyàng kāimén."
       },
       {
        "hz": "請用「基本上」完成以下的句子。",
-       "vi": ""
+       "vi": "Hãy dùng “基本上” để hoàn thành các câu dưới đây.",
+       "py": "Qǐng yòng “jīběnshàng” wánchéng yǐxià de jùzi."
       }
      ],
      "answer": null
@@ -8611,20 +9963,24 @@ export const thoidaiGrammar4 = {
      "formula": "「多少」在本語法中是副詞，有「或多或少」、「多多少少」的意思。表示說話的人認為應該要做某件事，但是數量或程度少一些沒關係。",
      "examples": [
       {
-       "hz": "A：談到家庭教育，你認為照顧家庭是誰的義務？B：我想照顧家庭是夫妻兩人的事。工作再忙，也應該多少負擔   一些照顧家庭的責任。",
-       "vi": ""
+       "hz": "A：談到家庭教育，你認為照顧家庭是誰的義務？B：我想照顧家庭是夫妻兩人的事。工作再忙，也應該多少負擔一些照顧家庭的責任。",
+       "vi": "A: Nói đến giáo dục gia đình, bạn cho rằng chăm lo gia đình là nghĩa vụ của ai? B: Tôi nghĩ chăm lo gia đình là việc của cả hai vợ chồng. Công việc bận đến mấy cũng nên gánh vác ít nhiều trách nhiệm chăm lo gia đình.",
+       "py": "A: Tándào jiātíngjiàoyù, nǐ rènwéi zhàogù jiātíng shì shéi de yìwù? B: Wǒ xiǎng zhàogù jiātíng shì fūqī liǎng rén de shì. Gōngzuò zài máng, yě yīnggāi duōshǎo fùdān yìxiē zhàogù jiātíng de zérèn."
       },
       {
        "hz": "A：學校餐廳有個愛心拍賣活動，那個活動的目的是什麼？",
-       "vi": ""
+       "vi": "A: Nhà ăn của trường có hoạt động đấu giá từ thiện, mục đích của hoạt động đó là gì?",
+       "py": "A: Xuéxiào cāntīng yǒu gè àixīn pāimài huódòng, nàge huódòng de mùdì shì shénme?"
       },
       {
        "hz": "A：你已經有一份很好的工作了，怎麼下了班還到處去打工呢？",
-       "vi": ""
+       "vi": "A: Bạn đã có một công việc rất tốt rồi, sao tan làm còn đi làm thêm khắp nơi vậy?",
+       "py": "A: Nǐ yǐjīng yǒu yífèn hěn hǎo de gōngzuò le, zěnme xià le bān hái dàochù qù dǎgōng ne?"
       },
       {
        "hz": "請用「多少V＋一點/一些/幾M 」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “多少V＋一點/一些/幾M” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “duōshǎo V ＋ yìdiǎn / yìxiē / jǐ M” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -8642,47 +9998,58 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：這幾天我的電腦動不動就有問題，你能幫我看看嗎？B：電腦方面的問題我不懂，你還是送去電腦公司處理比較好。",
-       "vi": ""
+       "vi": "A: Mấy hôm nay máy tính của tôi hở ra là có vấn đề, bạn xem giúp tôi được không? B: Chuyện máy tính tôi không rành, bạn nên mang đến công ty máy tính xử lý thì hơn.",
+       "py": "A: Zhè jǐtiān wǒ de diànnǎo dòngbúdòng jiù yǒu wèntí, nǐ néng bāng wǒ kànkàn ma? B: Diànnǎo fāngmiàn de wèntí wǒ bù dǒng, nǐ háishì sòng qù diànnǎogōngsī chǔlǐ bǐjiào hǎo."
       },
       {
        "hz": "A：怎麼啦，你跟你先生這次又為了什麼事吵架？",
-       "vi": ""
+       "vi": "A: Sao thế, lần này bạn và chồng lại cãi nhau vì chuyện gì?",
+       "py": "A: Zěnme la, nǐ gēn nǐ xiānshēng zhècì yòu wèile shénme shì chǎojià?"
       },
       {
        "hz": "A：那個新職員是怎麼回事？看他的個人資料，還以為他很優秀，B：別擔心。等下了班，我再找他好好談談。",
-       "vi": ""
+       "vi": "A: Cậu nhân viên mới đó bị làm sao vậy? Xem hồ sơ cá nhân còn tưởng cậu ấy rất giỏi… B: Đừng lo. Đợi tan làm tôi sẽ nói chuyện tử tế với cậu ấy.",
+       "py": "A: Nàge xīn zhíyuán shì zěnmehuíshì? Kàn tā de gèrénzīliào, hái yǐwéi tā hěn yōuxiù, B: Bié dānxīn. Děng xià le bān, wǒ zài zhǎo tā hǎohǎo tántán."
       },
       {
        "hz": "請用「動不動就……」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “動不動就……” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “dòngbúdòng jiù……” wánchéng yǐxià de duìhuà."
       },
       {
        "hz": "A：春節期間的國外機票不好買，你們非選那時去旅行不可嗎？B：我們好久沒出國了，哪怕有些麻煩，我們都一定要去。",
-       "vi": ""
+       "vi": "A: Vé máy bay đi nước ngoài dịp Tết khó mua, các bạn nhất định phải đi du lịch vào lúc đó sao? B: Lâu lắm rồi chúng tôi chưa ra nước ngoài, dù có hơi phiền phức, chúng tôi cũng nhất định phải đi.",
+       "py": "A: Chūnjié qíjiān de guówài jīpiào bùhǎo mǎi, nǐmen fēi xuǎn nàshí qù lǚxíng bùkě ma? B: Wǒmen hǎojiǔméi chūguó le, nǎpà yǒuxiē máfán, wǒmen dōu yídìng yào qù."
       },
       {
        "hz": "A：張小姐真的很迷足球，不只每天看足球節目，甚至還買了不少足球相關的紀念商品。",
-       "vi": ""
+       "vi": "A: Cô Trương mê bóng đá thật, không chỉ ngày nào cũng xem chương trình bóng đá, thậm chí còn mua không ít đồ lưu niệm liên quan đến bóng đá.",
+       "py": "A: Zhāng xiǎojiě zhēnde hěn mí zúqiú, bù zhǐ měitiān kàn zúqiú jiémù, shènzhì hái mǎi le bùshǎo zúqiú xiāngguān de jìniàn shāngpǐn."
       },
       {
        "hz": "A：當人民與政府領導人的意見不同時，你認為該聽誰的？",
-       "vi": ""
+       "vi": "A: Khi ý kiến của người dân và lãnh đạo chính phủ khác nhau, bạn cho rằng nên nghe ai?",
+       "py": "A: Dāng rénmín yǔ zhèngfǔ lǐngdǎorén de yìjiàn bù tóngshí, nǐ rènwéi gāi tīng shéi de?"
       },
       {
        "hz": "請用「哪怕……，也/都……」完成以下的練習。",
-       "vi": ""
+       "vi": "Hãy dùng “哪怕……，也/都……” để hoàn thành các bài luyện tập dưới đây.",
+       "py": "Qǐng yòng “nǎpà……, yě / dōu……” wánchéng yǐxià de liànxí."
       },
       {
        "hz": "他老是一唱歌就停不下來，得先聽他把店裡所有的歌都唱過，他才願意讓別人唱，因此大家都不太願意約他去唱歌。",
-       "vi": ""
+       "vi": "Anh ấy cứ hát là không dừng lại được, phải nghe anh ấy hát hết mọi bài trong quán thì anh ấy mới chịu cho người khác hát, vì vậy mọi người đều không mấy muốn rủ anh ấy đi hát.",
+       "py": "Tā lǎo shì yí chànggē jiù tíngbúxiàlái, děi xiān tīng tā bǎ diànlǐ suǒyǒu de gē dōu chàng guò, tā cái yuànyì ràng biérén chàng, yīncǐ dàjiā dōu bú tài yuànyì yuē tā qù chànggē."
       },
       {
        "hz": "我最愛閱讀文學作品，從今年起，我希望年年都能夠讀五十本小說，目標是讀完世界上所有著名的小說。",
-       "vi": ""
+       "vi": "Tôi thích đọc tác phẩm văn học nhất, từ năm nay trở đi, tôi hy vọng năm nào cũng đọc được năm mươi cuốn tiểu thuyết, mục tiêu là đọc hết mọi cuốn tiểu thuyết nổi tiếng trên thế giới.",
+       "py": "Wǒ zuì ài yuèdú wénxuézuòpǐn, cóngjīnniánqǐ, wǒ xīwàng nián nián dōu nénggòu dú wǔshí běn xiǎoshuō, mùbiāo shì dúwán shìjiè shàng suǒyǒu zhùmíng de xiǎoshuō."
       },
       {
        "hz": "請用「V遍」改寫以下句子中畫線的部分。",
-       "vi": ""
+       "vi": "Hãy dùng “V遍” để viết lại phần gạch chân trong các câu dưới đây.",
+       "py": "Qǐng yòng “V biàn” gǎixiě yǐxià jùzi zhōng huàxiàn de bùfèn."
       }
      ],
      "answer": null
@@ -8699,40 +10066,49 @@ export const thoidaiGrammar4 = {
      "formula": "「針對」是介詞，表示想法或行為是對「針對」之後的某人或某事。常見的用法：「針對【人事物】」（本課用法）、「針對【人事物】來【動作、行為】」。 2. A：你曾經說過：「生活困難的時候，更應該認為未來仍有希望。」這句話是什       麼意思？",
      "examples": [
       {
-       "hz": "A：我不知道怎麼跟他溝通，每次跟他談，他都認為我在怪他。B：你溝通時應該針對事情而不是針對人，這樣或許就能好好地   談了。A：謝謝你的建議，下次我會試著針對事情來討論的。",
-       "vi": ""
+       "hz": "A：我不知道怎麼跟他溝通，每次跟他談，他都認為我在怪他。B：你溝通時應該針對事情而不是針對人，這樣或許就能好好地談了。A：謝謝你的建議，下次我會試著針對事情來討論的。",
+       "vi": "A: Tôi không biết giao tiếp với anh ấy thế nào, lần nào nói chuyện anh ấy cũng cho rằng tôi đang trách anh ấy. B: Khi giao tiếp bạn nên nhắm vào sự việc chứ không nhắm vào con người, như vậy có lẽ sẽ nói chuyện được với nhau. A: Cảm ơn lời khuyên của bạn, lần sau tôi sẽ thử bàn bạc nhắm vào sự việc.",
+       "py": "A: Wǒ bù zhīdào zěnme gēn tā gōutōng, měicì gēn tā tán, tā dōu rènwéi wǒ zài guài tā. B: Nǐ gōutōng shí yīnggāi zhēnduì shìqíng ér búshì zhēnduì rén, zhèyàng huòxǔ jiù néng hǎohǎo dì tán le. A: Xièxie nǐ de jiànyì, xiàcì wǒ huìshì zhe zhēnduì shìqíng lái tǎolùn de."
       },
       {
        "hz": "A：你們公司的這項新化妝品，主要市場對象是哪些顧客？",
-       "vi": ""
+       "vi": "A: Mỹ phẩm mới này của công ty các bạn nhắm vào đối tượng khách hàng chính nào?",
+       "py": "A: Nǐmen gōngsī de zhèxiàng xīn huàzhuāngpǐn, zhǔyào shìchǎng duìxiàng shì nǎxiē gùkè?"
       },
       {
        "hz": "A：籃球隊上週五跟其他學校有場友誼賽，你參加比賽後有沒有請用「針對」完成以下的句子。",
-       "vi": ""
+       "vi": "A: Thứ Sáu tuần trước đội bóng rổ có trận giao hữu với trường khác, sau khi thi đấu bạn có… Hãy dùng “針對” để hoàn thành các câu dưới đây.",
+       "py": "A: Lánqiúduì shàngzhōuwǔ gēn qítā xuéxiào yǒu chǎng yǒuyísài, nǐ cānjiā bǐsài hòu yǒuméiyǒu qǐng yòng “zhēnduì” wánchéng yǐxià de jùzi."
       },
       {
-       "hz": "A：兒子把這個月的零用錢都花完了，你為什麼不再給他一些？B：有第一次，就有第二次。要是花錢花慣了，可就糟了。A：你說得對。沒有節省的習慣，就沒有儲蓄的可能，這也是為   了他好。",
-       "vi": ""
+       "hz": "A：兒子把這個月的零用錢都花完了，你為什麼不再給他一些？B：有第一次，就有第二次。要是花錢花慣了，可就糟了。A：你說得對。沒有節省的習慣，就沒有儲蓄的可能，這也是為了他好。",
+       "vi": "A: Con trai tiêu hết tiền tiêu vặt tháng này rồi, sao anh không cho nó thêm? B: Có lần thứ nhất thì sẽ có lần thứ hai. Nếu quen tiêu tiền thì gay to. A: Anh nói đúng. Không có thói quen tiết kiệm thì không thể để dành được, làm vậy cũng là vì tốt cho nó.",
+       "py": "A: Érzi bǎ zhège yuè de língyòngqián dōu huāwán le, nǐ wèishénme búzài gěi tā yìxiē? B: Yǒu dìyīcì, jiù yǒu dì'èrcì. Yàoshì huāqián huā guàn le, kě jiù zāo le. A: Nǐ shuōdeduì. Méiyǒu jiéshěng de xíguàn, jiù méiyǒu chǔxù de kěnéng, zhè yě shì wèile tā hǎo."
       },
       {
        "hz": "III.有……，就有……/沒有……，就沒有……⑴ 「有A，就有B」表示條件「A」存在，情況「B」就存在。",
-       "vi": ""
+       "vi": "III. Có…, thì có… / Không có…, thì không có… (1) “有A，就有B” diễn tả điều kiện “A” tồn tại thì tình huống “B” cũng tồn tại.",
+       "py": "III. Yǒu……, jiù yǒu…… / méiyǒu……, jiù méiyǒu…… ⑴ “yǒu A, jiù yǒu B” biǎoshì tiáojiàn “A” cúnzài, qíngkuàng “B” jiù cúnzài."
       },
       {
        "hz": "⑵ 「沒有A，就沒有B」表示條件「A」不存在，情況「B」就不存在。",
-       "vi": ""
+       "vi": "(2) “沒有A，就沒有B” diễn tả điều kiện “A” không tồn tại thì tình huống “B” cũng không tồn tại.",
+       "py": "⑵ “méiyǒu A, jiù méiyǒu B” biǎoshì tiáojiàn “A” bù cúnzài, qíngkuàng “B” jiù bù cúnzài."
       },
       {
        "hz": "⑴、⑵中的「A」、「B」是名詞或名詞短句。",
-       "vi": ""
+       "vi": "“A”, “B” trong (1), (2) là danh từ hoặc cụm danh từ.",
+       "py": "⑴, ⑵ zhōng de “A”, “B” shì míngcí huò míngcí duǎnjù."
       },
       {
        "hz": "A：我們人類不斷學習，想辦法增加新知識。那麼多的知識對人類有什麼用呢？",
-       "vi": ""
+       "vi": "A: Loài người chúng ta không ngừng học hỏi, tìm cách tăng thêm kiến thức mới. Vậy nhiều kiến thức như thế có ích gì cho loài người?",
+       "py": "A: Wǒmen rénlèi búduàn xuéxí, xiǎng bànfǎ zēngjiā xīn zhīshì. Nàme duō de zhīshì duì rénlèi yǒu shénme yòng ne?"
       },
       {
-       "hz": "請用「有……，就有……」或「「沒有……，就沒有……」  完成以下的對話。",
-       "vi": ""
+       "hz": "請用「有……，就有……」或「「沒有……，就沒有……」完成以下的對話。",
+       "vi": "Hãy dùng “有……，就有……” hoặc “沒有……，就沒有……” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “yǒu……, jiù yǒu……” huò ““méiyǒu……, jiù méiyǒu……” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -8752,15 +10128,18 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "老闆覺得顧客的要求不合理，所以說什麼也不要退錢。2.看在你辛苦做菜的分上，說什麼我也要吃幾口。",
-       "vi": ""
+       "vi": "1. Ông chủ thấy yêu cầu của khách không hợp lý, nên nói gì cũng không chịu trả lại tiền. 2. Nể tình bạn vất vả nấu ăn, nói gì tôi cũng phải ăn vài miếng.",
+       "py": "Lǎobǎn juéde gùkè de yāoqiú bùhélǐ, suǒyǐ shuō shénme yě búyào tuìqián. 2. Kàn zài nǐ xīnkǔ zuòcài de fēn shàng, shuō shénme wǒ yě yào chī jǐkǒu."
       },
       {
        "hz": "A：這家茶店的手搖紅茶很好喝。你為什麼不點？",
-       "vi": ""
+       "vi": "A: Hồng trà lắc của quán trà này rất ngon. Sao bạn không gọi?",
+       "py": "A: Zhèjiā chádiàn de shǒuyáo hóngchá hěn hǎohē. Nǐ wèishénme bù diǎn?"
       },
       {
        "hz": "請使用「說什麼……也……/ 說什麼也……」完成對話。",
-       "vi": ""
+       "vi": "Hãy dùng “說什麼……也……/ 說什麼也……” để hoàn thành đoạn hội thoại.",
+       "py": "Qǐng shǐyòng “shuō shénme…… yě…… / shuō shénme yě……” wánchéng duìhuà."
       }
      ],
      "answer": null
@@ -8778,39 +10157,48 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "照顧孩子很累，因為有的孩子連跑帶跳可以玩一兩個小時。2.她上網購物結帳時，連棉被帶枕頭一共刷了兩千元。3.他病得有點兒嚴重，連發燒帶拉肚子，不舒服了三天。",
-       "vi": ""
+       "vi": "1. Chăm trẻ rất mệt, vì có đứa vừa chạy vừa nhảy chơi được một hai tiếng. 2. Khi mua sắm trên mạng và thanh toán, cô ấy mua cả chăn lẫn gối, tổng cộng quẹt thẻ hai nghìn đồng. 3. Anh ấy ốm hơi nặng, vừa sốt vừa đau bụng đi ngoài, khó chịu suốt ba ngày.",
+       "py": "Zhàogù háizi hěn lèi, yīnwèi yǒu de háizi liánpǎodàitiào kěyǐ wán yìliǎnggè xiǎoshí. 2. Tā shàngwǎng gòuwù jiézhàng shí, lián miánbèi dài zhěntou yígòng shuā le liǎngqiānyuán. 3. Tā bìng de yǒudiǎn'ér yánzhòng, lián fāshāo dài lādùzi, bù shūfú le sāntiān."
       },
       {
        "hz": "「連」、「帶」在本語法都是連詞。常見的用法有兩種：⑴ 「連V1帶V2」：表示「V1」和「V2」兩個動作同時發生。",
-       "vi": ""
+       "vi": "Trong mẫu ngữ pháp này “連”, “帶” đều là liên từ. Thường có hai cách dùng: (1) “連V1帶V2”: diễn tả hai động tác “V1” và “V2” xảy ra đồng thời.",
+       "py": "“Lián”, “dài” zài běn yǔfǎ dōu shì liáncí. Chángjiàn de yòngfǎ yǒu liǎngzhǒng: ⑴ “lián V1 dài V2”: Biǎoshì “V1” hàn “V2” liǎnggè dòngzuò tóngshí fāshēng."
       },
       {
-       "hz": "⑵ 「連N1/V(O)1帶N2/V(O)2」：表示包括人事物「N1」和「N2」，或是      包括動作「V(O)1」和「V(O)2」。",
-       "vi": ""
+       "hz": "⑵ 「連N1/V(O)1帶N2/V(O)2」：表示包括人事物「N1」和「N2」，或是包括動作「V(O)1」和「V(O)2」。",
+       "vi": "(2) “連N1/V(O)1帶N2/V(O)2”: diễn tả bao gồm cả người/sự/vật “N1” và “N2”, hoặc bao gồm cả động tác “V(O)1” và “V(O)2”.",
+       "py": "⑵ “lián N1 / V1 dài N2 / V2”: Biǎoshì bāokuò rén shìwù “N1” hàn “N2”, huòshì bāokuò dòngzuò “V1” hàn “V2”."
       },
       {
        "hz": "這課的聽力練習不難，他一邊聽一邊回答，只花了四十五分鐘就寫完了。",
-       "vi": ""
+       "vi": "Bài luyện nghe của bài này không khó, anh ấy vừa nghe vừa trả lời, chỉ mất bốn mươi lăm phút đã làm xong.",
+       "py": "Zhè kè de tīnglì liànxí bùnán, tā yìbiān tīng yìbiān huídá, zhǐ huā le sìshíwǔfēnzhōng jiù xiě wán le."
       },
       {
        "hz": "他在收拾房間時，用過的紙盒、飲料罐就整理出滿滿的一袋。",
-       "vi": ""
+       "vi": "Khi dọn phòng, chỉ riêng hộp giấy và lon nước đã dùng, anh ấy đã gom ra được một túi đầy.",
+       "py": "Tā zài shōushí fángjiān shí, yòng guò de zhǐhé, yǐnliàoguàn jiù zhěnglǐ chū mǎnmǎnde yídài."
       },
       {
        "hz": "請使用「連V1帶V2」或「連N1/V(O)1帶N2/V(O)2」改寫以下的句子。",
-       "vi": ""
+       "vi": "Hãy dùng “連V1帶V2” hoặc “連N1/V(O)1帶N2/V(O)2” để viết lại các câu dưới đây.",
+       "py": "Qǐng shǐyòng “lián V1 dài V2” huò “lián N1 / V1 dài N2 / V2” gǎixiě yǐxià de jùzi."
       },
       {
        "hz": "與其說那麼多，我們還不如趕快動手做。2. 與其花錢到英國學英文，不如上網找免費的課程練習。3. 與其買到不適合他的衣服，倒不如帶他去挑選。",
-       "vi": ""
+       "vi": "1. Thay vì nói nhiều như vậy, chúng ta chi bằng mau bắt tay vào làm. 2. Thay vì tốn tiền sang Anh học tiếng Anh, chi bằng lên mạng tìm khoá học miễn phí để luyện. 3. Thay vì mua phải quần áo không hợp với anh ấy, chi bằng dẫn anh ấy đi chọn.",
+       "py": "Yǔqíshuō nàme duō, wǒmen hái bùrú gǎnkuài dòngshǒuzuò. 2. Yǔqí huāqián dào Yīngguó xué yīngwén, bùrú shàngwǎng zhǎo miǎnfèi de kèchéng liànxí. 3. Yǔqí mǎi dào bú shìhé tā de yīfú, dàobùrú dài tā qù tiāoxuǎn."
       },
       {
        "hz": "III.與其……，不如/還不如/倒不如……",
-       "vi": ""
+       "vi": "III. Thay vì…, chi bằng / thà rằng…",
+       "py": "III. Yǔqí……, bùrú / hái bùrú / dàobùrú……"
       },
       {
        "hz": "請完成以下的句子。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các câu dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de jùzi."
       }
      ],
      "answer": null
@@ -8828,11 +10216,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "我想跟你姐姐借她的旗袍，是否能幫我問她一下？2.她的臉色讓我看不出來她是否生氣。",
-       "vi": ""
+       "vi": "1. Tôi muốn mượn chiếc sườn xám của chị bạn, bạn có thể hỏi giúp chị ấy không? 2. Nhìn sắc mặt cô ấy tôi không đoán ra được cô ấy có giận hay không.",
+       "py": "Wǒ xiǎng gēn nǐ jiějie jiè tā de qípáo, shìfǒu néng bāng wǒ wèn tā yíxià? 2. Tā de liǎnsè ràng wǒ kànbùchūlái tā shìfǒu shēngqì."
       },
       {
        "hz": "請根據以下的情況，使用「是否」來問問看或說說看。",
-       "vi": ""
+       "vi": "Dựa vào các tình huống dưới đây, hãy dùng “是否” để thử hỏi hoặc thử nói.",
+       "py": "Qǐng gēnjù yǐxià de qíngkuàng, shǐyòng “shìfǒu” lái wènwènkàn huò shuōshuōkàn."
       }
      ],
      "answer": null
@@ -8850,11 +10240,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "長大了還向父母伸手要錢，換句話說，就是自己仍然依靠父母而無法獨立。",
-       "vi": ""
+       "vi": "Lớn rồi mà còn chìa tay xin tiền bố mẹ, nói cách khác, là bản thân vẫn dựa dẫm vào bố mẹ mà không thể tự lập.",
+       "py": "Zhǎngdà le hái xiàng fùmǔ shēnshǒu yàoqián, huànjùhuàshuō, jiùshì zìjǐ réngrán yīkào fùmǔ ér wúfǎ dúlì."
       },
       {
        "hz": "請完成以下的句子。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các câu dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de jùzi."
       }
      ],
      "answer": null
@@ -8872,11 +10264,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "他沒學過英文，根本聽不懂你說的英文，你得跟他說中文。2.最近公司出了很多狀況，我忙著去解決，根本沒時間休息。",
-       "vi": ""
+       "vi": "1. Anh ấy chưa từng học tiếng Anh, hoàn toàn không hiểu tiếng Anh bạn nói, bạn phải nói tiếng Trung với anh ấy. 2. Gần đây công ty xảy ra nhiều sự cố, tôi bận đi giải quyết, hoàn toàn không có thời gian nghỉ ngơi.",
+       "py": "Tā méi xué guò yīngwén, gēnběn tīngbùdǒng nǐ shuō de yīngwén, nǐ děi gēn tā shuō zhōngwén. 2. Zuìjìn gōngsī chū le hěnduō zhuàngkuàng, wǒ máng zhe qù jiějué, gēnběn méi shíjiān xiūxí."
       },
       {
        "hz": "請使用「根本不/根本沒」來完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “根本不/根本沒” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “gēnběn bù / gēnběn méi” lái wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -8894,11 +10288,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "順著這條巷子往前走，就可以到資源回收站了。",
-       "vi": ""
+       "vi": "Men theo con hẻm này đi về phía trước là đến trạm thu gom rác tái chế.",
+       "py": "Shùn zhe zhè tiáo xiàngzi wǎngqiánzǒu, jiù kěyǐ dào zīyuán huíshōuzhàn le."
       },
       {
        "hz": "請使用「順著」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “順著” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “shùn zhe” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -8918,15 +10314,18 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "老闆覺得顧客的要求不合理，所以說什麼也不要退錢。2.看在你辛苦做菜的分上，說什麼我也要吃幾口。",
-       "vi": ""
+       "vi": "1. Ông chủ thấy yêu cầu của khách không hợp lý, nên nói gì cũng không chịu trả lại tiền. 2. Nể tình bạn vất vả nấu ăn, nói gì tôi cũng phải ăn vài miếng.",
+       "py": "Lǎobǎn juéde gùkè de yāoqiú bùhélǐ, suǒyǐ shuō shénme yě búyào tuìqián. 2. Kàn zài nǐ xīnkǔ zuòcài de fēn shàng, shuō shénme wǒ yě yào chī jǐkǒu."
       },
       {
        "hz": "A：這家茶店的手搖紅茶很好喝。你為什麼不點？",
-       "vi": ""
+       "vi": "A: Hồng trà lắc của quán trà này rất ngon. Sao bạn không gọi?",
+       "py": "A: Zhèjiā chádiàn de shǒuyáo hóngchá hěn hǎohē. Nǐ wèishénme bù diǎn?"
       },
       {
        "hz": "請使用「說什麼……也……/ 說什麼也……」完成對話。",
-       "vi": ""
+       "vi": "Hãy dùng “說什麼……也……/ 說什麼也……” để hoàn thành đoạn hội thoại.",
+       "py": "Qǐng shǐyòng “shuō shénme…… yě…… / shuō shénme yě……” wánchéng duìhuà."
       }
      ],
      "answer": null
@@ -8944,39 +10343,48 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "照顧孩子很累，因為有的孩子連跑帶跳可以玩一兩個小時。2.她上網購物結帳時，連棉被帶枕頭一共刷了兩千元。3.他病得有點兒嚴重，連發燒帶拉肚子，不舒服了三天。",
-       "vi": ""
+       "vi": "1. Chăm trẻ rất mệt, vì có đứa vừa chạy vừa nhảy chơi được một hai tiếng. 2. Khi mua sắm trên mạng và thanh toán, cô ấy mua cả chăn lẫn gối, tổng cộng quẹt thẻ hai nghìn đồng. 3. Anh ấy ốm hơi nặng, vừa sốt vừa đau bụng đi ngoài, khó chịu suốt ba ngày.",
+       "py": "Zhàogù háizi hěn lèi, yīnwèi yǒu de háizi liánpǎodàitiào kěyǐ wán yìliǎnggè xiǎoshí. 2. Tā shàngwǎng gòuwù jiézhàng shí, lián miánbèi dài zhěntou yígòng shuā le liǎngqiānyuán. 3. Tā bìng de yǒudiǎn'ér yánzhòng, lián fāshāo dài lādùzi, bù shūfú le sāntiān."
       },
       {
        "hz": "「連」、「帶」在本語法都是連詞。常見的用法有兩種：⑴ 「連V1帶V2」：表示「V1」和「V2」兩個動作同時發生。",
-       "vi": ""
+       "vi": "Trong mẫu ngữ pháp này “連”, “帶” đều là liên từ. Thường có hai cách dùng: (1) “連V1帶V2”: diễn tả hai động tác “V1” và “V2” xảy ra đồng thời.",
+       "py": "“Lián”, “dài” zài běn yǔfǎ dōu shì liáncí. Chángjiàn de yòngfǎ yǒu liǎngzhǒng: ⑴ “lián V1 dài V2”: Biǎoshì “V1” hàn “V2” liǎnggè dòngzuò tóngshí fāshēng."
       },
       {
-       "hz": "⑵ 「連N1/V(O)1帶N2/V(O)2」：表示包括人事物「N1」和「N2」，或是      包括動作「V(O)1」和「V(O)2」。",
-       "vi": ""
+       "hz": "⑵ 「連N1/V(O)1帶N2/V(O)2」：表示包括人事物「N1」和「N2」，或是包括動作「V(O)1」和「V(O)2」。",
+       "vi": "(2) “連N1/V(O)1帶N2/V(O)2”: diễn tả bao gồm cả người/sự/vật “N1” và “N2”, hoặc bao gồm cả động tác “V(O)1” và “V(O)2”.",
+       "py": "⑵ “lián N1 / V1 dài N2 / V2”: Biǎoshì bāokuò rén shìwù “N1” hàn “N2”, huòshì bāokuò dòngzuò “V1” hàn “V2”."
       },
       {
        "hz": "這課的聽力練習不難，他一邊聽一邊回答，只花了四十五分鐘就寫完了。",
-       "vi": ""
+       "vi": "Bài luyện nghe của bài này không khó, anh ấy vừa nghe vừa trả lời, chỉ mất bốn mươi lăm phút đã làm xong.",
+       "py": "Zhè kè de tīnglì liànxí bùnán, tā yìbiān tīng yìbiān huídá, zhǐ huā le sìshíwǔfēnzhōng jiù xiě wán le."
       },
       {
        "hz": "他在收拾房間時，用過的紙盒、飲料罐就整理出滿滿的一袋。",
-       "vi": ""
+       "vi": "Khi dọn phòng, chỉ riêng hộp giấy và lon nước đã dùng, anh ấy đã gom ra được một túi đầy.",
+       "py": "Tā zài shōushí fángjiān shí, yòng guò de zhǐhé, yǐnliàoguàn jiù zhěnglǐ chū mǎnmǎnde yídài."
       },
       {
        "hz": "請使用「連V1帶V2」或「連N1/V(O)1帶N2/V(O)2」改寫以下的句子。",
-       "vi": ""
+       "vi": "Hãy dùng “連V1帶V2” hoặc “連N1/V(O)1帶N2/V(O)2” để viết lại các câu dưới đây.",
+       "py": "Qǐng shǐyòng “lián V1 dài V2” huò “lián N1 / V1 dài N2 / V2” gǎixiě yǐxià de jùzi."
       },
       {
        "hz": "與其說那麼多，我們還不如趕快動手做。2. 與其花錢到英國學英文，不如上網找免費的課程練習。3. 與其買到不適合他的衣服，倒不如帶他去挑選。",
-       "vi": ""
+       "vi": "1. Thay vì nói nhiều như vậy, chúng ta chi bằng mau bắt tay vào làm. 2. Thay vì tốn tiền sang Anh học tiếng Anh, chi bằng lên mạng tìm khoá học miễn phí để luyện. 3. Thay vì mua phải quần áo không hợp với anh ấy, chi bằng dẫn anh ấy đi chọn.",
+       "py": "Yǔqíshuō nàme duō, wǒmen hái bùrú gǎnkuài dòngshǒuzuò. 2. Yǔqí huāqián dào Yīngguó xué yīngwén, bùrú shàngwǎng zhǎo miǎnfèi de kèchéng liànxí. 3. Yǔqí mǎi dào bú shìhé tā de yīfú, dàobùrú dài tā qù tiāoxuǎn."
       },
       {
        "hz": "III.與其……，不如/還不如/倒不如……",
-       "vi": ""
+       "vi": "III. Thay vì…, chi bằng / thà rằng…",
+       "py": "III. Yǔqí……, bùrú / hái bùrú / dàobùrú……"
       },
       {
        "hz": "請完成以下的句子。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các câu dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de jùzi."
       }
      ],
      "answer": null
@@ -8994,11 +10402,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "我想跟你姐姐借她的旗袍，是否能幫我問她一下？2.她的臉色讓我看不出來她是否生氣。",
-       "vi": ""
+       "vi": "1. Tôi muốn mượn chiếc sườn xám của chị bạn, bạn có thể hỏi giúp chị ấy không? 2. Nhìn sắc mặt cô ấy tôi không đoán ra được cô ấy có giận hay không.",
+       "py": "Wǒ xiǎng gēn nǐ jiějie jiè tā de qípáo, shìfǒu néng bāng wǒ wèn tā yíxià? 2. Tā de liǎnsè ràng wǒ kànbùchūlái tā shìfǒu shēngqì."
       },
       {
        "hz": "請根據以下的情況，使用「是否」來問問看或說說看。",
-       "vi": ""
+       "vi": "Dựa vào các tình huống dưới đây, hãy dùng “是否” để thử hỏi hoặc thử nói.",
+       "py": "Qǐng gēnjù yǐxià de qíngkuàng, shǐyòng “shìfǒu” lái wènwènkàn huò shuōshuōkàn."
       }
      ],
      "answer": null
@@ -9016,11 +10426,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "長大了還向父母伸手要錢，換句話說，就是自己仍然依靠父母而無法獨立。",
-       "vi": ""
+       "vi": "Lớn rồi mà còn chìa tay xin tiền bố mẹ, nói cách khác, là bản thân vẫn dựa dẫm vào bố mẹ mà không thể tự lập.",
+       "py": "Zhǎngdà le hái xiàng fùmǔ shēnshǒu yàoqián, huànjùhuàshuō, jiùshì zìjǐ réngrán yīkào fùmǔ ér wúfǎ dúlì."
       },
       {
        "hz": "請完成以下的句子。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các câu dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de jùzi."
       }
      ],
      "answer": null
@@ -9038,11 +10450,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "他沒學過英文，根本聽不懂你說的英文，你得跟他說中文。2.最近公司出了很多狀況，我忙著去解決，根本沒時間休息。",
-       "vi": ""
+       "vi": "1. Anh ấy chưa từng học tiếng Anh, hoàn toàn không hiểu tiếng Anh bạn nói, bạn phải nói tiếng Trung với anh ấy. 2. Gần đây công ty xảy ra nhiều sự cố, tôi bận đi giải quyết, hoàn toàn không có thời gian nghỉ ngơi.",
+       "py": "Tā méi xué guò yīngwén, gēnběn tīngbùdǒng nǐ shuō de yīngwén, nǐ děi gēn tā shuō zhōngwén. 2. Zuìjìn gōngsī chū le hěnduō zhuàngkuàng, wǒ máng zhe qù jiějué, gēnběn méi shíjiān xiūxí."
       },
       {
        "hz": "請使用「根本不/根本沒」來完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “根本不/根本沒” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “gēnběn bù / gēnběn méi” lái wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -9060,11 +10474,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "順著這條巷子往前走，就可以到資源回收站了。",
-       "vi": ""
+       "vi": "Men theo con hẻm này đi về phía trước là đến trạm thu gom rác tái chế.",
+       "py": "Shùn zhe zhè tiáo xiàngzi wǎngqiánzǒu, jiù kěyǐ dào zīyuán huíshōuzhàn le."
       },
       {
        "hz": "請使用「順著」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “順著” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “shùn zhe” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -9084,15 +10500,18 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "老闆覺得顧客的要求不合理，所以說什麼也不要退錢。2.看在你辛苦做菜的分上，說什麼我也要吃幾口。",
-       "vi": ""
+       "vi": "1. Ông chủ thấy yêu cầu của khách không hợp lý, nên nói gì cũng không chịu trả lại tiền. 2. Nể tình bạn vất vả nấu ăn, nói gì tôi cũng phải ăn vài miếng.",
+       "py": "Lǎobǎn juéde gùkè de yāoqiú bùhélǐ, suǒyǐ shuō shénme yě búyào tuìqián. 2. Kàn zài nǐ xīnkǔ zuòcài de fēn shàng, shuō shénme wǒ yě yào chī jǐkǒu."
       },
       {
        "hz": "A：這家茶店的手搖紅茶很好喝。你為什麼不點？",
-       "vi": ""
+       "vi": "A: Hồng trà lắc của quán trà này rất ngon. Sao bạn không gọi?",
+       "py": "A: Zhèjiā chádiàn de shǒuyáo hóngchá hěn hǎohē. Nǐ wèishénme bù diǎn?"
       },
       {
        "hz": "請使用「說什麼……也……/ 說什麼也……」完成對話。",
-       "vi": ""
+       "vi": "Hãy dùng “說什麼……也……/ 說什麼也……” để hoàn thành đoạn hội thoại.",
+       "py": "Qǐng shǐyòng “shuō shénme…… yě…… / shuō shénme yě……” wánchéng duìhuà."
       }
      ],
      "answer": null
@@ -9110,39 +10529,48 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "照顧孩子很累，因為有的孩子連跑帶跳可以玩一兩個小時。2.她上網購物結帳時，連棉被帶枕頭一共刷了兩千元。3.他病得有點兒嚴重，連發燒帶拉肚子，不舒服了三天。",
-       "vi": ""
+       "vi": "1. Chăm trẻ rất mệt, vì có đứa vừa chạy vừa nhảy chơi được một hai tiếng. 2. Khi mua sắm trên mạng và thanh toán, cô ấy mua cả chăn lẫn gối, tổng cộng quẹt thẻ hai nghìn đồng. 3. Anh ấy ốm hơi nặng, vừa sốt vừa đau bụng đi ngoài, khó chịu suốt ba ngày.",
+       "py": "Zhàogù háizi hěn lèi, yīnwèi yǒu de háizi liánpǎodàitiào kěyǐ wán yìliǎnggè xiǎoshí. 2. Tā shàngwǎng gòuwù jiézhàng shí, lián miánbèi dài zhěntou yígòng shuā le liǎngqiānyuán. 3. Tā bìng de yǒudiǎn'ér yánzhòng, lián fāshāo dài lādùzi, bù shūfú le sāntiān."
       },
       {
        "hz": "「連」、「帶」在本語法都是連詞。常見的用法有兩種：⑴ 「連V1帶V2」：表示「V1」和「V2」兩個動作同時發生。",
-       "vi": ""
+       "vi": "Trong mẫu ngữ pháp này “連”, “帶” đều là liên từ. Thường có hai cách dùng: (1) “連V1帶V2”: diễn tả hai động tác “V1” và “V2” xảy ra đồng thời.",
+       "py": "“Lián”, “dài” zài běn yǔfǎ dōu shì liáncí. Chángjiàn de yòngfǎ yǒu liǎngzhǒng: ⑴ “lián V1 dài V2”: Biǎoshì “V1” hàn “V2” liǎnggè dòngzuò tóngshí fāshēng."
       },
       {
-       "hz": "⑵ 「連N1/V(O)1帶N2/V(O)2」：表示包括人事物「N1」和「N2」，或是      包括動作「V(O)1」和「V(O)2」。",
-       "vi": ""
+       "hz": "⑵ 「連N1/V(O)1帶N2/V(O)2」：表示包括人事物「N1」和「N2」，或是包括動作「V(O)1」和「V(O)2」。",
+       "vi": "(2) “連N1/V(O)1帶N2/V(O)2”: diễn tả bao gồm cả người/sự/vật “N1” và “N2”, hoặc bao gồm cả động tác “V(O)1” và “V(O)2”.",
+       "py": "⑵ “lián N1 / V1 dài N2 / V2”: Biǎoshì bāokuò rén shìwù “N1” hàn “N2”, huòshì bāokuò dòngzuò “V1” hàn “V2”."
       },
       {
        "hz": "這課的聽力練習不難，他一邊聽一邊回答，只花了四十五分鐘就寫完了。",
-       "vi": ""
+       "vi": "Bài luyện nghe của bài này không khó, anh ấy vừa nghe vừa trả lời, chỉ mất bốn mươi lăm phút đã làm xong.",
+       "py": "Zhè kè de tīnglì liànxí bùnán, tā yìbiān tīng yìbiān huídá, zhǐ huā le sìshíwǔfēnzhōng jiù xiě wán le."
       },
       {
        "hz": "他在收拾房間時，用過的紙盒、飲料罐就整理出滿滿的一袋。",
-       "vi": ""
+       "vi": "Khi dọn phòng, chỉ riêng hộp giấy và lon nước đã dùng, anh ấy đã gom ra được một túi đầy.",
+       "py": "Tā zài shōushí fángjiān shí, yòng guò de zhǐhé, yǐnliàoguàn jiù zhěnglǐ chū mǎnmǎnde yídài."
       },
       {
        "hz": "請使用「連V1帶V2」或「連N1/V(O)1帶N2/V(O)2」改寫以下的句子。",
-       "vi": ""
+       "vi": "Hãy dùng “連V1帶V2” hoặc “連N1/V(O)1帶N2/V(O)2” để viết lại các câu dưới đây.",
+       "py": "Qǐng shǐyòng “lián V1 dài V2” huò “lián N1 / V1 dài N2 / V2” gǎixiě yǐxià de jùzi."
       },
       {
        "hz": "與其說那麼多，我們還不如趕快動手做。2. 與其花錢到英國學英文，不如上網找免費的課程練習。3. 與其買到不適合他的衣服，倒不如帶他去挑選。",
-       "vi": ""
+       "vi": "1. Thay vì nói nhiều như vậy, chúng ta chi bằng mau bắt tay vào làm. 2. Thay vì tốn tiền sang Anh học tiếng Anh, chi bằng lên mạng tìm khoá học miễn phí để luyện. 3. Thay vì mua phải quần áo không hợp với anh ấy, chi bằng dẫn anh ấy đi chọn.",
+       "py": "Yǔqíshuō nàme duō, wǒmen hái bùrú gǎnkuài dòngshǒuzuò. 2. Yǔqí huāqián dào Yīngguó xué yīngwén, bùrú shàngwǎng zhǎo miǎnfèi de kèchéng liànxí. 3. Yǔqí mǎi dào bú shìhé tā de yīfú, dàobùrú dài tā qù tiāoxuǎn."
       },
       {
        "hz": "III.與其……，不如/還不如/倒不如……",
-       "vi": ""
+       "vi": "III. Thay vì…, chi bằng / thà rằng…",
+       "py": "III. Yǔqí……, bùrú / hái bùrú / dàobùrú……"
       },
       {
        "hz": "請完成以下的句子。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các câu dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de jùzi."
       }
      ],
      "answer": null
@@ -9160,11 +10588,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "我想跟你姐姐借她的旗袍，是否能幫我問她一下？2.她的臉色讓我看不出來她是否生氣。",
-       "vi": ""
+       "vi": "1. Tôi muốn mượn chiếc sườn xám của chị bạn, bạn có thể hỏi giúp chị ấy không? 2. Nhìn sắc mặt cô ấy tôi không đoán ra được cô ấy có giận hay không.",
+       "py": "Wǒ xiǎng gēn nǐ jiějie jiè tā de qípáo, shìfǒu néng bāng wǒ wèn tā yíxià? 2. Tā de liǎnsè ràng wǒ kànbùchūlái tā shìfǒu shēngqì."
       },
       {
        "hz": "請根據以下的情況，使用「是否」來問問看或說說看。",
-       "vi": ""
+       "vi": "Dựa vào các tình huống dưới đây, hãy dùng “是否” để thử hỏi hoặc thử nói.",
+       "py": "Qǐng gēnjù yǐxià de qíngkuàng, shǐyòng “shìfǒu” lái wènwènkàn huò shuōshuōkàn."
       }
      ],
      "answer": null
@@ -9182,11 +10612,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "長大了還向父母伸手要錢，換句話說，就是自己仍然依靠父母而無法獨立。",
-       "vi": ""
+       "vi": "Lớn rồi mà còn chìa tay xin tiền bố mẹ, nói cách khác, là bản thân vẫn dựa dẫm vào bố mẹ mà không thể tự lập.",
+       "py": "Zhǎngdà le hái xiàng fùmǔ shēnshǒu yàoqián, huànjùhuàshuō, jiùshì zìjǐ réngrán yīkào fùmǔ ér wúfǎ dúlì."
       },
       {
        "hz": "請完成以下的句子。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các câu dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de jùzi."
       }
      ],
      "answer": null
@@ -9204,11 +10636,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "他沒學過英文，根本聽不懂你說的英文，你得跟他說中文。2.最近公司出了很多狀況，我忙著去解決，根本沒時間休息。",
-       "vi": ""
+       "vi": "1. Anh ấy chưa từng học tiếng Anh, hoàn toàn không hiểu tiếng Anh bạn nói, bạn phải nói tiếng Trung với anh ấy. 2. Gần đây công ty xảy ra nhiều sự cố, tôi bận đi giải quyết, hoàn toàn không có thời gian nghỉ ngơi.",
+       "py": "Tā méi xué guò yīngwén, gēnběn tīngbùdǒng nǐ shuō de yīngwén, nǐ děi gēn tā shuō zhōngwén. 2. Zuìjìn gōngsī chū le hěnduō zhuàngkuàng, wǒ máng zhe qù jiějué, gēnběn méi shíjiān xiūxí."
       },
       {
        "hz": "請使用「根本不/根本沒」來完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “根本不/根本沒” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “gēnběn bù / gēnběn méi” lái wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -9226,11 +10660,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "順著這條巷子往前走，就可以到資源回收站了。",
-       "vi": ""
+       "vi": "Men theo con hẻm này đi về phía trước là đến trạm thu gom rác tái chế.",
+       "py": "Shùn zhe zhè tiáo xiàngzi wǎngqiánzǒu, jiù kěyǐ dào zīyuán huíshōuzhàn le."
       },
       {
        "hz": "請使用「順著」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “順著” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “shùn zhe” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -9250,15 +10686,18 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "老闆覺得顧客的要求不合理，所以說什麼也不要退錢。2.看在你辛苦做菜的分上，說什麼我也要吃幾口。",
-       "vi": ""
+       "vi": "1. Ông chủ thấy yêu cầu của khách không hợp lý, nên nói gì cũng không chịu trả lại tiền. 2. Nể tình bạn vất vả nấu ăn, nói gì tôi cũng phải ăn vài miếng.",
+       "py": "Lǎobǎn juéde gùkè de yāoqiú bùhélǐ, suǒyǐ shuō shénme yě búyào tuìqián. 2. Kàn zài nǐ xīnkǔ zuòcài de fēn shàng, shuō shénme wǒ yě yào chī jǐkǒu."
       },
       {
        "hz": "A：這家茶店的手搖紅茶很好喝。你為什麼不點？",
-       "vi": ""
+       "vi": "A: Hồng trà lắc của quán trà này rất ngon. Sao bạn không gọi?",
+       "py": "A: Zhèjiā chádiàn de shǒuyáo hóngchá hěn hǎohē. Nǐ wèishénme bù diǎn?"
       },
       {
        "hz": "請使用「說什麼……也……/ 說什麼也……」完成對話。",
-       "vi": ""
+       "vi": "Hãy dùng “說什麼……也……/ 說什麼也……” để hoàn thành đoạn hội thoại.",
+       "py": "Qǐng shǐyòng “shuō shénme…… yě…… / shuō shénme yě……” wánchéng duìhuà."
       }
      ],
      "answer": null
@@ -9276,39 +10715,48 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "照顧孩子很累，因為有的孩子連跑帶跳可以玩一兩個小時。2.她上網購物結帳時，連棉被帶枕頭一共刷了兩千元。3.他病得有點兒嚴重，連發燒帶拉肚子，不舒服了三天。",
-       "vi": ""
+       "vi": "1. Chăm trẻ rất mệt, vì có đứa vừa chạy vừa nhảy chơi được một hai tiếng. 2. Khi mua sắm trên mạng và thanh toán, cô ấy mua cả chăn lẫn gối, tổng cộng quẹt thẻ hai nghìn đồng. 3. Anh ấy ốm hơi nặng, vừa sốt vừa đau bụng đi ngoài, khó chịu suốt ba ngày.",
+       "py": "Zhàogù háizi hěn lèi, yīnwèi yǒu de háizi liánpǎodàitiào kěyǐ wán yìliǎnggè xiǎoshí. 2. Tā shàngwǎng gòuwù jiézhàng shí, lián miánbèi dài zhěntou yígòng shuā le liǎngqiānyuán. 3. Tā bìng de yǒudiǎn'ér yánzhòng, lián fāshāo dài lādùzi, bù shūfú le sāntiān."
       },
       {
        "hz": "「連」、「帶」在本語法都是連詞。常見的用法有兩種：⑴ 「連V1帶V2」：表示「V1」和「V2」兩個動作同時發生。",
-       "vi": ""
+       "vi": "Trong mẫu ngữ pháp này “連”, “帶” đều là liên từ. Thường có hai cách dùng: (1) “連V1帶V2”: diễn tả hai động tác “V1” và “V2” xảy ra đồng thời.",
+       "py": "“Lián”, “dài” zài běn yǔfǎ dōu shì liáncí. Chángjiàn de yòngfǎ yǒu liǎngzhǒng: ⑴ “lián V1 dài V2”: Biǎoshì “V1” hàn “V2” liǎnggè dòngzuò tóngshí fāshēng."
       },
       {
-       "hz": "⑵ 「連N1/V(O)1帶N2/V(O)2」：表示包括人事物「N1」和「N2」，或是      包括動作「V(O)1」和「V(O)2」。",
-       "vi": ""
+       "hz": "⑵ 「連N1/V(O)1帶N2/V(O)2」：表示包括人事物「N1」和「N2」，或是包括動作「V(O)1」和「V(O)2」。",
+       "vi": "(2) “連N1/V(O)1帶N2/V(O)2”: diễn tả bao gồm cả người/sự/vật “N1” và “N2”, hoặc bao gồm cả động tác “V(O)1” và “V(O)2”.",
+       "py": "⑵ “lián N1 / V1 dài N2 / V2”: Biǎoshì bāokuò rén shìwù “N1” hàn “N2”, huòshì bāokuò dòngzuò “V1” hàn “V2”."
       },
       {
        "hz": "這課的聽力練習不難，他一邊聽一邊回答，只花了四十五分鐘就寫完了。",
-       "vi": ""
+       "vi": "Bài luyện nghe của bài này không khó, anh ấy vừa nghe vừa trả lời, chỉ mất bốn mươi lăm phút đã làm xong.",
+       "py": "Zhè kè de tīnglì liànxí bùnán, tā yìbiān tīng yìbiān huídá, zhǐ huā le sìshíwǔfēnzhōng jiù xiě wán le."
       },
       {
        "hz": "他在收拾房間時，用過的紙盒、飲料罐就整理出滿滿的一袋。",
-       "vi": ""
+       "vi": "Khi dọn phòng, chỉ riêng hộp giấy và lon nước đã dùng, anh ấy đã gom ra được một túi đầy.",
+       "py": "Tā zài shōushí fángjiān shí, yòng guò de zhǐhé, yǐnliàoguàn jiù zhěnglǐ chū mǎnmǎnde yídài."
       },
       {
        "hz": "請使用「連V1帶V2」或「連N1/V(O)1帶N2/V(O)2」改寫以下的句子。",
-       "vi": ""
+       "vi": "Hãy dùng “連V1帶V2” hoặc “連N1/V(O)1帶N2/V(O)2” để viết lại các câu dưới đây.",
+       "py": "Qǐng shǐyòng “lián V1 dài V2” huò “lián N1 / V1 dài N2 / V2” gǎixiě yǐxià de jùzi."
       },
       {
        "hz": "與其說那麼多，我們還不如趕快動手做。2. 與其花錢到英國學英文，不如上網找免費的課程練習。3. 與其買到不適合他的衣服，倒不如帶他去挑選。",
-       "vi": ""
+       "vi": "1. Thay vì nói nhiều như vậy, chúng ta chi bằng mau bắt tay vào làm. 2. Thay vì tốn tiền sang Anh học tiếng Anh, chi bằng lên mạng tìm khoá học miễn phí để luyện. 3. Thay vì mua phải quần áo không hợp với anh ấy, chi bằng dẫn anh ấy đi chọn.",
+       "py": "Yǔqíshuō nàme duō, wǒmen hái bùrú gǎnkuài dòngshǒuzuò. 2. Yǔqí huāqián dào Yīngguó xué yīngwén, bùrú shàngwǎng zhǎo miǎnfèi de kèchéng liànxí. 3. Yǔqí mǎi dào bú shìhé tā de yīfú, dàobùrú dài tā qù tiāoxuǎn."
       },
       {
        "hz": "III.與其……，不如/還不如/倒不如……",
-       "vi": ""
+       "vi": "III. Thay vì…, chi bằng / thà rằng…",
+       "py": "III. Yǔqí……, bùrú / hái bùrú / dàobùrú……"
       },
       {
        "hz": "請完成以下的句子。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các câu dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de jùzi."
       }
      ],
      "answer": null
@@ -9326,11 +10774,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "我想跟你姐姐借她的旗袍，是否能幫我問她一下？2.她的臉色讓我看不出來她是否生氣。",
-       "vi": ""
+       "vi": "1. Tôi muốn mượn chiếc sườn xám của chị bạn, bạn có thể hỏi giúp chị ấy không? 2. Nhìn sắc mặt cô ấy tôi không đoán ra được cô ấy có giận hay không.",
+       "py": "Wǒ xiǎng gēn nǐ jiějie jiè tā de qípáo, shìfǒu néng bāng wǒ wèn tā yíxià? 2. Tā de liǎnsè ràng wǒ kànbùchūlái tā shìfǒu shēngqì."
       },
       {
        "hz": "請根據以下的情況，使用「是否」來問問看或說說看。",
-       "vi": ""
+       "vi": "Dựa vào các tình huống dưới đây, hãy dùng “是否” để thử hỏi hoặc thử nói.",
+       "py": "Qǐng gēnjù yǐxià de qíngkuàng, shǐyòng “shìfǒu” lái wènwènkàn huò shuōshuōkàn."
       }
      ],
      "answer": null
@@ -9348,11 +10798,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "長大了還向父母伸手要錢，換句話說，就是自己仍然依靠父母而無法獨立。",
-       "vi": ""
+       "vi": "Lớn rồi mà còn chìa tay xin tiền bố mẹ, nói cách khác, là bản thân vẫn dựa dẫm vào bố mẹ mà không thể tự lập.",
+       "py": "Zhǎngdà le hái xiàng fùmǔ shēnshǒu yàoqián, huànjùhuàshuō, jiùshì zìjǐ réngrán yīkào fùmǔ ér wúfǎ dúlì."
       },
       {
        "hz": "請完成以下的句子。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các câu dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de jùzi."
       }
      ],
      "answer": null
@@ -9370,11 +10822,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "他沒學過英文，根本聽不懂你說的英文，你得跟他說中文。2.最近公司出了很多狀況，我忙著去解決，根本沒時間休息。",
-       "vi": ""
+       "vi": "1. Anh ấy chưa từng học tiếng Anh, hoàn toàn không hiểu tiếng Anh bạn nói, bạn phải nói tiếng Trung với anh ấy. 2. Gần đây công ty xảy ra nhiều sự cố, tôi bận đi giải quyết, hoàn toàn không có thời gian nghỉ ngơi.",
+       "py": "Tā méi xué guò yīngwén, gēnběn tīngbùdǒng nǐ shuō de yīngwén, nǐ děi gēn tā shuō zhōngwén. 2. Zuìjìn gōngsī chū le hěnduō zhuàngkuàng, wǒ máng zhe qù jiějué, gēnběn méi shíjiān xiūxí."
       },
       {
        "hz": "請使用「根本不/根本沒」來完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “根本不/根本沒” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “gēnběn bù / gēnběn méi” lái wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -9392,11 +10846,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "順著這條巷子往前走，就可以到資源回收站了。",
-       "vi": ""
+       "vi": "Men theo con hẻm này đi về phía trước là đến trạm thu gom rác tái chế.",
+       "py": "Shùn zhe zhè tiáo xiàngzi wǎngqiánzǒu, jiù kěyǐ dào zīyuán huíshōuzhàn le."
       },
       {
        "hz": "請使用「順著」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “順著” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “shùn zhe” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -9416,15 +10872,18 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：你覺得這次的考試會考什麼？B：跟之前的一樣，還不就是考語法和文章閱讀。",
-       "vi": ""
+       "vi": "A: Bạn nghĩ kỳ thi lần này sẽ thi gì? B: Giống như trước thôi, chẳng phải cũng chỉ thi ngữ pháp và đọc hiểu sao.",
+       "py": "A: Nǐ juéde zhècì de kǎoshì huìkǎo shénme? B: Gēn zhīqián de yíyàng, hái bú jiùshì kǎo yǔfǎ hàn wénzhāng yuèdú."
       },
       {
        "hz": "A：妳向公司辭職後，就一直專心在家帶孩子，當個家庭主婦。現在感覺怎麼樣？",
-       "vi": ""
+       "vi": "A: Sau khi nghỉ việc ở công ty, chị cứ chuyên tâm ở nhà chăm con, làm nội trợ. Bây giờ chị thấy thế nào?",
+       "py": "A: Nǐ xiàng gōngsī cízhí hòu, jiù yìzhí zhuānxīn zàijiā dài háizi, dāng gè jiātíngzhǔfù. Xiànzài gǎnjué zěnmeyàng?"
       },
       {
        "hz": "請使用「還不就是……？」來完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “還不就是……？” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “hái bú jiùshì……?” lái wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -9442,31 +10901,38 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "外國朋友有臺灣身分證的話，就算是臺灣人了。2. 有人覺得看著書本考試，不算是考試。3. 我吃了兩天的藥，今天沒有咳嗽。我的病算是好了。4. 她很有錢。一個皮包十萬塊，對她來說不算貴。",
-       "vi": ""
+       "vi": "1. Bạn nước ngoài nếu có chứng minh thư Đài Loan thì coi như là người Đài Loan rồi. 2. Có người cho rằng xem sách khi thi thì không tính là thi. 3. Tôi uống thuốc hai ngày, hôm nay không ho nữa. Bệnh của tôi coi như khỏi rồi. 4. Cô ấy rất giàu. Một chiếc túi xách mười vạn đồng, với cô ấy không tính là đắt.",
+       "py": "Wàiguó péngyǒu yǒu Táiwān shēnfènzhèng dehuà, jiùsuàn shì táiwānrén le. 2. Yǒurén juéde kàn zheshū běn kǎoshì, búsuàn shì kǎoshì. 3. Wǒ chī le liǎngtiān de yào, jīntiān méiyǒu késòu. Wǒ de bìng suànshì hǎo le. 4. Tā hěn yǒuqián. Yígè píbāo shíwànkuài, duì tā láishuō búsuàn guì."
       },
       {
        "hz": "我去過很多家餐廳，這家做的菜可以說是最好吃的。",
-       "vi": ""
+       "vi": "Tôi đã đến nhiều nhà hàng, món ăn quán này có thể nói là ngon nhất.",
+       "py": "Wǒ qùguò hěnduō jiā cāntīng, zhèjiā zuò de cài kěyǐ shuō shì zuì hǎochī de."
       },
       {
        "hz": "張先生和王小姐只是好朋友，應該不能說是男女朋友。",
-       "vi": ""
+       "vi": "Anh Trương và cô Vương chỉ là bạn tốt, chắc không thể nói là người yêu.",
+       "py": "Zhāng xiānshēng hàn Wáng xiǎojiě zhǐshì hǎo péngyǒu, yīnggāi bùnéng shuō shì nánnǚpéngyǒu."
       },
       {
        "hz": "請使用「算是」或「不算」改寫以下的句子。",
-       "vi": ""
+       "vi": "Hãy dùng “算是” hoặc “不算” để viết lại các câu dưới đây.",
+       "py": "Qǐng shǐyòng “suànshì” huò “búsuàn” gǎixiě yǐxià de jùzi."
       },
       {
-       "hz": "A：我們公司之所以發展得這麼好，全都是因為我當了經理。公   司沒有我，怎麼有好日子可過呢？B：你太驕傲了。一家公司要是沒有所有員工的合作與付出，哪   裡能順利地發展呢？你應該懂得謙虛一點。",
-       "vi": ""
+       "hz": "A：我們公司之所以發展得這麼好，全都是因為我當了經理。公司沒有我，怎麼有好日子可過呢？B：你太驕傲了。一家公司要是沒有所有員工的合作與付出，哪裡能順利地發展呢？你應該懂得謙虛一點。",
+       "vi": "A: Công ty chúng ta sở dĩ phát triển tốt như vậy hoàn toàn là vì tôi làm giám đốc. Công ty không có tôi thì làm sao có những ngày tốt đẹp? B: Anh kiêu ngạo quá rồi. Một công ty nếu không có sự hợp tác và cống hiến của tất cả nhân viên thì làm sao phát triển thuận lợi được? Anh nên biết khiêm tốn một chút.",
+       "py": "A: Wǒmen gōngsī zhīsuǒyǐ fāzhǎn de zhème hǎo, quándōu shìyīnwèi wǒ dāng le jīnglǐ. Gōngsī méiyǒu wǒ, zěnme yǒu hǎorìzi kě guò ne? B: Nǐ tài jiāo'ào le. Yìjiā gōngsī yàoshì méiyǒu suǒyǒu yuángōng de hézuò yǔ fùchū, nǎlǐ néng shùnlì dì fāzhǎn ne? Nǐ yīnggāi dǒngde qiānxū yìdiǎn."
       },
       {
        "hz": "III.沒有……，怎麼/哪裡＋有/能……（呢）？",
-       "vi": ""
+       "vi": "III. Không có… thì làm sao có/có thể… (được)?",
+       "py": "III. Méiyǒu……, zěnme / nǎlǐ ＋ yǒu / néng…… (ne)?"
       },
       {
        "hz": "請用「沒有……，怎麼/哪裡＋有/能……（呢）？」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “沒有……，怎麼/哪裡＋有/能……（呢）？” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “méiyǒu……, zěnme / nǎlǐ ＋ yǒu / néng…… (ne)?” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -9484,11 +10950,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：我昨晚牙齒開始痛，今天早上臉都腫起來了。B：看樣子你得去看醫師了。",
-       "vi": ""
+       "vi": "A: Tối qua răng tôi bắt đầu đau, sáng nay mặt sưng cả lên. B: Xem ra bạn phải đi khám bác sĩ rồi.",
+       "py": "A: Wǒ zuówǎn yáchǐ kāishǐ tòng, jīntiān zǎoshàng liǎn dōu zhǒngqǐlái le. B: Kànyàngzi nǐ děi qù kàn yīshī le."
       },
       {
        "hz": "請使用「看樣子」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “看樣子” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “kànyàngzi” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -9505,20 +10973,24 @@ export const thoidaiGrammar4 = {
      "formula": "「竟然」是副詞，與本書第11課的「居然」的用法差不多。都是表示後面出現的情況，是說話的人感覺意外、沒想到的。可用在正面或負面的事情。",
      "examples": [
       {
-       "hz": "這座公園地方大樹木又多，加上空氣這麼好，真是舒服，很   難想像十年前這裡竟然是垃圾場。2. 沒想到在學校成績普通的他，竟然成為著名的企業主管。",
-       "vi": ""
+       "hz": "這座公園地方大樹木又多，加上空氣這麼好，真是舒服，很難想像十年前這裡竟然是垃圾場。2. 沒想到在學校成績普通的他，竟然成為著名的企業主管。",
+       "vi": "1. Công viên này rộng, cây cối lại nhiều, thêm vào đó không khí trong lành như vậy, thật dễ chịu, khó mà tưởng tượng được mười năm trước nơi này lại là bãi rác. 2. Không ngờ cậu ấy học hành bình thường ở trường mà lại trở thành lãnh đạo doanh nghiệp nổi tiếng.",
+       "py": "Zhè zuò gōngyuán dìfāng dà shùmù yòu duō, jiāshàng kōngqì zhème hǎo, zhēnshì shūfú, hěn nán xiǎngxiàng shínián qián zhèlǐ jìngrán shì lèsèchǎng. 2. Méixiǎngdào zài xuéxiàochéngjì pǔtōng de tā, jìngrán chéngwéi zhùmíng de qìyè zhǔguǎn."
       },
       {
        "hz": "看起來應該可以賣不少錢。",
-       "vi": ""
+       "vi": "Trông có vẻ bán được khá nhiều tiền.",
+       "py": "Kànqǐlái yīnggāi kěyǐ mài bùshǎo qián."
       },
       {
        "hz": "所以演奏會已經取消了，你趕緊去退票吧。",
-       "vi": ""
+       "vi": "…nên buổi hoà nhạc đã bị huỷ rồi, bạn mau đi trả vé đi.",
+       "py": "Suǒyǐ yǎnzòuhuì yǐjīng qǔxiāo le, nǐ gǎnjǐn qù tuìpiào ba."
       },
       {
        "hz": "請使用「竟然」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “竟然” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “jìngrán” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -9536,11 +11008,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：你怎麼不喝咖啡？B：我上次因為心跳太快住院，從此就不太敢喝咖啡了。",
-       "vi": ""
+       "vi": "A: Sao bạn không uống cà phê? B: Lần trước tôi phải nhập viện vì tim đập quá nhanh, từ đó không dám uống cà phê nữa.",
+       "py": "A: Nǐ zěnme bù hēkāfēi? B: Wǒ shàngcì yīnwèi xīntiào tài kuài zhùyuàn, cóngcǐ jiù bú tài gǎn hēkāfēi le."
       },
       {
        "hz": "請使用「從此」完成以下的句子。",
-       "vi": ""
+       "vi": "Hãy dùng “從此” để hoàn thành các câu dưới đây.",
+       "py": "Qǐng shǐyòng “cóngcǐ” wánchéng yǐxià de jùzi."
       }
      ],
      "answer": null
@@ -9560,15 +11034,18 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：你覺得這次的考試會考什麼？B：跟之前的一樣，還不就是考語法和文章閱讀。",
-       "vi": ""
+       "vi": "A: Bạn nghĩ kỳ thi lần này sẽ thi gì? B: Giống như trước thôi, chẳng phải cũng chỉ thi ngữ pháp và đọc hiểu sao.",
+       "py": "A: Nǐ juéde zhècì de kǎoshì huìkǎo shénme? B: Gēn zhīqián de yíyàng, hái bú jiùshì kǎo yǔfǎ hàn wénzhāng yuèdú."
       },
       {
        "hz": "A：妳向公司辭職後，就一直專心在家帶孩子，當個家庭主婦。現在感覺怎麼樣？",
-       "vi": ""
+       "vi": "A: Sau khi nghỉ việc ở công ty, chị cứ chuyên tâm ở nhà chăm con, làm nội trợ. Bây giờ chị thấy thế nào?",
+       "py": "A: Nǐ xiàng gōngsī cízhí hòu, jiù yìzhí zhuānxīn zàijiā dài háizi, dāng gè jiātíngzhǔfù. Xiànzài gǎnjué zěnmeyàng?"
       },
       {
        "hz": "請使用「還不就是……？」來完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “還不就是……？” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “hái bú jiùshì……?” lái wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -9586,31 +11063,38 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "外國朋友有臺灣身分證的話，就算是臺灣人了。2. 有人覺得看著書本考試，不算是考試。3. 我吃了兩天的藥，今天沒有咳嗽。我的病算是好了。4. 她很有錢。一個皮包十萬塊，對她來說不算貴。",
-       "vi": ""
+       "vi": "1. Bạn nước ngoài nếu có chứng minh thư Đài Loan thì coi như là người Đài Loan rồi. 2. Có người cho rằng xem sách khi thi thì không tính là thi. 3. Tôi uống thuốc hai ngày, hôm nay không ho nữa. Bệnh của tôi coi như khỏi rồi. 4. Cô ấy rất giàu. Một chiếc túi xách mười vạn đồng, với cô ấy không tính là đắt.",
+       "py": "Wàiguó péngyǒu yǒu Táiwān shēnfènzhèng dehuà, jiùsuàn shì táiwānrén le. 2. Yǒurén juéde kàn zheshū běn kǎoshì, búsuàn shì kǎoshì. 3. Wǒ chī le liǎngtiān de yào, jīntiān méiyǒu késòu. Wǒ de bìng suànshì hǎo le. 4. Tā hěn yǒuqián. Yígè píbāo shíwànkuài, duì tā láishuō búsuàn guì."
       },
       {
        "hz": "我去過很多家餐廳，這家做的菜可以說是最好吃的。",
-       "vi": ""
+       "vi": "Tôi đã đến nhiều nhà hàng, món ăn quán này có thể nói là ngon nhất.",
+       "py": "Wǒ qùguò hěnduō jiā cāntīng, zhèjiā zuò de cài kěyǐ shuō shì zuì hǎochī de."
       },
       {
        "hz": "張先生和王小姐只是好朋友，應該不能說是男女朋友。",
-       "vi": ""
+       "vi": "Anh Trương và cô Vương chỉ là bạn tốt, chắc không thể nói là người yêu.",
+       "py": "Zhāng xiānshēng hàn Wáng xiǎojiě zhǐshì hǎo péngyǒu, yīnggāi bùnéng shuō shì nánnǚpéngyǒu."
       },
       {
        "hz": "請使用「算是」或「不算」改寫以下的句子。",
-       "vi": ""
+       "vi": "Hãy dùng “算是” hoặc “不算” để viết lại các câu dưới đây.",
+       "py": "Qǐng shǐyòng “suànshì” huò “búsuàn” gǎixiě yǐxià de jùzi."
       },
       {
-       "hz": "A：我們公司之所以發展得這麼好，全都是因為我當了經理。公   司沒有我，怎麼有好日子可過呢？B：你太驕傲了。一家公司要是沒有所有員工的合作與付出，哪   裡能順利地發展呢？你應該懂得謙虛一點。",
-       "vi": ""
+       "hz": "A：我們公司之所以發展得這麼好，全都是因為我當了經理。公司沒有我，怎麼有好日子可過呢？B：你太驕傲了。一家公司要是沒有所有員工的合作與付出，哪裡能順利地發展呢？你應該懂得謙虛一點。",
+       "vi": "A: Công ty chúng ta sở dĩ phát triển tốt như vậy hoàn toàn là vì tôi làm giám đốc. Công ty không có tôi thì làm sao có những ngày tốt đẹp? B: Anh kiêu ngạo quá rồi. Một công ty nếu không có sự hợp tác và cống hiến của tất cả nhân viên thì làm sao phát triển thuận lợi được? Anh nên biết khiêm tốn một chút.",
+       "py": "A: Wǒmen gōngsī zhīsuǒyǐ fāzhǎn de zhème hǎo, quándōu shìyīnwèi wǒ dāng le jīnglǐ. Gōngsī méiyǒu wǒ, zěnme yǒu hǎorìzi kě guò ne? B: Nǐ tài jiāo'ào le. Yìjiā gōngsī yàoshì méiyǒu suǒyǒu yuángōng de hézuò yǔ fùchū, nǎlǐ néng shùnlì dì fāzhǎn ne? Nǐ yīnggāi dǒngde qiānxū yìdiǎn."
       },
       {
        "hz": "III.沒有……，怎麼/哪裡＋有/能……（呢）？",
-       "vi": ""
+       "vi": "III. Không có… thì làm sao có/có thể… (được)?",
+       "py": "III. Méiyǒu……, zěnme / nǎlǐ ＋ yǒu / néng…… (ne)?"
       },
       {
        "hz": "請用「沒有……，怎麼/哪裡＋有/能……（呢）？」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “沒有……，怎麼/哪裡＋有/能……（呢）？” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “méiyǒu……, zěnme / nǎlǐ ＋ yǒu / néng…… (ne)?” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -9628,11 +11112,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：我昨晚牙齒開始痛，今天早上臉都腫起來了。B：看樣子你得去看醫師了。",
-       "vi": ""
+       "vi": "A: Tối qua răng tôi bắt đầu đau, sáng nay mặt sưng cả lên. B: Xem ra bạn phải đi khám bác sĩ rồi.",
+       "py": "A: Wǒ zuówǎn yáchǐ kāishǐ tòng, jīntiān zǎoshàng liǎn dōu zhǒngqǐlái le. B: Kànyàngzi nǐ děi qù kàn yīshī le."
       },
       {
        "hz": "請使用「看樣子」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “看樣子” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “kànyàngzi” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -9649,20 +11135,24 @@ export const thoidaiGrammar4 = {
      "formula": "「竟然」是副詞，與本書第11課的「居然」的用法差不多。都是表示後面出現的情況，是說話的人感覺意外、沒想到的。可用在正面或負面的事情。",
      "examples": [
       {
-       "hz": "這座公園地方大樹木又多，加上空氣這麼好，真是舒服，很   難想像十年前這裡竟然是垃圾場。2. 沒想到在學校成績普通的他，竟然成為著名的企業主管。",
-       "vi": ""
+       "hz": "這座公園地方大樹木又多，加上空氣這麼好，真是舒服，很難想像十年前這裡竟然是垃圾場。2. 沒想到在學校成績普通的他，竟然成為著名的企業主管。",
+       "vi": "1. Công viên này rộng, cây cối lại nhiều, thêm vào đó không khí trong lành như vậy, thật dễ chịu, khó mà tưởng tượng được mười năm trước nơi này lại là bãi rác. 2. Không ngờ cậu ấy học hành bình thường ở trường mà lại trở thành lãnh đạo doanh nghiệp nổi tiếng.",
+       "py": "Zhè zuò gōngyuán dìfāng dà shùmù yòu duō, jiāshàng kōngqì zhème hǎo, zhēnshì shūfú, hěn nán xiǎngxiàng shínián qián zhèlǐ jìngrán shì lèsèchǎng. 2. Méixiǎngdào zài xuéxiàochéngjì pǔtōng de tā, jìngrán chéngwéi zhùmíng de qìyè zhǔguǎn."
       },
       {
        "hz": "看起來應該可以賣不少錢。",
-       "vi": ""
+       "vi": "Trông có vẻ bán được khá nhiều tiền.",
+       "py": "Kànqǐlái yīnggāi kěyǐ mài bùshǎo qián."
       },
       {
        "hz": "所以演奏會已經取消了，你趕緊去退票吧。",
-       "vi": ""
+       "vi": "…nên buổi hoà nhạc đã bị huỷ rồi, bạn mau đi trả vé đi.",
+       "py": "Suǒyǐ yǎnzòuhuì yǐjīng qǔxiāo le, nǐ gǎnjǐn qù tuìpiào ba."
       },
       {
        "hz": "請使用「竟然」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “竟然” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “jìngrán” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -9680,11 +11170,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：你怎麼不喝咖啡？B：我上次因為心跳太快住院，從此就不太敢喝咖啡了。",
-       "vi": ""
+       "vi": "A: Sao bạn không uống cà phê? B: Lần trước tôi phải nhập viện vì tim đập quá nhanh, từ đó không dám uống cà phê nữa.",
+       "py": "A: Nǐ zěnme bù hēkāfēi? B: Wǒ shàngcì yīnwèi xīntiào tài kuài zhùyuàn, cóngcǐ jiù bú tài gǎn hēkāfēi le."
       },
       {
        "hz": "請使用「從此」完成以下的句子。",
-       "vi": ""
+       "vi": "Hãy dùng “從此” để hoàn thành các câu dưới đây.",
+       "py": "Qǐng shǐyòng “cóngcǐ” wánchéng yǐxià de jùzi."
       }
      ],
      "answer": null
@@ -9704,15 +11196,18 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：你覺得這次的考試會考什麼？B：跟之前的一樣，還不就是考語法和文章閱讀。",
-       "vi": ""
+       "vi": "A: Bạn nghĩ kỳ thi lần này sẽ thi gì? B: Giống như trước thôi, chẳng phải cũng chỉ thi ngữ pháp và đọc hiểu sao.",
+       "py": "A: Nǐ juéde zhècì de kǎoshì huìkǎo shénme? B: Gēn zhīqián de yíyàng, hái bú jiùshì kǎo yǔfǎ hàn wénzhāng yuèdú."
       },
       {
        "hz": "A：妳向公司辭職後，就一直專心在家帶孩子，當個家庭主婦。現在感覺怎麼樣？",
-       "vi": ""
+       "vi": "A: Sau khi nghỉ việc ở công ty, chị cứ chuyên tâm ở nhà chăm con, làm nội trợ. Bây giờ chị thấy thế nào?",
+       "py": "A: Nǐ xiàng gōngsī cízhí hòu, jiù yìzhí zhuānxīn zàijiā dài háizi, dāng gè jiātíngzhǔfù. Xiànzài gǎnjué zěnmeyàng?"
       },
       {
        "hz": "請使用「還不就是……？」來完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “還不就是……？” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “hái bú jiùshì……?” lái wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -9730,31 +11225,38 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "外國朋友有臺灣身分證的話，就算是臺灣人了。2. 有人覺得看著書本考試，不算是考試。3. 我吃了兩天的藥，今天沒有咳嗽。我的病算是好了。4. 她很有錢。一個皮包十萬塊，對她來說不算貴。",
-       "vi": ""
+       "vi": "1. Bạn nước ngoài nếu có chứng minh thư Đài Loan thì coi như là người Đài Loan rồi. 2. Có người cho rằng xem sách khi thi thì không tính là thi. 3. Tôi uống thuốc hai ngày, hôm nay không ho nữa. Bệnh của tôi coi như khỏi rồi. 4. Cô ấy rất giàu. Một chiếc túi xách mười vạn đồng, với cô ấy không tính là đắt.",
+       "py": "Wàiguó péngyǒu yǒu Táiwān shēnfènzhèng dehuà, jiùsuàn shì táiwānrén le. 2. Yǒurén juéde kàn zheshū běn kǎoshì, búsuàn shì kǎoshì. 3. Wǒ chī le liǎngtiān de yào, jīntiān méiyǒu késòu. Wǒ de bìng suànshì hǎo le. 4. Tā hěn yǒuqián. Yígè píbāo shíwànkuài, duì tā láishuō búsuàn guì."
       },
       {
        "hz": "我去過很多家餐廳，這家做的菜可以說是最好吃的。",
-       "vi": ""
+       "vi": "Tôi đã đến nhiều nhà hàng, món ăn quán này có thể nói là ngon nhất.",
+       "py": "Wǒ qùguò hěnduō jiā cāntīng, zhèjiā zuò de cài kěyǐ shuō shì zuì hǎochī de."
       },
       {
        "hz": "張先生和王小姐只是好朋友，應該不能說是男女朋友。",
-       "vi": ""
+       "vi": "Anh Trương và cô Vương chỉ là bạn tốt, chắc không thể nói là người yêu.",
+       "py": "Zhāng xiānshēng hàn Wáng xiǎojiě zhǐshì hǎo péngyǒu, yīnggāi bùnéng shuō shì nánnǚpéngyǒu."
       },
       {
        "hz": "請使用「算是」或「不算」改寫以下的句子。",
-       "vi": ""
+       "vi": "Hãy dùng “算是” hoặc “不算” để viết lại các câu dưới đây.",
+       "py": "Qǐng shǐyòng “suànshì” huò “búsuàn” gǎixiě yǐxià de jùzi."
       },
       {
-       "hz": "A：我們公司之所以發展得這麼好，全都是因為我當了經理。公   司沒有我，怎麼有好日子可過呢？B：你太驕傲了。一家公司要是沒有所有員工的合作與付出，哪   裡能順利地發展呢？你應該懂得謙虛一點。",
-       "vi": ""
+       "hz": "A：我們公司之所以發展得這麼好，全都是因為我當了經理。公司沒有我，怎麼有好日子可過呢？B：你太驕傲了。一家公司要是沒有所有員工的合作與付出，哪裡能順利地發展呢？你應該懂得謙虛一點。",
+       "vi": "A: Công ty chúng ta sở dĩ phát triển tốt như vậy hoàn toàn là vì tôi làm giám đốc. Công ty không có tôi thì làm sao có những ngày tốt đẹp? B: Anh kiêu ngạo quá rồi. Một công ty nếu không có sự hợp tác và cống hiến của tất cả nhân viên thì làm sao phát triển thuận lợi được? Anh nên biết khiêm tốn một chút.",
+       "py": "A: Wǒmen gōngsī zhīsuǒyǐ fāzhǎn de zhème hǎo, quándōu shìyīnwèi wǒ dāng le jīnglǐ. Gōngsī méiyǒu wǒ, zěnme yǒu hǎorìzi kě guò ne? B: Nǐ tài jiāo'ào le. Yìjiā gōngsī yàoshì méiyǒu suǒyǒu yuángōng de hézuò yǔ fùchū, nǎlǐ néng shùnlì dì fāzhǎn ne? Nǐ yīnggāi dǒngde qiānxū yìdiǎn."
       },
       {
        "hz": "III.沒有……，怎麼/哪裡＋有/能……（呢）？",
-       "vi": ""
+       "vi": "III. Không có… thì làm sao có/có thể… (được)?",
+       "py": "III. Méiyǒu……, zěnme / nǎlǐ ＋ yǒu / néng…… (ne)?"
       },
       {
        "hz": "請用「沒有……，怎麼/哪裡＋有/能……（呢）？」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “沒有……，怎麼/哪裡＋有/能……（呢）？” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “méiyǒu……, zěnme / nǎlǐ ＋ yǒu / néng…… (ne)?” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -9772,11 +11274,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：我昨晚牙齒開始痛，今天早上臉都腫起來了。B：看樣子你得去看醫師了。",
-       "vi": ""
+       "vi": "A: Tối qua răng tôi bắt đầu đau, sáng nay mặt sưng cả lên. B: Xem ra bạn phải đi khám bác sĩ rồi.",
+       "py": "A: Wǒ zuówǎn yáchǐ kāishǐ tòng, jīntiān zǎoshàng liǎn dōu zhǒngqǐlái le. B: Kànyàngzi nǐ děi qù kàn yīshī le."
       },
       {
        "hz": "請使用「看樣子」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “看樣子” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “kànyàngzi” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -9793,20 +11297,24 @@ export const thoidaiGrammar4 = {
      "formula": "「竟然」是副詞，與本書第11課的「居然」的用法差不多。都是表示後面出現的情況，是說話的人感覺意外、沒想到的。可用在正面或負面的事情。",
      "examples": [
       {
-       "hz": "這座公園地方大樹木又多，加上空氣這麼好，真是舒服，很   難想像十年前這裡竟然是垃圾場。2. 沒想到在學校成績普通的他，竟然成為著名的企業主管。",
-       "vi": ""
+       "hz": "這座公園地方大樹木又多，加上空氣這麼好，真是舒服，很難想像十年前這裡竟然是垃圾場。2. 沒想到在學校成績普通的他，竟然成為著名的企業主管。",
+       "vi": "1. Công viên này rộng, cây cối lại nhiều, thêm vào đó không khí trong lành như vậy, thật dễ chịu, khó mà tưởng tượng được mười năm trước nơi này lại là bãi rác. 2. Không ngờ cậu ấy học hành bình thường ở trường mà lại trở thành lãnh đạo doanh nghiệp nổi tiếng.",
+       "py": "Zhè zuò gōngyuán dìfāng dà shùmù yòu duō, jiāshàng kōngqì zhème hǎo, zhēnshì shūfú, hěn nán xiǎngxiàng shínián qián zhèlǐ jìngrán shì lèsèchǎng. 2. Méixiǎngdào zài xuéxiàochéngjì pǔtōng de tā, jìngrán chéngwéi zhùmíng de qìyè zhǔguǎn."
       },
       {
        "hz": "看起來應該可以賣不少錢。",
-       "vi": ""
+       "vi": "Trông có vẻ bán được khá nhiều tiền.",
+       "py": "Kànqǐlái yīnggāi kěyǐ mài bùshǎo qián."
       },
       {
        "hz": "所以演奏會已經取消了，你趕緊去退票吧。",
-       "vi": ""
+       "vi": "…nên buổi hoà nhạc đã bị huỷ rồi, bạn mau đi trả vé đi.",
+       "py": "Suǒyǐ yǎnzòuhuì yǐjīng qǔxiāo le, nǐ gǎnjǐn qù tuìpiào ba."
       },
       {
        "hz": "請使用「竟然」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “竟然” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “jìngrán” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -9824,11 +11332,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：你怎麼不喝咖啡？B：我上次因為心跳太快住院，從此就不太敢喝咖啡了。",
-       "vi": ""
+       "vi": "A: Sao bạn không uống cà phê? B: Lần trước tôi phải nhập viện vì tim đập quá nhanh, từ đó không dám uống cà phê nữa.",
+       "py": "A: Nǐ zěnme bù hēkāfēi? B: Wǒ shàngcì yīnwèi xīntiào tài kuài zhùyuàn, cóngcǐ jiù bú tài gǎn hēkāfēi le."
       },
       {
        "hz": "請使用「從此」完成以下的句子。",
-       "vi": ""
+       "vi": "Hãy dùng “從此” để hoàn thành các câu dưới đây.",
+       "py": "Qǐng shǐyòng “cóngcǐ” wánchéng yǐxià de jùzi."
       }
      ],
      "answer": null
@@ -9848,15 +11358,18 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：你覺得這次的考試會考什麼？B：跟之前的一樣，還不就是考語法和文章閱讀。",
-       "vi": ""
+       "vi": "A: Bạn nghĩ kỳ thi lần này sẽ thi gì? B: Giống như trước thôi, chẳng phải cũng chỉ thi ngữ pháp và đọc hiểu sao.",
+       "py": "A: Nǐ juéde zhècì de kǎoshì huìkǎo shénme? B: Gēn zhīqián de yíyàng, hái bú jiùshì kǎo yǔfǎ hàn wénzhāng yuèdú."
       },
       {
        "hz": "A：妳向公司辭職後，就一直專心在家帶孩子，當個家庭主婦。現在感覺怎麼樣？",
-       "vi": ""
+       "vi": "A: Sau khi nghỉ việc ở công ty, chị cứ chuyên tâm ở nhà chăm con, làm nội trợ. Bây giờ chị thấy thế nào?",
+       "py": "A: Nǐ xiàng gōngsī cízhí hòu, jiù yìzhí zhuānxīn zàijiā dài háizi, dāng gè jiātíngzhǔfù. Xiànzài gǎnjué zěnmeyàng?"
       },
       {
        "hz": "請使用「還不就是……？」來完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “還不就是……？” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “hái bú jiùshì……?” lái wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -9874,31 +11387,38 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "外國朋友有臺灣身分證的話，就算是臺灣人了。2. 有人覺得看著書本考試，不算是考試。3. 我吃了兩天的藥，今天沒有咳嗽。我的病算是好了。4. 她很有錢。一個皮包十萬塊，對她來說不算貴。",
-       "vi": ""
+       "vi": "1. Bạn nước ngoài nếu có chứng minh thư Đài Loan thì coi như là người Đài Loan rồi. 2. Có người cho rằng xem sách khi thi thì không tính là thi. 3. Tôi uống thuốc hai ngày, hôm nay không ho nữa. Bệnh của tôi coi như khỏi rồi. 4. Cô ấy rất giàu. Một chiếc túi xách mười vạn đồng, với cô ấy không tính là đắt.",
+       "py": "Wàiguó péngyǒu yǒu Táiwān shēnfènzhèng dehuà, jiùsuàn shì táiwānrén le. 2. Yǒurén juéde kàn zheshū běn kǎoshì, búsuàn shì kǎoshì. 3. Wǒ chī le liǎngtiān de yào, jīntiān méiyǒu késòu. Wǒ de bìng suànshì hǎo le. 4. Tā hěn yǒuqián. Yígè píbāo shíwànkuài, duì tā láishuō búsuàn guì."
       },
       {
        "hz": "我去過很多家餐廳，這家做的菜可以說是最好吃的。",
-       "vi": ""
+       "vi": "Tôi đã đến nhiều nhà hàng, món ăn quán này có thể nói là ngon nhất.",
+       "py": "Wǒ qùguò hěnduō jiā cāntīng, zhèjiā zuò de cài kěyǐ shuō shì zuì hǎochī de."
       },
       {
        "hz": "張先生和王小姐只是好朋友，應該不能說是男女朋友。",
-       "vi": ""
+       "vi": "Anh Trương và cô Vương chỉ là bạn tốt, chắc không thể nói là người yêu.",
+       "py": "Zhāng xiānshēng hàn Wáng xiǎojiě zhǐshì hǎo péngyǒu, yīnggāi bùnéng shuō shì nánnǚpéngyǒu."
       },
       {
        "hz": "請使用「算是」或「不算」改寫以下的句子。",
-       "vi": ""
+       "vi": "Hãy dùng “算是” hoặc “不算” để viết lại các câu dưới đây.",
+       "py": "Qǐng shǐyòng “suànshì” huò “búsuàn” gǎixiě yǐxià de jùzi."
       },
       {
-       "hz": "A：我們公司之所以發展得這麼好，全都是因為我當了經理。公   司沒有我，怎麼有好日子可過呢？B：你太驕傲了。一家公司要是沒有所有員工的合作與付出，哪   裡能順利地發展呢？你應該懂得謙虛一點。",
-       "vi": ""
+       "hz": "A：我們公司之所以發展得這麼好，全都是因為我當了經理。公司沒有我，怎麼有好日子可過呢？B：你太驕傲了。一家公司要是沒有所有員工的合作與付出，哪裡能順利地發展呢？你應該懂得謙虛一點。",
+       "vi": "A: Công ty chúng ta sở dĩ phát triển tốt như vậy hoàn toàn là vì tôi làm giám đốc. Công ty không có tôi thì làm sao có những ngày tốt đẹp? B: Anh kiêu ngạo quá rồi. Một công ty nếu không có sự hợp tác và cống hiến của tất cả nhân viên thì làm sao phát triển thuận lợi được? Anh nên biết khiêm tốn một chút.",
+       "py": "A: Wǒmen gōngsī zhīsuǒyǐ fāzhǎn de zhème hǎo, quándōu shìyīnwèi wǒ dāng le jīnglǐ. Gōngsī méiyǒu wǒ, zěnme yǒu hǎorìzi kě guò ne? B: Nǐ tài jiāo'ào le. Yìjiā gōngsī yàoshì méiyǒu suǒyǒu yuángōng de hézuò yǔ fùchū, nǎlǐ néng shùnlì dì fāzhǎn ne? Nǐ yīnggāi dǒngde qiānxū yìdiǎn."
       },
       {
        "hz": "III.沒有……，怎麼/哪裡＋有/能……（呢）？",
-       "vi": ""
+       "vi": "III. Không có… thì làm sao có/có thể… (được)?",
+       "py": "III. Méiyǒu……, zěnme / nǎlǐ ＋ yǒu / néng…… (ne)?"
       },
       {
        "hz": "請用「沒有……，怎麼/哪裡＋有/能……（呢）？」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “沒有……，怎麼/哪裡＋有/能……（呢）？” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng yòng “méiyǒu……, zěnme / nǎlǐ ＋ yǒu / néng…… (ne)?” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -9916,11 +11436,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：我昨晚牙齒開始痛，今天早上臉都腫起來了。B：看樣子你得去看醫師了。",
-       "vi": ""
+       "vi": "A: Tối qua răng tôi bắt đầu đau, sáng nay mặt sưng cả lên. B: Xem ra bạn phải đi khám bác sĩ rồi.",
+       "py": "A: Wǒ zuówǎn yáchǐ kāishǐ tòng, jīntiān zǎoshàng liǎn dōu zhǒngqǐlái le. B: Kànyàngzi nǐ děi qù kàn yīshī le."
       },
       {
        "hz": "請使用「看樣子」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “看樣子” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “kànyàngzi” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -9937,20 +11459,24 @@ export const thoidaiGrammar4 = {
      "formula": "「竟然」是副詞，與本書第11課的「居然」的用法差不多。都是表示後面出現的情況，是說話的人感覺意外、沒想到的。可用在正面或負面的事情。",
      "examples": [
       {
-       "hz": "這座公園地方大樹木又多，加上空氣這麼好，真是舒服，很   難想像十年前這裡竟然是垃圾場。2. 沒想到在學校成績普通的他，竟然成為著名的企業主管。",
-       "vi": ""
+       "hz": "這座公園地方大樹木又多，加上空氣這麼好，真是舒服，很難想像十年前這裡竟然是垃圾場。2. 沒想到在學校成績普通的他，竟然成為著名的企業主管。",
+       "vi": "1. Công viên này rộng, cây cối lại nhiều, thêm vào đó không khí trong lành như vậy, thật dễ chịu, khó mà tưởng tượng được mười năm trước nơi này lại là bãi rác. 2. Không ngờ cậu ấy học hành bình thường ở trường mà lại trở thành lãnh đạo doanh nghiệp nổi tiếng.",
+       "py": "Zhè zuò gōngyuán dìfāng dà shùmù yòu duō, jiāshàng kōngqì zhème hǎo, zhēnshì shūfú, hěn nán xiǎngxiàng shínián qián zhèlǐ jìngrán shì lèsèchǎng. 2. Méixiǎngdào zài xuéxiàochéngjì pǔtōng de tā, jìngrán chéngwéi zhùmíng de qìyè zhǔguǎn."
       },
       {
        "hz": "看起來應該可以賣不少錢。",
-       "vi": ""
+       "vi": "Trông có vẻ bán được khá nhiều tiền.",
+       "py": "Kànqǐlái yīnggāi kěyǐ mài bùshǎo qián."
       },
       {
        "hz": "所以演奏會已經取消了，你趕緊去退票吧。",
-       "vi": ""
+       "vi": "…nên buổi hoà nhạc đã bị huỷ rồi, bạn mau đi trả vé đi.",
+       "py": "Suǒyǐ yǎnzòuhuì yǐjīng qǔxiāo le, nǐ gǎnjǐn qù tuìpiào ba."
       },
       {
        "hz": "請使用「竟然」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “竟然” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “jìngrán” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -9968,11 +11494,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：你怎麼不喝咖啡？B：我上次因為心跳太快住院，從此就不太敢喝咖啡了。",
-       "vi": ""
+       "vi": "A: Sao bạn không uống cà phê? B: Lần trước tôi phải nhập viện vì tim đập quá nhanh, từ đó không dám uống cà phê nữa.",
+       "py": "A: Nǐ zěnme bù hēkāfēi? B: Wǒ shàngcì yīnwèi xīntiào tài kuài zhùyuàn, cóngcǐ jiù bú tài gǎn hēkāfēi le."
       },
       {
        "hz": "請使用「從此」完成以下的句子。",
-       "vi": ""
+       "vi": "Hãy dùng “從此” để hoàn thành các câu dưới đây.",
+       "py": "Qǐng shǐyòng “cóngcǐ” wánchéng yǐxià de jùzi."
       }
      ],
      "answer": null
@@ -9991,12 +11519,14 @@ export const thoidaiGrammar4 = {
      "formula": "「不到」是及物狀態動詞，常見的用法有兩種：⑴ 「不到」後面放說話的人認為達不到的程度，表示事情應該不會發展到那樣的情況。⑵ 「不到 + Nu +  M 」表示達不到那個數量。",
      "examples": [
       {
-       "hz": "你受的傷只是小傷，還不到需要住院的情況，拿了藥就快回   家休息吧。2. 這個國家相當年輕，從宣布獨立到現在不到十年。",
-       "vi": ""
+       "hz": "你受的傷只是小傷，還不到需要住院的情況，拿了藥就快回家休息吧。2. 這個國家相當年輕，從宣布獨立到現在不到十年。",
+       "vi": "1. Vết thương của bạn chỉ là vết thương nhẹ, chưa đến mức phải nhập viện, lấy thuốc xong thì mau về nhà nghỉ ngơi đi. 2. Đất nước này còn khá trẻ, từ khi tuyên bố độc lập đến nay chưa đến mười năm.",
+       "py": "Nǐ shòu de shāng zhǐshì xiǎo shāng, hái búdào xūyào zhùyuàn de qíngkuàng, ná le yào jiù kuài huíjiā xiūxí ba. 2. Zhège guójiā xiāngdāng niánqīng, cóng xuānbùdúlì dào xiànzài búdào shínián."
       },
       {
        "hz": "請用「不到」完成以下的句子。",
-       "vi": ""
+       "vi": "Hãy dùng “不到” để hoàn thành các câu dưới đây.",
+       "py": "Qǐng yòng “búdào” wánchéng yǐxià de jùzi."
       }
      ],
      "answer": null
@@ -10014,19 +11544,23 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "一個人的生命並不是無窮的，總有一天會走到生命的最後。2. 人人都想當老闆，不過開公司並沒有你想像的那麼簡單。",
-       "vi": ""
+       "vi": "1. Sinh mệnh của một người không phải là vô tận, rồi sẽ có ngày đi đến cuối cuộc đời. 2. Ai cũng muốn làm ông chủ, nhưng mở công ty không hề đơn giản như bạn tưởng.",
+       "py": "Yígè rén de shēngmìng bìng búshì wúqióngde, zǒngyǒuyìtiān huì zǒu dào shēngmìng de zuìhòu. 2. Rénrén dōu xiǎng dāng lǎobǎn, búguò kāi gōngsī bìng méiyǒu nǐ xiǎngxiàng de nàme jiǎndān."
       },
       {
        "hz": "A:他每天都主動幫妳的忙，他大概得很喜歡妳吧。",
-       "vi": ""
+       "vi": "A: Ngày nào anh ấy cũng chủ động giúp bạn, chắc anh ấy thích bạn lắm nhỉ.",
+       "py": "A: Tā měitiān dōu zhǔdòng bāng nǐ de máng, tā dàgài de hěn xǐhuān nǐ ba."
       },
       {
        "hz": "B:你猜錯了，他只是熱心，不是真的對我有興趣。",
-       "vi": ""
+       "vi": "B: Bạn đoán sai rồi, anh ấy chỉ nhiệt tình thôi, không phải thật sự có hứng thú với tôi.",
+       "py": "B: Nǐ cāi cuò le, tā zhǐshì rèxīn, búshì zhēnde duì wǒ yǒu xìngqù."
       },
       {
        "hz": "請用「並不」、「並沒有」改寫以下的句子。",
-       "vi": ""
+       "vi": "Hãy dùng “並不”, “並沒有” để viết lại các câu dưới đây.",
+       "py": "Qǐng yòng “bìng bú”, “bìng méiyǒu” gǎixiě yǐxià de jùzi."
       }
      ],
      "answer": null
@@ -10044,23 +11578,28 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "再困難的工作，只要用對方法就可一一完成。2. 學生們一一寫完這次的考卷。",
-       "vi": ""
+       "vi": "1. Công việc có khó đến mấy, chỉ cần dùng đúng phương pháp là có thể lần lượt hoàn thành. 2. Các học sinh lần lượt làm xong bài thi lần này.",
+       "py": "Zài kùnnán de gōngzuò, zhǐyào yòng duì fāngfǎ jiù kě yìyì wánchéng. 2. Xuéshēng men yìyì xiě wán zhècì de kǎojuàn."
       },
       {
        "hz": "公司雖提供了不少福利，但她都一個一個地拒絕了，堅持辭職。",
-       "vi": ""
+       "vi": "Công ty tuy đưa ra nhiều phúc lợi, nhưng cô ấy đều lần lượt từ chối, kiên quyết nghỉ việc.",
+       "py": "Gōngsī suī tígōng le bùshǎo fúlì, dàn tā dōu yígè yígè dì jùjué le, jiānchí cízhí."
       },
       {
        "hz": "請使用「一ㄧ」改寫以下的句子。",
-       "vi": ""
+       "vi": "Hãy dùng “一一” để viết lại các câu dưới đây.",
+       "py": "Qǐng shǐyòng “yì ㄧ” gǎixiě yǐxià de jùzi."
       },
       {
        "hz": "華人社會中有很多重要的節日，比方(說)中秋節、農曆新年等等。",
-       "vi": ""
+       "vi": "Trong xã hội người Hoa có nhiều ngày lễ quan trọng, ví dụ như Tết Trung thu, Tết Âm lịch v.v.",
+       "py": "Huárén shèhuì zhōng yǒu hěnduō zhòngyào de jiérì, bǐfāng (shuō) zhōngqiūjié, nónglì xīnnián děngděng."
       },
       {
        "hz": "潮溼的居住環境不僅使家具不容易保養，並且更可能傷害人體健康。",
-       "vi": ""
+       "vi": "Môi trường sống ẩm ướt không chỉ khiến đồ đạc khó bảo quản, mà còn có thể gây hại cho sức khoẻ con người.",
+       "py": "Cháoshī de jūzhù huánjìng bùjǐn shǐ jiājù bù róngyì bǎoyǎng, bìngqiě gèng kěnéng shānghài réntǐ jiànkāng."
       }
      ],
      "answer": null
@@ -10078,19 +11617,23 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "你們公司真有信用，希望未來能再度與你們合作。2. 澳洲的風景迷人，所以我去年再度到了那裡旅行。3. 好不容易幫你找到了這份工作，你千萬不要再度讓我失望。",
-       "vi": ""
+       "vi": "1. Công ty các bạn thật uy tín, hy vọng tương lai có thể hợp tác với các bạn một lần nữa. 2. Phong cảnh nước Úc rất mê hồn, nên năm ngoái tôi lại đến đó du lịch lần nữa. 3. Khó khăn lắm mới tìm được công việc này cho bạn, bạn tuyệt đối đừng để tôi thất vọng lần nữa.",
+       "py": "Nǐmen gōngsī zhēn yǒu xìnyòng, xīwàng wèilái néng zàidù yǔ nǐmen hézuò. 2. Àozhōu de fēngjǐngmírén, suǒyǐ wǒ qùnián zàidù dào le nàlǐ lǚxíng. 3. Hǎobùróngyì bāng nǐ zhǎodào le zhèfèn gōngzuò, nǐ qiānwàn búyào zàidù ràng wǒ shīwàng."
       },
       {
        "hz": "「再度」是副詞，放在動詞之前，表示再一次、又一次的意思。",
-       "vi": ""
+       "vi": "“再度” là phó từ, đặt trước động từ, mang nghĩa lại một lần nữa.",
+       "py": "“Zàidù” shì fùcí, fàngzài dòngcí zhīqián, biǎoshì zài yícì, yòu yícì de yìsi."
       },
       {
        "hz": "A：這個錯他犯了兩次，為了讓他記住這個教訓，我決定好好處罰他。",
-       "vi": ""
+       "vi": "A: Lỗi này anh ta đã phạm hai lần, để anh ta nhớ bài học này, tôi quyết định phạt anh ta thật nặng.",
+       "py": "A: Zhège cuò tā fàn le liǎngcì, wèile ràng tā jìzhù zhège jiàoxùn, wǒ juédìng hǎohǎo chǔfá tā."
       },
       {
        "hz": "請用「再度」回答以下的問題。",
-       "vi": ""
+       "vi": "Hãy dùng “再度” để trả lời các câu hỏi dưới đây.",
+       "py": "Qǐng yòng “zàidù” huídá yǐxià de wèntí."
       }
      ],
      "answer": null
@@ -10108,11 +11651,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "每當想不到好辦法的時候，不如換個方式思考。2. 每當看到孩子幸福的笑臉時，父母就覺得一切都值得了。",
-       "vi": ""
+       "vi": "1. Mỗi khi không nghĩ ra cách hay, chi bằng thử đổi cách suy nghĩ. 2. Mỗi khi nhìn thấy nụ cười hạnh phúc của con, bố mẹ lại thấy mọi thứ đều đáng giá.",
+       "py": "Měidāng xiǎngbúdào hǎo bànfǎ de shíhòu, bùrú huàn gè fāngshì sīkǎo. 2. Měidāng kàndào háizi xìngfú de xiàoliǎn shí, fùmǔ jiù juéde yíqiè dōu zhíde le."
       },
       {
        "hz": "請完成以下的句子。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các câu dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de jùzi."
       }
      ],
      "answer": null
@@ -10130,11 +11675,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "他吃了不乾淨的食物，把他的肚子疼得連話都說不說來。2. 主任把我報告用的計畫改得都快看不出原來的樣子了。",
-       "vi": ""
+       "vi": "1. Anh ấy ăn phải đồ ăn không sạch, đau bụng đến mức nói không ra lời. 2. Chủ nhiệm sửa bản kế hoạch tôi dùng để báo cáo đến mức gần như không nhận ra hình dạng ban đầu nữa.",
+       "py": "Tā chī le bù gānjìng de shíwù, bǎ tā de dùziténg de liánhuàdōu shuō bù shuōlái. 2. Zhǔrèn bǎ wǒ bàogào yòng de jìhuà gǎi de dōu kuài kànbùchū yuánlái de yàngzi le."
       },
       {
        "hz": "請用「把……V得/Vs得+【情況狀態短句】」回答以下的問題。",
-       "vi": ""
+       "vi": "Hãy dùng “把……V得/Vs得+【cụm câu chỉ tình trạng】” để trả lời các câu hỏi dưới đây.",
+       "py": "Qǐng yòng “bǎ…… V de / Vs de + 【 qíngkuàng zhuàngtài duǎnjù 】” huídá yǐxià de wèntí."
       }
      ],
      "answer": null
@@ -10152,27 +11699,33 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "工廠勞工的工作時間最晚至晚上八時。2. 任何信用卡的問題都可至銀行確認，銀行會仔細為您說明。",
-       "vi": ""
+       "vi": "1. Thời gian làm việc của công nhân nhà máy muộn nhất đến tám giờ tối. 2. Mọi vấn đề về thẻ tín dụng đều có thể đến ngân hàng xác nhận, ngân hàng sẽ giải thích cặn kẽ cho quý khách.",
+       "py": "Gōngchǎng láogōng de gōngzuò shíjiān zuì wǎn zhì wǎnshàng bā shí. 2. Rènhé xìnyòngkǎ de wèntí dōu kě zhì yínháng quèrèn, yínháng huì zǐxì wèi nín shuōmíng."
       },
       {
        "hz": "在路上撿到別人的證件後，最好去一趟警察局，請警察協助處理。",
-       "vi": ""
+       "vi": "Sau khi nhặt được giấy tờ của người khác trên đường, tốt nhất nên đến đồn cảnh sát một chuyến, nhờ cảnh sát hỗ trợ xử lý.",
+       "py": "Zài lùshàng jiǎn dào biérén de zhèngjiàn hòu, zuìhǎo qùyítàng jǐngchájú, qǐng jǐngchá xiézhù chǔlǐ."
       },
       {
        "hz": "從夏季起一直到秋季結束，是這個國家最美的時候。",
-       "vi": ""
+       "vi": "Từ đầu mùa hè cho đến hết mùa thu là thời điểm đẹp nhất của đất nước này.",
+       "py": "Cóng xiàjì qǐ yìzhí dào qiūjì jiéshù, shì zhège guójiā zuìměi de shíhòu."
       },
       {
        "hz": "由於他的外語能力差，因此公司不讓他前往其他國家出差。",
-       "vi": ""
+       "vi": "Do khả năng ngoại ngữ của anh ấy kém, nên công ty không cho anh ấy đi công tác nước khác.",
+       "py": "Yóuyú tā de wàiyǔ nénglìchà, yīncǐ gōngsī búràng tā qiánwǎng qítā guójiā chūchāi."
       },
       {
        "hz": "這家慢活餐廳每天上午十一點開門，晚上八點休息。",
-       "vi": ""
+       "vi": "Nhà hàng “sống chậm” này mỗi ngày mở cửa lúc mười một giờ sáng, tám giờ tối nghỉ.",
+       "py": "Zhèjiā màn huó cāntīng měitiān shàngwǔ shíyìdiǎn kāimén, wǎnshàng bādiǎn xiūxí."
       },
       {
        "hz": "請使用「至」改寫以下的句子。",
-       "vi": ""
+       "vi": "Hãy dùng “至” để viết lại các câu dưới đây.",
+       "py": "Qǐng shǐyòng “zhì” gǎixiě yǐxià de jùzi."
       }
      ],
      "answer": null
@@ -10191,12 +11744,14 @@ export const thoidaiGrammar4 = {
      "formula": "「不到」是及物狀態動詞，常見的用法有兩種：⑴ 「不到」後面放說話的人認為達不到的程度，表示事情應該不會發展到那樣的情況。⑵ 「不到 + Nu +  M 」表示達不到那個數量。",
      "examples": [
       {
-       "hz": "你受的傷只是小傷，還不到需要住院的情況，拿了藥就快回   家休息吧。2. 這個國家相當年輕，從宣布獨立到現在不到十年。",
-       "vi": ""
+       "hz": "你受的傷只是小傷，還不到需要住院的情況，拿了藥就快回家休息吧。2. 這個國家相當年輕，從宣布獨立到現在不到十年。",
+       "vi": "1. Vết thương của bạn chỉ là vết thương nhẹ, chưa đến mức phải nhập viện, lấy thuốc xong thì mau về nhà nghỉ ngơi đi. 2. Đất nước này còn khá trẻ, từ khi tuyên bố độc lập đến nay chưa đến mười năm.",
+       "py": "Nǐ shòu de shāng zhǐshì xiǎo shāng, hái búdào xūyào zhùyuàn de qíngkuàng, ná le yào jiù kuài huíjiā xiūxí ba. 2. Zhège guójiā xiāngdāng niánqīng, cóng xuānbùdúlì dào xiànzài búdào shínián."
       },
       {
        "hz": "請用「不到」完成以下的句子。",
-       "vi": ""
+       "vi": "Hãy dùng “不到” để hoàn thành các câu dưới đây.",
+       "py": "Qǐng yòng “búdào” wánchéng yǐxià de jùzi."
       }
      ],
      "answer": null
@@ -10214,19 +11769,23 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "一個人的生命並不是無窮的，總有一天會走到生命的最後。2. 人人都想當老闆，不過開公司並沒有你想像的那麼簡單。",
-       "vi": ""
+       "vi": "1. Sinh mệnh của một người không phải là vô tận, rồi sẽ có ngày đi đến cuối cuộc đời. 2. Ai cũng muốn làm ông chủ, nhưng mở công ty không hề đơn giản như bạn tưởng.",
+       "py": "Yígè rén de shēngmìng bìng búshì wúqióngde, zǒngyǒuyìtiān huì zǒu dào shēngmìng de zuìhòu. 2. Rénrén dōu xiǎng dāng lǎobǎn, búguò kāi gōngsī bìng méiyǒu nǐ xiǎngxiàng de nàme jiǎndān."
       },
       {
        "hz": "A:他每天都主動幫妳的忙，他大概得很喜歡妳吧。",
-       "vi": ""
+       "vi": "A: Ngày nào anh ấy cũng chủ động giúp bạn, chắc anh ấy thích bạn lắm nhỉ.",
+       "py": "A: Tā měitiān dōu zhǔdòng bāng nǐ de máng, tā dàgài de hěn xǐhuān nǐ ba."
       },
       {
        "hz": "B:你猜錯了，他只是熱心，不是真的對我有興趣。",
-       "vi": ""
+       "vi": "B: Bạn đoán sai rồi, anh ấy chỉ nhiệt tình thôi, không phải thật sự có hứng thú với tôi.",
+       "py": "B: Nǐ cāi cuò le, tā zhǐshì rèxīn, búshì zhēnde duì wǒ yǒu xìngqù."
       },
       {
        "hz": "請用「並不」、「並沒有」改寫以下的句子。",
-       "vi": ""
+       "vi": "Hãy dùng “並不”, “並沒有” để viết lại các câu dưới đây.",
+       "py": "Qǐng yòng “bìng bú”, “bìng méiyǒu” gǎixiě yǐxià de jùzi."
       }
      ],
      "answer": null
@@ -10244,23 +11803,28 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "再困難的工作，只要用對方法就可一一完成。2. 學生們一一寫完這次的考卷。",
-       "vi": ""
+       "vi": "1. Công việc có khó đến mấy, chỉ cần dùng đúng phương pháp là có thể lần lượt hoàn thành. 2. Các học sinh lần lượt làm xong bài thi lần này.",
+       "py": "Zài kùnnán de gōngzuò, zhǐyào yòng duì fāngfǎ jiù kě yìyì wánchéng. 2. Xuéshēng men yìyì xiě wán zhècì de kǎojuàn."
       },
       {
        "hz": "公司雖提供了不少福利，但她都一個一個地拒絕了，堅持辭職。",
-       "vi": ""
+       "vi": "Công ty tuy đưa ra nhiều phúc lợi, nhưng cô ấy đều lần lượt từ chối, kiên quyết nghỉ việc.",
+       "py": "Gōngsī suī tígōng le bùshǎo fúlì, dàn tā dōu yígè yígè dì jùjué le, jiānchí cízhí."
       },
       {
        "hz": "請使用「一ㄧ」改寫以下的句子。",
-       "vi": ""
+       "vi": "Hãy dùng “一一” để viết lại các câu dưới đây.",
+       "py": "Qǐng shǐyòng “yì ㄧ” gǎixiě yǐxià de jùzi."
       },
       {
        "hz": "華人社會中有很多重要的節日，比方(說)中秋節、農曆新年等等。",
-       "vi": ""
+       "vi": "Trong xã hội người Hoa có nhiều ngày lễ quan trọng, ví dụ như Tết Trung thu, Tết Âm lịch v.v.",
+       "py": "Huárén shèhuì zhōng yǒu hěnduō zhòngyào de jiérì, bǐfāng (shuō) zhōngqiūjié, nónglì xīnnián děngděng."
       },
       {
        "hz": "潮溼的居住環境不僅使家具不容易保養，並且更可能傷害人體健康。",
-       "vi": ""
+       "vi": "Môi trường sống ẩm ướt không chỉ khiến đồ đạc khó bảo quản, mà còn có thể gây hại cho sức khoẻ con người.",
+       "py": "Cháoshī de jūzhù huánjìng bùjǐn shǐ jiājù bù róngyì bǎoyǎng, bìngqiě gèng kěnéng shānghài réntǐ jiànkāng."
       }
      ],
      "answer": null
@@ -10278,19 +11842,23 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "你們公司真有信用，希望未來能再度與你們合作。2. 澳洲的風景迷人，所以我去年再度到了那裡旅行。3. 好不容易幫你找到了這份工作，你千萬不要再度讓我失望。",
-       "vi": ""
+       "vi": "1. Công ty các bạn thật uy tín, hy vọng tương lai có thể hợp tác với các bạn một lần nữa. 2. Phong cảnh nước Úc rất mê hồn, nên năm ngoái tôi lại đến đó du lịch lần nữa. 3. Khó khăn lắm mới tìm được công việc này cho bạn, bạn tuyệt đối đừng để tôi thất vọng lần nữa.",
+       "py": "Nǐmen gōngsī zhēn yǒu xìnyòng, xīwàng wèilái néng zàidù yǔ nǐmen hézuò. 2. Àozhōu de fēngjǐngmírén, suǒyǐ wǒ qùnián zàidù dào le nàlǐ lǚxíng. 3. Hǎobùróngyì bāng nǐ zhǎodào le zhèfèn gōngzuò, nǐ qiānwàn búyào zàidù ràng wǒ shīwàng."
       },
       {
        "hz": "「再度」是副詞，放在動詞之前，表示再一次、又一次的意思。",
-       "vi": ""
+       "vi": "“再度” là phó từ, đặt trước động từ, mang nghĩa lại một lần nữa.",
+       "py": "“Zàidù” shì fùcí, fàngzài dòngcí zhīqián, biǎoshì zài yícì, yòu yícì de yìsi."
       },
       {
        "hz": "A：這個錯他犯了兩次，為了讓他記住這個教訓，我決定好好處罰他。",
-       "vi": ""
+       "vi": "A: Lỗi này anh ta đã phạm hai lần, để anh ta nhớ bài học này, tôi quyết định phạt anh ta thật nặng.",
+       "py": "A: Zhège cuò tā fàn le liǎngcì, wèile ràng tā jìzhù zhège jiàoxùn, wǒ juédìng hǎohǎo chǔfá tā."
       },
       {
        "hz": "請用「再度」回答以下的問題。",
-       "vi": ""
+       "vi": "Hãy dùng “再度” để trả lời các câu hỏi dưới đây.",
+       "py": "Qǐng yòng “zàidù” huídá yǐxià de wèntí."
       }
      ],
      "answer": null
@@ -10308,11 +11876,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "每當想不到好辦法的時候，不如換個方式思考。2. 每當看到孩子幸福的笑臉時，父母就覺得一切都值得了。",
-       "vi": ""
+       "vi": "1. Mỗi khi không nghĩ ra cách hay, chi bằng thử đổi cách suy nghĩ. 2. Mỗi khi nhìn thấy nụ cười hạnh phúc của con, bố mẹ lại thấy mọi thứ đều đáng giá.",
+       "py": "Měidāng xiǎngbúdào hǎo bànfǎ de shíhòu, bùrú huàn gè fāngshì sīkǎo. 2. Měidāng kàndào háizi xìngfú de xiàoliǎn shí, fùmǔ jiù juéde yíqiè dōu zhíde le."
       },
       {
        "hz": "請完成以下的句子。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các câu dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de jùzi."
       }
      ],
      "answer": null
@@ -10330,11 +11900,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "他吃了不乾淨的食物，把他的肚子疼得連話都說不說來。2. 主任把我報告用的計畫改得都快看不出原來的樣子了。",
-       "vi": ""
+       "vi": "1. Anh ấy ăn phải đồ ăn không sạch, đau bụng đến mức nói không ra lời. 2. Chủ nhiệm sửa bản kế hoạch tôi dùng để báo cáo đến mức gần như không nhận ra hình dạng ban đầu nữa.",
+       "py": "Tā chī le bù gānjìng de shíwù, bǎ tā de dùziténg de liánhuàdōu shuō bù shuōlái. 2. Zhǔrèn bǎ wǒ bàogào yòng de jìhuà gǎi de dōu kuài kànbùchū yuánlái de yàngzi le."
       },
       {
        "hz": "請用「把……V得/Vs得+【情況狀態短句】」回答以下的問題。",
-       "vi": ""
+       "vi": "Hãy dùng “把……V得/Vs得+【cụm câu chỉ tình trạng】” để trả lời các câu hỏi dưới đây.",
+       "py": "Qǐng yòng “bǎ…… V de / Vs de + 【 qíngkuàng zhuàngtài duǎnjù 】” huídá yǐxià de wèntí."
       }
      ],
      "answer": null
@@ -10352,27 +11924,33 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "工廠勞工的工作時間最晚至晚上八時。2. 任何信用卡的問題都可至銀行確認，銀行會仔細為您說明。",
-       "vi": ""
+       "vi": "1. Thời gian làm việc của công nhân nhà máy muộn nhất đến tám giờ tối. 2. Mọi vấn đề về thẻ tín dụng đều có thể đến ngân hàng xác nhận, ngân hàng sẽ giải thích cặn kẽ cho quý khách.",
+       "py": "Gōngchǎng láogōng de gōngzuò shíjiān zuì wǎn zhì wǎnshàng bā shí. 2. Rènhé xìnyòngkǎ de wèntí dōu kě zhì yínháng quèrèn, yínháng huì zǐxì wèi nín shuōmíng."
       },
       {
        "hz": "在路上撿到別人的證件後，最好去一趟警察局，請警察協助處理。",
-       "vi": ""
+       "vi": "Sau khi nhặt được giấy tờ của người khác trên đường, tốt nhất nên đến đồn cảnh sát một chuyến, nhờ cảnh sát hỗ trợ xử lý.",
+       "py": "Zài lùshàng jiǎn dào biérén de zhèngjiàn hòu, zuìhǎo qùyítàng jǐngchájú, qǐng jǐngchá xiézhù chǔlǐ."
       },
       {
        "hz": "從夏季起一直到秋季結束，是這個國家最美的時候。",
-       "vi": ""
+       "vi": "Từ đầu mùa hè cho đến hết mùa thu là thời điểm đẹp nhất của đất nước này.",
+       "py": "Cóng xiàjì qǐ yìzhí dào qiūjì jiéshù, shì zhège guójiā zuìměi de shíhòu."
       },
       {
        "hz": "由於他的外語能力差，因此公司不讓他前往其他國家出差。",
-       "vi": ""
+       "vi": "Do khả năng ngoại ngữ của anh ấy kém, nên công ty không cho anh ấy đi công tác nước khác.",
+       "py": "Yóuyú tā de wàiyǔ nénglìchà, yīncǐ gōngsī búràng tā qiánwǎng qítā guójiā chūchāi."
       },
       {
        "hz": "這家慢活餐廳每天上午十一點開門，晚上八點休息。",
-       "vi": ""
+       "vi": "Nhà hàng “sống chậm” này mỗi ngày mở cửa lúc mười một giờ sáng, tám giờ tối nghỉ.",
+       "py": "Zhèjiā màn huó cāntīng měitiān shàngwǔ shíyìdiǎn kāimén, wǎnshàng bādiǎn xiūxí."
       },
       {
        "hz": "請使用「至」改寫以下的句子。",
-       "vi": ""
+       "vi": "Hãy dùng “至” để viết lại các câu dưới đây.",
+       "py": "Qǐng shǐyòng “zhì” gǎixiě yǐxià de jùzi."
       }
      ],
      "answer": null
@@ -10391,12 +11969,14 @@ export const thoidaiGrammar4 = {
      "formula": "「不到」是及物狀態動詞，常見的用法有兩種：⑴ 「不到」後面放說話的人認為達不到的程度，表示事情應該不會發展到那樣的情況。⑵ 「不到 + Nu +  M 」表示達不到那個數量。",
      "examples": [
       {
-       "hz": "你受的傷只是小傷，還不到需要住院的情況，拿了藥就快回   家休息吧。2. 這個國家相當年輕，從宣布獨立到現在不到十年。",
-       "vi": ""
+       "hz": "你受的傷只是小傷，還不到需要住院的情況，拿了藥就快回家休息吧。2. 這個國家相當年輕，從宣布獨立到現在不到十年。",
+       "vi": "1. Vết thương của bạn chỉ là vết thương nhẹ, chưa đến mức phải nhập viện, lấy thuốc xong thì mau về nhà nghỉ ngơi đi. 2. Đất nước này còn khá trẻ, từ khi tuyên bố độc lập đến nay chưa đến mười năm.",
+       "py": "Nǐ shòu de shāng zhǐshì xiǎo shāng, hái búdào xūyào zhùyuàn de qíngkuàng, ná le yào jiù kuài huíjiā xiūxí ba. 2. Zhège guójiā xiāngdāng niánqīng, cóng xuānbùdúlì dào xiànzài búdào shínián."
       },
       {
        "hz": "請用「不到」完成以下的句子。",
-       "vi": ""
+       "vi": "Hãy dùng “不到” để hoàn thành các câu dưới đây.",
+       "py": "Qǐng yòng “búdào” wánchéng yǐxià de jùzi."
       }
      ],
      "answer": null
@@ -10414,19 +11994,23 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "一個人的生命並不是無窮的，總有一天會走到生命的最後。2. 人人都想當老闆，不過開公司並沒有你想像的那麼簡單。",
-       "vi": ""
+       "vi": "1. Sinh mệnh của một người không phải là vô tận, rồi sẽ có ngày đi đến cuối cuộc đời. 2. Ai cũng muốn làm ông chủ, nhưng mở công ty không hề đơn giản như bạn tưởng.",
+       "py": "Yígè rén de shēngmìng bìng búshì wúqióngde, zǒngyǒuyìtiān huì zǒu dào shēngmìng de zuìhòu. 2. Rénrén dōu xiǎng dāng lǎobǎn, búguò kāi gōngsī bìng méiyǒu nǐ xiǎngxiàng de nàme jiǎndān."
       },
       {
        "hz": "A:他每天都主動幫妳的忙，他大概得很喜歡妳吧。",
-       "vi": ""
+       "vi": "A: Ngày nào anh ấy cũng chủ động giúp bạn, chắc anh ấy thích bạn lắm nhỉ.",
+       "py": "A: Tā měitiān dōu zhǔdòng bāng nǐ de máng, tā dàgài de hěn xǐhuān nǐ ba."
       },
       {
        "hz": "B:你猜錯了，他只是熱心，不是真的對我有興趣。",
-       "vi": ""
+       "vi": "B: Bạn đoán sai rồi, anh ấy chỉ nhiệt tình thôi, không phải thật sự có hứng thú với tôi.",
+       "py": "B: Nǐ cāi cuò le, tā zhǐshì rèxīn, búshì zhēnde duì wǒ yǒu xìngqù."
       },
       {
        "hz": "請用「並不」、「並沒有」改寫以下的句子。",
-       "vi": ""
+       "vi": "Hãy dùng “並不”, “並沒有” để viết lại các câu dưới đây.",
+       "py": "Qǐng yòng “bìng bú”, “bìng méiyǒu” gǎixiě yǐxià de jùzi."
       }
      ],
      "answer": null
@@ -10444,23 +12028,28 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "再困難的工作，只要用對方法就可一一完成。2. 學生們一一寫完這次的考卷。",
-       "vi": ""
+       "vi": "1. Công việc có khó đến mấy, chỉ cần dùng đúng phương pháp là có thể lần lượt hoàn thành. 2. Các học sinh lần lượt làm xong bài thi lần này.",
+       "py": "Zài kùnnán de gōngzuò, zhǐyào yòng duì fāngfǎ jiù kě yìyì wánchéng. 2. Xuéshēng men yìyì xiě wán zhècì de kǎojuàn."
       },
       {
        "hz": "公司雖提供了不少福利，但她都一個一個地拒絕了，堅持辭職。",
-       "vi": ""
+       "vi": "Công ty tuy đưa ra nhiều phúc lợi, nhưng cô ấy đều lần lượt từ chối, kiên quyết nghỉ việc.",
+       "py": "Gōngsī suī tígōng le bùshǎo fúlì, dàn tā dōu yígè yígè dì jùjué le, jiānchí cízhí."
       },
       {
        "hz": "請使用「一ㄧ」改寫以下的句子。",
-       "vi": ""
+       "vi": "Hãy dùng “一一” để viết lại các câu dưới đây.",
+       "py": "Qǐng shǐyòng “yì ㄧ” gǎixiě yǐxià de jùzi."
       },
       {
        "hz": "華人社會中有很多重要的節日，比方(說)中秋節、農曆新年等等。",
-       "vi": ""
+       "vi": "Trong xã hội người Hoa có nhiều ngày lễ quan trọng, ví dụ như Tết Trung thu, Tết Âm lịch v.v.",
+       "py": "Huárén shèhuì zhōng yǒu hěnduō zhòngyào de jiérì, bǐfāng (shuō) zhōngqiūjié, nónglì xīnnián děngděng."
       },
       {
        "hz": "潮溼的居住環境不僅使家具不容易保養，並且更可能傷害人體健康。",
-       "vi": ""
+       "vi": "Môi trường sống ẩm ướt không chỉ khiến đồ đạc khó bảo quản, mà còn có thể gây hại cho sức khoẻ con người.",
+       "py": "Cháoshī de jūzhù huánjìng bùjǐn shǐ jiājù bù róngyì bǎoyǎng, bìngqiě gèng kěnéng shānghài réntǐ jiànkāng."
       }
      ],
      "answer": null
@@ -10478,19 +12067,23 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "你們公司真有信用，希望未來能再度與你們合作。2. 澳洲的風景迷人，所以我去年再度到了那裡旅行。3. 好不容易幫你找到了這份工作，你千萬不要再度讓我失望。",
-       "vi": ""
+       "vi": "1. Công ty các bạn thật uy tín, hy vọng tương lai có thể hợp tác với các bạn một lần nữa. 2. Phong cảnh nước Úc rất mê hồn, nên năm ngoái tôi lại đến đó du lịch lần nữa. 3. Khó khăn lắm mới tìm được công việc này cho bạn, bạn tuyệt đối đừng để tôi thất vọng lần nữa.",
+       "py": "Nǐmen gōngsī zhēn yǒu xìnyòng, xīwàng wèilái néng zàidù yǔ nǐmen hézuò. 2. Àozhōu de fēngjǐngmírén, suǒyǐ wǒ qùnián zàidù dào le nàlǐ lǚxíng. 3. Hǎobùróngyì bāng nǐ zhǎodào le zhèfèn gōngzuò, nǐ qiānwàn búyào zàidù ràng wǒ shīwàng."
       },
       {
        "hz": "「再度」是副詞，放在動詞之前，表示再一次、又一次的意思。",
-       "vi": ""
+       "vi": "“再度” là phó từ, đặt trước động từ, mang nghĩa lại một lần nữa.",
+       "py": "“Zàidù” shì fùcí, fàngzài dòngcí zhīqián, biǎoshì zài yícì, yòu yícì de yìsi."
       },
       {
        "hz": "A：這個錯他犯了兩次，為了讓他記住這個教訓，我決定好好處罰他。",
-       "vi": ""
+       "vi": "A: Lỗi này anh ta đã phạm hai lần, để anh ta nhớ bài học này, tôi quyết định phạt anh ta thật nặng.",
+       "py": "A: Zhège cuò tā fàn le liǎngcì, wèile ràng tā jìzhù zhège jiàoxùn, wǒ juédìng hǎohǎo chǔfá tā."
       },
       {
        "hz": "請用「再度」回答以下的問題。",
-       "vi": ""
+       "vi": "Hãy dùng “再度” để trả lời các câu hỏi dưới đây.",
+       "py": "Qǐng yòng “zàidù” huídá yǐxià de wèntí."
       }
      ],
      "answer": null
@@ -10508,11 +12101,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "每當想不到好辦法的時候，不如換個方式思考。2. 每當看到孩子幸福的笑臉時，父母就覺得一切都值得了。",
-       "vi": ""
+       "vi": "1. Mỗi khi không nghĩ ra cách hay, chi bằng thử đổi cách suy nghĩ. 2. Mỗi khi nhìn thấy nụ cười hạnh phúc của con, bố mẹ lại thấy mọi thứ đều đáng giá.",
+       "py": "Měidāng xiǎngbúdào hǎo bànfǎ de shíhòu, bùrú huàn gè fāngshì sīkǎo. 2. Měidāng kàndào háizi xìngfú de xiàoliǎn shí, fùmǔ jiù juéde yíqiè dōu zhíde le."
       },
       {
        "hz": "請完成以下的句子。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các câu dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de jùzi."
       }
      ],
      "answer": null
@@ -10530,11 +12125,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "他吃了不乾淨的食物，把他的肚子疼得連話都說不說來。2. 主任把我報告用的計畫改得都快看不出原來的樣子了。",
-       "vi": ""
+       "vi": "1. Anh ấy ăn phải đồ ăn không sạch, đau bụng đến mức nói không ra lời. 2. Chủ nhiệm sửa bản kế hoạch tôi dùng để báo cáo đến mức gần như không nhận ra hình dạng ban đầu nữa.",
+       "py": "Tā chī le bù gānjìng de shíwù, bǎ tā de dùziténg de liánhuàdōu shuō bù shuōlái. 2. Zhǔrèn bǎ wǒ bàogào yòng de jìhuà gǎi de dōu kuài kànbùchū yuánlái de yàngzi le."
       },
       {
        "hz": "請用「把……V得/Vs得+【情況狀態短句】」回答以下的問題。",
-       "vi": ""
+       "vi": "Hãy dùng “把……V得/Vs得+【cụm câu chỉ tình trạng】” để trả lời các câu hỏi dưới đây.",
+       "py": "Qǐng yòng “bǎ…… V de / Vs de + 【 qíngkuàng zhuàngtài duǎnjù 】” huídá yǐxià de wèntí."
       }
      ],
      "answer": null
@@ -10552,27 +12149,33 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "工廠勞工的工作時間最晚至晚上八時。2. 任何信用卡的問題都可至銀行確認，銀行會仔細為您說明。",
-       "vi": ""
+       "vi": "1. Thời gian làm việc của công nhân nhà máy muộn nhất đến tám giờ tối. 2. Mọi vấn đề về thẻ tín dụng đều có thể đến ngân hàng xác nhận, ngân hàng sẽ giải thích cặn kẽ cho quý khách.",
+       "py": "Gōngchǎng láogōng de gōngzuò shíjiān zuì wǎn zhì wǎnshàng bā shí. 2. Rènhé xìnyòngkǎ de wèntí dōu kě zhì yínháng quèrèn, yínháng huì zǐxì wèi nín shuōmíng."
       },
       {
        "hz": "在路上撿到別人的證件後，最好去一趟警察局，請警察協助處理。",
-       "vi": ""
+       "vi": "Sau khi nhặt được giấy tờ của người khác trên đường, tốt nhất nên đến đồn cảnh sát một chuyến, nhờ cảnh sát hỗ trợ xử lý.",
+       "py": "Zài lùshàng jiǎn dào biérén de zhèngjiàn hòu, zuìhǎo qùyítàng jǐngchájú, qǐng jǐngchá xiézhù chǔlǐ."
       },
       {
        "hz": "從夏季起一直到秋季結束，是這個國家最美的時候。",
-       "vi": ""
+       "vi": "Từ đầu mùa hè cho đến hết mùa thu là thời điểm đẹp nhất của đất nước này.",
+       "py": "Cóng xiàjì qǐ yìzhí dào qiūjì jiéshù, shì zhège guójiā zuìměi de shíhòu."
       },
       {
        "hz": "由於他的外語能力差，因此公司不讓他前往其他國家出差。",
-       "vi": ""
+       "vi": "Do khả năng ngoại ngữ của anh ấy kém, nên công ty không cho anh ấy đi công tác nước khác.",
+       "py": "Yóuyú tā de wàiyǔ nénglìchà, yīncǐ gōngsī búràng tā qiánwǎng qítā guójiā chūchāi."
       },
       {
        "hz": "這家慢活餐廳每天上午十一點開門，晚上八點休息。",
-       "vi": ""
+       "vi": "Nhà hàng “sống chậm” này mỗi ngày mở cửa lúc mười một giờ sáng, tám giờ tối nghỉ.",
+       "py": "Zhèjiā màn huó cāntīng měitiān shàngwǔ shíyìdiǎn kāimén, wǎnshàng bādiǎn xiūxí."
       },
       {
        "hz": "請使用「至」改寫以下的句子。",
-       "vi": ""
+       "vi": "Hãy dùng “至” để viết lại các câu dưới đây.",
+       "py": "Qǐng shǐyòng “zhì” gǎixiě yǐxià de jùzi."
       }
      ],
      "answer": null
@@ -10591,12 +12194,14 @@ export const thoidaiGrammar4 = {
      "formula": "「不到」是及物狀態動詞，常見的用法有兩種：⑴ 「不到」後面放說話的人認為達不到的程度，表示事情應該不會發展到那樣的情況。⑵ 「不到 + Nu +  M 」表示達不到那個數量。",
      "examples": [
       {
-       "hz": "你受的傷只是小傷，還不到需要住院的情況，拿了藥就快回   家休息吧。2. 這個國家相當年輕，從宣布獨立到現在不到十年。",
-       "vi": ""
+       "hz": "你受的傷只是小傷，還不到需要住院的情況，拿了藥就快回家休息吧。2. 這個國家相當年輕，從宣布獨立到現在不到十年。",
+       "vi": "1. Vết thương của bạn chỉ là vết thương nhẹ, chưa đến mức phải nhập viện, lấy thuốc xong thì mau về nhà nghỉ ngơi đi. 2. Đất nước này còn khá trẻ, từ khi tuyên bố độc lập đến nay chưa đến mười năm.",
+       "py": "Nǐ shòu de shāng zhǐshì xiǎo shāng, hái búdào xūyào zhùyuàn de qíngkuàng, ná le yào jiù kuài huíjiā xiūxí ba. 2. Zhège guójiā xiāngdāng niánqīng, cóng xuānbùdúlì dào xiànzài búdào shínián."
       },
       {
        "hz": "請用「不到」完成以下的句子。",
-       "vi": ""
+       "vi": "Hãy dùng “不到” để hoàn thành các câu dưới đây.",
+       "py": "Qǐng yòng “búdào” wánchéng yǐxià de jùzi."
       }
      ],
      "answer": null
@@ -10614,19 +12219,23 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "一個人的生命並不是無窮的，總有一天會走到生命的最後。2. 人人都想當老闆，不過開公司並沒有你想像的那麼簡單。",
-       "vi": ""
+       "vi": "1. Sinh mệnh của một người không phải là vô tận, rồi sẽ có ngày đi đến cuối cuộc đời. 2. Ai cũng muốn làm ông chủ, nhưng mở công ty không hề đơn giản như bạn tưởng.",
+       "py": "Yígè rén de shēngmìng bìng búshì wúqióngde, zǒngyǒuyìtiān huì zǒu dào shēngmìng de zuìhòu. 2. Rénrén dōu xiǎng dāng lǎobǎn, búguò kāi gōngsī bìng méiyǒu nǐ xiǎngxiàng de nàme jiǎndān."
       },
       {
        "hz": "A:他每天都主動幫妳的忙，他大概得很喜歡妳吧。",
-       "vi": ""
+       "vi": "A: Ngày nào anh ấy cũng chủ động giúp bạn, chắc anh ấy thích bạn lắm nhỉ.",
+       "py": "A: Tā měitiān dōu zhǔdòng bāng nǐ de máng, tā dàgài de hěn xǐhuān nǐ ba."
       },
       {
        "hz": "B:你猜錯了，他只是熱心，不是真的對我有興趣。",
-       "vi": ""
+       "vi": "B: Bạn đoán sai rồi, anh ấy chỉ nhiệt tình thôi, không phải thật sự có hứng thú với tôi.",
+       "py": "B: Nǐ cāi cuò le, tā zhǐshì rèxīn, búshì zhēnde duì wǒ yǒu xìngqù."
       },
       {
        "hz": "請用「並不」、「並沒有」改寫以下的句子。",
-       "vi": ""
+       "vi": "Hãy dùng “並不”, “並沒有” để viết lại các câu dưới đây.",
+       "py": "Qǐng yòng “bìng bú”, “bìng méiyǒu” gǎixiě yǐxià de jùzi."
       }
      ],
      "answer": null
@@ -10644,23 +12253,28 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "再困難的工作，只要用對方法就可一一完成。2. 學生們一一寫完這次的考卷。",
-       "vi": ""
+       "vi": "1. Công việc có khó đến mấy, chỉ cần dùng đúng phương pháp là có thể lần lượt hoàn thành. 2. Các học sinh lần lượt làm xong bài thi lần này.",
+       "py": "Zài kùnnán de gōngzuò, zhǐyào yòng duì fāngfǎ jiù kě yìyì wánchéng. 2. Xuéshēng men yìyì xiě wán zhècì de kǎojuàn."
       },
       {
        "hz": "公司雖提供了不少福利，但她都一個一個地拒絕了，堅持辭職。",
-       "vi": ""
+       "vi": "Công ty tuy đưa ra nhiều phúc lợi, nhưng cô ấy đều lần lượt từ chối, kiên quyết nghỉ việc.",
+       "py": "Gōngsī suī tígōng le bùshǎo fúlì, dàn tā dōu yígè yígè dì jùjué le, jiānchí cízhí."
       },
       {
        "hz": "請使用「一ㄧ」改寫以下的句子。",
-       "vi": ""
+       "vi": "Hãy dùng “一一” để viết lại các câu dưới đây.",
+       "py": "Qǐng shǐyòng “yì ㄧ” gǎixiě yǐxià de jùzi."
       },
       {
        "hz": "華人社會中有很多重要的節日，比方(說)中秋節、農曆新年等等。",
-       "vi": ""
+       "vi": "Trong xã hội người Hoa có nhiều ngày lễ quan trọng, ví dụ như Tết Trung thu, Tết Âm lịch v.v.",
+       "py": "Huárén shèhuì zhōng yǒu hěnduō zhòngyào de jiérì, bǐfāng (shuō) zhōngqiūjié, nónglì xīnnián děngděng."
       },
       {
        "hz": "潮溼的居住環境不僅使家具不容易保養，並且更可能傷害人體健康。",
-       "vi": ""
+       "vi": "Môi trường sống ẩm ướt không chỉ khiến đồ đạc khó bảo quản, mà còn có thể gây hại cho sức khoẻ con người.",
+       "py": "Cháoshī de jūzhù huánjìng bùjǐn shǐ jiājù bù róngyì bǎoyǎng, bìngqiě gèng kěnéng shānghài réntǐ jiànkāng."
       }
      ],
      "answer": null
@@ -10678,19 +12292,23 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "你們公司真有信用，希望未來能再度與你們合作。2. 澳洲的風景迷人，所以我去年再度到了那裡旅行。3. 好不容易幫你找到了這份工作，你千萬不要再度讓我失望。",
-       "vi": ""
+       "vi": "1. Công ty các bạn thật uy tín, hy vọng tương lai có thể hợp tác với các bạn một lần nữa. 2. Phong cảnh nước Úc rất mê hồn, nên năm ngoái tôi lại đến đó du lịch lần nữa. 3. Khó khăn lắm mới tìm được công việc này cho bạn, bạn tuyệt đối đừng để tôi thất vọng lần nữa.",
+       "py": "Nǐmen gōngsī zhēn yǒu xìnyòng, xīwàng wèilái néng zàidù yǔ nǐmen hézuò. 2. Àozhōu de fēngjǐngmírén, suǒyǐ wǒ qùnián zàidù dào le nàlǐ lǚxíng. 3. Hǎobùróngyì bāng nǐ zhǎodào le zhèfèn gōngzuò, nǐ qiānwàn búyào zàidù ràng wǒ shīwàng."
       },
       {
        "hz": "「再度」是副詞，放在動詞之前，表示再一次、又一次的意思。",
-       "vi": ""
+       "vi": "“再度” là phó từ, đặt trước động từ, mang nghĩa lại một lần nữa.",
+       "py": "“Zàidù” shì fùcí, fàngzài dòngcí zhīqián, biǎoshì zài yícì, yòu yícì de yìsi."
       },
       {
        "hz": "A：這個錯他犯了兩次，為了讓他記住這個教訓，我決定好好處罰他。",
-       "vi": ""
+       "vi": "A: Lỗi này anh ta đã phạm hai lần, để anh ta nhớ bài học này, tôi quyết định phạt anh ta thật nặng.",
+       "py": "A: Zhège cuò tā fàn le liǎngcì, wèile ràng tā jìzhù zhège jiàoxùn, wǒ juédìng hǎohǎo chǔfá tā."
       },
       {
        "hz": "請用「再度」回答以下的問題。",
-       "vi": ""
+       "vi": "Hãy dùng “再度” để trả lời các câu hỏi dưới đây.",
+       "py": "Qǐng yòng “zàidù” huídá yǐxià de wèntí."
       }
      ],
      "answer": null
@@ -10708,11 +12326,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "每當想不到好辦法的時候，不如換個方式思考。2. 每當看到孩子幸福的笑臉時，父母就覺得一切都值得了。",
-       "vi": ""
+       "vi": "1. Mỗi khi không nghĩ ra cách hay, chi bằng thử đổi cách suy nghĩ. 2. Mỗi khi nhìn thấy nụ cười hạnh phúc của con, bố mẹ lại thấy mọi thứ đều đáng giá.",
+       "py": "Měidāng xiǎngbúdào hǎo bànfǎ de shíhòu, bùrú huàn gè fāngshì sīkǎo. 2. Měidāng kàndào háizi xìngfú de xiàoliǎn shí, fùmǔ jiù juéde yíqiè dōu zhíde le."
       },
       {
        "hz": "請完成以下的句子。",
-       "vi": ""
+       "vi": "Hãy hoàn thành các câu dưới đây.",
+       "py": "Qǐng wánchéng yǐxià de jùzi."
       }
      ],
      "answer": null
@@ -10730,11 +12350,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "他吃了不乾淨的食物，把他的肚子疼得連話都說不說來。2. 主任把我報告用的計畫改得都快看不出原來的樣子了。",
-       "vi": ""
+       "vi": "1. Anh ấy ăn phải đồ ăn không sạch, đau bụng đến mức nói không ra lời. 2. Chủ nhiệm sửa bản kế hoạch tôi dùng để báo cáo đến mức gần như không nhận ra hình dạng ban đầu nữa.",
+       "py": "Tā chī le bù gānjìng de shíwù, bǎ tā de dùziténg de liánhuàdōu shuō bù shuōlái. 2. Zhǔrèn bǎ wǒ bàogào yòng de jìhuà gǎi de dōu kuài kànbùchū yuánlái de yàngzi le."
       },
       {
        "hz": "請用「把……V得/Vs得+【情況狀態短句】」回答以下的問題。",
-       "vi": ""
+       "vi": "Hãy dùng “把……V得/Vs得+【cụm câu chỉ tình trạng】” để trả lời các câu hỏi dưới đây.",
+       "py": "Qǐng yòng “bǎ…… V de / Vs de + 【 qíngkuàng zhuàngtài duǎnjù 】” huídá yǐxià de wèntí."
       }
      ],
      "answer": null
@@ -10752,27 +12374,33 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "工廠勞工的工作時間最晚至晚上八時。2. 任何信用卡的問題都可至銀行確認，銀行會仔細為您說明。",
-       "vi": ""
+       "vi": "1. Thời gian làm việc của công nhân nhà máy muộn nhất đến tám giờ tối. 2. Mọi vấn đề về thẻ tín dụng đều có thể đến ngân hàng xác nhận, ngân hàng sẽ giải thích cặn kẽ cho quý khách.",
+       "py": "Gōngchǎng láogōng de gōngzuò shíjiān zuì wǎn zhì wǎnshàng bā shí. 2. Rènhé xìnyòngkǎ de wèntí dōu kě zhì yínháng quèrèn, yínháng huì zǐxì wèi nín shuōmíng."
       },
       {
        "hz": "在路上撿到別人的證件後，最好去一趟警察局，請警察協助處理。",
-       "vi": ""
+       "vi": "Sau khi nhặt được giấy tờ của người khác trên đường, tốt nhất nên đến đồn cảnh sát một chuyến, nhờ cảnh sát hỗ trợ xử lý.",
+       "py": "Zài lùshàng jiǎn dào biérén de zhèngjiàn hòu, zuìhǎo qùyítàng jǐngchájú, qǐng jǐngchá xiézhù chǔlǐ."
       },
       {
        "hz": "從夏季起一直到秋季結束，是這個國家最美的時候。",
-       "vi": ""
+       "vi": "Từ đầu mùa hè cho đến hết mùa thu là thời điểm đẹp nhất của đất nước này.",
+       "py": "Cóng xiàjì qǐ yìzhí dào qiūjì jiéshù, shì zhège guójiā zuìměi de shíhòu."
       },
       {
        "hz": "由於他的外語能力差，因此公司不讓他前往其他國家出差。",
-       "vi": ""
+       "vi": "Do khả năng ngoại ngữ của anh ấy kém, nên công ty không cho anh ấy đi công tác nước khác.",
+       "py": "Yóuyú tā de wàiyǔ nénglìchà, yīncǐ gōngsī búràng tā qiánwǎng qítā guójiā chūchāi."
       },
       {
        "hz": "這家慢活餐廳每天上午十一點開門，晚上八點休息。",
-       "vi": ""
+       "vi": "Nhà hàng “sống chậm” này mỗi ngày mở cửa lúc mười một giờ sáng, tám giờ tối nghỉ.",
+       "py": "Zhèjiā màn huó cāntīng měitiān shàngwǔ shíyìdiǎn kāimén, wǎnshàng bādiǎn xiūxí."
       },
       {
        "hz": "請使用「至」改寫以下的句子。",
-       "vi": ""
+       "vi": "Hãy dùng “至” để viết lại các câu dưới đây.",
+       "py": "Qǐng shǐyòng “zhì” gǎixiě yǐxià de jùzi."
       }
      ],
      "answer": null
@@ -10792,11 +12420,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "他的體力向來不錯，忙了一天也不累。2.他的生活向來忙碌，沒什麼休假的機會。",
-       "vi": ""
+       "vi": "1. Thể lực anh ấy xưa nay vẫn tốt, bận cả ngày cũng không mệt. 2. Cuộc sống của anh ấy xưa nay vẫn bận rộn, chẳng mấy khi có dịp nghỉ phép.",
+       "py": "Tā de tǐlì xiànglái búcuò, máng le yìtiān yě bú lèi. 2. Tā de shēnghuó xiànglái mánglù, méishénme xiūjià de jīhuì."
       },
       {
        "hz": "請使用「向來」改寫以下的句子。",
-       "vi": ""
+       "vi": "Hãy dùng “向來” để viết lại các câu dưới đây.",
+       "py": "Qǐng shǐyòng “xiànglái” gǎixiě yǐxià de jùzi."
       }
      ],
      "answer": null
@@ -10814,11 +12444,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：他常說討厭那份工作，卻又不辭職，真不懂他到底在想什麼。B：話不能這麼說，他在公司已服務多年，怎麼能隨便辭職呢？",
-       "vi": ""
+       "vi": "A: Anh ấy hay nói ghét công việc đó, vậy mà lại không nghỉ việc, thật không hiểu rốt cuộc anh ấy nghĩ gì. B: Không thể nói vậy được, anh ấy đã làm ở công ty nhiều năm, sao có thể tuỳ tiện nghỉ việc?",
+       "py": "A: Tā cháng shuō tǎoyàn nà fèn gōngzuò, què yòu bù cízhí, zhēn bù dǒng tā dàodǐ zài xiǎng shénme. B: Huà bùnéng zhème shuō, tā zài gōngsī yǐ fúwù duōnián, zěnme néng suíbiàn cízhí ne?"
       },
       {
        "hz": "請使用「話不能這麼說」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “話不能這麼說” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “huà bùnéng zhème shuō” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -10836,15 +12468,18 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "這組產品提供了不少折扣，所以我一口氣買了好幾組。",
-       "vi": ""
+       "vi": "Bộ sản phẩm này giảm giá khá nhiều, nên tôi mua một lèo mấy bộ.",
+       "py": "Zhè zǔ chǎnpǐn tígōng le bùshǎo zhékòu, suǒyǐ wǒ yìkǒuqì mǎi le hǎojǐ zǔ."
       },
       {
        "hz": "「一口氣」是副詞，表示後面的事情是一次完成的。",
-       "vi": ""
+       "vi": "“一口氣” là phó từ, diễn tả việc phía sau được hoàn thành trong một lần.",
+       "py": "“Yìkǒuqì” shì fùcí, biǎoshì hòumiàn de shìqíng shì yícì wánchéng de."
       },
       {
        "hz": "請使用「一口氣」回答以下的問題。",
-       "vi": ""
+       "vi": "Hãy dùng “一口氣” để trả lời các câu hỏi dưới đây.",
+       "py": "Qǐng shǐyòng “yìkǒuqì” huídá yǐxià de wèntí."
       }
      ],
      "answer": null
@@ -10862,11 +12497,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "現在想留在國內工作的人越來越少，再不重視這個情況，國內企業很快就會面臨缺乏人才的問題。",
-       "vi": ""
+       "vi": "Hiện nay người muốn ở lại trong nước làm việc ngày càng ít, nếu còn không coi trọng tình trạng này thì doanh nghiệp trong nước sẽ sớm đối mặt với vấn đề thiếu nhân tài.",
+       "py": "Xiànzài xiǎng liúzài guónèi gōngzuò de rén yuèláiyuèshǎo, zài bú zhòngshì zhège qíngkuàng, guónèi qìyè hěnkuài jiù huì miànlín quēfá réncái de wèntí."
       },
       {
        "hz": "請使用「再不……就……」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “再不……就……” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “zài bú…… jiù……” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -10884,11 +12521,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "這項活動由你來辦，我會盡力支持你。2. 老師打算由學生們決定下次考試的範圍。",
-       "vi": ""
+       "vi": "1. Hoạt động này do bạn tổ chức, tôi sẽ hết sức ủng hộ bạn. 2. Thầy giáo định để các học sinh quyết định phạm vi bài thi lần sau.",
+       "py": "Zhèxiàng huódòng yóu nǐ lái bàn, wǒhuì jìnlì zhīchí nǐ. 2. Lǎoshī dǎsuàn yóu xuéshēng men juédìng xiàcì kǎoshì de fànwéi."
       },
       {
        "hz": "請使用「由……來……」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “由……來……” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “yóu…… lái……” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -10906,11 +12545,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "我買了幾本關於做飯的書，想要好好研究一下。2. 關於我所提的意見，請你再考慮考慮。",
-       "vi": ""
+       "vi": "1. Tôi mua mấy cuốn sách về nấu ăn, muốn nghiên cứu kỹ một chút. 2. Về ý kiến tôi đã đưa ra, xin bạn cân nhắc thêm.",
+       "py": "Wǒ mǎi le jǐběn guānyú zuòfàn de shū, xiǎngyào hǎohǎo yánjiù yíxià. 2. Guānyú wǒ suǒ tí de yìjiàn, qǐng nǐ zài kǎolǜ kǎolǜ."
       },
       {
        "hz": "請使用「關於」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “關於” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “guānyú” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -10928,15 +12569,18 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "他怕冷，即使天氣熱，也都穿著外套。2. 即使單身，也要過一個快樂的情人節。",
-       "vi": ""
+       "vi": "1. Anh ấy sợ lạnh, dù trời nóng cũng mặc áo khoác. 2. Dù độc thân cũng phải đón một ngày Lễ Tình nhân vui vẻ.",
+       "py": "Tā pàlěng, jíshǐ tiānqì rè, yě dōu chuānzhe wàitào. 2. Jíshǐ dānshēn, yě yào guò yígè kuàilè de qíngrénjié."
       },
       {
        "hz": "「即使」是連詞，「即使……也……」的用法與「就算/就是……也……」一樣，不過「即使」比較正式。「即使」後面是未來可能發生的狀況，或是無法改變的事實；「也」後面是一定會發生的情況，或是不被影響的決定。",
-       "vi": ""
+       "vi": "“即使” là liên từ, cách dùng “即使……也……” giống “就算/就是……也……”, nhưng “即使” trang trọng hơn. Sau “即使” là tình huống có thể xảy ra trong tương lai, hoặc sự thật không thể thay đổi; sau “也” là tình huống chắc chắn sẽ xảy ra, hoặc quyết định không bị ảnh hưởng.",
+       "py": "“Jíshǐ” shì liáncí, “jíshǐ…… yě……” de yòngfǎ yǔ “jiùsuàn / jiùshì…… yě……” yíyàng, búguò “jíshǐ” bǐjiào zhèngshì. “Jíshǐ” hòumiàn shì wèilái kěnéng fāshēng de zhuàngkuàng, huòshì wúfǎ gǎibiàn de shìshí; “yě” hòumiàn shì yídìng huì fāshēng de qíngkuàng, huòshì bú bèi yǐngxiǎng de juédìng."
       },
       {
        "hz": "請使用「即使……也……」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “即使……也……” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “jíshǐ…… yě……” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -10956,11 +12600,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "他的體力向來不錯，忙了一天也不累。2.他的生活向來忙碌，沒什麼休假的機會。",
-       "vi": ""
+       "vi": "1. Thể lực anh ấy xưa nay vẫn tốt, bận cả ngày cũng không mệt. 2. Cuộc sống của anh ấy xưa nay vẫn bận rộn, chẳng mấy khi có dịp nghỉ phép.",
+       "py": "Tā de tǐlì xiànglái búcuò, máng le yìtiān yě bú lèi. 2. Tā de shēnghuó xiànglái mánglù, méishénme xiūjià de jīhuì."
       },
       {
        "hz": "請使用「向來」改寫以下的句子。",
-       "vi": ""
+       "vi": "Hãy dùng “向來” để viết lại các câu dưới đây.",
+       "py": "Qǐng shǐyòng “xiànglái” gǎixiě yǐxià de jùzi."
       }
      ],
      "answer": null
@@ -10978,11 +12624,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：他常說討厭那份工作，卻又不辭職，真不懂他到底在想什麼。B：話不能這麼說，他在公司已服務多年，怎麼能隨便辭職呢？",
-       "vi": ""
+       "vi": "A: Anh ấy hay nói ghét công việc đó, vậy mà lại không nghỉ việc, thật không hiểu rốt cuộc anh ấy nghĩ gì. B: Không thể nói vậy được, anh ấy đã làm ở công ty nhiều năm, sao có thể tuỳ tiện nghỉ việc?",
+       "py": "A: Tā cháng shuō tǎoyàn nà fèn gōngzuò, què yòu bù cízhí, zhēn bù dǒng tā dàodǐ zài xiǎng shénme. B: Huà bùnéng zhème shuō, tā zài gōngsī yǐ fúwù duōnián, zěnme néng suíbiàn cízhí ne?"
       },
       {
        "hz": "請使用「話不能這麼說」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “話不能這麼說” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “huà bùnéng zhème shuō” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -11000,15 +12648,18 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "這組產品提供了不少折扣，所以我一口氣買了好幾組。",
-       "vi": ""
+       "vi": "Bộ sản phẩm này giảm giá khá nhiều, nên tôi mua một lèo mấy bộ.",
+       "py": "Zhè zǔ chǎnpǐn tígōng le bùshǎo zhékòu, suǒyǐ wǒ yìkǒuqì mǎi le hǎojǐ zǔ."
       },
       {
        "hz": "「一口氣」是副詞，表示後面的事情是一次完成的。",
-       "vi": ""
+       "vi": "“一口氣” là phó từ, diễn tả việc phía sau được hoàn thành trong một lần.",
+       "py": "“Yìkǒuqì” shì fùcí, biǎoshì hòumiàn de shìqíng shì yícì wánchéng de."
       },
       {
        "hz": "請使用「一口氣」回答以下的問題。",
-       "vi": ""
+       "vi": "Hãy dùng “一口氣” để trả lời các câu hỏi dưới đây.",
+       "py": "Qǐng shǐyòng “yìkǒuqì” huídá yǐxià de wèntí."
       }
      ],
      "answer": null
@@ -11026,11 +12677,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "現在想留在國內工作的人越來越少，再不重視這個情況，國內企業很快就會面臨缺乏人才的問題。",
-       "vi": ""
+       "vi": "Hiện nay người muốn ở lại trong nước làm việc ngày càng ít, nếu còn không coi trọng tình trạng này thì doanh nghiệp trong nước sẽ sớm đối mặt với vấn đề thiếu nhân tài.",
+       "py": "Xiànzài xiǎng liúzài guónèi gōngzuò de rén yuèláiyuèshǎo, zài bú zhòngshì zhège qíngkuàng, guónèi qìyè hěnkuài jiù huì miànlín quēfá réncái de wèntí."
       },
       {
        "hz": "請使用「再不……就……」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “再不……就……” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “zài bú…… jiù……” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -11048,11 +12701,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "這項活動由你來辦，我會盡力支持你。2. 老師打算由學生們決定下次考試的範圍。",
-       "vi": ""
+       "vi": "1. Hoạt động này do bạn tổ chức, tôi sẽ hết sức ủng hộ bạn. 2. Thầy giáo định để các học sinh quyết định phạm vi bài thi lần sau.",
+       "py": "Zhèxiàng huódòng yóu nǐ lái bàn, wǒhuì jìnlì zhīchí nǐ. 2. Lǎoshī dǎsuàn yóu xuéshēng men juédìng xiàcì kǎoshì de fànwéi."
       },
       {
        "hz": "請使用「由……來……」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “由……來……” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “yóu…… lái……” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -11070,11 +12725,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "我買了幾本關於做飯的書，想要好好研究一下。2. 關於我所提的意見，請你再考慮考慮。",
-       "vi": ""
+       "vi": "1. Tôi mua mấy cuốn sách về nấu ăn, muốn nghiên cứu kỹ một chút. 2. Về ý kiến tôi đã đưa ra, xin bạn cân nhắc thêm.",
+       "py": "Wǒ mǎi le jǐběn guānyú zuòfàn de shū, xiǎngyào hǎohǎo yánjiù yíxià. 2. Guānyú wǒ suǒ tí de yìjiàn, qǐng nǐ zài kǎolǜ kǎolǜ."
       },
       {
        "hz": "請使用「關於」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “關於” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “guānyú” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -11092,15 +12749,18 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "他怕冷，即使天氣熱，也都穿著外套。2. 即使單身，也要過一個快樂的情人節。",
-       "vi": ""
+       "vi": "1. Anh ấy sợ lạnh, dù trời nóng cũng mặc áo khoác. 2. Dù độc thân cũng phải đón một ngày Lễ Tình nhân vui vẻ.",
+       "py": "Tā pàlěng, jíshǐ tiānqì rè, yě dōu chuānzhe wàitào. 2. Jíshǐ dānshēn, yě yào guò yígè kuàilè de qíngrénjié."
       },
       {
        "hz": "「即使」是連詞，「即使……也……」的用法與「就算/就是……也……」一樣，不過「即使」比較正式。「即使」後面是未來可能發生的狀況，或是無法改變的事實；「也」後面是一定會發生的情況，或是不被影響的決定。",
-       "vi": ""
+       "vi": "“即使” là liên từ, cách dùng “即使……也……” giống “就算/就是……也……”, nhưng “即使” trang trọng hơn. Sau “即使” là tình huống có thể xảy ra trong tương lai, hoặc sự thật không thể thay đổi; sau “也” là tình huống chắc chắn sẽ xảy ra, hoặc quyết định không bị ảnh hưởng.",
+       "py": "“Jíshǐ” shì liáncí, “jíshǐ…… yě……” de yòngfǎ yǔ “jiùsuàn / jiùshì…… yě……” yíyàng, búguò “jíshǐ” bǐjiào zhèngshì. “Jíshǐ” hòumiàn shì wèilái kěnéng fāshēng de zhuàngkuàng, huòshì wúfǎ gǎibiàn de shìshí; “yě” hòumiàn shì yídìng huì fāshēng de qíngkuàng, huòshì bú bèi yǐngxiǎng de juédìng."
       },
       {
        "hz": "請使用「即使……也……」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “即使……也……” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “jíshǐ…… yě……” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -11120,11 +12780,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "他的體力向來不錯，忙了一天也不累。2.他的生活向來忙碌，沒什麼休假的機會。",
-       "vi": ""
+       "vi": "1. Thể lực anh ấy xưa nay vẫn tốt, bận cả ngày cũng không mệt. 2. Cuộc sống của anh ấy xưa nay vẫn bận rộn, chẳng mấy khi có dịp nghỉ phép.",
+       "py": "Tā de tǐlì xiànglái búcuò, máng le yìtiān yě bú lèi. 2. Tā de shēnghuó xiànglái mánglù, méishénme xiūjià de jīhuì."
       },
       {
        "hz": "請使用「向來」改寫以下的句子。",
-       "vi": ""
+       "vi": "Hãy dùng “向來” để viết lại các câu dưới đây.",
+       "py": "Qǐng shǐyòng “xiànglái” gǎixiě yǐxià de jùzi."
       }
      ],
      "answer": null
@@ -11142,11 +12804,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：他常說討厭那份工作，卻又不辭職，真不懂他到底在想什麼。B：話不能這麼說，他在公司已服務多年，怎麼能隨便辭職呢？",
-       "vi": ""
+       "vi": "A: Anh ấy hay nói ghét công việc đó, vậy mà lại không nghỉ việc, thật không hiểu rốt cuộc anh ấy nghĩ gì. B: Không thể nói vậy được, anh ấy đã làm ở công ty nhiều năm, sao có thể tuỳ tiện nghỉ việc?",
+       "py": "A: Tā cháng shuō tǎoyàn nà fèn gōngzuò, què yòu bù cízhí, zhēn bù dǒng tā dàodǐ zài xiǎng shénme. B: Huà bùnéng zhème shuō, tā zài gōngsī yǐ fúwù duōnián, zěnme néng suíbiàn cízhí ne?"
       },
       {
        "hz": "請使用「話不能這麼說」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “話不能這麼說” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “huà bùnéng zhème shuō” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -11164,15 +12828,18 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "這組產品提供了不少折扣，所以我一口氣買了好幾組。",
-       "vi": ""
+       "vi": "Bộ sản phẩm này giảm giá khá nhiều, nên tôi mua một lèo mấy bộ.",
+       "py": "Zhè zǔ chǎnpǐn tígōng le bùshǎo zhékòu, suǒyǐ wǒ yìkǒuqì mǎi le hǎojǐ zǔ."
       },
       {
        "hz": "「一口氣」是副詞，表示後面的事情是一次完成的。",
-       "vi": ""
+       "vi": "“一口氣” là phó từ, diễn tả việc phía sau được hoàn thành trong một lần.",
+       "py": "“Yìkǒuqì” shì fùcí, biǎoshì hòumiàn de shìqíng shì yícì wánchéng de."
       },
       {
        "hz": "請使用「一口氣」回答以下的問題。",
-       "vi": ""
+       "vi": "Hãy dùng “一口氣” để trả lời các câu hỏi dưới đây.",
+       "py": "Qǐng shǐyòng “yìkǒuqì” huídá yǐxià de wèntí."
       }
      ],
      "answer": null
@@ -11190,11 +12857,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "現在想留在國內工作的人越來越少，再不重視這個情況，國內企業很快就會面臨缺乏人才的問題。",
-       "vi": ""
+       "vi": "Hiện nay người muốn ở lại trong nước làm việc ngày càng ít, nếu còn không coi trọng tình trạng này thì doanh nghiệp trong nước sẽ sớm đối mặt với vấn đề thiếu nhân tài.",
+       "py": "Xiànzài xiǎng liúzài guónèi gōngzuò de rén yuèláiyuèshǎo, zài bú zhòngshì zhège qíngkuàng, guónèi qìyè hěnkuài jiù huì miànlín quēfá réncái de wèntí."
       },
       {
        "hz": "請使用「再不……就……」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “再不……就……” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “zài bú…… jiù……” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -11212,11 +12881,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "這項活動由你來辦，我會盡力支持你。2. 老師打算由學生們決定下次考試的範圍。",
-       "vi": ""
+       "vi": "1. Hoạt động này do bạn tổ chức, tôi sẽ hết sức ủng hộ bạn. 2. Thầy giáo định để các học sinh quyết định phạm vi bài thi lần sau.",
+       "py": "Zhèxiàng huódòng yóu nǐ lái bàn, wǒhuì jìnlì zhīchí nǐ. 2. Lǎoshī dǎsuàn yóu xuéshēng men juédìng xiàcì kǎoshì de fànwéi."
       },
       {
        "hz": "請使用「由……來……」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “由……來……” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “yóu…… lái……” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -11234,11 +12905,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "我買了幾本關於做飯的書，想要好好研究一下。2. 關於我所提的意見，請你再考慮考慮。",
-       "vi": ""
+       "vi": "1. Tôi mua mấy cuốn sách về nấu ăn, muốn nghiên cứu kỹ một chút. 2. Về ý kiến tôi đã đưa ra, xin bạn cân nhắc thêm.",
+       "py": "Wǒ mǎi le jǐběn guānyú zuòfàn de shū, xiǎngyào hǎohǎo yánjiù yíxià. 2. Guānyú wǒ suǒ tí de yìjiàn, qǐng nǐ zài kǎolǜ kǎolǜ."
       },
       {
        "hz": "請使用「關於」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “關於” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “guānyú” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -11256,15 +12929,18 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "他怕冷，即使天氣熱，也都穿著外套。2. 即使單身，也要過一個快樂的情人節。",
-       "vi": ""
+       "vi": "1. Anh ấy sợ lạnh, dù trời nóng cũng mặc áo khoác. 2. Dù độc thân cũng phải đón một ngày Lễ Tình nhân vui vẻ.",
+       "py": "Tā pàlěng, jíshǐ tiānqì rè, yě dōu chuānzhe wàitào. 2. Jíshǐ dānshēn, yě yào guò yígè kuàilè de qíngrénjié."
       },
       {
        "hz": "「即使」是連詞，「即使……也……」的用法與「就算/就是……也……」一樣，不過「即使」比較正式。「即使」後面是未來可能發生的狀況，或是無法改變的事實；「也」後面是一定會發生的情況，或是不被影響的決定。",
-       "vi": ""
+       "vi": "“即使” là liên từ, cách dùng “即使……也……” giống “就算/就是……也……”, nhưng “即使” trang trọng hơn. Sau “即使” là tình huống có thể xảy ra trong tương lai, hoặc sự thật không thể thay đổi; sau “也” là tình huống chắc chắn sẽ xảy ra, hoặc quyết định không bị ảnh hưởng.",
+       "py": "“Jíshǐ” shì liáncí, “jíshǐ…… yě……” de yòngfǎ yǔ “jiùsuàn / jiùshì…… yě……” yíyàng, búguò “jíshǐ” bǐjiào zhèngshì. “Jíshǐ” hòumiàn shì wèilái kěnéng fāshēng de zhuàngkuàng, huòshì wúfǎ gǎibiàn de shìshí; “yě” hòumiàn shì yídìng huì fāshēng de qíngkuàng, huòshì bú bèi yǐngxiǎng de juédìng."
       },
       {
        "hz": "請使用「即使……也……」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “即使……也……” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “jíshǐ…… yě……” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -11284,11 +12960,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "他的體力向來不錯，忙了一天也不累。2.他的生活向來忙碌，沒什麼休假的機會。",
-       "vi": ""
+       "vi": "1. Thể lực anh ấy xưa nay vẫn tốt, bận cả ngày cũng không mệt. 2. Cuộc sống của anh ấy xưa nay vẫn bận rộn, chẳng mấy khi có dịp nghỉ phép.",
+       "py": "Tā de tǐlì xiànglái búcuò, máng le yìtiān yě bú lèi. 2. Tā de shēnghuó xiànglái mánglù, méishénme xiūjià de jīhuì."
       },
       {
        "hz": "請使用「向來」改寫以下的句子。",
-       "vi": ""
+       "vi": "Hãy dùng “向來” để viết lại các câu dưới đây.",
+       "py": "Qǐng shǐyòng “xiànglái” gǎixiě yǐxià de jùzi."
       }
      ],
      "answer": null
@@ -11306,11 +12984,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "A：他常說討厭那份工作，卻又不辭職，真不懂他到底在想什麼。B：話不能這麼說，他在公司已服務多年，怎麼能隨便辭職呢？",
-       "vi": ""
+       "vi": "A: Anh ấy hay nói ghét công việc đó, vậy mà lại không nghỉ việc, thật không hiểu rốt cuộc anh ấy nghĩ gì. B: Không thể nói vậy được, anh ấy đã làm ở công ty nhiều năm, sao có thể tuỳ tiện nghỉ việc?",
+       "py": "A: Tā cháng shuō tǎoyàn nà fèn gōngzuò, què yòu bù cízhí, zhēn bù dǒng tā dàodǐ zài xiǎng shénme. B: Huà bùnéng zhème shuō, tā zài gōngsī yǐ fúwù duōnián, zěnme néng suíbiàn cízhí ne?"
       },
       {
        "hz": "請使用「話不能這麼說」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “話不能這麼說” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “huà bùnéng zhème shuō” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -11328,15 +13008,18 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "這組產品提供了不少折扣，所以我一口氣買了好幾組。",
-       "vi": ""
+       "vi": "Bộ sản phẩm này giảm giá khá nhiều, nên tôi mua một lèo mấy bộ.",
+       "py": "Zhè zǔ chǎnpǐn tígōng le bùshǎo zhékòu, suǒyǐ wǒ yìkǒuqì mǎi le hǎojǐ zǔ."
       },
       {
        "hz": "「一口氣」是副詞，表示後面的事情是一次完成的。",
-       "vi": ""
+       "vi": "“一口氣” là phó từ, diễn tả việc phía sau được hoàn thành trong một lần.",
+       "py": "“Yìkǒuqì” shì fùcí, biǎoshì hòumiàn de shìqíng shì yícì wánchéng de."
       },
       {
        "hz": "請使用「一口氣」回答以下的問題。",
-       "vi": ""
+       "vi": "Hãy dùng “一口氣” để trả lời các câu hỏi dưới đây.",
+       "py": "Qǐng shǐyòng “yìkǒuqì” huídá yǐxià de wèntí."
       }
      ],
      "answer": null
@@ -11354,11 +13037,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "現在想留在國內工作的人越來越少，再不重視這個情況，國內企業很快就會面臨缺乏人才的問題。",
-       "vi": ""
+       "vi": "Hiện nay người muốn ở lại trong nước làm việc ngày càng ít, nếu còn không coi trọng tình trạng này thì doanh nghiệp trong nước sẽ sớm đối mặt với vấn đề thiếu nhân tài.",
+       "py": "Xiànzài xiǎng liúzài guónèi gōngzuò de rén yuèláiyuèshǎo, zài bú zhòngshì zhège qíngkuàng, guónèi qìyè hěnkuài jiù huì miànlín quēfá réncái de wèntí."
       },
       {
        "hz": "請使用「再不……就……」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “再不……就……” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “zài bú…… jiù……” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -11376,11 +13061,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "這項活動由你來辦，我會盡力支持你。2. 老師打算由學生們決定下次考試的範圍。",
-       "vi": ""
+       "vi": "1. Hoạt động này do bạn tổ chức, tôi sẽ hết sức ủng hộ bạn. 2. Thầy giáo định để các học sinh quyết định phạm vi bài thi lần sau.",
+       "py": "Zhèxiàng huódòng yóu nǐ lái bàn, wǒhuì jìnlì zhīchí nǐ. 2. Lǎoshī dǎsuàn yóu xuéshēng men juédìng xiàcì kǎoshì de fànwéi."
       },
       {
        "hz": "請使用「由……來……」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “由……來……” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “yóu…… lái……” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -11398,11 +13085,13 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "我買了幾本關於做飯的書，想要好好研究一下。2. 關於我所提的意見，請你再考慮考慮。",
-       "vi": ""
+       "vi": "1. Tôi mua mấy cuốn sách về nấu ăn, muốn nghiên cứu kỹ một chút. 2. Về ý kiến tôi đã đưa ra, xin bạn cân nhắc thêm.",
+       "py": "Wǒ mǎi le jǐběn guānyú zuòfàn de shū, xiǎngyào hǎohǎo yánjiù yíxià. 2. Guānyú wǒ suǒ tí de yìjiàn, qǐng nǐ zài kǎolǜ kǎolǜ."
       },
       {
        "hz": "請使用「關於」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “關於” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “guānyú” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null
@@ -11420,15 +13109,18 @@ export const thoidaiGrammar4 = {
      "examples": [
       {
        "hz": "他怕冷，即使天氣熱，也都穿著外套。2. 即使單身，也要過一個快樂的情人節。",
-       "vi": ""
+       "vi": "1. Anh ấy sợ lạnh, dù trời nóng cũng mặc áo khoác. 2. Dù độc thân cũng phải đón một ngày Lễ Tình nhân vui vẻ.",
+       "py": "Tā pàlěng, jíshǐ tiānqì rè, yě dōu chuānzhe wàitào. 2. Jíshǐ dānshēn, yě yào guò yígè kuàilè de qíngrénjié."
       },
       {
        "hz": "「即使」是連詞，「即使……也……」的用法與「就算/就是……也……」一樣，不過「即使」比較正式。「即使」後面是未來可能發生的狀況，或是無法改變的事實；「也」後面是一定會發生的情況，或是不被影響的決定。",
-       "vi": ""
+       "vi": "“即使” là liên từ, cách dùng “即使……也……” giống “就算/就是……也……”, nhưng “即使” trang trọng hơn. Sau “即使” là tình huống có thể xảy ra trong tương lai, hoặc sự thật không thể thay đổi; sau “也” là tình huống chắc chắn sẽ xảy ra, hoặc quyết định không bị ảnh hưởng.",
+       "py": "“Jíshǐ” shì liáncí, “jíshǐ…… yě……” de yòngfǎ yǔ “jiùsuàn / jiùshì…… yě……” yíyàng, búguò “jíshǐ” bǐjiào zhèngshì. “Jíshǐ” hòumiàn shì wèilái kěnéng fāshēng de zhuàngkuàng, huòshì wúfǎ gǎibiàn de shìshí; “yě” hòumiàn shì yídìng huì fāshēng de qíngkuàng, huòshì bú bèi yǐngxiǎng de juédìng."
       },
       {
        "hz": "請使用「即使……也……」完成以下的對話。",
-       "vi": ""
+       "vi": "Hãy dùng “即使……也……” để hoàn thành các đoạn hội thoại dưới đây.",
+       "py": "Qǐng shǐyòng “jíshǐ…… yě……” wánchéng yǐxià de duìhuà."
       }
      ],
      "answer": null

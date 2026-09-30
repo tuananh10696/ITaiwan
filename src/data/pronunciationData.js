@@ -1,8 +1,10 @@
 // ============================================================
 // DỮ LIỆU HỌC PHÁT ÂM — Thanh mẫu · Vận mẫu · Thanh điệu
-// Biên soạn gốc cho ITaiwan. Âm thanh phát bằng Web Speech API (zh-TW),
-// không phụ thuộc file mp3 bên ngoài.
-// Mỗi mục có `speak` = chữ Hán đại diện để TTS đọc đúng âm.
+// Biên soạn gốc cho ITaiwan. Âm thanh THẬT lấy từ giáo trình Thời Đại (bài phát âm + phần Từ vựng),
+// bảng tra do scripts/gen-pron-sgk.mjs sinh ra (src/data/pronSgkAudio.js) theo chữ + pinyin của từng ví dụ.
+// Đổi / thêm ví dụ thì chạy lại `npm run audio:pron-sgk`; ví dụ nào sách không có bản thu thì script báo ra
+// và app đọc bằng giọng máy — nên chọn ví dụ có trong sách.
+// `speak` = chữ Hán để giọng máy đọc khi không tải được file mp3.
 // ============================================================
 
 // ------------------------------------------------------------
@@ -56,13 +58,13 @@ export const initialsData = [
     ],
   },
   {
-    group: 'Âm quặt lưỡi',
+    group: 'Âm uốn lưỡi',
     groupCn: '舌尖後音',
     hint: 'UỐN đầu lưỡi ngược lên vòm miệng, môi hơi tròn. Nhóm khó nhất với người Việt.',
     color: 'coral',
     items: [
       { pinyin: 'zh', ipa: '[ʈʂ]', speak: '中', desc: 'Gần giống <b>tr</b> tiếng Việt (giọng Nam), uốn lưỡi, KHÔNG bật hơi.', tip: 'Lưỡi cong ngược, đầu lưỡi không chạm hẳn vào đâu.', examples: [{ hanzi: '中國', pinyin: 'Zhōngguó', meaning: 'Trung Quốc' }, { hanzi: '知道', pinyin: 'zhīdào', meaning: 'biết' }] },
-      { pinyin: 'ch', ipa: '[ʈʂʰ]', speak: '吃', desc: 'Như <b>zh</b> nhưng BẬT HƠI mạnh.', tip: 'Cặp đôi với zh.', examples: [{ hanzi: '吃', pinyin: 'chī', meaning: 'ăn' }, { hanzi: '車', pinyin: 'chē', meaning: 'xe' }] },
+      { pinyin: 'ch', ipa: '[ʈʂʰ]', speak: '吃', desc: 'Như <b>zh</b> nhưng BẬT HƠI mạnh.', tip: 'Cặp đôi với zh.', examples: [{ hanzi: '吃', pinyin: 'chī', meaning: 'ăn' }, { hanzi: '茶', pinyin: 'chá', meaning: 'trà' }] },
       { pinyin: 'sh', ipa: '[ʂ]', speak: '是', desc: 'Gần giống <b>s</b> tiếng Việt (giọng Nam), uốn lưỡi.', tip: 'Dày và trầm hơn "x".', examples: [{ hanzi: '是', pinyin: 'shì', meaning: 'là' }, { hanzi: '書', pinyin: 'shū', meaning: 'sách' }] },
       { pinyin: 'r', ipa: '[ʐ]', speak: '人', desc: 'Uốn lưỡi như sh nhưng RUNG dây thanh. Nghe lai giữa <b>r</b> và <b>j</b>.', tip: 'Không rung đầu lưỡi như "r" tiếng Việt.', examples: [{ hanzi: '人', pinyin: 'rén', meaning: 'người' }, { hanzi: '日本', pinyin: 'Rìběn', meaning: 'Nhật Bản' }] },
     ],
@@ -74,7 +76,7 @@ export const initialsData = [
     color: 'green',
     items: [
       { pinyin: 'z', ipa: '[ts]', speak: '字', desc: 'Phát âm như <b>ch</b> trong tiếng Việt, âm tắc sát KHÔNG bật hơi, đầu lưỡi thẳng tiếp xúc giữa hai hàm răng trên và dưới.', tip: 'Giống âm giữa trong từ "pizza".', examples: [{ hanzi: '字', pinyin: 'zì', meaning: 'chữ' }, { hanzi: '早上', pinyin: 'zǎoshang', meaning: 'buổi sáng' }] },
-      { pinyin: 'c', ipa: '[tsʰ]', speak: '菜', desc: 'Đặt lưỡi giống chữ <b>z</b> nhưng BẬT HƠI mạnh.', tip: 'Giống "ts" trong "cats" kèm luồng hơi.', examples: [{ hanzi: '菜', pinyin: 'cài', meaning: 'món ăn, rau' }, { hanzi: '次', pinyin: 'cì', meaning: 'lần' }] },
+      { pinyin: 'c', ipa: '[tsʰ]', speak: '菜', desc: 'Đặt lưỡi giống chữ <b>z</b> nhưng BẬT HƠI mạnh.', tip: 'Giống "ts" trong "cats" kèm luồng hơi.', examples: [{ hanzi: '菜', pinyin: 'cài', meaning: 'món ăn, rau' }, { hanzi: '草', pinyin: 'cǎo', meaning: 'cỏ' }] },
       { pinyin: 's', ipa: '[s]', speak: '三', desc: 'Giống <b>x</b> tiếng Việt, đầu lưỡi sát răng cửa.', tip: 'Phẳng và mỏng, khác hẳn "sh" uốn lưỡi.', examples: [{ hanzi: '三', pinyin: 'sān', meaning: 'số ba' }, { hanzi: '四', pinyin: 'sì', meaning: 'số bốn' }] },
     ],
   },
@@ -104,7 +106,7 @@ export const finalsData = [
     hint: '6 nguyên âm gốc. Nắm chắc nhóm này thì các vần còn lại chỉ là ghép lại.',
     color: 'violet',
     items: [
-      { pinyin: 'a', ipa: '[a]', speak: '啊', desc: 'Há to miệng, lưỡi hạ thấp. Giống <b>a</b> tiếng Việt.', examples: [{ hanzi: '媽', pinyin: 'mā', meaning: 'mẹ' }, { hanzi: '大', pinyin: 'dà', meaning: 'to' }] },
+      { pinyin: 'a', ipa: '[a]', speak: '啊', desc: 'Há to miệng, lưỡi hạ thấp. Giống <b>a</b> tiếng Việt.', examples: [{ hanzi: '媽媽', pinyin: 'māma', meaning: 'mẹ' }, { hanzi: '大', pinyin: 'dà', meaning: 'to' }] },
       { pinyin: 'o', ipa: '[o]', speak: '哦', desc: 'Tròn môi, lưỡi lùi sau. Giống chữ <b>ô</b> trong tiếng Việt khi kéo dài nếu đứng 1 mình, nếu đi kèm với thanh mẫu thì đọc giống <b>uô</b>. ', examples: [{ hanzi: '我', pinyin: 'wǒ', meaning: 'tôi' }, { hanzi: '波', pinyin: 'bō', meaning: 'sóng' }] },
       { pinyin: 'e', ipa: '[ɤ]', speak: '餓', desc: 'Miệng hé giẹp, lưỡi lùi. Giống <b>ưa</b> tiếng Việt.', note: 'Chữ <b>e</b> đọc là <b>ơ</b> khi đi với thanh mẫu <b>d · m · l · n</b> và KHÔNG mang thanh điệu. Tất cả trường hợp còn lại đều đọc là <b>ưa</b>.', examples: [{ hanzi: '餓', pinyin: 'è', meaning: 'đói' }, { hanzi: '喝', pinyin: 'hē', meaning: 'uống' }] },
       { pinyin: 'i', ipa: '[i]', speak: '一', desc: 'Môi giẹp sang hai bên, lưỡi nâng cao. Giống <b>i</b> tiếng Việt.', note: 'Đứng một mình viết là <b>yi</b>.', examples: [{ hanzi: '你', pinyin: 'nǐ', meaning: 'bạn' }, { hanzi: '七', pinyin: 'qī', meaning: 'bảy' }] },
@@ -163,12 +165,12 @@ export const finalsData = [
     items: [
       { pinyin: 'ua', ipa: '[ua]', speak: '花', desc: '<b>u</b> lướt sang <b>a</b>.', note: 'Viết riêng: <b>wa</b>.', examples: [{ hanzi: '花', pinyin: 'huā', meaning: 'hoa' }, { hanzi: '娃娃', pinyin: 'wáwa', meaning: 'búp bê' }] },
       { pinyin: 'uo', ipa: '[uo]', speak: '說', desc: '<b>u</b> lướt sang <b>ô</b>.', note: 'Viết riêng: <b>wo</b>.', examples: [{ hanzi: '說', pinyin: 'shuō', meaning: 'nói' }, { hanzi: '我', pinyin: 'wǒ', meaning: 'tôi' }] },
-      { pinyin: 'uai', ipa: '[uai]', speak: '快', desc: '<b>u</b> + <b>ai</b>.', note: 'Viết riêng: <b>wai</b>.', examples: [{ hanzi: '快', pinyin: 'kuài', meaning: 'nhanh' }, { hanzi: '外面', pinyin: 'wàimiàn', meaning: 'bên ngoài' }] },
+      { pinyin: 'uai', ipa: '[uai]', speak: '快', desc: '<b>u</b> + <b>ai</b>.', note: 'Viết riêng: <b>wai</b>.', examples: [{ hanzi: '快', pinyin: 'kuài', meaning: 'nhanh' }, { hanzi: '外國', pinyin: 'wàiguó', meaning: 'nước ngoài' }] },
       { pinyin: 'ui', ipa: '[uei]', speak: '對', desc: 'Viết tắt của <b>uei</b> — vẫn phải đọc âm <b>ê</b> ở giữa.', note: 'Viết riêng: <b>wei</b>.', examples: [{ hanzi: '對', pinyin: 'duì', meaning: 'đúng' }, { hanzi: '為什麼', pinyin: 'wèishénme', meaning: 'tại sao' }] },
       { pinyin: 'uan', ipa: '[uan]', speak: '短', desc: '<b>u</b> + <b>an</b>.', note: 'Viết riêng: <b>wan</b>.', examples: [{ hanzi: '短', pinyin: 'duǎn', meaning: 'ngắn' }, { hanzi: '晚上', pinyin: 'wǎnshang', meaning: 'buổi tối' }] },
       { pinyin: 'un', ipa: '[uən]', speak: '春', desc: 'Viết tắt của <b>uen</b> — có âm <b>ơ</b> mờ ở giữa.', note: 'Viết riêng: <b>wen</b>.', examples: [{ hanzi: '春天', pinyin: 'chūntiān', meaning: 'mùa xuân' }, { hanzi: '問', pinyin: 'wèn', meaning: 'hỏi' }] },
       { pinyin: 'uang', ipa: '[uaŋ]', speak: '光', desc: '<b>u</b> + <b>ang</b>.', note: 'Viết riêng: <b>wang</b>.', examples: [{ hanzi: '光', pinyin: 'guāng', meaning: 'ánh sáng' }, { hanzi: '王', pinyin: 'wáng', meaning: 'vua, họ Vương' }] },
-      { pinyin: 'ueng', ipa: '[uəŋ]', speak: '翁', desc: '<b>u</b> + <b>eng</b>. Chỉ xuất hiện ở dạng <b>weng</b>, không ghép thanh mẫu.', examples: [{ hanzi: '老翁', pinyin: 'lǎowēng', meaning: 'ông lão' }] },
+      { pinyin: 'ueng', ipa: '[uəŋ]', speak: '翁', desc: '<b>u</b> + <b>eng</b>. Chỉ xuất hiện ở dạng <b>weng</b>, không ghép thanh mẫu.', examples: [{ hanzi: '翁', pinyin: 'wēng', meaning: 'ông lão' }] },
     ],
   },
   {
@@ -236,22 +238,22 @@ export const tonesData = [
   },
 ];
 
-// Bộ 5 chữ cùng âm "ma" — kinh điển để cảm nhận sự khác biệt của thanh điệu
+// Bộ 4 chữ cùng âm "bao" — cảm nhận sự khác biệt của thanh điệu. Cả bộ là bản thu cùng MỘT giọng
+// trong bài phát âm của sách (bộ "ma" trước đây không có bản thu thật cho 媽/嗎, phải đọc bằng giọng máy).
 export const toneMinimalSet = {
-  syllable: 'ma',
+  syllable: 'bao',
   items: [
-    { hanzi: '媽', pinyin: 'mā', tone: 1, meaning: 'mẹ' },
-    { hanzi: '麻', pinyin: 'má', tone: 2, meaning: 'cây gai' },
-    { hanzi: '馬', pinyin: 'mǎ', tone: 3, meaning: 'con ngựa' },
-    { hanzi: '罵', pinyin: 'mà', tone: 4, meaning: 'mắng' },
-    { hanzi: '嗎', pinyin: 'ma', tone: 0, meaning: 'trợ từ hỏi' },
+    { hanzi: '包', pinyin: 'bāo', tone: 1, meaning: 'cái bao, gói' },
+    { hanzi: '薄', pinyin: 'báo', tone: 2, meaning: 'mỏng' },
+    { hanzi: '飽', pinyin: 'bǎo', tone: 3, meaning: 'no (bụng)' },
+    { hanzi: '報', pinyin: 'bào', tone: 4, meaning: 'báo, tờ báo' },
   ],
 };
 
 // Các bộ tối thiểu khác để luyện nghe
 export const toneDrills = [
   { syllable: 'yi', items: [{ hanzi: '一', pinyin: 'yī', tone: 1, meaning: 'một' }, { hanzi: '姨', pinyin: 'yí', tone: 2, meaning: 'dì' }, { hanzi: '椅', pinyin: 'yǐ', tone: 3, meaning: 'ghế' }, { hanzi: '意', pinyin: 'yì', tone: 4, meaning: 'ý' }] },
-  { syllable: 'tang', items: [{ hanzi: '湯', pinyin: 'tāng', tone: 1, meaning: 'canh' }, { hanzi: '糖', pinyin: 'táng', tone: 2, meaning: 'đường' }, { hanzi: '躺', pinyin: 'tǎng', tone: 3, meaning: 'nằm' }, { hanzi: '燙', pinyin: 'tàng', tone: 4, meaning: 'nóng bỏng' }] },
+  { syllable: 'fei', items: [{ hanzi: '飛', pinyin: 'fēi', tone: 1, meaning: 'bay' }, { hanzi: '肥', pinyin: 'féi', tone: 2, meaning: 'béo' }, { hanzi: '匪', pinyin: 'fěi', tone: 3, meaning: 'kẻ cướp' }, { hanzi: '肺', pinyin: 'fèi', tone: 4, meaning: 'phổi' }] },
   { syllable: 'wen', items: [{ hanzi: '溫', pinyin: 'wēn', tone: 1, meaning: 'ấm' }, { hanzi: '文', pinyin: 'wén', tone: 2, meaning: 'văn' }, { hanzi: '穩', pinyin: 'wěn', tone: 3, meaning: 'vững' }, { hanzi: '問', pinyin: 'wèn', tone: 4, meaning: 'hỏi' }] },
 ];
 
@@ -263,7 +265,7 @@ export const toneSandhi = [
     formula: '3 + 3 → 2 + 3',
     examples: [
       { key: 'ni-hao', hanzi: '你好', written: 'nǐ hǎo', spoken: 'ní hǎo', meaning: 'xin chào' },
-      { hanzi: '很好', written: 'hěn hǎo', spoken: 'hén hǎo', meaning: 'rất tốt' },
+      { hanzi: '老闆', written: 'lǎo bǎn', spoken: 'láo bǎn', meaning: 'ông chủ' },
       { hanzi: '可以', written: 'kě yǐ', spoken: 'ké yǐ', meaning: 'có thể' },
     ],
     note: 'Chỉ đổi khi ĐỌC, chữ pinyin viết vẫn giữ nguyên dấu gốc.',
@@ -274,7 +276,6 @@ export const toneSandhi = [
     formula: '3 + 3 + 3 → 2 + 2 + 3',
     examples: [
       { key: 'wo-hen-hao', hanzi: '我很好', written: 'wǒ hěn hǎo', spoken: 'wó hén hǎo', meaning: 'tôi rất khoẻ' },
-      { hanzi: '展覽館', written: 'zhǎn lǎn guǎn', spoken: 'zhán lán guǎn', meaning: 'nhà triển lãm' },
     ],
   },
   {
@@ -299,7 +300,7 @@ export const toneSandhi = [
       { key: 'yi-tian', hanzi: '一天', written: 'yī tiān', spoken: 'yì tiān', meaning: 'một ngày' },
       { key: 'yi-nian', hanzi: '一年', written: 'yī nián', spoken: 'yì nián', meaning: 'một năm' },
       { key: 'yi-miao', hanzi: '一秒', written: 'yī miǎo', spoken: 'yì miǎo', meaning: 'một giây' },
-      { hanzi: '第一', written: 'dì yī', spoken: 'dì yī', meaning: 'thứ nhất (giữ nguyên)' },
+      { hanzi: '一', written: 'yī', spoken: 'yī', meaning: 'một — đứng một mình (giữ nguyên)' },
     ],
   },
 ];
@@ -319,7 +320,7 @@ export const toneMarkRules = [
   {
     rule: 'Chỉ có <b>i</b>, <b>u</b>, <b>ü</b> thì đánh vào chữ ĐỨNG SAU',
     example: 'liù (vào u) · duì (vào i)',
-    samples: [{ hanzi: '六', pinyin: 'liù' }, { hanzi: '對', pinyin: 'duì' }, { hanzi: '牛', pinyin: 'niú' }],
+    samples: [{ hanzi: '六', pinyin: 'liù' }, { hanzi: '對', pinyin: 'duì' }, { hanzi: '球', pinyin: 'qiú' }],
   },
   {
     rule: 'Đánh dấu lên <b>i</b> thì bỏ dấu chấm',
@@ -357,7 +358,7 @@ export const pronQuiz = {
     // --- Kiến thức (know) ---
     { type: 'know', question: 'Nhóm thanh mẫu nào CHỈ ghép được với vận mẫu i và ü?', options: ['b, p, m, f', 'j, q, x', 'zh, ch, sh, r', 'z, c, s'], answer: 1, explain: 'j, q, x là âm mặt lưỡi, chỉ đi với i và ü.' },
     { type: 'know', question: 'Cặp nào KHÁC nhau ở chỗ bật hơi / không bật hơi?', options: ['n và l', 'g và k', 'zh và z', 'x và sh'], answer: 1, explain: 'g không bật hơi, k bật hơi. n/l khác vị trí hơi thoát.' },
-    { type: 'know', question: 'Thanh mẫu nào phải UỐN lưỡi?', options: ['z, c, s', 'j, q, x', 'zh, ch, sh, r', 'd, t, n, l'], answer: 2, explain: 'zh, ch, sh, r là nhóm âm quặt lưỡi.' },
+    { type: 'know', question: 'Thanh mẫu nào phải UỐN lưỡi?', options: ['z, c, s', 'j, q, x', 'zh, ch, sh, r', 'd, t, n, l'], answer: 2, explain: 'zh, ch, sh, r là nhóm âm uốn lưỡi.' },
     { type: 'know', question: 'Âm "f" và "h" khác nhau thế nào?', options: ['f là môi-răng, h là gốc lưỡi', 'f bật hơi, h không bật hơi', 'f uốn lưỡi, h không uốn', 'Không khác'], answer: 0, explain: 'f: răng trên cắn nhẹ môi dưới. h: hơi thoát ra từ khe gốc lưỡi.' },
     { type: 'know', question: 'Âm "n" và "l" khác nhau thế nào?', options: ['n là mũi, l là bên lưỡi', 'n bật hơi, l không', 'n uốn lưỡi, l không', 'Giống nhau'], answer: 0, explain: 'n: hơi thoát qua mũi. l: hơi thoát hai bên lưỡi.' },
     { type: 'know', question: 'Thanh mẫu nào là hữu thanh (dây thanh rung)?', options: ['b', 'r', 'p', 'k'], answer: 1, explain: 'Trong tiếng Trung, chỉ có r là phụ âm hữu thanh (dây thanh rung khi phát âm).' },
@@ -387,19 +388,19 @@ export const pronQuiz = {
     { type: 'know', question: 'Vận mẫu <b>un</b> thực chất đọc là gì?', options: ['un', 'uen', 'ün', 'uən'], answer: 1, explain: 'un = uen, khi đọc phải có âm ê nhẹ ở giữa.' },
   ],
   tones: [
-    // --- Nghe (listen) — dùng TTS với từ đơn rõ ràng, dễ phân biệt ---
-    { type: 'listen', speak: '天', question: 'Chữ này mang thanh mấy?', options: ['Thanh 1', 'Thanh 2', 'Thanh 3', 'Thanh 4'], answer: 0, explain: '天 tiān — thanh 1, cao và đều (như kéo dài một nốt nhạc).' },
-    { type: 'listen', speak: '書', question: 'Chữ này mang thanh mấy?', options: ['Thanh 1', 'Thanh 2', 'Thanh 3', 'Thanh 4'], answer: 0, explain: '書 shū — thanh 1, cao đều.' },
-    { type: 'listen', speak: '人', question: 'Chữ này mang thanh mấy?', options: ['Thanh 1', 'Thanh 2', 'Thanh 3', 'Thanh 4'], answer: 1, explain: '人 rén — thanh 2, đi lên (như hỏi "Hả?").' },
-    { type: 'listen', speak: '茶', question: 'Chữ này mang thanh mấy?', options: ['Thanh 1', 'Thanh 2', 'Thanh 3', 'Thanh 4'], answer: 1, explain: '茶 chá — thanh 2, đi lên.' },
-    { type: 'listen', speak: '水', question: 'Chữ này mang thanh mấy?', options: ['Thanh 1', 'Thanh 2', 'Thanh 3', 'Thanh 4'], answer: 2, explain: '水 shuǐ — thanh 3, xuống rồi lên (như ngạc nhiên "Ủa?").' },
-    { type: 'listen', speak: '馬', question: 'Chữ này mang thanh mấy?', options: ['Thanh 1', 'Thanh 2', 'Thanh 3', 'Thanh 4'], answer: 2, explain: '馬 mǎ — thanh 3, xuống rồi lên.' },
-    { type: 'listen', speak: '大', question: 'Chữ này mang thanh mấy?', options: ['Thanh 1', 'Thanh 2', 'Thanh 3', 'Thanh 4'], answer: 3, explain: '大 dà — thanh 4, rơi nhanh từ cao xuống thấp.' },
-    { type: 'listen', speak: '四', question: 'Chữ này mang thanh mấy?', options: ['Thanh 1', 'Thanh 2', 'Thanh 3', 'Thanh 4'], answer: 3, explain: '四 sì — thanh 4, rơi mạnh.' },
-    { type: 'listen', speak: '花', question: 'Chữ này mang thanh mấy?', options: ['Thanh 1', 'Thanh 2', 'Thanh 3', 'Thanh 4'], answer: 0, explain: '花 huā — thanh 1, cao đều.' },
-    { type: 'listen', speak: '學', question: 'Chữ này mang thanh mấy?', options: ['Thanh 1', 'Thanh 2', 'Thanh 3', 'Thanh 4'], answer: 1, explain: '學 xué — thanh 2, đi lên.' },
-    { type: 'listen', speak: '你', question: 'Chữ này mang thanh mấy?', options: ['Thanh 1', 'Thanh 2', 'Thanh 3', 'Thanh 4'], answer: 2, explain: '你 nǐ — thanh 3, xuống rồi lên.' },
-    { type: 'listen', speak: '去', question: 'Chữ này mang thanh mấy?', options: ['Thanh 1', 'Thanh 2', 'Thanh 3', 'Thanh 4'], answer: 3, explain: '去 qù — thanh 4, rơi nhanh.' },
+    // --- Nghe (listen) — chữ đơn rõ thanh; âm thật tra theo chữ + pinyin trong pronSgkAudio.js ---
+    { type: 'listen', pinyin: 'tiān', speak: '天', question: 'Chữ này mang thanh mấy?', options: ['Thanh 1', 'Thanh 2', 'Thanh 3', 'Thanh 4'], answer: 0, explain: '天 tiān — thanh 1, cao và đều (như kéo dài một nốt nhạc).' },
+    { type: 'listen', pinyin: 'shū', speak: '書', question: 'Chữ này mang thanh mấy?', options: ['Thanh 1', 'Thanh 2', 'Thanh 3', 'Thanh 4'], answer: 0, explain: '書 shū — thanh 1, cao đều.' },
+    { type: 'listen', pinyin: 'rén', speak: '人', question: 'Chữ này mang thanh mấy?', options: ['Thanh 1', 'Thanh 2', 'Thanh 3', 'Thanh 4'], answer: 1, explain: '人 rén — thanh 2, đi lên (như hỏi "Hả?").' },
+    { type: 'listen', pinyin: 'chá', speak: '茶', question: 'Chữ này mang thanh mấy?', options: ['Thanh 1', 'Thanh 2', 'Thanh 3', 'Thanh 4'], answer: 1, explain: '茶 chá — thanh 2, đi lên.' },
+    { type: 'listen', pinyin: 'shuǐ', speak: '水', question: 'Chữ này mang thanh mấy?', options: ['Thanh 1', 'Thanh 2', 'Thanh 3', 'Thanh 4'], answer: 2, explain: '水 shuǐ — thanh 3, xuống rồi lên (như ngạc nhiên "Ủa?").' },
+    { type: 'listen', pinyin: 'mǎ', speak: '馬', question: 'Chữ này mang thanh mấy?', options: ['Thanh 1', 'Thanh 2', 'Thanh 3', 'Thanh 4'], answer: 2, explain: '馬 mǎ — thanh 3, xuống rồi lên.' },
+    { type: 'listen', pinyin: 'dà', speak: '大', question: 'Chữ này mang thanh mấy?', options: ['Thanh 1', 'Thanh 2', 'Thanh 3', 'Thanh 4'], answer: 3, explain: '大 dà — thanh 4, rơi nhanh từ cao xuống thấp.' },
+    { type: 'listen', pinyin: 'sì', speak: '四', question: 'Chữ này mang thanh mấy?', options: ['Thanh 1', 'Thanh 2', 'Thanh 3', 'Thanh 4'], answer: 3, explain: '四 sì — thanh 4, rơi mạnh.' },
+    { type: 'listen', pinyin: 'huā', speak: '花', question: 'Chữ này mang thanh mấy?', options: ['Thanh 1', 'Thanh 2', 'Thanh 3', 'Thanh 4'], answer: 0, explain: '花 huā — thanh 1, cao đều.' },
+    { type: 'listen', pinyin: 'xué', speak: '學', question: 'Chữ này mang thanh mấy?', options: ['Thanh 1', 'Thanh 2', 'Thanh 3', 'Thanh 4'], answer: 1, explain: '學 xué — thanh 2, đi lên.' },
+    { type: 'listen', pinyin: 'nǐ', speak: '你', question: 'Chữ này mang thanh mấy?', options: ['Thanh 1', 'Thanh 2', 'Thanh 3', 'Thanh 4'], answer: 2, explain: '你 nǐ — thanh 3, xuống rồi lên.' },
+    { type: 'listen', pinyin: 'qù', speak: '去', question: 'Chữ này mang thanh mấy?', options: ['Thanh 1', 'Thanh 2', 'Thanh 3', 'Thanh 4'], answer: 3, explain: '去 qù — thanh 4, rơi nhanh.' },
     // --- Kiến thức (know) ---
     { type: 'know', question: '你好 khi ĐỌC sẽ thành gì?', options: ['nǐ hǎo', 'ní hǎo', 'nì hǎo', 'nī hǎo'], answer: 1, explain: 'Hai thanh 3 liền nhau → chữ đầu đọc thành thanh 2.' },
     { type: 'know', question: '不 đứng trước thanh 4 thì đọc là?', options: ['bù', 'bú', 'bǔ', 'bū'], answer: 1, explain: 'bù + thanh 4 → bú. Ví dụ 不是 bú shì.' },

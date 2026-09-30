@@ -309,20 +309,37 @@ async function kiemTracNghiem() {
     { subs: idx.thoidaiSubLessons, lessons: idx.thoidaiLessons },
   ];
   const kho = {};
+  const hoiThoai = {};
   for (const f of fs.readdirSync(P('public/data/giaotrinh'))) {
-    if (f.endsWith('.json')) kho[f.replace(/\.json$/, '')] = J(P('public/data/giaotrinh', f)).v || [];
+    if (!f.endsWith('.json')) continue;
+    const d = J(P('public/data/giaotrinh', f));
+    kho[f.replace(/\.json$/, '')] = d.v || [];
+    Object.assign(hoiThoai, d.d || {});
   }
+  // chữ Hán -> các phiên âm có trong kho (soi mồi nhử ĐỒNG ÂM của câu nghe chọn chữ)
+  const amCua = new Map();
+  for (const ds of Object.values(kho)) for (const w of ds) {
+    const h = strip(w.hanzi);
+    if (!amCua.has(h)) amCua.set(h, new Set());
+    amCua.get(h).add(chuan(w.pinyin));
+  }
+  const coFileAm = new Map();
+  const coAm = (a) => {
+    if (!coFileAm.has(a)) coFileAm.set(a, fs.existsSync(P('public', String(a).replace(/^\//, ''))));
+    return coFileAm.get(a);
+  };
 
   for (const B of bo) {
     if (!B.subs) continue;
     for (const sub of B.subs) {
-      const N = { vocab: kho, subs: B.subs, lessons: B.lessons };
+      const N = { vocab: kho, subs: B.subs, lessons: B.lessons, dialogues: hoiThoai };
       const soTu = (kho[String(sub.parentId)] || []).slice(sub.from - 1, sub.to).length;
       let raDuoc = 0;
       // Đề sinh NGẪU NHIÊN mỗi lượt (dạng câu + mồi nhử), nên soi dữ liệu suông không kết luận
       // được gì — phải sinh thật nhiều vòng rồi soi từng câu đúng như học viên nhận được.
       for (let v = 0; v < VONG; v++) {
-        const qs = generateQuiz(sub.id, N);
+        // bật cả câu NGHE — đúng như trang Bài tập giáo trình gọi (main.js `_ddExBatDauLuot`)
+        const qs = generateQuiz(sub.id, N, { nghe: true });
         if (!qs || !qs.length) continue;
         raDuoc++;
         for (const q of qs) {
@@ -334,7 +351,19 @@ async function kiemTracNghiem() {
           const dung = opts[q.correctIdx];
 
           if (!(q.options[q.correctIdx] || {}).correct) bao('correct-idx-sai', `correctIdx=${q.correctIdx} không trỏ vào ô đúng`);
-          if (!String(q.prompt ?? '').trim()) bao('de-trong', 'đề không có nội dung');
+          // câu nghe: đề là file âm thanh (prompt để trống là đúng)
+          if (!String(q.prompt ?? '').trim() && !q.audio) bao('de-trong', 'đề không có nội dung');
+          if (q.audio && !coAm(q.audio)) bao('nghe-mat-file', `không có file âm thanh ${q.audio}`);
+          if (q.type === 'nghe-cau-thoai' && !(q.end > q.start)) bao('nghe-doan-sai', `đoạn ${q.start}–${q.end} không hợp lệ`);
+          if (q.type === 'nghe-chon-chu') {
+            // mơ hồ thật = mồi nhử có một cách đọc (ở BẤT KỲ bài nào) trùng đúng âm clip đang phát
+            const amClip = chuan(q.wordPinyin);
+            q.options.forEach((o, i) => {
+              if (i === q.correctIdx) return;
+              const amNhu = amCua.get(strip(o.text)) || new Set();
+              if (amNhu.has(amClip)) bao('nghe-dong-am', `mồi nhử "${o.text}" có cách đọc "${q.wordPinyin}" giống hệt clip của "${q.wordHanzi}" — nghe không phân biệt được`);
+            });
+          }
           if (opts.some((o) => !o)) bao('lua-chon-rong', 'có lựa chọn rỗng');
           const c = opts.map(chuan);
           if (new Set(c).size !== c.length) bao('lua-chon-trung', `lựa chọn trùng nhau: ${opts.join(' | ')}`);

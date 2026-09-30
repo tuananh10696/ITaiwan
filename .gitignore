@@ -157,3 +157,17 @@ server/config/ca.pem
 
 # Danh sách chữ cần sinh mp3 do va-audio-thieu.mjs ghi ra — file làm việc tạm, sinh lại được
 scripts/data-cache/audio-can-tts.json
+
+# Bộ nghe-lại clip từ vựng (kiem-noi-dung-audio): wav tạm + kết quả nhận dạng — sinh lại được
+scripts/data-cache/asr/
+
+# File làm việc tạm 2026-10-01 — sinh lại được:
+#   phat-am/  bản ghi bài phát âm quyển 1 + các đoạn cắt + đo cao độ (cat-phat-am-sgk.py tự tải lại)
+#   sbt/      file nghe sách bài tập tải về để khảo sát
+#   lo-*.json, dich-lo.py, ngu-phap-*.json  lô dịch câu ví dụ ngữ pháp (bản chốt: scripts/du-lieu/)
+scripts/data-cache/thoidai/phat-am/
+scripts/data-cache/thoidai/sbt/
+scripts/data-cache/thoidai/lo-*.json
+scripts/data-cache/thoidai/dich-lo.py
+scripts/data-cache/thoidai/ngu-phap-*.json
+scripts/data-cache/ngu-phap-*.json

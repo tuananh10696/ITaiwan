@@ -59,7 +59,7 @@ const ghiChu = [];
 const bao = (s) => { ghiChu.push(s); console.log(s); };
 
 // ============================================================ 0) bảng tra: chữ Hán -> nguồn tốt nhất
-const banThu = new Map();      // chữ Hán -> bản thu THẬT đã kiểm
+const banThu = new Map();      // "chữ|cách đọc" -> bản thu THẬT đã kiểm
 const mpGiongMay = new Map();  // chữ Hán -> mp3 giọng máy đã có
 
 /** Clip cắt hụt: dài dưới 0,24s mỗi âm tiết. */
@@ -76,8 +76,21 @@ function doDai(src) {
   _doDai.set(src, d);
   return d;
 }
+/**
+ * Clip ĐỌC SAI TỪ — đã NGHE LẠI bằng `kiem-noi-dung-audio.py` và xác nhận (2026-09-30). Khác clip
+ * cắt hụt: có tiếng, dài bình thường, nhưng đọc thiếu âm tiết ("美國" chỉ còn "國") hoặc đọc sang
+ * từ khác. Không bộ kiểm nào dựa trên FILE bắt được, nên danh sách nằm trong repo:
+ * `scripts/audio-clip-sai.json` = { "B1L01-1-17": "美國 — nghe ra: guo", … }.
+ */
+const CLIP_SAI = (() => {
+  try { return new Set(Object.keys(JSON.parse(fs.readFileSync(path.join(ROOT, 'scripts/audio-clip-sai.json'), 'utf8')))); }
+  catch { return new Set(); }
+})();
+const laClipSai = (src) => CLIP_SAI.has(path.basename(String(src || ''), '.mp3'));
+
 const clipHut = (hanzi, src) => {
   if (!coFile(src)) return false;
+  if (laClipSai(src)) return true;
   const d = doDai(src);
   return d > 0 && d / soAmTiet(hanzi) < 0.24;
 };
@@ -87,21 +100,36 @@ for (const f of fs.readdirSync(path.join(PUB, 'data/giaotrinh'))) {
   const d = JSON.parse(fs.readFileSync(path.join(PUB, 'data/giaotrinh', f), 'utf8'));
   for (const w of d.v || []) nguonGiaoTrinh.push(w);
 }
-const nhoNguon = (w) => {
+/**
+ * Khoá tra bản thu = CHỮ + CÁCH ĐỌC (giữ dấu thanh). Tra theo chữ Hán thôi là sai với chữ đa âm:
+ * lượt chạy 2026-10-01 đã gán clip 得 "děi" cho mục 得 "de", 長 "zhǎng" cho 長 "cháng", 還 "hái" cho
+ * 還 "huán", 重 "zhòng" cho 重 "chóng" — học viên nghe một đằng, thẻ ghi một nẻo.
+ */
+const pyKhoa = (p) => String(p || '').replace(/[（(].*?[）)]/g, '').split(/[/／]/)[0].normalize('NFC').toLowerCase()
+  .replace(/[^a-zāáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜü]/g, '');
+const khoaThu = (w) => `${(w.hanzi || '').trim()}|${pyKhoa(w.pinyin)}`;
+
+/** Clip `B2L02-1-01` thuộc bài td2-2 — mục GỐC của clip là mục trong bài đó đang trỏ vào nó. */
+const baiCuaClip = (src) => { const m = /B(\d)L(\d+)-/.exec(path.basename(String(src || ''))); return m ? `td${m[1]}-${+m[2]}` : null; };
+
+/** Cùng cách đọc? So cả dấu thanh, trừ biến điệu 一/不 (yī/yí/yì, bù/bú) — sách ghi theo cách đọc
+ *  trong từ, bảng TOCFL ghi thanh gốc, hai cách ghi đều đúng. */
+const chuanDoc = (p) => pyKhoa(p).replace(/y[īíǐì]/g, 'yi').replace(/b[ùú]/g, 'bu');
+const cungDoc = (a, b) => chuanDoc(a) === chuanDoc(b);
+
+const nhoMayGiong = (w) => {
   const h = (w.hanzi || '').trim();
-  if (!h) return;
-  if (w.audio && coFile(w.audio) && !clipHut(h, w.audio) && !banThu.has(h)) banThu.set(h, w.audio);
   const t = w.audioTts || w.tts;
-  if (t && coFile(t) && !mpGiongMay.has(h)) mpGiongMay.set(h, t);
+  if (h && t && coFile(t) && !mpGiongMay.has(h)) mpGiongMay.set(h, t);
 };
-nguonGiaoTrinh.forEach(nhoNguon);
+nguonGiaoTrinh.forEach(nhoMayGiong);
 
 const capFiles = fs.readdirSync(path.join(PUB, 'data/tocfl')).filter((f) => /^cap-/.test(f));
 const capData = new Map();
 for (const f of capFiles) {
   const d = JSON.parse(fs.readFileSync(path.join(PUB, 'data/tocfl', f), 'utf8'));
   capData.set(f, d);
-  (d.tu || []).forEach(nhoNguon);
+  (d.tu || []).forEach(nhoMayGiong);
 }
 
 /**
@@ -129,26 +157,96 @@ function doiTuong(txt, ten) {
   return null;
 }
 
+// ============================================================ nạp nguồn giáo trình + MỤC GỐC của clip
+// Clip `B2L02-1-01` là bản thu của một mục trong bài td2-2 — mục đó là MỤC GỐC. Mục ở bài khác (hoặc
+// TOCFL) dùng lại clip này chỉ hợp lệ khi đọc GIỐNG mục gốc. Bảng bản thu (`banThu`) chỉ dựng từ mục
+// gốc, để một lần gán nhầm không lan tiếp sang mục khác.
+const QV = [];
+for (let q = 1; q <= 5; q++) {
+  const file = path.join(ROOT, 'src/data', `thoidaiVocab${q}.js`);
+  const txt = fs.readFileSync(file, 'utf8');
+  const kh = doiTuong(txt, `thoidaiVocab${q}`);
+  if (!kh) { bao(`⚠️  không đọc được ${path.basename(file)} — bỏ qua`); continue; }
+  QV.push({ q, file, txt, kh, data: JSON.parse(txt.slice(kh.dau, kh.cuoi)) });
+}
+// Bài có HAI mục cùng chữ khác cách đọc dùng chung một clip: mục đứng trước chưa chắc là mục gốc.
+// Cách đọc thật của clip đo bằng đường cao độ (scripts/data-cache/thoidai/phat-am/cao-do.py):
+//   B3L13-1-12 đi ngang (thanh 1)   -> 空 kōng, không phải kòng
+//   B4L01-1-06 rơi mạnh (thanh 4)   -> 轉 zhuàn, không phải zhuǎn
+const CLIP_DOC = {
+  '/audio/thoidai-tu/B3L13-1-12.mp3': { hanzi: '空', pinyin: 'kōng' },
+  '/audio/thoidai-tu/B4L01-1-06.mp3': { hanzi: '轉', pinyin: 'zhuàn' },
+};
+const mucGoc = new Map(Object.entries(CLIP_DOC));     // clip -> {hanzi, pinyin} của mục gốc
+for (const { data } of QV) for (const [bai, ds] of Object.entries(data)) for (const w of ds) {
+  if (w.audio && baiCuaClip(w.audio) === bai && !mucGoc.has(w.audio)) mucGoc.set(w.audio, { hanzi: w.hanzi, pinyin: w.pinyin });
+}
+for (const [clip, g] of mucGoc) {
+  const h = (g.hanzi || '').trim();
+  if (coFile(clip) && !clipHut(h, clip) && !banThu.has(khoaThu(g))) banThu.set(khoaThu(g), clip);
+}
+// Bản ghi bài PHÁT ÂM của sách (scripts/cat-phat-am-sgk.py): các từ đọc riêng như 美國, 英國, 老師,
+// 你好, 謝謝… — giọng thật của sách, dùng cho mục từ vựng CHƯA có bản thu (xếp sau bản thu phần Từ vựng).
+{
+  const f = path.join(ROOT, 'scripts/du-lieu/phat-am-sgk.json');
+  if (fs.existsSync(f)) {
+    let them = 0;
+    for (const v of Object.values(JSON.parse(fs.readFileSync(f, 'utf8')))) {
+      if (v.loai !== 'tu' || !coFile(v.file)) continue;
+      const k = khoaThu({ hanzi: v.hz.replace(/[。！？]$/, ''), pinyin: v.py });
+      if (!banThu.has(k)) { banThu.set(k, v.file); them++; }
+    }
+    bao(`[Bài phát âm của sách] ${them} từ có bản ghi dùng được cho phần từ vựng`);
+  }
+}
+
+/** Mục mượn clip của mục gốc mà đọc KHÁC (chữ đa âm) -> coi như hỏng. */
+const muonLech = (w) => {
+  const g = mucGoc.get(w.audio);
+  return !!g && (g.hanzi || '').trim() === (w.hanzi || '').trim() && !cungDoc(g.pinyin, w.pinyin);
+};
+
+// ============================================================ chữ đơn đa âm đọc bằng giọng máy
+// Giọng máy đọc MỘT chữ đứng riêng theo cách đọc mặc định: 空 -> kōng, 長 -> zhǎng, 還 -> hái...
+// Mục ghi cách đọc khác (空 kòng, 長 cháng, 還 huán) mà không có bản thu thật thì cho giọng máy đọc
+// một chữ ĐỒNG ÂM chỉ có một cách đọc (控, 常, 環): âm phát ra y hệt, chữ hiển thị vẫn giữ nguyên.
+// Chỉ ghi những cặp đã đo lại cao độ file sinh ra (scripts/data-cache/thoidai/phat-am/cao-do.py).
+const DONG_AM_MAY = {
+  '中|zhòng': '眾', '乾|gān': '甘', '了|liǎo': '蓼', '倆|liǎng': '兩', '假|jià': '架',
+  '分|fèn': '份', '划|huá': '華', '削|xiāo/xuè': '消', '吐|tù': '兔', '好|hào': '號',
+  '彈|tán': '談', '撒|sǎ': '灑', '數|shǔ': '暑', '朝|zhāo': '招', '為|wéi': '圍',
+  '率|shuài': '帥', '盡|jìn': '進', '種|zhòng': '眾', '稱|chèng': '秤', '空|kòng': '控',
+  '著|zhuó': '酌', '處|chǔ': '楚', '行|háng': '航', '觀|guàn': '貫', '調|tiáo': '條',
+  '還|huán': '環', '重|chóng': '崇', '量|liáng': '涼', '釘|dìng': '定', '鋪|pū': '撲',
+  '長|cháng': '常',
+};
+/** Chữ đưa cho giọng máy đọc: chữ đồng âm nếu là chữ đơn đa âm đọc khác mặc định, còn lại chính nó. */
+const chuMay = (w) => DONG_AM_MAY[`${(w.hanzi || '').trim()}|${(w.pinyin || '').trim().toLowerCase()}`] || (w.hanzi || '').trim();
+
 // ============================================================ 1+2) từ vựng TOCFL
 let vaThu = 0, vaTts = 0, choSinh = 0, boClipHut = 0;
 for (const [f, d] of capData) {
   for (const w of d.tu || []) {
     const h = (w.hanzi || '').trim();
     if (!h) continue;
-    const mayHong = w.audioTts && !coFile(w.audioTts);
-    const hong = w.audio && (!coFile(w.audio) || clipHut(h, w.audio));
+    // mp3 giọng máy mất file, hoặc là chữ đơn đa âm mà mp3 đang đọc cách đọc mặc định
+    // Chưa có bản thu mà cùng chữ + cùng cách đọc có bản thu thật -> dùng (giọng máy giữ làm dự phòng)
+    if (!w.audio && banThu.has(khoaThu(w))) { w.audio = banThu.get(khoaThu(w)); vaThu++; }
+    const mayHong = w.audioTts && (!coFile(w.audioTts) || (chuMay(w) !== h && w.audioTts !== ttsPath(chuMay(w))));
+    const hong = w.audio && (!coFile(w.audio) || clipHut(h, w.audio) || muonLech(w));
     if (!hong && !mayHong) continue;
     if (hong) {
       if (clipHut(h, w.audio)) boClipHut++;
-      const thu = banThu.get(h);
+      const thu = banThu.get(khoaThu(w));
       // Bản thu thật của chính chữ đó ở bộ giáo trình -> dùng luôn, khỏi cần giọng máy.
       if (thu && thu !== w.audio) { w.audio = thu; vaThu++; if (!mayHong) continue; }
       else delete w.audio;
     }
     if (w.audio && !mayHong) continue;
-    const may = mpGiongMay.get(h) || (coTts(h) ? ttsPath(h) : null);
+    const cm = chuMay(w);
+    const may = cm !== h ? (coTts(cm) ? ttsPath(cm) : null) : (mpGiongMay.get(h) || (coTts(h) ? ttsPath(h) : null));
     if (may) { w.audioTts = may; vaTts++; }
-    else { w.audioTts = ttsPath(h); canSinh.add(h); choSinh++; }
+    else { w.audioTts = ttsPath(cm); canSinh.add(cm); choSinh++; }
   }
 }
 bao(`[TOCFL] vá bằng bản thu thật: ${vaThu} · bằng mp3 giọng máy có sẵn: ${vaTts} · chờ sinh mp3: ${choSinh}`);
@@ -156,34 +254,54 @@ if (!XEM) for (const [f, d] of capData) {
   fs.writeFileSync(path.join(PUB, 'data/tocfl', f), JSON.stringify(d));
 }
 
-// ============================================================ 2) clip cắt hụt của giáo trình
+// ============================================================ 2) clip cắt hụt / đọc sai / mượn lệch của giáo trình
 // Sửa ở NGUỒN (`src/data/thoidaiVocab<N>.js`), không sửa bản đã tách.
 let hutGt = 0;
-for (let q = 1; q <= 5; q++) {
-  const file = path.join(ROOT, 'src/data', `thoidaiVocab${q}.js`);
-  const txt = fs.readFileSync(file, 'utf8');
-  const kh = doiTuong(txt, `thoidaiVocab${q}`);
-  if (!kh) { bao(`⚠️  không đọc được ${path.basename(file)} — bỏ qua`); continue; }
-  const data = JSON.parse(txt.slice(kh.dau, kh.cuoi));
+for (const Qn of QV) {
   let doi = 0;
-  for (const ds of Object.values(data)) {
+  for (const [bai, ds] of Object.entries(Qn.data)) {
     for (const w of ds) {
       const h = (w.hanzi || '').trim();
-      if (!w.audio || !h) continue;
-      if (!clipHut(h, w.audio) && coFile(w.audio)) continue;
+      if (!h) continue;
+      const k = khoaThu(w);
+      // Chưa có bản thu mà CÙNG chữ, CÙNG cách đọc có bản thu lành ở bài khác -> dùng luôn: giọng
+      // thật của sách vẫn hơn giọng máy.
+      if (!w.audio) {
+        if (banThu.has(k)) { w.audio = banThu.get(k); doi++; hutGt++; }
+        else if (w.audioTts && (!coFile(w.audioTts) || (chuMay(w) !== h && w.audioTts !== ttsPath(chuMay(w))))) {
+          // mp3 giọng máy mất file, hoặc chữ đơn đa âm đang trỏ vào mp3 đọc cách đọc mặc định
+          w.audioTts = ttsPath(chuMay(w));
+          if (!coFile(w.audioTts)) canSinh.add(chuMay(w));
+          doi++; hutGt++;
+        }
+        continue;
+      }
+      const hong = !coFile(w.audio) || clipHut(h, w.audio) || muonLech(w);
+      if (!hong) {
+        // bản thu thật dùng được; mp3 giọng máy DỰ PHÒNG (khi tải clip lỗi) cũng phải có file
+        if (w.audioTts && !coFile(w.audioTts)) {
+          w.audioTts = ttsPath(chuMay(w));
+          if (!coFile(w.audioTts)) canSinh.add(chuMay(w));
+          doi++; hutGt++;
+        }
+        continue;
+      }
+      const thuKhac = banThu.get(k);
+      if (thuKhac && thuKhac !== w.audio) { w.audio = thuKhac; doi++; hutGt++; continue; }
       delete w.audio;
-      const may = mpGiongMay.get(h) || (coTts(h) ? ttsPath(h) : null);
-      w.audioTts = may || ttsPath(h);
-      if (!may) canSinh.add(h);
+      const cm = chuMay(w);
+      const may = cm !== h ? (coTts(cm) ? ttsPath(cm) : null) : (mpGiongMay.get(h) || (coTts(h) ? ttsPath(h) : null));
+      w.audioTts = may || ttsPath(cm);
+      if (!may) canSinh.add(cm);
       doi++; hutGt++;
     }
   }
   if (doi && !XEM) {
     // Chỉ thay ĐÚNG object literal của export này — file còn export `thoidaiRange<N>` ở dưới,
     // cắt theo `indexOf('export const')` là xoá mất nó (và mọi bài con mất mốc from/to).
-    fs.writeFileSync(file, txt.slice(0, kh.dau) + JSON.stringify(data, null, 1) + txt.slice(kh.cuoi), 'utf8');
+    fs.writeFileSync(Qn.file, Qn.txt.slice(0, Qn.kh.dau) + JSON.stringify(Qn.data, null, 1) + Qn.txt.slice(Qn.kh.cuoi), 'utf8');
   }
-  if (doi) bao(`[Giáo trình Q${q}] ${doi} từ đổi từ clip cắt hụt sang mp3 giọng máy`);
+  if (doi) bao(`[Giáo trình Q${Qn.q}] ${doi} mục đổi nguồn âm thanh`);
 }
 bao(`[Giáo trình] tổng ${hutGt} từ · [TOCFL] ${boClipHut} mục cùng dùng clip hụt đó`);
 

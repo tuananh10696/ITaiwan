@@ -255,8 +255,8 @@ input, select, textarea {
 .vocab-pinyin, .quiz-pinyin, .dialogue-pinyin,
 .fc-pinyin, .fc-back-pinyin, .hw-char-pinyin,
 .dict-dropdown-pinyin, .dict-ex-pinyin,
-.dd-vocab-pinyin, .dd-fc-pinyin, .dd-ex-pinyin, .dd-dlg-cue-pinyin,
-.pron-card-py, .pron-pair-py, .pron-ex-py, .mark-chip-py, .tone-chip-py,
+.dd-vocab-pinyin, .dd-fc-pinyin, .dd-ex-pinyin, .dd-dlg-cue-pinyin, .dd-gram-ex-py,
+.pron-card-py, .pron-pair-py, .pron-pair-hz, .pron-ex-py, .mark-chip-py, .tone-chip-py,
 .py-cell, .py-ini, .py-corner, .py-task,
 .mark-rule code, .tone-drill-head b, .sandhi-head h4 {
     font-family: var(--font-pinyin);
@@ -8770,10 +8770,33 @@ input, select, textarea {
 .dd-ex-q-type { font-size: 11px; color: var(--text-secondary); }
 .dd-ex-q-prompt { text-align: center; padding: 12px 0; }
 .dd-ex-prompt-main { font-size: 28px; font-weight: 700; display: block; color: var(--text-primary); }
+/* Câu dạng NGHE: đề là một nút phát âm thay cho chữ */
+.dd-ex-nghe {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 12px 22px; border-radius: 999px; border: 2px solid var(--primary);
+  background: var(--primary-bg); color: var(--primary);
+  font-size: 16px; font-weight: 700; cursor: pointer; font-family: inherit;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.dd-ex-nghe:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,.08); }
+.dd-ex-nghe i { font-size: 20px; }
+.dd-ex-nghe.is-playing { background: var(--primary); color: #fff; }
 .dd-ex-prompt-sub { font-size: 14px; color: var(--text-secondary); display: block; margin-top: 4px; }
 
 /* --- Options --- */
 .dd-ex-options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+/* đáp án là cả câu (nghe câu hội thoại): một cột cho dễ đọc */
+.dd-ex-options.is-dai { grid-template-columns: 1fr; }
+/* Thẻ nghe sách bài tập */
+.dd-sbt-list { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; text-align: left; width: 100%; max-width: 560px; align-self: center; }
+.dd-sbt-item { display: flex; align-items: center; gap: 12px; }
+.dd-sbt-phan { min-width: 64px; font-weight: 700; color: var(--text-primary); }
+.dd-sbt-item audio { flex: 1; min-width: 0; height: 38px; }
+@media (max-width: 520px) {
+  .dd-sbt-item { flex-direction: column; align-items: stretch; gap: 4px; }
+  /* xếp cột thì flex:1 thành chiều CAO (flex-basis 0) -> trình phát co về 0px */
+  .dd-sbt-item audio { flex: none; width: 100%; }
+}
 .dd-ex-opt {
   display: flex; align-items: center; gap: 8px;
   padding: 10px 12px; border-radius: 8px;
@@ -8957,6 +8980,12 @@ input, select, textarea {
   font-weight: 600;
   color: var(--text-primary);
   line-height: 1.6;
+}
+
+.dd-gram-ex-py {
+  font-size: 15px;
+  color: var(--primary, #265648);
+  line-height: 1.5;
 }
 
 .dd-gram-ex-trans {

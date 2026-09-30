@@ -103,6 +103,8 @@ npm run luyentap:kiem    # đối chiếu đáp án với dữ liệu sách
 npm run baitap:kiem-toan # kiểm toàn bộ đề: 0 câu trùng đáp án, 0 đề rỗng
 npm run audio:kiem       # âm thanh: thiếu file · clip cắt hụt · URL http:// · đường dẫn tương đối
 npm run tts:chi-muc      # chỉ mục chữ Hán -> mp3 giọng máy (nút loa không kèm đường dẫn dùng nó)
+npm run thoidai:grammar-dich  # sau khi sinh lại ngữ pháp: gắn lại phiên âm + nghĩa tiếng Việt cho câu ví dụ
+npm run audio:pron-sgk   # sau khi đổi ví dụ ở pronunciationData.js: tra lại bản thu thật cho từng ví dụ
 npm run data:va-tu-vung  # chỉ khi vừa sinh lại từ vựng từ PPT — vá lỗi lệch trường của bộ bóc
 npm run seo:sitemap
 ```
@@ -126,6 +128,41 @@ nghe thấy gì. `npm run audio:kiem` soi cả bốn; chạy nó sau mỗi lần
 Vá tự động: `npm run audio:va` (đổi sang bản thu cùng chữ → mp3 giọng máy → liệt kê chữ cần
 sinh), rồi `npm run tts:bo-sung` sinh mp3 còn thiếu, rồi chạy lại `audio:va` để gán đường dẫn.
 
-**Bốn bộ phát độc lập** (`pronAudio` · `_ddAudio` · `_doc.audio` · `ddDlgState.audio`) không
+**Năm bộ phát độc lập** (`pronAudio` · `_ddAudio` · `_doc.audio` · `ddDlgState.audio` · `_ddExAudio`) không
 biết nhau, nên mọi chỗ đổi màn hình phải gọi `dungMoiAmThanh()` — quên là rời trang rồi mà bản
 thu hội thoại vẫn phát, trong khi nút tắt của nó đã bị `innerHTML` mới xoá.
+
+---
+
+## Âm thanh ĐÚNG FILE nhưng SAI NỘI DUNG (2026-10-01)
+
+`audio:kiem` chỉ soi file có/không, dài/ngắn — clip đọc NHẦM TỪ vẫn lọt (từ 17-18 bài 1.1 từng đọc
+sai mà mọi bộ kiểm đều xanh). Kiểm nội dung bằng nhận dạng giọng nói:
+`scripts/.venv/bin/python scripts/kiem-noi-dung-audio.py` (whisper.cpp; `--rieng` = nghe từng clip,
+chậm nhưng dùng để kết luận). Clip đã xác nhận sai ghi vào `scripts/audio-clip-sai.json` — `audio:va`
+tự bỏ các clip đó.
+
+| Bẫy | Cách xử lý đang dùng |
+|---|---|
+| Mượn bản thu theo CHỮ, bỏ qua cách đọc | Khoá bản thu là `chữ|pinyin`. 得 de ≠ 得 děi, 長 cháng ≠ zhǎng: mượn nhầm là đọc sai hẳn từ. |
+| Một bài có 2 mục cùng chữ khác cách đọc dùng chung 1 clip | Cách đọc thật của clip đo bằng CAO ĐỘ (`scripts/data-cache/thoidai/phat-am/cao-do.py`) rồi ghi vào `CLIP_DOC` trong `va-audio-thieu.mjs` (空 kōng, 轉 zhuàn). |
+| Giọng máy đọc MỘT chữ đa âm theo cách đọc mặc định | 空 kòng bị đọc kōng. Bảng `DONG_AM_MAY` trong `va-audio-thieu.mjs`: cho giọng máy đọc một chữ đồng âm chỉ có một cách đọc (空 kòng → 控). Thêm cặp mới thì đo lại cao độ file sinh ra — 瞭 từng bị đọc liào chứ không phải liǎo. |
+| Nhận dạng giọng nói với ÂM TIẾT ĐỨNG RIÊNG | Không tin được (kể cả model lớn): nhầm z/s, zh/sh, q/x liên tục. Âm tiết đơn thì kiểm thanh bằng cao độ, không kết luận nội dung bằng whisper. |
+
+## Học phát âm: âm thanh lấy từ đâu
+
+- Thanh mẫu, vận mẫu, bộ 4 thanh, từ mẫu: cắt từ bài 中文基礎 (phát âm) của sách quyển 1 —
+  `scripts/cat-phat-am-sgk.py` (bảng nhãn `NHAN` ghi rõ đoạn nào là âm gì) → `public/audio/pron/sgk/`.
+  Một giọng cho cả nhóm: khách từng phản ánh "các âm không cùng một nguồn".
+- Chữ/từ ví dụ: `scripts/gen-pron-sgk.mjs` tra theo `chữ|pinyin` → `src/data/pronSgkAudio.js`.
+  Ví dụ không có bản thu thật thì script in ra — chọn ví dụ khác có trong sách thay vì để giọng máy.
+- "Cặp dễ nhầm" phát CHÍNH âm của thẻ thanh mẫu (bō / pō …): sửa âm ở thẻ là cặp tự đúng theo.
+- Bảng phiên âm vẫn hotlink mp3 của tiengtrungthaoan.edu.vn (một giọng cho cả bảng); chỉ ô nào
+  nguồn đó không có mới dùng vận mẫu đọc riêng của sách. Nguồn ngoài có thể đổi/xoá file bất cứ lúc nào.
+
+## Bài tập: câu NGHE
+
+`generateQuiz(sub, nguon, { nghe: true })` thêm câu nghe từ vựng + câu hội thoại — chỉ dùng
+`audio` (bản thu thật), không dùng giọng máy. Chỉ trang Bài tập giáo trình bật: kiểm tra từ vựng
+TOCFL có renderer riêng chưa biết vẽ nút nghe. Câu nghe hội thoại lấy ĐÁP ÁN là nghĩa tiếng Việt
+vì chữ Hán của bài khoá bóc bằng nhận dạng giọng nói, còn sai chữ (宜文 → 疑問).

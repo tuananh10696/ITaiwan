@@ -138,15 +138,17 @@ public/audio/               bản thu + mp3 giọng máy
 
 | Khu | Nội dung |
 |---|---|
-| Học phát âm | Vận mẫu · Thanh mẫu · Thanh điệu · Bảng phiên âm (407 âm tiết), có bản thu thật |
+| Học phát âm | Vận mẫu · Thanh mẫu · Thanh điệu · Bảng phiên âm (407 âm tiết) — thanh mẫu, vận mẫu, ví dụ dùng bản ghi bài phát âm của sách (`public/audio/pron/sgk/`) |
 | Giáo trình Thời Đại | 5 quyển · 80 bài · 176 bài con — từ vựng, ngữ pháp, hội thoại, bài tập, luyện viết, game |
 | Từ vựng theo Band | 7.517 từ TOCFL (華語八千詞), 6 cấp |
 | Thi thử TOCFL | 18 đề, có audio gốc |
 | Từ vựng & Hán tự | Từ điển 122.596 mục · 214 bộ thủ · Sổ tay từ vựng |
 | Lộ trình của tôi | Tổng quan · Hôm nay · Bài tập · Tiến độ · Bài kiểm tra · Thành tích |
 
-Mỗi bài con có **bài tập trắc nghiệm tự sinh** từ chính từ vựng của bài (`src/data/sinh-de-trac-nghiem.js`),
-và **Luyện tập tổng hợp** sinh sẵn trong `public/data/luyentap/`.
+Mỗi bài con có **bài tập trắc nghiệm tự sinh** từ chính từ vựng của bài (`src/data/sinh-de-trac-nghiem.js`)
+— gồm cả câu NGHE (bản thu từ vựng + câu hội thoại) — và **Luyện tập tổng hợp** sinh sẵn trong
+`public/data/luyentap/`. Câu ví dụ ngữ pháp có phiên âm + nghĩa tiếng Việt
+(`scripts/du-lieu/ngu-phap-{pinyin,vi-du}.json`, gắn bằng `npm run thoidai:grammar-dich`).
 
 ---
 

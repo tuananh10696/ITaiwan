@@ -8,17 +8,17 @@ export const thoidaiDialogues1 = {
   "audio": "/audio/thoidai/B1L01-1.mp3",
   "cues": [
    {
-    "text": "疑問:她是誰?",
+    "text": "宜文,她是誰?",
     "start": 21,
     "end": 25,
-    "pinyin": "yí wèn tā shì shuí",
-    "vi": "Nghi Văn: Cô ấy là ai vậy?"
+    "pinyin": "yí wén tā shì shéi",
+    "vi": "Nghi Văn, cô ấy là ai vậy?"
    },
    {
-    "text": "她是新同學,叫尤美。",
+    "text": "她是新同學,叫友美。",
     "start": 25,
     "end": 31,
-    "pinyin": "tā shì xīn tóng xué jiào yóu měi",
+    "pinyin": "tā shì xīn tóng xué jiào yǒu měi",
     "vi": "Cô ấy là bạn học mới, tên là Yumi."
    },
    {
@@ -66,11 +66,11 @@ export const thoidaiDialogues1 = {
   ]
  },
  "td1-1.2": {
-  "title": "你好,我是李忠明。",
+  "title": "你好,我是李中明。",
   "audio": "/audio/thoidai/B1L01-2.mp3",
   "cues": [
    {
-    "text": "你好,我是李忠明。",
+    "text": "你好,我是李中明。",
     "start": 3,
     "end": 7,
     "pinyin": "nǐ hǎo wǒ shì lǐ zhōng míng",
@@ -84,10 +84,10 @@ export const thoidaiDialogues1 = {
     "vi": "Cho hỏi bạn tên là gì?"
    },
    {
-    "text": "我姓小林,叫尤美。",
+    "text": "我姓小林,叫友美。",
     "start": 11,
     "end": 15.5,
-    "pinyin": "wǒ xìng xiǎo lín jiào yóu měi",
+    "pinyin": "wǒ xìng xiǎo lín jiào yǒu měi",
     "vi": "Mình họ Kobayashi, tên là Yumi."
    },
    {
@@ -146,10 +146,10 @@ export const thoidaiDialogues1 = {
     "vi": "Tự giới thiệu — Chào buổi sáng mọi người!"
    },
    {
-    "text": "我姓小林,叫尤美。",
+    "text": "我姓小林,叫友美。",
     "start": 8.5,
     "end": 13.5,
-    "pinyin": "wǒ xìng xiǎo lín jiào yóu měi",
+    "pinyin": "wǒ xìng xiǎo lín jiào yǒu měi",
     "vi": "Mình họ Kobayashi, tên là Yumi."
    },
    {
@@ -321,21 +321,21 @@ export const thoidaiDialogues1 = {
   ]
  },
  "td1-2.3": {
-  "title": "尤美做什麼?",
+  "title": "友美做什麼?",
   "audio": "/audio/thoidai/B1L02-3.mp3",
   "cues": [
    {
-    "text": "尤美做什麼?",
+    "text": "友美做什麼?",
     "start": 2.3,
     "end": 5.62,
-    "pinyin": "yóu měi zuò shén me",
+    "pinyin": "yǒu měi zuò shén me",
     "vi": "Yumi làm những gì?"
    },
    {
-    "text": "尤美是學生19歲她早上6點30分起床7點去學校8點40分上課中午12點下課吃午飯下午1點去圖書館4點回家做飯晚上6點吃飯10點睡覺尤美很忙",
+    "text": "友美是學生19歲她早上6點30分起床7點去學校8點40分上課中午12點下課吃午飯下午1點去圖書館4點回家做飯晚上6點吃飯10點睡覺友美很忙",
     "start": 5.62,
     "end": 42.24,
-    "pinyin": "yóu měi shì xué shēng suì tā zǎo shàng diǎn fēn qǐ chuáng diǎn qù xué xiào diǎn fēn shàng kè zhōng wǔ diǎn xià kè chī wǔ fàn xià wǔ diǎn qù tú shū guǎn diǎn huí jiā zuò fàn wǎn shàng diǎn chī fàn diǎn shuì jué yóu měi hěn máng",
+    "pinyin": "yǒu měi shì xué shēng suì tā zǎo shàng diǎn fēn qǐ chuáng diǎn qù xué xiào diǎn fēn shàng kè zhōng wǔ diǎn xià kè chī wǔ fàn xià wǔ diǎn qù tú shū guǎn diǎn huí jiā zuò fàn wǎn shàng diǎn chī fàn diǎn shuì jué yǒu měi hěn máng",
     "vi": "Yumi là học sinh, 19 tuổi. Sáng 6 giờ 30 cô ấy thức dậy, 7 giờ tới trường, 8 giờ 40 vào học, trưa 12 giờ tan học rồi ăn cơm trưa, chiều 1 giờ tới thư viện, 4 giờ về nhà nấu cơm, tối 6 giờ ăn cơm, 10 giờ đi ngủ. Yumi rất bận rộn."
    }
   ]
@@ -352,10 +352,10 @@ export const thoidaiDialogues1 = {
     "vi": "Mua quà sinh nhật"
    },
    {
-    "text": "明天是尤美的生日,我想送她一個禮物。",
+    "text": "明天是友美的生日,我想送她一個禮物。",
     "start": 19.92,
     "end": 28.36,
-    "pinyin": "míng tiān shì yóu měi de shēng rì wǒ xiǎng sòng tā yī gè lǐ wù",
+    "pinyin": "míng tiān shì yǒu měi de shēng rì wǒ xiǎng sòng tā yī gè lǐ wù",
     "vi": "Mai là sinh nhật Yumi, tớ muốn tặng cậu ấy một món quà."
    },
    {
@@ -366,10 +366,10 @@ export const thoidaiDialogues1 = {
     "vi": "Cậu định tặng cậu ấy gì?"
    },
    {
-    "text": "尤美愛看書,我想送她兩本中文書。",
+    "text": "友美愛看書,我想送她兩本中文書。",
     "start": 31.16,
     "end": 38.3,
-    "pinyin": "yóu měi ài kàn shū wǒ xiǎng sòng tā liǎng běn zhōng wén shū",
+    "pinyin": "yǒu měi ài kàn shū wǒ xiǎng sòng tā liǎng běn zhōng wén shū",
     "vi": "Yumi thích đọc sách, tớ định tặng cậu ấy hai quyển sách tiếng Trung."
    },
    {
@@ -414,7 +414,7 @@ export const thoidaiDialogues1 = {
     "vi": "Loại bút chì nhỏ này thế nào?"
    },
    {
-    "text": "很可愛,有美喜歡可愛的東西。",
+    "text": "很可愛,友美喜歡可愛的東西。",
     "start": 7,
     "end": 12,
     "pinyin": "hěn kě ài yǒu měi xǐ huān kě ài de dōng xī",
@@ -456,7 +456,7 @@ export const thoidaiDialogues1 = {
     "vi": "Màu đỏ, màu trắng, màu nào cũng đẹp."
    },
    {
-    "text": "我想,有美喜歡白色。",
+    "text": "我想,友美喜歡白色。",
     "start": 35,
     "end": 39,
     "pinyin": "wǒ xiǎng yǒu měi xǐ huān bái sè",
@@ -490,7 +490,7 @@ export const thoidaiDialogues1 = {
     "vi": "\"Sinh nhật của Yumi\""
    },
    {
-    "text": "今天是有美的生日!",
+    "text": "今天是友美的生日!",
     "start": 5.76,
     "end": 9.16,
     "pinyin": "jīn tiān shì yǒu měi de shēng rì",
@@ -518,7 +518,7 @@ export const thoidaiDialogues1 = {
     "vi": "và Quốc An cùng tới nhà cậu ấy chơi!"
    },
    {
-    "text": "我們送有美花",
+    "text": "我們送友美花",
     "start": 19.72,
     "end": 21.92,
     "pinyin": "wǒ men sòng yǒu měi huā",
@@ -553,7 +553,7 @@ export const thoidaiDialogues1 = {
     "vi": "Cậu ấy rất thích những món quà này!"
    },
    {
-    "text": "有美請我們吃點心",
+    "text": "友美請我們吃點心",
     "start": 37.48,
     "end": 40.64,
     "pinyin": "yǒu měi qǐng wǒ men chī diǎn xīn",
@@ -843,10 +843,10 @@ export const thoidaiDialogues1 = {
     "vi": "Ví của tớ ở đâu nhỉ?"
    },
    {
-    "text": "尤美,你這個週末要做什麼?",
+    "text": "友美,你這個週末要做什麼?",
     "start": 21,
     "end": 27,
-    "pinyin": "yóu měi nǐ zhè gè zhōu mò yào zuò shén me",
+    "pinyin": "yǒu měi nǐ zhè gè zhōu mò yào zuò shén me",
     "vi": "Yumi, cuối tuần này cậu định làm gì?"
    },
    {
@@ -922,14 +922,14 @@ export const thoidaiDialogues1 = {
   ]
  },
  "td1-5.2": {
-  "title": "媽,我跟尤美要去喝下午茶。",
+  "title": "媽,我跟友美要去喝下午茶。",
   "audio": "/audio/thoidai/B1L05-2.mp3",
   "cues": [
    {
-    "text": "媽,我跟尤美要去喝下午茶。",
+    "text": "媽,我跟友美要去喝下午茶。",
     "start": 3,
     "end": 8.5,
-    "pinyin": "mā wǒ gēn yóu měi yào qù hē xià wǔ chá",
+    "pinyin": "mā wǒ gēn yǒu měi yào qù hē xià wǔ chá",
     "vi": "Mẹ ơi, con với Yumi định đi uống trà chiều."
    },
    {
@@ -1280,14 +1280,14 @@ export const thoidaiDialogues1 = {
   ]
  },
  "td1-7.2": {
-  "title": "\"尤美,你看,天美飯店在大學路, 我現在知道怎麼走了。\"",
+  "title": "\"友美,你看,天美飯店在大學路, 我現在知道怎麼走了。\"",
   "audio": "/audio/thoidai/B1L07-2.mp3",
   "cues": [
    {
-    "text": "\"尤美,你看,天美飯店在大學路, 我現在知道怎麼走了。\"",
+    "text": "\"友美,你看,天美飯店在大學路, 我現在知道怎麼走了。\"",
     "start": 2.72,
     "end": 11.72,
-    "pinyin": "yóu měi nǐ kàn tiān měi fàn diàn zài dà xué lù wǒ xiàn zài zhī dào zěn me zǒu le",
+    "pinyin": "yǒu měi nǐ kàn tiān měi fàn diàn zài dà xué lù wǒ xiàn zài zhī dào zěn me zǒu le",
     "vi": "\"Yumi, cậu xem này, khách sạn Thiên Mỹ nằm trên đường Đại Học, giờ tớ biết đường đi rồi.\""
    },
    {
@@ -1671,10 +1671,10 @@ export const thoidaiDialogues1 = {
     "vi": "Giờ học tiếng Trung của tôi"
    },
    {
-    "text": "尤美,這幾個句子的意思我不太懂, 你可以教我嗎?",
+    "text": "友美,這幾個句子的意思我不太懂, 你可以教我嗎?",
     "start": 20,
     "end": 28,
-    "pinyin": "yóu měi zhè jǐ gè jù zi de yì si wǒ bù tài dǒng nǐ kě yǐ jiào wǒ ma",
+    "pinyin": "yǒu měi zhè jǐ gè jù zi de yì si wǒ bù tài dǒng nǐ kě yǐ jiào wǒ ma",
     "vi": "Yumi, mấy câu này tớ không hiểu lắm, cậu chỉ tớ được không?"
    },
    {
@@ -2295,10 +2295,10 @@ export const thoidaiDialogues1 = {
     "vi": "Các cậu quen nhau thế nào?"
    },
    {
-    "text": "尤美,今天的功課你寫了嗎?",
+    "text": "友美,今天的功課你寫了嗎?",
     "start": 17.76,
     "end": 24.2,
-    "pinyin": "yóu měi jīn tiān de gōng kè nǐ xiě le ma",
+    "pinyin": "yǒu měi jīn tiān de gōng kè nǐ xiě le ma",
     "vi": "Yumi, bài tập hôm nay cậu làm chưa?"
    },
    {
@@ -2447,10 +2447,10 @@ export const thoidaiDialogues1 = {
     "vi": "Người bạn mới của tôi — Hôm nay tôi gặp một cô gái người Nhật."
    },
    {
-    "text": "她姓小林,叫尤美。",
+    "text": "她姓小林,叫友美。",
     "start": 10,
     "end": 13,
-    "pinyin": "tā xìng xiǎo lín jiào yóu měi",
+    "pinyin": "tā xìng xiǎo lín jiào yǒu měi",
     "vi": "Cô ấy họ Kobayashi, tên là Yumi."
    },
    {
@@ -2461,10 +2461,10 @@ export const thoidaiDialogues1 = {
     "vi": "Chúng tôi quen nhau trên mạng."
    },
    {
-    "text": "尤美看了我寫的文章,留言給我。",
+    "text": "友美看了我寫的文章,留言給我。",
     "start": 17,
     "end": 22,
-    "pinyin": "yóu měi kàn le wǒ xiě de wén zhāng liú yán gěi wǒ",
+    "pinyin": "yǒu měi kàn le wǒ xiě de wén zhāng liú yán gěi wǒ",
     "vi": "Yumi đọc bài viết của tôi rồi để lại lời nhắn cho tôi."
    },
    {
@@ -2496,10 +2496,10 @@ export const thoidaiDialogues1 = {
     "vi": "Chúng tôi gặp nhau ở một nhà hàng."
    },
    {
-    "text": "尤美的同學也來了。",
+    "text": "友美的同學也來了。",
     "start": 37,
     "end": 40,
-    "pinyin": "yóu měi de tóng xué yě lái le",
+    "pinyin": "yǒu měi de tóng xué yě lái le",
     "vi": "Bạn học của Yumi cũng tới."
    },
    {
@@ -2538,10 +2538,10 @@ export const thoidaiDialogues1 = {
     "vi": "Hôm nay tâm trạng tôi thật tốt."
    },
    {
-    "text": "因為尤美太可愛了。",
+    "text": "因為友美太可愛了。",
     "start": 60,
     "end": 63,
-    "pinyin": "yīn wèi yóu měi tài kě ài le",
+    "pinyin": "yīn wèi yǒu měi tài kě ài le",
     "vi": "Vì Yumi dễ thương quá."
    },
    {
@@ -2586,10 +2586,10 @@ export const thoidaiDialogues1 = {
     "vi": "Tớ đi dự cuộc thi vẽ tranh. Hôm qua các cậu học gì thế?"
    },
    {
-    "text": "老師問我們想做什麼工作大家都說得很高興我知道尤美想當護理師別的同學呢?",
+    "text": "老師問我們想做什麼工作大家都說得很高興我知道友美想當護理師別的同學呢?",
     "start": 31,
     "end": 44,
-    "pinyin": "lǎo shī wèn wǒ men xiǎng zuò shén me gōng zuò dà jiā dōu shuō dé hěn gāo xìng wǒ zhī dào yóu měi xiǎng dāng hù lǐ shī bié de tóng xué ne",
+    "pinyin": "lǎo shī wèn wǒ men xiǎng zuò shén me gōng zuò dà jiā dōu shuō dé hěn gāo xìng wǒ zhī dào yǒu měi xiǎng dāng hù lǐ shī bié de tóng xué ne",
     "vi": "Cô giáo hỏi bọn tớ muốn làm nghề gì, ai cũng nói rất hào hứng. Tớ biết Yumi muốn làm điều dưỡng, còn các bạn khác thì sao?"
    },
    {
@@ -3090,10 +3090,10 @@ export const thoidaiDialogues1 = {
     "vi": "Cảm ơn cậu. Công viên trước nhà cậu có nhiều hoa và cây quá, môi trường tốt thật."
    },
    {
-    "text": "我跟尤美買了幾瓶酒也帶了大家都喜歡的餃子包子和牛肉湯",
+    "text": "我跟友美買了幾瓶酒也帶了大家都喜歡的餃子包子和牛肉湯",
     "start": 14.26,
     "end": 22.78,
-    "pinyin": "wǒ gēn yóu měi mǎi le jǐ píng jiǔ yě dài le dà jiā dōu xǐ huān de jiǎo zi bāo zi hé niú ròu tāng",
+    "pinyin": "wǒ gēn yǒu měi mǎi le jǐ píng jiǔ yě dài le dà jiā dōu xǐ huān de jiǎo zi bāo zi hé niú ròu tāng",
     "vi": "Tớ với Yumi mua mấy chai rượu, cũng mang theo sủi cảo, bánh bao và canh thịt bò mà mọi người đều thích."
    },
    {
@@ -3423,24 +3423,24 @@ export const thoidaiDialogues1 = {
     "vi": "Cậu biết mười hai con giáp không?"
    },
    {
-    "text": "知道。尤美跟我講過。",
+    "text": "知道。友美跟我講過。",
     "start": 22,
     "end": 27,
-    "pinyin": "zhī dào yóu měi gēn wǒ jiǎng guò",
+    "pinyin": "zhī dào yǒu měi gēn wǒ jiǎng guò",
     "vi": "Biết chứ. Yumi kể tớ nghe rồi."
    },
    {
-    "text": "這個星期六是元宵節,你跟尤美會去看燈會嗎?",
+    "text": "這個星期六是元宵節,你跟友美會去看燈會嗎?",
     "start": 27,
     "end": 34,
-    "pinyin": "zhè gè xīng qī liù shì yuán xiāo jié nǐ gēn yóu měi huì qù kàn dēng huì ma",
+    "pinyin": "zhè gè xīng qī liù shì yuán xiāo jié nǐ gēn yǒu měi huì qù kàn dēng huì ma",
     "vi": "Thứ Bảy này là Tết Nguyên Tiêu, cậu với Yumi có đi xem hội đèn lồng không?"
    },
    {
-    "text": "尤美說她想去。",
+    "text": "友美說她想去。",
     "start": 34,
     "end": 37,
-    "pinyin": "yóu měi shuō tā xiǎng qù",
+    "pinyin": "yǒu měi shuō tā xiǎng qù",
     "vi": "Yumi bảo cậu ấy muốn đi."
    },
    {
@@ -3486,10 +3486,10 @@ export const thoidaiDialogues1 = {
     "vi": "Cuối tuần tớ còn phải đi làm, tớ tính tan ca là đi xem hội đèn lồng luôn."
    },
    {
-    "text": "我們可以約尤美一起去。",
+    "text": "我們可以約友美一起去。",
     "start": 64,
     "end": 68,
-    "pinyin": "wǒ men kě yǐ yuē yóu měi yì qǐ qù",
+    "pinyin": "wǒ men kě yǐ yuē yǒu měi yì qǐ qù",
     "vi": "Mình có thể rủ Yumi đi cùng."
    }
   ]

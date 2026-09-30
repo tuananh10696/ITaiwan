@@ -82,7 +82,7 @@ export const thoidaiVocab4 = {
      "t": "Chiếc máy giặt này không quay nữa, bạn mang đi sửa giúp nhé."
     }
    ],
-   "audio": "/audio/thoidai-tu/B4L01-1-06.mp3"
+   "audio": "/audio/thoidai-tu/B1L13-1-12.mp3"
   },
   {
    "hanzi": "轉",
@@ -679,8 +679,9 @@ export const thoidaiVocab4 = {
      "t": "Tôi thấy ở ngã tư có người giơ một tấm biển, trên đó là quảng cáo bán nhà."
     }
    ],
-   "audio": "/audio/thoidai-tu/B4L01-1-45.mp3",
-   "defEn": "face"
+   "defEn": "face",
+   "audioTts": "/audio/tts-vi/b6fb28c547.mp3",
+   "audio": "/audio/thoidai-tu/B3L11-2-10.mp3"
   },
   {
    "hanzi": "可是",
@@ -755,7 +756,7 @@ export const thoidaiVocab4 = {
      "t": "Anh ấy keo kiệt với bản thân nhưng lại rất hào phóng với bạn bè."
     }
    ],
-   "audio": "/audio/thoidai-tu/B4L01-1-50.mp3"
+   "audioTts": "/audio/tts-vi/28adae8fc1.mp3"
   },
   {
    "hanzi": "欠",
@@ -1070,7 +1071,7 @@ export const thoidaiVocab4 = {
      "t": "Đã hứa với người khác thì phải làm được, thế mới là người có uy tín."
     }
    ],
-   "audio": "/audio/thoidai-tu/B4L01-2-19.mp3"
+   "audioTts": "/audio/tts-vi/00e9778d80.mp3"
   },
   {
    "hanzi": "不然",
@@ -1326,7 +1327,8 @@ export const thoidaiVocab4 = {
      "t": "Trời ơi! Kỳ thi cuối kỳ này khó thật, lỡ thi không tốt bị trượt thì làm sao đây?"
     }
    ],
-   "audioTts": "/audio/tts-vi/8c9e2fb9c3.mp3"
+   "audioTts": "/audio/tts-vi/8c9e2fb9c3.mp3",
+   "audio": "/audio/thoidai-tu/B1L01-1-09.mp3"
   },
   {
    "hanzi": "按",
@@ -1536,7 +1538,7 @@ export const thoidaiVocab4 = {
      "t": "Mấy ngân hàng trong nước quyết định từ năm sau giảm phí chuyển khoản liên ngân hàng."
     }
    ],
-   "audio": "/audio/thoidai-tu/B4L02-1-25.mp3"
+   "audioTts": "/audio/tts-vi/8d8aaa4880.mp3"
   },
   {
    "hanzi": "跨",
@@ -1791,7 +1793,8 @@ export const thoidaiVocab4 = {
      "t": "Giáo sư định xin trường một khoản kinh phí để tiến hành kế hoạch khảo sát vùng núi cao."
     }
    ],
-   "audioTts": "/audio/tts-vi/0f2910fc24.mp3"
+   "audioTts": "/audio/tts-vi/0f2910fc24.mp3",
+   "audio": "/audio/thoidai-tu/B1L03-2-05.mp3"
   },
   {
    "hanzi": "交易",
@@ -3744,7 +3747,8 @@ export const thoidaiVocab4 = {
      "t": "Cảnh sát chìa giấy tờ ra, bảo người đang dùng ma tuý ngoan ngoãn nộp ma tuý."
     }
    ],
-   "audioTts": "/audio/tts-vi/0ba7ee292b.mp3"
+   "audioTts": "/audio/tts-vi/0ba7ee292b.mp3",
+   "audio": "/audio/thoidai-tu/B2L14-2-20.mp3"
   },
   {
    "hanzi": "一手",
@@ -4239,7 +4243,8 @@ export const thoidaiVocab4 = {
      "t": "Giờ ăn trưa của công ty rất ngắn nên đồng nghiệp lúc nào cũng ăn rất vội."
     }
    ],
-   "audioTts": "/audio/tts-vi/07f30547e4.mp3"
+   "audioTts": "/audio/tts-vi/07f30547e4.mp3",
+   "audio": "/audio/thoidai-tu/B2L07-2-13.mp3"
   },
   {
    "hanzi": "暖氣",
@@ -4629,7 +4634,8 @@ export const thoidaiVocab4 = {
      "t": "Cô giáo không hài lòng với bài thuyết trình của nhóm tôi, bảo chúng tôi làm lại một lần."
     }
    ],
-   "audioTts": "/audio/tts-vi/2e26f9d8e1.mp3"
+   "audioTts": "/audio/tts-vi/2e26f9d8e1.mp3",
+   "audio": "/audio/thoidai-tu/B1L14-2-15.mp3"
   },
   {
    "hanzi": "用具",
@@ -5230,7 +5236,7 @@ export const thoidaiVocab4 = {
      "t": "Với đa số mọi người, rác vô dụng là phế phẩm, rác có ích là tài nguyên."
     }
    ],
-   "audio": "/audio/thoidai-tu/B4L05-1-37.mp3"
+   "audioTts": "/audio/tts-vi/e50ae2d454.mp3"
   },
   {
    "hanzi": "廢",
@@ -5380,7 +5386,8 @@ export const thoidaiVocab4 = {
      "t": "Lúc đi dạo phố tôi đi qua một dãy quầy ăn vặt, liền mua mấy món về ăn khuya."
     }
    ],
-   "audioTts": "/audio/tts-vi/9418ca0e02.mp3"
+   "audioTts": "/audio/tts-vi/9418ca0e02.mp3",
+   "audio": "/audio/thoidai-tu/B1L15-3-09.mp3"
   },
   {
    "hanzi": "廢氣",
@@ -5455,7 +5462,7 @@ export const thoidaiVocab4 = {
      "t": "Ước mơ của anh ấy là dùng nước làm nhiên liệu cho phương tiện giao thông, nhưng nhiều người cho là không thể."
     }
    ],
-   "audio": "/audio/thoidai-tu/B4L05-1-52.mp3"
+   "audioTts": "/audio/tts-vi/3131d3139e.mp3"
   },
   {
    "hanzi": "用心",
@@ -6747,7 +6754,7 @@ export const thoidaiVocab4 = {
      "t": "Người mẹ đó thà hy sinh tính mạng mình cũng phải bảo vệ an toàn cho con."
     }
    ],
-   "audio": "/audio/thoidai-tu/B4L06-2-10.mp3"
+   "audioTts": "/audio/tts-vi/2fe320cb87.mp3"
   },
   {
    "hanzi": "感染",
@@ -6882,7 +6889,8 @@ export const thoidaiVocab4 = {
      "t": "Người trong triển lãm máy tính đông quá, ai nấy chen qua chen lại, chịu không nổi."
     }
    ],
-   "audioTts": "/audio/tts-vi/bde5b196c3.mp3"
+   "audioTts": "/audio/tts-vi/bde5b196c3.mp3",
+   "audio": "/audio/thoidai-tu/B2L04-2-05.mp3"
   },
   {
    "hanzi": "前進",
@@ -7139,7 +7147,8 @@ export const thoidaiVocab4 = {
      "t": "Mùa xuân là mùa hoa nở, trong các câu chuyện tình yêu thì cũng thường là mùa thích hợp để yêu đương."
     }
    ],
-   "audioTts": "/audio/tts-vi/d095240220.mp3"
+   "audioTts": "/audio/tts-vi/d095240220.mp3",
+   "audio": "/audio/thoidai-tu/B1L08-2-18.mp3"
   },
   {
    "hanzi": "插花",
@@ -7199,7 +7208,8 @@ export const thoidaiVocab4 = {
      "t": "Nhiệt độ điều hoà mà chỉnh vừa vặn thì không chỉ tốt cho sức khoẻ mà còn tiết kiệm được chút tiền điện."
     }
    ],
-   "audioTts": "/audio/tts-vi/642a3f4098.mp3"
+   "audioTts": "/audio/tts-vi/642a3f4098.mp3",
+   "audio": "/audio/thoidai-tu/B2L01-1-20.mp3"
   },
   {
    "hanzi": "週",
@@ -7439,7 +7449,8 @@ export const thoidaiVocab4 = {
      "t": "Bạn vừa hay nói đúng điều tôi nghĩ trong lòng, đúng là bạn tri kỷ của tôi."
     }
    ],
-   "audioTts": "/audio/tts-vi/9cad11ea0a.mp3"
+   "audioTts": "/audio/tts-vi/9cad11ea0a.mp3",
+   "audio": "/audio/thoidai-tu/B4L09-1-19.mp3"
   },
   {
    "hanzi": "印象",
@@ -7529,7 +7540,8 @@ export const thoidaiVocab4 = {
      "t": "Còn giờ thì chủ yếu là hỗ trợ du lịch."
     }
    ],
-   "audioTts": "/audio/tts-vi/01c0267ef8.mp3"
+   "audioTts": "/audio/tts-vi/01c0267ef8.mp3",
+   "audio": "/audio/thoidai-tu/B5L07-2-29.mp3"
   },
   {
    "hanzi": "觀光客",
@@ -7664,7 +7676,8 @@ export const thoidaiVocab4 = {
      "t": "Thời đại các bạn đang sống gần như không có chiến tranh nên rất khó hiểu được nó đáng sợ tới mức nào."
     }
    ],
-   "audioTts": "/audio/tts-vi/b032f267a7.mp3"
+   "audioTts": "/audio/tts-vi/b032f267a7.mp3",
+   "audio": "/audio/thoidai-tu/B5L01-2-33.mp3"
   },
   {
    "hanzi": "提",
@@ -7679,7 +7692,8 @@ export const thoidaiVocab4 = {
      "t": "Chuyện lần trước bạn nhắc với tôi, tôi chẳng có ấn tượng gì cả, thật ngại quá."
     }
    ],
-   "audioTts": "/audio/tts-vi/8b01ebfdbd.mp3"
+   "audioTts": "/audio/tts-vi/8b01ebfdbd.mp3",
+   "audio": "/audio/thoidai-tu/B3L02-1-01.mp3"
   },
   {
    "hanzi": "夢想",
@@ -7694,7 +7708,8 @@ export const thoidaiVocab4 = {
      "t": "Tôi mơ ước có ngày được đi du lịch khắp thế giới."
     }
    ],
-   "audioTts": "/audio/tts-vi/dba3786533.mp3"
+   "audioTts": "/audio/tts-vi/dba3786533.mp3",
+   "audio": "/audio/thoidai-tu/B3L01-1-01.mp3"
   },
   {
    "hanzi": "實現",
@@ -7754,7 +7769,8 @@ export const thoidaiVocab4 = {
      "t": "Nói thẳng rằng đây sẽ trở thành người tiên phong của nền giáo dục tương lai"
     }
    ],
-   "audioTts": "/audio/tts-vi/e8dfd04c44.mp3"
+   "audioTts": "/audio/tts-vi/e8dfd04c44.mp3",
+   "audio": "/audio/thoidai-tu/B5L09-1-11.mp3"
   },
   {
    "hanzi": "轉機",
@@ -7844,7 +7860,8 @@ export const thoidaiVocab4 = {
      "t": "Đề bài này khó lạ lùng, đến cả thầy cũng phải nghĩ rất lâu."
     }
    ],
-   "audioTts": "/audio/tts-vi/e058d9a657.mp3"
+   "audioTts": "/audio/tts-vi/e058d9a657.mp3",
+   "audio": "/audio/thoidai-tu/B2L16-1-10.mp3"
   },
   {
    "hanzi": "要不",
@@ -7904,7 +7921,7 @@ export const thoidaiVocab4 = {
      "t": "Cô giáo không hài lòng với bài thuyết trình của nhóm tôi, bảo chúng tôi làm lại một lần."
     }
    ],
-   "audioTts": "/audio/tts-vi/2e26f9d8e1.mp3"
+   "audioTts": "/audio/tts-vi/b7053f76a7.mp3"
   },
   {
    "hanzi": "入境",
@@ -7964,7 +7981,8 @@ export const thoidaiVocab4 = {
      "t": "Qua phần giải thích của tôi, anh ấy ngược lại có phần lúng túng, xem ra tôi giải thích chưa rõ lắm."
     }
    ],
-   "audioTts": "/audio/tts-vi/be33991150.mp3"
+   "audioTts": "/audio/tts-vi/be33991150.mp3",
+   "audio": "/audio/thoidai-tu/B4L09-1-41.mp3"
   },
   {
    "hanzi": "千萬",
@@ -8641,7 +8659,7 @@ export const thoidaiVocab4 = {
      "t": "Não người chia thành mấy vùng, có vùng lo ngôn ngữ, có vùng lo trí nhớ, thú vị lắm."
     }
    ],
-   "audio": "/audio/thoidai-tu/B4L08-1-23.mp3"
+   "audioTts": "/audio/tts-vi/9b5121b4f3.mp3"
   },
   {
    "hanzi": "前院",
@@ -8881,7 +8899,7 @@ export const thoidaiVocab4 = {
      "t": "Bạn chơi ghi ta hay thật, nếu bạn chịu dạy tôi thì tôi muốn học bạn."
     }
    ],
-   "audio": "/audio/thoidai-tu/B4L08-1-39.mp3"
+   "audioTts": "/audio/tts-vi/5852767567.mp3"
   },
   {
    "hanzi": "女性",
@@ -8926,7 +8944,8 @@ export const thoidaiVocab4 = {
      "t": "Tiểu Vương theo đuổi cô Chúc mấy năm rồi, nhưng cô Chúc vẫn chỉ coi anh ấy là bạn tốt."
     }
    ],
-   "audioTts": "/audio/tts-vi/2768162fe9.mp3"
+   "audioTts": "/audio/tts-vi/2768162fe9.mp3",
+   "audio": "/audio/thoidai-tu/B2L09-1-13.mp3"
   },
   {
    "hanzi": "當成",
@@ -10053,7 +10072,8 @@ export const thoidaiVocab4 = {
      "t": "Lúc đi dạo phố tôi đi qua một dãy quầy ăn vặt, liền mua mấy món về ăn khuya."
     }
    ],
-   "audioTts": "/audio/tts-vi/9418ca0e02.mp3"
+   "audioTts": "/audio/tts-vi/9418ca0e02.mp3",
+   "audio": "/audio/thoidai-tu/B1L15-3-09.mp3"
   },
   {
    "hanzi": "稍微",
@@ -10218,7 +10238,8 @@ export const thoidaiVocab4 = {
      "t": "Quy định của bệnh viện này điều này nối điều kia, đọc mà mỏi cả mắt."
     }
    ],
-   "audioTts": "/audio/tts-vi/b16da88d1d.mp3"
+   "audioTts": "/audio/tts-vi/b16da88d1d.mp3",
+   "audio": "/audio/thoidai-tu/B1L07-2-12.mp3"
   },
   {
    "hanzi": "免得",
@@ -10940,7 +10961,8 @@ export const thoidaiVocab4 = {
      "t": "Bà nuôi mấy con gà, sáng nào cũng quen bốc hai nắm ngô cho chúng ăn."
     }
    ],
-   "audioTts": "/audio/tts-vi/08b94e71ec.mp3"
+   "audioTts": "/audio/tts-vi/08b94e71ec.mp3",
+   "audio": "/audio/thoidai-tu/B3L02-2-07.mp3"
   },
   {
    "hanzi": "冷汗",
@@ -11240,7 +11262,7 @@ export const thoidaiVocab4 = {
      "t": "Tôi mua một cái máy, không những giúp tôi đo cân nặng mà còn đo được chiều cao."
     }
    ],
-   "audioTts": "/audio/tts-vi/9bbb0aaf8c.mp3"
+   "audioTts": "/audio/tts-vi/f9c1bd25a5.mp3"
   },
   {
    "hanzi": "體溫",
@@ -11675,7 +11697,7 @@ export const thoidaiVocab4 = {
      "t": "Vị bác sĩ ngoại khoa này không chỉ mổ giỏi mà còn rất kiên nhẫn với bệnh nhân."
     }
    ],
-   "audio": "/audio/thoidai-tu/B4L10-2-20.mp3"
+   "audioTts": "/audio/tts-vi/b142f8d4a9.mp3"
   }
  ],
  "td4-11": [
@@ -11992,7 +12014,7 @@ export const thoidaiVocab4 = {
      "t": "Nếu bạn còn chưa lập gia đình thì tôi không bảo bạn phải quyết tâm cưới trong năm nay."
     }
    ],
-   "audio": "/audio/thoidai-tu/B4L11-1-21.mp3"
+   "audioTts": "/audio/tts-vi/9218030780.mp3"
   },
   {
    "hanzi": "已婚",
@@ -12292,7 +12314,7 @@ export const thoidaiVocab4 = {
      "t": "Đôi khuyên tai cô Tiền đeo đẹp như ánh sao, nghe nói đó là kỷ vật bà nội để lại cho cô."
     }
    ],
-   "audio": "/audio/thoidai-tu/B4L11-1-41.mp3"
+   "audioTts": "/audio/tts-vi/45cb902c0b.mp3"
   },
   {
    "hanzi": "嫁",
@@ -12322,7 +12344,7 @@ export const thoidaiVocab4 = {
      "t": "Tôi và người chồng trước của tôi"
     }
    ],
-   "audio": "/audio/thoidai-tu/B4L11-1-43.mp3"
+   "audioTts": "/audio/tts-vi/f588bf49d0.mp3"
   },
   {
    "hanzi": "人家",
@@ -12337,7 +12359,7 @@ export const thoidaiVocab4 = {
      "t": "Cô ấy muốn lấy nhà giàu là chuyện của cô ấy, bạn xen vào chuyện người ta làm gì?"
     }
    ],
-   "audio": "/audio/thoidai-tu/B4L11-1-44.mp3"
+   "audioTts": "/audio/tts-vi/33a67e7046.mp3"
   },
   {
    "hanzi": "婚姻",
@@ -12352,7 +12374,7 @@ export const thoidaiVocab4 = {
      "t": "Một cuộc hôn nhân hạnh phúc không chỉ cần trao đổi về quan niệm mà càng cần giao lưu tình cảm."
     }
    ],
-   "audio": "/audio/thoidai-tu/B4L11-1-45.mp3"
+   "audioTts": "/audio/tts-vi/3b695643f4.mp3"
   },
   {
    "hanzi": "歡喜",
@@ -12532,7 +12554,7 @@ export const thoidaiVocab4 = {
      "t": "Muốn có một cuộc hôn nhân trăm năm hạnh phúc thì ngoài tình yêu chân thành còn phải coi trọng trách nhiệm với gia đình."
     }
    ],
-   "audio": "/audio/thoidai-tu/B4L11-1-57.mp3"
+   "audioTts": "/audio/tts-vi/67bb6eb3ba.mp3"
   },
   {
    "hanzi": "得了",
@@ -12622,7 +12644,7 @@ export const thoidaiVocab4 = {
      "t": "Giám đốc Liên rất thích nói, lúc họp cứ nói không ngừng, người khác chẳng có phần mà nói."
     }
    ],
-   "audioTts": "/audio/tts-vi/1b22493944.mp3"
+   "audioTts": "/audio/tts-vi/4b03c266ae.mp3"
   },
   {
    "hanzi": "鬍子",
@@ -13479,7 +13501,7 @@ export const thoidaiVocab4 = {
      "t": "Tiền lương và các điều kiện đãi ngộ khác có lẽ không bằng công việc khác"
     }
    ],
-   "audio": "/audio/thoidai-tu/B4L12-1-43.mp3"
+   "audioTts": "/audio/tts-vi/75a251d34f.mp3"
   },
   {
    "hanzi": "工會",
@@ -13494,7 +13516,7 @@ export const thoidaiVocab4 = {
      "t": "Đại diện công đoàn bàn với công ty ba lần mới đạt được thoả thuận."
     }
    ],
-   "audio": "/audio/thoidai-tu/B4L12-1-44.mp3"
+   "audioTts": "/audio/tts-vi/0868395a5d.mp3"
   },
   {
    "hanzi": "工錢",
@@ -13524,7 +13546,7 @@ export const thoidaiVocab4 = {
      "t": "Nhà máy tự động hoá không chỉ khiến tốc độ sản xuất nhanh hơn mà đồng thời cũng đảm bảo được chất lượng sản phẩm."
     }
    ],
-   "audio": "/audio/thoidai-tu/B4L12-1-46.mp3"
+   "audioTts": "/audio/tts-vi/6950348ad9.mp3"
   },
   {
    "hanzi": "自信",
@@ -14201,7 +14223,8 @@ export const thoidaiVocab4 = {
      "t": "Dạo này cô ấy mất ngủ, uống liền ba ngày thuốc cũng không đỡ."
     }
    ],
-   "audioTts": "/audio/tts-vi/096bce6f30.mp3"
+   "audioTts": "/audio/tts-vi/096bce6f30.mp3",
+   "audio": "/audio/thoidai-tu/B2L08-1-12.mp3"
   },
   {
    "hanzi": "暈",
@@ -15041,7 +15064,8 @@ export const thoidaiVocab4 = {
      "t": "Không chỉ vững hơn mà còn êm hơn"
     }
    ],
-   "audioTts": "/audio/tts-vi/29f3d45fc2.mp3"
+   "audioTts": "/audio/tts-vi/29f3d45fc2.mp3",
+   "audio": "/audio/thoidai-tu/B5L13-1-07.mp3"
   },
   {
    "hanzi": "根本",
@@ -15133,7 +15157,8 @@ export const thoidaiVocab4 = {
      "t": "Anh ấy lúc mới tới Đài Loan rất không thích nghi được với khí hậu nơi đây."
     }
    ],
-   "audioTts": "/audio/tts-vi/18f968175e.mp3"
+   "audioTts": "/audio/tts-vi/18f968175e.mp3",
+   "audio": "/audio/thoidai-tu/B3L14-1-25.mp3"
   },
   {
    "hanzi": "華僑",
@@ -15478,7 +15503,8 @@ export const thoidaiVocab4 = {
      "t": "Anh ấy cuộn bức tranh bạn tặng lại trước, đợi rảnh rồi tìm chỗ treo lên."
     }
    ],
-   "audioTts": "/audio/tts-vi/a4f72305cb.mp3"
+   "audioTts": "/audio/tts-vi/a4f72305cb.mp3",
+   "audio": "/audio/thoidai-tu/B4L05-2-19.mp3"
   },
   {
    "hanzi": "切",
@@ -15523,7 +15549,7 @@ export const thoidaiVocab4 = {
      "t": "Sáng sớm mai phải lên đường ra nước ngoài du lịch nên tôi chỉnh đồng hồ báo thức trước khi ngủ."
     }
    ],
-   "audioTts": "/audio/tts-vi/a46020d999.mp3"
+   "audioTts": "/audio/tts-vi/b16da88d1d.mp3"
   },
   {
    "hanzi": "顆",
@@ -15748,7 +15774,8 @@ export const thoidaiVocab4 = {
      "t": "Từ khi chính phủ công bố tăng giá cả xăng dầu lẫn tiền điện, số người dân phản đối đã gần bảy mươi phần trăm."
     }
    ],
-   "audioTts": "/audio/tts-vi/e185808ef9.mp3"
+   "audioTts": "/audio/tts-vi/e185808ef9.mp3",
+   "audio": "/audio/thoidai-tu/B1L07-1-17.mp3"
   },
   {
    "hanzi": "孫女",
@@ -16048,7 +16075,7 @@ export const thoidaiVocab4 = {
      "t": "Làm bánh trung thu, mời Trung thu"
     }
    ],
-   "audioTts": "/audio/tts-vi/2b87a4c4fc.mp3"
+   "audioTts": "/audio/tts-vi/68a913e50d.mp3"
   },
   {
    "hanzi": "從此",
@@ -16093,7 +16120,8 @@ export const thoidaiVocab4 = {
      "t": "Kỳ nghỉ xuân tôi định tới một làng quê trên hòn đảo nhỏ ở Thái Lan nghỉ ngơi."
     }
    ],
-   "audioTts": "/audio/tts-vi/39d3dca49f.mp3"
+   "audioTts": "/audio/tts-vi/39d3dca49f.mp3",
+   "audio": "/audio/thoidai-tu/B2L15-1-19.mp3"
   },
   {
    "hanzi": "歡樂",
@@ -16123,7 +16151,7 @@ export const thoidaiVocab4 = {
      "t": "Anh ấy thất nghiệp, nhưng vợ con vẫn ở bên ủng hộ, khiến anh ấy yên tâm hơn nhiều."
     }
    ],
-   "audio": "/audio/thoidai-tu/B4L14-2-22.mp3"
+   "audioTts": "/audio/tts-vi/2f2e8a6531.mp3"
   },
   {
    "hanzi": "妻子",
@@ -16138,7 +16166,7 @@ export const thoidaiVocab4 = {
      "t": "Anh ấy thất nghiệp, nhưng vợ con vẫn ở bên ủng hộ, khiến anh ấy yên tâm hơn nhiều."
     }
    ],
-   "audio": "/audio/thoidai-tu/B4L14-2-22.mp3"
+   "audioTts": "/audio/tts-vi/2f2e8a6531.mp3"
   },
   {
    "hanzi": "民間",
@@ -16530,7 +16558,8 @@ export const thoidaiVocab4 = {
      "t": "Tôi muốn ra nước ngoài làm dân phượt, ngoài việc mở mang tầm nhìn còn rèn cho mình tự lập hơn."
     }
    ],
-   "audioTts": "/audio/tts-vi/5bf1188209.mp3"
+   "audioTts": "/audio/tts-vi/5bf1188209.mp3",
+   "audio": "/audio/thoidai-tu/B4L03-1-31.mp3"
   },
   {
    "hanzi": "價值",
@@ -16965,7 +16994,7 @@ export const thoidaiVocab4 = {
      "t": "Phong cách giáo dục độc đáo của trường đại học quốc lập này thu hút không ít sinh viên nước ngoài."
     }
    ],
-   "audio": "/audio/thoidai-tu/B4L15-2-01.mp3"
+   "audioTts": "/audio/tts-vi/e4e9d7f13d.mp3"
   },
   {
    "hanzi": "市立",
@@ -17115,7 +17144,7 @@ export const thoidaiVocab4 = {
      "t": "Suy nghĩ kỹ càng là để ngăn việc đưa ra quyết định sai lầm."
     }
    ],
-   "audio": "/audio/thoidai-tu/B4L15-2-11.mp3"
+   "audioTts": "/audio/tts-vi/9f4f72a78d.mp3"
   },
   {
    "hanzi": "修復",
@@ -17130,7 +17159,7 @@ export const thoidaiVocab4 = {
      "t": "Thang máy chung cư đang sửa, mời mọi người chuyển sang đi cầu thang bộ."
     }
    ],
-   "audio": "/audio/thoidai-tu/B4L15-2-12.mp3"
+   "audioTts": "/audio/tts-vi/0df9a48b4b.mp3"
   },
   {
    "hanzi": "除溼機",
@@ -17160,7 +17189,7 @@ export const thoidaiVocab4 = {
      "t": "Kỹ sư máy tính ngoài việc bảo trì máy tính còn phải xử lý đủ loại vấn đề liên quan tới máy tính."
     }
    ],
-   "audio": "/audio/thoidai-tu/B4L15-2-14.mp3"
+   "audioTts": "/audio/tts-vi/6769a8700a.mp3"
   },
   {
    "hanzi": "偶然",
@@ -17250,7 +17279,7 @@ export const thoidaiVocab4 = {
      "t": "Theo quy định của bệnh viện, sau khi vào phòng bệnh thì cấm nói to."
     }
    ],
-   "audio": "/audio/thoidai-tu/B4L15-2-20.mp3"
+   "audioTts": "/audio/tts-vi/3b98798b46.mp3"
   },
   {
    "hanzi": "陳列",
@@ -17627,7 +17656,8 @@ export const thoidaiVocab4 = {
      "t": "Cô ấy là người rất thực tế, chưa bao giờ ôm mộng đẹp về tình yêu."
     }
    ],
-   "audioTts": "/audio/tts-vi/d4dbade6d3.mp3"
+   "audioTts": "/audio/tts-vi/d4dbade6d3.mp3",
+   "audio": "/audio/thoidai-tu/B3L04-1-10.mp3"
   },
   {
    "hanzi": "勝利",
@@ -17657,7 +17687,7 @@ export const thoidaiVocab4 = {
      "t": "Người lạc quan sẽ tích cực thử thách khó khăn, dù không thành công cũng không thấy thất vọng."
     }
    ],
-   "audio": "/audio/thoidai-tu/B4L16-1-24.mp3"
+   "audioTts": "/audio/tts-vi/820e231cb7.mp3"
   },
   {
    "hanzi": "儀式",
@@ -17672,7 +17702,7 @@ export const thoidaiVocab4 = {
      "t": "Mỗi tôn giáo đều có nghi thức đặc trưng riêng."
     }
    ],
-   "audio": "/audio/thoidai-tu/B4L16-1-25.mp3"
+   "audioTts": "/audio/tts-vi/4e283db506.mp3"
   },
   {
    "hanzi": "主辦",
@@ -17897,7 +17927,8 @@ export const thoidaiVocab4 = {
      "t": "Tôi cùng mấy người bạn yêu lịch sử lập một câu lạc bộ, chuyên nghiên cứu cổ vật."
     }
    ],
-   "audioTts": "/audio/tts-vi/580db28961.mp3"
+   "audioTts": "/audio/tts-vi/580db28961.mp3",
+   "audio": "/audio/thoidai-tu/B3L12-1-21.mp3"
   },
   {
    "hanzi": "隊",
@@ -17987,7 +18018,7 @@ export const thoidaiVocab4 = {
      "t": "Hè tới rồi, chúng ta ra biển chơi, tiện thể chơi bóng chuyền bãi biển."
     }
    ],
-   "audio": "/audio/thoidai-tu/B4L16-1-46.mp3"
+   "audioTts": "/audio/tts-vi/f5d6b8c88c.mp3"
   },
   {
    "hanzi": "賭",

@@ -17,6 +17,8 @@
  *      thẻ <audio> im lặng không phát, không có lỗi mạng nào để lần ra.
  *   4. ĐƯỜNG DẪN TƯƠNG ĐỐI (không bắt đầu bằng `/` hoặc `http`). Trình duyệt ghép vào URL
  *      trang hiện tại nên mỗi trang một kết quả 404 khác nhau.
+ *   5. Clip ĐỌC SAI TỪ đã được xác nhận (danh sách trong scripts/audio-clip-sai.json). Việc NGHE
+ *      để tìm ra chúng là của `kiem-noi-dung-audio.py` — chậm (cần whisper), không chạy ở đây.
  *
  * Cần `ffprobe` cho loại 2; không có thì bỏ qua phần đó và nói rõ.
  */
@@ -87,8 +89,13 @@ for (const f of bangJs) {
   }
 }
 
+// Clip đã NGHE LẠI và xác nhận đọc sai từ (kiem-noi-dung-audio.py) — dữ liệu còn trỏ vào là lỗi.
+const CLIP_SAI = (() => {
+  try { return JSON.parse(fs.readFileSync(path.join(ROOT, 'scripts/audio-clip-sai.json'), 'utf8')); } catch { return {}; }
+})();
+
 // ---------------------------------------------------------------- phân loại lỗi
-const loi = { thieu: [], tuongDoi: [], http: [], hut: [] };
+const loi = { thieu: [], tuongDoi: [], http: [], hut: [], sai: [] };
 const nguonNgoai = new Set();
 
 for (const t of thamChieu) {
@@ -100,6 +107,7 @@ for (const t of thamChieu) {
   }
   if (!s.startsWith('/')) { loi.tuongDoi.push(t); continue; }
   if (!coFile(s)) loi.thieu.push(t);
+  else if (CLIP_SAI[path.basename(s, '.mp3')]) loi.sai.push(t);
 }
 
 // clip cắt hụt — chỉ xét được với từ vựng (biết số âm tiết)
@@ -132,6 +140,7 @@ const bang = [
   ['Đường dẫn tương đối (404 tuỳ trang)', loi.tuongDoi],
   ['URL http:// — bị chặn mixed content trên HTTPS', loi.http],
   ['Clip cắt hụt (< 0,24s mỗi âm tiết)', loi.hut],
+  ['Clip đọc SAI TỪ (đã nghe lại, scripts/audio-clip-sai.json)', loi.sai],
 ];
 for (const [ten, ds] of bang) {
   const dau = ds.length ? '❌' : '✅';

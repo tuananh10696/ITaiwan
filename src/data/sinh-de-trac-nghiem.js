@@ -174,17 +174,118 @@ function makePinyinToHanzi(word, pool) {
   };
 }
 
+// ---------- Dạng NGHE (2026-10-01, phản hồi của khách: thêm câu nghe âm thanh) ----------
+// Chỉ dùng BẢN THU THẬT của sách (`audio`), không dùng giọng máy: câu nghe mà nghe giọng máy đọc
+// sai thanh / sai âm đa âm thì học viên chọn đúng cũng bị chấm sai.
+const coBanThu = (w) => typeof w?.audio === 'string' && /\.mp3$/i.test(w.audio);
+
+/** Dạng 4: Nghe từ → chọn chữ Hán. Mồi nhử phải KHÁC phiên âm (kể cả thanh) — trùng âm thì
+ *  nghe không phân biệt được, câu hỏi có hai đáp án đúng. */
+function makeNgheChonChu(word, pool) {
+  if (!coBanThu(word) || !pinyinDung(word)) return null;
+  // Mọi cách đọc (trong bài) của chữ đáp án — chữ đa âm như 得 (de/děi/dé) và 地 (dì/de) chung
+  // một cách đọc thì không cho làm mồi nhử của nhau, dù clip đang đọc cách khác.
+  const amCua = (h) => new Set([word, ...pool].filter(w => chuanHoa(w.hanzi) === chuanHoa(h)).map(w => chuanHoa(w.pinyin)));
+  const amDung = amCua(word.hanzi);
+  let ds = pool.filter(w => chuanHoa(w.hanzi) !== chuanHoa(word.hanzi) && pinyinDung(w)
+    && ![...amCua(w.hanzi)].some(a => amDung.has(a)));
+  ds = ds.filter((w, i, self) => i === self.findIndex(t => chuanHoa(t.hanzi) === chuanHoa(w.hanzi)));
+  const distractors = pickRandom(ds, 3);
+  if (distractors.length < 3) return null;
+  const options = optionDuyNhat(shuffle([
+    { text: word.hanzi, correct: true },
+    ...distractors.map(d => ({ text: d.hanzi, correct: false })),
+  ]));
+  if (!options) return null;
+  return {
+    type: 'nghe-chon-chu',
+    prompt: '',
+    promptSub: '',
+    audio: word.audio,
+    question: 'Nghe và chọn chữ Hán đúng',
+    options,
+    correctIdx: options.findIndex(o => o.correct),
+  };
+}
+
+/** Dạng 5: Nghe từ → chọn nghĩa. */
+function makeNgheChonNghia(word, pool) {
+  if (!coBanThu(word) || !nghiaDung(word)) return null;
+  let ds = pool.filter(w => nghiaDung(w) && chuanHoa(w.def) !== chuanHoa(word.def)
+    && chuanHoa(w.pinyin) !== chuanHoa(word.pinyin));
+  ds = ds.filter((w, i, self) => i === self.findIndex(t => chuanHoa(t.def) === chuanHoa(w.def)));
+  const distractors = pickRandom(ds, 3);
+  if (distractors.length < 3) return null;
+  const options = optionDuyNhat(shuffle([
+    { text: word.def, correct: true },
+    ...distractors.map(d => ({ text: d.def, correct: false })),
+  ]));
+  if (!options) return null;
+  return {
+    type: 'nghe-chon-nghia',
+    prompt: '',
+    promptSub: '',
+    audio: word.audio,
+    question: 'Nghe và chọn nghĩa đúng',
+    options,
+    correctIdx: options.findIndex(o => o.correct),
+  };
+}
+
+/** Dạng 6: Nghe một câu trong bài hội thoại (đoạn start–end của file bài khoá) → chọn nghĩa.
+ *  Đáp án là NGHĨA TIẾNG VIỆT chứ không phải chữ Hán: chữ của bài khoá bóc bằng nhận dạng giọng
+ *  nói (gen-thoidai-dialogue.py) nên còn chỗ sai chữ, còn bản dịch thì đã được soát theo ngữ cảnh. */
+function makeNgheCauThoai(dialogue, soCau) {
+  if (!dialogue || !dialogue.audio || !Array.isArray(dialogue.cues)) return [];
+  const cues = dialogue.cues.filter(c => c && c.end > c.start && (c.end - c.start) <= 15
+    && nghiaDung({ def: c.vi }) && [...String(c.text || '')].length >= 3);
+  if (cues.length < 4) return [];
+  const ra = [];
+  for (const cue of pickRandom(cues, soCau)) {
+    let ds = cues.filter(c => c !== cue && chuanHoa(c.vi) !== chuanHoa(cue.vi));
+    ds = ds.filter((c, i, self) => i === self.findIndex(t => chuanHoa(t.vi) === chuanHoa(c.vi)));
+    const distractors = pickRandom(ds, 3);
+    if (distractors.length < 3) continue;
+    const options = optionDuyNhat(shuffle([
+      { text: cue.vi, correct: true },
+      ...distractors.map(d => ({ text: d.vi, correct: false })),
+    ]));
+    if (!options) continue;
+    ra.push({
+      type: 'nghe-cau-thoai',
+      prompt: '',
+      promptSub: '',
+      audio: dialogue.audio,
+      start: cue.start,
+      end: cue.end,
+      question: 'Nghe câu hội thoại và chọn nghĩa đúng',
+      options,
+      correctIdx: options.findIndex(o => o.correct),
+      wordHanzi: cue.text,
+      wordPinyin: cue.pinyin || '',
+      wordDef: cue.vi,
+    });
+  }
+  return ra;
+}
+
 // ---------- Sinh quiz chính ----------
 
 const QUESTION_MAKERS = [makeHanziToMeaning, makeMeaningToHanzi, makePinyinToHanzi];
+const MAKERS_NGHE = [makeNgheChonChu, makeNgheChonNghia];
+/** Số câu nghe hội thoại thêm vào mỗi đề (khi bài con có hội thoại kèm bản thu). */
+const SO_CAU_THOAI = 2;
 
 /**
  * Sinh bài tập trắc nghiệm cho một bài con.
  * @param {string} subLessonId — ví dụ 'td2-5.1'
- * @param {{vocab:object, subs:Array, lessons:Array}} [nguon] — bộ giáo trình
+ * @param {{vocab:object, subs:Array, lessons:Array, dialogues?:object}} [nguon] — bộ giáo trình
+ * @param {{nghe?:boolean}} [tuyChon] — nghe: thêm câu NGHE (từ vựng có bản thu + câu hội thoại).
+ *   Chỉ trang Bài tập giáo trình bật — nơi khác (kiểm tra từ vựng TOCFL) có renderer riêng chưa
+ *   biết vẽ nút nghe.
  * @returns {Array|null} — mảng câu hỏi, hoặc null nếu bài chưa có data
  */
-export function generateQuiz(subLessonId, nguon) {
+export function generateQuiz(subLessonId, nguon, tuyChon = {}) {
   const N = _ng(nguon);
   const sub = N.subs.find(s => s.id === subLessonId);
   if (!sub) return null;
@@ -200,8 +301,8 @@ export function generateQuiz(subLessonId, nguon) {
   for (const word of words) {
     const pool = getDistractorPool(parentId, word.hanzi, N);
 
-    // Chọn ngẫu nhiên 1 trong 3 dạng câu hỏi cho mỗi từ
-    const makers = shuffle([...QUESTION_MAKERS]);
+    // Chọn ngẫu nhiên 1 dạng câu hỏi cho mỗi từ (3 dạng đọc, thêm 2 dạng nghe nếu bật)
+    const makers = shuffle([...QUESTION_MAKERS, ...(tuyChon.nghe ? MAKERS_NGHE : [])]);
     let q = null;
     for (const maker of makers) {
       q = maker(word, pool);
@@ -214,6 +315,8 @@ export function generateQuiz(subLessonId, nguon) {
       questions.push(q);
     }
   }
+
+  if (tuyChon.nghe && N.dialogues) questions.push(...makeNgheCauThoai(N.dialogues[subLessonId], SO_CAU_THOAI));
 
   // Đảo thứ tự câu hỏi mỗi lần sinh đề (2026-08-28, theo phản hồi của học viên).
   // Đáp án trong từng câu vốn đã được shuffle ở các hàm make*, nhưng THỨ TỰ CÂU trước đây

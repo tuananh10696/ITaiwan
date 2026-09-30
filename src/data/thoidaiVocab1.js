@@ -260,7 +260,8 @@ export const thoidaiVocab1 = {
      "t": "Cô ấy học xong thạc sĩ ở Mỹ thì về nước làm việc."
     }
    ],
-   "audio": "/audio/thoidai-tu/B1L01-1-17.mp3"
+   "audioTts": "/audio/tts-vi/28be6e5ed2.mp3",
+   "audio": "/audio/pron/sgk/tu-me3iguo2.mp3"
   },
   {
    "hanzi": "英國",
@@ -275,7 +276,8 @@ export const thoidaiVocab1 = {
      "t": "Thời tiết ở Anh thất thường, ra ngoài tốt nhất mang theo ô."
     }
    ],
-   "audio": "/audio/thoidai-tu/B1L01-1-18.mp3"
+   "audioTts": "/audio/tts-vi/b70cd2f912.mp3",
+   "audio": "/audio/pron/sgk/tu-yi1ngguo2.mp3"
   },
   {
    "hanzi": "漂亮",
@@ -304,7 +306,8 @@ export const thoidaiVocab1 = {
      "t": "Bạn tới nhà anh ấy thế nào?"
     }
    ],
-   "audioTts": "/audio/tts-vi/9c3d8e01e8.mp3"
+   "audioTts": "/audio/tts-vi/9c3d8e01e8.mp3",
+   "audio": "/audio/pron/sgk/tu-ta1.mp3"
   },
   {
    "hanzi": "她",
@@ -408,7 +411,7 @@ export const thoidaiVocab1 = {
      "t": "A: Bạn có thích Đài Loan không?"
     }
    ],
-   "audio": "/audio/thoidai-tu/B1L01-2-06.mp3"
+   "audioTts": "/audio/tts-vi/1abdd0f67a.mp3"
   },
   {
    "hanzi": "好",
@@ -438,7 +441,7 @@ export const thoidaiVocab1 = {
      "t": "Cho hỏi bạn là người Đài Loan phải không?"
     }
    ],
-   "audio": "/audio/thoidai-tu/B1L01-2-08.mp3"
+   "audioTts": "/audio/tts-vi/e27e680ee0.mp3"
   },
   {
    "hanzi": "我",
@@ -453,7 +456,8 @@ export const thoidaiVocab1 = {
      "t": "Tôi vẫn chưa ngủ được đâu!"
     }
    ],
-   "audioTts": "/audio/tts-vi/0abe77efc5.mp3"
+   "audioTts": "/audio/tts-vi/0abe77efc5.mp3",
+   "audio": "/audio/pron/sgk/tu-wo3.mp3"
   },
   {
    "hanzi": "大家",
@@ -1168,7 +1172,8 @@ export const thoidaiVocab1 = {
      "t": "Tôi vào học lúc chín giờ ba mươi."
     }
    ],
-   "audioTts": "/audio/tts-vi/98a7ad7d4e.mp3"
+   "audioTts": "/audio/tts-vi/98a7ad7d4e.mp3",
+   "audio": "/audio/pron/sgk/tu-jiu3.mp3"
   },
   {
    "hanzi": "四",
@@ -1183,7 +1188,8 @@ export const thoidaiVocab1 = {
      "t": "Tôi tan học lúc bốn giờ bốn mươi."
     }
    ],
-   "audioTts": "/audio/tts-vi/4262bbfcfd.mp3"
+   "audioTts": "/audio/tts-vi/4262bbfcfd.mp3",
+   "audio": "/audio/pron/sgk/tu-si4.mp3"
   },
   {
    "hanzi": "月",
@@ -1213,7 +1219,8 @@ export const thoidaiVocab1 = {
      "t": "Bạn tới nhà anh ấy thế nào?"
     }
    ],
-   "audioTts": "/audio/tts-vi/9c3d8e01e8.mp3"
+   "audioTts": "/audio/tts-vi/9c3d8e01e8.mp3",
+   "audio": "/audio/pron/sgk/tu-ta1.mp3"
   },
   {
    "hanzi": "她",
@@ -1467,7 +1474,8 @@ export const thoidaiVocab1 = {
      "t": "Tôi vẫn chưa ngủ được đâu!"
     }
    ],
-   "audioTts": "/audio/tts-vi/0abe77efc5.mp3"
+   "audioTts": "/audio/tts-vi/0abe77efc5.mp3",
+   "audio": "/audio/pron/sgk/tu-wo3.mp3"
   },
   {
    "hanzi": "不",
@@ -1824,7 +1832,8 @@ export const thoidaiVocab1 = {
      "t": "Tôi muốn được miếng dán của cửa hàng tiện lợi nên tiêu rất nhiều tiền mua đồ."
     }
    ],
-   "audio": "/audio/thoidai-tu/B1L03-1-12.mp3"
+   "audioTts": "/audio/tts-vi/5dc5e0dbca.mp3",
+   "audio": "/audio/thoidai-tu/B2L08-1-26.mp3"
   },
   {
    "hanzi": "朵",
@@ -1839,7 +1848,7 @@ export const thoidaiVocab1 = {
      "t": "Tôi tặng mẹ một bông hoa."
     }
    ],
-   "audio": "/audio/thoidai-tu/B1L03-1-13.mp3"
+   "audioTts": "/audio/tts-vi/a1792e18b2.mp3"
   },
   {
    "hanzi": "和",
@@ -1854,7 +1863,7 @@ export const thoidaiVocab1 = {
      "t": "Tuần sau tôi phải cùng giám đốc sang Mỹ công tác."
     }
    ],
-   "audio": "/audio/thoidai-tu/B1L03-1-14.mp3"
+   "audioTts": "/audio/tts-vi/93fc495c95.mp3"
   },
   {
    "hanzi": "大",
@@ -1956,7 +1965,8 @@ export const thoidaiVocab1 = {
      "t": "Từ thứ hai"
     }
    ],
-   "audioTts": "/audio/tts-vi/fa737c5c6d.mp3"
+   "audioTts": "/audio/tts-vi/fa737c5c6d.mp3",
+   "audio": "/audio/pron/sgk/tu-yi1.mp3"
   },
   {
    "hanzi": "送",
@@ -2355,7 +2365,8 @@ export const thoidaiVocab1 = {
      "t": "Tay bạn ˍˍˍˍˍˍˍˍˍˍ, mau đi rửa đi."
     }
    ],
-   "audioTts": "/audio/tts-vi/79c1a292de.mp3"
+   "audioTts": "/audio/tts-vi/79c1a292de.mp3",
+   "audio": "/audio/thoidai-tu/B1L02-2-07.mp3"
   },
   {
    "hanzi": "新",
@@ -2369,7 +2380,8 @@ export const thoidaiVocab1 = {
      "t": "Cậu ấy là bạn học mới của chúng tôi."
     }
    ],
-   "audioTts": "/audio/tts-vi/33f9519b20.mp3"
+   "audioTts": "/audio/tts-vi/33f9519b20.mp3",
+   "audio": "/audio/thoidai-tu/B1L01-1-01.mp3"
   },
   {
    "hanzi": "的",
@@ -2384,7 +2396,8 @@ export const thoidaiVocab1 = {
      "t": "Tay bạn ˍˍˍˍˍˍˍˍˍˍ, mau đi rửa đi."
     }
    ],
-   "audioTts": "/audio/tts-vi/79c1a292de.mp3"
+   "audioTts": "/audio/tts-vi/79c1a292de.mp3",
+   "audio": "/audio/thoidai-tu/B1L02-2-07.mp3"
   },
   {
    "hanzi": "都",
@@ -2671,7 +2684,7 @@ export const thoidaiVocab1 = {
      "t": "Bây giờ tôi không khát, tôi đói lắm."
     }
    ],
-   "audio": "/audio/thoidai-tu/B1L04-1-10.mp3"
+   "audioTts": "/audio/tts-vi/207f3ac456.mp3"
   },
   {
    "hanzi": "餐廳/飯館",
@@ -3582,7 +3595,7 @@ export const thoidaiVocab1 = {
      "t": "Đồ ở đây vừa tốt vừa rẻ, tôi hay tới mua."
     }
    ],
-   "audio": "/audio/thoidai-tu/B1L05-1-10.mp3"
+   "audioTts": "/audio/tts-vi/280a61da83.mp3"
   },
   {
    "hanzi": "冰淇淋",
@@ -3627,7 +3640,7 @@ export const thoidaiVocab1 = {
      "t": "Bây giờ mười hai giờ rưỡi."
     }
    ],
-   "audio": "/audio/thoidai-tu/B1L05-1-13.mp3"
+   "audioTts": "/audio/tts-vi/864b19cc25.mp3"
   },
   {
    "hanzi": "吧",
@@ -3672,7 +3685,8 @@ export const thoidaiVocab1 = {
      "t": "Tôi vẫn chưa ngủ được đâu!"
     }
    ],
-   "audioTts": "/audio/tts-vi/0abe77efc5.mp3"
+   "audioTts": "/audio/tts-vi/0abe77efc5.mp3",
+   "audio": "/audio/pron/sgk/tu-wo3.mp3"
   },
   {
    "hanzi": "在",
@@ -3934,7 +3948,8 @@ export const thoidaiVocab1 = {
      "t": "Tôi vẫn chưa ngủ được đâu!"
     }
    ],
-   "audioTts": "/audio/tts-vi/0abe77efc5.mp3"
+   "audioTts": "/audio/tts-vi/0abe77efc5.mp3",
+   "audio": "/audio/pron/sgk/tu-wo3.mp3"
   },
   {
    "hanzi": "我",
@@ -3949,7 +3964,8 @@ export const thoidaiVocab1 = {
      "t": "Tôi vẫn chưa ngủ được đâu!"
     }
    ],
-   "audioTts": "/audio/tts-vi/0abe77efc5.mp3"
+   "audioTts": "/audio/tts-vi/0abe77efc5.mp3",
+   "audio": "/audio/pron/sgk/tu-wo3.mp3"
   },
   {
    "hanzi": "我",
@@ -3964,7 +3980,8 @@ export const thoidaiVocab1 = {
      "t": "Tôi vẫn chưa ngủ được đâu!"
     }
    ],
-   "audioTts": "/audio/tts-vi/0abe77efc5.mp3"
+   "audioTts": "/audio/tts-vi/0abe77efc5.mp3",
+   "audio": "/audio/pron/sgk/tu-wo3.mp3"
   },
   {
    "hanzi": "幫",
@@ -4306,7 +4323,7 @@ export const thoidaiVocab1 = {
      "t": "Đứa bé đó rất thích đá bóng."
     }
    ],
-   "audio": "/audio/thoidai-tu/B1L06-1-07.mp3"
+   "audioTts": "/audio/tts-vi/f68893f4d7.mp3"
   },
   {
    "hanzi": "海邊",
@@ -4514,7 +4531,8 @@ export const thoidaiVocab1 = {
      "t": "Tôi vẫn chưa ngủ được đâu!"
     }
    ],
-   "audioTts": "/audio/tts-vi/0abe77efc5.mp3"
+   "audioTts": "/audio/tts-vi/0abe77efc5.mp3",
+   "audio": "/audio/pron/sgk/tu-wo3.mp3"
   },
   {
    "hanzi": "得",
@@ -4880,7 +4898,8 @@ export const thoidaiVocab1 = {
      "t": "Hôm nay rất lạnh, ra ngoài phải mặc thêm áo khoác."
     }
    ],
-   "audioTts": "/audio/tts-vi/e585dc2ca9.mp3"
+   "audioTts": "/audio/tts-vi/e585dc2ca9.mp3",
+   "audio": "/audio/thoidai-tu/B1L04-1-06.mp3"
   },
   {
    "hanzi": "興趣",
@@ -4910,7 +4929,8 @@ export const thoidaiVocab1 = {
      "t": "Tôi có mấy người bạn Đài Loan."
     }
    ],
-   "audioTts": "/audio/tts-vi/17393240e8.mp3"
+   "audioTts": "/audio/tts-vi/17393240e8.mp3",
+   "audio": "/audio/thoidai-tu/B1L02-1-01.mp3"
   },
   {
    "hanzi": "學",
@@ -5477,7 +5497,8 @@ export const thoidaiVocab1 = {
      "t": "Bạn tới nhà anh ấy thế nào?"
     }
    ],
-   "audioTts": "/audio/tts-vi/9c3d8e01e8.mp3"
+   "audioTts": "/audio/tts-vi/9c3d8e01e8.mp3",
+   "audio": "/audio/pron/sgk/tu-ta1.mp3"
   },
   {
    "hanzi": "怎麼",
@@ -5492,7 +5513,8 @@ export const thoidaiVocab1 = {
      "t": "\"Bạn muốn đi thế nào?\""
     }
    ],
-   "audioTts": "/audio/tts-vi/3cf597275c.mp3"
+   "audioTts": "/audio/tts-vi/3cf597275c.mp3",
+   "audio": "/audio/thoidai-tu/B1L12-1-03.mp3"
   },
   {
    "hanzi": "了",
@@ -5666,7 +5688,7 @@ export const thoidaiVocab1 = {
      "t": "Tôi phải tới bưu điện gửi thư, cũng phải mua ít phong bì."
     }
    ],
-   "audio": "/audio/thoidai-tu/B1L07-2-20.mp3"
+   "audioTts": "/audio/tts-vi/44c7a2dfc8.mp3"
   },
   {
    "hanzi": "/超市",
@@ -6371,7 +6393,8 @@ export const thoidaiVocab1 = {
      "t": "Bạn định mua giày phải không?"
     }
    ],
-   "audioTts": "/audio/tts-vi/b84a163964.mp3"
+   "audioTts": "/audio/tts-vi/b84a163964.mp3",
+   "audio": "/audio/thoidai-tu/B1L05-1-14.mp3"
   },
   {
    "hanzi": "流行",
@@ -6416,7 +6439,7 @@ export const thoidaiVocab1 = {
      "t": "Vậy làm thị trưởng là ước mơ của bạn à?"
     }
    ],
-   "audio": "/audio/thoidai-tu/B1L08-2-06.mp3"
+   "audioTts": "/audio/tts-vi/37ab0620db.mp3"
   },
   {
    "hanzi": "鞋子",
@@ -6460,7 +6483,8 @@ export const thoidaiVocab1 = {
      "t": "Trường song ngữ đó nhấn mạnh rằng ngoài giờ tiếng Trung ra, các môn khác đều dạy bằng tiếng Anh."
     }
    ],
-   "audio": "/audio/thoidai-tu/B1L08-2-09.mp3"
+   "audioTts": "/audio/tts-vi/9853bee2cf.mp3",
+   "audio": "/audio/thoidai-tu/B3L04-1-06.mp3"
   },
   {
    "hanzi": "黑色",
@@ -6475,7 +6499,7 @@ export const thoidaiVocab1 = {
      "t": "Tôi muốn mua một đôi màu đen!"
     }
    ],
-   "audio": "/audio/thoidai-tu/B1L08-2-10.mp3"
+   "audioTts": "/audio/tts-vi/7b17a1ce14.mp3"
   },
   {
    "hanzi": "黑",
@@ -6685,7 +6709,8 @@ export const thoidaiVocab1 = {
      "t": "Bạn định mua giày phải không?"
     }
    ],
-   "audioTts": "/audio/tts-vi/b84a163964.mp3"
+   "audioTts": "/audio/tts-vi/b84a163964.mp3",
+   "audio": "/audio/thoidai-tu/B1L05-1-14.mp3"
   },
   {
    "hanzi": "看",
@@ -6700,7 +6725,8 @@ export const thoidaiVocab1 = {
      "t": "Chiếc áo len ˍˍˍˍˍˍˍˍ đó ai cũng thấy đẹp."
     }
    ],
-   "audioTts": "/audio/tts-vi/39cd068ae2.mp3"
+   "audioTts": "/audio/tts-vi/39cd068ae2.mp3",
+   "audio": "/audio/thoidai-tu/B1L03-1-05.mp3"
   },
   {
    "hanzi": "了",
@@ -7182,7 +7208,8 @@ export const thoidaiVocab1 = {
      "t": "Từ thứ hai"
     }
    ],
-   "audioTts": "/audio/tts-vi/fa737c5c6d.mp3"
+   "audioTts": "/audio/tts-vi/fa737c5c6d.mp3",
+   "audio": "/audio/pron/sgk/tu-yi1.mp3"
   },
   {
    "hanzi": "語言",
@@ -7869,7 +7896,8 @@ export const thoidaiVocab1 = {
      "t": "Tay bạn ˍˍˍˍˍˍˍˍˍˍ, mau đi rửa đi."
     }
    ],
-   "audioTts": "/audio/tts-vi/79c1a292de.mp3"
+   "audioTts": "/audio/tts-vi/79c1a292de.mp3",
+   "audio": "/audio/thoidai-tu/B1L02-2-07.mp3"
   },
   {
    "hanzi": "的",
@@ -7884,7 +7912,8 @@ export const thoidaiVocab1 = {
      "t": "Tay bạn ˍˍˍˍˍˍˍˍˍˍ, mau đi rửa đi."
     }
    ],
-   "audioTts": "/audio/tts-vi/79c1a292de.mp3"
+   "audioTts": "/audio/tts-vi/79c1a292de.mp3",
+   "audio": "/audio/thoidai-tu/B1L02-2-07.mp3"
   },
   {
    "hanzi": "的",
@@ -7899,7 +7928,8 @@ export const thoidaiVocab1 = {
      "t": "Tay bạn ˍˍˍˍˍˍˍˍˍˍ, mau đi rửa đi."
     }
    ],
-   "audioTts": "/audio/tts-vi/79c1a292de.mp3"
+   "audioTts": "/audio/tts-vi/79c1a292de.mp3",
+   "audio": "/audio/thoidai-tu/B1L02-2-07.mp3"
   },
   {
    "hanzi": "多",
@@ -7914,7 +7944,8 @@ export const thoidaiVocab1 = {
      "t": "Tất cả hơn 200 đồng."
     }
    ],
-   "audioTts": "/audio/tts-vi/3d8a90b477.mp3"
+   "audioTts": "/audio/tts-vi/3d8a90b477.mp3",
+   "audio": "/audio/thoidai-tu/B1L10-1-16.mp3"
   },
   {
    "hanzi": "咳嗽/咳",
@@ -8122,7 +8153,8 @@ export const thoidaiVocab1 = {
      "t": "Hôm nay trời đẹp, bạn sẽ nói gì với chồng?"
     }
    ],
-   "audioTts": "/audio/tts-vi/5f7ad91120.mp3"
+   "audioTts": "/audio/tts-vi/5f7ad91120.mp3",
+   "audio": "/audio/thoidai-tu/B1L06-1-13.mp3"
   },
   {
    "hanzi": "記得",
@@ -8167,7 +8199,8 @@ export const thoidaiVocab1 = {
      "t": "Ai cũng thích điện thoại đắt tiền, nhưng anh ấy thì lại không thích, thấy dùng được là tốt rồi."
     }
    ],
-   "audioTts": "/audio/tts-vi/77f6dc5186.mp3"
+   "audioTts": "/audio/tts-vi/77f6dc5186.mp3",
+   "audio": "/audio/thoidai-tu/B4L01-1-43.mp3"
   },
   {
    "hanzi": "不舒服",
@@ -8197,7 +8230,8 @@ export const thoidaiVocab1 = {
      "t": "Ai cũng thích điện thoại đắt tiền, nhưng anh ấy thì lại không thích, thấy dùng được là tốt rồi."
     }
    ],
-   "audioTts": "/audio/tts-vi/77f6dc5186.mp3"
+   "audioTts": "/audio/tts-vi/77f6dc5186.mp3",
+   "audio": "/audio/thoidai-tu/B4L01-1-43.mp3"
   },
   {
    "hanzi": "打電話",
@@ -8558,7 +8592,8 @@ export const thoidaiVocab1 = {
      "t": "7 giờ đi học"
     }
    ],
-   "audioTts": "/audio/tts-vi/1d72aea75d.mp3"
+   "audioTts": "/audio/tts-vi/1d72aea75d.mp3",
+   "audio": "/audio/thoidai-tu/B1L02-1-05.mp3"
   },
   {
    "hanzi": "了",
@@ -8618,7 +8653,8 @@ export const thoidaiVocab1 = {
      "t": "Tôi vẫn chưa ngủ được đâu!"
     }
    ],
-   "audioTts": "/audio/tts-vi/0abe77efc5.mp3"
+   "audioTts": "/audio/tts-vi/0abe77efc5.mp3",
+   "audio": "/audio/pron/sgk/tu-wo3.mp3"
   },
   {
    "hanzi": "是",
@@ -8633,7 +8669,8 @@ export const thoidaiVocab1 = {
      "t": "Không phải sáng nay mới tới."
     }
    ],
-   "audioTts": "/audio/tts-vi/44e641f1c2.mp3"
+   "audioTts": "/audio/tts-vi/44e641f1c2.mp3",
+   "audio": "/audio/pron/sgk/tu-shi4.mp3"
   },
   {
    "hanzi": "以前",
@@ -8766,7 +8803,7 @@ export const thoidaiVocab1 = {
      "t": "Có thể đang ngủ."
     }
    ],
-   "audio": "/audio/thoidai-tu/B1L11-2-09.mp3"
+   "audioTts": "/audio/tts-vi/bc0da4fabe.mp3"
   },
   {
    "hanzi": "約",
@@ -8826,7 +8863,8 @@ export const thoidaiVocab1 = {
      "t": "\"Bạn lo lắng điều gì?\""
     }
    ],
-   "audioTts": "/audio/tts-vi/2560255d7b.mp3"
+   "audioTts": "/audio/tts-vi/2560255d7b.mp3",
+   "audio": "/audio/thoidai-tu/B1L01-2-01.mp3"
   },
   {
    "hanzi": "再",
@@ -9469,7 +9507,7 @@ export const thoidaiVocab1 = {
      "t": "Năng lực của bạn đủ tốt, làm việc này chắc chắn không vấn đề gì."
     }
    ],
-   "audio": "/audio/thoidai-tu/B1L12-2-08.mp3"
+   "audio": "/audio/thoidai-tu/B2L09-1-32.mp3"
   },
   {
    "hanzi": "遲到",
@@ -9513,7 +9551,8 @@ export const thoidaiVocab1 = {
      "t": "Bây giờ mấy giờ rồi?"
     }
    ],
-   "audioTts": "/audio/tts-vi/fd40c76b2f.mp3"
+   "audioTts": "/audio/tts-vi/fd40c76b2f.mp3",
+   "audio": "/audio/thoidai-tu/B1L02-1-04.mp3"
   },
   {
    "hanzi": "分鐘",
@@ -9647,7 +9686,8 @@ export const thoidaiVocab1 = {
      "t": "Bố mẹ anh ấy tới giờ vẫn thấy rất tiếc vì con trai không học ngành y."
     }
    ],
-   "audioTts": "/audio/tts-vi/da60eff95e.mp3"
+   "audioTts": "/audio/tts-vi/da60eff95e.mp3",
+   "audio": "/audio/pron/sgk/tu-e2rzi.mp3"
   },
   {
    "hanzi": "女兒",
@@ -10067,7 +10107,8 @@ export const thoidaiVocab1 = {
      "t": "Tôi thích nghe nhạc."
     }
    ],
-   "audioTts": "/audio/tts-vi/a28f75d095.mp3"
+   "audioTts": "/audio/tts-vi/a28f75d095.mp3",
+   "audio": "/audio/thoidai-tu/B1L05-1-04.mp3"
   },
   {
    "hanzi": "聽",
@@ -10082,7 +10123,8 @@ export const thoidaiVocab1 = {
      "t": "Tôi thích nghe nhạc."
     }
    ],
-   "audioTts": "/audio/tts-vi/a28f75d095.mp3"
+   "audioTts": "/audio/tts-vi/a28f75d095.mp3",
+   "audio": "/audio/thoidai-tu/B1L05-1-04.mp3"
   },
   {
    "hanzi": "從",
@@ -10096,7 +10138,8 @@ export const thoidaiVocab1 = {
      "t": "Anh ấy sẽ đi bộ từ nhà tới trường."
     }
    ],
-   "audioTts": "/audio/tts-vi/e4dfbf16b7.mp3"
+   "audioTts": "/audio/tts-vi/e4dfbf16b7.mp3",
+   "audio": "/audio/thoidai-tu/B1L07-1-19.mp3"
   },
   {
    "hanzi": "就要",
@@ -10306,7 +10349,8 @@ export const thoidaiVocab1 = {
      "t": "Tôi vẫn chưa ngủ được đâu!"
     }
    ],
-   "audioTts": "/audio/tts-vi/0abe77efc5.mp3"
+   "audioTts": "/audio/tts-vi/0abe77efc5.mp3",
+   "audio": "/audio/pron/sgk/tu-wo3.mp3"
   },
   {
    "hanzi": "我",
@@ -10321,7 +10365,8 @@ export const thoidaiVocab1 = {
      "t": "Tôi vẫn chưa ngủ được đâu!"
     }
    ],
-   "audioTts": "/audio/tts-vi/0abe77efc5.mp3"
+   "audioTts": "/audio/tts-vi/0abe77efc5.mp3",
+   "audio": "/audio/pron/sgk/tu-wo3.mp3"
   },
   {
    "hanzi": "的",
@@ -10336,7 +10381,8 @@ export const thoidaiVocab1 = {
      "t": "Tay bạn ˍˍˍˍˍˍˍˍˍˍ, mau đi rửa đi."
     }
    ],
-   "audioTts": "/audio/tts-vi/79c1a292de.mp3"
+   "audioTts": "/audio/tts-vi/79c1a292de.mp3",
+   "audio": "/audio/thoidai-tu/B1L02-2-07.mp3"
   },
   {
    "hanzi": "算",
@@ -10652,7 +10698,7 @@ export const thoidaiVocab1 = {
      "t": "Đây là lần đầu tôi tới Đài Loan, tôi thấy rất vui."
     }
    ],
-   "audio": "/audio/thoidai-tu/B1L14-1-05.mp3"
+   "audioTts": "/audio/tts-vi/a3dd9d39fe.mp3"
   },
   {
    "hanzi": "過",
@@ -10785,7 +10831,7 @@ export const thoidaiVocab1 = {
      "t": "Đang tập thể dục, náo nhiệt lắm."
     }
    ],
-   "audio": "/audio/thoidai-tu/B1L14-1-14.mp3"
+   "audioTts": "/audio/tts-vi/b3c66607d9.mp3"
   },
   {
    "hanzi": "有意思",
@@ -10920,7 +10966,8 @@ export const thoidaiVocab1 = {
      "t": "Tôi vẫn chưa ngủ được đâu!"
     }
    ],
-   "audioTts": "/audio/tts-vi/0abe77efc5.mp3"
+   "audioTts": "/audio/tts-vi/0abe77efc5.mp3",
+   "audio": "/audio/pron/sgk/tu-wo3.mp3"
   },
   {
    "hanzi": "他",
@@ -10935,7 +10982,8 @@ export const thoidaiVocab1 = {
      "t": "Bạn tới nhà anh ấy thế nào?"
     }
    ],
-   "audioTts": "/audio/tts-vi/9c3d8e01e8.mp3"
+   "audioTts": "/audio/tts-vi/9c3d8e01e8.mp3",
+   "audio": "/audio/pron/sgk/tu-ta1.mp3"
   },
   {
    "hanzi": "的",
@@ -10950,7 +10998,8 @@ export const thoidaiVocab1 = {
      "t": "Tay bạn ˍˍˍˍˍˍˍˍˍˍ, mau đi rửa đi."
     }
    ],
-   "audioTts": "/audio/tts-vi/79c1a292de.mp3"
+   "audioTts": "/audio/tts-vi/79c1a292de.mp3",
+   "audio": "/audio/thoidai-tu/B1L02-2-07.mp3"
   },
   {
    "hanzi": "了",
@@ -10980,7 +11029,8 @@ export const thoidaiVocab1 = {
      "t": "Bạn tới nhà anh ấy thế nào?"
     }
    ],
-   "audioTts": "/audio/tts-vi/9c3d8e01e8.mp3"
+   "audioTts": "/audio/tts-vi/9c3d8e01e8.mp3",
+   "audio": "/audio/pron/sgk/tu-ta1.mp3"
   },
   {
    "hanzi": "的",
@@ -10995,7 +11045,8 @@ export const thoidaiVocab1 = {
      "t": "Tay bạn ˍˍˍˍˍˍˍˍˍˍ, mau đi rửa đi."
     }
    ],
-   "audioTts": "/audio/tts-vi/79c1a292de.mp3"
+   "audioTts": "/audio/tts-vi/79c1a292de.mp3",
+   "audio": "/audio/thoidai-tu/B1L02-2-07.mp3"
   },
   {
    "hanzi": "歡迎",
@@ -11025,7 +11076,8 @@ export const thoidaiVocab1 = {
      "t": "Mỹ Mỹ lúc mới vào công ty người mẫu, có một"
     }
    ],
-   "audioTts": "/audio/tts-vi/8bc4cec89d.mp3"
+   "audioTts": "/audio/tts-vi/8bc4cec89d.mp3",
+   "audio": "/audio/thoidai-tu/B3L02-2-12.mp3"
   },
   {
    "hanzi": "公園",
@@ -11144,7 +11196,7 @@ export const thoidaiVocab1 = {
      "t": "Bạn sẽ thấy rất nhiều con bò."
     }
    ],
-   "audio": "/audio/thoidai-tu/B1L14-2-10.mp3"
+   "audioTts": "/audio/tts-vi/a68534aa6b.mp3"
   },
   {
    "hanzi": "肉",
@@ -11276,7 +11328,8 @@ export const thoidaiVocab1 = {
      "t": "Trước khi mua giày trên mạng hãy đo thử cỡ chân, mới biết chọn size nào."
     }
    ],
-   "audioTts": "/audio/tts-vi/94c2f55bfc.mp3"
+   "audioTts": "/audio/tts-vi/94c2f55bfc.mp3",
+   "audio": "/audio/thoidai-tu/B4L03-1-13.mp3"
   },
   {
    "hanzi": "同意",
@@ -11306,7 +11359,8 @@ export const thoidaiVocab1 = {
      "t": "Trước khi mua giày trên mạng hãy đo thử cỡ chân, mới biết chọn size nào."
     }
    ],
-   "audioTts": "/audio/tts-vi/94c2f55bfc.mp3"
+   "audioTts": "/audio/tts-vi/94c2f55bfc.mp3",
+   "audio": "/audio/thoidai-tu/B4L03-1-13.mp3"
   },
   {
    "hanzi": "比",
@@ -11321,7 +11375,8 @@ export const thoidaiVocab1 = {
      "t": "Trước khi mua giày trên mạng hãy đo thử cỡ chân, mới biết chọn size nào."
     }
    ],
-   "audioTts": "/audio/tts-vi/94c2f55bfc.mp3"
+   "audioTts": "/audio/tts-vi/94c2f55bfc.mp3",
+   "audio": "/audio/thoidai-tu/B4L03-1-13.mp3"
   },
   {
    "hanzi": "國家",
@@ -11547,7 +11602,8 @@ export const thoidaiVocab1 = {
      "t": "Người Hoa và người Nhật đều có mười hai con giáp, các con vật trong mười hai con giáp cũng giống nhau chứ?"
     }
    ],
-   "audioTts": "/audio/tts-vi/c61e307e2a.mp3"
+   "audioTts": "/audio/tts-vi/c61e307e2a.mp3",
+   "audio": "/audio/pron/sgk/tu-yi2ya4ng.mp3"
   },
   {
    "hanzi": "代表",
@@ -11726,7 +11782,8 @@ export const thoidaiVocab1 = {
      "t": "Căn hộ này vừa rộng vừa sạch, tôi và bạn cùng phòng sống rất ˍˍˍˍˍˍˍˍˍ."
     }
    ],
-   "audioTts": "/audio/tts-vi/10d7de2763.mp3"
+   "audioTts": "/audio/tts-vi/10d7de2763.mp3",
+   "audio": "/audio/thoidai-tu/B1L10-1-05.mp3"
   },
   {
    "hanzi": "他",
@@ -11741,7 +11798,8 @@ export const thoidaiVocab1 = {
      "t": "Bạn tới nhà anh ấy thế nào?"
     }
    ],
-   "audioTts": "/audio/tts-vi/9c3d8e01e8.mp3"
+   "audioTts": "/audio/tts-vi/9c3d8e01e8.mp3",
+   "audio": "/audio/pron/sgk/tu-ta1.mp3"
   },
   {
    "hanzi": "一",
@@ -11756,7 +11814,8 @@ export const thoidaiVocab1 = {
      "t": "Từ thứ hai"
     }
    ],
-   "audioTts": "/audio/tts-vi/fa737c5c6d.mp3"
+   "audioTts": "/audio/tts-vi/fa737c5c6d.mp3",
+   "audio": "/audio/pron/sgk/tu-yi1.mp3"
   },
   {
    "hanzi": "著",
@@ -11876,7 +11935,8 @@ export const thoidaiVocab1 = {
      "t": "Cho tới đúng ngày Tết Nguyên tiêu"
     }
    ],
-   "audioTts": "/audio/tts-vi/e7192ce48d.mp3"
+   "audioTts": "/audio/tts-vi/e7192ce48d.mp3",
+   "audio": "/audio/thoidai-tu/B5L14-1-45.mp3"
   },
   {
    "hanzi": "燈會",
@@ -11936,7 +11996,8 @@ export const thoidaiVocab1 = {
      "t": "Chiếc áo len ˍˍˍˍˍˍˍˍ đó ai cũng thấy đẹp."
     }
    ],
-   "audioTts": "/audio/tts-vi/39cd068ae2.mp3"
+   "audioTts": "/audio/tts-vi/39cd068ae2.mp3",
+   "audio": "/audio/thoidai-tu/B1L03-1-05.mp3"
   },
   {
    "hanzi": "著",
@@ -11965,7 +12026,8 @@ export const thoidaiVocab1 = {
      "t": "Cô giáo bảo chúng tôi"
     }
    ],
-   "audioTts": "/audio/tts-vi/e91dcaf81d.mp3"
+   "audioTts": "/audio/tts-vi/e91dcaf81d.mp3",
+   "audio": "/audio/pron/sgk/tu-la3oshi1.mp3"
   },
   {
    "hanzi": "放",
@@ -12173,7 +12235,7 @@ export const thoidaiVocab1 = {
      "t": "Người Hoa dùng chuột, trâu, hổ, thỏ, rồng, rắn, ngựa, dê, khỉ, gà, chó và lợn để tượng trưng cho từng năm"
     }
    ],
-   "audio": "/audio/thoidai-tu/B1L15-3-14.mp3"
+   "audioTts": "/audio/tts-vi/60d1f6d4b3.mp3"
   },
   {
    "hanzi": "豬",
@@ -12445,7 +12507,7 @@ export const thoidaiVocab1 = {
      "t": "Chúng tôi từ tiểu học tới đại học đều là"
     }
    ],
-   "audio": "/audio/thoidai-tu/B1L16-1-16.mp3"
+   "audioTts": "/audio/tts-vi/a0f42b26bf.mp3"
   },
   {
    "hanzi": "年級",
@@ -12548,7 +12610,8 @@ export const thoidaiVocab1 = {
      "t": "Trời đã mưa mười tiếng rồi."
     }
    ],
-   "audioTts": "/audio/tts-vi/b66b5e5da7.mp3"
+   "audioTts": "/audio/tts-vi/b66b5e5da7.mp3",
+   "audio": "/audio/pron/sgk/tu-yu3.mp3"
   },
   {
    "hanzi": "夜",
@@ -12638,7 +12701,8 @@ export const thoidaiVocab1 = {
      "t": "Tôi vẫn chưa ngủ được đâu!"
     }
    ],
-   "audioTts": "/audio/tts-vi/0abe77efc5.mp3"
+   "audioTts": "/audio/tts-vi/0abe77efc5.mp3",
+   "audio": "/audio/pron/sgk/tu-wo3.mp3"
   },
   {
    "hanzi": "我",
@@ -12653,7 +12717,8 @@ export const thoidaiVocab1 = {
      "t": "Tôi vẫn chưa ngủ được đâu!"
     }
    ],
-   "audioTts": "/audio/tts-vi/0abe77efc5.mp3"
+   "audioTts": "/audio/tts-vi/0abe77efc5.mp3",
+   "audio": "/audio/pron/sgk/tu-wo3.mp3"
   },
   {
    "hanzi": "離",
@@ -12787,7 +12852,7 @@ export const thoidaiVocab1 = {
      "t": "Tôi muốn thay quần áo rồi mới đi tập."
     }
    ],
-   "audio": "/audio/thoidai-tu/B1L16-2-07.mp3"
+   "audioTts": "/audio/tts-vi/8ebf0b1006.mp3"
   },
   {
    "hanzi": "付",
@@ -12832,7 +12897,7 @@ export const thoidaiVocab1 = {
      "t": "Nơi phong cảnh đẹp thì rất nhiều"
     }
    ],
-   "audio": "/audio/thoidai-tu/B1L16-2-10.mp3"
+   "audioTts": "/audio/tts-vi/314118a7cf.mp3"
   },
   {
    "hanzi": "笑",
@@ -12847,7 +12912,7 @@ export const thoidaiVocab1 = {
      "t": "Cười rất tươi."
     }
    ],
-   "audio": "/audio/thoidai-tu/B1L16-2-11.mp3"
+   "audioTts": "/audio/tts-vi/2fc7335701.mp3"
   },
   {
    "hanzi": "高雄",
@@ -12937,7 +13002,8 @@ export const thoidaiVocab1 = {
      "t": "Trước khi mua giày trên mạng hãy đo thử cỡ chân, mới biết chọn size nào."
     }
    ],
-   "audioTts": "/audio/tts-vi/94c2f55bfc.mp3"
+   "audioTts": "/audio/tts-vi/94c2f55bfc.mp3",
+   "audio": "/audio/thoidai-tu/B4L03-1-13.mp3"
   },
   {
    "hanzi": "昨天晚上",

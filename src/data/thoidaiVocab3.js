@@ -548,7 +548,7 @@ export const thoidaiVocab3 = {
      "t": "Ừ, chúng ta cùng cố gắng nhé."
     }
    ],
-   "audio": "/audio/thoidai-tu/B3L01-1-36.mp3"
+   "audioTts": "/audio/tts-vi/0c550f9c31.mp3"
   },
   {
    "hanzi": "法律",
@@ -922,7 +922,7 @@ export const thoidaiVocab3 = {
      "t": "Cũng tìm được một công việc người mẫu"
     }
    ],
-   "audio": "/audio/thoidai-tu/B3L01-2-15.mp3"
+   "audioTts": "/audio/tts-vi/d662c95d79.mp3"
   },
   {
    "hanzi": "就算",
@@ -1519,7 +1519,8 @@ export const thoidaiVocab3 = {
      "t": "Dạo này cô ấy mất ngủ, uống liền ba ngày thuốc cũng không đỡ."
     }
    ],
-   "audioTts": "/audio/tts-vi/096bce6f30.mp3"
+   "audioTts": "/audio/tts-vi/096bce6f30.mp3",
+   "audio": "/audio/thoidai-tu/B2L08-1-12.mp3"
   },
   {
    "hanzi": "上門",
@@ -2463,7 +2464,7 @@ export const thoidaiVocab3 = {
      "t": "Trong bảy ngày đều đổi được."
     }
    ],
-   "audio": "/audio/thoidai-tu/B3L03-1-35.mp3"
+   "audioTts": "/audio/tts-vi/7e1132ed19.mp3"
   },
   {
    "hanzi": "體貼",
@@ -4549,7 +4550,8 @@ export const thoidaiVocab3 = {
      "t": "Thi xong, chúng ta tới công viên hải dương chơi một trận cho thoả thích đi."
     }
    ],
-   "audioTts": "/audio/tts-vi/ae2c5bd20d.mp3"
+   "audioTts": "/audio/tts-vi/ae2c5bd20d.mp3",
+   "audio": "/audio/thoidai-tu/B1L14-1-12.mp3"
   },
   {
    "hanzi": "規模",
@@ -4938,7 +4940,7 @@ export const thoidaiVocab3 = {
      "t": "Trận động đất lớn 21/9, người Đài Loan đã phát huy tinh thần giúp đỡ lẫn nhau, thật cảm động."
     }
    ],
-   "audio": "/audio/thoidai-tu/B3L05-2-33.mp3"
+   "audioTts": "/audio/tts-vi/ef0b17f846.mp3"
   },
   {
    "hanzi": "災民",
@@ -4997,7 +4999,7 @@ export const thoidaiVocab3 = {
      "t": "Công việc của bác sĩ là giúp bệnh nhân hồi phục sức khoẻ, thậm chí cứu lại mạng sống quý giá, nên"
     }
    ],
-   "audio": "/audio/thoidai-tu/B3L05-2-37.mp3"
+   "audioTts": "/audio/tts-vi/2f81f28925.mp3"
   },
   {
    "hanzi": "命",
@@ -6319,7 +6321,7 @@ export const thoidaiVocab3 = {
      "t": "Đếm thử thì cô ấy đã đi hơn ba mươi nước rồi."
     }
    ],
-   "audioTts": "/audio/tts-vi/b259a32d74.mp3"
+   "audioTts": "/audio/tts-vi/77da58a481.mp3"
   },
   {
    "hanzi": "產生",
@@ -6859,7 +6861,8 @@ export const thoidaiVocab3 = {
      "t": "Ai cũng thích điện thoại đắt tiền, nhưng anh ấy thì lại không thích, thấy dùng được là tốt rồi."
     }
    ],
-   "audioTts": "/audio/tts-vi/77f6dc5186.mp3"
+   "audioTts": "/audio/tts-vi/77f6dc5186.mp3",
+   "audio": "/audio/thoidai-tu/B4L01-1-43.mp3"
   },
   {
    "hanzi": "選舉",
@@ -7473,7 +7476,7 @@ export const thoidaiVocab3 = {
      "t": "Cha mẹ phải thường xuyên trò chuyện, chơi cùng con, cho tiền tiêu vặt không thể thoả mãn hoàn toàn nhu cầu của trẻ."
     }
    ],
-   "audio": "/audio/thoidai-tu/B3L08-1-25.mp3"
+   "audioTts": "/audio/tts-vi/9f3c47a8cd.mp3"
   },
   {
    "hanzi": "醜",
@@ -9406,7 +9409,8 @@ export const thoidaiVocab3 = {
      "t": "Ai cũng có ước mơ, chỉ cần không sợ thử thách, kiên trì tới cùng thì sẽ đạt được ước mơ."
     }
    ],
-   "audioTts": "/audio/tts-vi/74259a0c32.mp3"
+   "audioTts": "/audio/tts-vi/74259a0c32.mp3",
+   "audio": "/audio/thoidai-tu/B2L10-1-44.mp3"
   },
   {
    "hanzi": "標準",
@@ -9782,7 +9786,7 @@ export const thoidaiVocab3 = {
      "t": "Có một người bạn trên mạng"
     }
    ],
-   "audio": "/audio/thoidai-tu/B3L11-1-03.mp3"
+   "audioTts": "/audio/tts-vi/b329dcc178.mp3"
   },
   {
    "hanzi": "騙",
@@ -10820,7 +10824,8 @@ export const thoidaiVocab3 = {
      "t": "Quý công ty tuần trước báo tôi mười giờ hôm nay tới phỏng vấn"
     }
    ],
-   "audioTts": "/audio/tts-vi/036ca66f74.mp3"
+   "audioTts": "/audio/tts-vi/036ca66f74.mp3",
+   "audio": "/audio/thoidai-tu/B1L03-2-13.mp3"
   },
   {
    "hanzi": "本",
@@ -11584,7 +11589,7 @@ export const thoidaiVocab3 = {
      "t": "Nhưng nếu chỉ tìm mọi cách để thắng người khác"
     }
    ],
-   "audioTts": "/audio/tts-vi/748d48dcd6.mp3"
+   "audioTts": "/audio/tts-vi/8bc4cec89d.mp3"
   },
   {
    "hanzi": "通過",
@@ -11782,7 +11787,7 @@ export const thoidaiVocab3 = {
      "t": "Mẹ vứt hết đống chai rỗng, lon rỗng để ngoài sân."
     }
    ],
-   "audio": "/audio/thoidai-tu/B3L13-1-12.mp3"
+   "audioTts": "/audio/tts-vi/bae2ab71ce.mp3"
   },
   {
    "hanzi": "空",
@@ -12514,7 +12519,7 @@ export const thoidaiVocab3 = {
      "t": "Chỉ cần mở điện thoại, kết nối mạng là có thể nắm ngay tin tức toàn cầu."
     }
    ],
-   "audio": "/audio/thoidai-tu/B3L13-2-27.mp3"
+   "audioTts": "/audio/tts-vi/f028aba9b1.mp3"
   },
   {
    "hanzi": "重大",
@@ -12815,7 +12820,8 @@ export const thoidaiVocab3 = {
      "t": "Mẹ nấu ăn giỏi thật, chỉ một tiếng đã biến ra cả bàn cơm vừa thịnh soạn vừa ngon."
     }
    ],
-   "audioTts": "/audio/tts-vi/c7a5e2bbe0.mp3"
+   "audioTts": "/audio/tts-vi/c7a5e2bbe0.mp3",
+   "audio": "/audio/thoidai-tu/B2L08-2-01.mp3"
   },
   {
    "hanzi": "銀河",
@@ -13953,7 +13959,8 @@ export const thoidaiVocab3 = {
      "t": "Hôm nay anh ấy bận kinh khủng, đến thời gian uống một ngụm nước cũng không có."
     }
    ],
-   "audioTts": "/audio/tts-vi/6138c51f0d.mp3"
+   "audioTts": "/audio/tts-vi/6138c51f0d.mp3",
+   "audio": "/audio/thoidai-tu/B2L14-2-10.mp3"
   },
   {
    "hanzi": "淡水",
@@ -14401,7 +14408,7 @@ export const thoidaiVocab3 = {
      "t": "Dưới lòng đất có mấy đường hầm vừa tối vừa bí ẩn"
     }
    ],
-   "audio": "/audio/thoidai-tu/B3L15-2-22.mp3"
+   "audioTts": "/audio/tts-vi/367336ad15.mp3"
   },
   {
    "hanzi": "暗",
@@ -14491,7 +14498,7 @@ export const thoidaiVocab3 = {
      "t": "Tóm lại là…"
     }
    ],
-   "audio": "/audio/thoidai-tu/B3L15-2-28.mp3"
+   "audioTts": "/audio/tts-vi/becbc78c0d.mp3"
   },
   {
    "hanzi": "認得",
@@ -14612,7 +14619,8 @@ export const thoidaiVocab3 = {
      "t": "Tôi chơi game điện thoại cả đêm, kết quả hôm sau suýt bị bố đánh cho một trận."
     }
    ],
-   "audioTts": "/audio/tts-vi/7cf2e9fa57.mp3"
+   "audioTts": "/audio/tts-vi/7cf2e9fa57.mp3",
+   "audio": "/audio/thoidai-tu/B4L01-1-49.mp3"
   },
   {
    "hanzi": "當做",
@@ -15004,7 +15012,8 @@ export const thoidaiVocab3 = {
      "t": "Các món ăn như mì, đồ tráng miệng"
     }
    ],
-   "audioTts": "/audio/tts-vi/e269c666ae.mp3"
+   "audioTts": "/audio/tts-vi/e269c666ae.mp3",
+   "audio": "/audio/thoidai-tu/B1L16-3-15.mp3"
   },
   {
    "hanzi": "廚師",
@@ -15377,7 +15386,8 @@ export const thoidaiVocab3 = {
      "t": "Bất kể xảy ra chuyện gì, cô ấy cũng bàn với bố mẹ và tham khảo ý kiến của họ."
     }
    ],
-   "audioTts": "/audio/tts-vi/f6c02141b4.mp3"
+   "audioTts": "/audio/tts-vi/f6c02141b4.mp3",
+   "audio": "/audio/thoidai-tu/B4L13-2-03.mp3"
   },
   {
    "hanzi": "如此",

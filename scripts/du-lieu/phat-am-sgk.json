@@ -1,0 +1,3558 @@
+{
+ "tm-b": {
+  "loai": "thanh-mau",
+  "hz": null,
+  "py": "b",
+  "file": "/audio/pron/sgk/tm-b.mp3",
+  "nguon": "1:5"
+ },
+ "tm-p": {
+  "loai": "thanh-mau",
+  "hz": null,
+  "py": "p",
+  "file": "/audio/pron/sgk/tm-p.mp3",
+  "nguon": "1:6"
+ },
+ "tm-m": {
+  "loai": "thanh-mau",
+  "hz": null,
+  "py": "m",
+  "file": "/audio/pron/sgk/tm-m.mp3",
+  "nguon": "1:7"
+ },
+ "tm-f": {
+  "loai": "thanh-mau",
+  "hz": null,
+  "py": "f",
+  "file": "/audio/pron/sgk/tm-f.mp3",
+  "nguon": "1:8"
+ },
+ "tm-d": {
+  "loai": "thanh-mau",
+  "hz": null,
+  "py": "d",
+  "file": "/audio/pron/sgk/tm-d.mp3",
+  "nguon": "1:9"
+ },
+ "tm-t": {
+  "loai": "thanh-mau",
+  "hz": null,
+  "py": "t",
+  "file": "/audio/pron/sgk/tm-t.mp3",
+  "nguon": "1:10"
+ },
+ "tm-n": {
+  "loai": "thanh-mau",
+  "hz": null,
+  "py": "n",
+  "file": "/audio/pron/sgk/tm-n.mp3",
+  "nguon": "1:11"
+ },
+ "tm-l": {
+  "loai": "thanh-mau",
+  "hz": null,
+  "py": "l",
+  "file": "/audio/pron/sgk/tm-l.mp3",
+  "nguon": "1:12"
+ },
+ "tm-g": {
+  "loai": "thanh-mau",
+  "hz": null,
+  "py": "g",
+  "file": "/audio/pron/sgk/tm-g.mp3",
+  "nguon": "1:13"
+ },
+ "tm-k": {
+  "loai": "thanh-mau",
+  "hz": null,
+  "py": "k",
+  "file": "/audio/pron/sgk/tm-k.mp3",
+  "nguon": "1:14"
+ },
+ "tm-h": {
+  "loai": "thanh-mau",
+  "hz": null,
+  "py": "h",
+  "file": "/audio/pron/sgk/tm-h.mp3",
+  "nguon": "1:15"
+ },
+ "tm-j": {
+  "loai": "thanh-mau",
+  "hz": null,
+  "py": "j",
+  "file": "/audio/pron/sgk/tm-j.mp3",
+  "nguon": "1:16"
+ },
+ "tm-q": {
+  "loai": "thanh-mau",
+  "hz": null,
+  "py": "q",
+  "file": "/audio/pron/sgk/tm-q.mp3",
+  "nguon": "1:17"
+ },
+ "tm-x": {
+  "loai": "thanh-mau",
+  "hz": null,
+  "py": "x",
+  "file": "/audio/pron/sgk/tm-x.mp3",
+  "nguon": "1:18"
+ },
+ "tm-zh": {
+  "loai": "thanh-mau",
+  "hz": null,
+  "py": "zh",
+  "file": "/audio/pron/sgk/tm-zh.mp3",
+  "nguon": "1:19"
+ },
+ "tm-ch": {
+  "loai": "thanh-mau",
+  "hz": null,
+  "py": "ch",
+  "file": "/audio/pron/sgk/tm-ch.mp3",
+  "nguon": "1:20"
+ },
+ "tm-sh": {
+  "loai": "thanh-mau",
+  "hz": null,
+  "py": "sh",
+  "file": "/audio/pron/sgk/tm-sh.mp3",
+  "nguon": "1:21"
+ },
+ "tm-r": {
+  "loai": "thanh-mau",
+  "hz": null,
+  "py": "r",
+  "file": "/audio/pron/sgk/tm-r.mp3",
+  "nguon": "1:22"
+ },
+ "tm-z": {
+  "loai": "thanh-mau",
+  "hz": null,
+  "py": "z",
+  "file": "/audio/pron/sgk/tm-z.mp3",
+  "nguon": "1:23"
+ },
+ "tm-c": {
+  "loai": "thanh-mau",
+  "hz": null,
+  "py": "c",
+  "file": "/audio/pron/sgk/tm-c.mp3",
+  "nguon": "1:24"
+ },
+ "tm-s": {
+  "loai": "thanh-mau",
+  "hz": null,
+  "py": "s",
+  "file": "/audio/pron/sgk/tm-s.mp3",
+  "nguon": "1:25"
+ },
+ "vm-a": {
+  "loai": "van-mau",
+  "hz": null,
+  "py": "a",
+  "file": "/audio/pron/sgk/vm-a.mp3",
+  "nguon": "2:1"
+ },
+ "vm-o": {
+  "loai": "van-mau",
+  "hz": null,
+  "py": "o",
+  "file": "/audio/pron/sgk/vm-o.mp3",
+  "nguon": "2:2"
+ },
+ "vm-e": {
+  "loai": "van-mau",
+  "hz": null,
+  "py": "e",
+  "file": "/audio/pron/sgk/vm-e.mp3",
+  "nguon": "2:3"
+ },
+ "vm-eh": {
+  "loai": "van-mau",
+  "hz": null,
+  "py": "ê",
+  "file": "/audio/pron/sgk/vm-eh.mp3",
+  "nguon": "2:4"
+ },
+ "vm-ai": {
+  "loai": "van-mau",
+  "hz": null,
+  "py": "ai",
+  "file": "/audio/pron/sgk/vm-ai.mp3",
+  "nguon": "2:5"
+ },
+ "vm-ei": {
+  "loai": "van-mau",
+  "hz": null,
+  "py": "ei",
+  "file": "/audio/pron/sgk/vm-ei.mp3",
+  "nguon": "2:6"
+ },
+ "vm-ao": {
+  "loai": "van-mau",
+  "hz": null,
+  "py": "ao",
+  "file": "/audio/pron/sgk/vm-ao.mp3",
+  "nguon": "2:7"
+ },
+ "vm-ou": {
+  "loai": "van-mau",
+  "hz": null,
+  "py": "ou",
+  "file": "/audio/pron/sgk/vm-ou.mp3",
+  "nguon": "2:8"
+ },
+ "vm-an": {
+  "loai": "van-mau",
+  "hz": null,
+  "py": "an",
+  "file": "/audio/pron/sgk/vm-an.mp3",
+  "nguon": "2:9"
+ },
+ "vm-en": {
+  "loai": "van-mau",
+  "hz": null,
+  "py": "en",
+  "file": "/audio/pron/sgk/vm-en.mp3",
+  "nguon": "2:10"
+ },
+ "vm-ang": {
+  "loai": "van-mau",
+  "hz": null,
+  "py": "ang",
+  "file": "/audio/pron/sgk/vm-ang.mp3",
+  "nguon": "2:11"
+ },
+ "vm-eng": {
+  "loai": "van-mau",
+  "hz": null,
+  "py": "eng",
+  "file": "/audio/pron/sgk/vm-eng.mp3",
+  "nguon": "2:12"
+ },
+ "vm-er": {
+  "loai": "van-mau",
+  "hz": null,
+  "py": "er",
+  "file": "/audio/pron/sgk/vm-er.mp3",
+  "nguon": "2:13"
+ },
+ "vm-i": {
+  "loai": "van-mau",
+  "hz": null,
+  "py": "i",
+  "file": "/audio/pron/sgk/vm-i.mp3",
+  "nguon": "2:14"
+ },
+ "vm-ia": {
+  "loai": "van-mau",
+  "hz": null,
+  "py": "ia",
+  "file": "/audio/pron/sgk/vm-ia.mp3",
+  "nguon": "2:15"
+ },
+ "vm-ie": {
+  "loai": "van-mau",
+  "hz": null,
+  "py": "ie",
+  "file": "/audio/pron/sgk/vm-ie.mp3",
+  "nguon": "2:16"
+ },
+ "vm-yai": {
+  "loai": "van-mau",
+  "hz": null,
+  "py": "yai",
+  "file": "/audio/pron/sgk/vm-yai.mp3",
+  "nguon": "2:17"
+ },
+ "vm-iao": {
+  "loai": "van-mau",
+  "hz": null,
+  "py": "iao",
+  "file": "/audio/pron/sgk/vm-iao.mp3",
+  "nguon": "2:18"
+ },
+ "vm-iu": {
+  "loai": "van-mau",
+  "hz": null,
+  "py": "iu",
+  "file": "/audio/pron/sgk/vm-iu.mp3",
+  "nguon": "2:19"
+ },
+ "vm-ian": {
+  "loai": "van-mau",
+  "hz": null,
+  "py": "ian",
+  "file": "/audio/pron/sgk/vm-ian.mp3",
+  "nguon": "2:20"
+ },
+ "vm-in": {
+  "loai": "van-mau",
+  "hz": null,
+  "py": "in",
+  "file": "/audio/pron/sgk/vm-in.mp3",
+  "nguon": "2:21"
+ },
+ "vm-iang": {
+  "loai": "van-mau",
+  "hz": null,
+  "py": "iang",
+  "file": "/audio/pron/sgk/vm-iang.mp3",
+  "nguon": "2:22"
+ },
+ "vm-ing": {
+  "loai": "van-mau",
+  "hz": null,
+  "py": "ing",
+  "file": "/audio/pron/sgk/vm-ing.mp3",
+  "nguon": "2:23"
+ },
+ "vm-u": {
+  "loai": "van-mau",
+  "hz": null,
+  "py": "u",
+  "file": "/audio/pron/sgk/vm-u.mp3",
+  "nguon": "2:24"
+ },
+ "vm-ua": {
+  "loai": "van-mau",
+  "hz": null,
+  "py": "ua",
+  "file": "/audio/pron/sgk/vm-ua.mp3",
+  "nguon": "2:25"
+ },
+ "vm-uo": {
+  "loai": "van-mau",
+  "hz": null,
+  "py": "uo",
+  "file": "/audio/pron/sgk/vm-uo.mp3",
+  "nguon": "2:26"
+ },
+ "vm-uai": {
+  "loai": "van-mau",
+  "hz": null,
+  "py": "uai",
+  "file": "/audio/pron/sgk/vm-uai.mp3",
+  "nguon": "2:27"
+ },
+ "vm-ui": {
+  "loai": "van-mau",
+  "hz": null,
+  "py": "ui",
+  "file": "/audio/pron/sgk/vm-ui.mp3",
+  "nguon": "2:28"
+ },
+ "vm-uan": {
+  "loai": "van-mau",
+  "hz": null,
+  "py": "uan",
+  "file": "/audio/pron/sgk/vm-uan.mp3",
+  "nguon": "2:29"
+ },
+ "vm-un": {
+  "loai": "van-mau",
+  "hz": null,
+  "py": "un",
+  "file": "/audio/pron/sgk/vm-un.mp3",
+  "nguon": "2:30"
+ },
+ "vm-uang": {
+  "loai": "van-mau",
+  "hz": null,
+  "py": "uang",
+  "file": "/audio/pron/sgk/vm-uang.mp3",
+  "nguon": "2:31"
+ },
+ "vm-ueng": {
+  "loai": "van-mau",
+  "hz": null,
+  "py": "ueng",
+  "file": "/audio/pron/sgk/vm-ueng.mp3",
+  "nguon": "2:32"
+ },
+ "vm-v": {
+  "loai": "van-mau",
+  "hz": null,
+  "py": "ü",
+  "file": "/audio/pron/sgk/vm-v.mp3",
+  "nguon": "2:33"
+ },
+ "vm-ve": {
+  "loai": "van-mau",
+  "hz": null,
+  "py": "üe",
+  "file": "/audio/pron/sgk/vm-ve.mp3",
+  "nguon": "2:34"
+ },
+ "vm-van": {
+  "loai": "van-mau",
+  "hz": null,
+  "py": "üan",
+  "file": "/audio/pron/sgk/vm-van.mp3",
+  "nguon": "2:35"
+ },
+ "vm-vn": {
+  "loai": "van-mau",
+  "hz": null,
+  "py": "ün",
+  "file": "/audio/pron/sgk/vm-vn.mp3",
+  "nguon": "2:36"
+ },
+ "vm-iong": {
+  "loai": "van-mau",
+  "hz": null,
+  "py": "iong",
+  "file": "/audio/pron/sgk/vm-iong.mp3",
+  "nguon": "2:37"
+ },
+ "a1": {
+  "loai": "am",
+  "hz": null,
+  "py": "ā",
+  "file": "/audio/pron/sgk/a1.mp3",
+  "nguon": "3:1"
+ },
+ "a2": {
+  "loai": "am",
+  "hz": null,
+  "py": "á",
+  "file": "/audio/pron/sgk/a2.mp3",
+  "nguon": "3:2"
+ },
+ "a3": {
+  "loai": "am",
+  "hz": null,
+  "py": "ǎ",
+  "file": "/audio/pron/sgk/a3.mp3",
+  "nguon": "3:3"
+ },
+ "a4": {
+  "loai": "am",
+  "hz": null,
+  "py": "à",
+  "file": "/audio/pron/sgk/a4.mp3",
+  "nguon": "3:4"
+ },
+ "da1": {
+  "loai": "am",
+  "hz": null,
+  "py": "dā",
+  "file": "/audio/pron/sgk/da1.mp3",
+  "nguon": "3:5"
+ },
+ "da2": {
+  "loai": "am",
+  "hz": null,
+  "py": "dá",
+  "file": "/audio/pron/sgk/da2.mp3",
+  "nguon": "3:6"
+ },
+ "da3": {
+  "loai": "am",
+  "hz": null,
+  "py": "dǎ",
+  "file": "/audio/pron/sgk/da3.mp3",
+  "nguon": "3:7"
+ },
+ "da4": {
+  "loai": "am",
+  "hz": null,
+  "py": "dà",
+  "file": "/audio/pron/sgk/da4.mp3",
+  "nguon": "3:8"
+ },
+ "e1": {
+  "loai": "am",
+  "hz": null,
+  "py": "ē",
+  "file": "/audio/pron/sgk/e1.mp3",
+  "nguon": "3:9"
+ },
+ "e2": {
+  "loai": "am",
+  "hz": null,
+  "py": "é",
+  "file": "/audio/pron/sgk/e2.mp3",
+  "nguon": "3:10"
+ },
+ "e3": {
+  "loai": "am",
+  "hz": null,
+  "py": "ě",
+  "file": "/audio/pron/sgk/e3.mp3",
+  "nguon": "3:11"
+ },
+ "e4": {
+  "loai": "am",
+  "hz": null,
+  "py": "è",
+  "file": "/audio/pron/sgk/e4.mp3",
+  "nguon": "3:12"
+ },
+ "te1": {
+  "loai": "am",
+  "hz": null,
+  "py": "tē",
+  "file": "/audio/pron/sgk/te1.mp3",
+  "nguon": "3:13"
+ },
+ "te2": {
+  "loai": "am",
+  "hz": null,
+  "py": "té",
+  "file": "/audio/pron/sgk/te2.mp3",
+  "nguon": "3:14"
+ },
+ "te3": {
+  "loai": "am",
+  "hz": null,
+  "py": "tě",
+  "file": "/audio/pron/sgk/te3.mp3",
+  "nguon": "3:15"
+ },
+ "te4": {
+  "loai": "am",
+  "hz": null,
+  "py": "tè",
+  "file": "/audio/pron/sgk/te4.mp3",
+  "nguon": "3:16"
+ },
+ "yi1": {
+  "loai": "am",
+  "hz": null,
+  "py": "yī",
+  "file": "/audio/pron/sgk/yi1.mp3",
+  "nguon": "3:17"
+ },
+ "yi2": {
+  "loai": "am",
+  "hz": null,
+  "py": "yí",
+  "file": "/audio/pron/sgk/yi2.mp3",
+  "nguon": "3:18"
+ },
+ "yi3": {
+  "loai": "am",
+  "hz": null,
+  "py": "yǐ",
+  "file": "/audio/pron/sgk/yi3.mp3",
+  "nguon": "3:19"
+ },
+ "yi4": {
+  "loai": "am",
+  "hz": null,
+  "py": "yì",
+  "file": "/audio/pron/sgk/yi4.mp3",
+  "nguon": "3:20"
+ },
+ "ni1": {
+  "loai": "am",
+  "hz": null,
+  "py": "nī",
+  "file": "/audio/pron/sgk/ni1.mp3",
+  "nguon": "3:21"
+ },
+ "ni2": {
+  "loai": "am",
+  "hz": null,
+  "py": "ní",
+  "file": "/audio/pron/sgk/ni2.mp3",
+  "nguon": "3:22"
+ },
+ "ni3": {
+  "loai": "am",
+  "hz": null,
+  "py": "nǐ",
+  "file": "/audio/pron/sgk/ni3.mp3",
+  "nguon": "3:23"
+ },
+ "ni4": {
+  "loai": "am",
+  "hz": null,
+  "py": "nì",
+  "file": "/audio/pron/sgk/ni4.mp3",
+  "nguon": "3:24"
+ },
+ "wu1": {
+  "loai": "am",
+  "hz": null,
+  "py": "wū",
+  "file": "/audio/pron/sgk/wu1.mp3",
+  "nguon": "3:25"
+ },
+ "wu2": {
+  "loai": "am",
+  "hz": null,
+  "py": "wú",
+  "file": "/audio/pron/sgk/wu2.mp3",
+  "nguon": "3:26"
+ },
+ "wu3": {
+  "loai": "am",
+  "hz": null,
+  "py": "wǔ",
+  "file": "/audio/pron/sgk/wu3.mp3",
+  "nguon": "3:27"
+ },
+ "wu4": {
+  "loai": "am",
+  "hz": null,
+  "py": "wù",
+  "file": "/audio/pron/sgk/wu4.mp3",
+  "nguon": "3:28"
+ },
+ "lu1": {
+  "loai": "am",
+  "hz": null,
+  "py": "lū",
+  "file": "/audio/pron/sgk/lu1.mp3",
+  "nguon": "3:29"
+ },
+ "lu2": {
+  "loai": "am",
+  "hz": null,
+  "py": "lú",
+  "file": "/audio/pron/sgk/lu2.mp3",
+  "nguon": "3:30"
+ },
+ "lu3": {
+  "loai": "am",
+  "hz": null,
+  "py": "lǔ",
+  "file": "/audio/pron/sgk/lu3.mp3",
+  "nguon": "3:31"
+ },
+ "lu4": {
+  "loai": "am",
+  "hz": null,
+  "py": "lù",
+  "file": "/audio/pron/sgk/lu4.mp3",
+  "nguon": "3:32"
+ },
+ "tu-yi1": {
+  "loai": "tu",
+  "hz": "一",
+  "py": "yī",
+  "file": "/audio/pron/sgk/tu-yi1.mp3",
+  "nguon": "3:33"
+ },
+ "tu-wu3": {
+  "loai": "tu",
+  "hz": "五",
+  "py": "wǔ",
+  "file": "/audio/pron/sgk/tu-wu3.mp3",
+  "nguon": "3:34"
+ },
+ "tu-ba1": {
+  "loai": "tu",
+  "hz": "八",
+  "py": "bā",
+  "file": "/audio/pron/sgk/tu-ba1.mp3",
+  "nguon": "3:35"
+ },
+ "tu-e4r": {
+  "loai": "tu",
+  "hz": "二",
+  "py": "èr",
+  "file": "/audio/pron/sgk/tu-e4r.mp3",
+  "nguon": "3:36"
+ },
+ "tu-ba4ba": {
+  "loai": "tu",
+  "hz": "爸爸",
+  "py": "bàba",
+  "file": "/audio/pron/sgk/tu-ba4ba.mp3",
+  "nguon": "3:39"
+ },
+ "tu-di4di": {
+  "loai": "tu",
+  "hz": "弟弟",
+  "py": "dìdi",
+  "file": "/audio/pron/sgk/tu-di4di.mp3",
+  "nguon": "3:40"
+ },
+ "ai1": {
+  "loai": "am",
+  "hz": null,
+  "py": "āi",
+  "file": "/audio/pron/sgk/ai1.mp3",
+  "nguon": "5:0"
+ },
+ "ai2": {
+  "loai": "am",
+  "hz": null,
+  "py": "ái",
+  "file": "/audio/pron/sgk/ai2.mp3",
+  "nguon": "5:1"
+ },
+ "ai3": {
+  "loai": "am",
+  "hz": null,
+  "py": "ǎi",
+  "file": "/audio/pron/sgk/ai3.mp3",
+  "nguon": "5:2"
+ },
+ "ai4": {
+  "loai": "am",
+  "hz": null,
+  "py": "ài",
+  "file": "/audio/pron/sgk/ai4.mp3",
+  "nguon": "5:3"
+ },
+ "bai1": {
+  "loai": "am",
+  "hz": null,
+  "py": "bāi",
+  "file": "/audio/pron/sgk/bai1.mp3",
+  "nguon": "5:4"
+ },
+ "bai2": {
+  "loai": "am",
+  "hz": null,
+  "py": "bái",
+  "file": "/audio/pron/sgk/bai2.mp3",
+  "nguon": "5:5"
+ },
+ "bai3": {
+  "loai": "am",
+  "hz": null,
+  "py": "bǎi",
+  "file": "/audio/pron/sgk/bai3.mp3",
+  "nguon": "5:6"
+ },
+ "bai4": {
+  "loai": "am",
+  "hz": null,
+  "py": "bài",
+  "file": "/audio/pron/sgk/bai4.mp3",
+  "nguon": "5:7"
+ },
+ "ei1": {
+  "loai": "am",
+  "hz": null,
+  "py": "ēi",
+  "file": "/audio/pron/sgk/ei1.mp3",
+  "nguon": "5:8"
+ },
+ "ei2": {
+  "loai": "am",
+  "hz": null,
+  "py": "éi",
+  "file": "/audio/pron/sgk/ei2.mp3",
+  "nguon": "5:9"
+ },
+ "ei3": {
+  "loai": "am",
+  "hz": null,
+  "py": "ěi",
+  "file": "/audio/pron/sgk/ei3.mp3",
+  "nguon": "5:10"
+ },
+ "ei4": {
+  "loai": "am",
+  "hz": null,
+  "py": "èi",
+  "file": "/audio/pron/sgk/ei4.mp3",
+  "nguon": "5:11"
+ },
+ "pei1": {
+  "loai": "am",
+  "hz": null,
+  "py": "pēi",
+  "file": "/audio/pron/sgk/pei1.mp3",
+  "nguon": "5:12"
+ },
+ "pei2": {
+  "loai": "am",
+  "hz": null,
+  "py": "péi",
+  "file": "/audio/pron/sgk/pei2.mp3",
+  "nguon": "5:13"
+ },
+ "pei3": {
+  "loai": "am",
+  "hz": null,
+  "py": "pěi",
+  "file": "/audio/pron/sgk/pei3.mp3",
+  "nguon": "5:14"
+ },
+ "pei4": {
+  "loai": "am",
+  "hz": null,
+  "py": "pèi",
+  "file": "/audio/pron/sgk/pei4.mp3",
+  "nguon": "5:15"
+ },
+ "ao1": {
+  "loai": "am",
+  "hz": null,
+  "py": "āo",
+  "file": "/audio/pron/sgk/ao1.mp3",
+  "nguon": "5:16"
+ },
+ "ao2": {
+  "loai": "am",
+  "hz": null,
+  "py": "áo",
+  "file": "/audio/pron/sgk/ao2.mp3",
+  "nguon": "5:17"
+ },
+ "ao3": {
+  "loai": "am",
+  "hz": null,
+  "py": "ǎo",
+  "file": "/audio/pron/sgk/ao3.mp3",
+  "nguon": "5:18"
+ },
+ "ao4": {
+  "loai": "am",
+  "hz": null,
+  "py": "ào",
+  "file": "/audio/pron/sgk/ao4.mp3",
+  "nguon": "5:19"
+ },
+ "mao1": {
+  "loai": "am",
+  "hz": null,
+  "py": "māo",
+  "file": "/audio/pron/sgk/mao1.mp3",
+  "nguon": "5:20"
+ },
+ "mao2": {
+  "loai": "am",
+  "hz": null,
+  "py": "máo",
+  "file": "/audio/pron/sgk/mao2.mp3",
+  "nguon": "5:21"
+ },
+ "mao3": {
+  "loai": "am",
+  "hz": null,
+  "py": "mǎo",
+  "file": "/audio/pron/sgk/mao3.mp3",
+  "nguon": "5:22"
+ },
+ "mao4": {
+  "loai": "am",
+  "hz": null,
+  "py": "mào",
+  "file": "/audio/pron/sgk/mao4.mp3",
+  "nguon": "5:23"
+ },
+ "ou1": {
+  "loai": "am",
+  "hz": null,
+  "py": "ōu",
+  "file": "/audio/pron/sgk/ou1.mp3",
+  "nguon": "5:24"
+ },
+ "ou2": {
+  "loai": "am",
+  "hz": null,
+  "py": "óu",
+  "file": "/audio/pron/sgk/ou2.mp3",
+  "nguon": "5:25"
+ },
+ "ou3": {
+  "loai": "am",
+  "hz": null,
+  "py": "ǒu",
+  "file": "/audio/pron/sgk/ou3.mp3",
+  "nguon": "5:26"
+ },
+ "ou4": {
+  "loai": "am",
+  "hz": null,
+  "py": "òu",
+  "file": "/audio/pron/sgk/ou4.mp3",
+  "nguon": "5:27"
+ },
+ "fou1": {
+  "loai": "am",
+  "hz": null,
+  "py": "fōu",
+  "file": "/audio/pron/sgk/fou1.mp3",
+  "nguon": "5:28"
+ },
+ "fou2": {
+  "loai": "am",
+  "hz": null,
+  "py": "fóu",
+  "file": "/audio/pron/sgk/fou2.mp3",
+  "nguon": "5:29"
+ },
+ "fou3": {
+  "loai": "am",
+  "hz": null,
+  "py": "fǒu",
+  "file": "/audio/pron/sgk/fou3.mp3",
+  "nguon": "5:30"
+ },
+ "fou4": {
+  "loai": "am",
+  "hz": null,
+  "py": "fòu",
+  "file": "/audio/pron/sgk/fou4.mp3",
+  "nguon": "5:31"
+ },
+ "an1": {
+  "loai": "am",
+  "hz": null,
+  "py": "ān",
+  "file": "/audio/pron/sgk/an1.mp3",
+  "nguon": "5:32"
+ },
+ "an2": {
+  "loai": "am",
+  "hz": null,
+  "py": "án",
+  "file": "/audio/pron/sgk/an2.mp3",
+  "nguon": "5:33"
+ },
+ "an3": {
+  "loai": "am",
+  "hz": null,
+  "py": "ǎn",
+  "file": "/audio/pron/sgk/an3.mp3",
+  "nguon": "5:34"
+ },
+ "an4": {
+  "loai": "am",
+  "hz": null,
+  "py": "àn",
+  "file": "/audio/pron/sgk/an4.mp3",
+  "nguon": "5:35"
+ },
+ "zan1": {
+  "loai": "am",
+  "hz": null,
+  "py": "zān",
+  "file": "/audio/pron/sgk/zan1.mp3",
+  "nguon": "5:36"
+ },
+ "zan2": {
+  "loai": "am",
+  "hz": null,
+  "py": "zán",
+  "file": "/audio/pron/sgk/zan2.mp3",
+  "nguon": "5:37"
+ },
+ "zan3": {
+  "loai": "am",
+  "hz": null,
+  "py": "zǎn",
+  "file": "/audio/pron/sgk/zan3.mp3",
+  "nguon": "5:38"
+ },
+ "zan4": {
+  "loai": "am",
+  "hz": null,
+  "py": "zàn",
+  "file": "/audio/pron/sgk/zan4.mp3",
+  "nguon": "5:39"
+ },
+ "ang1": {
+  "loai": "am",
+  "hz": null,
+  "py": "āng",
+  "file": "/audio/pron/sgk/ang1.mp3",
+  "nguon": "5:40"
+ },
+ "ang2": {
+  "loai": "am",
+  "hz": null,
+  "py": "áng",
+  "file": "/audio/pron/sgk/ang2.mp3",
+  "nguon": "5:41"
+ },
+ "ang3": {
+  "loai": "am",
+  "hz": null,
+  "py": "ǎng",
+  "file": "/audio/pron/sgk/ang3.mp3",
+  "nguon": "5:42"
+ },
+ "ang4": {
+  "loai": "am",
+  "hz": null,
+  "py": "àng",
+  "file": "/audio/pron/sgk/ang4.mp3",
+  "nguon": "5:43"
+ },
+ "chang1": {
+  "loai": "am",
+  "hz": null,
+  "py": "chāng",
+  "file": "/audio/pron/sgk/chang1.mp3",
+  "nguon": "5:44"
+ },
+ "chang2": {
+  "loai": "am",
+  "hz": null,
+  "py": "cháng",
+  "file": "/audio/pron/sgk/chang2.mp3",
+  "nguon": "5:45"
+ },
+ "chang3": {
+  "loai": "am",
+  "hz": null,
+  "py": "chǎng",
+  "file": "/audio/pron/sgk/chang3.mp3",
+  "nguon": "5:46"
+ },
+ "chang4": {
+  "loai": "am",
+  "hz": null,
+  "py": "chàng",
+  "file": "/audio/pron/sgk/chang4.mp3",
+  "nguon": "5:47"
+ },
+ "en1": {
+  "loai": "am",
+  "hz": null,
+  "py": "ēn",
+  "file": "/audio/pron/sgk/en1.mp3",
+  "nguon": "5:48"
+ },
+ "en2": {
+  "loai": "am",
+  "hz": null,
+  "py": "én",
+  "file": "/audio/pron/sgk/en2.mp3",
+  "nguon": "5:49"
+ },
+ "en3": {
+  "loai": "am",
+  "hz": null,
+  "py": "ěn",
+  "file": "/audio/pron/sgk/en3.mp3",
+  "nguon": "5:50"
+ },
+ "en4": {
+  "loai": "am",
+  "hz": null,
+  "py": "èn",
+  "file": "/audio/pron/sgk/en4.mp3",
+  "nguon": "5:51"
+ },
+ "shen1": {
+  "loai": "am",
+  "hz": null,
+  "py": "shēn",
+  "file": "/audio/pron/sgk/shen1.mp3",
+  "nguon": "5:52"
+ },
+ "shen2": {
+  "loai": "am",
+  "hz": null,
+  "py": "shén",
+  "file": "/audio/pron/sgk/shen2.mp3",
+  "nguon": "5:53"
+ },
+ "shen3": {
+  "loai": "am",
+  "hz": null,
+  "py": "shěn",
+  "file": "/audio/pron/sgk/shen3.mp3",
+  "nguon": "5:54"
+ },
+ "shen4": {
+  "loai": "am",
+  "hz": null,
+  "py": "shèn",
+  "file": "/audio/pron/sgk/shen4.mp3",
+  "nguon": "5:55"
+ },
+ "eng1": {
+  "loai": "am",
+  "hz": null,
+  "py": "ēng",
+  "file": "/audio/pron/sgk/eng1.mp3",
+  "nguon": "5:56"
+ },
+ "eng2": {
+  "loai": "am",
+  "hz": null,
+  "py": "éng",
+  "file": "/audio/pron/sgk/eng2.mp3",
+  "nguon": "5:57"
+ },
+ "eng3": {
+  "loai": "am",
+  "hz": null,
+  "py": "ěng",
+  "file": "/audio/pron/sgk/eng3.mp3",
+  "nguon": "5:58"
+ },
+ "eng4": {
+  "loai": "am",
+  "hz": null,
+  "py": "èng",
+  "file": "/audio/pron/sgk/eng4.mp3",
+  "nguon": "5:59"
+ },
+ "reng1": {
+  "loai": "am",
+  "hz": null,
+  "py": "rēng",
+  "file": "/audio/pron/sgk/reng1.mp3",
+  "nguon": "5:60"
+ },
+ "reng2": {
+  "loai": "am",
+  "hz": null,
+  "py": "réng",
+  "file": "/audio/pron/sgk/reng2.mp3",
+  "nguon": "5:61"
+ },
+ "reng3": {
+  "loai": "am",
+  "hz": null,
+  "py": "rěng",
+  "file": "/audio/pron/sgk/reng3.mp3",
+  "nguon": "5:62"
+ },
+ "reng4": {
+  "loai": "am",
+  "hz": null,
+  "py": "rèng",
+  "file": "/audio/pron/sgk/reng4.mp3",
+  "nguon": "5:63"
+ },
+ "bao1": {
+  "loai": "am",
+  "hz": null,
+  "py": "bāo",
+  "file": "/audio/pron/sgk/bao1.mp3",
+  "nguon": "5:64"
+ },
+ "bao2": {
+  "loai": "am",
+  "hz": null,
+  "py": "báo",
+  "file": "/audio/pron/sgk/bao2.mp3",
+  "nguon": "5:65"
+ },
+ "bao3": {
+  "loai": "am",
+  "hz": null,
+  "py": "bǎo",
+  "file": "/audio/pron/sgk/bao3.mp3",
+  "nguon": "5:66"
+ },
+ "bao4": {
+  "loai": "am",
+  "hz": null,
+  "py": "bào",
+  "file": "/audio/pron/sgk/bao4.mp3",
+  "nguon": "5:67"
+ },
+ "pan1": {
+  "loai": "am",
+  "hz": null,
+  "py": "pān",
+  "file": "/audio/pron/sgk/pan1.mp3",
+  "nguon": "5:68"
+ },
+ "pan2": {
+  "loai": "am",
+  "hz": null,
+  "py": "pán",
+  "file": "/audio/pron/sgk/pan2.mp3",
+  "nguon": "5:69"
+ },
+ "pan3": {
+  "loai": "am",
+  "hz": null,
+  "py": "pǎn",
+  "file": "/audio/pron/sgk/pan3.mp3",
+  "nguon": "5:70"
+ },
+ "pan4": {
+  "loai": "am",
+  "hz": null,
+  "py": "pàn",
+  "file": "/audio/pron/sgk/pan4.mp3",
+  "nguon": "5:71"
+ },
+ "mei1": {
+  "loai": "am",
+  "hz": null,
+  "py": "mēi",
+  "file": "/audio/pron/sgk/mei1.mp3",
+  "nguon": "5:72"
+ },
+ "mei2": {
+  "loai": "am",
+  "hz": null,
+  "py": "méi",
+  "file": "/audio/pron/sgk/mei2.mp3",
+  "nguon": "5:73"
+ },
+ "mei3": {
+  "loai": "am",
+  "hz": null,
+  "py": "měi",
+  "file": "/audio/pron/sgk/mei3.mp3",
+  "nguon": "5:74"
+ },
+ "mei4": {
+  "loai": "am",
+  "hz": null,
+  "py": "mèi",
+  "file": "/audio/pron/sgk/mei4.mp3",
+  "nguon": "5:75"
+ },
+ "fei1": {
+  "loai": "am",
+  "hz": null,
+  "py": "fēi",
+  "file": "/audio/pron/sgk/fei1.mp3",
+  "nguon": "5:76"
+ },
+ "fei2": {
+  "loai": "am",
+  "hz": null,
+  "py": "féi",
+  "file": "/audio/pron/sgk/fei2.mp3",
+  "nguon": "5:77"
+ },
+ "fei3": {
+  "loai": "am",
+  "hz": null,
+  "py": "fěi",
+  "file": "/audio/pron/sgk/fei3.mp3",
+  "nguon": "5:78"
+ },
+ "fei4": {
+  "loai": "am",
+  "hz": null,
+  "py": "fèi",
+  "file": "/audio/pron/sgk/fei4.mp3",
+  "nguon": "5:79"
+ },
+ "zhang1": {
+  "loai": "am",
+  "hz": null,
+  "py": "zhāng",
+  "file": "/audio/pron/sgk/zhang1.mp3",
+  "nguon": "5:80"
+ },
+ "zhang2": {
+  "loai": "am",
+  "hz": null,
+  "py": "zháng",
+  "file": "/audio/pron/sgk/zhang2.mp3",
+  "nguon": "5:81"
+ },
+ "zhang3": {
+  "loai": "am",
+  "hz": null,
+  "py": "zhǎng",
+  "file": "/audio/pron/sgk/zhang3.mp3",
+  "nguon": "5:82"
+ },
+ "zhang4": {
+  "loai": "am",
+  "hz": null,
+  "py": "zhàng",
+  "file": "/audio/pron/sgk/zhang4.mp3",
+  "nguon": "5:83"
+ },
+ "chai1": {
+  "loai": "am",
+  "hz": null,
+  "py": "chāi",
+  "file": "/audio/pron/sgk/chai1.mp3",
+  "nguon": "5:84"
+ },
+ "chai2": {
+  "loai": "am",
+  "hz": null,
+  "py": "chái",
+  "file": "/audio/pron/sgk/chai2.mp3",
+  "nguon": "5:85"
+ },
+ "chai3": {
+  "loai": "am",
+  "hz": null,
+  "py": "chǎi",
+  "file": "/audio/pron/sgk/chai3.mp3",
+  "nguon": "5:86"
+ },
+ "chai4": {
+  "loai": "am",
+  "hz": null,
+  "py": "chài",
+  "file": "/audio/pron/sgk/chai4.mp3",
+  "nguon": "5:87"
+ },
+ "shao1": {
+  "loai": "am",
+  "hz": null,
+  "py": "shāo",
+  "file": "/audio/pron/sgk/shao1.mp3",
+  "nguon": "5:88"
+ },
+ "shao2": {
+  "loai": "am",
+  "hz": null,
+  "py": "sháo",
+  "file": "/audio/pron/sgk/shao2.mp3",
+  "nguon": "5:89"
+ },
+ "shao3": {
+  "loai": "am",
+  "hz": null,
+  "py": "shǎo",
+  "file": "/audio/pron/sgk/shao3.mp3",
+  "nguon": "5:90"
+ },
+ "shao4": {
+  "loai": "am",
+  "hz": null,
+  "py": "shào",
+  "file": "/audio/pron/sgk/shao4.mp3",
+  "nguon": "5:91"
+ },
+ "ren1": {
+  "loai": "am",
+  "hz": null,
+  "py": "rēn",
+  "file": "/audio/pron/sgk/ren1.mp3",
+  "nguon": "5:92"
+ },
+ "ren2": {
+  "loai": "am",
+  "hz": null,
+  "py": "rén",
+  "file": "/audio/pron/sgk/ren2.mp3",
+  "nguon": "5:93"
+ },
+ "ren3": {
+  "loai": "am",
+  "hz": null,
+  "py": "rěn",
+  "file": "/audio/pron/sgk/ren3.mp3",
+  "nguon": "5:94"
+ },
+ "ren4": {
+  "loai": "am",
+  "hz": null,
+  "py": "rèn",
+  "file": "/audio/pron/sgk/ren4.mp3",
+  "nguon": "5:95"
+ },
+ "zou1": {
+  "loai": "am",
+  "hz": null,
+  "py": "zōu",
+  "file": "/audio/pron/sgk/zou1.mp3",
+  "nguon": "5:96"
+ },
+ "zou2": {
+  "loai": "am",
+  "hz": null,
+  "py": "zóu",
+  "file": "/audio/pron/sgk/zou2.mp3",
+  "nguon": "5:97"
+ },
+ "zou3": {
+  "loai": "am",
+  "hz": null,
+  "py": "zǒu",
+  "file": "/audio/pron/sgk/zou3.mp3",
+  "nguon": "5:98"
+ },
+ "zou4": {
+  "loai": "am",
+  "hz": null,
+  "py": "zòu",
+  "file": "/audio/pron/sgk/zou4.mp3",
+  "nguon": "5:99"
+ },
+ "cai1": {
+  "loai": "am",
+  "hz": null,
+  "py": "cāi",
+  "file": "/audio/pron/sgk/cai1.mp3",
+  "nguon": "5:100"
+ },
+ "cai2": {
+  "loai": "am",
+  "hz": null,
+  "py": "cái",
+  "file": "/audio/pron/sgk/cai2.mp3",
+  "nguon": "5:101"
+ },
+ "cai3": {
+  "loai": "am",
+  "hz": null,
+  "py": "cǎi",
+  "file": "/audio/pron/sgk/cai3.mp3",
+  "nguon": "5:102"
+ },
+ "cai4": {
+  "loai": "am",
+  "hz": null,
+  "py": "cài",
+  "file": "/audio/pron/sgk/cai4.mp3",
+  "nguon": "5:103"
+ },
+ "er1": {
+  "loai": "am",
+  "hz": null,
+  "py": "ēr",
+  "file": "/audio/pron/sgk/er1.mp3",
+  "nguon": "6:0"
+ },
+ "er2": {
+  "loai": "am",
+  "hz": null,
+  "py": "ér",
+  "file": "/audio/pron/sgk/er2.mp3",
+  "nguon": "6:1"
+ },
+ "er3": {
+  "loai": "am",
+  "hz": null,
+  "py": "ěr",
+  "file": "/audio/pron/sgk/er3.mp3",
+  "nguon": "6:2"
+ },
+ "er4": {
+  "loai": "am",
+  "hz": null,
+  "py": "èr",
+  "file": "/audio/pron/sgk/er4.mp3",
+  "nguon": "6:3"
+ },
+ "tu-e2rzi": {
+  "loai": "tu",
+  "hz": "兒子",
+  "py": "érzi",
+  "file": "/audio/pron/sgk/tu-e2rzi.mp3",
+  "nguon": "6:5"
+ },
+ "ya1": {
+  "loai": "am",
+  "hz": null,
+  "py": "yā",
+  "file": "/audio/pron/sgk/ya1.mp3",
+  "nguon": "8:0"
+ },
+ "ya2": {
+  "loai": "am",
+  "hz": null,
+  "py": "yá",
+  "file": "/audio/pron/sgk/ya2.mp3",
+  "nguon": "8:1"
+ },
+ "ya3": {
+  "loai": "am",
+  "hz": null,
+  "py": "yǎ",
+  "file": "/audio/pron/sgk/ya3.mp3",
+  "nguon": "8:2"
+ },
+ "ya4": {
+  "loai": "am",
+  "hz": null,
+  "py": "yà",
+  "file": "/audio/pron/sgk/ya4.mp3",
+  "nguon": "8:3"
+ },
+ "jia1": {
+  "loai": "am",
+  "hz": null,
+  "py": "jiā",
+  "file": "/audio/pron/sgk/jia1.mp3",
+  "nguon": "8:4"
+ },
+ "jia2": {
+  "loai": "am",
+  "hz": null,
+  "py": "jiá",
+  "file": "/audio/pron/sgk/jia2.mp3",
+  "nguon": "8:5"
+ },
+ "jia3": {
+  "loai": "am",
+  "hz": null,
+  "py": "jiǎ",
+  "file": "/audio/pron/sgk/jia3.mp3",
+  "nguon": "8:6"
+ },
+ "jia4": {
+  "loai": "am",
+  "hz": null,
+  "py": "jià",
+  "file": "/audio/pron/sgk/jia4.mp3",
+  "nguon": "8:7"
+ },
+ "ye1": {
+  "loai": "am",
+  "hz": null,
+  "py": "yē",
+  "file": "/audio/pron/sgk/ye1.mp3",
+  "nguon": "8:8"
+ },
+ "ye2": {
+  "loai": "am",
+  "hz": null,
+  "py": "yé",
+  "file": "/audio/pron/sgk/ye2.mp3",
+  "nguon": "8:9"
+ },
+ "ye3": {
+  "loai": "am",
+  "hz": null,
+  "py": "yě",
+  "file": "/audio/pron/sgk/ye3.mp3",
+  "nguon": "8:10"
+ },
+ "ye4": {
+  "loai": "am",
+  "hz": null,
+  "py": "yè",
+  "file": "/audio/pron/sgk/ye4.mp3",
+  "nguon": "8:11"
+ },
+ "qie1": {
+  "loai": "am",
+  "hz": null,
+  "py": "qiē",
+  "file": "/audio/pron/sgk/qie1.mp3",
+  "nguon": "8:12"
+ },
+ "qie2": {
+  "loai": "am",
+  "hz": null,
+  "py": "qié",
+  "file": "/audio/pron/sgk/qie2.mp3",
+  "nguon": "8:13"
+ },
+ "qie3": {
+  "loai": "am",
+  "hz": null,
+  "py": "qiě",
+  "file": "/audio/pron/sgk/qie3.mp3",
+  "nguon": "8:14"
+ },
+ "qie4": {
+  "loai": "am",
+  "hz": null,
+  "py": "qiè",
+  "file": "/audio/pron/sgk/qie4.mp3",
+  "nguon": "8:15"
+ },
+ "yao1": {
+  "loai": "am",
+  "hz": null,
+  "py": "yāo",
+  "file": "/audio/pron/sgk/yao1.mp3",
+  "nguon": "8:16"
+ },
+ "yao2": {
+  "loai": "am",
+  "hz": null,
+  "py": "yáo",
+  "file": "/audio/pron/sgk/yao2.mp3",
+  "nguon": "8:17"
+ },
+ "yao3": {
+  "loai": "am",
+  "hz": null,
+  "py": "yǎo",
+  "file": "/audio/pron/sgk/yao3.mp3",
+  "nguon": "8:18"
+ },
+ "yao4": {
+  "loai": "am",
+  "hz": null,
+  "py": "yào",
+  "file": "/audio/pron/sgk/yao4.mp3",
+  "nguon": "8:19"
+ },
+ "xiao1": {
+  "loai": "am",
+  "hz": null,
+  "py": "xiāo",
+  "file": "/audio/pron/sgk/xiao1.mp3",
+  "nguon": "8:20"
+ },
+ "xiao2": {
+  "loai": "am",
+  "hz": null,
+  "py": "xiáo",
+  "file": "/audio/pron/sgk/xiao2.mp3",
+  "nguon": "8:21"
+ },
+ "xiao3": {
+  "loai": "am",
+  "hz": null,
+  "py": "xiǎo",
+  "file": "/audio/pron/sgk/xiao3.mp3",
+  "nguon": "8:22"
+ },
+ "xiao4": {
+  "loai": "am",
+  "hz": null,
+  "py": "xiào",
+  "file": "/audio/pron/sgk/xiao4.mp3",
+  "nguon": "8:23"
+ },
+ "you1": {
+  "loai": "am",
+  "hz": null,
+  "py": "yōu",
+  "file": "/audio/pron/sgk/you1.mp3",
+  "nguon": "8:24"
+ },
+ "you2": {
+  "loai": "am",
+  "hz": null,
+  "py": "yóu",
+  "file": "/audio/pron/sgk/you2.mp3",
+  "nguon": "8:25"
+ },
+ "you3": {
+  "loai": "am",
+  "hz": null,
+  "py": "yǒu",
+  "file": "/audio/pron/sgk/you3.mp3",
+  "nguon": "8:26"
+ },
+ "you4": {
+  "loai": "am",
+  "hz": null,
+  "py": "yòu",
+  "file": "/audio/pron/sgk/you4.mp3",
+  "nguon": "8:27"
+ },
+ "qiu1": {
+  "loai": "am",
+  "hz": null,
+  "py": "qiū",
+  "file": "/audio/pron/sgk/qiu1.mp3",
+  "nguon": "8:28"
+ },
+ "qiu2": {
+  "loai": "am",
+  "hz": null,
+  "py": "qiú",
+  "file": "/audio/pron/sgk/qiu2.mp3",
+  "nguon": "8:29"
+ },
+ "qiu3": {
+  "loai": "am",
+  "hz": null,
+  "py": "qiǔ",
+  "file": "/audio/pron/sgk/qiu3.mp3",
+  "nguon": "8:30"
+ },
+ "qiu4": {
+  "loai": "am",
+  "hz": null,
+  "py": "qiù",
+  "file": "/audio/pron/sgk/qiu4.mp3",
+  "nguon": "8:31"
+ },
+ "yan1": {
+  "loai": "am",
+  "hz": null,
+  "py": "yān",
+  "file": "/audio/pron/sgk/yan1.mp3",
+  "nguon": "8:32"
+ },
+ "yan2": {
+  "loai": "am",
+  "hz": null,
+  "py": "yán",
+  "file": "/audio/pron/sgk/yan2.mp3",
+  "nguon": "8:33"
+ },
+ "yan3": {
+  "loai": "am",
+  "hz": null,
+  "py": "yǎn",
+  "file": "/audio/pron/sgk/yan3.mp3",
+  "nguon": "8:34"
+ },
+ "yan4": {
+  "loai": "am",
+  "hz": null,
+  "py": "yàn",
+  "file": "/audio/pron/sgk/yan4.mp3",
+  "nguon": "8:35"
+ },
+ "xian1": {
+  "loai": "am",
+  "hz": null,
+  "py": "xiān",
+  "file": "/audio/pron/sgk/xian1.mp3",
+  "nguon": "8:36"
+ },
+ "xian2": {
+  "loai": "am",
+  "hz": null,
+  "py": "xián",
+  "file": "/audio/pron/sgk/xian2.mp3",
+  "nguon": "8:37"
+ },
+ "xian3": {
+  "loai": "am",
+  "hz": null,
+  "py": "xiǎn",
+  "file": "/audio/pron/sgk/xian3.mp3",
+  "nguon": "8:38"
+ },
+ "xian4": {
+  "loai": "am",
+  "hz": null,
+  "py": "xiàn",
+  "file": "/audio/pron/sgk/xian4.mp3",
+  "nguon": "8:39"
+ },
+ "yin1": {
+  "loai": "am",
+  "hz": null,
+  "py": "yīn",
+  "file": "/audio/pron/sgk/yin1.mp3",
+  "nguon": "8:40"
+ },
+ "yin2": {
+  "loai": "am",
+  "hz": null,
+  "py": "yín",
+  "file": "/audio/pron/sgk/yin2.mp3",
+  "nguon": "8:41"
+ },
+ "yin3": {
+  "loai": "am",
+  "hz": null,
+  "py": "yǐn",
+  "file": "/audio/pron/sgk/yin3.mp3",
+  "nguon": "8:42"
+ },
+ "yin4": {
+  "loai": "am",
+  "hz": null,
+  "py": "yìn",
+  "file": "/audio/pron/sgk/yin4.mp3",
+  "nguon": "8:43"
+ },
+ "qin1": {
+  "loai": "am",
+  "hz": null,
+  "py": "qīn",
+  "file": "/audio/pron/sgk/qin1.mp3",
+  "nguon": "8:44"
+ },
+ "qin2": {
+  "loai": "am",
+  "hz": null,
+  "py": "qín",
+  "file": "/audio/pron/sgk/qin2.mp3",
+  "nguon": "8:45"
+ },
+ "qin3": {
+  "loai": "am",
+  "hz": null,
+  "py": "qǐn",
+  "file": "/audio/pron/sgk/qin3.mp3",
+  "nguon": "8:46"
+ },
+ "qin4": {
+  "loai": "am",
+  "hz": null,
+  "py": "qìn",
+  "file": "/audio/pron/sgk/qin4.mp3",
+  "nguon": "8:47"
+ },
+ "yang1": {
+  "loai": "am",
+  "hz": null,
+  "py": "yāng",
+  "file": "/audio/pron/sgk/yang1.mp3",
+  "nguon": "8:48"
+ },
+ "yang2": {
+  "loai": "am",
+  "hz": null,
+  "py": "yáng",
+  "file": "/audio/pron/sgk/yang2.mp3",
+  "nguon": "8:49"
+ },
+ "yang3": {
+  "loai": "am",
+  "hz": null,
+  "py": "yǎng",
+  "file": "/audio/pron/sgk/yang3.mp3",
+  "nguon": "8:50"
+ },
+ "yang4": {
+  "loai": "am",
+  "hz": null,
+  "py": "yàng",
+  "file": "/audio/pron/sgk/yang4.mp3",
+  "nguon": "8:51"
+ },
+ "jiang1": {
+  "loai": "am",
+  "hz": null,
+  "py": "jiāng",
+  "file": "/audio/pron/sgk/jiang1.mp3",
+  "nguon": "8:52"
+ },
+ "jiang2": {
+  "loai": "am",
+  "hz": null,
+  "py": "jiáng",
+  "file": "/audio/pron/sgk/jiang2.mp3",
+  "nguon": "8:53"
+ },
+ "jiang3": {
+  "loai": "am",
+  "hz": null,
+  "py": "jiǎng",
+  "file": "/audio/pron/sgk/jiang3.mp3",
+  "nguon": "8:54"
+ },
+ "jiang4": {
+  "loai": "am",
+  "hz": null,
+  "py": "jiàng",
+  "file": "/audio/pron/sgk/jiang4.mp3",
+  "nguon": "8:55"
+ },
+ "ying1": {
+  "loai": "am",
+  "hz": null,
+  "py": "yīng",
+  "file": "/audio/pron/sgk/ying1.mp3",
+  "nguon": "8:56"
+ },
+ "ying2": {
+  "loai": "am",
+  "hz": null,
+  "py": "yíng",
+  "file": "/audio/pron/sgk/ying2.mp3",
+  "nguon": "8:57"
+ },
+ "ying3": {
+  "loai": "am",
+  "hz": null,
+  "py": "yǐng",
+  "file": "/audio/pron/sgk/ying3.mp3",
+  "nguon": "8:58"
+ },
+ "ying4": {
+  "loai": "am",
+  "hz": null,
+  "py": "yìng",
+  "file": "/audio/pron/sgk/ying4.mp3",
+  "nguon": "8:59"
+ },
+ "xing1": {
+  "loai": "am",
+  "hz": null,
+  "py": "xīng",
+  "file": "/audio/pron/sgk/xing1.mp3",
+  "nguon": "8:60"
+ },
+ "xing2": {
+  "loai": "am",
+  "hz": null,
+  "py": "xíng",
+  "file": "/audio/pron/sgk/xing2.mp3",
+  "nguon": "8:61"
+ },
+ "xing3": {
+  "loai": "am",
+  "hz": null,
+  "py": "xǐng",
+  "file": "/audio/pron/sgk/xing3.mp3",
+  "nguon": "8:62"
+ },
+ "xing4": {
+  "loai": "am",
+  "hz": null,
+  "py": "xìng",
+  "file": "/audio/pron/sgk/xing4.mp3",
+  "nguon": "8:63"
+ },
+ "tu-jia1": {
+  "loai": "tu",
+  "hz": "家",
+  "py": "jiā",
+  "file": "/audio/pron/sgk/tu-jia1.mp3",
+  "nguon": "8:64"
+ },
+ "tu-qiu2": {
+  "loai": "tu",
+  "hz": "球",
+  "py": "qiú",
+  "file": "/audio/pron/sgk/tu-qiu2.mp3",
+  "nguon": "8:65"
+ },
+ "tu-xia4ng": {
+  "loai": "tu",
+  "hz": "像",
+  "py": "xiàng",
+  "file": "/audio/pron/sgk/tu-xia4ng.mp3",
+  "nguon": "8:66"
+ },
+ "tu-yo2u": {
+  "loai": "tu",
+  "hz": "油",
+  "py": "yóu",
+  "file": "/audio/pron/sgk/tu-yo2u.mp3",
+  "nguon": "8:68"
+ },
+ "tu-qia2o": {
+  "loai": "tu",
+  "hz": "瞧",
+  "py": "qiáo",
+  "file": "/audio/pron/sgk/tu-qia2o.mp3",
+  "nguon": "8:69"
+ },
+ "tu-jia3ozi": {
+  "loai": "tu",
+  "hz": "餃子",
+  "py": "jiǎozi",
+  "file": "/audio/pron/sgk/tu-jia3ozi.mp3",
+  "nguon": "8:70"
+ },
+ "wo1": {
+  "loai": "am",
+  "hz": null,
+  "py": "wō",
+  "file": "/audio/pron/sgk/wo1.mp3",
+  "nguon": "9:0"
+ },
+ "wo2": {
+  "loai": "am",
+  "hz": null,
+  "py": "wó",
+  "file": "/audio/pron/sgk/wo2.mp3",
+  "nguon": "9:1"
+ },
+ "wo3": {
+  "loai": "am",
+  "hz": null,
+  "py": "wǒ",
+  "file": "/audio/pron/sgk/wo3.mp3",
+  "nguon": "9:2"
+ },
+ "wo4": {
+  "loai": "am",
+  "hz": null,
+  "py": "wò",
+  "file": "/audio/pron/sgk/wo4.mp3",
+  "nguon": "9:3"
+ },
+ "huo1": {
+  "loai": "am",
+  "hz": null,
+  "py": "huō",
+  "file": "/audio/pron/sgk/huo1.mp3",
+  "nguon": "9:4"
+ },
+ "huo2": {
+  "loai": "am",
+  "hz": null,
+  "py": "huó",
+  "file": "/audio/pron/sgk/huo2.mp3",
+  "nguon": "9:5"
+ },
+ "huo3": {
+  "loai": "am",
+  "hz": null,
+  "py": "huǒ",
+  "file": "/audio/pron/sgk/huo3.mp3",
+  "nguon": "9:6"
+ },
+ "huo4": {
+  "loai": "am",
+  "hz": null,
+  "py": "huò",
+  "file": "/audio/pron/sgk/huo4.mp3",
+  "nguon": "9:7"
+ },
+ "wa1": {
+  "loai": "am",
+  "hz": null,
+  "py": "wā",
+  "file": "/audio/pron/sgk/wa1.mp3",
+  "nguon": "9:8"
+ },
+ "wa2": {
+  "loai": "am",
+  "hz": null,
+  "py": "wá",
+  "file": "/audio/pron/sgk/wa2.mp3",
+  "nguon": "9:9"
+ },
+ "wa3": {
+  "loai": "am",
+  "hz": null,
+  "py": "wǎ",
+  "file": "/audio/pron/sgk/wa3.mp3",
+  "nguon": "9:10"
+ },
+ "wa4": {
+  "loai": "am",
+  "hz": null,
+  "py": "wà",
+  "file": "/audio/pron/sgk/wa4.mp3",
+  "nguon": "9:11"
+ },
+ "gua1": {
+  "loai": "am",
+  "hz": null,
+  "py": "guā",
+  "file": "/audio/pron/sgk/gua1.mp3",
+  "nguon": "9:12"
+ },
+ "gua2": {
+  "loai": "am",
+  "hz": null,
+  "py": "guá",
+  "file": "/audio/pron/sgk/gua2.mp3",
+  "nguon": "9:13"
+ },
+ "gua3": {
+  "loai": "am",
+  "hz": null,
+  "py": "guǎ",
+  "file": "/audio/pron/sgk/gua3.mp3",
+  "nguon": "9:14"
+ },
+ "gua4": {
+  "loai": "am",
+  "hz": null,
+  "py": "guà",
+  "file": "/audio/pron/sgk/gua4.mp3",
+  "nguon": "9:15"
+ },
+ "wai1": {
+  "loai": "am",
+  "hz": null,
+  "py": "wāi",
+  "file": "/audio/pron/sgk/wai1.mp3",
+  "nguon": "9:16"
+ },
+ "wai2": {
+  "loai": "am",
+  "hz": null,
+  "py": "wái",
+  "file": "/audio/pron/sgk/wai2.mp3",
+  "nguon": "9:17"
+ },
+ "wai3": {
+  "loai": "am",
+  "hz": null,
+  "py": "wǎi",
+  "file": "/audio/pron/sgk/wai3.mp3",
+  "nguon": "9:18"
+ },
+ "wai4": {
+  "loai": "am",
+  "hz": null,
+  "py": "wài",
+  "file": "/audio/pron/sgk/wai4.mp3",
+  "nguon": "9:19"
+ },
+ "guai1": {
+  "loai": "am",
+  "hz": null,
+  "py": "guāi",
+  "file": "/audio/pron/sgk/guai1.mp3",
+  "nguon": "9:20"
+ },
+ "guai2": {
+  "loai": "am",
+  "hz": null,
+  "py": "guái",
+  "file": "/audio/pron/sgk/guai2.mp3",
+  "nguon": "9:21"
+ },
+ "guai3": {
+  "loai": "am",
+  "hz": null,
+  "py": "guǎi",
+  "file": "/audio/pron/sgk/guai3.mp3",
+  "nguon": "9:22"
+ },
+ "guai4": {
+  "loai": "am",
+  "hz": null,
+  "py": "guài",
+  "file": "/audio/pron/sgk/guai4.mp3",
+  "nguon": "9:23"
+ },
+ "wei1": {
+  "loai": "am",
+  "hz": null,
+  "py": "wēi",
+  "file": "/audio/pron/sgk/wei1.mp3",
+  "nguon": "9:24"
+ },
+ "wei2": {
+  "loai": "am",
+  "hz": null,
+  "py": "wéi",
+  "file": "/audio/pron/sgk/wei2.mp3",
+  "nguon": "9:25"
+ },
+ "wei3": {
+  "loai": "am",
+  "hz": null,
+  "py": "wěi",
+  "file": "/audio/pron/sgk/wei3.mp3",
+  "nguon": "9:26"
+ },
+ "wei4": {
+  "loai": "am",
+  "hz": null,
+  "py": "wèi",
+  "file": "/audio/pron/sgk/wei4.mp3",
+  "nguon": "9:27"
+ },
+ "hui1": {
+  "loai": "am",
+  "hz": null,
+  "py": "huī",
+  "file": "/audio/pron/sgk/hui1.mp3",
+  "nguon": "9:28"
+ },
+ "hui2": {
+  "loai": "am",
+  "hz": null,
+  "py": "huí",
+  "file": "/audio/pron/sgk/hui2.mp3",
+  "nguon": "9:29"
+ },
+ "hui3": {
+  "loai": "am",
+  "hz": null,
+  "py": "huǐ",
+  "file": "/audio/pron/sgk/hui3.mp3",
+  "nguon": "9:30"
+ },
+ "hui4": {
+  "loai": "am",
+  "hz": null,
+  "py": "huì",
+  "file": "/audio/pron/sgk/hui4.mp3",
+  "nguon": "9:31"
+ },
+ "wan1": {
+  "loai": "am",
+  "hz": null,
+  "py": "wān",
+  "file": "/audio/pron/sgk/wan1.mp3",
+  "nguon": "9:32"
+ },
+ "wan2": {
+  "loai": "am",
+  "hz": null,
+  "py": "wán",
+  "file": "/audio/pron/sgk/wan2.mp3",
+  "nguon": "9:33"
+ },
+ "wan3": {
+  "loai": "am",
+  "hz": null,
+  "py": "wǎn",
+  "file": "/audio/pron/sgk/wan3.mp3",
+  "nguon": "9:34"
+ },
+ "wan4": {
+  "loai": "am",
+  "hz": null,
+  "py": "wàn",
+  "file": "/audio/pron/sgk/wan4.mp3",
+  "nguon": "9:35"
+ },
+ "kuan1": {
+  "loai": "am",
+  "hz": null,
+  "py": "kuān",
+  "file": "/audio/pron/sgk/kuan1.mp3",
+  "nguon": "9:36"
+ },
+ "kuan2": {
+  "loai": "am",
+  "hz": null,
+  "py": "kuán",
+  "file": "/audio/pron/sgk/kuan2.mp3",
+  "nguon": "9:37"
+ },
+ "kuan3": {
+  "loai": "am",
+  "hz": null,
+  "py": "kuǎn",
+  "file": "/audio/pron/sgk/kuan3.mp3",
+  "nguon": "9:38"
+ },
+ "kuan4": {
+  "loai": "am",
+  "hz": null,
+  "py": "kuàn",
+  "file": "/audio/pron/sgk/kuan4.mp3",
+  "nguon": "9:39"
+ },
+ "wen1": {
+  "loai": "am",
+  "hz": null,
+  "py": "wēn",
+  "file": "/audio/pron/sgk/wen1.mp3",
+  "nguon": "9:40"
+ },
+ "wen2": {
+  "loai": "am",
+  "hz": null,
+  "py": "wén",
+  "file": "/audio/pron/sgk/wen2.mp3",
+  "nguon": "9:41"
+ },
+ "wen3": {
+  "loai": "am",
+  "hz": null,
+  "py": "wěn",
+  "file": "/audio/pron/sgk/wen3.mp3",
+  "nguon": "9:42"
+ },
+ "wen4": {
+  "loai": "am",
+  "hz": null,
+  "py": "wèn",
+  "file": "/audio/pron/sgk/wen4.mp3",
+  "nguon": "9:43"
+ },
+ "kun1": {
+  "loai": "am",
+  "hz": null,
+  "py": "kūn",
+  "file": "/audio/pron/sgk/kun1.mp3",
+  "nguon": "9:44"
+ },
+ "kun2": {
+  "loai": "am",
+  "hz": null,
+  "py": "kún",
+  "file": "/audio/pron/sgk/kun2.mp3",
+  "nguon": "9:45"
+ },
+ "kun3": {
+  "loai": "am",
+  "hz": null,
+  "py": "kǔn",
+  "file": "/audio/pron/sgk/kun3.mp3",
+  "nguon": "9:46"
+ },
+ "kun4": {
+  "loai": "am",
+  "hz": null,
+  "py": "kùn",
+  "file": "/audio/pron/sgk/kun4.mp3",
+  "nguon": "9:47"
+ },
+ "wang1": {
+  "loai": "am",
+  "hz": null,
+  "py": "wāng",
+  "file": "/audio/pron/sgk/wang1.mp3",
+  "nguon": "9:48"
+ },
+ "wang2": {
+  "loai": "am",
+  "hz": null,
+  "py": "wáng",
+  "file": "/audio/pron/sgk/wang2.mp3",
+  "nguon": "9:49"
+ },
+ "wang3": {
+  "loai": "am",
+  "hz": null,
+  "py": "wǎng",
+  "file": "/audio/pron/sgk/wang3.mp3",
+  "nguon": "9:50"
+ },
+ "wang4": {
+  "loai": "am",
+  "hz": null,
+  "py": "wàng",
+  "file": "/audio/pron/sgk/wang4.mp3",
+  "nguon": "9:51"
+ },
+ "guang1": {
+  "loai": "am",
+  "hz": null,
+  "py": "guāng",
+  "file": "/audio/pron/sgk/guang1.mp3",
+  "nguon": "9:52"
+ },
+ "guang2": {
+  "loai": "am",
+  "hz": null,
+  "py": "guáng",
+  "file": "/audio/pron/sgk/guang2.mp3",
+  "nguon": "9:53"
+ },
+ "guang3": {
+  "loai": "am",
+  "hz": null,
+  "py": "guǎng",
+  "file": "/audio/pron/sgk/guang3.mp3",
+  "nguon": "9:54"
+ },
+ "guang4": {
+  "loai": "am",
+  "hz": null,
+  "py": "guàng",
+  "file": "/audio/pron/sgk/guang4.mp3",
+  "nguon": "9:55"
+ },
+ "weng1": {
+  "loai": "am",
+  "hz": null,
+  "py": "wēng",
+  "file": "/audio/pron/sgk/weng1.mp3",
+  "nguon": "9:56"
+ },
+ "weng2": {
+  "loai": "am",
+  "hz": null,
+  "py": "wéng",
+  "file": "/audio/pron/sgk/weng2.mp3",
+  "nguon": "9:57"
+ },
+ "weng3": {
+  "loai": "am",
+  "hz": null,
+  "py": "wěng",
+  "file": "/audio/pron/sgk/weng3.mp3",
+  "nguon": "9:58"
+ },
+ "weng4": {
+  "loai": "am",
+  "hz": null,
+  "py": "wèng",
+  "file": "/audio/pron/sgk/weng4.mp3",
+  "nguon": "9:59"
+ },
+ "hong1": {
+  "loai": "am",
+  "hz": null,
+  "py": "hōng",
+  "file": "/audio/pron/sgk/hong1.mp3",
+  "nguon": "9:60"
+ },
+ "hong2": {
+  "loai": "am",
+  "hz": null,
+  "py": "hóng",
+  "file": "/audio/pron/sgk/hong2.mp3",
+  "nguon": "9:61"
+ },
+ "hong3": {
+  "loai": "am",
+  "hz": null,
+  "py": "hǒng",
+  "file": "/audio/pron/sgk/hong3.mp3",
+  "nguon": "9:62"
+ },
+ "hong4": {
+  "loai": "am",
+  "hz": null,
+  "py": "hòng",
+  "file": "/audio/pron/sgk/hong4.mp3",
+  "nguon": "9:63"
+ },
+ "tu-hua1": {
+  "loai": "tu",
+  "hz": "花",
+  "py": "huā",
+  "file": "/audio/pron/sgk/tu-hua1.mp3",
+  "nguon": "9:64"
+ },
+ "yu1": {
+  "loai": "am",
+  "hz": null,
+  "py": "yū",
+  "file": "/audio/pron/sgk/yu1.mp3",
+  "nguon": "10:0"
+ },
+ "yu2": {
+  "loai": "am",
+  "hz": null,
+  "py": "yú",
+  "file": "/audio/pron/sgk/yu2.mp3",
+  "nguon": "10:1"
+ },
+ "yu3": {
+  "loai": "am",
+  "hz": null,
+  "py": "yǔ",
+  "file": "/audio/pron/sgk/yu3.mp3",
+  "nguon": "10:2"
+ },
+ "yu4": {
+  "loai": "am",
+  "hz": null,
+  "py": "yù",
+  "file": "/audio/pron/sgk/yu4.mp3",
+  "nguon": "10:3"
+ },
+ "lv1": {
+  "loai": "am",
+  "hz": null,
+  "py": "lǖ",
+  "file": "/audio/pron/sgk/lv1.mp3",
+  "nguon": "10:4"
+ },
+ "lv2": {
+  "loai": "am",
+  "hz": null,
+  "py": "lǘ",
+  "file": "/audio/pron/sgk/lv2.mp3",
+  "nguon": "10:5"
+ },
+ "lv3": {
+  "loai": "am",
+  "hz": null,
+  "py": "lǚ",
+  "file": "/audio/pron/sgk/lv3.mp3",
+  "nguon": "10:6"
+ },
+ "lv4": {
+  "loai": "am",
+  "hz": null,
+  "py": "lǜ",
+  "file": "/audio/pron/sgk/lv4.mp3",
+  "nguon": "10:7"
+ },
+ "nv1": {
+  "loai": "am",
+  "hz": null,
+  "py": "nǖ",
+  "file": "/audio/pron/sgk/nv1.mp3",
+  "nguon": "10:8"
+ },
+ "nv2": {
+  "loai": "am",
+  "hz": null,
+  "py": "nǘ",
+  "file": "/audio/pron/sgk/nv2.mp3",
+  "nguon": "10:9"
+ },
+ "nv3": {
+  "loai": "am",
+  "hz": null,
+  "py": "nǚ",
+  "file": "/audio/pron/sgk/nv3.mp3",
+  "nguon": "10:10"
+ },
+ "nv4": {
+  "loai": "am",
+  "hz": null,
+  "py": "nǜ",
+  "file": "/audio/pron/sgk/nv4.mp3",
+  "nguon": "10:11"
+ },
+ "ju1": {
+  "loai": "am",
+  "hz": null,
+  "py": "jū",
+  "file": "/audio/pron/sgk/ju1.mp3",
+  "nguon": "10:12"
+ },
+ "ju2": {
+  "loai": "am",
+  "hz": null,
+  "py": "jú",
+  "file": "/audio/pron/sgk/ju2.mp3",
+  "nguon": "10:13"
+ },
+ "ju3": {
+  "loai": "am",
+  "hz": null,
+  "py": "jǔ",
+  "file": "/audio/pron/sgk/ju3.mp3",
+  "nguon": "10:14"
+ },
+ "ju4": {
+  "loai": "am",
+  "hz": null,
+  "py": "jù",
+  "file": "/audio/pron/sgk/ju4.mp3",
+  "nguon": "10:15"
+ },
+ "qu1": {
+  "loai": "am",
+  "hz": null,
+  "py": "qū",
+  "file": "/audio/pron/sgk/qu1.mp3",
+  "nguon": "10:16"
+ },
+ "qu2": {
+  "loai": "am",
+  "hz": null,
+  "py": "qú",
+  "file": "/audio/pron/sgk/qu2.mp3",
+  "nguon": "10:17"
+ },
+ "qu3": {
+  "loai": "am",
+  "hz": null,
+  "py": "qǔ",
+  "file": "/audio/pron/sgk/qu3.mp3",
+  "nguon": "10:18"
+ },
+ "qu4": {
+  "loai": "am",
+  "hz": null,
+  "py": "qù",
+  "file": "/audio/pron/sgk/qu4.mp3",
+  "nguon": "10:19"
+ },
+ "xu1": {
+  "loai": "am",
+  "hz": null,
+  "py": "xū",
+  "file": "/audio/pron/sgk/xu1.mp3",
+  "nguon": "10:20"
+ },
+ "xu2": {
+  "loai": "am",
+  "hz": null,
+  "py": "xú",
+  "file": "/audio/pron/sgk/xu2.mp3",
+  "nguon": "10:21"
+ },
+ "xu3": {
+  "loai": "am",
+  "hz": null,
+  "py": "xǔ",
+  "file": "/audio/pron/sgk/xu3.mp3",
+  "nguon": "10:22"
+ },
+ "xu4": {
+  "loai": "am",
+  "hz": null,
+  "py": "xù",
+  "file": "/audio/pron/sgk/xu4.mp3",
+  "nguon": "10:23"
+ },
+ "yue1": {
+  "loai": "am",
+  "hz": null,
+  "py": "yuē",
+  "file": "/audio/pron/sgk/yue1.mp3",
+  "nguon": "10:24"
+ },
+ "yue2": {
+  "loai": "am",
+  "hz": null,
+  "py": "yué",
+  "file": "/audio/pron/sgk/yue2.mp3",
+  "nguon": "10:25"
+ },
+ "yue3": {
+  "loai": "am",
+  "hz": null,
+  "py": "yuě",
+  "file": "/audio/pron/sgk/yue3.mp3",
+  "nguon": "10:26"
+ },
+ "yue4": {
+  "loai": "am",
+  "hz": null,
+  "py": "yuè",
+  "file": "/audio/pron/sgk/yue4.mp3",
+  "nguon": "10:27"
+ },
+ "lve1": {
+  "loai": "am",
+  "hz": null,
+  "py": "lüē",
+  "file": "/audio/pron/sgk/lve1.mp3",
+  "nguon": "10:28"
+ },
+ "lve2": {
+  "loai": "am",
+  "hz": null,
+  "py": "lüé",
+  "file": "/audio/pron/sgk/lve2.mp3",
+  "nguon": "10:29"
+ },
+ "lve3": {
+  "loai": "am",
+  "hz": null,
+  "py": "lüě",
+  "file": "/audio/pron/sgk/lve3.mp3",
+  "nguon": "10:30"
+ },
+ "lve4": {
+  "loai": "am",
+  "hz": null,
+  "py": "lüè",
+  "file": "/audio/pron/sgk/lve4.mp3",
+  "nguon": "10:31"
+ },
+ "nve1": {
+  "loai": "am",
+  "hz": null,
+  "py": "nüē",
+  "file": "/audio/pron/sgk/nve1.mp3",
+  "nguon": "10:32"
+ },
+ "nve2": {
+  "loai": "am",
+  "hz": null,
+  "py": "nüé",
+  "file": "/audio/pron/sgk/nve2.mp3",
+  "nguon": "10:33"
+ },
+ "nve3": {
+  "loai": "am",
+  "hz": null,
+  "py": "nüě",
+  "file": "/audio/pron/sgk/nve3.mp3",
+  "nguon": "10:34"
+ },
+ "nve4": {
+  "loai": "am",
+  "hz": null,
+  "py": "nüè",
+  "file": "/audio/pron/sgk/nve4.mp3",
+  "nguon": "10:35"
+ },
+ "jue1": {
+  "loai": "am",
+  "hz": null,
+  "py": "juē",
+  "file": "/audio/pron/sgk/jue1.mp3",
+  "nguon": "10:36"
+ },
+ "jue2": {
+  "loai": "am",
+  "hz": null,
+  "py": "jué",
+  "file": "/audio/pron/sgk/jue2.mp3",
+  "nguon": "10:37"
+ },
+ "jue3": {
+  "loai": "am",
+  "hz": null,
+  "py": "juě",
+  "file": "/audio/pron/sgk/jue3.mp3",
+  "nguon": "10:38"
+ },
+ "jue4": {
+  "loai": "am",
+  "hz": null,
+  "py": "juè",
+  "file": "/audio/pron/sgk/jue4.mp3",
+  "nguon": "10:39"
+ },
+ "que1": {
+  "loai": "am",
+  "hz": null,
+  "py": "quē",
+  "file": "/audio/pron/sgk/que1.mp3",
+  "nguon": "10:40"
+ },
+ "que2": {
+  "loai": "am",
+  "hz": null,
+  "py": "qué",
+  "file": "/audio/pron/sgk/que2.mp3",
+  "nguon": "10:41"
+ },
+ "que3": {
+  "loai": "am",
+  "hz": null,
+  "py": "quě",
+  "file": "/audio/pron/sgk/que3.mp3",
+  "nguon": "10:42"
+ },
+ "que4": {
+  "loai": "am",
+  "hz": null,
+  "py": "què",
+  "file": "/audio/pron/sgk/que4.mp3",
+  "nguon": "10:43"
+ },
+ "xue1": {
+  "loai": "am",
+  "hz": null,
+  "py": "xuē",
+  "file": "/audio/pron/sgk/xue1.mp3",
+  "nguon": "10:44"
+ },
+ "xue2": {
+  "loai": "am",
+  "hz": null,
+  "py": "xué",
+  "file": "/audio/pron/sgk/xue2.mp3",
+  "nguon": "10:45"
+ },
+ "xue3": {
+  "loai": "am",
+  "hz": null,
+  "py": "xuě",
+  "file": "/audio/pron/sgk/xue3.mp3",
+  "nguon": "10:46"
+ },
+ "xue4": {
+  "loai": "am",
+  "hz": null,
+  "py": "xuè",
+  "file": "/audio/pron/sgk/xue4.mp3",
+  "nguon": "10:47"
+ },
+ "yuan1": {
+  "loai": "am",
+  "hz": null,
+  "py": "yuān",
+  "file": "/audio/pron/sgk/yuan1.mp3",
+  "nguon": "10:48"
+ },
+ "yuan2": {
+  "loai": "am",
+  "hz": null,
+  "py": "yuán",
+  "file": "/audio/pron/sgk/yuan2.mp3",
+  "nguon": "10:49"
+ },
+ "yuan3": {
+  "loai": "am",
+  "hz": null,
+  "py": "yuǎn",
+  "file": "/audio/pron/sgk/yuan3.mp3",
+  "nguon": "10:50"
+ },
+ "yuan4": {
+  "loai": "am",
+  "hz": null,
+  "py": "yuàn",
+  "file": "/audio/pron/sgk/yuan4.mp3",
+  "nguon": "10:51"
+ },
+ "juan1": {
+  "loai": "am",
+  "hz": null,
+  "py": "juān",
+  "file": "/audio/pron/sgk/juan1.mp3",
+  "nguon": "10:52"
+ },
+ "juan2": {
+  "loai": "am",
+  "hz": null,
+  "py": "juán",
+  "file": "/audio/pron/sgk/juan2.mp3",
+  "nguon": "10:53"
+ },
+ "juan3": {
+  "loai": "am",
+  "hz": null,
+  "py": "juǎn",
+  "file": "/audio/pron/sgk/juan3.mp3",
+  "nguon": "10:54"
+ },
+ "juan4": {
+  "loai": "am",
+  "hz": null,
+  "py": "juàn",
+  "file": "/audio/pron/sgk/juan4.mp3",
+  "nguon": "10:55"
+ },
+ "quan1": {
+  "loai": "am",
+  "hz": null,
+  "py": "quān",
+  "file": "/audio/pron/sgk/quan1.mp3",
+  "nguon": "10:56"
+ },
+ "quan2": {
+  "loai": "am",
+  "hz": null,
+  "py": "quán",
+  "file": "/audio/pron/sgk/quan2.mp3",
+  "nguon": "10:57"
+ },
+ "quan3": {
+  "loai": "am",
+  "hz": null,
+  "py": "quǎn",
+  "file": "/audio/pron/sgk/quan3.mp3",
+  "nguon": "10:58"
+ },
+ "quan4": {
+  "loai": "am",
+  "hz": null,
+  "py": "quàn",
+  "file": "/audio/pron/sgk/quan4.mp3",
+  "nguon": "10:59"
+ },
+ "xuan1": {
+  "loai": "am",
+  "hz": null,
+  "py": "xuān",
+  "file": "/audio/pron/sgk/xuan1.mp3",
+  "nguon": "10:60"
+ },
+ "xuan2": {
+  "loai": "am",
+  "hz": null,
+  "py": "xuán",
+  "file": "/audio/pron/sgk/xuan2.mp3",
+  "nguon": "10:61"
+ },
+ "xuan3": {
+  "loai": "am",
+  "hz": null,
+  "py": "xuǎn",
+  "file": "/audio/pron/sgk/xuan3.mp3",
+  "nguon": "10:62"
+ },
+ "xuan4": {
+  "loai": "am",
+  "hz": null,
+  "py": "xuàn",
+  "file": "/audio/pron/sgk/xuan4.mp3",
+  "nguon": "10:63"
+ },
+ "yun1": {
+  "loai": "am",
+  "hz": null,
+  "py": "yūn",
+  "file": "/audio/pron/sgk/yun1.mp3",
+  "nguon": "10:64"
+ },
+ "yun2": {
+  "loai": "am",
+  "hz": null,
+  "py": "yún",
+  "file": "/audio/pron/sgk/yun2.mp3",
+  "nguon": "10:65"
+ },
+ "yun3": {
+  "loai": "am",
+  "hz": null,
+  "py": "yǔn",
+  "file": "/audio/pron/sgk/yun3.mp3",
+  "nguon": "10:66"
+ },
+ "yun4": {
+  "loai": "am",
+  "hz": null,
+  "py": "yùn",
+  "file": "/audio/pron/sgk/yun4.mp3",
+  "nguon": "10:67"
+ },
+ "jun1": {
+  "loai": "am",
+  "hz": null,
+  "py": "jūn",
+  "file": "/audio/pron/sgk/jun1.mp3",
+  "nguon": "10:68"
+ },
+ "jun2": {
+  "loai": "am",
+  "hz": null,
+  "py": "jún",
+  "file": "/audio/pron/sgk/jun2.mp3",
+  "nguon": "10:69"
+ },
+ "jun3": {
+  "loai": "am",
+  "hz": null,
+  "py": "jǔn",
+  "file": "/audio/pron/sgk/jun3.mp3",
+  "nguon": "10:70"
+ },
+ "jun4": {
+  "loai": "am",
+  "hz": null,
+  "py": "jùn",
+  "file": "/audio/pron/sgk/jun4.mp3",
+  "nguon": "10:71"
+ },
+ "qun1": {
+  "loai": "am",
+  "hz": null,
+  "py": "qūn",
+  "file": "/audio/pron/sgk/qun1.mp3",
+  "nguon": "10:72"
+ },
+ "qun2": {
+  "loai": "am",
+  "hz": null,
+  "py": "qún",
+  "file": "/audio/pron/sgk/qun2.mp3",
+  "nguon": "10:73"
+ },
+ "qun3": {
+  "loai": "am",
+  "hz": null,
+  "py": "qǔn",
+  "file": "/audio/pron/sgk/qun3.mp3",
+  "nguon": "10:74"
+ },
+ "qun4": {
+  "loai": "am",
+  "hz": null,
+  "py": "qùn",
+  "file": "/audio/pron/sgk/qun4.mp3",
+  "nguon": "10:75"
+ },
+ "xun1": {
+  "loai": "am",
+  "hz": null,
+  "py": "xūn",
+  "file": "/audio/pron/sgk/xun1.mp3",
+  "nguon": "10:76"
+ },
+ "xun2": {
+  "loai": "am",
+  "hz": null,
+  "py": "xún",
+  "file": "/audio/pron/sgk/xun2.mp3",
+  "nguon": "10:77"
+ },
+ "xun3": {
+  "loai": "am",
+  "hz": null,
+  "py": "xǔn",
+  "file": "/audio/pron/sgk/xun3.mp3",
+  "nguon": "10:78"
+ },
+ "xun4": {
+  "loai": "am",
+  "hz": null,
+  "py": "xùn",
+  "file": "/audio/pron/sgk/xun4.mp3",
+  "nguon": "10:79"
+ },
+ "yong1": {
+  "loai": "am",
+  "hz": null,
+  "py": "yōng",
+  "file": "/audio/pron/sgk/yong1.mp3",
+  "nguon": "10:80"
+ },
+ "yong2": {
+  "loai": "am",
+  "hz": null,
+  "py": "yóng",
+  "file": "/audio/pron/sgk/yong2.mp3",
+  "nguon": "10:81"
+ },
+ "yong3": {
+  "loai": "am",
+  "hz": null,
+  "py": "yǒng",
+  "file": "/audio/pron/sgk/yong3.mp3",
+  "nguon": "10:82"
+ },
+ "yong4": {
+  "loai": "am",
+  "hz": null,
+  "py": "yòng",
+  "file": "/audio/pron/sgk/yong4.mp3",
+  "nguon": "10:83"
+ },
+ "jiong1": {
+  "loai": "am",
+  "hz": null,
+  "py": "jiōng",
+  "file": "/audio/pron/sgk/jiong1.mp3",
+  "nguon": "10:84"
+ },
+ "jiong2": {
+  "loai": "am",
+  "hz": null,
+  "py": "jióng",
+  "file": "/audio/pron/sgk/jiong2.mp3",
+  "nguon": "10:85"
+ },
+ "jiong3": {
+  "loai": "am",
+  "hz": null,
+  "py": "jiǒng",
+  "file": "/audio/pron/sgk/jiong3.mp3",
+  "nguon": "10:86"
+ },
+ "jiong4": {
+  "loai": "am",
+  "hz": null,
+  "py": "jiòng",
+  "file": "/audio/pron/sgk/jiong4.mp3",
+  "nguon": "10:87"
+ },
+ "qiong1": {
+  "loai": "am",
+  "hz": null,
+  "py": "qiōng",
+  "file": "/audio/pron/sgk/qiong1.mp3",
+  "nguon": "10:88"
+ },
+ "qiong2": {
+  "loai": "am",
+  "hz": null,
+  "py": "qióng",
+  "file": "/audio/pron/sgk/qiong2.mp3",
+  "nguon": "10:89"
+ },
+ "qiong3": {
+  "loai": "am",
+  "hz": null,
+  "py": "qiǒng",
+  "file": "/audio/pron/sgk/qiong3.mp3",
+  "nguon": "10:90"
+ },
+ "qiong4": {
+  "loai": "am",
+  "hz": null,
+  "py": "qiòng",
+  "file": "/audio/pron/sgk/qiong4.mp3",
+  "nguon": "10:91"
+ },
+ "xiong1": {
+  "loai": "am",
+  "hz": null,
+  "py": "xiōng",
+  "file": "/audio/pron/sgk/xiong1.mp3",
+  "nguon": "10:92"
+ },
+ "xiong2": {
+  "loai": "am",
+  "hz": null,
+  "py": "xióng",
+  "file": "/audio/pron/sgk/xiong2.mp3",
+  "nguon": "10:93"
+ },
+ "xiong3": {
+  "loai": "am",
+  "hz": null,
+  "py": "xiǒng",
+  "file": "/audio/pron/sgk/xiong3.mp3",
+  "nguon": "10:94"
+ },
+ "xiong4": {
+  "loai": "am",
+  "hz": null,
+  "py": "xiòng",
+  "file": "/audio/pron/sgk/xiong4.mp3",
+  "nguon": "10:95"
+ },
+ "tu-nv3": {
+  "loai": "tu",
+  "hz": "女",
+  "py": "nǚ",
+  "file": "/audio/pron/sgk/tu-nv3.mp3",
+  "nguon": "10:96"
+ },
+ "tu-lv4": {
+  "loai": "tu",
+  "hz": "綠",
+  "py": "lǜ",
+  "file": "/audio/pron/sgk/tu-lv4.mp3",
+  "nguon": "10:97"
+ },
+ "tu-qu2n": {
+  "loai": "tu",
+  "hz": "群",
+  "py": "qún",
+  "file": "/audio/pron/sgk/tu-qu2n.mp3",
+  "nguon": "10:98"
+ },
+ "tu-xio2ng": {
+  "loai": "tu",
+  "hz": "熊",
+  "py": "xióng",
+  "file": "/audio/pron/sgk/tu-xio2ng.mp3",
+  "nguon": "10:99"
+ },
+ "tu-yu3": {
+  "loai": "tu",
+  "hz": "雨",
+  "py": "yǔ",
+  "file": "/audio/pron/sgk/tu-yu3.mp3",
+  "nguon": "10:101"
+ },
+ "tu-yue4": {
+  "loai": "tu",
+  "hz": "月",
+  "py": "yuè",
+  "file": "/audio/pron/sgk/tu-yue4.mp3",
+  "nguon": "10:102"
+ },
+ "tu-yu2n": {
+  "loai": "tu",
+  "hz": "雲",
+  "py": "yún",
+  "file": "/audio/pron/sgk/tu-yu2n.mp3",
+  "nguon": "10:104"
+ },
+ "tu-yo4ng": {
+  "loai": "tu",
+  "hz": "用",
+  "py": "yòng",
+  "file": "/audio/pron/sgk/tu-yo4ng.mp3",
+  "nguon": "10:105"
+ },
+ "tu-sa1nge": {
+  "loai": "tu",
+  "hz": "三個",
+  "py": "sān ge",
+  "file": "/audio/pron/sgk/tu-sa1nge.mp3",
+  "nguon": "11:1"
+ },
+ "tu-shi2ge": {
+  "loai": "tu",
+  "hz": "十個",
+  "py": "shí ge",
+  "file": "/audio/pron/sgk/tu-shi2ge.mp3",
+  "nguon": "11:2"
+ },
+ "tu-jiu3ge": {
+  "loai": "tu",
+  "hz": "九個",
+  "py": "jiǔ ge",
+  "file": "/audio/pron/sgk/tu-jiu3ge.mp3",
+  "nguon": "11:3"
+ },
+ "tu-liu4ge": {
+  "loai": "tu",
+  "hz": "六個",
+  "py": "liù ge",
+  "file": "/audio/pron/sgk/tu-liu4ge.mp3",
+  "nguon": "11:4"
+ },
+ "tu-zhuo1zi": {
+  "loai": "tu",
+  "hz": "桌子",
+  "py": "zhuōzi",
+  "file": "/audio/pron/sgk/tu-zhuo1zi.mp3",
+  "nguon": "11:5"
+ },
+ "tu-she2nme": {
+  "loai": "tu",
+  "hz": "什麼",
+  "py": "shénme",
+  "file": "/audio/pron/sgk/tu-she2nme.mp3",
+  "nguon": "11:6"
+ },
+ "tu-yi3zi": {
+  "loai": "tu",
+  "hz": "椅子",
+  "py": "yǐzi",
+  "file": "/audio/pron/sgk/tu-yi3zi.mp3",
+  "nguon": "11:7"
+ },
+ "tu-la4de": {
+  "loai": "tu",
+  "hz": "辣的",
+  "py": "là de",
+  "file": "/audio/pron/sgk/tu-la4de.mp3",
+  "nguon": "11:8"
+ },
+ "tu-la3oba3n": {
+  "loai": "tu",
+  "hz": "老闆",
+  "py": "lǎobǎn",
+  "file": "/audio/pron/sgk/tu-la3oba3n.mp3",
+  "nguon": "11:10"
+ },
+ "tu-me3inv3": {
+  "loai": "tu",
+  "hz": "美女",
+  "py": "měinǚ",
+  "file": "/audio/pron/sgk/tu-me3inv3.mp3",
+  "nguon": "11:11"
+ },
+ "tu-yi4be1i": {
+  "loai": "tu",
+  "hz": "一杯",
+  "py": "yì bēi",
+  "file": "/audio/pron/sgk/tu-yi4be1i.mp3",
+  "nguon": "11:13"
+ },
+ "tu-yi4tia2o": {
+  "loai": "tu",
+  "hz": "一條",
+  "py": "yì tiáo",
+  "file": "/audio/pron/sgk/tu-yi4tia2o.mp3",
+  "nguon": "11:14"
+ },
+ "tu-yi4be3n": {
+  "loai": "tu",
+  "hz": "一本",
+  "py": "yì běn",
+  "file": "/audio/pron/sgk/tu-yi4be3n.mp3",
+  "nguon": "11:15"
+ },
+ "tu-yi2ya4ng": {
+  "loai": "tu",
+  "hz": "一樣",
+  "py": "yíyàng",
+  "file": "/audio/pron/sgk/tu-yi2ya4ng.mp3",
+  "nguon": "11:16"
+ },
+ "tu-yi2ge": {
+  "loai": "tu",
+  "hz": "一個",
+  "py": "yí ge",
+  "file": "/audio/pron/sgk/tu-yi2ge.mp3",
+  "nguon": "11:17"
+ },
+ "tu-bu4zhi1": {
+  "loai": "tu",
+  "hz": "不知",
+  "py": "bù zhī",
+  "file": "/audio/pron/sgk/tu-bu4zhi1.mp3",
+  "nguon": "11:19"
+ },
+ "tu-bu4ne2ng": {
+  "loai": "tu",
+  "hz": "不能",
+  "py": "bù néng",
+  "file": "/audio/pron/sgk/tu-bu4ne2ng.mp3",
+  "nguon": "11:20"
+ },
+ "tu-bu4ha3o": {
+  "loai": "tu",
+  "hz": "不好",
+  "py": "bù hǎo",
+  "file": "/audio/pron/sgk/tu-bu4ha3o.mp3",
+  "nguon": "11:21"
+ },
+ "tu-bu2ya4o": {
+  "loai": "tu",
+  "hz": "不要",
+  "py": "bú yào",
+  "file": "/audio/pron/sgk/tu-bu2ya4o.mp3",
+  "nguon": "11:22"
+ },
+ "tu-bu2shi4": {
+  "loai": "tu",
+  "hz": "不是",
+  "py": "bú shì",
+  "file": "/audio/pron/sgk/tu-bu2shi4.mp3",
+  "nguon": "11:23"
+ },
+ "tu-sa1n": {
+  "loai": "tu",
+  "hz": "三",
+  "py": "sān",
+  "file": "/audio/pron/sgk/tu-sa1n.mp3",
+  "nguon": "12:4"
+ },
+ "tu-si4": {
+  "loai": "tu",
+  "hz": "四",
+  "py": "sì",
+  "file": "/audio/pron/sgk/tu-si4.mp3",
+  "nguon": "12:5"
+ },
+ "tu-liu4": {
+  "loai": "tu",
+  "hz": "六",
+  "py": "liù",
+  "file": "/audio/pron/sgk/tu-liu4.mp3",
+  "nguon": "12:7"
+ },
+ "tu-qi1": {
+  "loai": "tu",
+  "hz": "七",
+  "py": "qī",
+  "file": "/audio/pron/sgk/tu-qi1.mp3",
+  "nguon": "12:8"
+ },
+ "tu-jiu3": {
+  "loai": "tu",
+  "hz": "九",
+  "py": "jiǔ",
+  "file": "/audio/pron/sgk/tu-jiu3.mp3",
+  "nguon": "12:10"
+ },
+ "tu-shi2": {
+  "loai": "tu",
+  "hz": "十",
+  "py": "shí",
+  "file": "/audio/pron/sgk/tu-shi2.mp3",
+  "nguon": "12:11"
+ },
+ "tu-la3oshi1": {
+  "loai": "tu",
+  "hz": "老師",
+  "py": "lǎoshī",
+  "file": "/audio/pron/sgk/tu-la3oshi1.mp3",
+  "nguon": "13:1"
+ },
+ "tu-xue2she1ng": {
+  "loai": "tu",
+  "hz": "學生",
+  "py": "xuéshēng",
+  "file": "/audio/pron/sgk/tu-xue2she1ng.mp3",
+  "nguon": "13:3"
+ },
+ "tu-ni3": {
+  "loai": "tu",
+  "hz": "你",
+  "py": "nǐ",
+  "file": "/audio/pron/sgk/tu-ni3.mp3",
+  "nguon": "13:5"
+ },
+ "tu-wo3": {
+  "loai": "tu",
+  "hz": "我",
+  "py": "wǒ",
+  "file": "/audio/pron/sgk/tu-wo3.mp3",
+  "nguon": "13:7"
+ },
+ "tu-ta1": {
+  "loai": "tu",
+  "hz": "他",
+  "py": "tā",
+  "file": "/audio/pron/sgk/tu-ta1.mp3",
+  "nguon": "13:9"
+ },
+ "tu-shi4": {
+  "loai": "tu",
+  "hz": "是",
+  "py": "shì",
+  "file": "/audio/pron/sgk/tu-shi4.mp3",
+  "nguon": "13:11"
+ },
+ "tu-wo3shi4la3oshi1": {
+  "loai": "tu",
+  "hz": "我是老師。",
+  "py": "Wǒ shì lǎoshī.",
+  "file": "/audio/pron/sgk/tu-wo3shi4la3oshi1.mp3",
+  "nguon": "13:12"
+ },
+ "tu-ta1shi4xue2she1ng": {
+  "loai": "tu",
+  "hz": "他是學生。",
+  "py": "Tā shì xuéshēng.",
+  "file": "/audio/pron/sgk/tu-ta1shi4xue2she1ng.mp3",
+  "nguon": "13:13"
+ },
+ "tu-ni3men": {
+  "loai": "tu",
+  "hz": "你們",
+  "py": "nǐmen",
+  "file": "/audio/pron/sgk/tu-ni3men.mp3",
+  "nguon": "13:15"
+ },
+ "tu-wo3men": {
+  "loai": "tu",
+  "hz": "我們",
+  "py": "wǒmen",
+  "file": "/audio/pron/sgk/tu-wo3men.mp3",
+  "nguon": "13:17"
+ },
+ "tu-ta1men": {
+  "loai": "tu",
+  "hz": "他們",
+  "py": "tāmen",
+  "file": "/audio/pron/sgk/tu-ta1men.mp3",
+  "nguon": "13:19"
+ },
+ "tu-ta1bu2shi4ri4be3nre2n": {
+  "loai": "tu",
+  "hz": "他不是日本人。",
+  "py": "Tā bú shì Rìběn rén.",
+  "file": "/audio/pron/sgk/tu-ta1bu2shi4ri4be3nre2n.mp3",
+  "nguon": "13:25"
+ },
+ "tu-ta1shi4ta2iwa1nre2n": {
+  "loai": "tu",
+  "hz": "他是台灣人。",
+  "py": "Tā shì Táiwān rén.",
+  "file": "/audio/pron/sgk/tu-ta1shi4ta2iwa1nre2n.mp3",
+  "nguon": "13:26"
+ },
+ "tu-xia1nshe1ng": {
+  "loai": "tu",
+  "hz": "先生",
+  "py": "xiānshēng",
+  "file": "/audio/pron/sgk/tu-xia1nshe1ng.mp3",
+  "nguon": "13:28"
+ },
+ "tu-xia3ojie3": {
+  "loai": "tu",
+  "hz": "小姐",
+  "py": "xiǎojiě",
+  "file": "/audio/pron/sgk/tu-xia3ojie3.mp3",
+  "nguon": "13:30"
+ },
+ "tu-ta4itai": {
+  "loai": "tu",
+  "hz": "太太",
+  "py": "tàitai",
+  "file": "/audio/pron/sgk/tu-ta4itai.mp3",
+  "nguon": "13:32"
+ },
+ "tu-ta2iwa1n": {
+  "loai": "tu",
+  "hz": "台灣",
+  "py": "Táiwān",
+  "file": "/audio/pron/sgk/tu-ta2iwa1n.mp3",
+  "nguon": "15:0"
+ },
+ "tu-zho1ngguo2": {
+  "loai": "tu",
+  "hz": "中國",
+  "py": "Zhōngguó",
+  "file": "/audio/pron/sgk/tu-zho1ngguo2.mp3",
+  "nguon": "15:1"
+ },
+ "tu-ha2nguo2": {
+  "loai": "tu",
+  "hz": "韓國",
+  "py": "Hánguó",
+  "file": "/audio/pron/sgk/tu-ha2nguo2.mp3",
+  "nguon": "15:2"
+ },
+ "tu-ri4be3n": {
+  "loai": "tu",
+  "hz": "日本",
+  "py": "Rìběn",
+  "file": "/audio/pron/sgk/tu-ri4be3n.mp3",
+  "nguon": "15:3"
+ },
+ "tu-yue4na2n": {
+  "loai": "tu",
+  "hz": "越南",
+  "py": "Yuènán",
+  "file": "/audio/pron/sgk/tu-yue4na2n.mp3",
+  "nguon": "15:4"
+ },
+ "tu-yi4nni2": {
+  "loai": "tu",
+  "hz": "印尼",
+  "py": "Yìnní",
+  "file": "/audio/pron/sgk/tu-yi4nni2.mp3",
+  "nguon": "15:5"
+ },
+ "tu-ta4iguo2": {
+  "loai": "tu",
+  "hz": "泰國",
+  "py": "Tàiguó",
+  "file": "/audio/pron/sgk/tu-ta4iguo2.mp3",
+  "nguon": "15:6"
+ },
+ "tu-fe1ilv4bi1n": {
+  "loai": "tu",
+  "hz": "菲律賓",
+  "py": "Fēilǜbīn",
+  "file": "/audio/pron/sgk/tu-fe1ilv4bi1n.mp3",
+  "nguon": "15:7"
+ },
+ "tu-jia1na2da4": {
+  "loai": "tu",
+  "hz": "加拿大",
+  "py": "Jiānádà",
+  "file": "/audio/pron/sgk/tu-jia1na2da4.mp3",
+  "nguon": "15:8"
+ },
+ "tu-me3iguo2": {
+  "loai": "tu",
+  "hz": "美國",
+  "py": "Měiguó",
+  "file": "/audio/pron/sgk/tu-me3iguo2.mp3",
+  "nguon": "15:9"
+ },
+ "tu-mo4xi1ge1": {
+  "loai": "tu",
+  "hz": "墨西哥",
+  "py": "Mòxīgē",
+  "file": "/audio/pron/sgk/tu-mo4xi1ge1.mp3",
+  "nguon": "15:10"
+ },
+ "tu-ba1xi1": {
+  "loai": "tu",
+  "hz": "巴西",
+  "py": "Bāxī",
+  "file": "/audio/pron/sgk/tu-ba1xi1.mp3",
+  "nguon": "15:11"
+ },
+ "tu-yi1ngguo2": {
+  "loai": "tu",
+  "hz": "英國",
+  "py": "Yīngguó",
+  "file": "/audio/pron/sgk/tu-yi1ngguo2.mp3",
+  "nguon": "15:12"
+ },
+ "tu-fa4guo2": {
+  "loai": "tu",
+  "hz": "法國",
+  "py": "Fàguó",
+  "file": "/audio/pron/sgk/tu-fa4guo2.mp3",
+  "nguon": "15:13"
+ },
+ "tu-de2guo2": {
+  "loai": "tu",
+  "hz": "德國",
+  "py": "Déguó",
+  "file": "/audio/pron/sgk/tu-de2guo2.mp3",
+  "nguon": "15:14"
+ },
+ "tu-xi1ba1nya2": {
+  "loai": "tu",
+  "hz": "西班牙",
+  "py": "Xībānyá",
+  "file": "/audio/pron/sgk/tu-xi1ba1nya2.mp3",
+  "nguon": "15:15"
+ },
+ "tu-ni3ha3o": {
+  "loai": "tu",
+  "hz": "你好",
+  "py": "nǐ hǎo",
+  "file": "/audio/pron/sgk/tu-ni3ha3o.mp3",
+  "nguon": "17:1"
+ },
+ "tu-za4ijia4n": {
+  "loai": "tu",
+  "hz": "再見",
+  "py": "zàijiàn",
+  "file": "/audio/pron/sgk/tu-za4ijia4n.mp3",
+  "nguon": "17:3"
+ },
+ "tu-xie4xie": {
+  "loai": "tu",
+  "hz": "謝謝",
+  "py": "xièxie",
+  "file": "/audio/pron/sgk/tu-xie4xie.mp3",
+  "nguon": "17:5"
+ },
+ "tu-bu2ke4qi": {
+  "loai": "tu",
+  "hz": "不客氣",
+  "py": "bú kèqi",
+  "file": "/audio/pron/sgk/tu-bu2ke4qi.mp3",
+  "nguon": "17:7"
+ },
+ "tu-dui4bu4qi3": {
+  "loai": "tu",
+  "hz": "對不起",
+  "py": "duìbùqǐ",
+  "file": "/audio/pron/sgk/tu-dui4bu4qi3.mp3",
+  "nguon": "17:9"
+ },
+ "tu-me2igua1nxi": {
+  "loai": "tu",
+  "hz": "沒關係",
+  "py": "méi guānxi",
+  "file": "/audio/pron/sgk/tu-me2igua1nxi.mp3",
+  "nguon": "17:11"
+ }
+}

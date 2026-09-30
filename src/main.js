@@ -14,6 +14,8 @@ import { baiMo, bocKhoaBai, maKhoaQuyen } from '../shared/noi-dung-mo.js';
 import { BO_HIEN } from '../shared/bo-giao-trinh.js';
 import { initialsData, initialPairs, finalsData, tonesData, toneMinimalSet, toneDrills, toneSandhi, toneMarkRules, pronQuiz } from './data/pronunciationData.js';
 import { pronAudioMap } from './data/pronAudioMap.js';
+import { pronSgkAm, pronViDu, pronBangSgk } from './data/pronSgkAudio.js';
+import { sbtNghe } from './data/sbtNghe.js';
 import { pronAudioOverride } from './data/pronAudioFix.js';
 import { pinyinChart, pinyinChartGroups, pinyinChartInitials, pinyinChartAudio } from './data/pinyinChartData.js';
 // DANH MỤC bài (nhẹ, vào bundle chính) và NỘI DUNG bài (nạp động theo quyển) tách làm hai
@@ -2808,10 +2810,23 @@ let pronAudio = null;
 // Bảng pronAudioMap do lệnh "npm run audio:pron" sinh ra.
 function pronSrc(group, key) {
   const k = `${group}/${key}`;
+  // Thanh mẫu / vận mẫu: bản ghi bài phát âm của sách (một giọng) — ưu tiên hơn mọi bảng cũ
+  if (pronSgkAm[k]) return pronSgkAm[k];
   // bảng sửa tay (pronAudioFix.js) đè lên bảng tự sinh; giá trị null = ép dùng TTS
   if (Object.prototype.hasOwnProperty.call(pronAudioOverride, k)) return pronAudioOverride[k] || '';
   return pronAudioMap[k] || '';
 }
+
+// mp3 thật của một chữ/từ ví dụ (bảng src/data/pronSgkAudio.js). '' -> pronPlay đọc bằng giọng máy.
+// Đổi ví dụ trong pronunciationData.js thì chạy lại `npm run audio:pron-sgk`.
+function pronViDuSrc(hanzi, pinyin) {
+  return pronViDu[`${hanzi}|${pinyin}`] || '';
+}
+
+// Tên đọc của thanh mẫu (cách sách đọc từng thanh mẫu) — dùng ở phần "cặp dễ nhầm"
+const PRON_TEN_TM = { b: 'bō', p: 'pō', m: 'mō', f: 'fō', d: 'dē', t: 'tē', n: 'nē', l: 'lē', g: 'gē', k: 'kē', h: 'hē',
+  j: 'jī', q: 'qī', x: 'xī', zh: 'zhī', ch: 'chī', sh: 'shī', r: 'rī', z: 'zī', c: 'cī', s: 'sī' };
+const pronThanhMau = (py) => initialsData.flatMap(g => g.items).find(it => it.pinyin === py);
 
 const PRON_SPEEDS = [
   { v: 0.55, label: 'Rất chậm', text: '0.5×' },
@@ -2885,17 +2900,13 @@ function pronSetGroup(kind, value) {
 // Phát 4 thanh của cùng một âm tiết
 function pronPlayToneSet(syllable) {
   pronStopSequence();
-  const set = syllable === 'ma'
+  const set = syllable === toneMinimalSet.syllable
     ? toneMinimalSet.items
     : (toneDrills.find(d => d.syllable === syllable) || { items: [] }).items;
   set.forEach((it, i) => {
     const t = setTimeout(() => {
       const chip = document.querySelector(`.tone-chip[data-tk="${syllable}-${i}"]`);
-      speakWord(it.hanzi);
-      if (chip) {
-        chip.classList.add('is-playing');
-        setTimeout(() => chip.classList.remove('is-playing'), 850);
-      }
+      pronPlay(it.hanzi, chip, pronViDuSrc(it.hanzi, it.pinyin));
     }, i * 1050);
     pronState.seqTimers.push(t);
   });
@@ -2963,6 +2974,8 @@ function pronQuizAudioSrc(item) {
   if (item.audio && pinyinChartAudio[item.audio]) return pinyinChartAudio[item.audio];
   // field "audioKey" → look up in pronSrc
   if (item.audioKey) return pronSrc(...item.audioKey.split('/'));
+  // câu nghe đoán thanh: chữ + pinyin -> bản thu thật
+  if (item.speak && item.pinyin) return pronViDuSrc(item.speak, item.pinyin);
   return '';
 }
 
@@ -3153,7 +3166,7 @@ function pronSoundCard(it, kind, gi, ii, color) {
       ${it.tip ? `<p class="pron-card-tip"><i class="fa-solid fa-lightbulb"></i><span>${it.tip}</span></p>` : ''}
       <div class="pron-card-ex">
         ${it.examples.map(e => `
-          <button class="pron-ex" onclick="window.app.pronPlay('${e.hanzi}', this)">
+          <button class="pron-ex" onclick="window.app.pronPlay('${e.hanzi}', this, '${pronViDuSrc(e.hanzi, e.pinyin)}')">
             <span class="pron-ex-hz font-tc">${H(e.hanzi)}</span>
             <span class="pron-ex-py">${e.pinyin}</span>
             <span class="pron-ex-mn">${e.meaning}</span>
@@ -3218,19 +3231,22 @@ function renderPronSounds(el, kind) {
             <p>Bấm từng bên để nghe và so sánh. Đây là những cặp người Việt hay đọc lẫn nhất.</p>
           </div>
           <div class="pron-pairs">
-            ${initialPairs.map(p => `
+            ${initialPairs.map(p => {
+              // Mỗi bên phát CHÍNH âm của thẻ thanh mẫu phía trên (bō / pō ...) — cùng nguồn, sửa âm ở thẻ
+              // là cặp này tự đúng theo; hai bên chỉ khác đúng thanh mẫu nên nghe so sánh được.
+              const ben = (py) => `
+                <button class="pron-pair-side" onclick="window.app.pronPlay('${(pronThanhMau(py) || {}).speak || ''}', this, '${pronSrc('initials', py)}')">
+                  <span class="pron-pair-py">${py}</span>
+                  <span class="pron-pair-hz">${PRON_TEN_TM[py] || ''}</span>
+                </button>`;
+              return `
               <div class="pron-pair">
-                <button class="pron-pair-side" onclick="window.app.pronPlay('${p.speakA}', this)">
-                  <span class="pron-pair-py">${p.a}</span>
-                  <span class="font-tc pron-pair-hz">${H(p.speakA)}</span>
-                </button>
+                ${ben(p.a)}
                 <span class="pron-pair-vs">vs</span>
-                <button class="pron-pair-side" onclick="window.app.pronPlay('${p.speakB}', this)">
-                  <span class="pron-pair-py">${p.b}</span>
-                  <span class="font-tc pron-pair-hz">${H(p.speakB)}</span>
-                </button>
+                ${ben(p.b)}
                 <p class="pron-pair-note">${p.note}</p>
-              </div>`).join('')}
+              </div>`;
+            }).join('')}
           </div>
         </section>` : ''}
 
@@ -3352,19 +3368,19 @@ function renderPronTones(el) {
 
       <section class="pron-section">
         <div class="pron-section-head">
-          <h3><i class="fa-solid fa-ear-listen"></i> Bộ 5 chữ kinh điển: ma</h3>
-          <p>Cùng một âm, năm thanh, năm nghĩa hoàn toàn khác nhau.</p>
+          <h3><i class="fa-solid fa-ear-listen"></i> Bộ ${toneMinimalSet.items.length} chữ cùng âm: ${toneMinimalSet.syllable}</h3>
+          <p>Cùng một âm, đổi thanh là đổi hẳn nghĩa.</p>
         </div>
         <div class="tone-set tone-set--hero">
           ${toneMinimalSet.items.map((it, i) => `
-            <button class="tone-chip tone-chip--t${it.tone}" data-tk="ma-${i}"
-              onclick="window.app.pronPlay('${it.hanzi}', this)">
+            <button class="tone-chip tone-chip--t${it.tone}" data-tk="${toneMinimalSet.syllable}-${i}"
+              onclick="window.app.pronPlay('${it.hanzi}', this, '${pronViDuSrc(it.hanzi, it.pinyin)}')">
               <span class="tone-chip-hz font-tc">${H(it.hanzi)}</span>
               <span class="tone-chip-py">${it.pinyin}</span>
               <span class="tone-chip-mn">${it.meaning}</span>
             </button>`).join('')}
-          <button class="tone-set-all" onclick="window.app.pronPlayToneSet('ma')">
-            <i class="fa-solid fa-play"></i><span>Nghe cả 5</span>
+          <button class="tone-set-all" onclick="window.app.pronPlayToneSet('${toneMinimalSet.syllable}')">
+            <i class="fa-solid fa-play"></i><span>Nghe cả ${toneMinimalSet.items.length}</span>
           </button>
         </div>
       </section>
@@ -3386,7 +3402,7 @@ function renderPronTones(el) {
               <div class="tone-set">
                 ${d.items.map((it, i) => `
                   <button class="tone-chip tone-chip--t${it.tone}" data-tk="${d.syllable}-${i}"
-                    onclick="window.app.pronPlay('${it.hanzi}', this)">
+                    onclick="window.app.pronPlay('${it.hanzi}', this, '${pronViDuSrc(it.hanzi, it.pinyin)}')">
                     <span class="tone-chip-hz font-tc">${H(it.hanzi)}</span>
                     <span class="tone-chip-py">${it.pinyin}</span>
                     <span class="tone-chip-mn">${it.meaning}</span>
@@ -3411,7 +3427,7 @@ function renderPronTones(el) {
               <p class="sandhi-rule">${s.rule}</p>
               <div class="sandhi-ex">
                 ${s.examples.map(e => `
-                  <button class="sandhi-item" onclick="window.app.pronPlay('${e.hanzi}', this, '${e.key ? pronSrc('sandhi', e.key) : ''}')">
+                  <button class="sandhi-item" onclick="window.app.pronPlay('${e.hanzi}', this, '${pronViDuSrc(e.hanzi, e.written) || (e.key ? pronSrc('sandhi', e.key) : '')}')">
                     <span class="sandhi-hz font-tc">${H(e.hanzi)}</span>
                     <span class="sandhi-arrow">${e.written} <i class="fa-solid fa-arrow-right"></i> <b>${e.spoken}</b></span>
                     <span class="sandhi-mn">${e.meaning}</span>
@@ -3436,7 +3452,7 @@ function renderPronTones(el) {
                 <p>${r.rule}</p>
                 <div class="mark-rule-ex">
                   ${(r.samples || []).map(sm => `
-                    <button class="mark-chip" onclick="window.app.pronPlay('${sm.hanzi}', this)" title="Bấm để nghe">
+                    <button class="mark-chip" onclick="window.app.pronPlay('${sm.hanzi}', this, '${pronViDuSrc(sm.hanzi, sm.pinyin)}')" title="Bấm để nghe">
                       <span class="mark-chip-hz font-tc">${H(sm.hanzi)}</span>
                       <span class="mark-chip-py">${sm.pinyin}</span>
                       <i class="fa-solid fa-volume-low"></i>
@@ -3497,7 +3513,7 @@ function renderPinyinChart(el) {
             <tr>
               <th class="py-corner">聲母 \\ 韻母</th>
               ${g.finals.map(f => `
-                <th class="py-fin" ${f === '-i' ? '' : `onclick="window.app.pronPlay('', this, '${pronSrc('finals', f)}')"`}>${f}</th>`).join('')}
+                <th class="py-fin" ${f === '-i' ? '' : `onclick="window.app.pronPlay('', this, '${pronSrc('finals', f)}')"`}>${f === '-i' ? 'i' : f}</th>`).join('')}
             </tr>
           </thead>
           <tbody>
@@ -3512,8 +3528,11 @@ function renderPinyinChart(el) {
                   if (!cell) return '<td class="py-empty"></td>';
                   const [syl, hz] = cell;
                   const py = toneOne(syl);
-                  // 1) Audio gốc từ tiengtrungthaoan.edu.vn
-                  let audioUrl = pinyinChartAudio[syl] || '';
+                  // 1) Audio gốc từ tiengtrungthaoan.edu.vn — giữ MỘT giọng cho cả bảng (khách từng phản ánh
+                  //    "các âm không cùng một nguồn"), nên chỉ thay những ô nó không có / đang là giọng máy
+                  // 2) ô đó ở hàng không thanh mẫu (a, e, er, wa, wu...): vận mẫu đọc đứng riêng của sách
+                  const goc = pinyinChartAudio[syl] || '';
+                  let audioUrl = goc && !goc.startsWith('/audio/tts-vi/') ? goc : (pronBangSgk[syl] || goc);
                   // 2) Fallback: dùng audio vận mẫu/thanh mẫu đã có sẵn
                   if (!audioUrl) {
                     const ywMap = { yan:'ian', yang:'iang', yong:'iong', wan:'uan', wen:'un', wang:'uang', weng:'ueng' };
@@ -5439,6 +5458,7 @@ function dungMoiAmThanh() {
   pronStopSequence();
   ddDocDung();
   if (_ddAudio) { try { _ddAudio.pause(); } catch { } _ddAudio = null; }
+  if (_ddExAudio) { try { _ddExAudio.pause(); } catch { } _ddExAudio = null; }   // câu nghe của Bài tập
   if (ddDlgState.audio) {
     try { ddDlgState.audio.pause(); } catch { }
     ddDlgState.playing = false;
@@ -6874,7 +6894,8 @@ function ddGramExampleHtml(ex, i) {
       <span class="dd-gram-ex-no">${i + 1}</span>
       <div class="dd-gram-ex-body">
         <div class="dd-gram-ex-hanzi font-tc">${H(ex.hz || '')}</div>
-        ${ex.vi ? `<div class="dd-gram-ex-trans">${ex.vi}</div>` : ''}
+        ${ex.py ? `<div class="dd-gram-ex-py">${tdEsc(ex.py)}</div>` : ''}
+        ${ex.vi ? `<div class="dd-gram-ex-trans">${tdEsc(ex.vi)}</div>` : ''}
       </div>
     </div>`;
 }
@@ -7438,7 +7459,8 @@ function _ddExUrlSeg() {
  * @returns {boolean} có sinh được câu hỏi hay không (bài chưa đủ từ vựng thì false).
  */
 function _ddExBatDauLuot() {
-  const questions = generateQuiz(ddState.selectedSub, TB());   // TB() = bộ giáo trình đang xem
+  // nghe: thêm câu nghe (bản thu từ vựng + câu hội thoại) — phản hồi của khách 2026-10-01
+  const questions = generateQuiz(ddState.selectedSub, TB(), { nghe: true });   // TB() = bộ giáo trình đang xem
   if (!questions || questions.length === 0) return false;
 
   const ex = ddState.exercise;
@@ -7471,6 +7493,81 @@ function ddExStart() {
 }
 
 /** User chọn đáp án */
+/**
+ * Thẻ "Nghe — Sách bài tập": bản thu chính thức phần nghe của sách bài tập (作業本聽力測驗).
+ * Chỉ có TIẾNG — đề và phương án in trong sách, nên chỉ phát để học viên làm cùng sách in
+ * (xem scripts/gen-sbt-nghe.mjs). Thẻ treo ở phần cuối của bài, giống "Luyện tập tổng hợp".
+ * Thẻ <audio> gốc: bị gỡ khỏi trang là trình duyệt tự dừng, không cần đăng ký vào dungMoiAmThanh().
+ */
+function ddSbtCardHtml(subId) {
+  const ds = sbtNghe[ddParentKey(subId)];
+  if (!ds || !ds.length) return '';
+  return `
+    <div class="dd-ex-intro dd-sbt-card">
+      <div class="dd-ex-intro-icon" style="color:#0f766e"><i class="fa-solid fa-book-open"></i></div>
+      <h3>Nghe — Sách bài tập <span class="font-tc">作業本聽力測驗</span></h3>
+      <p class="dd-ex-intro-desc">Bản thu chính thức phần nghe trong sách bài tập của bài này. Đề và các phương án chỉ in trong sách bài tập — mở sách ra làm cùng.</p>
+      <div class="dd-sbt-list">
+        ${ds.map(f => `
+          <div class="dd-sbt-item">
+            <span class="dd-sbt-phan">Phần ${f.phan}</span>
+            <audio controls preload="none" src="${assetUrl(f.file)}"></audio>
+          </div>`).join('')}
+      </div>
+    </div>`;
+}
+
+/** Nhãn + icon của từng dạng câu. */
+function ddExLoai(q) {
+  switch (q.type) {
+    case 'hanzi-to-meaning': return { label: 'Chọn nghĩa đúng', icon: 'fa-language' };
+    case 'meaning-to-hanzi': return { label: 'Chọn chữ Hán', icon: 'fa-font' };
+    case 'nghe-chon-chu': return { label: 'Nghe chọn chữ Hán', icon: 'fa-headphones' };
+    case 'nghe-chon-nghia': return { label: 'Nghe chọn nghĩa', icon: 'fa-headphones' };
+    case 'nghe-cau-thoai': return { label: 'Nghe câu hội thoại', icon: 'fa-comments' };
+    default: return { label: 'Chọn chữ Hán theo pinyin', icon: 'fa-spell-check' };
+  }
+}
+
+/** Phần đề của câu: chữ/nghĩa/pinyin, hoặc nút nghe với câu dạng nghe. */
+function ddExPromptHtml(q, qi) {
+  if (q.audio) {
+    return `
+      <button type="button" class="dd-ex-nghe" onclick="window.app.ddExNghe(${qi}, this)">
+        <i class="fa-solid fa-volume-high"></i><span>Bấm để nghe</span>
+      </button>`;
+  }
+  return `
+    <span class="dd-ex-prompt-main">${q.prompt}</span>
+    ${q.promptSub ? `<span class="dd-ex-prompt-sub">${q.promptSub}</span>` : ''}`;
+}
+
+let _ddExAudio = null;
+/** Phát âm của câu nghe: cả clip từ vựng, hoặc đúng đoạn start–end của bài hội thoại. */
+function ddExNghe(qi, btn) {
+  const q = ddState.exercise.questions && ddState.exercise.questions[qi];
+  if (!q || !q.audio) return;
+  if (_ddExAudio) { _ddExAudio.pause(); _ddExAudio = null; }
+  const a = new Audio(assetUrl(q.audio));
+  _ddExAudio = a;
+  const dong = () => { if (btn) btn.classList.remove('is-playing'); };
+  if (btn) btn.classList.add('is-playing');
+  a.addEventListener('ended', dong, { once: true });
+  a.addEventListener('error', () => { dong(); toast('Không tải được âm thanh, thử lại sau.'); }, { once: true });
+  if (q.end > q.start) {
+    const batDau = () => {
+      a.currentTime = q.start;
+      a.play().catch(dong);
+      const dung = () => { if (a.currentTime >= q.end) { a.pause(); dong(); a.removeEventListener('timeupdate', dung); } };
+      a.addEventListener('timeupdate', dung);
+      setTimeout(() => { if (_ddExAudio === a && !a.paused) { a.pause(); dong(); } }, (q.end - q.start + 1.5) * 1000);
+    };
+    if (a.readyState >= 1) batDau(); else a.addEventListener('loadedmetadata', batDau, { once: true });
+  } else {
+    a.play().catch(dong);
+  }
+}
+
 function ddExSelect(qIdx, optIdx) {
   if (ddState.exercise.phase !== 'active') return;
   ddState.exercise.answers[qIdx] = optIdx;
@@ -8561,7 +8658,8 @@ async function ddRenderExercise(el) {
           <div class="dd-ex-meta">
             <span><i class="fa-solid fa-list-ol"></i> ${info.wordCount} câu hỏi</span>
             <span><i class="fa-solid fa-clock"></i> Không giới hạn thời gian</span>
-            <span><i class="fa-solid fa-shuffle"></i> 3 dạng: Hanzi↔Nghĩa, Pinyin→Hanzi</span>
+            <span><i class="fa-solid fa-shuffle"></i> Đọc: Hanzi↔Nghĩa, Pinyin→Hanzi</span>
+            <span><i class="fa-solid fa-headphones"></i> Nghe: từ mới, câu hội thoại</span>
           </div>
           <p class="dd-ex-intro-desc">Trắc nghiệm toàn bộ từ vựng bài này. Câu hỏi được sinh ngẫu nhiên mỗi lần làm.</p>
           <button class="dd-ex-start-btn" onclick="window.app.ddExStart(1)">
@@ -8583,6 +8681,7 @@ async function ddRenderExercise(el) {
             <i class="fa-solid fa-headphones-simple"></i> Mở luyện tập tổng hợp
           </button>
         </div>` : ''}
+        ${isSub2 ? ddSbtCardHtml(ddState.selectedSub) : ''}
       </div>`;
     return;
   }
@@ -8594,12 +8693,7 @@ async function ddRenderExercise(el) {
 
     let questionsHtml = '';
     ex.questions.forEach((q, qi) => {
-      const typeLabel = q.type === 'hanzi-to-meaning' ? 'Chọn nghĩa đúng'
-        : q.type === 'meaning-to-hanzi' ? 'Chọn chữ Hán'
-        : 'Chọn chữ Hán theo pinyin';
-      const typeIcon = q.type === 'hanzi-to-meaning' ? 'fa-language'
-        : q.type === 'meaning-to-hanzi' ? 'fa-font'
-        : 'fa-spell-check';
+      const { label: typeLabel, icon: typeIcon } = ddExLoai(q);
 
       questionsHtml += `
         <div class="dd-ex-question ${ex.answers[qi] >= 0 ? 'answered' : ''}" id="dd-ex-q-${qi}">
@@ -8607,11 +8701,8 @@ async function ddRenderExercise(el) {
             <span class="dd-ex-q-num">Câu ${qi + 1}</span>
             <span class="dd-ex-q-type"><i class="fa-solid ${typeIcon}"></i> ${typeLabel}</span>
           </div>
-          <div class="dd-ex-q-prompt">
-            <span class="dd-ex-prompt-main">${q.prompt}</span>
-            ${q.promptSub ? `<span class="dd-ex-prompt-sub">${q.promptSub}</span>` : ''}
-          </div>
-          <div class="dd-ex-options">
+          <div class="dd-ex-q-prompt">${ddExPromptHtml(q, qi)}</div>
+          <div class="dd-ex-options${q.type === 'nghe-cau-thoai' ? ' is-dai' : ''}">
             ${q.options.map((opt, oi) => `
               <button class="dd-ex-opt ${ex.answers[qi] === oi ? 'selected' : ''}"
                 onclick="window.app.ddExSelect(${qi}, ${oi})">
@@ -8666,12 +8757,7 @@ async function ddRenderExercise(el) {
       const userAns = ex.answers[qi];
       const isCorrect = userAns === q.correctIdx;
       const statusClass = userAns < 0 ? 'skipped' : isCorrect ? 'correct' : 'wrong';
-      const typeLabel = q.type === 'hanzi-to-meaning' ? 'Chọn nghĩa đúng'
-        : q.type === 'meaning-to-hanzi' ? 'Chọn chữ Hán'
-        : 'Chọn chữ Hán theo pinyin';
-      const typeIcon = q.type === 'hanzi-to-meaning' ? 'fa-language'
-        : q.type === 'meaning-to-hanzi' ? 'fa-font'
-        : 'fa-spell-check';
+      const { label: typeLabel, icon: typeIcon } = ddExLoai(q);
 
       // Options with correct/wrong highlighting
       const optionsHtml = q.options.map((opt, oi) => {
@@ -8716,11 +8802,8 @@ async function ddRenderExercise(el) {
             <span class="dd-ex-q-num">Câu ${qi + 1}</span>
             <span class="dd-ex-q-type"><i class="fa-solid ${typeIcon}"></i> ${typeLabel}</span>
           </div>
-          <div class="dd-ex-q-prompt">
-            <span class="dd-ex-prompt-main">${q.prompt}</span>
-            ${q.promptSub ? `<span class="dd-ex-prompt-sub">${q.promptSub}</span>` : ''}
-          </div>
-          <div class="dd-ex-options">${optionsHtml}</div>
+          <div class="dd-ex-q-prompt">${ddExPromptHtml(q, qi)}</div>
+          <div class="dd-ex-options${q.type === 'nghe-cau-thoai' ? ' is-dai' : ''}">${optionsHtml}</div>
           ${feedbackHtml}
         </div>`;
     });
@@ -10232,6 +10315,7 @@ window.app = {
   // Bài tập
   ddExStart,
   ddExSelect,
+  ddExNghe,
   ddExSubmit,
   ddExReset,
   ddSwitchTab,
