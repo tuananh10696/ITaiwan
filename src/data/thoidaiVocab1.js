@@ -129,10 +129,10 @@ export const thoidaiVocab1 = {
   },
   {
    "hanzi": "哪",
-   "pinyin": "which",
+   "pinyin": "nǎ",
    "def": "nào, cái nào",
-   "defEn": "ǎ/něi",
-   "pos": "n",
+   "defEn": "which",
+   "pos": "Định từ",
    "ex": [
     {
      "h": "天哪！這次期末考真不容易呀，要是考不好被當了，怎麼辦哪？",
@@ -159,10 +159,10 @@ export const thoidaiVocab1 = {
   },
   {
    "hanzi": "妳",
-   "pinyin": "you (female)",
+   "pinyin": "nǐ",
    "def": "Bạn (nữ)",
-   "defEn": "ǐ",
-   "pos": "n",
+   "defEn": "you (female)",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "妳今天看起來特別有精神，發生什麼好事了嗎？",
@@ -192,7 +192,7 @@ export const thoidaiVocab1 = {
    "pinyin": "ma",
    "def": "câu hỏi",
    "defEn": "a",
-   "pos": "m",
+   "pos": "Trợ từ",
    "ex": [
     {
      "h": "他是誰？ 妳知道嗎?",
@@ -249,9 +249,9 @@ export const thoidaiVocab1 = {
   },
   {
    "hanzi": "美國",
-   "pinyin": "the USA",
+   "pinyin": "Měiguó",
    "def": "Hoa Kỳ",
-   "defEn": "ěiguó",
+   "defEn": "the USA",
    "pos": "Lượng từ",
    "ex": [
     {
@@ -290,7 +290,7 @@ export const thoidaiVocab1 = {
      "t": "Cô ấy rất xinh."
     }
    ],
-   "audio": "/audio/thoidai-tu/B1L01-1-19.mp3"
+   "audioTts": "/audio/tts-vi/56ac94143d.mp3"
   },
   {
    "hanzi": "他",
@@ -340,7 +340,7 @@ export const thoidaiVocab1 = {
    "pinyin": "míngzi",
    "def": "Tên",
    "defEn": "íngzi",
-   "pos": "m",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "他叫什麼名字？你知道嗎?",
@@ -370,7 +370,7 @@ export const thoidaiVocab1 = {
    "pinyin": "ne",
    "def": "trợ từ cuối câu",
    "defEn": "e",
-   "pos": "n",
+   "pos": "Trợ từ",
    "ex": [
     {
      "h": "我是臺灣人，你呢？",
@@ -625,7 +625,7 @@ export const thoidaiVocab1 = {
    "pinyin": "nǎichá",
    "def": "trà sữa",
    "en": true,
-   "pos": "n",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "愛喝珍珠奶茶。",
@@ -791,7 +791,7 @@ export const thoidaiVocab1 = {
    "pinyin": "māma",
    "def": "Mẹ",
    "defEn": "āma",
-   "pos": "m",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "媽媽喜歡喝奶茶。",
@@ -906,7 +906,7 @@ export const thoidaiVocab1 = {
   },
   {
    "hanzi": "五月",
-   "pinyin": "xīngqí tiān",
+   "pinyin": "wǔyuè",
    "def": "tháng Năm",
    "en": true,
    "pos": "Danh từ",
@@ -953,7 +953,7 @@ export const thoidaiVocab1 = {
    "pinyin": "méi",
    "def": "Không",
    "defEn": "éi",
-   "pos": "m",
+   "pos": "Phó từ",
    "ex": [
     {
      "h": "他把存了半輩子的錢都拿去做生意，結果生意不成功，錢都沒了。",
@@ -1232,10 +1232,10 @@ export const thoidaiVocab1 = {
   },
   {
    "hanzi": "明天",
-   "pinyin": "tomorrow",
+   "pinyin": "míngtiān",
    "def": "ngày mai",
-   "defEn": "íngtiān",
-   "pos": "m",
+   "defEn": "tomorrow",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "明天是9月23號。",
@@ -1620,10 +1620,10 @@ export const thoidaiVocab1 = {
   },
   {
    "hanzi": "忙",
-   "pinyin": "busy",
+   "pinyin": "máng",
    "def": "bận rộn",
-   "defEn": "áng",
-   "pos": "m",
+   "defEn": "busy",
+   "pos": "Tính từ",
    "ex": [
     {
      "h": "媽媽忙不忙？",
@@ -1655,7 +1655,7 @@ export const thoidaiVocab1 = {
    "pinyin": "mǎi",
    "def": "mua",
    "defEn": "ǎi",
-   "pos": "m",
+   "pos": "Động từ",
    "ex": [
     {
      "h": "你今天要買什麼？",
@@ -1990,10 +1990,10 @@ export const thoidaiVocab1 = {
   },
   {
    "hanzi": "那",
-   "pinyin": "that",
+   "pinyin": "nà",
    "def": "vậy thì, trong trường hợp đó",
-   "defEn": "à/",
-   "pos": "n",
+   "defEn": "that",
+   "pos": "Định từ",
    "ex": [
     {
      "h": "不要買那本書。",
@@ -2272,7 +2272,7 @@ export const thoidaiVocab1 = {
   },
   {
    "hanzi": "星期一",
-   "pinyin": "cháng (cháng)",
+   "pinyin": "xīngqíyī",
    "def": "thứ Hai",
    "en": true,
    "pos": "Phó từ",
@@ -2448,10 +2448,10 @@ export const thoidaiVocab1 = {
   },
   {
    "hanzi": "那些",
-   "pinyin": "those",
+   "pinyin": "nàxiē",
    "def": "những cái đó",
    "en": true,
-   "pos": "n",
+   "pos": "Định từ",
    "ex": [
     {
      "h": "那些是英文書。",
@@ -2459,7 +2459,8 @@ export const thoidaiVocab1 = {
      "t": "Những cuốn kia là sách tiếng Anh."
     }
    ],
-   "audio": "/audio/thoidai-tu/B1L03-3-04.mp3"
+   "audio": "/audio/thoidai-tu/B1L03-3-04.mp3",
+   "defEn": "those"
   },
   {
    "hanzi": "點心",
@@ -2644,7 +2645,7 @@ export const thoidaiVocab1 = {
   },
   {
    "hanzi": "餓",
-   "pinyin": "hungry",
+   "pinyin": "è",
    "def": "đói",
    "pos": "Tính từ",
    "ex": [
@@ -2654,7 +2655,8 @@ export const thoidaiVocab1 = {
      "t": "Tôi cũng đói lắm, muốn ăn chút gì đó."
     }
    ],
-   "audio": "/audio/thoidai-tu/B1L04-1-09.mp3"
+   "audio": "/audio/thoidai-tu/B1L04-1-09.mp3",
+   "defEn": "hungry"
   },
   {
    "hanzi": "渴",
@@ -2750,7 +2752,7 @@ export const thoidaiVocab1 = {
    "pinyin": "miàn",
    "def": "mì",
    "defEn": "iàn",
-   "pos": "m",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "我媽媽喜歡吃麵。",
@@ -2823,7 +2825,7 @@ export const thoidaiVocab1 = {
    "pinyin": "mài",
    "def": "bán",
    "defEn": "ài",
-   "pos": "m",
+   "pos": "Động từ",
    "ex": [
     {
      "h": "這家餐廳賣飲料嗎？",
@@ -2835,10 +2837,10 @@ export const thoidaiVocab1 = {
   },
   {
    "hanzi": "牛肉麵",
-   "pinyin": "beef noodles",
-   "def": "iúròu miàn",
+   "pinyin": "niúròu miàn",
+   "def": "mì bò",
    "en": true,
-   "pos": "n",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "小姐,我們要點兩碗牛肉麵和兩杯茶。",
@@ -2846,7 +2848,8 @@ export const thoidaiVocab1 = {
      "t": "Chị ơi, chúng tôi gọi hai bát mì bò và hai cốc trà."
     }
    ],
-   "audio": "/audio/thoidai-tu/B1L04-1-22.mp3"
+   "audio": "/audio/thoidai-tu/B1L04-1-22.mp3",
+   "defEn": "beef noodles"
   },
   {
    "hanzi": "也",
@@ -2971,7 +2974,7 @@ export const thoidaiVocab1 = {
    "pinyin": "nǚ",
    "def": "nữ; con gái",
    "defEn": "ǚ",
-   "pos": "n",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "我的女朋友很喜歡喝珍珠奶茶。",
@@ -2986,7 +2989,7 @@ export const thoidaiVocab1 = {
    "pinyin": "nán",
    "def": "Nam giới, đàn ông",
    "defEn": "án",
-   "pos": "n",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "你的國家，男、女朋友一起吃飯，常常誰給錢？",
@@ -3208,10 +3211,10 @@ export const thoidaiVocab1 = {
   },
   {
    "hanzi": "您",
-   "pinyin": "you (honorific)",
+   "pinyin": "nín",
    "def": "Bạn, ngài, bà (cách gọi tôn kính)",
-   "defEn": "ín",
-   "pos": "n",
+   "defEn": "you (honorific)",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "找您785塊錢。",
@@ -3375,7 +3378,7 @@ export const thoidaiVocab1 = {
    "pinyin": "niúnǎi",
    "def": "sữa bò",
    "en": true,
-   "pos": "n",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "你要果汁還是牛奶？",
@@ -3405,7 +3408,7 @@ export const thoidaiVocab1 = {
    "pinyin": "měi",
    "def": "mỗi",
    "defEn": "ěi",
-   "pos": "m",
+   "pos": "Định từ",
    "ex": [
     {
      "h": "過年回家吃年夜飯，大家吃著吃著，就喝起酒來了，每喝幾",
@@ -3466,7 +3469,7 @@ export const thoidaiVocab1 = {
    "pinyin": "nǎlǐ / nǎr",
    "def": "đâu có (dùng để phủ định)",
    "en": true,
-   "pos": "n",
+   "pos": "Phó từ",
    "ex": [
     {
      "h": "那家工廠的設備及員工都嚴重缺乏，哪裡有辦法進一步發展？",
@@ -3536,7 +3539,7 @@ export const thoidaiVocab1 = {
   },
   {
    "hanzi": "咖啡廳",
-   "pinyin": "café",
+   "pinyin": "kāfēitīng",
    "def": "quán cà phê",
    "en": true,
    "pos": "Danh từ",
@@ -3547,14 +3550,15 @@ export const thoidaiVocab1 = {
      "t": "Tôi thích tới quán cà phê đọc sách."
     }
    ],
-   "audio": "/audio/thoidai-tu/B1L05-1-08.mp3"
+   "audio": "/audio/thoidai-tu/B1L05-1-08.mp3",
+   "defEn": "café"
   },
   {
    "hanzi": "那裡/那兒",
-   "pinyin": "there",
+   "pinyin": "nàlǐ / nàr",
    "def": "chỗ đó, đằng kia",
    "en": true,
-   "pos": "n",
+   "pos": "",
    "ex": [
     {
      "h": "很好喝，我們去那裡買。",
@@ -3562,7 +3566,8 @@ export const thoidaiVocab1 = {
      "t": "Ngon lắm, chúng ta tới đó mua đi."
     }
    ],
-   "audioTts": "/audio/tts-vi/346afba339.mp3"
+   "audioTts": "/audio/tts-vi/346afba339.mp3",
+   "defEn": "there"
   },
   {
    "hanzi": "這兒",
@@ -3656,7 +3661,7 @@ export const thoidaiVocab1 = {
   },
   {
    "hanzi": "我",
-   "pinyin": "pángbiān",
+   "pinyin": "wǒ",
    "def": "tôi",
    "defEn": "ǐ bàba zài nǎlǐ?",
    "pos": "Danh từ",
@@ -3891,7 +3896,7 @@ export const thoidaiVocab1 = {
    "pinyin": "mèimèi",
    "def": "Em gái",
    "defEn": "èimei",
-   "pos": "m",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "我媽媽有一個哥哥跟兩個妹妹。",
@@ -3918,7 +3923,7 @@ export const thoidaiVocab1 = {
   },
   {
    "hanzi": "我",
-   "pinyin": "pángbiān",
+   "pinyin": "wǒ",
    "def": "tôi",
    "defEn": "side; by the side of; next to",
    "pos": "Danh từ",
@@ -3933,7 +3938,7 @@ export const thoidaiVocab1 = {
   },
   {
    "hanzi": "我",
-   "pinyin": "pángbiān",
+   "pinyin": "wǒ",
    "def": "tôi",
    "defEn": "the front; the front side; ahead; in front",
    "pos": "Danh từ",
@@ -3948,7 +3953,7 @@ export const thoidaiVocab1 = {
   },
   {
    "hanzi": "我",
-   "pinyin": "pángbiān",
+   "pinyin": "wǒ",
    "def": "tôi",
    "defEn": "at the back; behind",
    "pos": "Danh từ",
@@ -4052,7 +4057,7 @@ export const thoidaiVocab1 = {
   },
   {
    "hanzi": "有",
-   "pinyin": "Place",
+   "pinyin": "yǒu",
    "def": "Có",
    "pos": "Danh từ",
    "ex": [
@@ -4110,10 +4115,10 @@ export const thoidaiVocab1 = {
   },
   {
    "hanzi": "門",
-   "pinyin": "door",
+   "pinyin": "mén",
    "def": "(lượng từ) môn (dùng cho các khóa học)",
-   "defEn": "én",
-   "pos": "m",
+   "defEn": "door",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "這學期我選了三門課，聽說都",
@@ -4128,7 +4133,7 @@ export const thoidaiVocab1 = {
    "pinyin": "māo",
    "def": "mèo",
    "defEn": "āo",
-   "pos": "m",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "我家有一隻貓、兩隻狗和三隻鳥。",
@@ -4157,7 +4162,7 @@ export const thoidaiVocab1 = {
    "pinyin": "niǎo",
    "def": "biến thể của 屌; dương vật",
    "en": true,
-   "pos": "n",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "我家有一隻貓、兩隻狗和三隻鳥。",
@@ -4442,7 +4447,7 @@ export const thoidaiVocab1 = {
    "pinyin": "màn",
    "def": "chậm",
    "defEn": "àn",
-   "pos": "m",
+   "pos": "Tính từ",
    "ex": [
     {
      "h": "我妹妹跑得很慢。",
@@ -5523,7 +5528,7 @@ export const thoidaiVocab1 = {
    "pinyin": "lù/",
    "def": "họ",
    "en": true,
-   "pos": "m",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "路上有很多車。",
@@ -5754,8 +5759,8 @@ export const thoidaiVocab1 = {
   },
   {
    "hanzi": "坐捷運",
-   "pinyin": "Comment",
-   "def": "(O)",
+   "pinyin": "zuò jiéyùn",
+   "def": "đi tàu điện ngầm (MRT)",
    "en": true,
    "pos": "Động từ",
    "ex": [
@@ -5998,7 +6003,7 @@ export const thoidaiVocab1 = {
    "pinyin": "nián",
    "def": "năm",
    "defEn": "ián",
-   "pos": "n",
+   "pos": "Lượng từ",
    "ex": [
     {
      "h": "年輕人喜歡新東西",
@@ -6028,7 +6033,7 @@ export const thoidaiVocab1 = {
    "pinyin": "míngnián",
    "def": "năm sau",
    "defEn": "íngnián",
-   "pos": "m",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "明年我打算開始學做菜。",
@@ -6130,7 +6135,7 @@ export const thoidaiVocab1 = {
   },
   {
    "hanzi": "百貨公司",
-   "pinyin": "bǎihuò",
+   "pinyin": "bǎihuò gōngsī",
    "def": "cửa hàng bách hóa",
    "defEn": "department store",
    "pos": "Danh từ",
@@ -6148,7 +6153,7 @@ export const thoidaiVocab1 = {
    "pinyin": "nán",
    "def": "khó",
    "defEn": "án",
-   "pos": "n",
+   "pos": "Tính từ",
    "ex": [
     {
      "h": "唱中文歌也不難。",
@@ -6504,7 +6509,7 @@ export const thoidaiVocab1 = {
   },
   {
    "hanzi": "人",
-   "pinyin": "lóuxià",
+   "pinyin": "rén",
    "def": "người",
    "defEn": "downstairs",
    "pos": "Danh từ",
@@ -6519,7 +6524,7 @@ export const thoidaiVocab1 = {
   },
   {
    "hanzi": "樓上",
-   "pinyin": "Xièxie,",
+   "pinyin": "lóushàng",
    "def": "tầng trên",
    "en": true,
    "pos": "Danh từ",
@@ -6627,7 +6632,7 @@ export const thoidaiVocab1 = {
    "pinyin": "méi guānxi",
    "def": "không sao",
    "defEn": "éiguānxi",
-   "pos": "m",
+   "pos": "Tính từ",
    "ex": [
     {
      "h": "沒關係，我等你，你慢慢來。",
@@ -6657,7 +6662,7 @@ export const thoidaiVocab1 = {
    "pinyin": "duìle",
    "def": "à đúng rồi",
    "defEn": "ǐ gěi tā, hǎo ma?",
-   "pos": "n",
+   "pos": "Cụm từ",
    "ex": [
     {
      "h": "對了，明天的會議改到三點了。",
@@ -6669,7 +6674,7 @@ export const thoidaiVocab1 = {
   },
   {
    "hanzi": "吧",
-   "pinyin": "Statement",
+   "pinyin": "ba",
    "def": "trợ từ cuối câu biểu thị sự phỏng đoán",
    "defEn": "ǐ huì chàng Zhōngwén gē ba?",
    "pos": "Danh từ",
@@ -6714,10 +6719,10 @@ export const thoidaiVocab1 = {
   },
   {
    "hanzi": "年輕",
-   "pinyin": "young",
+   "pinyin": "niánqīng",
    "def": "trẻ",
-   "defEn": "iánqīng",
-   "pos": "n",
+   "defEn": "young",
+   "pos": "Tính từ",
    "ex": [
     {
      "h": "很多年輕人喜歡聽流行音樂。",
@@ -6759,10 +6764,10 @@ export const thoidaiVocab1 = {
   },
   {
    "hanzi": "女生",
-   "pinyin": "girl",
+   "pinyin": "nǚshēng",
    "def": "nữ sinh, con gái",
    "en": true,
-   "pos": "n",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "所以很多年輕女生喜歡到百貨公司去",
@@ -6770,14 +6775,15 @@ export const thoidaiVocab1 = {
      "t": "Nên nhiều bạn nữ trẻ thích tới trung tâm thương mại"
     }
    ],
-   "audio": "/audio/thoidai-tu/B1L08-3-04.mp3"
+   "audio": "/audio/thoidai-tu/B1L08-3-04.mp3",
+   "defEn": "girl"
   },
   {
    "hanzi": "男生",
-   "pinyin": "boy",
+   "pinyin": "nánshēng",
    "def": "nam sinh; học sinh nam; con trai",
    "en": true,
-   "pos": "n",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "女生和男生都喜歡",
@@ -6785,7 +6791,8 @@ export const thoidaiVocab1 = {
      "t": "Cả con gái lẫn con trai đều thích"
     }
    ],
-   "audio": "/audio/thoidai-tu/B1L08-3-05.mp3"
+   "audio": "/audio/thoidai-tu/B1L08-3-05.mp3",
+   "defEn": "boy"
   },
   {
    "hanzi": "雜誌",
@@ -6972,7 +6979,7 @@ export const thoidaiVocab1 = {
    "pinyin": "máobǐ",
    "def": "bút lông",
    "en": true,
-   "pos": "m",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "現在要去買毛筆！",
@@ -7107,7 +7114,7 @@ export const thoidaiVocab1 = {
    "pinyin": "jiàoshì",
    "def": "lớp học",
    "defEn": "à tā zài nǎlǐ?",
-   "pos": "n",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "我們每天都能用那間教室嗎?」",
@@ -7122,7 +7129,7 @@ export const thoidaiVocab1 = {
    "pinyin": "néng",
    "def": "có thể, biết",
    "defEn": "éng",
-   "pos": "n",
+   "pos": "Trợ động từ",
    "ex": [
     {
      "h": "我現在有課，不能去他家。",
@@ -7164,7 +7171,7 @@ export const thoidaiVocab1 = {
   },
   {
    "hanzi": "一",
-   "pinyin": "lǐbài",
+   "pinyin": "yī",
    "def": "1",
    "defEn": "week",
    "pos": "Danh từ",
@@ -7282,7 +7289,7 @@ export const thoidaiVocab1 = {
   },
   {
    "hanzi": "語言",
-   "pinyin": "yǔyán jiāohuàn",
+   "pinyin": "yǔyán",
    "def": "ngôn ngữ",
    "defEn": "language exchange",
    "pos": "Cụm từ",
@@ -8528,7 +8535,7 @@ export const thoidaiVocab1 = {
    "pinyin": "méi",
    "def": "Không",
    "defEn": "éi",
-   "pos": "m",
+   "pos": "Phó từ",
    "ex": [
     {
      "h": "他把存了半輩子的錢都拿去做生意，結果生意不成功，錢都沒了。",
@@ -8540,7 +8547,7 @@ export const thoidaiVocab1 = {
   },
   {
    "hanzi": "去",
-   "pinyin": "juédìng",
+   "pinyin": "qù",
    "def": "đi",
    "defEn": "/N",
    "pos": "Động từ",
@@ -9080,7 +9087,7 @@ export const thoidaiVocab1 = {
    "pinyin": "gōngzuò",
    "def": "công việc",
    "defEn": "ěitiān chàbùduō dōu wǎnshàng shí diǎn huíjiā.",
-   "pos": "m",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "你想做什麼工作?",
@@ -9333,7 +9340,7 @@ export const thoidaiVocab1 = {
   {
    "hanzi": "我游泳",
    "pinyin": "wǒyóuyǒng",
-   "def": "ǐ huí Rìběn yǐhòu, xiǎng zuò shénme gōngzuò?",
+   "def": "tôi bơi",
    "en": true,
    "pos": "Danh từ",
    "ex": [
@@ -9347,10 +9354,10 @@ export const thoidaiVocab1 = {
   },
   {
    "hanzi": "麵包",
-   "pinyin": "bread",
+   "pinyin": "miànbāo",
    "def": "bánh mì",
-   "defEn": "iànbāo",
-   "pos": "m",
+   "defEn": "bread",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "那家有名的麵包店賣很多種麵包，都很好吃。",
@@ -9496,7 +9503,7 @@ export const thoidaiVocab1 = {
   },
   {
    "hanzi": "現在",
-   "pinyin": "xiǎoshí/",
+   "pinyin": "xiànzài",
    "def": "bây giờ",
    "pos": "Danh từ",
    "ex": [
@@ -9617,7 +9624,7 @@ export const thoidaiVocab1 = {
    "pinyin": "mǔqīn",
    "def": "mẹ",
    "defEn": "ǔqīn",
-   "pos": "m",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "母親為了養8個孩子",
@@ -9644,10 +9651,10 @@ export const thoidaiVocab1 = {
   },
   {
    "hanzi": "女兒",
-   "pinyin": "daughter",
+   "pinyin": "nǚ'ér",
    "def": "con gái",
-   "defEn": "ǚér",
-   "pos": "n",
+   "defEn": "daughter",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "一個兒子，兩個女兒。",
@@ -9662,7 +9669,7 @@ export const thoidaiVocab1 = {
    "pinyin": "tán",
    "def": "nói chuyện, thảo luận",
    "defEn": "íngtiān zài gēn nǐ tán zhè ge wèntí.",
-   "pos": "m",
+   "pos": "Động từ",
    "ex": [
     {
      "h": "明天再跟你談這個問題。",
@@ -9722,7 +9729,7 @@ export const thoidaiVocab1 = {
    "pinyin": "zhòngyào",
    "def": "quan trọng",
    "defEn": "important",
-   "pos": "VS",
+   "pos": "Tính từ",
    "ex": [
     {
      "h": "結婚以前，他覺得工作最重要，現在他覺得家人最重要。",
@@ -9978,7 +9985,7 @@ export const thoidaiVocab1 = {
    "pinyin": "ménkǒu",
    "def": "cửa ra vào",
    "defEn": "énkǒu",
-   "pos": "m",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "我明天早上十點會在學校門口等你。",
@@ -10079,7 +10086,7 @@ export const thoidaiVocab1 = {
   },
   {
    "hanzi": "從",
-   "pinyin": "Direction/PW",
+   "pinyin": "cóng",
    "def": "từ",
    "pos": "Động từ",
    "ex": [
@@ -10201,7 +10208,7 @@ export const thoidaiVocab1 = {
    "pinyin": "dàshēng",
    "def": "giọng to; bằng giọng to; to tiếng",
    "en": true,
-   "pos": "n",
+   "pos": "",
    "ex": [
     {
      "h": "兒子跟女兒都在睡覺，你不要說得太大聲。",
@@ -10231,7 +10238,7 @@ export const thoidaiVocab1 = {
    "pinyin": "mǎshàng",
    "def": "ngay lập tức",
    "defEn": "ǎshàng",
-   "pos": "m",
+   "pos": "Phó từ",
    "ex": [
     {
      "h": "他馬上就回答了。",
@@ -10516,7 +10523,7 @@ export const thoidaiVocab1 = {
    "pinyin": "shìjiè",
    "def": "thế giới",
    "defEn": "éi qù guò de dìfāng wǒ dōu xiǎng qù.",
-   "pos": "m",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "如果世界上沒有手機了,我們的生活會怎麼樣呢?",
@@ -11127,9 +11134,9 @@ export const thoidaiVocab1 = {
   {
    "hanzi": "牛",
    "pinyin": "niú",
-   "def": "iú",
+   "def": "con bò",
    "en": true,
-   "pos": "n",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "你就會看到很多牛。",
@@ -11185,7 +11192,7 @@ export const thoidaiVocab1 = {
   {
    "hanzi": "這麼/那麼",
    "pinyin": "zhème/nàme",
-   "def": "so",
+   "def": "như thế này / như thế đó; đến mức ấy",
    "en": true,
    "pos": "Phó từ",
    "ex": [
@@ -11217,7 +11224,7 @@ export const thoidaiVocab1 = {
    "pinyin": "ná",
    "def": "lấy",
    "defEn": "á",
-   "pos": "n",
+   "pos": "Động từ",
    "ex": [
     {
      "h": "你手裡拿的東西是什麼？",
@@ -11667,7 +11674,7 @@ export const thoidaiVocab1 = {
    "pinyin": "mǎ",
    "def": "ngựa",
    "defEn": "ǎ",
-   "pos": "m",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "我記得,有羊,馬,兔子。",
@@ -12247,7 +12254,7 @@ export const thoidaiVocab1 = {
   },
   {
    "hanzi": "這次",
-   "pinyin": "this time",
+   "pinyin": "zhècì",
    "def": "lần này",
    "pos": "Danh từ",
    "ex": [
@@ -12257,7 +12264,8 @@ export const thoidaiVocab1 = {
      "t": "Lần này chúng ta đi ăn mì bò."
     }
    ],
-   "audio": "/audio/thoidai-tu/B1L16-1-04.mp3"
+   "audio": "/audio/thoidai-tu/B1L16-1-04.mp3",
+   "defEn": "this time"
   },
   {
    "hanzi": "上次",
@@ -12335,10 +12343,10 @@ export const thoidaiVocab1 = {
   },
   {
    "hanzi": "南",
-   "pinyin": "south",
-   "def": "án",
+   "pinyin": "nán",
+   "def": "phía nam",
    "en": true,
-   "pos": "n",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "南邊有菲律賓",
@@ -12346,7 +12354,8 @@ export const thoidaiVocab1 = {
      "t": "Phía nam là Philippines"
     }
    ],
-   "audioTts": "/audio/tts-vi/9984a05f94.mp3"
+   "audioTts": "/audio/tts-vi/9984a05f94.mp3",
+   "defEn": "south"
   },
   {
    "hanzi": "北",
@@ -12440,10 +12449,10 @@ export const thoidaiVocab1 = {
   },
   {
    "hanzi": "年級",
-   "pinyin": "grade in school",
+   "pinyin": "niánjí",
    "def": "lớp, niên khóa (năm học)",
-   "defEn": "iánjí",
-   "pos": "n",
+   "defEn": "grade in school",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "我弟弟是小學四年級的學生。",
@@ -12696,7 +12705,7 @@ export const thoidaiVocab1 = {
    "pinyin": "dā",
    "def": "đi (xe buýt, thuyền, máy bay, taxi, v.v.)",
    "defEn": "ǐ dā guò méi yǒu?",
-   "pos": "n",
+   "pos": "Động từ",
    "ex": [
     {
      "h": "你搭過沒有？",

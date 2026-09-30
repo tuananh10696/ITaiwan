@@ -16943,7 +16943,7 @@ export const thoidaiGrammar1 = {
        "vi": ""
       },
       {
-       "hz": "他們今天打算在博物館參觀多久(how long)？",
+       "hz": "他們今天打算在博物館參觀多久 (bao lâu)？",
        "vi": ""
       },
       {
@@ -17227,7 +17227,7 @@ export const thoidaiGrammar1 = {
        "vi": ""
       },
       {
-       "hz": "他們今天打算在博物館參觀多久(how long)？",
+       "hz": "他們今天打算在博物館參觀多久 (bao lâu)？",
        "vi": ""
       },
       {
@@ -17511,7 +17511,7 @@ export const thoidaiGrammar1 = {
        "vi": ""
       },
       {
-       "hz": "他們今天打算在博物館參觀多久(how long)？",
+       "hz": "他們今天打算在博物館參觀多久 (bao lâu)？",
        "vi": ""
       },
       {
@@ -17795,7 +17795,7 @@ export const thoidaiGrammar1 = {
        "vi": ""
       },
       {
-       "hz": "他們今天打算在博物館參觀多久(how long)？",
+       "hz": "他們今天打算在博物館參觀多久 (bao lâu)？",
        "vi": ""
       },
       {

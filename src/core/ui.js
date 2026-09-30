@@ -14,8 +14,21 @@
 export const tdEsc = (s) => String(s == null ? '' : s)
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-/** Chuỗi an toàn để nhét vào thuộc tính onclick="…'…'…". */
-export const tdNhay = (s) => String(s == null ? '' : s).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+/**
+ * Chuỗi an toàn để nhét vào thuộc tính onclick="…'…'…".
+ *
+ * HAI lớp escape, đúng thứ tự trình duyệt đọc (giải mã entity HTML TRƯỚC, rồi mới parse JS):
+ *   1. cho JS: `\` và `'`
+ *   2. cho HTML: `& " < >` -> entity
+ *
+ * ⚠️ Lớp 2 mới thêm 2026-09-30 và là lớp SỬA LỖI THẬT, không phải phòng xa: 19 câu hội thoại
+ * của giáo trình có dấu `"` trong lời thoại (vd `"我的同學感冒了!"`). Thiếu bước này thì dấu `"`
+ * đó ĐÓNG SỚM thuộc tính onclick — nút loa của câu ném SyntaxError khi bấm, phần chữ còn lại
+ * biến thành mấy thuộc tính HTML rác, và không có lỗi nào hiện ra lúc dựng trang.
+ */
+export const tdNhay = (s) => String(s == null ? '' : s)
+  .replace(/\\/g, '\\\\').replace(/'/g, "\\'")
+  .replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 /** Bỏ dấu để gõ không dấu vẫn tìm ra. Dùng cho pinyin, tiếng Việt và âm Hán Việt. */
 export const boDauTim = (s) => String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '')

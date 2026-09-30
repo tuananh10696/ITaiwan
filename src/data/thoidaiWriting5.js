@@ -200,6 +200,14 @@ export const thoidaiWriting5 = {
    "pinyin": "mù"
   },
   {
+   "char": "迷",
+   "pinyin": "mí"
+  },
+  {
+   "char": "失",
+   "pinyin": "shī"
+  },
+  {
    "char": "自",
    "pinyin": "zì"
   },
@@ -258,6 +266,22 @@ export const thoidaiWriting5 = {
   {
    "char": "明",
    "pinyin": "míng"
+  },
+  {
+   "char": "眉",
+   "pinyin": "méi"
+  },
+  {
+   "char": "飛",
+   "pinyin": "fēi"
+  },
+  {
+   "char": "色",
+   "pinyin": "sè"
+  },
+  {
+   "char": "舞",
+   "pinyin": "wǔ"
   },
   {
    "char": "一",
@@ -367,11 +391,11 @@ export const thoidaiWriting5 = {
   },
   {
    "char": "人",
-   "pinyin": "réng"
+   "pinyin": "rén"
   },
   {
    "char": "格",
-   "pinyin": "é"
+   "pinyin": "gé"
   },
   {
    "char": "特",
@@ -440,6 +464,14 @@ export const thoidaiWriting5 = {
   {
    "char": "常",
    "pinyin": "cháng"
+  },
+  {
+   "char": "親",
+   "pinyin": "qīn"
+  },
+  {
+   "char": "友",
+   "pinyin": "yǒu"
   },
   {
    "char": "若",
@@ -848,6 +880,22 @@ export const thoidaiWriting5 = {
    "pinyin": "qí"
   },
   {
+   "char": "那",
+   "pinyin": "nà"
+  },
+  {
+   "char": "還",
+   "pinyin": "hái"
+  },
+  {
+   "char": "用",
+   "pinyin": "yòng"
+  },
+  {
+   "char": "說",
+   "pinyin": "shuō"
+  },
+  {
    "char": "少",
    "pinyin": "shǎo"
   },
@@ -1028,6 +1076,18 @@ export const thoidaiWriting5 = {
   {
    "char": "員",
    "pinyin": "yuán"
+  },
+  {
+   "char": "民",
+   "pinyin": "mín"
+  },
+  {
+   "char": "代",
+   "pinyin": "dài"
+  },
+  {
+   "char": "表",
+   "pinyin": "biǎo"
   },
   {
    "char": "彷",
@@ -1266,6 +1326,14 @@ export const thoidaiWriting5 = {
   {
    "char": "模",
    "pinyin": "mó"
+  },
+  {
+   "char": "買",
+   "pinyin": "mǎi"
+  },
+  {
+   "char": "賣",
+   "pinyin": "mài"
   },
   {
    "char": "大",
@@ -1864,6 +1932,14 @@ export const thoidaiWriting5 = {
    "pinyin": "dào"
   },
   {
+   "char": "內",
+   "pinyin": "nèi"
+  },
+  {
+   "char": "行",
+   "pinyin": "háng"
+  },
+  {
    "char": "其",
    "pinyin": "qí"
   },
@@ -1905,7 +1981,7 @@ export const thoidaiWriting5 = {
   },
   {
    "char": "露",
-   "pinyin": "lòu"
+   "pinyin": "lù"
   },
   {
    "char": "倆",
@@ -1954,6 +2030,14 @@ export const thoidaiWriting5 = {
   {
    "char": "彩",
    "pinyin": "cǎi"
+  },
+  {
+   "char": "名",
+   "pinyin": "míng"
+  },
+  {
+   "char": "稱",
+   "pinyin": "chēng"
   },
   {
    "char": "對",
@@ -2072,6 +2156,18 @@ export const thoidaiWriting5 = {
    "pinyin": "cài"
   },
   {
+   "char": "螞",
+   "pinyin": "mǎ"
+  },
+  {
+   "char": "蟻",
+   "pinyin": "yǐ"
+  },
+  {
+   "char": "樹",
+   "pinyin": "shù"
+  },
+  {
    "char": "菠",
    "pinyin": "bō"
   },
@@ -2104,6 +2200,18 @@ export const thoidaiWriting5 = {
    "pinyin": "tāng"
   },
   {
+   "char": "麻",
+   "pinyin": "má"
+  },
+  {
+   "char": "糬",
+   "pinyin": "shǔ"
+  },
+  {
+   "char": "紅",
+   "pinyin": "hóng"
+  },
+  {
    "char": "心",
    "pinyin": "xīn"
   },
@@ -2121,6 +2229,22 @@ export const thoidaiWriting5 = {
   }
  ],
  "td5-4.2": [
+  {
+   "char": "難",
+   "pinyin": "nán"
+  },
+  {
+   "char": "得",
+   "pinyin": "dé"
+  },
+  {
+   "char": "一",
+   "pinyin": "yí"
+  },
+  {
+   "char": "見",
+   "pinyin": "jiàn"
+  },
   {
    "char": "異",
    "pinyin": "yì"
@@ -2340,6 +2464,14 @@ export const thoidaiWriting5 = {
   {
    "char": "德",
    "pinyin": "dé"
+  },
+  {
+   "char": "百",
+   "pinyin": "bǎi"
+  },
+  {
+   "char": "姓",
+   "pinyin": "xìng"
   },
   {
    "char": "場",
@@ -2600,6 +2732,14 @@ export const thoidaiWriting5 = {
    "pinyin": "fù"
   },
   {
+   "char": "濃",
+   "pinyin": "nóng"
+  },
+  {
+   "char": "度",
+   "pinyin": "dù"
+  },
+  {
    "char": "惡",
    "pinyin": "è"
   },
@@ -2810,6 +2950,14 @@ export const thoidaiWriting5 = {
   {
    "char": "約",
    "pinyin": "yuē"
+  },
+  {
+   "char": "能",
+   "pinyin": "néng"
+  },
+  {
+   "char": "源",
+   "pinyin": "yuán"
   },
   {
    "char": "後",
@@ -3130,6 +3278,18 @@ export const thoidaiWriting5 = {
    "pinyin": "xiǎng"
   },
   {
+   "char": "能",
+   "pinyin": "néng"
+  },
+  {
+   "char": "見",
+   "pinyin": "jiàn"
+  },
+  {
+   "char": "度",
+   "pinyin": "dù"
+  },
+  {
    "char": "汙",
    "pinyin": "wū"
   },
@@ -3320,6 +3480,18 @@ export const thoidaiWriting5 = {
    "pinyin": "duì"
   },
   {
+   "char": "工",
+   "pinyin": "gōng"
+  },
+  {
+   "char": "默",
+   "pinyin": "mò"
+  },
+  {
+   "char": "契",
+   "pinyin": "qì"
+  },
+  {
    "char": "獨",
    "pinyin": "dú"
   },
@@ -3396,6 +3568,14 @@ export const thoidaiWriting5 = {
    "pinyin": "zú"
   },
   {
+   "char": "怒",
+   "pinyin": "nù"
+  },
+  {
+   "char": "氣",
+   "pinyin": "qì"
+  },
+  {
    "char": "情",
    "pinyin": "qíng"
   },
@@ -3454,10 +3634,6 @@ export const thoidaiWriting5 = {
   {
    "char": "憤",
    "pinyin": "fèn"
-  },
-  {
-   "char": "怒",
-   "pinyin": "nù"
   },
   {
    "char": "報",
@@ -3588,6 +3764,14 @@ export const thoidaiWriting5 = {
   {
    "char": "糙",
    "pinyin": "cāo"
+  },
+  {
+   "char": "美",
+   "pinyin": "měi"
+  },
+  {
+   "char": "觀",
+   "pinyin": "guān"
   },
   {
    "char": "一",
@@ -3888,6 +4072,10 @@ export const thoidaiWriting5 = {
    "pinyin": "chéng"
   },
   {
+   "char": "瞞",
+   "pinyin": "mán"
+  },
+  {
    "char": "專",
    "pinyin": "zhuān"
   },
@@ -3954,6 +4142,18 @@ export const thoidaiWriting5 = {
   {
    "char": "送",
    "pinyin": "sòng"
+  },
+  {
+   "char": "煤",
+   "pinyin": "méi"
+  },
+  {
+   "char": "木",
+   "pinyin": "mù"
+  },
+  {
+   "char": "材",
+   "pinyin": "cái"
   },
   {
    "char": "糧",
@@ -4080,6 +4280,14 @@ export const thoidaiWriting5 = {
    "pinyin": "fā"
   },
   {
+   "char": "模",
+   "pinyin": "mó"
+  },
+  {
+   "char": "型",
+   "pinyin": "xíng"
+  },
+  {
    "char": "製",
    "pinyin": "zhì"
   },
@@ -4202,6 +4410,10 @@ export const thoidaiWriting5 = {
    "pinyin": "yíng"
   },
   {
+   "char": "民",
+   "pinyin": "mín"
+  },
+  {
    "char": "歇",
    "pinyin": "xiē"
   },
@@ -4312,6 +4524,14 @@ export const thoidaiWriting5 = {
   {
    "char": "援",
    "pinyin": "yuán"
+  },
+  {
+   "char": "觀",
+   "pinyin": "guān"
+  },
+  {
+   "char": "光",
+   "pinyin": "guāng"
   },
   {
    "char": "層",
@@ -4430,6 +4650,14 @@ export const thoidaiWriting5 = {
    "pinyin": "Dōng"
   },
   {
+   "char": "南",
+   "pinyin": "Nán"
+  },
+  {
+   "char": "迴",
+   "pinyin": "huí"
+  },
+  {
    "char": "環",
    "pinyin": "huán"
   },
@@ -4444,6 +4672,10 @@ export const thoidaiWriting5 = {
   {
    "char": "路",
    "pinyin": "lù"
+  },
+  {
+   "char": "車",
+   "pinyin": "chē"
   },
   {
    "char": "便",
@@ -4462,16 +4694,8 @@ export const thoidaiWriting5 = {
    "pinyin": "jiān"
   },
   {
-   "char": "車",
-   "pinyin": "chē"
-  },
-  {
    "char": "莒",
    "pinyin": "Jǔ"
-  },
-  {
-   "char": "光",
-   "pinyin": "guāng"
   },
   {
    "char": "號",
@@ -4576,6 +4800,14 @@ export const thoidaiWriting5 = {
    "pinyin": "lǎo"
   },
   {
+   "char": "模",
+   "pinyin": "mó"
+  },
+  {
+   "char": "樣",
+   "pinyin": "yàng"
+  },
+  {
    "char": "頭",
    "pinyin": "tóu"
   },
@@ -4613,7 +4845,7 @@ export const thoidaiWriting5 = {
   },
   {
    "char": "削",
-   "pinyin": "xiāo"
+   "pinyin": "xuè"
   },
   {
    "char": "骨",
@@ -4702,6 +4934,10 @@ export const thoidaiWriting5 = {
   {
    "char": "視",
    "pinyin": "shì"
+  },
+  {
+   "char": "袋",
+   "pinyin": "dài"
   },
   {
    "char": "否",
@@ -5064,6 +5300,10 @@ export const thoidaiWriting5 = {
   {
    "char": "已",
    "pinyin": "yǐ"
+  },
+  {
+   "char": "迷",
+   "pinyin": "mí"
   },
   {
    "char": "經",
@@ -5560,6 +5800,14 @@ export const thoidaiWriting5 = {
    "pinyin": "yì"
   },
   {
+   "char": "到",
+   "pinyin": "dào"
+  },
+  {
+   "char": "老",
+   "pinyin": "lǎo"
+  },
+  {
    "char": "無",
    "pinyin": "wú"
   },
@@ -5852,6 +6100,18 @@ export const thoidaiWriting5 = {
   {
    "char": "苦",
    "pinyin": "kǔ"
+  },
+  {
+   "char": "觀",
+   "pinyin": "Guān"
+  },
+  {
+   "char": "光",
+   "pinyin": "guāng"
+  },
+  {
+   "char": "署",
+   "pinyin": "Shǔ"
   },
   {
    "char": "可",
@@ -6161,11 +6421,11 @@ export const thoidaiWriting5 = {
   },
   {
    "char": "洗",
-   "pinyin": "xǐn"
+   "pinyin": "xǐ"
   },
   {
    "char": "腦",
-   "pinyin": "ǎo"
+   "pinyin": "nǎo"
   },
   {
    "char": "倒",
@@ -6550,12 +6810,28 @@ export const thoidaiWriting5 = {
    "pinyin": "zhǔ"
   },
   {
+   "char": "民",
+   "pinyin": "mín"
+  },
+  {
+   "char": "以",
+   "pinyin": "yǐ"
+  },
+  {
+   "char": "為",
+   "pinyin": "wéi"
+  },
+  {
+   "char": "天",
+   "pinyin": "tiān"
+  },
+  {
    "char": "無",
    "pinyin": "wú"
   },
   {
    "char": "奈",
-   "pinyin": "ài"
+   "pinyin": "nài"
   },
   {
    "char": "何",
@@ -6572,10 +6848,6 @@ export const thoidaiWriting5 = {
   {
    "char": "傷",
    "pinyin": "shāng"
-  },
-  {
-   "char": "天",
-   "pinyin": "tiān"
   },
   {
    "char": "害",
@@ -6958,6 +7230,22 @@ export const thoidaiWriting5 = {
   {
    "char": "措",
    "pinyin": "cuò"
+  },
+  {
+   "char": "反",
+   "pinyin": "fǎn"
+  },
+  {
+   "char": "過",
+   "pinyin": "guò"
+  },
+  {
+   "char": "來",
+   "pinyin": "lái"
+  },
+  {
+   "char": "說",
+   "pinyin": "shuō"
   }
  ],
  "td5-11.2": [
@@ -7042,6 +7330,10 @@ export const thoidaiWriting5 = {
    "pinyin": "xiǎng"
   },
   {
+   "char": "每",
+   "pinyin": "měi"
+  },
+  {
    "char": "聚",
    "pinyin": "jù"
   },
@@ -7072,6 +7364,14 @@ export const thoidaiWriting5 = {
   {
    "char": "翻",
    "pinyin": "fān"
+  },
+  {
+   "char": "面",
+   "pinyin": "miàn"
+  },
+  {
+   "char": "默",
+   "pinyin": "mò"
   },
   {
    "char": "備",
@@ -7219,11 +7519,35 @@ export const thoidaiWriting5 = {
   },
   {
    "char": "上",
-   "pinyin": "shàn"
+   "pinyin": "shàng"
   },
   {
    "char": "珠",
    "pinyin": "zhū"
+  },
+  {
+   "char": "男",
+   "pinyin": "nán"
+  },
+  {
+   "char": "尊",
+   "pinyin": "zūn"
+  },
+  {
+   "char": "女",
+   "pinyin": "nǚ"
+  },
+  {
+   "char": "卑",
+   "pinyin": "bēi"
+  },
+  {
+   "char": "主",
+   "pinyin": "zhǔ"
+  },
+  {
+   "char": "內",
+   "pinyin": "nèi"
   },
   {
    "char": "人",
@@ -7336,6 +7660,14 @@ export const thoidaiWriting5 = {
    "pinyin": "zhù"
   },
   {
+   "char": "明",
+   "pinyin": "míng"
+  },
+  {
+   "char": "亮",
+   "pinyin": "liàng"
+  },
+  {
    "char": "青",
    "pinyin": "qīng"
   },
@@ -7366,10 +7698,6 @@ export const thoidaiWriting5 = {
   {
    "char": "透",
    "pinyin": "tòu"
-  },
-  {
-   "char": "明",
-   "pinyin": "míng"
   },
   {
    "char": "幹",
@@ -7580,6 +7908,10 @@ export const thoidaiWriting5 = {
    "pinyin": "dù"
   },
   {
+   "char": "內",
+   "pinyin": "nèi"
+  },
+  {
    "char": "性",
    "pinyin": "xìng"
   },
@@ -7744,6 +8076,14 @@ export const thoidaiWriting5 = {
   {
    "char": "奈",
    "pinyin": "nài"
+  },
+  {
+   "char": "年",
+   "pinyin": "nián"
+  },
+  {
+   "char": "資",
+   "pinyin": "zī"
   },
   {
    "char": "急",
@@ -8276,6 +8616,10 @@ export const thoidaiWriting5 = {
    "pinyin": "ròu"
   },
   {
+   "char": "麻",
+   "pinyin": "má"
+  },
+  {
    "char": "精",
    "pinyin": "jīng"
   },
@@ -8418,6 +8762,14 @@ export const thoidaiWriting5 = {
    "pinyin": "tú"
   },
   {
+   "char": "虛",
+   "pinyin": "xū"
+  },
+  {
+   "char": "擬",
+   "pinyin": "nǐ"
+  },
+  {
    "char": "集",
    "pinyin": "jí"
   },
@@ -8522,6 +8874,14 @@ export const thoidaiWriting5 = {
    "pinyin": "jīng"
   },
   {
+   "char": "謾",
+   "pinyin": "mán"
+  },
+  {
+   "char": "罵",
+   "pinyin": "mà"
+  },
+  {
    "char": "有",
    "pinyin": "yǒu"
   },
@@ -8580,6 +8940,14 @@ export const thoidaiWriting5 = {
   {
    "char": "及",
    "pinyin": "jí"
+  },
+  {
+   "char": "猛",
+   "pinyin": "měng"
+  },
+  {
+   "char": "烈",
+   "pinyin": "liè"
   },
   {
    "char": "人",
@@ -8844,6 +9212,10 @@ export const thoidaiWriting5 = {
    "pinyin": "gǔ"
   },
   {
+   "char": "謎",
+   "pinyin": "mí"
+  },
+  {
    "char": "語",
    "pinyin": "yǔ"
   },
@@ -8880,6 +9252,14 @@ export const thoidaiWriting5 = {
    "pinyin": "xíng"
   },
   {
+   "char": "糯",
+   "pinyin": "nuò"
+  },
+  {
+   "char": "米",
+   "pinyin": "mǐ"
+  },
+  {
    "char": "餡",
    "pinyin": "xiàn"
   },
@@ -8890,6 +9270,10 @@ export const thoidaiWriting5 = {
   {
    "char": "內",
    "pinyin": "nèi"
+  },
+  {
+   "char": "泥",
+   "pinyin": "ní"
   },
   {
    "char": "酌",
@@ -8986,10 +9370,6 @@ export const thoidaiWriting5 = {
   {
    "char": "戲",
    "pinyin": "xì"
-  },
-  {
-   "char": "謎",
-   "pinyin": "mí"
   },
   {
    "char": "湯",
@@ -9202,6 +9582,14 @@ export const thoidaiWriting5 = {
    "pinyin": "tā"
   },
   {
+   "char": "蜜",
+   "pinyin": "mì"
+  },
+  {
+   "char": "蜂",
+   "pinyin": "fēng"
+  },
+  {
    "char": "波",
    "pinyin": "bō"
   },
@@ -9271,11 +9659,11 @@ export const thoidaiWriting5 = {
   },
   {
    "char": "觀",
-   "pinyin": "guāng"
+   "pinyin": "guān"
   },
   {
    "char": "感",
-   "pinyin": "ǎn"
+   "pinyin": "gǎn"
   },
   {
    "char": "當",
@@ -9348,10 +9736,6 @@ export const thoidaiWriting5 = {
   {
    "char": "朝",
    "pinyin": "cháo"
-  },
-  {
-   "char": "蜂",
-   "pinyin": "fēng"
   },
   {
    "char": "炮",
@@ -9524,6 +9908,14 @@ export const thoidaiWriting5 = {
    "pinyin": "mù"
   },
   {
+   "char": "滿",
+   "pinyin": "mǎn"
+  },
+  {
+   "char": "懷",
+   "pinyin": "huái"
+  },
+  {
    "char": "異",
    "pinyin": "yì"
   },
@@ -9626,6 +10018,14 @@ export const thoidaiWriting5 = {
   {
    "char": "降",
    "pinyin": "xiáng"
+  },
+  {
+   "char": "迷",
+   "pinyin": "mí"
+  },
+  {
+   "char": "惘",
+   "pinyin": "wǎng"
   },
   {
    "char": "意",
@@ -9894,6 +10294,22 @@ export const thoidaiWriting5 = {
    "pinyin": "chéng"
   },
   {
+   "char": "囊",
+   "pinyin": "náng"
+  },
+  {
+   "char": "括",
+   "pinyin": "guā"
+  },
+  {
+   "char": "描",
+   "pinyin": "miáo"
+  },
+  {
+   "char": "寫",
+   "pinyin": "xiě"
+  },
+  {
    "char": "表",
    "pinyin": "biǎo"
   },
@@ -10118,6 +10534,22 @@ export const thoidaiWriting5 = {
    "pinyin": "tiě"
   },
   {
+   "char": "耐",
+   "pinyin": "nài"
+  },
+  {
+   "char": "力",
+   "pinyin": "lì"
+  },
+  {
+   "char": "能",
+   "pinyin": "néng"
+  },
+  {
+   "char": "量",
+   "pinyin": "liàng"
+  },
+  {
    "char": "肯",
    "pinyin": "kěn"
   },
@@ -10256,6 +10688,14 @@ export const thoidaiWriting5 = {
   {
    "char": "人",
    "pinyin": "rén"
+  },
+  {
+   "char": "內",
+   "pinyin": "nèi"
+  },
+  {
+   "char": "處",
+   "pinyin": "chù"
   },
   {
    "char": "同",
@@ -10442,6 +10882,14 @@ export const thoidaiWriting5 = {
   {
    "char": "頓",
    "pinyin": "dùn"
+  },
+  {
+   "char": "年",
+   "pinyin": "nián"
+  },
+  {
+   "char": "長",
+   "pinyin": "zhǎng"
   },
   {
    "char": "補",
@@ -10738,6 +11186,14 @@ export const thoidaiWriting5 = {
    "pinyin": "jú"
   },
   {
+   "char": "內",
+   "pinyin": "nèi"
+  },
+  {
+   "char": "地",
+   "pinyin": "dì"
+  },
+  {
    "char": "家",
    "pinyin": "jiā"
   },
@@ -10872,10 +11328,6 @@ export const thoidaiWriting5 = {
   {
    "char": "載",
    "pinyin": "zài"
-  },
-  {
-   "char": "地",
-   "pinyin": "dì"
   },
   {
    "char": "摧",

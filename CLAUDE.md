@@ -33,6 +33,10 @@ luôn trả "có quyền"; nếu sau này muốn bán khoá thì chỉ phải th
 | Namespace `onllang:` trong `lesson_id` | Tên cũ của "Luyện tập tổng hợp". Giữ nguyên để không mất liên kết với bản ghi đã có. |
 | `src/data/sinh-de-trac-nghiem.js` | Trước tên là `duongdaiExercise.js`. Dùng cho mọi bộ giáo trình. |
 | `requireOrgAdmin` | Nay chỉ là alias của `requireAdminOnly`. |
+| `points[].formula` · `title` của ngữ pháp | LỜI GIẢNG NGUYÊN VĂN bóc từ PPT gốc — tiếng Anh ở quyển 1-2, tiếng Trung ở quyển 3-5 — và `giaiThich` / `titleVi` chính là bản tiếng Việt dịch từ chúng. Giao diện CHỈ hiện bản tiếng Việt (2026-09-30); bản gốc nhiều chỗ còn lẫn nội dung của điểm khác nên không đáng tin để hiện kèm. Giữ trường lại làm lưới cuối cho mục chưa kịp dịch. |
+| `defEn` của từ vựng · cột `NGHIA_EN` của `kho.json` | Nghĩa tiếng Anh của sách. KHÔNG hiện khi đã có nghĩa tiếng Việt (8.174/8.181 từ đều có). |
+| Từ vựng có phiên âm bắt đầu bằng m/n | Bộ bóc PPT coi chữ cái đầu là MÃ TỪ LOẠI rồi dồn trường: 美國 từng có `pinyin: "the USA"`, 牛 có nghĩa `"iú"`, nhãn từ loại `"m"`/`"n"`. `npm run data:va-tu-vung` vá cả giáo trình lẫn `kho.json` + `k-NN.json` (bảng sửa nằm trong script, có ghi nguồn). **Sinh lại từ vựng bằng `gen-thoidai-vocab.mjs` là lỗi quay lại** — chạy lại script vá ngay sau đó. |
+| Cách đọc "lạ" so với pypinyin | Nhiều chữ đọc theo chuẩn ĐÀI LOAN: 攜 xī · 艘 sāo · 崖 yái · 驟 zòu · 蝸 guā · 淆 yáo · 垃圾 lèsè · 哎喲 āiyāo. Đều ĐÚNG — đừng "sửa" theo từ điển đại lục. |
 | `teacher_notes` / `teacher_reviews` | Tên cột THẬT (init-db.js, cũng là schema production): `noi_dung`, `nguoi_ghi`, `nguoi_cham`. File `migration-teacher-role.sql` còn ghi `note` / `author_id` nhưng là `CREATE TABLE IF NOT EXISTS` và đã được đánh dấu chạy trên mọi DB dựng bằng init-db — đừng viết SQL theo file đó (màn hồ sơ giáo viên từng 500 vì vậy). Đừng sửa file migration đã chạy: đổi nội dung là `migrate.mjs` cảnh báo mãi. |
 
 ---
@@ -97,7 +101,31 @@ npm run data:tach        # sinh lại public/data/{giaotrinh,luyentap}
 npm run luyentap:tusinh -- --bo thoidai
 npm run luyentap:kiem    # đối chiếu đáp án với dữ liệu sách
 npm run baitap:kiem-toan # kiểm toàn bộ đề: 0 câu trùng đáp án, 0 đề rỗng
+npm run audio:kiem       # âm thanh: thiếu file · clip cắt hụt · URL http:// · đường dẫn tương đối
+npm run tts:chi-muc      # chỉ mục chữ Hán -> mp3 giọng máy (nút loa không kèm đường dẫn dùng nó)
+npm run data:va-tu-vung  # chỉ khi vừa sinh lại từ vựng từ PPT — vá lỗi lệch trường của bộ bóc
 npm run seo:sitemap
 ```
 
 Thiếu một bước là đề lệch với dữ liệu mà không có lỗi nào hiện ra.
+
+---
+
+## Âm thanh hỏng thì KHÔNG có lỗi nào hiện ra
+
+Bốn kiểu hỏng dưới đây đều "chạy bình thường", console sạch trơn, chỉ có điều bấm loa không
+nghe thấy gì. `npm run audio:kiem` soi cả bốn; chạy nó sau mỗi lần đụng vào dữ liệu hoặc audio.
+
+| Kiểu | Vì sao im lặng |
+|---|---|
+| Thiếu file | App tự rơi xuống nguồn sau (mp3 giọng máy → Web Speech). Máy không có giọng tiếng Trung nào thì rơi tới đáy là im bặt. Trên SPA, 404 còn trả về `index.html` kèm mã **200**. |
+| Clip cắt hụt | File có thật, phát "thành công". `ddSpeakWord` chỉ bỏ clip < 0,25s, nên clip 0,32s đọc từ 2 âm tiết lọt lưới. Bộ kiểm xét theo **độ dài mỗi âm tiết** (< 0,24s là hụt). |
+| URL `http://` | Trang chạy HTTPS thì trình duyệt CHẶN mixed content — thẻ `<audio>` im lặng, không có lỗi mạng nào để lần ra. Đề thi TOCFL từng có 778 URL như vậy. |
+| Đường dẫn tương đối | Không có `/` đầu thì trình duyệt ghép vào URL trang hiện tại, mỗi trang một kết quả 404 khác nhau. |
+
+Vá tự động: `npm run audio:va` (đổi sang bản thu cùng chữ → mp3 giọng máy → liệt kê chữ cần
+sinh), rồi `npm run tts:bo-sung` sinh mp3 còn thiếu, rồi chạy lại `audio:va` để gán đường dẫn.
+
+**Bốn bộ phát độc lập** (`pronAudio` · `_ddAudio` · `_doc.audio` · `ddDlgState.audio`) không
+biết nhau, nên mọi chỗ đổi màn hình phải gọi `dungMoiAmThanh()` — quên là rời trang rồi mà bản
+thu hội thoại vẫn phát, trong khi nút tắt của nó đã bị `innerHTML` mới xoá.

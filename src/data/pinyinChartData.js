@@ -1894,10 +1894,10 @@ export const pinyinChartAudio = {
   "ye": "https://tiengtrungthaoan.edu.vn/wp-content/uploads/2024/02/ye.mp3",
   "yao": "https://tiengtrungthaoan.edu.vn/wp-content/uploads/2024/02/yao.mp3",
   "you": "https://tiengtrungthaoan.edu.vn/wp-content/uploads/2024/02/you.mp3",
-  "wa": "o.mp3",
-  "wo": "o.mp3",
-  "wai": "o.mp3",
-  "wei": "o.mp3",
+  "wa": "/audio/tts-vi/2bc1c3bc74.mp3",
+  "wo": "/audio/tts-vi/56501f2f0d.mp3",
+  "wai": "/audio/tts-vi/de9bb539db.mp3",
+  "wei": "/audio/tts-vi/848813909b.mp3",
   "ban": "https://tiengtrungthaoan.edu.vn/wp-content/uploads/2024/02/freecompress-ban.mp3",
   "ben": "https://tiengtrungthaoan.edu.vn/wp-content/uploads/2024/02/freecompress-ben.mp3",
   "bang": "https://tiengtrungthaoan.edu.vn/wp-content/uploads/2024/02/freecompress-bang.mp3",
@@ -2011,7 +2011,7 @@ export const pinyinChartAudio = {
   "ping": "https://tiengtrungthaoan.edu.vn/wp-content/uploads/2024/02/freecompress-ping.mp3",
   "miao": "https://tiengtrungthaoan.edu.vn/wp-content/uploads/2024/02/freecompress-miao.mp3",
   "mie": "https://tiengtrungthaoan.edu.vn/wp-content/uploads/2024/02/freecompress-mie.mp3",
-  "miu": "o.mp3",
+  "miu": null,
   "mian": "https://tiengtrungthaoan.edu.vn/wp-content/uploads/2024/02/freecompress-mian.mp3",
   "min": "https://tiengtrungthaoan.edu.vn/wp-content/uploads/2024/02/freecompress-min.mp3",
   "ming": "https://tiengtrungthaoan.edu.vn/wp-content/uploads/2024/02/freecompress-ming.mp3",
@@ -2151,5 +2151,5 @@ export const pinyinChartAudio = {
   "rui": "https://tiengtrungthaoan.edu.vn/wp-content/uploads/2024/02/freecompress-rui.mp3",
   "ruan": "https://tiengtrungthaoan.edu.vn/wp-content/uploads/2024/02/freecompress-ruan.mp3",
   "run": "https://tiengtrungthaoan.edu.vn/wp-content/uploads/2024/02/freecompress-run.mp3",
-  "wu": "o.mp3"
+  "wu": "/audio/tts-vi/e4f3833ba8.mp3"
 };

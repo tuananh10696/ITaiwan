@@ -14,7 +14,7 @@ export const thoidaiVocab3 = {
    "pinyin": "mèngxiǎng",
    "def": "ước mơ, giấc mơ (không phải trong khi ngủ)",
    "defEn": "èngxiǎng",
-   "pos": "m",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "我夢想有一天可以到世界各地旅行。",
@@ -29,7 +29,7 @@ export const thoidaiVocab3 = {
    "pinyin": "mèng",
    "def": "giấc mơ",
    "defEn": "èng",
-   "pos": "m",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "晚安！希望你有個好夢。",
@@ -41,10 +41,10 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "明星",
-   "pinyin": "star",
+   "pinyin": "míngxīng",
    "def": "ngôi sao điện ảnh",
-   "defEn": "íngxīng",
-   "pos": "m",
+   "defEn": "star",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "男女主角都是臺灣目前最紅的明星",
@@ -236,10 +236,10 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "腦子",
-   "pinyin": "brain, mind",
+   "pinyin": "nǎozi",
    "def": "đầu óc",
-   "defEn": "ǎozi",
-   "pos": "n",
+   "defEn": "brain, mind",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "我從小就想當導演,腦子裡每天都想著這件事。",
@@ -251,10 +251,10 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "腦",
-   "pinyin": "brain",
+   "pinyin": "nǎo",
    "def": "não; tâm trí; đầu",
    "en": true,
-   "pos": "n",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "黃先生這幾天一直發燒，腦子很不清楚，恐怕沒辦法寫劇本。",
@@ -262,7 +262,8 @@ export const thoidaiVocab3 = {
      "t": "Ông Hoàng mấy hôm nay sốt liên tục, đầu óc rất không tỉnh táo, e là không viết được kịch bản."
     }
    ],
-   "audio": "/audio/thoidai-tu/B3L01-1-17.mp3"
+   "audio": "/audio/thoidai-tu/B3L01-1-17.mp3",
+   "defEn": "brain"
   },
   {
    "hanzi": "作夢",
@@ -282,9 +283,9 @@ export const thoidaiVocab3 = {
   {
    "hanzi": "夢到",
    "pinyin": "mèngdào",
-   "def": "èngdào",
+   "def": "mơ thấy; mơ về",
    "en": true,
-   "pos": "m",
+   "pos": "Động từ",
    "ex": [
     {
      "h": "哥哥只要睡前喝太多水，就會夢到半夜起床找不到廁所，這樣的夢真可怕！",
@@ -674,7 +675,7 @@ export const thoidaiVocab3 = {
    "pinyin": "bié zhème shuō",
    "def": "đừng nói vậy",
    "en": true,
-   "pos": "n",
+   "pos": "Cụm từ",
    "ex": [
     {
      "h": "別這麼說,我還要繼續努力。",
@@ -731,10 +732,10 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "年代",
-   "pinyin": "（qīlíng niándài，1970∼1979）",
-   "def": "iándài",
+   "pinyin": "niándài",
+   "def": "thập niên; thời đại",
    "en": true,
-   "pos": "n",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "沒想到我奶奶那個年代流行的",
@@ -779,7 +780,7 @@ export const thoidaiVocab3 = {
    "pinyin": "míng",
    "def": "người (lượng từ, văn viết)",
    "defEn": "íng",
-   "pos": "m",
+   "pos": "Lượng từ",
    "ex": [
     {
      "h": "天燈又名孔明燈",
@@ -940,10 +941,10 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "滿足",
-   "pinyin": "satisfied",
+   "pinyin": "mǎnzú",
    "def": "thỏa mãn, hài lòng",
-   "defEn": "ǎnzú",
-   "pos": "m",
+   "defEn": "satisfied",
+   "pos": "Tính từ",
    "ex": [
     {
      "h": "讓我覺得很幸福、很滿足。",
@@ -1015,10 +1016,10 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "夢想成真",
-   "pinyin": "dreams come true",
-   "def": "èngxiǎng chéngzhēn",
+   "pinyin": "mèngxiǎng chéngzhēn",
+   "def": "ước mơ thành hiện thực",
    "en": true,
-   "pos": "m",
+   "pos": "Thành ngữ",
    "ex": [
     {
      "h": "能夢想成真的！",
@@ -1026,7 +1027,8 @@ export const thoidaiVocab3 = {
      "t": "Ước mơ sẽ thành hiện thực!"
     }
    ],
-   "audio": "/audio/thoidai-tu/B3L01-2-22.mp3"
+   "audio": "/audio/thoidai-tu/B3L01-2-22.mp3",
+   "defEn": "dreams come true"
   }
  ],
  "td3-2": [
@@ -1240,10 +1242,10 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "饅頭",
-   "pinyin": "steamed bun",
-   "def": "ántou",
+   "pinyin": "mántou",
+   "def": "bánh màn thầu",
    "en": true,
-   "pos": "m",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "他早餐常吃一個饅頭配一杯豆漿。",
@@ -1251,7 +1253,8 @@ export const thoidaiVocab3 = {
      "t": "Bữa sáng anh ấy hay ăn một cái bánh bao chay với một cốc sữa đậu nành."
     }
    ],
-   "audio": "/audio/thoidai-tu/B3L02-1-15.mp3"
+   "audio": "/audio/thoidai-tu/B3L02-1-15.mp3",
+   "defEn": "steamed bun"
   },
   {
    "hanzi": "熱狗",
@@ -1493,7 +1496,7 @@ export const thoidaiVocab3 = {
    "pinyin": "měi",
    "def": "mỗi",
    "defEn": "ěi",
-   "pos": "m",
+   "pos": "Định từ",
    "ex": [
     {
      "h": "過年回家吃年夜飯，大家吃著吃著，就喝起酒來了，每喝幾",
@@ -1850,7 +1853,7 @@ export const thoidaiVocab3 = {
    "pinyin": "mǎn",
    "def": "đủ, tròn (tuổi)",
    "defEn": "ǎn",
-   "pos": "m",
+   "pos": "Động từ",
    "ex": [
     {
      "h": "張經理今天的工作行程安排得很滿，連吃飯、休息的時間都沒有。",
@@ -2658,10 +2661,10 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "面前",
-   "pinyin": "in front of",
+   "pinyin": "miànqián",
    "def": "trước mặt",
-   "defEn": "iànqián",
-   "pos": "m",
+   "defEn": "in front of",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "小高總是在別人面前表現得很有禮貌，不過回到家就完全變了一個樣子。",
@@ -2828,7 +2831,7 @@ export const thoidaiVocab3 = {
    "pinyin": "mǎnyuè",
    "def": "trăng tròn; đủ tháng",
    "en": true,
-   "pos": "m",
+   "pos": "",
    "ex": [
     {
      "h": "在臺灣，孩子出生滿一個月的時候，有的父母會請客，慶祝孩子滿月。",
@@ -2841,7 +2844,7 @@ export const thoidaiVocab3 = {
   {
    "hanzi": "嗨",
    "pinyin": "hāi",
-   "def": "Hi!",
+   "def": "chào! (lời chào thân mật)",
    "en": true,
    "pos": "Trợ từ",
    "ex": [
@@ -3213,10 +3216,10 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "檸檬汁",
-   "pinyin": "lemon juice",
+   "pinyin": "níngméngzhī",
    "def": "nước chanh",
    "en": true,
-   "pos": "n",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "我很喜歡越南的醬料,還有不加醋,加檸檬汁的越南菜",
@@ -3224,14 +3227,15 @@ export const thoidaiVocab3 = {
      "t": "Tôi rất thích nước chấm Việt Nam, còn cả món Việt không cho giấm mà cho nước cốt chanh"
     }
    ],
-   "audio": "/audio/thoidai-tu/B3L04-1-27.mp3"
+   "audio": "/audio/thoidai-tu/B3L04-1-27.mp3",
+   "defEn": "lemon juice"
   },
   {
    "hanzi": "檸檬",
    "pinyin": "níngméng",
    "def": "chanh vàng, chanh xanh",
    "defEn": "íngméng",
-   "pos": "n",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "我很喜歡越南的醬料,還有不加醋,加檸檬汁的越南菜",
@@ -3438,10 +3442,10 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "面紙",
-   "pinyin": "facial paper",
+   "pinyin": "miànzhǐ",
    "def": "khăn giấy lau mặt; khăn giấy Kleenex",
    "en": true,
-   "pos": "m",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "桌上有面紙，你自己拿吧。",
@@ -3449,7 +3453,8 @@ export const thoidaiVocab3 = {
      "t": "Trên bàn có khăn giấy, bạn tự lấy đi."
     }
    ],
-   "audio": "/audio/thoidai-tu/B3L04-2-09.mp3"
+   "audio": "/audio/thoidai-tu/B3L04-2-09.mp3",
+   "defEn": "facial paper"
   },
   {
    "hanzi": "抽",
@@ -3560,7 +3565,7 @@ export const thoidaiVocab3 = {
    "pinyin": "mǔzǐ",
    "def": "mẹ con",
    "en": true,
-   "pos": "m",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "顏太太很會保養，母子兩人站在一起時，看起來就像一對姊弟。",
@@ -3605,7 +3610,7 @@ export const thoidaiVocab3 = {
    "pinyin": "nǎi",
    "def": "vú; sữa; cho bú",
    "en": true,
-   "pos": "n",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "餵他喝奶",
@@ -3903,10 +3908,10 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "木",
-   "pinyin": "wood",
-   "def": "ù",
+   "pinyin": "mù",
+   "def": "gỗ; cây",
    "en": true,
-   "pos": "m",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "可是社群周圍有很多樹木被吹倒了",
@@ -3914,7 +3919,8 @@ export const thoidaiVocab3 = {
      "t": "Nhưng nhiều cây cối quanh khu dân cư bị gió thổi đổ"
     }
    ],
-   "audio": "/audio/thoidai-tu/B3L05-1-09.mp3"
+   "audio": "/audio/thoidai-tu/B3L05-1-09.mp3",
+   "defEn": "wood"
   },
   {
    "hanzi": "倒",
@@ -4041,7 +4047,7 @@ export const thoidaiVocab3 = {
    "pinyin": "mǎyǐ",
    "def": "con kiến",
    "en": true,
-   "pos": "m",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "家裡螞蟻多了一點",
@@ -4174,7 +4180,7 @@ export const thoidaiVocab3 = {
   {
    "hanzi": "廣播",
    "pinyin": "guǎngbò",
-   "def": "/Vi",
+   "def": "phát thanh; phát sóng",
    "en": true,
    "pos": "Danh từ",
    "ex": [
@@ -4431,7 +4437,7 @@ export const thoidaiVocab3 = {
    "pinyin": "yěhǎo",
    "def": "cũng được",
    "en": true,
-   "pos": "m",
+   "pos": "",
    "ex": [
     {
      "h": "你不想去也好，我一個人去就行了。",
@@ -4738,7 +4744,7 @@ export const thoidaiVocab3 = {
      "t": "Người Đài Loan khi gặp vấn đề ở nước ngoài có thể gọi ngay số 0800-085-095 \"anh giúp tôi, anh cứu tôi\" để cầu cứu."
     }
    ],
-   "audio": "/audio/thoidai-tu/B3L05-2-20.mp3"
+   "audioTts": "/audio/tts-vi/7a4b8a76a6.mp3"
   },
   {
    "hanzi": "求",
@@ -4827,7 +4833,7 @@ export const thoidaiVocab3 = {
      "t": "Công tác cứu hộ không dễ, sức của một người là không đủ, phải mọi người cùng làm."
     }
    ],
-   "audio": "/audio/thoidai-tu/B3L05-2-26.mp3"
+   "audioTts": "/audio/tts-vi/4754573615.mp3"
   },
   {
    "hanzi": "集合",
@@ -4846,10 +4852,10 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "耐心",
-   "pinyin": "patience",
+   "pinyin": "nàixīn",
    "def": "sự kiên nhẫn",
-   "defEn": "àixīn",
-   "pos": "n",
+   "defEn": "patience",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "每次當我們在學習華語上遇到困難，老師總是耐心地教導大家。",
@@ -4861,10 +4867,10 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "民眾",
-   "pinyin": "people, populace",
+   "pinyin": "mínzhòng",
    "def": "Dân chúng, quần chúng nhân dân",
-   "defEn": "ínzhòng",
-   "pos": "m",
+   "defEn": "people, populace",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "一聽說颱風快來了，許多民眾就去超市搶購蔬菜、水果、泡麵等食物。",
@@ -4998,7 +5004,7 @@ export const thoidaiVocab3 = {
    "pinyin": "mìng",
    "def": "ra lệnh",
    "en": true,
-   "pos": "m",
+   "pos": "Động từ",
    "ex": [
     {
      "h": "國王命下面的人死，那些人就非死不可。",
@@ -5072,7 +5078,7 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "環島",
-   "pinyin": "lǚxíng",
+   "pinyin": "huándǎo",
    "def": "đi vòng quanh đảo",
    "en": true,
    "pos": "Nội động từ",
@@ -5237,7 +5243,7 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "場所",
-   "pinyin": "chǎngshuǒ",
+   "pinyin": "chǎngsuǒ",
    "def": "địa điểm",
    "defEn": "place",
    "pos": "Danh từ",
@@ -5762,10 +5768,10 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "秒",
-   "pinyin": "second",
+   "pinyin": "miǎo",
    "def": "giây (đơn vị thời gian); giây cung (đơn vị đo góc); (khẩu ngữ) ngay lập tức",
    "en": true,
-   "pos": "m",
+   "pos": "Lượng từ",
    "ex": [
     {
      "h": "分分秒秒都很緊張",
@@ -5773,7 +5779,8 @@ export const thoidaiVocab3 = {
      "t": "Từng phút từng giây đều căng thẳng"
     }
    ],
-   "audio": "/audio/thoidai-tu/B3L06-2-05.mp3"
+   "audio": "/audio/thoidai-tu/B3L06-2-05.mp3",
+   "defEn": "second"
   },
   {
    "hanzi": "必要",
@@ -6152,7 +6159,7 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "旅行",
-   "pinyin": "lǔxíng",
+   "pinyin": "lǚxíng",
    "def": "du lịch",
    "defEn": "travel",
    "pos": "Danh từ",
@@ -6347,9 +6354,9 @@ export const thoidaiVocab3 = {
   {
    "hanzi": "難忘",
    "pinyin": "nánwàng",
-   "def": "ánwàng",
+   "def": "khó quên",
    "en": true,
-   "pos": "n",
+   "pos": "Tính từ",
    "ex": [
     {
      "h": "真好!我猜,這次的環島旅行一定讓你姐姐很難忘吧?",
@@ -6571,10 +6578,10 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "迷人",
-   "pinyin": "charming, charm",
+   "pinyin": "mírén",
    "def": "quyến rũ, hấp dẫn",
-   "defEn": "írén",
-   "pos": "m",
+   "defEn": "charming, charm",
+   "pos": "Tính từ",
    "ex": [
     {
      "h": "何小姐地個性溫柔，笑起來也很迷人，所以追求她的人很多。",
@@ -7142,10 +7149,10 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "名牌",
-   "pinyin": "brand name",
-   "def": "íngpái",
+   "pinyin": "míngpái",
+   "def": "hàng hiệu, thương hiệu nổi tiếng",
    "en": true,
-   "pos": "m",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "只愛買名牌的人。",
@@ -7153,7 +7160,8 @@ export const thoidaiVocab3 = {
      "t": "Người chỉ thích mua hàng hiệu."
     }
    ],
-   "audio": "/audio/thoidai-tu/B3L08-1-04.mp3"
+   "audio": "/audio/thoidai-tu/B3L08-1-04.mp3",
+   "defEn": "brand name"
   },
   {
    "hanzi": "看法",
@@ -7543,10 +7551,10 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "魅力",
-   "pinyin": "charm, charisma",
+   "pinyin": "mèilì",
    "def": "Sức hấp dẫn",
-   "defEn": "èilì",
-   "pos": "m",
+   "defEn": "charm, charisma",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "難怪越來越有魅力了。",
@@ -7648,7 +7656,7 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "播出",
-   "pinyin": "jiānqiáng",
+   "pinyin": "bōchū",
    "def": "phát sóng",
    "en": true,
    "pos": "Động từ",
@@ -7966,7 +7974,7 @@ export const thoidaiVocab3 = {
    "pinyin": "mà",
    "def": "quát mắng, trách mắng",
    "defEn": "à",
-   "pos": "m",
+   "pos": "Động từ",
    "ex": [
     {
      "h": "今天的數學考試我只考了三十分，要是被爸爸知道，他一定會罵我的。",
@@ -8114,7 +8122,7 @@ export const thoidaiVocab3 = {
   {
    "hanzi": "測驗",
    "pinyin": "cèyàn",
-   "def": "/V",
+   "def": "kiểm tra; bài kiểm tra",
    "en": true,
    "pos": "Danh từ",
    "ex": [
@@ -8319,7 +8327,7 @@ export const thoidaiVocab3 = {
      "t": "Đúng vậy, không chỉ cách dạy thay đổi mà chế độ thi lên lớp cũng đổi rồi"
     }
    ],
-   "audio": "/audio/thoidai-tu/B3L09-1-28.mp3"
+   "audioTts": "/audio/tts-vi/a735839fbd.mp3"
   },
   {
    "hanzi": "特殊",
@@ -8625,7 +8633,7 @@ export const thoidaiVocab3 = {
    "pinyin": "mǎn",
    "def": "đủ, tròn (tuổi)",
    "defEn": "ǎn",
-   "pos": "m",
+   "pos": "Động từ",
    "ex": [
     {
      "h": "張經理今天的工作行程安排得很滿，連吃飯、休息的時間都沒有。",
@@ -8923,10 +8931,10 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "毛病",
-   "pinyin": "problem",
-   "def": "áobìng",
+   "pinyin": "máobìng",
+   "def": "tật, chứng bệnh; khuyết điểm, trục trặc",
    "en": true,
-   "pos": "m",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "我爺爺年紀大了，不但體力不好，還有頭痛、肩膀痛的毛病。",
@@ -8934,7 +8942,8 @@ export const thoidaiVocab3 = {
      "t": "Ông tôi tuổi cao rồi, không chỉ thể lực kém mà còn hay bị chứng đau đầu, đau vai."
     }
    ],
-   "audio": "/audio/thoidai-tu/B3L10-1-07.mp3"
+   "audio": "/audio/thoidai-tu/B3L10-1-07.mp3",
+   "defEn": "problem"
   },
   {
    "hanzi": "直到",
@@ -9161,10 +9170,10 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "年齡",
-   "pinyin": "age",
+   "pinyin": "niánlíng",
    "def": "tuổi tác",
-   "defEn": "iánlíng",
-   "pos": "n",
+   "defEn": "age",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "免費健檢的物件,好像年齡得滿40歲,我還年輕呢。",
@@ -9176,10 +9185,10 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "沒什麼",
-   "pinyin": "does not matter",
-   "def": "éishénme",
+   "pinyin": "méishénme",
+   "def": "không có gì; không sao",
    "en": true,
-   "pos": "m",
+   "pos": "Tính từ",
    "ex": [
     {
      "h": "主管：你太客氣了！這點兒小事真的沒什麼。",
@@ -9187,7 +9196,8 @@ export const thoidaiVocab3 = {
      "t": "Cấp trên: Anh khách sáo quá! Chút chuyện nhỏ này thật sự chẳng có gì."
     }
    ],
-   "audio": "/audio/thoidai-tu/B3L10-1-24.mp3"
+   "audio": "/audio/thoidai-tu/B3L10-1-24.mp3",
+   "defEn": "does not matter"
   },
   {
    "hanzi": "可靠",
@@ -9926,7 +9936,7 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "進一步",
-   "pinyin": "jìngyíbù",
+   "pinyin": "jìnyíbù",
    "def": "thêm một bước, hơn nữa",
    "defEn": "further",
    "pos": "Phó từ",
@@ -9986,10 +9996,10 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "陌生",
-   "pinyin": "strange,",
+   "pinyin": "mòshēng",
    "def": "xa lạ",
-   "defEn": "òshēng",
-   "pos": "m",
+   "defEn": "strange",
+   "pos": "Tính từ",
    "ex": [
     {
      "h": "雖然對她不陌生",
@@ -10256,7 +10266,7 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "社群網站",
-   "pinyin": "shèqún",
+   "pinyin": "shèqún wǎngzhàn",
    "def": "mạng xã hội",
    "en": true,
    "pos": "Thành ngữ",
@@ -10406,10 +10416,10 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "面",
-   "pinyin": "face",
+   "pinyin": "miàn",
    "def": "tấm (lượng từ cho tường, gương, cờ); lần gặp mặt",
    "en": true,
-   "pos": "m",
+   "pos": "Lượng từ",
    "ex": [
     {
      "h": "我看見路口有人舉著一面牌子，上面是銷售房屋的廣告。",
@@ -10417,7 +10427,8 @@ export const thoidaiVocab3 = {
      "t": "Tôi thấy ở ngã tư có người giơ một tấm biển, trên đó là quảng cáo bán nhà."
     }
    ],
-   "audio": "/audio/thoidai-tu/B3L11-2-10.mp3"
+   "audio": "/audio/thoidai-tu/B3L11-2-10.mp3",
+   "defEn": "face"
   },
   {
    "hanzi": "對",
@@ -10556,10 +10567,10 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "某",
-   "pinyin": "certain, some",
+   "pinyin": "mǒu",
    "def": "một… nào đó",
-   "defEn": "ǒu",
-   "pos": "m",
+   "defEn": "certain, some",
+   "pos": "Định từ",
    "ex": [
     {
      "h": "某年某月的某一天，你會找到心中最理想的結婚對象，現在別急。",
@@ -10786,7 +10797,7 @@ export const thoidaiVocab3 = {
    "pinyin": "miànshì",
    "def": "phỏng vấn",
    "defEn": "iànshì",
-   "pos": "m",
+   "pos": "",
    "ex": [
     {
      "h": "弟弟因為明天要去大學面試，緊張得整個晚上都睡不好。",
@@ -11022,10 +11033,10 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "鬧鐘",
-   "pinyin": "alarm clock",
+   "pinyin": "nàozhōng",
    "def": "đồng hồ báo thức",
    "en": true,
-   "pos": "n",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "因為鬧鐘壞了,我睡到八點才醒來",
@@ -11033,7 +11044,8 @@ export const thoidaiVocab3 = {
      "t": "Vì đồng hồ báo thức hỏng nên tôi ngủ tới tám giờ mới dậy"
     }
    ],
-   "audio": "/audio/thoidai-tu/B3L12-1-18.mp3"
+   "audio": "/audio/thoidai-tu/B3L12-1-18.mp3",
+   "defEn": "alarm clock"
   },
   {
    "hanzi": "醒來",
@@ -11249,7 +11261,7 @@ export const thoidaiVocab3 = {
    "pinyin": "duōduōshǎoshǎo",
    "def": "ít nhiều",
    "en": true,
-   "pos": "m",
+   "pos": "Phó từ",
    "ex": [
     {
      "h": "多多少少需要一點運氣",
@@ -11262,9 +11274,9 @@ export const thoidaiVocab3 = {
   {
    "hanzi": "忙不過來",
    "pinyin": "mángbù guòlái",
-   "def": "ángbúguòlái",
+   "def": "bận không xuể, làm không kịp",
    "en": true,
-   "pos": "m",
+   "pos": "",
    "ex": [
     {
      "h": "我打工的餐廳一到週末就客滿，忙不過來的時候，連老闆的叔",
@@ -11336,7 +11348,7 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "儘管",
-   "pinyin": "jǐngguǎn",
+   "pinyin": "jǐnguǎn",
    "def": "mặc dù",
    "defEn": "even though,",
    "pos": "Liên từ",
@@ -11367,9 +11379,9 @@ export const thoidaiVocab3 = {
   {
    "hanzi": "木頭",
    "pinyin": "mùtou",
-   "def": "ùtou",
+   "def": "gỗ, khúc gỗ; (người) đờ đẫn",
    "en": true,
-   "pos": "m",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "絕對不能像木頭一樣沒反應",
@@ -11639,7 +11651,7 @@ export const thoidaiVocab3 = {
   {
    "hanzi": "記錄",
    "pinyin": "jìlù",
-   "def": "/V",
+   "def": "ghi chép; bản ghi chép",
    "en": true,
    "pos": "Danh từ",
    "ex": [
@@ -11698,10 +11710,10 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "密碼",
-   "pinyin": "code",
+   "pinyin": "mìmǎ",
    "def": "mã hóa; mã bí mật; mật khẩu; mã PIN",
    "en": true,
-   "pos": "m",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "建立賬號密碼,就能用了。",
@@ -11709,11 +11721,12 @@ export const thoidaiVocab3 = {
      "t": "Lập tài khoản mật khẩu là dùng được."
     }
    ],
-   "audio": "/audio/thoidai-tu/B3L13-1-07.mp3"
+   "audio": "/audio/thoidai-tu/B3L13-1-07.mp3",
+   "defEn": "code"
   },
   {
    "hanzi": "自動",
-   "pinyin": "dúzhě",
+   "pinyin": "zìdòng",
    "def": "tự động",
    "defEn": "reader",
    "pos": "Danh từ",
@@ -11863,7 +11876,7 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "電子信箱",
-   "pinyin": "diànzǐ xìngxiāng",
+   "pinyin": "diànzǐ xìnxiāng",
    "def": "hộp thư điện tử",
    "en": true,
    "pos": "Danh từ",
@@ -11878,7 +11891,7 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "信箱",
-   "pinyin": "xìngxiāng",
+   "pinyin": "xìnxiāng",
    "def": "hộp thư; hộp thư bưu điện",
    "en": true,
    "pos": "Danh từ",
@@ -12341,10 +12354,10 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "內",
-   "pinyin": "inside",
+   "pinyin": "nèi",
    "def": "trong vòng",
-   "defEn": "èi",
-   "pos": "n",
+   "defEn": "inside",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "外面風大雨大，媽媽只好把還沒乾的衣服收進來，掛在屋內。",
@@ -12415,10 +12428,10 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "沒",
-   "pinyin": "gone",
+   "pinyin": "méi",
    "def": "Không",
-   "defEn": "éi",
-   "pos": "m",
+   "defEn": "gone",
+   "pos": "Phó từ",
    "ex": [
     {
      "h": "他把存了半輩子的錢都拿去做生意，結果生意不成功，錢都沒了。",
@@ -12806,7 +12819,7 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "銀河",
-   "pinyin": "Yínghé",
+   "pinyin": "Yínhé",
    "def": "dải Ngân Hà",
    "en": true,
    "pos": "Danh từ",
@@ -12866,10 +12879,10 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "農曆",
-   "pinyin": "lunar calendar",
+   "pinyin": "nónglì",
    "def": "âm lịch (nghĩa đen: lịch nông nghiệp)",
-   "defEn": "ónglì",
-   "pos": "n",
+   "defEn": "lunar calendar",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "農曆七月初七是所謂的七夕",
@@ -12897,9 +12910,9 @@ export const thoidaiVocab3 = {
   {
    "hanzi": "年年",
    "pinyin": "niánnián",
-   "def": "iánnián",
+   "def": "năm nào cũng; hằng năm",
    "en": true,
-   "pos": "n",
+   "pos": "Phó từ",
    "ex": [
     {
      "h": "這座島的風景很美，旅館價格也很合理，難怪不少遊客年年都來這裡旅行。",
@@ -13470,7 +13483,7 @@ export const thoidaiVocab3 = {
    "pinyin": "máo",
    "def": "hào (đơn vị tiền)",
    "en": true,
-   "pos": "m",
+   "pos": "Lượng từ",
    "ex": [
     {
      "h": "那隻狗身上的毛又髒又臭，好像生病了。",
@@ -13575,7 +13588,7 @@ export const thoidaiVocab3 = {
    "pinyin": "shífēn",
    "def": "rất; hoàn toàn; cực kỳ",
    "en": true,
-   "pos": "adv",
+   "pos": "Phó từ",
    "ex": [
     {
      "h": "這座城市不但交通十分便利，生活水準也很高，大家都想搬來這裡住。",
@@ -13869,10 +13882,10 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "碼頭",
-   "pinyin": "pier",
+   "pinyin": "mǎtóu",
    "def": "bến tàu; bến cảng; cầu tàu",
    "en": true,
-   "pos": "m",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "我還可以帶你去淡水碼頭看夕陽",
@@ -13880,7 +13893,8 @@ export const thoidaiVocab3 = {
      "t": "Tôi còn có thể dẫn bạn tới bến Đạm Thuỷ ngắm hoàng hôn"
     }
    ],
-   "audio": "/audio/thoidai-tu/B3L15-1-30.mp3"
+   "audio": "/audio/thoidai-tu/B3L15-1-30.mp3",
+   "defEn": "pier"
   },
   {
    "hanzi": "夕陽",
@@ -14049,9 +14063,9 @@ export const thoidaiVocab3 = {
   {
    "hanzi": "沒話說",
    "pinyin": "méi huàshuō",
-   "def": "éi huà shuō",
+   "def": "khỏi phải nói, không chê vào đâu được",
    "en": true,
-   "pos": "m",
+   "pos": "Cụm từ",
    "ex": [
     {
      "h": "臺灣的芒果冰好吃得沒話說，連吃",
@@ -14227,10 +14241,10 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "秘密",
-   "pinyin": "secret",
-   "def": "ìmì",
+   "pinyin": "mìmì",
+   "def": "bí mật",
    "en": true,
-   "pos": "m",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "還有機會發現歷史上的秘密呢",
@@ -14238,7 +14252,8 @@ export const thoidaiVocab3 = {
      "t": "Còn có cơ hội phát hiện bí mật trong lịch sử đấy"
     }
    ],
-   "audio": "/audio/thoidai-tu/B3L15-2-12.mp3"
+   "audio": "/audio/thoidai-tu/B3L15-2-12.mp3",
+   "defEn": "secret"
   },
   {
    "hanzi": "維持",
@@ -14361,7 +14376,7 @@ export const thoidaiVocab3 = {
   {
    "hanzi": "建設",
    "pinyin": "jiànshè",
-   "def": "/N",
+   "def": "xây dựng; kiến thiết",
    "en": true,
    "pos": "Động từ",
    "ex": [
@@ -14543,9 +14558,9 @@ export const thoidaiVocab3 = {
   {
    "hanzi": "麵條",
    "pinyin": "miàntiáo",
-   "def": "iàntiáo",
+   "def": "mì sợi",
    "en": true,
-   "pos": "m",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "你看,這包麵條跟這幾袋玉米都打六折,好便宜,可以吃好幾頓呢!",
@@ -14646,7 +14661,7 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "面積",
-   "pinyin": "area",
+   "pinyin": "miànjī",
    "def": "diện tích (của sàn, mảnh đất, v.v.); diện tích bề mặt; khu đất",
    "en": true,
    "pos": "Danh từ",
@@ -14657,7 +14672,8 @@ export const thoidaiVocab3 = {
      "t": "Cũng có thể dùng phương pháp khoa học để mở rộng diện tích sản xuất ở một số khu vực."
     }
    ],
-   "audioTts": "/audio/tts-vi/80855500a7.mp3"
+   "audioTts": "/audio/tts-vi/80855500a7.mp3",
+   "defEn": "area"
   },
   {
    "hanzi": "至少",
@@ -14691,10 +14707,10 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "農業",
-   "pinyin": "agriculture",
+   "pinyin": "nóngyè",
    "def": "nông nghiệp",
-   "defEn": "óngyè",
-   "pos": "n",
+   "defEn": "agriculture",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "古時候中國是一個農業國家",
@@ -14784,7 +14800,7 @@ export const thoidaiVocab3 = {
    "pinyin": "mùqián",
    "def": "hiện tại, trước mắt",
    "defEn": "ùqián",
-   "pos": "m",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "為了使市區的交通更便利，目前黃市長正進行各種改善計畫。",
@@ -14811,10 +14827,10 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "密切",
-   "pinyin": "close, intimate",
-   "def": "ìqiè",
+   "pinyin": "mìqiè",
+   "def": "mật thiết; gần gũi",
    "en": true,
-   "pos": "m",
+   "pos": "Tính từ",
    "ex": [
     {
      "h": "飲食與健康有密切的關係，所以人人都應該按時吃三餐。",
@@ -14822,7 +14838,8 @@ export const thoidaiVocab3 = {
      "t": "Ăn uống có quan hệ mật thiết với sức khoẻ nên ai cũng nên ăn đủ ba bữa đúng giờ."
     }
    ],
-   "audio": "/audio/thoidai-tu/B3L16-1-19.mp3"
+   "audio": "/audio/thoidai-tu/B3L16-1-19.mp3",
+   "defEn": "close, intimate"
   },
   {
    "hanzi": "發明",
@@ -14976,7 +14993,7 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "食物",
-   "pinyin": "shíwù yínháng",
+   "pinyin": "shíwù",
    "def": "thức ăn",
    "defEn": "food bank",
    "pos": "Danh từ",
@@ -15200,10 +15217,10 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "米飯",
-   "pinyin": "cooked rice",
+   "pinyin": "mǐfàn",
    "def": "(cơm) đã nấu",
    "en": true,
-   "pos": "m",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "裡面擺著沒賣完但還新鮮的米飯",
@@ -15211,7 +15228,8 @@ export const thoidaiVocab3 = {
      "t": "Bên trong bày cơm chưa bán hết nhưng vẫn còn tươi"
     }
    ],
-   "audio": "/audio/thoidai-tu/B3L16-2-15.mp3"
+   "audio": "/audio/thoidai-tu/B3L16-2-15.mp3",
+   "defEn": "cooked rice"
   },
   {
    "hanzi": "餐桌",
@@ -15348,7 +15366,7 @@ export const thoidaiVocab3 = {
   },
   {
    "hanzi": "無論",
-   "pinyin": "wúlùnrúhé",
+   "pinyin": "wúlùn",
    "def": "bất kể, bất luận",
    "defEn": "in any case,",
    "pos": "Liên từ",

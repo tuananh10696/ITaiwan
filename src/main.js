@@ -643,6 +643,10 @@ async function init() {
   if (!mangYeu) {
     const ranh = window.requestIdleCallback || ((f) => setTimeout(f, 2500));
     ranh(() => { napNgam('thoidai', ['td1-1']); }, { timeout: 6000 });
+    // Chỉ mục mp3 giọng máy (49 KB nén) — làm cho MỌI nút loa không kèm đường dẫn mp3 (thẻ SRS,
+    // sổ tay, từ điển, bộ thủ) phát được giọng thật. Nạp lúc rảnh; chưa xong thì app vẫn dùng
+    // Web Speech như cũ, không chờ.
+    napTtsChiMuc();
   }
 }
 
@@ -1542,6 +1546,8 @@ function navigate(page, params, opts) {
   // Render page
   const content = document.getElementById('page-content');
   content.scrollTop = 0;
+  // Trang cũ biến mất cùng mọi nút tắt của nó — phải tắt tiếng TRƯỚC khi vẽ trang mới.
+  dungMoiAmThanh();
 
   switch (page) {
     case 'dashboard': renderDashboard(content); break;
@@ -1713,7 +1719,7 @@ function renderComingSoon(el, page) {
  *     số liệu kho học liệu chỉ đếm 2/3 bộ giáo trình (thiếu HSK); hub ghi "10 chế độ" nhưng có 8
  *     thẻ, "14.000+ từ TOCFL" trong khi kho thật là 10.927 từ.
  *  4. KHÔNG DẪN ĐI ĐÂU. Mười mấy khu đã làm xong (Lộ trình của tôi, Cộng đồng, Từ điển 122k mục,
- *     Bộ thủ, Thi thử HSK, Gói thành viên) không có lối vào nào từ trang chủ.
+ *     Bộ thủ, Gói thành viên) không có lối vào nào từ trang chủ.
  *
  * Nguyên tắc giữ khi sửa tiếp:
  *  · Mọi con số phải suy từ dữ liệu thật — `GIAO_TRINH` (đếm được ngay) hoặc `/lo-trinh/tong-quan`
@@ -1745,7 +1751,7 @@ function tcSoLieuKho() {
  *   node -e "console.log(Object.keys(require('./public/data/hsk/dethi/index.json')).length)"
  * (đo lại 2026-09-10: 122.596 · 214 · 25 · 14.580 chữ trong chu.json · 18 đề TOCFL)
  */
-const TC_KHO = { tuDien: 122596, boThu: 214, chuHan: 14580, deHsk: 25, deTocfl: 18 };
+const TC_KHO = { tuDien: 122596, boThu: 214, chuHan: 14580, deTocfl: 18 };
 
 const tcSo = (n) => Number(n || 0).toLocaleString('vi-VN');
 
@@ -1866,7 +1872,6 @@ function tcRoadmapHtml(daHoc) {
 /** Lối vào các khu đã làm xong. Trước đây hub trỏ vào 8 thẻ trùng lặp và bỏ quên nửa ứng dụng. */
 const TC_HUB = [
   { page: 'exam', icon: 'fa-solid fa-file-pen', title: 'Thi thử TOCFL', desc: '18 đề có audio gốc', cls: 'blue' },
-  { page: 'hsk-exam', icon: 'fa-solid fa-list-check', title: 'Thi thử HSK', desc: '25 đề, chấm tự động', cls: 'indigo' },
   { page: 'pron-thanhmau', icon: 'fa-solid fa-volume-high', title: 'Học phát âm', desc: 'Thanh mẫu · vận mẫu · thanh điệu', cls: 'cyan' },
   { page: 'dictionary', icon: 'fa-solid fa-book-open', title: 'Từ điển Trung–Việt', desc: '122.596 mục, tra theo nét', cls: 'sky' },
   { page: 'radicals', icon: 'fa-solid fa-torii-gate', title: '214 bộ thủ', desc: 'Kèm âm Hán Việt', cls: 'rose' },
@@ -2667,12 +2672,12 @@ function renderExamTaking(el) {
         ${q.audioSrc ? `
           <div style="padding:10px 14px;background:var(--surface);border-radius:12px;margin-bottom:12px;display:flex;align-items:center;gap:12px">
             <i class="fa-solid fa-headphones" style="color:var(--primary);font-size:16px"></i>
-            <audio controls style="flex:1;height:32px" src="${assetUrl(q.audioSrc)}"></audio>
+            <audio controls style="flex:1;height:32px" src="${_ddOnllangHttps(q.audioSrc)}"></audio>
           </div>` : (q.type === 'listening' && q.audioDesc ? `<div style="padding:16px;background:var(--surface);border-radius:12px;margin-bottom:12px;text-align:center;font-size:14px;color:var(--text-secondary)">${q.audioDesc}</div>` : '')}
 
         ${q.passage ? `<div class="exam-q-hanzi font-tc" style="padding:12px 16px;background:var(--surface);border-radius:12px;margin-bottom:12px;line-height:1.8;font-size:15px">${getDisplayText(q.passage, q.passage)}</div>` : ''}
 
-        ${q.questionImg ? `<div style="margin-bottom:12px;border-radius:12px;overflow:hidden;background:var(--surface);padding:6px;text-align:center"><img src="${q.questionImg}" style="max-width:100%;border-radius:8px;max-height:220px;object-fit:contain" loading="lazy"></div>` : ''}
+        ${q.questionImg ? `<div style="margin-bottom:12px;border-radius:12px;overflow:hidden;background:var(--surface);padding:6px;text-align:center"><img src="${_ddOnllangHttps(q.questionImg)}" style="max-width:100%;border-radius:8px;max-height:220px;object-fit:contain" loading="lazy"></div>` : ''}
 
         ${q.question ? `<div class="exam-q-text font-tc">${getDisplayText(q.question, q.question)}</div>` : ''}
 
@@ -5262,6 +5267,7 @@ function _docTiep() {
 /** Phát MỘT từ rồi gọi `xong()`. Mọi nhánh kết thúc đều phải đi qua `ketThuc` đúng một lần. */
 function _docPhat(m, xong) {
   const nguon = [m.src, m.srcTts].filter(Boolean);
+  if (!nguon.length) { const sanCo = ttsTra(m.text); if (sanCo) nguon.push(sanCo); }
   const a = _doc.audio;
   let daXong = false;
   const ketThuc = () => {
@@ -5332,6 +5338,42 @@ let _ddAudio = null;
  * Mức 2 tồn tại vì cắt từ bản thu chỉ phủ ~78% số từ; 22% còn lại trước đây rơi thẳng xuống
  * giọng máy trình duyệt, nhiều máy nghe rất tệ.
  */
+/**
+ * CHỈ MỤC mp3 giọng máy (chữ Hán -> tên file), sinh bởi `npm run tts:chi-muc`.
+ *
+ * VÌ SAO CẦN: rất nhiều nút loa KHÔNG có đường dẫn mp3 để truyền vào — thẻ ôn tập SRS ở Lộ
+ * trình, sổ tay, trang Từ điển, bộ thủ, và câu hội thoại thiếu bản thu. Chúng rơi thẳng xuống
+ * Web Speech API; máy nào không có giọng tiếng Trung nào thì bấm loa KHÔNG RA TIẾNG GÌ, console
+ * sạch trơn. Kho `tts-vi/` đã có mp3 của 4.150 từ thường gặp, chỉ là tên file băm md5 nên
+ * không tra được từ chữ Hán. Bảng này là cầu nối.
+ *
+ * ⚠️ NẠP LÚC RẢNH, KHÔNG await trong lúc bấm. iOS chỉ cho phát âm thanh trong chính nhịp xử lý
+ * cú chạm; chờ một promise là mất quyền đó (ghi chú ở đầu khối nạp trước audio). Nên `ttsTra()`
+ * là hàm ĐỒNG BỘ: chưa nạp xong thì trả null và app dùng Web Speech như cũ.
+ */
+let _ttsChiMuc = null;
+let _ttsDangNap = false;
+function napTtsChiMuc() {
+  if (_ttsChiMuc || _ttsDangNap) return;
+  _ttsDangNap = true;
+  const ranh = window.requestIdleCallback || ((f) => setTimeout(f, 1200));
+  ranh(() => {
+    fetch('/data/tts-chi-muc.json')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((j) => { if (j && typeof j === 'object') _ttsChiMuc = j; })
+      .catch(() => { /* mất mạng: giữ nguyên đường Web Speech */ })
+      .finally(() => { _ttsDangNap = false; });
+  }, { timeout: 5000 });
+}
+
+/** '你好' -> '/audio/tts-vi/xxxxxxxxxx.mp3', hoặc null nếu chưa nạp / không có. */
+function ttsTra(text) {
+  const t = String(text || '').trim();
+  if (!t || !_ttsChiMuc) return null;
+  const ten = _ttsChiMuc[t];
+  return ten ? `/audio/tts-vi/${ten}.mp3` : null;
+}
+
 function ddSpeakWord(text, src, srcTts, langEp) {
   // HSK là chuẩn ĐẠI LỤC -> giọng zh-CN; hai bộ giáo trình Đài Loan -> zh-TW. Chỉ ảnh hưởng
   // nhánh cuối (Web Speech API); hai nhánh mp3 phía trước đã là giọng đúng của từng bộ rồi.
@@ -5341,7 +5383,13 @@ function ddSpeakWord(text, src, srcTts, langEp) {
   // TB().gianThe có thể đang là HSK và đọc từ tiếng Đài Loan bằng giọng đại lục.
   ddDocDung();   // đang nghe hàng loạt mà bấm một từ -> dừng lượt, đừng để hai tiếng chồng nhau
   const lang = langEp || (TB().gianThe ? 'zh-CN' : 'zh-TW');
+  // Nơi gọi không kèm mp3 nào (thẻ SRS · sổ tay · từ điển · bộ thủ) thì tra chỉ mục: có mp3 sẵn
+  // là nghe được giọng thật thay vì phụ thuộc giọng của máy người dùng.
   const nguon = [src, srcTts].filter(Boolean);
+  if (!nguon.length) {
+    const sanCo = ttsTra(text);
+    if (sanCo) nguon.push(sanCo);
+  }
   if (!nguon.length) { speakWord(text, lang); return; }
   const thu = (i) => {
     if (i >= nguon.length) { speakWord(text, lang); return; }
@@ -5371,6 +5419,32 @@ function ddSpeakWord(text, src, srcTts, langEp) {
     }
   };
   thu(0);
+}
+
+/**
+ * DỪNG MỌI ÂM THANH đang phát, bất kể của khu nào — 2026-09-30.
+ *
+ * App có BỐN bộ phát độc lập, mỗi bộ giữ phần tử <audio> riêng:
+ *   · `pronAudio`      khu Học phát âm (kèm hàng timer của chuỗi 4 thanh)
+ *   · `_ddAudio`       nút loa một từ
+ *   · `_doc.audio`     lượt "Nghe toàn bộ" danh sách từ
+ *   · `ddDlgState.audio` bản thu hội thoại
+ * Không có bộ nào biết bộ nào, nên rời trang / đổi tab mà không gọi hàm này thì âm thanh CỨ
+ * PHÁT TIẾP ở trang mới — mà nút điều khiển của nó đã bị `innerHTML` mới xoá, tức người dùng
+ * không còn cách nào tắt ngoài F5. Nặng nhất là hội thoại: bản thu dài 2-5 phút.
+ *
+ * Gọi ở `navigate()` và ở chỗ đổi tab của giáo trình. Gọi thừa vô hại.
+ */
+function dungMoiAmThanh() {
+  pronStopSequence();
+  ddDocDung();
+  if (_ddAudio) { try { _ddAudio.pause(); } catch { } _ddAudio = null; }
+  if (ddDlgState.audio) {
+    try { ddDlgState.audio.pause(); } catch { }
+    ddDlgState.playing = false;
+    ddDlgState.motCau = null;
+  }
+  try { if (window.speechSynthesis) window.speechSynthesis.cancel(); } catch { }
 }
 
 function ddToggleVocab(idx) {
@@ -5484,7 +5558,7 @@ function ddDauKhoaHtml(lessonId) {
 // lỗi chung chung — học viên bấm vào một bài có sẵn nội dung mà thấy "chưa có dữ liệu" thì tưởng
 // hệ thống hỏng, và đó cũng là lúc dễ mất khách nhất.
 
-const TEN_BO = { duongdai: 'Giáo trình Đương đại', thoidai: 'Giáo trình Thời Đại', hsk: 'HSK 3.0', 'thi-thu': 'Ngân hàng đề thi thử' };
+const TEN_BO = { thoidai: 'Giáo trình Thời Đại', 'thi-thu': 'Ngân hàng đề thi thử' };
 
 function ddKhoaPanelHtml(khoa, tieuDe = 'Bài này thuộc phần trả phí') {
   const soMo = khoa?.soBaiMo || 3;
@@ -5496,7 +5570,7 @@ function ddKhoaPanelHtml(khoa, tieuDe = 'Bài này thuộc phần trả phí') {
   // thử bài 1" đều vô nghĩa ở đó — nói vậy là hứa một thứ không tồn tại.
   const laThi = khoa?.bo === 'thi-thu';
   const loiGiaiThich = laThi
-    ? 'Ngân hàng 25 đề thi thử TOCFL và HSK (đề thật của SC-TOP và CTI) mở khi bạn có gói học hoặc mua riêng phần thi thử.'
+    ? `Ngân hàng ${TC_KHO.deTocfl} đề thi thử TOCFL (đề thật của SC-TOP) mở khi bạn có gói học hoặc mua riêng phần thi thử.`
     : `Bạn đang xem <strong>${tdEsc(ten)}</strong>. ${soMo} bài đầu của mỗi quyển/cấp mở miễn phí cho mọi người${state.isLoggedIn ? '' : ', kể cả khi chưa đăng nhập'} — từ bài ${soMo + 1} trở đi cần mở khoá.`;
   return `
     <div class="dd-khoa-panel">
@@ -5594,6 +5668,10 @@ function ddRenderTabContent() {
       </div>`;
     return;
   }
+
+  // Đổi tab cũng là đổi hẳn nội dung khung: bản thu hội thoại đang phát mà nhảy sang tab Từ
+  // vựng thì thanh điều khiển mất, tiếng vẫn còn.
+  dungMoiAmThanh();
 
   if (ddState.activeTab === 'vocab') ddRenderVocabList(el);
   else if (ddState.activeTab === 'flashcard') ddRenderFlashcard(el);
@@ -5788,7 +5866,7 @@ function _tvToolbarHtml(ds, tongCap) {
 /** Một thẻ từ. Dùng lại nguyên class .dd-vocab-* của giáo trình để giao diện không lệch. */
 function _tvWordHtml(w, num, i) {
   const hien = getDisplayText(w.hanzi, w.simplified);
-  const arg = `'${String(hien).replace(/'/g, "\\'")}', ${w.audio ? `'${w.audio}'` : 'null'}, ${w.audioTts ? `'${w.audioTts}'` : 'null'}, 'zh-TW'`;
+  const arg = `'${tdNhay(hien)}', ${w.audio ? `'${w.audio}'` : 'null'}, ${w.audioTts ? `'${w.audioTts}'` : 'null'}, 'zh-TW'`;
   return `
     <div class="dd-vocab-card">
       <div class="dd-vocab-main" onclick="window.app.tvToggle(${i})">
@@ -5901,7 +5979,7 @@ function _tvRenderFc(el) {
   napTruocAudioTu(deck.slice(tvState.fcIdx, tvState.fcIdx + 12), 12);
   const w = deck[tvState.fcIdx];
   const hien = getDisplayText(w.hanzi, w.simplified);
-  const arg = `'${String(hien).replace(/'/g, "\\'")}', ${w.audio ? `'${w.audio}'` : 'null'}, ${w.audioTts ? `'${w.audioTts}'` : 'null'}, 'zh-TW'`;
+  const arg = `'${tdNhay(hien)}', ${w.audio ? `'${w.audio}'` : 'null'}, ${w.audioTts ? `'${w.audioTts}'` : 'null'}, 'zh-TW'`;
   el.innerHTML = `
     <div class="tv-fc-bar">
       <span class="dd-vocab-count">Thẻ ${tvState.fcIdx + 1} / ${deck.length}</span>
@@ -6801,15 +6879,32 @@ function ddGramExampleHtml(ex, i) {
     </div>`;
 }
 
+/**
+ * `formula` là LỜI GIẢNG NGUYÊN VĂN bóc từ PPT gốc của 淡江大學華語中心 — tiếng Anh ở quyển 1-2,
+ * tiếng Trung ở quyển 3-5. Còn `giaiThich` chính là bản tiếng Việt DỊCH TỪ nó
+ * (gen-thoidai-grammar-vi.mjs lấy `points[].formula` làm bản gốc để soạn).
+ *
+ * Nên khi đã có `giaiThich` thì hiện thêm `formula` là lặp lại cùng một nội dung bằng thứ tiếng
+ * học viên không đọc — đây đúng là chỗ làm cho tab Ngữ pháp "toàn tiếng Anh" (2026-09-30).
+ * Tệ hơn: bản bóc PPT nhiều chỗ LẪN nội dung của điểm khác hoặc lẫn cả mảnh glossary tiếng Anh
+ * (vd điểm 及時 mang theo "influencer, internet celebrity to change with each passing day…"),
+ * tức nó không chỉ dư mà còn SAI.
+ *
+ * Giữ nhánh hiện nguyên văn cho trường hợp CHƯA có bản dịch — thà đọc bản gốc còn hơn trống.
+ */
+const ddGramNguyenVan = (p, coViet) => (!p.formula || coViet
+  ? ''
+  : `<div class="dd-gram-formula"><i class="fa-solid fa-diagram-project"></i><span>${tdEsc(p.formula)}</span></div>`);
+
 /** Render 1 điểm (point) bên trong 1 mục ngữ pháp */
-function ddGramPointHtml(p) {
+function ddGramPointHtml(p, _i, _ds, coViet) {
   const exHtml = (p.examples || []).map(ddGramExampleHtml).join('');
   const nhan = ddGramNhan(p.label);
   const icon = DD_GRAM_ICON[nhan] || 'fa-angle-right';
   return `
     <div class="dd-gram-point">
       ${nhan ? `<div class="dd-gram-point-label"><i class="fa-solid ${icon}"></i>${nhan}</div>` : ''}
-      ${p.formula ? `<div class="dd-gram-formula"><i class="fa-solid fa-diagram-project"></i><span>${p.formula}</span></div>` : ''}
+      ${ddGramNguyenVan(p, coViet)}
       ${exHtml ? `<div class="dd-gram-ex-list">${exHtml}</div>` : ''}
       ${ddGramTableHtml(p.table)}
       ${p.answer ? `<div class="dd-gram-answer"><i class="fa-solid fa-circle-check"></i><span><b>Trả lời:</b> ${p.answer}</span></div>` : ''}
@@ -6848,9 +6943,23 @@ function ddGramBoSo(raw) {
   return String(raw || '').replace(/^([IVXⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩ]+|\d+)\s*[.、]\s*/, '').trim();
 }
 
+/**
+ * Tiêu đề gốc có đáng hiện làm dòng phụ không.
+ *
+ * 200/376 tiêu đề gốc là MẪU NGỮ PHÁP thuần chữ Hán (`從……到……（時間）`, `就(要)⋯⋯了`) — đó là
+ * thứ học viên cần nhìn thấy đúng nguyên dạng. 176 cái còn lại là câu tiếng Anh của PPT gốc
+ * ("的 with Nouns Modified by Clauses"), và `titleVi` đã giữ trọn phần chữ Hán của chúng
+ * (`的 nối mệnh đề với danh từ`) nên bỏ đi không mất thông tin nào.
+ *
+ * Xét theo "có chữ Latin hay không" chứ KHÔNG tách tiêu đề làm hai phần Hán/Anh: pinyin nằm xen
+ * ngay sau chữ Hán nên mọi cách tách đều cắt cụt mẫu (xem ghi chú ở `ddGramBoSo`).
+ */
+const ddGramHienGoc = (goc) => !!goc && !/[A-Za-z]/.test(goc);
+
 /** Render 1 mục ngữ pháp (item) — gồm nhiều điểm (points) */
 function ddGramItemHtml(item, i) {
   const goc = ddGramBoSo(item.title);
+  const coViet = !!item.giaiThich;
   return `
     <div class="dd-gram-card">
       <div class="dd-gram-card-header">
@@ -6858,7 +6967,7 @@ function ddGramItemHtml(item, i) {
         <div class="dd-gram-head-text">
           ${item.titleVi
             ? `<h3 class="dd-gram-title-vi">${item.titleVi}</h3>
-               <div class="dd-gram-title-en font-tc">${H(goc)}</div>`
+               ${ddGramHienGoc(goc) ? `<div class="dd-gram-title-en font-tc">${H(goc)}</div>` : ''}`
             : `<h3 class="dd-gram-title font-tc">${H(goc)}</h3>`}
         </div>
       </div>
@@ -6866,7 +6975,7 @@ function ddGramItemHtml(item, i) {
         <span>${item.giaiThich}</span></div>` : ''}
       ${ddGramTableHtml(item.table)}
       <div class="dd-gram-points">
-        ${(item.points || []).map(ddGramPointHtml).join('')}
+        ${(item.points || []).map((p, k, ds) => ddGramPointHtml(p, k, ds, coViet)).join('')}
       </div>
       ${ddGramNoteHtml(item.note, 'dd-gram-note-item')}
     </div>`;
@@ -6888,7 +6997,7 @@ function ddRenderGrammar(el) {
     <div class="dd-vocab-header">
       <span class="dd-vocab-count"><i class="fa-solid fa-book-open"></i> ${items.length} mục ngữ pháp</span>
       ${coGiai ? `<span class="dd-gram-badge"><i class="fa-solid fa-graduation-cap"></i> ${coGiai} mục có giải thích</span>` : ''}
-      ${tongVd ? `<span class="dd-gram-badge is-ex"><i class="fa-solid fa-language"></i> ${vdDich}/${tongVd} ví dụ có nghĩa</span>` : ''}
+      ${tongVd ? `<span class="dd-gram-badge is-ex"><i class="fa-solid fa-language"></i> ${vdDich ? `${vdDich}/${tongVd} ví dụ có nghĩa` : `${tongVd} câu ví dụ`}</span>` : ''}
     </div>
     <div class="dd-gram-list">
       ${items.map(ddGramItemHtml).join('')}
@@ -6953,7 +7062,7 @@ function ddRenderVocabList(el) {
               <div class="dd-vocab-def">${w.def}</div>
             </div>
             <div class="dd-vocab-actions">
-              <button class="dd-btn-speak" onclick="event.stopPropagation(); window.app.ddSpeakWord('${w.hanzi.replace(/'/g, "\\'")}', ${w.audio ? `'${w.audio}'` : 'null'}${w.audioTts ? `, '${w.audioTts}'` : ''})" title="${w.audio ? 'Nghe giọng đọc của sách' : 'Phát âm'}">
+              <button class="dd-btn-speak" onclick="event.stopPropagation(); window.app.ddSpeakWord('${tdNhay(w.hanzi)}', ${w.audio ? `'${w.audio}'` : 'null'}${w.audioTts ? `, '${w.audioTts}'` : ''})" title="${w.audio ? 'Nghe giọng đọc của sách' : 'Phát âm'}">
                 <i class="fa-solid fa-volume-high"></i>
               </button>
               ${tdNutLuuTuHtml(w.traditional || w.hanzi, TB().gianThe ? w.hanzi : (w.simplified || ''), w.pinyin, w.def)}
@@ -7011,7 +7120,7 @@ function ddRenderFcCard() {
 
   front.innerHTML = `
     <div class="dd-fc-hanzi font-tc">${ddChuChinh(w)}</div>
-    <button class="dd-fc-speak" onclick="event.stopPropagation(); window.app.ddSpeakWord('${w.hanzi.replace(/'/g, "\\'")}', ${w.audio ? `'${w.audio}'` : 'null'}${w.audioTts ? `, '${w.audioTts}'` : ''})">
+    <button class="dd-fc-speak" onclick="event.stopPropagation(); window.app.ddSpeakWord('${tdNhay(w.hanzi)}', ${w.audio ? `'${w.audio}'` : 'null'}${w.audioTts ? `, '${w.audioTts}'` : ''})">
       <i class="fa-solid fa-volume-high"></i>
     </button>`;
 
@@ -7036,6 +7145,9 @@ const ddDlgState = {
   showTrans: true,
   loopCue: false,
   speed: 1,
+  // Chỉ số câu đang nghe RIÊNG (nút loa của từng câu). Khác `currentCue`: tới `cues[i].end` là
+  // dừng hẳn thay vì chạy tiếp sang câu sau. `null` = đang phát cả bài như thường.
+  motCau: null,
 };
 
 function ddRenderDialogue(el) {
@@ -7105,7 +7217,8 @@ function ddRenderDialogue(el) {
               <div class="dd-dlg-cue-hanzi font-tc">${H(cue.text)}</div>
               ${ddDlgState.showTrans && cue.vi ? `<div class="dd-dlg-cue-trans">${viText}</div>` : ''}
             </div>
-            <button class="dd-dlg-cue-speak" onclick="event.stopPropagation(); window.app.ddSpeakWord('${cue.text.replace(/'/g, "\\'")}')" title="Phát TTS">
+            <button class="dd-dlg-cue-speak" onclick="event.stopPropagation(); window.app.ddDlgNgheCau(${i})"
+              title="Nghe riêng câu này (bản thu của sách)">
               <i class="fa-solid fa-volume-high"></i>
             </button>
           </div>`;
@@ -7144,6 +7257,20 @@ function ddRenderDialogue(el) {
       }
     }
 
+    // Nghe RIÊNG một câu: tới cuối câu đó là dừng, không chạy tiếp sang câu sau.
+    // Xét TRƯỚC chế độ lặp — người vừa bấm loa một câu thì ý họ là nghe đúng câu đó.
+    if (ddDlgState.motCau != null) {
+      const c = cues[ddDlgState.motCau];
+      if (c && t >= c.end) {
+        audio.pause();
+        ddDlgState.playing = false;
+        ddDlgState.motCau = null;
+        const btn = document.getElementById('dd-dlg-play');
+        if (btn) btn.innerHTML = '<i class="fa-solid fa-play"></i>';
+      }
+      return;
+    }
+
     // Loop single cue
     if (ddDlgState.loopCue && activeCue >= 0 && activeCue < cues.length) {
       if (t >= cues[activeCue].end) {
@@ -7179,6 +7306,7 @@ function ddFormatTime(s) {
 function ddDlgTogglePlay() {
   const a = ddDlgState.audio;
   if (!a) return;
+  ddDlgState.motCau = null;    // bấm Phát là nghe cả bài, bỏ chế độ nghe lẻ một câu
   if (ddDlgState.playing) {
     a.pause();
     ddDlgState.playing = false;
@@ -7196,10 +7324,42 @@ function ddDlgGoCue(idx) {
   if (!a || !dialogue) return;
   const cue = dialogue.cues[idx];
   if (cue) {
+    ddDlgState.motCau = null;      // bấm câu trước/sau là nghe tiếp cả bài, không còn nghe lẻ
     a.currentTime = cue.start;
     if (!ddDlgState.playing) { a.play(); ddDlgState.playing = true; }
     const btn = document.getElementById('dd-dlg-play');
     if (btn) btn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+  }
+}
+
+/**
+ * Nút loa của MỘT câu — phát đúng đoạn bản thu của câu đó rồi dừng.
+ *
+ * Trước 2026-09-30 nút này gọi `ddSpeakWord(cue.text)`, tức đọc cả câu bằng Web Speech API.
+ * Hai vấn đề: (1) máy không có giọng zh-TW nào thì bấm không ra tiếng gì; (2) bài hội thoại
+ * có sẵn BẢN THU THẬT của nhà xuất bản kèm mốc thời gian từng câu — đọc bằng giọng máy trong
+ * khi có giọng thật nằm ngay đó là bỏ mất thứ tốt hơn.
+ *
+ * Vẫn giữ Web Speech làm lưới cuối: thiếu thẻ audio (bản thu 404) hoặc `play()` bị chặn thì
+ * đọc máy, đừng để bấm mà im lặng.
+ */
+function ddDlgNgheCau(i) {
+  const dialogue = TB().dialogues[ddState.selectedSub];
+  const cue = dialogue && dialogue.cues && dialogue.cues[i];
+  if (!cue) return;
+  const a = ddDlgState.audio;
+  const doc = () => ddSpeakWord(cue.text);
+  if (!a || !(cue.end > cue.start)) { doc(); return; }
+  try {
+    ddDlgState.motCau = i;
+    a.currentTime = cue.start;
+    ddDlgState.playing = true;
+    const btn = document.getElementById('dd-dlg-play');
+    if (btn) btn.innerHTML = '<i class="fa-solid fa-pause"></i>';
+    a.play().catch(() => { ddDlgState.motCau = null; ddDlgState.playing = false; doc(); });
+  } catch {
+    ddDlgState.motCau = null;
+    doc();
   }
 }
 
@@ -9481,7 +9641,7 @@ function _ddBeeRenderPlaying(el) {
     let cls = '';
     if (st.guessedChars.has(c) && chars.includes(c)) cls = 'guessed-correct';
     else if (st.wrongChars.has(c)) cls = 'guessed-wrong';
-    const safeC = c.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+    const safeC = tdNhay(c);
     return `<button class="dd-bee-char-btn ${cls}" id="dd-bee-c-${i}"
       onclick="window.app.ddGameBeeGuess('${safeC}', ${i})"
       ${cls ? 'disabled' : ''}>${c}</button>`;
@@ -10062,6 +10222,7 @@ window.app = {
   // Hội thoại trong bài
   ddDlgTogglePlay,
   ddDlgGoCue,
+  ddDlgNgheCau,
   ddDlgPrevCue,
   ddDlgNextCue,
   ddDlgToggleLoop,

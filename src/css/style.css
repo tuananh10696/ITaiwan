@@ -2435,12 +2435,27 @@ input, select, textarea {
 }
 
 /* Learning Hub Grid */
+/*
+ * SỐ CỘT CỐ ĐỊNH, không `auto-fill`. Hub có ĐÚNG 6 thẻ (bỏ "Thi thử HSK" 2026-09-30) và
+ * `auto-fill` cho ra 5 hoặc 7 cột ở nhiều bề rộng — 6 thẻ chia 5 cột là thẻ cuối rơi xuống một
+ * hàng riêng, đứng lẻ loi cạnh khoảng trắng (đúng lỗi đã phải sửa một lần ở `.roadmap-grid`).
+ * Ba mốc dưới đây đều là ƯỚC của 6 nên không bao giờ còn hàng lẻ: 2 · 3 · 6.
+ *
+ * ⚠️ Thêm/bớt thẻ hub thì phải chọn lại ba số này cho chia hết số thẻ mới.
+ */
 .hub-grid {
     display: grid;
-    /* auto-fill chứ không phải repeat(2, 1fr): 8 thẻ xếp 2 cột trên màn rộng thì mỗi thẻ dài
-       370px chỉ để chứa một dòng mô tả ba chữ. Tự co về 2 cột ở màn hẹp. */
-    grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 14px;
+}
+
+@media (min-width: 900px) {
+    .hub-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* 1430px là mốc ĐO ĐƯỢC: từ đây cột trái mới đủ rộng (~1080px) cho 6 thẻ mà thẻ vẫn ≥168px. */
+@media (min-width: 1430px) {
+    .hub-grid { grid-template-columns: repeat(6, 1fr); }
 }
 
 .hub-card {

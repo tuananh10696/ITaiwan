@@ -20,6 +20,7 @@
 // =============================================================
 
 import fs from 'fs/promises';
+import fss from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { pinyinChart } from '../src/data/pinyinChartData.js';
@@ -44,21 +45,86 @@ const AM_TIET = (() => {
 const boDau = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[üÜ]/g, 'v').toLowerCase();
 const laHan = (c) => /[一-鿿]/.test(c);
 
-/** "lùrén" -> ["lù","rén"]; không tách được -> null. */
-function tachAmTiet(pinyin) {
-  // Sách Thời Đại hay ghi 2 cách đọc ("nǎ/něi") hoặc kèm chú thích trong ngoặc — chỉ lấy cách
-  // đọc đầu, nếu không thì cả từ bị bỏ vì "số âm tiết không khớp số chữ".
-  const raw = String(pinyin || '').split(/[/／,，]/)[0].replace(/\(.*?\)|（.*?）/g, '').replace(/\s+/g, '');
-  const flat = boDau(raw);
-  if (!flat) return null;
-  const doan = [];
-  let i = 0;
-  while (i < flat.length) {
-    const hit = AM_TIET.find((s) => flat.startsWith(s, i));
-    if (!hit) return null;
-    doan.push([i, i + hit.length]);
-    i += hit.length;
+/**
+ * Cách đọc (bỏ dấu) của từng chữ Hán, lấy từ bảng chữ của trang Từ điển (`chu.json`, cột 1).
+ * Chỉ dùng để CHỌN giữa các cách tách cùng hợp lệ — không có thì tách như cũ.
+ */
+const DOC_CHU = (() => {
+  try {
+    const f = path.join(ROOT, 'public', 'data', 'tudien', 'chu.json');
+    const bang = JSON.parse(fss.readFileSync(f, 'utf8'));
+    const m = new Map();
+    for (const [c, r] of Object.entries(bang)) if (r && r[1]) m.set(c, boDau(String(r[1])));
+    return m;
+  } catch { return new Map(); }
+})();
+// + "r": âm 兒 hoá (這兒 zhèr). Chỉ vào tập dùng cho bước khớp-từng-chữ, và `khop()` chỉ nhận "r"
+// cho đúng chữ 兒 — bước tham lam (AM_TIET) KHÔNG có "r" nên không nuốt nhầm vào chữ khác.
+const AM_SET = new Set([...AM_TIET, 'r']);
+
+/**
+ * "lùrén" + ['路','人'] -> ["lù","rén"]; không tách được đúng số chữ -> null.
+ *
+ * ⚠️ 2026-09-30 — bản cũ tách THAM LAM (khớp âm dài nhất trước) và sai ở mọi ranh giới n/ng:
+ *    珍珠奶茶 zhēnzhūnǎichá -> zhēn|zhūn|ǎi|chá (đúng là zhū|nǎi), 可能 kěnéng -> kěn|éng,
+ *    熱鬧 rènào -> rèn|ào, 蛋糕 dàngāo -> dàng|āo, 嚴格 yángé -> yáng|é … — 23 chữ trong tab Luyện
+ *    viết hiện phiên âm sai mà trông vẫn "đúng dạng pinyin" nên không ai nhận ra.
+ *    Nay xét MỌI cách tách thành đúng N âm tiết hợp lệ, chấm điểm theo số âm tiết khớp cách đọc
+ *    của chính chữ Hán tương ứng, lấy cách điểm cao nhất; hoà điểm thì giữ cách tách tham lam cũ
+ *    để không đổi những chữ vốn đã đúng.
+ */
+function tachAmTiet(pinyin, han) {
+  // Sách Thời Đại hay ghi 2 cách đọc ("nǎ/něi", "zhèlǐ/zhèr") hoặc kèm chú thích trong ngoặc.
+  const cachDoc = String(pinyin || '').split(/[/／,，]/)
+    .map((x) => x.replace(/\(.*?\)|（.*?）/g, '').replace(/\s+/g, '')).filter(Boolean);
+  if (!cachDoc.length) return null;
+  const n = han ? han.length : 0;
+  // 兒 hoá: âm "r" là cách đọc của 兒 trong từ đó (一點兒 yìdiǎnr) — tính là khớp.
+  const khop = (c, am) => DOC_CHU.get(c) === am || (c === '兒' && (am === 'r' || am === 'er'));
+
+  /** Tách tham lam kiểu cũ (khớp âm dài nhất trước). */
+  const thamLam = (flat) => {
+    const doan = [];
+    let i = 0;
+    while (i < flat.length) {
+      const hit = AM_TIET.find((x) => flat.startsWith(x, i));
+      if (!hit) return null;
+      doan.push([i, i + hit.length]);
+      i += hit.length;
+    }
+    return doan;
+  };
+  /** Cách tách thành đúng n âm tiết mà MỌI âm tiết đều khớp cách đọc của chữ tương ứng. */
+  const khopHet = (flat) => {
+    let ra = null;
+    const duyet = (i, k, doan) => {
+      if (ra) return;
+      if (k === n) { if (i === flat.length) ra = [...doan]; return; }
+      for (let len = Math.min(6, flat.length - i); len >= 1; len--) {
+        const am = flat.slice(i, i + len);
+        if (!AM_SET.has(am) || !khop(han[k], am)) continue;
+        doan.push([i, i + len]);
+        duyet(i + len, k + 1, doan);
+        doan.pop();
+      }
+    };
+    duyet(0, 0, []);
+    return ra;
+  };
+
+  // 1) cách đọc nào tách được mà KHỚP HẾT từng chữ -> dùng (xét cả cách đọc thứ hai: 這兒 là
+  //    "zhèr" chứ không phải "zhèlǐ" của 這裡).
+  if (n && DOC_CHU.size) {
+    for (const raw of cachDoc) {
+      const doan = khopHet(boDau(raw));
+      if (doan) return doan.map(([a, b]) => raw.slice(a, b));
+    }
   }
+  // 2) không có (chữ đa âm mà bảng chỉ ghi một cách đọc, cách đọc riêng của Đài Loan…) -> hành vi
+  //    CŨ: tách tham lam cách đọc đầu; lệch số chữ thì nơi gọi bỏ từ đó.
+  const raw = cachDoc[0];
+  const doan = thamLam(boDau(raw));
+  if (!doan) return null;
   return doan.map(([a, b]) => raw.slice(a, b));
 }
 
@@ -81,7 +147,7 @@ async function main() {
         for (const w of tu) {
           const han = [...w.hanzi].filter(laHan);
           if (!han.length) continue;
-          const am = tachAmTiet(w.pinyin);
+          const am = tachAmTiet(w.pinyin, han);
           // Số âm tiết phải bằng số chữ Hán, nếu không thì không biết âm nào của chữ nào.
           if (!am || am.length !== han.length) { boQua++; continue; }
           han.forEach((c, i) => {

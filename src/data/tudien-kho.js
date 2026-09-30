@@ -138,10 +138,10 @@ export const coChuHan = (s) => CO_HAN.test(String(s || ''));
 
 const THU_MUC_AUDIO = {
   w: '/audio/thoidai-tu/',
-  t: '/audio/tts-vi/', b: '/audio/baikhoa/', p: '/audio/pron/',
+  t: '/audio/tts-vi/', p: '/audio/pron/',
 };
 
-/** `d:B2L01-I-1` -> `/audio/dangdai/B2L01-I-1.mp3`. Trả '' khi không có. */
+/** `w:B2L01-1-01` -> `/audio/thoidai-tu/B2L01-1-01.mp3`. Trả '' khi không nhận ra tiền tố. */
 export function tdAudio(ma) {
   if (!ma || typeof ma !== 'string') return '';
   const i = ma.indexOf(':');

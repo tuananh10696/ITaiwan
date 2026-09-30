@@ -99,11 +99,10 @@ async function nguonSach(bo) {
     return { vocab: d.thoidaiVocab, subs: d.thoidaiSubLessons, lessons: d.thoidaiLessons,
              grammar: g.thoidaiGrammar, dialogues: dl.thoidaiDialogues };
   }
-  const d = await import(P('src/data/duongdaiData.js'));
-  const g = await import(P('src/data/duongdaiGrammar.js'));
-  const dl = await import(P('src/data/duongdaiDialogues.js'));
-  return { vocab: d.duongdaiVocab, subs: d.duongdaiSubLessons, lessons: d.duongdaiLessons,
-           grammar: d.duongdaiGrammar || g.duongdaiGrammar, dialogues: dl.duongdaiDialogues };
+  // Bản này CHỈ CÒN bộ Thời Đại — `src/data/duongdai*.js` đã bị gỡ khi tách dự án. Trước
+  // 2026-09-30 dòng này `import` thẳng file không tồn tại nên cả script chết ngay từ đầu, tức
+  // `npm run baitap:kiem-toan` (bước CLAUDE.md yêu cầu) chưa bao giờ chạy được ở bản này.
+  return null;
 }
 const laTD = (id) => /^td\d+-/.test(String(id));
 
@@ -131,6 +130,7 @@ async function kiemLuyenTap() {
   if (!coFile(thuMuc)) { console.log('Chưa có public/data/luyentap — chạy `npm run data:tach`'); return; }
   const N = { thoidai: await nguonSach('thoidai'), duongdai: await nguonSach('duongdai') };
   const toneHints = coFile(P('public/data/onllang-tone-hints.json')) ? J(P('public/data/onllang-tone-hints.json')) : {};
+  let boThieu = 0;
 
   for (const f of fs.readdirSync(thuMuc).sort()) {
     if (f === 'index.json') continue;
@@ -138,6 +138,7 @@ async function kiemLuyenTap() {
     const key = String(bai.lessonId);
     const ans = bai.answers || {};
     const S = N[laTD(key) ? 'thoidai' : 'duongdai'];
+    if (!S) { boThieu++; continue; }   // bài của bộ giáo trình không còn trong bản này
     const tu = S.vocab[key] || [];
     const subs = S.subs.filter((s) => s.parentId === key);
 
@@ -145,9 +146,13 @@ async function kiemLuyenTap() {
     const cueBai = new Set();
     for (const s of subs) for (const c of (S.dialogues[s.id]?.cues || [])) cueBai.add(strip(c.text));
     const npTheoTitle = new Map();
+    // Khoá theo TÊN HIỆN (`titleVi || title`) — đúng cái tên bộ sinh in ra đề, xem `tenMau`
+    // trong gen-luyentap-tusinh.mjs. Khoá theo `d.title` là mọi câu mục IV báo lỗi giả.
     for (const s of subs) for (const d of S.grammar[s.id] || []) {
-      if (!npTheoTitle.has(d.title)) npTheoTitle.set(d.title, new Set());
-      for (const p of d.points || []) for (const e of p.examples || []) if (e.hz) npTheoTitle.get(d.title).add(strip(e.hz));
+      const tenD = String(d.titleVi || d.title || '').replace(/^([IVXⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩ]+|\d+)\s*[.、]\s*/, '').trim();
+      if (!tenD) continue;
+      if (!npTheoTitle.has(tenD)) npTheoTitle.set(tenD, new Set());
+      for (const p of d.points || []) for (const e of p.examples || []) if (e.hz) npTheoTitle.get(tenD).add(strip(e.hz));
     }
     const hint = toneHints[key] || toneHints[String(Number(key))] || null;
 
@@ -296,10 +301,11 @@ async function kiemLuyenTap() {
 // cũng đúng, thì sớm muộn học viên sẽ gặp và bị chấm sai.
 async function kiemTracNghiem() {
   const KHU = 'B · Trắc nghiệm tự sinh';
-  const { generateQuiz } = await import(P('src/data/duongdaiExercise.js'));
+  // File đã đổi tên `duongdaiExercise.js` -> `sinh-de-trac-nghiem.js` (dùng cho MỌI bộ giáo
+  // trình, xem CLAUDE.md). Tên cũ ở đây làm cả khu B không bao giờ chạy.
+  const { generateQuiz } = await import(P('src/data/sinh-de-trac-nghiem.js'));
   const idx = await import(P('src/data/giaotrinh-index.js'));
   const bo = [
-    { subs: idx.duongdaiSubLessons, lessons: idx.duongdaiLessons },
     { subs: idx.thoidaiSubLessons, lessons: idx.thoidaiLessons },
   ];
   const kho = {};

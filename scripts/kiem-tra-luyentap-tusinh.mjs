@@ -21,22 +21,29 @@ const strip = (s) => String(s ?? '').replace(/<[^>]+>/g, '')
   .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').trim();
 const inB = (s) => { const m = String(s).match(/<b>([\s\S]*?)<\/b>/); return m ? strip(m[1]) : null; };
 
+/**
+ * Nguồn dữ liệu sách của một bộ giáo trình.
+ *
+ * ⚠️ Bản này CHỈ CÒN bộ Thời Đại — `src/data/duongdai*.js` đã bị gỡ khi tách dự án. Trước
+ * 2026-09-30 hàm này vẫn `import('src/data/duongdaiData.js')` nên script chết ngay ở dòng đầu
+ * với ERR_MODULE_NOT_FOUND, tức bộ kiểm đáp án mà CLAUDE.md yêu cầu chạy sau mỗi lần sinh đề
+ * CHƯA BAO GIỜ chạy được trong bản này. Trả `null` cho bộ không còn: vòng kiểm bên dưới thấy
+ * `null` thì bỏ qua bài đó và ĐẾM vào `boThieu` để báo ra, chứ không âm thầm coi như đã kiểm.
+ */
 async function nguon(bo) {
-  if (bo === 'thoidai') {
-    const d = await import(path.join(ROOT, 'src/data/thoidaiData.js'));
-    const g = await import(path.join(ROOT, 'src/data/thoidaiGrammar.js'));
-    const dl = await import(path.join(ROOT, 'src/data/thoidaiDialogues.js'));
-    return { vocab: d.thoidaiVocab, subs: d.thoidaiSubLessons, lessons: d.thoidaiLessons,
-             grammar: g.thoidaiGrammar, dialogues: dl.thoidaiDialogues };
-  }
-  const d = await import(path.join(ROOT, 'src/data/duongdaiData.js'));
-  const g = await import(path.join(ROOT, 'src/data/duongdaiGrammar.js'));
-  const dl = await import(path.join(ROOT, 'src/data/duongdaiDialogues.js'));
-  return { vocab: d.duongdaiVocab, subs: d.duongdaiSubLessons, lessons: d.duongdaiLessons,
-           grammar: d.duongdaiGrammar || g.duongdaiGrammar, dialogues: dl.duongdaiDialogues };
+  if (bo !== 'thoidai') return null;
+  const d = await import(path.join(ROOT, 'src/data/thoidaiData.js'));
+  const g = await import(path.join(ROOT, 'src/data/thoidaiGrammar.js'));
+  const dl = await import(path.join(ROOT, 'src/data/thoidaiDialogues.js'));
+  return { vocab: d.thoidaiVocab, subs: d.thoidaiSubLessons, lessons: d.thoidaiLessons,
+           grammar: g.thoidaiGrammar, dialogues: dl.thoidaiDialogues };
 }
 
 const laTD = (id) => /^td\d+-/.test(String(id));
+
+/** PHẢI giống `tenMau` trong gen-luyentap-tusinh.mjs — lệch một chữ là kiểm ra toàn lỗi giả. */
+const tenMau = (d) => String(d.titleVi || d.title || '')
+  .replace(/^([IVXⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩ]+|\d+)\s*[.、]\s*/, '').trim();
 
 async function main() {
   const de = JSON.parse(await fs.readFile(path.join(ROOT, 'public/data/luyentap-tusinh.json'), 'utf8'));
@@ -44,11 +51,14 @@ async function main() {
   const N = { thoidai: await nguon('thoidai'), duongdai: await nguon('duongdai') };
 
   const loi = { thieuKhoa: [], khoaThua: [], idxNgoai: [], saiDapAn: [], nhieuDung: [], loDapAn: [], tuTrung: [] };
-  let tongCau = 0, daKiem = 0;
+  let tongCau = 0, daKiem = 0, boThieu = 0;
 
   for (const bai of de) {
     const key = String(bai.lessonId);
     const S = N[laTD(key) ? 'thoidai' : 'duongdai'];
+    // Bộ giáo trình không còn trong bản này -> không có gì để truy ngược. Đếm rồi báo ở cuối,
+    // đừng coi như đã kiểm.
+    if (!S) { boThieu++; continue; }
     const tu = S.vocab[key] || [];
     const subs = S.subs.filter((s) => s.parentId === key);
 
@@ -56,11 +66,16 @@ async function main() {
     const cueBai = new Set();
     for (const s of subs) for (const c of (S.dialogues[s.id]?.cues || [])) cueBai.add(c.text);
 
-    // mọi điểm ngữ pháp của bài: title -> tập câu ví dụ
+    // Mọi điểm ngữ pháp của bài: TÊN HIỆN -> tập câu ví dụ.
+    // ⚠️ Phải khoá theo đúng cái tên mà bộ sinh in ra đề (`tenMau` trong gen-luyentap-tusinh.mjs
+    // = `titleVi || title`, bỏ số La Mã). Khoá theo `d.title` thì từ 2026-09-30 mọi câu mục IV
+    // đều báo "đáp án SAI" — mà thật ra chỉ là hai bên gọi cùng một mẫu bằng hai cái tên.
     const npTheoTitle = new Map();
     for (const s of subs) for (const d of S.grammar[s.id] || []) {
-      if (!npTheoTitle.has(d.title)) npTheoTitle.set(d.title, new Set());
-      for (const p of d.points || []) for (const e of p.examples || []) if (e.hz) npTheoTitle.get(d.title).add(e.hz);
+      const t = tenMau(d);
+      if (!t) continue;
+      if (!npTheoTitle.has(t)) npTheoTitle.set(t, new Set());
+      for (const p of d.points || []) for (const e of p.examples || []) if (e.hz) npTheoTitle.get(t).add(e.hz);
     }
 
     for (const quiz of bai.quizzes) {
@@ -135,7 +150,9 @@ async function main() {
     idxNgoai: 'chỉ số đáp án nằm ngoài số lựa chọn', saiDapAn: 'ĐÁP ÁN SAI so với dữ liệu sách',
     nhieuDung: 'NHIỀU LỰA CHỌN CÙNG ĐÚNG / gây rối', loDapAn: 'câu hỏi LỘ đáp án',
     tuTrung: 'CẢNH BÁO DỮ LIỆU: một chữ Hán có nhiều mục từ khác nghĩa trong cùng bài (lỗi bộ bóc từ vựng, không phải lỗi đề)' };
-  console.log(`\nĐã soi ${tongCau} câu (${daKiem} câu truy ngược được về dữ liệu gốc)\n`);
+  console.log(`\nĐã soi ${tongCau} câu (${daKiem} câu truy ngược được về dữ liệu gốc)`);
+  if (boThieu) console.log(`⚠️  bỏ qua ${boThieu} bài của bộ giáo trình không còn trong bản này`);
+  console.log('');
   let tong = 0;
   for (const [k, v] of Object.entries(loi)) {
     if (k !== 'tuTrung') tong += v.length;   // cảnh báo dữ liệu, không chặn

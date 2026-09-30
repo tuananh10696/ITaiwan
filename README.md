@@ -61,6 +61,9 @@ chưa có dữ liệu…) để không màn hình nào rơi vào cảnh "ai cũn
 |---|---|
 | `npm run build` | Dựng bản chạy thật vào `dist/` |
 | `npm run seo:sitemap` | Sinh lại `public/sitemap.xml` (chạy sau khi thêm trang/bài) |
+| `npm run audio:kiem` | Soi âm thanh: thiếu file · clip cắt hụt · URL `http://` · đường dẫn tương đối |
+| `npm run audio:va` | Vá các chỗ âm thanh trỏ vào hư không (xem CLAUDE.md) |
+| `npm run tts:chi-muc` | Sinh `public/data/tts-chi-muc.json` — bảng tra chữ Hán → mp3 giọng máy |
 | `npm run data:tach` | Tách lại `public/data/{giaotrinh,luyentap}` từ `src/data` |
 | `npm run data:fa` | Sinh lại subset Font Awesome sau khi dùng icon mới |
 | `npm run pwa:icons` | Sinh bộ icon PWA + splash iOS từ `public/favicon.png` |

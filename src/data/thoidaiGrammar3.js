@@ -4551,7 +4551,7 @@ export const thoidaiGrammar3 = {
        "vi": ""
       },
       {
-       "hz": "早上上班時，發現大家都對著我笑，過了一會兒我才明白過來，原來我穿著睡褲(shuìkù, pyjama trousers)出門。",
+       "hz": "早上上班時，發現大家都對著我笑，過了一會兒我才明白過來，原來我穿著睡褲(shuìkù, quần ngủ)出門。",
        "vi": ""
       },
       {
@@ -4723,7 +4723,7 @@ export const thoidaiGrammar3 = {
        "vi": ""
       },
       {
-       "hz": "早上上班時，發現大家都對著我笑，過了一會兒我才明白過來，原來我穿著睡褲(shuìkù, pyjama trousers)出門。",
+       "hz": "早上上班時，發現大家都對著我笑，過了一會兒我才明白過來，原來我穿著睡褲(shuìkù, quần ngủ)出門。",
        "vi": ""
       },
       {
@@ -4895,7 +4895,7 @@ export const thoidaiGrammar3 = {
        "vi": ""
       },
       {
-       "hz": "早上上班時，發現大家都對著我笑，過了一會兒我才明白過來，原來我穿著睡褲(shuìkù, pyjama trousers)出門。",
+       "hz": "早上上班時，發現大家都對著我笑，過了一會兒我才明白過來，原來我穿著睡褲(shuìkù, quần ngủ)出門。",
        "vi": ""
       },
       {
@@ -5067,7 +5067,7 @@ export const thoidaiGrammar3 = {
        "vi": ""
       },
       {
-       "hz": "早上上班時，發現大家都對著我笑，過了一會兒我才明白過來，原來我穿著睡褲(shuìkù, pyjama trousers)出門。",
+       "hz": "早上上班時，發現大家都對著我笑，過了一會兒我才明白過來，原來我穿著睡褲(shuìkù, quần ngủ)出門。",
        "vi": ""
       },
       {

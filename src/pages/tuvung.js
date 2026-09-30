@@ -400,7 +400,11 @@ function _tdxRenderChiTiet(el) {
           ${t.nghia && !(t.mayDich && t.muc.length) ? `<div class="tdx-nghia-chinh">${tdEsc(t.nghia)}</div>` : ''}
           ${t.mayDich && t.muc.length ? '<p class="tdx-may-note"><i class="fa-solid fa-robot"></i><span>Nghĩa dưới đây lấy từ từ điển Hán–Việt tự động, chưa qua biên soạn — đối chiếu thêm nếu thấy chưa sát văn cảnh.</span></p>' : ''}
           ${!t.nghia && !t.muc.length ? '<p class="tv-note"><i class="fa-solid fa-circle-info"></i><span>Chưa có nghĩa tiếng Việt cho từ này.</span></p>' : ''}
-          ${t.en ? `<div class="tdx-en"><span>Giáo trình ghi</span> ${tdEsc(t.en)}</div>` : ''}
+          ${/* Nghĩa tiếng ANH của sách — chỉ là bản chú thích phụ. Hiện nó cạnh nghĩa tiếng Việt
+                là in cùng một ý bằng thứ tiếng học viên không cần (3.268/8.181 từ có trường này,
+                mà chỉ 7 từ thiếu nghĩa Việt và không từ nào trong 7 đó có nghĩa Anh). Giữ làm
+                LƯỚI CUỐI cho trường hợp chưa có nghĩa Việt — thà đọc tiếng Anh còn hơn trống. */ ''}
+          ${t.en && !t.nghia && !t.muc.length ? `<div class="tdx-en"><span>Sách ghi (tiếng Anh)</span> ${tdEsc(t.en)}</div>` : ''}
           ${t.muc.length ? t.muc.map((m) => `
             <div class="tdx-muc">
               ${nhieuAm ? `<div class="tdx-muc-py">${tdEsc(m.py)}</div>` : ''}

@@ -2083,7 +2083,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "趨向補語 V+DV+來/去  directional compound",
+       "hz": "趨向補語 V+DV+來/去 — bổ ngữ chỉ hướng",
        "vi": ""
       },
       {
@@ -2351,7 +2351,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "趨向補語 V+DV+來/去  directional compound",
+       "hz": "趨向補語 V+DV+來/去 — bổ ngữ chỉ hướng",
        "vi": ""
       },
       {
@@ -2619,7 +2619,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "趨向補語 V+DV+來/去  directional compound",
+       "hz": "趨向補語 V+DV+來/去 — bổ ngữ chỉ hướng",
        "vi": ""
       },
       {
@@ -2887,7 +2887,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "趨向補語 V+DV+來/去  directional compound",
+       "hz": "趨向補語 V+DV+來/去 — bổ ngữ chỉ hướng",
        "vi": ""
       },
       {
@@ -3251,7 +3251,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "第二課的中國字比第一課難寫；第三課的中國字比第二課的更難寫…改寫句子    Rewrite the sentences with越來越",
+       "hz": "第二課的中國字比第一課難寫；第三課的中國字比第二課的更難寫…改寫句子    Viết lại câu bằng mẫu 越來越.",
        "vi": ""
       },
       {
@@ -3453,7 +3453,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "第二課的中國字比第一課難寫；第三課的中國字比第二課的更難寫…改寫句子    Rewrite the sentences with越來越",
+       "hz": "第二課的中國字比第一課難寫；第三課的中國字比第二課的更難寫…改寫句子    Viết lại câu bằng mẫu 越來越.",
        "vi": ""
       },
       {
@@ -3655,7 +3655,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "第二課的中國字比第一課難寫；第三課的中國字比第二課的更難寫…改寫句子    Rewrite the sentences with越來越",
+       "hz": "第二課的中國字比第一課難寫；第三課的中國字比第二課的更難寫…改寫句子    Viết lại câu bằng mẫu 越來越.",
        "vi": ""
       },
       {
@@ -3857,7 +3857,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "第二課的中國字比第一課難寫；第三課的中國字比第二課的更難寫…改寫句子    Rewrite the sentences with越來越",
+       "hz": "第二課的中國字比第一課難寫；第三課的中國字比第二課的更難寫…改寫句子    Viết lại câu bằng mẫu 越來越.",
        "vi": ""
       },
       {
@@ -5153,7 +5153,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "用「讓」改寫下面句子。Rewrite the sentences with 讓.1. 我已經兩個星期沒倒垃圾了，所以媽媽很生氣。",
+       "hz": "用「讓」改寫下面句子。Viết lại câu bằng 讓. 1. 我已經兩個星期沒倒垃圾了，所以媽媽很生氣。",
        "vi": ""
       },
       {
@@ -5385,7 +5385,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "用「讓」改寫下面句子。Rewrite the sentences with 讓.1. 我已經兩個星期沒倒垃圾了，所以媽媽很生氣。",
+       "hz": "用「讓」改寫下面句子。Viết lại câu bằng 讓. 1. 我已經兩個星期沒倒垃圾了，所以媽媽很生氣。",
        "vi": ""
       },
       {
@@ -5617,7 +5617,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "用「讓」改寫下面句子。Rewrite the sentences with 讓.1. 我已經兩個星期沒倒垃圾了，所以媽媽很生氣。",
+       "hz": "用「讓」改寫下面句子。Viết lại câu bằng 讓. 1. 我已經兩個星期沒倒垃圾了，所以媽媽很生氣。",
        "vi": ""
       },
       {
@@ -5849,7 +5849,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "用「讓」改寫下面句子。Rewrite the sentences with 讓.1. 我已經兩個星期沒倒垃圾了，所以媽媽很生氣。",
+       "hz": "用「讓」改寫下面句子。Viết lại câu bằng 讓. 1. 我已經兩個星期沒倒垃圾了，所以媽媽很生氣。",
        "vi": ""
       },
       {
@@ -10999,7 +10999,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "III.   V 出來: V出來了 /沒 V 出來 / V得出來 / V不出來  to figure out",
+       "hz": "III.   V 出來: V出來了 / 沒 V 出來 / V得出來 / V不出來 — nghĩ ra, nhận ra được",
        "vi": ""
       },
       {
@@ -11007,7 +11007,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "III.   V 出來: V出來了 /沒 V 出來 / V得出來 / V不出來 to figure out",
+       "hz": "III.   V 出來: V出來了 / 沒 V 出來 / V得出來 / V不出來 — nghĩ ra, nhận ra được",
        "vi": ""
       },
       {
@@ -11075,7 +11075,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "改寫句子。 Rewrite the sentences with  同 + 一 + M (+N) .",
+       "hz": "改寫句子。 Viết lại câu bằng mẫu 同 + 一 + M (+N).",
        "vi": ""
       },
       {
@@ -11147,7 +11147,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "改寫句子。 Rewrite the sentences with 從...中.",
+       "hz": "改寫句子。 Viết lại câu bằng mẫu 從…中.",
        "vi": ""
       },
       {
@@ -11223,7 +11223,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "III.   V 出來: V出來了 /沒 V 出來 / V得出來 / V不出來  to figure out",
+       "hz": "III.   V 出來: V出來了 / 沒 V 出來 / V得出來 / V不出來 — nghĩ ra, nhận ra được",
        "vi": ""
       },
       {
@@ -11231,7 +11231,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "III.   V 出來: V出來了 /沒 V 出來 / V得出來 / V不出來 to figure out",
+       "hz": "III.   V 出來: V出來了 / 沒 V 出來 / V得出來 / V不出來 — nghĩ ra, nhận ra được",
        "vi": ""
       },
       {
@@ -11299,7 +11299,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "改寫句子。 Rewrite the sentences with  同 + 一 + M (+N) .",
+       "hz": "改寫句子。 Viết lại câu bằng mẫu 同 + 一 + M (+N).",
        "vi": ""
       },
       {
@@ -11371,7 +11371,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "改寫句子。 Rewrite the sentences with 從...中.",
+       "hz": "改寫句子。 Viết lại câu bằng mẫu 從…中.",
        "vi": ""
       },
       {
@@ -11447,7 +11447,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "III.   V 出來: V出來了 /沒 V 出來 / V得出來 / V不出來  to figure out",
+       "hz": "III.   V 出來: V出來了 / 沒 V 出來 / V得出來 / V不出來 — nghĩ ra, nhận ra được",
        "vi": ""
       },
       {
@@ -11455,7 +11455,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "III.   V 出來: V出來了 /沒 V 出來 / V得出來 / V不出來 to figure out",
+       "hz": "III.   V 出來: V出來了 / 沒 V 出來 / V得出來 / V不出來 — nghĩ ra, nhận ra được",
        "vi": ""
       },
       {
@@ -11523,7 +11523,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "改寫句子。 Rewrite the sentences with  同 + 一 + M (+N) .",
+       "hz": "改寫句子。 Viết lại câu bằng mẫu 同 + 一 + M (+N).",
        "vi": ""
       },
       {
@@ -11595,7 +11595,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "改寫句子。 Rewrite the sentences with 從...中.",
+       "hz": "改寫句子。 Viết lại câu bằng mẫu 從…中.",
        "vi": ""
       },
       {
@@ -11671,7 +11671,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "III.   V 出來: V出來了 /沒 V 出來 / V得出來 / V不出來  to figure out",
+       "hz": "III.   V 出來: V出來了 / 沒 V 出來 / V得出來 / V不出來 — nghĩ ra, nhận ra được",
        "vi": ""
       },
       {
@@ -11679,7 +11679,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "III.   V 出來: V出來了 /沒 V 出來 / V得出來 / V不出來 to figure out",
+       "hz": "III.   V 出來: V出來了 / 沒 V 出來 / V得出來 / V不出來 — nghĩ ra, nhận ra được",
        "vi": ""
       },
       {
@@ -11747,7 +11747,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "改寫句子。 Rewrite the sentences with  同 + 一 + M (+N) .",
+       "hz": "改寫句子。 Viết lại câu bằng mẫu 同 + 一 + M (+N).",
        "vi": ""
       },
       {
@@ -11819,7 +11819,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "改寫句子。 Rewrite the sentences with 從...中.",
+       "hz": "改寫句子。 Viết lại câu bằng mẫu 從…中.",
        "vi": ""
       },
       {
@@ -12631,7 +12631,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "比、比較、比起來 comparative sentences 比, 比較 and 比起來平板比筆電便宜，所以我比較想買平板。",
+       "hz": "比、比較、比起來 — câu so sánh với 比, 比較 và 比起來。平板比筆電便宜，所以我比較想買平板。",
        "vi": ""
       },
       {
@@ -12655,7 +12655,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "請用「比/比較/比起來」完成句子。 Complete the sentences with 比/比較/比起來.",
+       "hz": "請用「比/比較/比起來」完成句子。 Hoàn thành câu bằng 比/比較/比起來.",
        "vi": ""
       },
       {
@@ -12671,7 +12671,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "請用「比/比較/比起來」完成對話。 Complete the dialogues with 比/比較/比起來.",
+       "hz": "請用「比/比較/比起來」完成對話。 Hoàn thành đoạn hội thoại bằng 比/比較/比起來.",
        "vi": ""
       },
       {
@@ -12797,7 +12797,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "比、比較、比起來 comparative sentences 比, 比較 and 比起來平板比筆電便宜，所以我比較想買平板。",
+       "hz": "比、比較、比起來 — câu so sánh với 比, 比較 và 比起來。平板比筆電便宜，所以我比較想買平板。",
        "vi": ""
       },
       {
@@ -12821,7 +12821,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "請用「比/比較/比起來」完成句子。 Complete the sentences with 比/比較/比起來.",
+       "hz": "請用「比/比較/比起來」完成句子。 Hoàn thành câu bằng 比/比較/比起來.",
        "vi": ""
       },
       {
@@ -12837,7 +12837,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "請用「比/比較/比起來」完成對話。 Complete the dialogues with 比/比較/比起來.",
+       "hz": "請用「比/比較/比起來」完成對話。 Hoàn thành đoạn hội thoại bằng 比/比較/比起來.",
        "vi": ""
       },
       {
@@ -12963,7 +12963,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "比、比較、比起來 comparative sentences 比, 比較 and 比起來平板比筆電便宜，所以我比較想買平板。",
+       "hz": "比、比較、比起來 — câu so sánh với 比, 比較 và 比起來。平板比筆電便宜，所以我比較想買平板。",
        "vi": ""
       },
       {
@@ -12987,7 +12987,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "請用「比/比較/比起來」完成句子。 Complete the sentences with 比/比較/比起來.",
+       "hz": "請用「比/比較/比起來」完成句子。 Hoàn thành câu bằng 比/比較/比起來.",
        "vi": ""
       },
       {
@@ -13003,7 +13003,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "請用「比/比較/比起來」完成對話。 Complete the dialogues with 比/比較/比起來.",
+       "hz": "請用「比/比較/比起來」完成對話。 Hoàn thành đoạn hội thoại bằng 比/比較/比起來.",
        "vi": ""
       },
       {
@@ -13129,7 +13129,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "比、比較、比起來 comparative sentences 比, 比較 and 比起來平板比筆電便宜，所以我比較想買平板。",
+       "hz": "比、比較、比起來 — câu so sánh với 比, 比較 và 比起來。平板比筆電便宜，所以我比較想買平板。",
        "vi": ""
       },
       {
@@ -13153,7 +13153,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "請用「比/比較/比起來」完成句子。 Complete the sentences with 比/比較/比起來.",
+       "hz": "請用「比/比較/比起來」完成句子。 Hoàn thành câu bằng 比/比較/比起來.",
        "vi": ""
       },
       {
@@ -13169,7 +13169,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "請用「比/比較/比起來」完成對話。 Complete the dialogues with 比/比較/比起來.",
+       "hz": "請用「比/比較/比起來」完成對話。 Hoàn thành đoạn hội thoại bằng 比/比較/比起來.",
        "vi": ""
       },
       {
@@ -13263,7 +13263,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "請用「等等」完成對話。Complete the dialogues with 等等.",
+       "hz": "請用「等等」完成對話。Hoàn thành đoạn hội thoại bằng 等等.",
        "vi": ""
       },
       {
@@ -13283,7 +13283,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "請填「等」、「等等」。Fill in the blanks with 等 or 等等.",
+       "hz": "請填「等」、「等等」。Điền 等 hoặc 等等 vào chỗ trống.",
        "vi": ""
       },
       {
@@ -13423,7 +13423,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "請用「讓」完成句子。Complete the sentences with 讓",
+       "hz": "請用「讓」完成句子。Hoàn thành câu bằng 讓.",
        "vi": ""
       },
       {
@@ -13431,7 +13431,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "請用「讓」完成句子。Complete the sentences with 讓",
+       "hz": "請用「讓」完成句子。Hoàn thành câu bằng 讓.",
        "vi": ""
       }
      ],
@@ -13615,7 +13615,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "請用「等等」完成對話。Complete the dialogues with 等等.",
+       "hz": "請用「等等」完成對話。Hoàn thành đoạn hội thoại bằng 等等.",
        "vi": ""
       },
       {
@@ -13635,7 +13635,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "請填「等」、「等等」。Fill in the blanks with 等 or 等等.",
+       "hz": "請填「等」、「等等」。Điền 等 hoặc 等等 vào chỗ trống.",
        "vi": ""
       },
       {
@@ -13775,7 +13775,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "請用「讓」完成句子。Complete the sentences with 讓",
+       "hz": "請用「讓」完成句子。Hoàn thành câu bằng 讓.",
        "vi": ""
       },
       {
@@ -13783,7 +13783,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "請用「讓」完成句子。Complete the sentences with 讓",
+       "hz": "請用「讓」完成句子。Hoàn thành câu bằng 讓.",
        "vi": ""
       }
      ],
@@ -13967,7 +13967,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "請用「等等」完成對話。Complete the dialogues with 等等.",
+       "hz": "請用「等等」完成對話。Hoàn thành đoạn hội thoại bằng 等等.",
        "vi": ""
       },
       {
@@ -13987,7 +13987,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "請填「等」、「等等」。Fill in the blanks with 等 or 等等.",
+       "hz": "請填「等」、「等等」。Điền 等 hoặc 等等 vào chỗ trống.",
        "vi": ""
       },
       {
@@ -14127,7 +14127,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "請用「讓」完成句子。Complete the sentences with 讓",
+       "hz": "請用「讓」完成句子。Hoàn thành câu bằng 讓.",
        "vi": ""
       },
       {
@@ -14135,7 +14135,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "請用「讓」完成句子。Complete the sentences with 讓",
+       "hz": "請用「讓」完成句子。Hoàn thành câu bằng 讓.",
        "vi": ""
       }
      ],
@@ -14319,7 +14319,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "請用「等等」完成對話。Complete the dialogues with 等等.",
+       "hz": "請用「等等」完成對話。Hoàn thành đoạn hội thoại bằng 等等.",
        "vi": ""
       },
       {
@@ -14339,7 +14339,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "請填「等」、「等等」。Fill in the blanks with 等 or 等等.",
+       "hz": "請填「等」、「等等」。Điền 等 hoặc 等等 vào chỗ trống.",
        "vi": ""
       },
       {
@@ -14479,7 +14479,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "請用「讓」完成句子。Complete the sentences with 讓",
+       "hz": "請用「讓」完成句子。Hoàn thành câu bằng 讓.",
        "vi": ""
       },
       {
@@ -14487,7 +14487,7 @@ export const thoidaiGrammar2 = {
        "vi": ""
       },
       {
-       "hz": "請用「讓」完成句子。Complete the sentences with 讓",
+       "hz": "請用「讓」完成句子。Hoàn thành câu bằng 讓.",
        "vi": ""
       }
      ],

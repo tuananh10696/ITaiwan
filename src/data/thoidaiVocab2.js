@@ -1137,7 +1137,7 @@ export const thoidaiVocab2 = {
    "pinyin": "méibànfǎ",
    "def": "không còn cách nào khác, không thể làm gì được",
    "defEn": "éibànfǎ",
-   "pos": "m",
+   "pos": "Cụm từ",
    "ex": [
     {
      "h": "可是,如果房間太亂,我會覺得不舒服,也沒辦法念書。",
@@ -2014,7 +2014,7 @@ export const thoidaiVocab2 = {
      "t": "Anh ấy ra ngoài một lát, năm phút sau là về ngay."
     }
    ],
-   "audio": "/audio/thoidai-tu/B2L03-1-33.mp3"
+   "audioTts": "/audio/tts-vi/0608543c0e.mp3"
   },
   {
    "hanzi": "這邊",
@@ -2134,7 +2134,7 @@ export const thoidaiVocab2 = {
      "t": "Nhưng vì tiền nhiều nên rất nhiều người sẵn lòng làm."
     }
    ],
-   "audio": "/audio/thoidai-tu/B2L03-1-41.mp3"
+   "audioTts": "/audio/tts-vi/5c2e84d344.mp3"
   },
   {
    "hanzi": "簽約",
@@ -2179,7 +2179,7 @@ export const thoidaiVocab2 = {
      "t": "Sau khi tham gia hoạt động câu lạc bộ tình nguyện, cuộc sống của cậu ấy phong phú và ý nghĩa hơn trước."
     }
    ],
-   "audio": "/audio/thoidai-tu/B2L03-1-44.mp3"
+   "audioTts": "/audio/tts-vi/bff3aab722.mp3"
   },
   {
    "hanzi": "護照",
@@ -2231,7 +2231,7 @@ export const thoidaiVocab2 = {
    "pinyin": "zǒu",
    "def": "rời đi, chào tạm biệt",
    "defEn": "otion verb",
-   "pos": "m",
+   "pos": "Động từ",
    "ex": [
     {
      "h": "爸爸從臥室裡面走出來了。",
@@ -2485,7 +2485,7 @@ export const thoidaiVocab2 = {
    "pinyin": "méi xiǎngdào",
    "def": "bất ngờ, không ngờ tới",
    "defEn": "éixiǎngdào",
-   "pos": "m",
+   "pos": "Cụm từ",
    "ex": [
     {
      "h": "沒想到不太順利",
@@ -3491,7 +3491,7 @@ export const thoidaiVocab2 = {
    "pinyin": "mángguǒbīng",
    "def": "đá bào xoài",
    "en": true,
-   "pos": "m",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "夏天到臺灣，一定要吃一碗芒果冰。",
@@ -4118,7 +4118,7 @@ export const thoidaiVocab2 = {
   },
   {
    "hanzi": "麻煩",
-   "pinyin": "troublesome, inconvenient",
+   "pinyin": "máfán",
    "def": "làm phiền (làm ơn, xin vui lòng)",
    "pos": "Tính từ",
    "ex": [
@@ -4128,7 +4128,8 @@ export const thoidaiVocab2 = {
      "t": "Chuyển nhà là một việc rất phiền phức."
     }
    ],
-   "audio": "/audio/thoidai-tu/B2L05-2-09.mp3"
+   "audio": "/audio/thoidai-tu/B2L05-2-09.mp3",
+   "defEn": "troublesome, inconvenient"
   },
   {
    "hanzi": "經過",
@@ -5873,7 +5874,7 @@ export const thoidaiVocab2 = {
   {
    "hanzi": "大衣",
    "pinyin": "dàyī",
-   "def": "coat",
+   "def": "áo khoác dài; áo măng tô",
    "en": true,
    "pos": "Danh từ",
    "ex": [
@@ -6156,10 +6157,10 @@ export const thoidaiVocab2 = {
   },
   {
    "hanzi": "內衣褲",
-   "pinyin": "underwear",
+   "pinyin": "nèiyīkù",
    "def": "đồ nội y",
    "en": true,
-   "pos": "n",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "他把換洗的內衣褲都放進了行李箱。",
@@ -6167,7 +6168,8 @@ export const thoidaiVocab2 = {
      "t": "Anh ấy bỏ hết đồ lót thay giặt vào vali."
     }
    ],
-   "audioTts": "/audio/tts-vi/1e4ba3ffeb.mp3"
+   "audioTts": "/audio/tts-vi/1e4ba3ffeb.mp3",
+   "defEn": "underwear"
   }
  ],
  "td2-8": [
@@ -6894,7 +6896,7 @@ export const thoidaiVocab2 = {
   {
    "hanzi": "帽子",
    "pinyin": "màozi",
-   "def": "hat, cap",
+   "def": "mũ, nón",
    "en": true,
    "pos": "Danh từ",
    "ex": [
@@ -7300,7 +7302,7 @@ export const thoidaiVocab2 = {
   {
    "hanzi": "作文",
    "pinyin": "zuòwén",
-   "def": "/Vi)",
+   "def": "viết văn; bài văn",
    "en": true,
    "pos": "Danh từ",
    "ex": [
@@ -7582,7 +7584,7 @@ export const thoidaiVocab2 = {
   },
   {
    "hanzi": "能力",
-   "pinyin": "capability, ability",
+   "pinyin": "nénglì",
    "def": "năng lực, khả năng",
    "pos": "Danh từ",
    "ex": [
@@ -7592,7 +7594,8 @@ export const thoidaiVocab2 = {
      "t": "Đủ năng lực làm giáo sư."
     }
    ],
-   "audio": "/audio/thoidai-tu/B2L09-1-30.mp3"
+   "audio": "/audio/thoidai-tu/B2L09-1-30.mp3",
+   "defEn": "capability, ability"
   },
   {
    "hanzi": "將來",
@@ -7748,7 +7751,7 @@ export const thoidaiVocab2 = {
    "pinyin": "zhù",
    "def": "ở",
    "defEn": "O",
-   "pos": "VI",
+   "pos": "Nội động từ",
    "ex": [
     {
      "h": "這間公寓又大又乾淨，我跟室友住得 ˍˍˍˍˍˍˍˍˍ。",
@@ -8510,7 +8513,7 @@ export const thoidaiVocab2 = {
   {
    "hanzi": "男人",
    "pinyin": "nánrén",
-   "def": "man",
+   "def": "đàn ông",
    "en": true,
    "pos": "Danh từ",
    "ex": [
@@ -10742,7 +10745,7 @@ export const thoidaiVocab2 = {
   {
    "hanzi": "做事",
    "pinyin": "zuòshì",
-   "def": "/V-sep)",
+   "def": "làm việc",
    "en": true,
    "pos": "Nội động từ",
    "ex": [
@@ -12168,7 +12171,7 @@ export const thoidaiVocab2 = {
    "pinyin": "niányèfàn",
    "def": "bữa tối đêm giao thừa",
    "defEn": "iányèfàn",
-   "pos": "n",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "年夜飯特別豐富哦!",
@@ -12180,10 +12183,10 @@ export const thoidaiVocab2 = {
   },
   {
    "hanzi": "年糕",
-   "pinyin": "glutinous rice cake",
+   "pinyin": "niángāo",
    "def": "bánh gạo nếp ngày Tết",
-   "defEn": "iángāo",
-   "pos": "n",
+   "defEn": "glutinous rice cake",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "有啊!年糕代表年年高升",
@@ -12206,7 +12209,7 @@ export const thoidaiVocab2 = {
      "t": "Bánh phát nghĩa là phát tài"
     }
    ],
-   "audio": "/audio/thoidai-tu/B2L14-1-35.mp3"
+   "audioTts": "/audio/tts-vi/275c90e1f0.mp3"
   },
   {
    "hanzi": "蘿蔔糕",
@@ -12221,14 +12224,14 @@ export const thoidaiVocab2 = {
      "t": "Ăn bánh củ cải là sẽ rất may mắn đấy!"
     }
    ],
-   "audio": "/audio/thoidai-tu/B2L14-1-36.mp3"
+   "audioTts": "/audio/tts-vi/2162fb5c02.mp3"
   },
   {
    "hanzi": "年年有餘",
    "pinyin": "niánnián yǒuyú",
    "def": "dư dả sung túc mỗi năm",
    "defEn": "iánnián yǒuyú",
-   "pos": "n",
+   "pos": "Thành ngữ",
    "ex": [
     {
      "h": "因為要年年有餘",
@@ -12241,9 +12244,9 @@ export const thoidaiVocab2 = {
   {
    "hanzi": "年年高升",
    "pinyin": "niánnián gāoshēng",
-   "def": "iánnián gāoshēng",
+   "def": "năm năm thăng tiến (lời chúc Tết)",
    "en": true,
-   "pos": "n",
+   "pos": "Thành ngữ",
    "ex": [
     {
      "h": "有啊!年糕代表年年高升",
@@ -13623,7 +13626,7 @@ export const thoidaiVocab2 = {
   {
    "hanzi": "玩具",
    "pinyin": "wánjù",
-   "def": "toy",
+   "def": "đồ chơi",
    "en": true,
    "pos": "Danh từ",
    "ex": [
@@ -14000,7 +14003,7 @@ export const thoidaiVocab2 = {
    "pinyin": "dehěn",
    "def": "…lắm (bổ ngữ mức độ)",
    "en": true,
-   "pos": "v",
+   "pos": "",
    "ex": [
     {
      "h": "可是,上次去夜市的時候,你說臭豆腐臭得很,連一口也不吃。",

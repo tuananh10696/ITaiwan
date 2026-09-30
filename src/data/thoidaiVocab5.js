@@ -446,7 +446,7 @@ export const thoidaiVocab5 = {
   },
   {
    "hanzi": "忽略",
-   "pinyin": "hūluè",
+   "pinyin": "hūlüè",
    "def": "Bỏ qua, lơ là, sao lãng",
    "defEn": "to neglect, to overlook, to lose sight of",
    "pos": "Tính từ (trạng thái)",
@@ -614,7 +614,7 @@ export const thoidaiVocab5 = {
    "pinyin": "méifēi sèwǔ",
    "def": "rạng rỡ vui sướng; phấn khởi tưng bừng",
    "en": true,
-   "pos": "m",
+   "pos": "Thành ngữ",
    "ex": [
     {
      "h": "妹妹只要一提起她最愛的明星，就眉飛色舞，說個不停。",
@@ -1904,9 +1904,9 @@ export const thoidaiVocab5 = {
   {
    "hanzi": "那還用說",
    "pinyin": "nà hái yòng shuō",
-   "def": "à hái yòng shuō",
+   "def": "còn phải nói, đương nhiên rồi",
    "en": true,
-   "pos": "n",
+   "pos": "Cụm từ",
    "ex": [
     {
      "h": "「你會去嗎？」「那還用說，我一定去。」",
@@ -2476,7 +2476,7 @@ export const thoidaiVocab5 = {
    "pinyin": "bùyǐwéirán",
    "def": "không đồng tình",
    "en": true,
-   "pos": "n",
+   "pos": "Thành ngữ",
    "ex": [
     {
      "h": "王老闆對有些人只談夢想卻不努力實行的態度，相當不以為然。",
@@ -3525,7 +3525,7 @@ export const thoidaiVocab5 = {
   },
   {
    "hanzi": "策略",
-   "pinyin": "cèluè",
+   "pinyin": "cèlüè",
    "def": "chiến lược",
    "en": true,
    "pos": "Danh từ",
@@ -4445,7 +4445,7 @@ export const thoidaiVocab5 = {
    "pinyin": "mǎyǐ shàngshù",
    "def": "\"kiến bò lên cây\", một món Tứ Xuyên làm từ bún tàu 粉絲[fěn sī] và thịt băm (được gọi như vậy vì các mảnh thịt bám vào sợi bún trông như kiến trên cành cây); (tư thế quan hệ) nam đứng, nữ bám vào thân trên của nam",
    "en": true,
-   "pos": "m",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "我們要蒜泥白肉 開揚白菜 螞蟻上樹",
@@ -4505,7 +4505,7 @@ export const thoidaiVocab5 = {
    "pinyin": "máshǔ hóngdòu tāng",
    "def": "chè đậu đỏ bánh mochi",
    "en": true,
-   "pos": "m",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "麻糬紅豆湯較燙 請小心開啟碗蓋 充分攪拌後再品嘗",
@@ -4532,10 +4532,10 @@ export const thoidaiVocab5 = {
   },
   {
    "hanzi": "難得一見",
-   "pinyin": "rarely seen",
-   "def": "ándé yí jiàn",
+   "pinyin": "nándé yí jiàn",
+   "def": "hiếm thấy",
    "en": true,
-   "pos": "n",
+   "pos": "Thành ngữ",
    "ex": [
     {
      "h": "我也這麼覺得 這真是這一帶難得一見的好餐廳",
@@ -4543,7 +4543,8 @@ export const thoidaiVocab5 = {
      "t": "Tôi cũng thấy vậy, đây đúng là nhà hàng ngon hiếm thấy ở vùng này"
     }
    ],
-   "audioTts": "/audio/tts-vi/a5fe127c23.mp3"
+   "audioTts": "/audio/tts-vi/a5fe127c23.mp3",
+   "defEn": "rarely seen"
   },
   {
    "hanzi": "異口同聲",
@@ -5300,7 +5301,7 @@ export const thoidaiVocab5 = {
    "pinyin": "dàtóngxiǎoyì",
    "def": "đại đồng tiểu dị",
    "en": true,
-   "pos": "m",
+   "pos": "Thành ngữ",
    "ex": [
     {
      "h": "這兩雙鞋不論材料、樣式和花色都大同小異，很難看出哪一雙才是假貨。",
@@ -6037,7 +6038,7 @@ export const thoidaiVocab5 = {
    "pinyin": "guānghézuòyòng",
    "def": "quang hợp",
    "en": true,
-   "pos": "ph",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "阻礙海中植物進行光合作用",
@@ -6712,7 +6713,7 @@ export const thoidaiVocab5 = {
    "pinyin": "néngjiàndù",
    "def": "tầm nhìn",
    "en": true,
-   "pos": "vi",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "不僅曾造成交通意外,更因能見度降低而使國際交通受到限制。",
@@ -8244,7 +8245,7 @@ export const thoidaiVocab5 = {
    "pinyin": "qiánsuǒwèiyǒu",
    "def": "chưa từng có",
    "defEn": "ever existed before, unprecedented",
-   "pos": "n",
+   "pos": "Thành ngữ",
    "ex": [
     {
      "h": "上去後就在燈光灑落的剎那 自己感到前所未有的自在",
@@ -9683,8 +9684,8 @@ export const thoidaiVocab5 = {
   },
   {
    "hanzi": "南迴線",
-   "pinyin": "South-link Line",
-   "def": "ánhuí xiàn",
+   "pinyin": "Nánhuí xiàn",
+   "def": "tuyến đường sắt Nam Hồi",
    "en": true,
    "pos": "Danh từ",
    "ex": [
@@ -9694,7 +9695,8 @@ export const thoidaiVocab5 = {
      "t": "Tuyến Nam Hồi nối đường sắt miền Tây và miền Đông lại với nhau."
     }
    ],
-   "audio": "/audio/thoidai-tu/B5L07-2-48.mp3"
+   "audio": "/audio/thoidai-tu/B5L07-2-48.mp3",
+   "defEn": "South-link Line"
   },
   {
    "hanzi": "環島鐵路",
@@ -10678,7 +10680,7 @@ export const thoidaiVocab5 = {
    "pinyin": "wànwúyìshī",
    "def": "chắc chắn không sai sót",
    "en": true,
-   "pos": "n",
+   "pos": "Thành ngữ",
    "ex": [
     {
      "h": "世界上哪有什麼事是萬無一失的 你就是想整形想瘋了",
@@ -12887,7 +12889,7 @@ export const thoidaiVocab5 = {
    "pinyin": "jí biàn",
    "def": "cho dù",
    "defEn": "even if, even though",
-   "pos": "conj",
+   "pos": "Liên từ",
    "ex": [
     {
      "h": "即便其含量不高 日積月累",
@@ -14102,7 +14104,7 @@ export const thoidaiVocab5 = {
    "pinyin": "mínyǐ shíwéi tiān",
    "def": "Dân dĩ thực vi thiên. (thành ngữ); Người dân coi thức ăn là nhu cầu hàng đầu.; Ăn trước, lễ nghĩa sau",
    "en": true,
-   "pos": "m",
+   "pos": "Thành ngữ",
    "ex": [
     {
      "h": "民以食為天,這樣基本的道理人人都曉得。",
@@ -15496,7 +15498,7 @@ export const thoidaiVocab5 = {
   },
   {
    "hanzi": "掌上明珠",
-   "pinyin": "zhǎngshànmíngzhū",
+   "pinyin": "zhǎngshàng míngzhū",
    "def": "viên ngọc trên tay (con gái cưng)",
    "en": true,
    "pos": "Thành ngữ",
@@ -15514,7 +15516,7 @@ export const thoidaiVocab5 = {
    "pinyin": "nánzūn nǚbēi",
    "def": "coi trọng nam khinh nữ (thành ngữ)",
    "en": true,
-   "pos": "n",
+   "pos": "Thành ngữ",
    "ex": [
     {
      "h": "男尊女卑的觀念，在現代社會已經越來越少了。",
@@ -17738,7 +17740,7 @@ export const thoidaiVocab5 = {
    "pinyin": "shùyǐwànjì",
    "def": "hàng vạn",
    "en": true,
-   "pos": "n",
+   "pos": "Thành ngữ",
    "ex": [
     {
      "h": "把數以萬計的符號和字母",
@@ -17753,7 +17755,7 @@ export const thoidaiVocab5 = {
    "pinyin": "shùnxíwànbiàn",
    "def": "biến đổi trong chớp mắt",
    "en": true,
-   "pos": "m",
+   "pos": "Thành ngữ",
    "ex": [
     {
      "h": "在瞬息萬變的資訊時代中",
@@ -17791,7 +17793,7 @@ export const thoidaiVocab5 = {
      "t": "Trở thành công cụ phạm tội"
     }
    ],
-   "audio": "/audio/thoidai-tu/B5L13-2-01.mp3"
+   "audioTts": "/audio/tts-vi/7c274e7e93.mp3"
   },
   {
    "hanzi": "罪",
@@ -19225,7 +19227,7 @@ export const thoidaiVocab5 = {
    "pinyin": "zhǔdēng",
    "def": "đèn chủ đạo",
    "en": true,
-   "pos": "m",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "會特別根據該年所屬的生肖設計大型主燈",
@@ -19240,7 +19242,7 @@ export const thoidaiVocab5 = {
    "pinyin": "zhòngtóuxì",
    "def": "tiết mục chính",
    "defEn": "ain event",
-   "pos": "m",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "當然還有元宵節常見的重頭戲 猜謎語比賽",
@@ -20140,7 +20142,7 @@ export const thoidaiVocab5 = {
    "pinyin": "lècǐbùpí",
    "def": "say mê không biết chán",
    "en": true,
-   "pos": "n",
+   "pos": "Thành ngữ",
    "ex": [
     {
      "h": "民眾樂此不疲地參與這些節慶活動的同時",
@@ -21804,10 +21806,10 @@ export const thoidaiVocab5 = {
   },
   {
    "hanzi": "內心深處",
-   "pinyin": "deep in the heart",
+   "pinyin": "nèixīn shēnchù",
    "def": "sâu thẳm trong tim",
    "en": true,
-   "pos": "n",
+   "pos": "Danh từ",
    "ex": [
     {
      "h": "不過真正的李安內心深處卻相當軟弱",
@@ -21815,7 +21817,8 @@ export const thoidaiVocab5 = {
      "t": "Nhưng Lý An thật sự thì sâu thẳm trong lòng lại khá yếu đuối"
     }
    ],
-   "audio": "/audio/thoidai-tu/B5L15-2-52.mp3"
+   "audio": "/audio/thoidai-tu/B5L15-2-52.mp3",
+   "defEn": "deep in the heart"
   },
   {
    "hanzi": "感同身受",
@@ -22544,7 +22547,7 @@ export const thoidaiVocab5 = {
    "pinyin": "bùróngxiǎoqù",
    "def": "không thể coi thường",
    "en": true,
-   "pos": "n",
+   "pos": "Thành ngữ",
    "ex": [
     {
      "h": "別看明美年紀小，她聰明積極且擁有過目不忘的能力，實力不容小覷。",

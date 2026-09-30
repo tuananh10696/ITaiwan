@@ -668,7 +668,7 @@ export const thoidaiVocab4 = {
   },
   {
    "hanzi": "面",
-   "pinyin": "face",
+   "pinyin": "miàn",
    "def": "tấm (lượng từ cho tường, gương, cờ); lần gặp mặt",
    "en": true,
    "pos": "Lượng từ",
@@ -679,7 +679,8 @@ export const thoidaiVocab4 = {
      "t": "Tôi thấy ở ngã tư có người giơ một tấm biển, trên đó là quảng cáo bán nhà."
     }
    ],
-   "audio": "/audio/thoidai-tu/B4L01-1-45.mp3"
+   "audio": "/audio/thoidai-tu/B4L01-1-45.mp3",
+   "defEn": "face"
   },
   {
    "hanzi": "可是",
@@ -874,7 +875,7 @@ export const thoidaiVocab4 = {
      "t": "Người dáng nhỏ chưa chắc đã yếu sức."
     }
    ],
-   "audio": "/audio/thoidai-tu/B4L01-2-06.mp3"
+   "audioTts": "/audio/tts-vi/e3dd836337.mp3"
   },
   {
    "hanzi": "膽小",
@@ -2255,7 +2256,7 @@ export const thoidaiVocab4 = {
      "t": "Nếu muốn xin học bổng thì phải photocopy giấy tờ của bạn trước rồi gửi bản sao cho trường."
     }
    ],
-   "audio": "/audio/thoidai-tu/B4L02-2-24.mp3"
+   "audioTts": "/audio/tts-vi/564057bd03.mp3"
   },
   {
    "hanzi": "存款",
@@ -3441,7 +3442,7 @@ export const thoidaiVocab4 = {
      "t": "Tác phẩm của hoạ sĩ đó khiến nhiều người mua trong và ngoài nước rất hứng thú."
     }
    ],
-   "audio": "/audio/thoidai-tu/B4L03-2-20.mp3"
+   "audioTts": "/audio/tts-vi/274e45ce3b.mp3"
   },
   {
    "hanzi": "取",
@@ -3703,7 +3704,7 @@ export const thoidaiVocab4 = {
   {
    "hanzi": "迎新",
    "pinyin": "yíngxīn",
-   "def": "Ying Xin (貓熊名)",
+   "def": "chào đón người mới (tân sinh viên)",
    "defEn": "orientation (school or company )",
    "pos": "Nội động từ",
    "ex": [
@@ -5204,7 +5205,7 @@ export const thoidaiVocab4 = {
   {
    "hanzi": "噸",
    "pinyin": "dùn",
-   "def": "ton",
+   "def": "tấn",
    "en": true,
    "pos": "Lượng từ",
    "ex": [
@@ -9455,9 +9456,9 @@ export const thoidaiVocab4 = {
   {
    "hanzi": "忙裡偷閒",
    "pinyin": "mánglǐ tōuxián",
-   "def": "ánglǐ-tōuxián",
+   "def": "tranh thủ lúc bận để nghỉ ngơi",
    "en": true,
-   "pos": "m",
+   "pos": "Thành ngữ",
    "ex": [
     {
      "h": "讓自己忙裡偷閒",
@@ -15044,7 +15045,7 @@ export const thoidaiVocab4 = {
   },
   {
    "hanzi": "根本",
-   "pinyin": "gēnbě",
+   "pinyin": "gēnběn",
    "def": "hoàn toàn, căn bản",
    "defEn": "foundation, root",
    "pos": "Danh từ",
@@ -15242,7 +15243,7 @@ export const thoidaiVocab4 = {
   {
    "hanzi": "火腿",
    "pinyin": "huǒtuǐ",
-   "def": "ham",
+   "def": "giăm bông",
    "en": true,
    "pos": "Danh từ",
    "ex": [
@@ -16107,7 +16108,7 @@ export const thoidaiVocab4 = {
      "t": "Bạn bè cho rằng tiệc sinh nhật không uống rượu thì không có bầu không khí vui vẻ."
     }
    ],
-   "audio": "/audio/thoidai-tu/B4L14-2-20.mp3"
+   "audioTts": "/audio/tts-vi/ffae6dd5d5.mp3"
   },
   {
    "hanzi": "妻子",
@@ -18241,7 +18242,7 @@ export const thoidaiVocab4 = {
      "t": "Đừng sợ thất bại vì kinh nghiệm thất bại còn quý hơn thành công."
     }
    ],
-   "audio": "/audio/thoidai-tu/B4L16-2-10.mp3"
+   "audioTts": "/audio/tts-vi/c787932693.mp3"
   },
   {
    "hanzi": "女子",

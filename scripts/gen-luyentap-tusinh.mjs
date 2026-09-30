@@ -47,6 +47,20 @@ const QUYENS = String(arg('--quyen', BO === 'thoidai' ? '1,2,3,4,5' : '2,3,4,5,6
 const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 /** So tên mẫu ngữ pháp bỏ qua hoa/thường, dấu câu và khoảng trắng — xem chỗ dùng ở mục IV. */
 const chuanTen = (s) => String(s ?? '').toLowerCase().replace(/[\s.,;:!?"'()（）［］\[\]、，。；：？！…·\-–—/]/g, '');
+
+/**
+ * Tên mẫu ngữ pháp để HIỆN cho học viên — ưu tiên bản tiếng Việt.
+ *
+ * `title` là tiêu đề nguyên văn của PPT gốc, tiếng Anh ở quyển 1-2 ("的 with Nouns Modified by
+ * Clauses"). Dùng nó làm đáp án của mục IV thì học viên Việt phải chọn giữa bốn câu tiếng Anh —
+ * đúng chỗ làm đề "toàn tiếng Anh" (2026-09-30). `titleVi` giữ trọn phần chữ Hán của mẫu
+ * ("的 nối mệnh đề với danh từ") nên đổi sang nó không mất thông tin.
+ *
+ * Bỏ luôn số thứ tự La Mã ở đầu: trong đề nó chỉ là số của mục trong sách, không giúp phân biệt
+ * đáp án, mà còn dễ làm học viên tưởng là số câu.
+ */
+const tenMau = (d) => String(d.titleVi || d.title || '')
+  .replace(/^([IVXⅠⅡⅢⅣⅤⅥⅦⅧⅨⅩ]+|\d+)\s*[.、]\s*/, '').trim();
 const HAN = /[一-鿿]/;
 
 /** Xáo trộn CÓ HẠT GIỐNG: cùng một bài luôn ra cùng một đề, để học viên và giáo viên nhìn thấy
@@ -234,7 +248,7 @@ async function main() {
       for (const d of diem) {
         for (const p of d.points || []) {
           for (const e of p.examples || []) {
-            if (e.hz && e.hz.length >= 8) _cauTho.push({ title: d.title, hz: e.hz });
+            if (e.hz && e.hz.length >= 8) _cauTho.push({ title: tenMau(d), hz: e.hz });
           }
         }
       }
@@ -256,7 +270,7 @@ async function main() {
         // vào lựa chọn — học viên chọn đúng vẫn bị tính sai (6 câu td1-*, phát hiện 20/09/2026).
         const tenDiem = [];
         const _daCo = new Set();
-        for (const d of diem) { const c = chuanTen(d.title); if (c && !_daCo.has(c)) { _daCo.add(c); tenDiem.push(d.title); } }
+        for (const d of diem) { const t = tenMau(d); const c = chuanTen(t); if (c && !_daCo.has(c)) { _daCo.add(c); tenDiem.push(t); } }
         const questions = chon.map((c, i) => {
           const nhieu = lay(tenDiem.filter((t) => chuanTen(t) !== chuanTen(c.title)), 3, rng(key + 'g' + i));
           if (nhieu.length < 2) return null;
@@ -276,7 +290,7 @@ async function main() {
 
       // ---------- V. Đặt câu (tự luận, giáo viên chấm) ----------
       const tuDatCau = lay(tu.filter((w) => w.hanzi.length >= 2).map((w) => w.hanzi), 3, r);
-      const mauNP = lay(diem.map((d) => d.title), 2, r);
+      const mauNP = lay([...new Set(diem.map((d) => tenMau(d)).filter(Boolean))], 2, r);
       if (tuDatCau.length >= 2) {
         const slug = `ts-${key}-dat-cau`;
         const yeuCau = [...tuDatCau.map((t) => `Đặt một câu với từ <b>${esc(t)}</b>.`),
