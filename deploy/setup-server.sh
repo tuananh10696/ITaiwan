@@ -27,7 +27,7 @@ buoc() { echo -e "\n==> $*"; }
 buoc "Cập nhật hệ thống"
 apt-get update -y
 apt-get upgrade "${APT_OPT[@]}"
-apt-get install "${APT_OPT[@]}" curl ca-certificates gnupg git ufw fail2ban unattended-upgrades rsync unzip jq dnsutils
+apt-get install "${APT_OPT[@]}" curl ca-certificates gnupg git ufw fail2ban unattended-upgrades rsync unzip jq dnsutils cron
 
 buoc "Múi giờ hệ điều hành: Asia/Ho_Chi_Minh (để crontab và log đọc theo giờ Việt Nam)"
 # Node và MySQL vẫn chạy UTC — giống hệt Aiven/Vercel trước đây (xem ecosystem.config.cjs, mysql).

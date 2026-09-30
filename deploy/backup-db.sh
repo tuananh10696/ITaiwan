@@ -10,6 +10,7 @@
 #      bản trên remote cũ hơn GIU_REMOTE ngày. Chỉ giữ ở VPS thì VPS hỏng là mất cả gốc lẫn bản lưu.
 # =============================================================
 set -euo pipefail
+umask 077   # bản sao lưu chứa dữ liệu cá nhân — chỉ user deploy đọc được
 
 APP=/srv/itaiwan
 DICH=/var/backups/itaiwan
