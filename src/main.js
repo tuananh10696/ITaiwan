@@ -587,7 +587,7 @@ async function init() {
       name: api.user.name,
       email: api.user.email || '',
       level: api.user.level_label || 'Tân Sinh · Lv1',
-      avatar: api.user.avatar_letter || api.user.name.charAt(0),
+      avatar: api.user.avatar_letter || String(api.user.name || 'U').charAt(0),
       avatarColor: api.user.avatar_color || '#027AB3',
       avatarUrl: api.user.avatar_url || null,
       streak: api.user.streak || 0,

@@ -6,10 +6,36 @@
 import { apiBase } from '../utils/env.js';
 import { maThietBi } from '../utils/thiet-bi.js';
 
+/**
+ * Đọc phiên đăng nhập đã lưu — KHÔNG ĐƯỢC NÉM LỖI.
+ *
+ * Hàm dựng này chạy ngay lúc NẠP module (state.js import nó), trước cả `init()`. Một giá trị hỏng
+ * trong localStorage — JSON dở dang, object thiếu `name`, hoặc trình duyệt chặn lưu trữ nên chính
+ * `localStorage.getItem` ném SecurityError — làm cả cây module chết từ dòng đầu: trang TRẮNG XOÁ,
+ * không một request API nào đi ra, và F5 bao nhiêu lần cũng vậy vì dữ liệu hỏng vẫn nằm đó
+ * (sự cố 2026-09-30 trên duhocitaiwan.com). Hỏng thì coi như CHƯA đăng nhập và xoá khoá hỏng —
+ * người dùng chỉ phải đăng nhập lại, thay vì mất hẳn trang.
+ */
+function docPhienDaLuu() {
+  let token = null, user = null;
+  try { token = localStorage.getItem('tw_token') || null; } catch { return { token: null, user: null }; }
+  try {
+    const u = JSON.parse(localStorage.getItem('tw_user') || 'null');
+    // Mọi nơi dựng giao diện đều đọc `user.name` (lấy chữ cái đầu làm avatar) — thiếu là coi như hỏng.
+    user = u && typeof u === 'object' && typeof u.name === 'string' && u.name ? u : null;
+  } catch { user = null; }
+  if (token && !user) {
+    try { localStorage.removeItem('tw_token'); localStorage.removeItem('tw_user'); } catch { }
+    token = null;
+  }
+  return { token, user };
+}
+
 class ApiClient {
   constructor() {
-    this.token = localStorage.getItem('tw_token') || null;
-    this.user = JSON.parse(localStorage.getItem('tw_user') || 'null');
+    const { token, user } = docPhienDaLuu();
+    this.token = token;
+    this.user = user;
   }
 
   // --- Core HTTP methods ---

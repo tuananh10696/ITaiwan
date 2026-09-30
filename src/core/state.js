@@ -32,7 +32,15 @@ export const state = {
   // không còn là mảng id số trong state — xem 4.37.
   // Nhom menu cha dang mo tren sidebar
   // 'dd-quyen-duongdai' / 'dd-quyen-thoidai': nhóm quyển của TỪNG bộ giáo trình (navBooksHtml).
-  openMenus: JSON.parse(localStorage.getItem('tw_open_menus') || '["cat-tocfl","dd-quyen-duongdai"]'),
+  // Đọc lúc NẠP module — giá trị hỏng mà ném lỗi ở đây là trắng trang (xem docPhienDaLuu ở
+  // api/client.js). Hỏng thì về mặc định.
+  openMenus: (() => {
+    try {
+      const v = JSON.parse(localStorage.getItem('tw_open_menus') || 'null');
+      if (Array.isArray(v)) return v.filter((x) => typeof x === 'string');
+    } catch { }
+    return ['cat-tocfl', 'dd-quyen-duongdai'];
+  })(),
   // Data loaded flags
   dataLoaded: false,
   // QUYỀN NỘI DUNG (2026-09-09) — bản chụp từ /api/noi-dung/quyen, chỉ để VẼ GIAO DIỆN
