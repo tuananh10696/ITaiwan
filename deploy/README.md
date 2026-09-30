@@ -197,12 +197,18 @@ sudo certbot renew --dry-run      # gia hạn tự động phải chạy đượ
 ## 12. Khoá SSH (sau khi chắc chắn đăng nhập bằng key được)
 
 ```bash
-sudo tee /etc/ssh/sshd_config.d/99-itaiwan.conf <<'CONF'
+sudo tee /etc/ssh/sshd_config.d/01-itaiwan.conf <<'CONF'
 PasswordAuthentication no
+KbdInteractiveAuthentication no
 PermitRootLogin no
 CONF
 sudo sshd -t && sudo systemctl reload ssh
+sudo sshd -T | grep -iE '^(passwordauthentication|permitrootlogin)'   # phải ra "no"
 ```
+
+Tên file phải là `01-...`: sshd lấy giá trị ĐẦU TIÊN nó gặp, và image Vietnix có sẵn
+`50-cloud-init.conf` bật `PasswordAuthentication yes` — đặt `99-...` là không có tác dụng.
+Sau bước này vào máy bằng user `deploy` (sudo không hỏi mật khẩu), không vào bằng root nữa.
 
 Mở một phiên SSH **mới** kiểm tra trước khi đóng phiên cũ. Lỡ bị khoá ngoài: dùng console VNC
 trong portal Vietnix.
