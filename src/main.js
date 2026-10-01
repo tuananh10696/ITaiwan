@@ -2965,7 +2965,7 @@ function pronHero(opts) {
 }
 
 // Resolve audio URL for a quiz item (listen type)
-// initials quiz: dùng pinyinChartAudio (audio thật từ tiengtrungthaoan)
+// initials quiz: dùng pinyinChartAudio (bản thu của bảng phiên âm, lưu tại server)
 // finals quiz: dùng pronSrc (audio thật vận mẫu)
 // tones quiz: trả '' → pronPlay sẽ fallback sang TTS
 function pronQuizAudioSrc(item) {
@@ -3528,9 +3528,9 @@ function renderPinyinChart(el) {
                   if (!cell) return '<td class="py-empty"></td>';
                   const [syl, hz] = cell;
                   const py = toneOne(syl);
-                  // 1) Audio gốc từ tiengtrungthaoan.edu.vn — giữ MỘT giọng cho cả bảng (khách từng phản ánh
-                  //    "các âm không cùng một nguồn"), nên chỉ thay những ô nó không có / đang là giọng máy
-                  // 2) ô đó ở hàng không thanh mẫu (a, e, er, wa, wu...): vận mẫu đọc đứng riêng của sách
+                  // 1) bản thu lưu trên server mình (public/audio/pron/bang/, một giọng cho cả bảng —
+                  //    khách từng phản ánh "các âm không cùng một nguồn"); xem scripts/tai-am-bang-phien-am.mjs
+                  // 2) ô bảng đó không có (a, e, er, yan...): vận mẫu đọc đứng riêng của sách
                   const goc = pinyinChartAudio[syl] || '';
                   let audioUrl = goc && !goc.startsWith('/audio/tts-vi/') ? goc : (pronBangSgk[syl] || goc);
                   // 2) Fallback: dùng audio vận mẫu/thanh mẫu đã có sẵn

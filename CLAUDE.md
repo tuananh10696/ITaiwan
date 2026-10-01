@@ -157,8 +157,10 @@ tự bỏ các clip đó.
 - Chữ/từ ví dụ: `scripts/gen-pron-sgk.mjs` tra theo `chữ|pinyin` → `src/data/pronSgkAudio.js`.
   Ví dụ không có bản thu thật thì script in ra — chọn ví dụ khác có trong sách thay vì để giọng máy.
 - "Cặp dễ nhầm" phát CHÍNH âm của thẻ thanh mẫu (bō / pō …): sửa âm ở thẻ là cặp tự đúng theo.
-- Bảng phiên âm vẫn hotlink mp3 của tiengtrungthaoan.edu.vn (một giọng cho cả bảng); chỉ ô nào
-  nguồn đó không có mới dùng vận mẫu đọc riêng của sách. Nguồn ngoài có thể đổi/xoá file bất cứ lúc nào.
+- Bảng phiên âm: 382 ô là bản thu gốc của tiengtrungthaoan.edu.vn đã TẢI VỀ `public/audio/pron/bang/`
+  (chủ dự án quyết định 2026-10-01 — không trỏ sang web khác nữa); ô nguồn đó không có dùng vận mẫu đọc
+  riêng của sách. Đừng đưa lại URL ngoài vào `pinyinChartAudio`: `scripts/tai-am-bang-phien-am.mjs` chuyển
+  mọi URL ngoài về bản lưu tại chỗ. Ô `huang` của nguồn đó là giọng nữ (cả bảng giọng nam), `miu` không có bản thu.
 
 ## Bài tập: câu NGHE
 

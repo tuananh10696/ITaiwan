@@ -171,3 +171,5 @@ scripts/data-cache/thoidai/lo-*.json
 scripts/data-cache/thoidai/dich-lo.py
 scripts/data-cache/thoidai/ngu-phap-*.json
 scripts/data-cache/ngu-phap-*.json
+# thử bộ âm tiết Unlicense (không dùng) — 2026-10-01
+scripts/data-cache/thoidai/unl/
