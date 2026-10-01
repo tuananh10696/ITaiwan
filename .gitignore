@@ -173,3 +173,5 @@ scripts/data-cache/thoidai/ngu-phap-*.json
 scripts/data-cache/ngu-phap-*.json
 # thử bộ âm tiết Unlicense (không dùng) — 2026-10-01
 scripts/data-cache/thoidai/unl/
+# bản gốc đề thi TOCFL tải từ onllang (tai-de-thi-tocfl.mjs) — ~1 GB, sinh lại được
+scripts/data-cache/thi/

@@ -95,13 +95,16 @@ const CLIP_SAI = (() => {
 })();
 
 // ---------------------------------------------------------------- phân loại lỗi
-const loi = { thieu: [], tuongDoi: [], http: [], hut: [], sai: [] };
+const loi = { thieu: [], tuongDoi: [], http: [], hut: [], sai: [], ngoai: [] };
 const nguonNgoai = new Set();
 
 for (const t of thamChieu) {
   const s = t.src;
   if (/^https?:\/\//i.test(s)) {
     if (/^http:\/\//i.test(s)) loi.http.push(t);
+    // Trỏ thẳng sang website khác: họ đổi/xoá file là câm mà không có lỗi nào — lưu về server mình
+    // (bảng phiên âm, đề thi TOCFL đã chuyển 2026-10-01: scripts/tai-am-bang-phien-am.mjs, tai-de-thi-tocfl.mjs)
+    loi.ngoai.push(t);
     nguonNgoai.add(s);
     continue;
   }
@@ -141,6 +144,7 @@ const bang = [
   ['URL http:// — bị chặn mixed content trên HTTPS', loi.http],
   ['Clip cắt hụt (< 0,24s mỗi âm tiết)', loi.hut],
   ['Clip đọc SAI TỪ (đã nghe lại, scripts/audio-clip-sai.json)', loi.sai],
+  ['Trỏ thẳng sang website khác (phải lưu về server mình)', loi.ngoai],
 ];
 for (const [ten, ds] of bang) {
   const dau = ds.length ? '❌' : '✅';

@@ -115,8 +115,8 @@ Thiếu một bước là đề lệch với dữ liệu mà không có lỗi n�
 
 ## Âm thanh hỏng thì KHÔNG có lỗi nào hiện ra
 
-Bốn kiểu hỏng dưới đây đều "chạy bình thường", console sạch trơn, chỉ có điều bấm loa không
-nghe thấy gì. `npm run audio:kiem` soi cả bốn; chạy nó sau mỗi lần đụng vào dữ liệu hoặc audio.
+Năm kiểu hỏng dưới đây đều "chạy bình thường", console sạch trơn, chỉ có điều bấm loa không
+nghe thấy gì. `npm run audio:kiem` soi cả năm; chạy nó sau mỗi lần đụng vào dữ liệu hoặc audio.
 
 | Kiểu | Vì sao im lặng |
 |---|---|
@@ -124,6 +124,7 @@ nghe thấy gì. `npm run audio:kiem` soi cả bốn; chạy nó sau mỗi lần
 | Clip cắt hụt | File có thật, phát "thành công". `ddSpeakWord` chỉ bỏ clip < 0,25s, nên clip 0,32s đọc từ 2 âm tiết lọt lưới. Bộ kiểm xét theo **độ dài mỗi âm tiết** (< 0,24s là hụt). |
 | URL `http://` | Trang chạy HTTPS thì trình duyệt CHẶN mixed content — thẻ `<audio>` im lặng, không có lỗi mạng nào để lần ra. Đề thi TOCFL từng có 778 URL như vậy. |
 | Đường dẫn tương đối | Không có `/` đầu thì trình duyệt ghép vào URL trang hiện tại, mỗi trang một kết quả 404 khác nhau. |
+| Trỏ sang website khác | Họ đổi/xoá file là câm. Chủ dự án quyết định (2026-10-01): mọi âm thanh/ảnh phải lưu trên server mình — bảng phiên âm (`scripts/tai-am-bang-phien-am.mjs`) và đề thi TOCFL (`scripts/tai-de-thi-tocfl.mjs`, `public/data/thi/tocfl.json` là NGUỒN, sửa thẳng) đã chuyển. |
 
 Vá tự động: `npm run audio:va` (đổi sang bản thu cùng chữ → mp3 giọng máy → liệt kê chữ cần
 sinh), rồi `npm run tts:bo-sung` sinh mp3 còn thiếu, rồi chạy lại `audio:va` để gán đường dẫn.
