@@ -1099,8 +1099,8 @@ function syncSeoTags(page) {
 
   const label = pageTitles[page] || 'ITaiwan';
   document.title = page === 'dashboard'
-    ? 'ITaiwan - Nền Tảng Học Tiếng Trung Phồn Thể & Luyện Thi TOCFL'
-    : label + ' · ITaiwan - Học Tiếng Trung Phồn Thể & Luyện Thi TOCFL';
+    ? 'ITaiwan - Du học & Học Tiếng Trung Phồn Thể'
+    : label + ' · ITaiwan - Du học & Học Tiếng Trung Phồn Thể';
   const url = SITE_ORIGIN + location.pathname + location.search;
   const set = (sel, attr, val) => { const el = document.querySelector(sel); if (el) el.setAttribute(attr, val); };
   set('link[rel="canonical"]', 'href', url);
