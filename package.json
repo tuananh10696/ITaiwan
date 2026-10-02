@@ -28,6 +28,7 @@
     "data:fa": "node scripts/gen-fontawesome-subset.mjs",
     "preview": "vite preview",
     "seo:sitemap": "node scripts/gen-sitemap.mjs",
+    "seo:og-image": "node scripts/gen-og-image.mjs",
     "db:migrate:local": "node scripts/migrate.mjs --local",
     "db:migrate:prod": "node scripts/migrate.mjs",
     "db:diff": "node scripts/db-diff.mjs",
