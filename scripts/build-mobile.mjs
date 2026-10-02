@@ -23,8 +23,8 @@ const RA = process.env.TW_MOBILE_OUT || 'dist-mobile';
 // Máy chủ thật của app đã cài trên máy học viên. Đổi ở đây (hoặc đặt biến môi trường cùng tên)
 // khi chuyển sang tên miền riêng — nhớ dựng lại và phát hành bản mới, người dùng KHÔNG tự đổi
 // được giá trị này.
-const API = process.env.VITE_API_BASE || 'https://taiwanese-mu.vercel.app';
-const CDN = process.env.VITE_CDN_BASE || 'https://taiwanese-mu.vercel.app';
+const API = process.env.VITE_API_BASE || 'https://duhocitaiwan.com';
+const CDN = process.env.VITE_CDN_BASE || 'https://duhocitaiwan.com';
 
 console.log('┌─ Dựng bản mobile');
 console.log(`│  API  : ${API}`);

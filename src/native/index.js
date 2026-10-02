@@ -327,7 +327,7 @@ export async function chiaSe({ tieuDe, noiDung, url } = {}) {
     await Share.share({
       title: tieuDe || 'ITaiwan — Học tiếng Trung',
       text: noiDung || '',
-      url: url || 'https://taiwanese-mu.vercel.app',
+      url: url || 'https://duhocitaiwan.com',
       dialogTitle: 'Chia sẻ',
     });
     return true;

@@ -10,7 +10,7 @@ import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
 
-const GOC = '/Users/lt00838/DATA/TA/taiwanese/dist';
+const GOC = path.resolve(import.meta.dirname, '../../dist');
 const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css',
   '.json': 'application/json', '.png': 'image/png', '.svg': 'image/svg+xml',
   '.webp': 'image/webp', '.jpg': 'image/jpeg', '.woff2': 'font/woff2', '.mp3': 'audio/mpeg' };
@@ -35,13 +35,13 @@ pg.on('console', (m) => { if (m.type() === 'error') loi.push(m.text()); });
 pg.on('pageerror', (e) => loi.push('PAGEERROR: ' + e.message));
 
 const TRANG = [['Trang chủ', '/'], ['Phát âm', '/hoc-phat-am/thanh-mau'],
-  ['Từ vựng 1.1', '/tocfl/giao-trinh-duong-dai/bai-1-1/tu-vung'],
   ['Bảng phiên âm', '/hoc-phat-am/bang-phien-am'],
   ['Thời Đại 1.1', '/tocfl/giao-trinh-thoi-dai/bai-1-1/tu-vung'],
-  // Hai trang NẠP ĐỘNG (4.40) — bắt lỗi tách route trên bản WEB. Module `lotrinh` cần đăng
+  ['TOCFL Band', '/tocfl/tu-vung-theo-band'],
+  // Hai trang NẠP ĐỘNG — bắt lỗi tách route trên bản WEB. Module `lotrinh` cần đăng
   // nhập nên không đưa vào đây (bộ kiểm này chạy với tư cách khách).
   ['Từ điển', '/tu-vung/tu-dien'],
-  ['Cộng đồng', '/cong-dong/thao-luan']];
+  ['Bộ thủ Hán tự', '/tu-vung/bo-thu-han-tu']];
 
 console.log('TRANG'.padEnd(20), 'KÝ TỰ'.padStart(7), '  LỖI');
 console.log('─'.repeat(40));

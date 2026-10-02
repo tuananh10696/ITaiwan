@@ -800,7 +800,7 @@ function updateSidebarAuth() {
 //   read(segs, query)  đọc URL -> ghi vào state  (LUÔN gọi TRƯỚC khi render)
 //   write()            đọc state -> trả { segs, query } để dựng lại URL
 // ============================================================
-const SITE_ORIGIN = 'https://taiwanese-mu.vercel.app';
+const SITE_ORIGIN = 'https://duhocitaiwan.com';
 
 // Slug tab của Giáo trình Đương đại — URL đọc được thay vì id tiếng Anh
 const DD_TAB_SLUG = {
@@ -1099,13 +1099,14 @@ function syncSeoTags(page) {
 
   const label = pageTitles[page] || 'ITaiwan';
   document.title = page === 'dashboard'
-    ? 'ITaiwan - Du học & Học Tiếng Trung Phồn Thể'
-    : label + ' · ITaiwan - Du học & Học Tiếng Trung Phồn Thể';
+    ? 'Du Học ITaiwan - Trung Tâm Tư Vấn Du Học Đài Loan & Học Tiếng Trung Phồn Thể'
+    : label + ' · Du Học ITaiwan';
   const url = SITE_ORIGIN + location.pathname + location.search;
   const set = (sel, attr, val) => { const el = document.querySelector(sel); if (el) el.setAttribute(attr, val); };
   set('link[rel="canonical"]', 'href', url);
   set('meta[property="og:url"]', 'content', url);
   set('meta[property="og:title"]', 'content', document.title);
+  set('meta[name="twitter:title"]', 'content', document.title);
 }
 // ============================================================
 // SIDEBAR RENDERING
