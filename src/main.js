@@ -123,7 +123,12 @@ const navConfig = [
   },
 
 
-  { id: 'account-duhoc', path: 'tai-khoan/ho-so-du-hoc', label: 'Hồ sơ du học', icon: 'fa-solid fa-plane-departure' },
+  {
+    type: 'parent', id: 'cat-duhoc', path: 'tai-khoan', label: 'Hồ sơ du học', icon: 'fa-solid fa-plane-departure',
+    children: [
+      { id: 'account-duhoc', path: 'ho-so-du-hoc', label: 'Hồ sơ du học', icon: 'fa-solid fa-plane-departure' },
+    ],
+  },
 
   {
     type: 'parent', id: 'cat-account', path: 'tai-khoan', label: 'Tài khoản', icon: 'fa-solid fa-circle-user',
@@ -1229,9 +1234,12 @@ function renderSidebar() {
     } else if (item.type === 'parent') {
       const open = isMenuOpen(item.id);
       const hasActive = item.children.some(c => c.id === state.currentPage);
+      const onclickHandler = item.id === 'cat-duhoc'
+        ? `window.app.navigate('account-duhoc'); window.app.toggleMenu('${item.id}', true);`
+        : `window.app.toggleMenu('${item.id}')`;
       html += `<div class="nav-group${open ? ' open' : ''}" data-menu="${item.id}">
         <button type="button" class="nav-item nav-parent${hasActive ? ' has-active' : ''}"
-          aria-expanded="${open}" onclick="window.app.toggleMenu('${item.id}')">
+          aria-expanded="${open}" onclick="${onclickHandler}">
           <i class="${item.icon}"></i>
           <span>${item.label}</span>
           <i class="fa-solid fa-chevron-down nav-caret"></i>

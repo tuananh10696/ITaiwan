@@ -507,7 +507,7 @@ input, select, textarea {
     padding: 10px 12px;
     margin: 3px 8px;
     border-radius: var(--radius-md);
-    color: var(--text-muted);
+    color: var(--sb-text);
     font-size: 14px;
     font-weight: 600;
     transition: all 0.3s var(--ease-out);
