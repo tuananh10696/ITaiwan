@@ -36,46 +36,54 @@ router.use(requireAuth);
  * Nhãn không chỉ để hiện form — nó còn là thứ người duyệt yêu cầu sửa đọc được ("Số hộ chiếu:
  * C1234567 → C7654321"). Nên giữ nhãn ở một chỗ duy nhất này.
  */
+// Bộ ô theo MẪU KHÁCH chốt ngày 2026-10-03 (đúng thứ tự 1 → 13 + quá trình làm việc). Các cột
+// cũ (giới tính, người bảo lãnh, nguyện vọng trường, kỳ nhập học, KTX…) vẫn còn trong DB nhưng
+// học sinh KHÔNG khai nữa — bỏ khỏi đây là server tự chặn, không chỉ ẩn ở giao diện.
 const COT_HS = {
-  ho_ten: 'Họ và tên',
-  ngay_sinh: 'Ngày sinh',
-  gioi_tinh: 'Giới tính',
-  cccd: 'Số CCCD/CMND',
+  ho_ten: 'Họ tên tiếng Việt',
+  ten_trung: 'Họ tên tiếng Trung',
+  ngay_sinh: 'Ngày tháng năm sinh',
+  cccd: 'Số CCCD',
   ho_chieu: 'Số hộ chiếu',
-  ho_chieu_het_han: 'Hộ chiếu hết hạn',
-  dia_chi: 'Địa chỉ thường trú',
+  dia_chi: 'Địa chỉ theo hộ khẩu',
+
+  diem_lop10: 'Điểm tổng kết lớp 10',
+  diem_lop11: 'Điểm tổng kết lớp 11',
+  diem_lop12: 'Điểm tổng kết lớp 12',
+  truong_tn: 'Tên trường cấp 3',
+
+  trinh_do_tieng: 'Chứng chỉ ngoại ngữ',
+
+  email: 'Email liên lạc',
   phone: 'Số điện thoại',
-  email: 'Email',
-  lien_lac_khac: 'Liên lạc khác (Zalo/LINE…)',
 
-  ph_ten: 'Họ tên người bảo lãnh',
-  ph_phone: 'SĐT người bảo lãnh',
-  ph_quan_he: 'Quan hệ với người bảo lãnh',
+  bo_ten: 'Họ tên bố',
+  bo_cccd: 'Số CCCD của bố',
+  bo_ngay_sinh: 'Ngày sinh của bố',
+  bo_nghe: 'Nghề nghiệp của bố',
+  bo_phone: 'Số điện thoại của bố',
 
-  truong_tn: 'Trường tốt nghiệp',
-  nam_tn: 'Năm tốt nghiệp',
-  xep_loai: 'Xếp loại',
-  trinh_do_tieng: 'Trình độ tiếng Trung',
+  me_ten: 'Họ tên mẹ',
+  me_cccd: 'Số CCCD của mẹ',
+  me_ngay_sinh: 'Ngày sinh của mẹ',
+  me_nghe: 'Nghề nghiệp của mẹ',
+  me_phone: 'Số điện thoại của mẹ',
 
-  truong_nv1: 'Nguyện vọng 1',
-  truong_nv2: 'Nguyện vọng 2',
-  truong_nv3: 'Nguyện vọng 3',
-  nganh: 'Ngành đăng ký',
-  ky_nhap_hoc: 'Kỳ nhập học',
-  loai_hinh: 'Loại hình du học',
+  nganh: 'Đăng ký chuyên ngành',
 
-  ktx_dang_ky: 'Đăng ký ký túc xá',
-  ktx_loai: 'Loại phòng mong muốn',
-  ktx_ghi_chu: 'Yêu cầu thêm về chỗ ở',
+  qua_trinh_lam_viec: 'Quá trình làm việc từ khi tốt nghiệp đến nay',
 };
-const COT_NGAY = new Set(['ngay_sinh', 'ho_chieu_het_han']);
-const ENUM_HS = {
-  gioi_tinh: ['nam', 'nu', 'khac'],
-  loai_hinh: ['hoa-ngu', 'dai-hoc', 'cao-hoc', 'tien-si', 'khac'],
-  ktx_dang_ky: ['chua-quyet', 'co', 'khong'],
+const COT_NGAY = new Set(['ngay_sinh', 'bo_ngay_sinh', 'me_ngay_sinh']);
+const ENUM_HS = {};
+/** Độ dài tối đa theo cột (khớp kiểu cột trong DB). Không có trong bảng thì 200. */
+const DAI_TOI_DA = {
+  dia_chi: 300, trinh_do_tieng: 255, qua_trinh_lam_viec: 2000,
+  diem_lop10: 10, diem_lop11: 10, diem_lop12: 10,
+  cccd: 20, bo_cccd: 20, me_cccd: 20, bo_phone: 20, me_phone: 20,
+  ten_trung: 80, bo_ten: 120, me_ten: 120, bo_nghe: 120, me_nghe: 120,
 };
 /** Bốn ô tối thiểu phải có thì mới cho gửi — thiếu là trung tâm không làm được gì với hồ sơ. */
-const BAT_BUOC = ['ho_ten', 'ngay_sinh', 'phone', 'truong_nv1'];
+const BAT_BUOC = ['ho_ten', 'ngay_sinh', 'phone', 'nganh'];
 
 const NHAN_KHOAN = {
   'dat-coc': 'Đặt cọc', 'phi-ho-so': 'Phí hồ sơ', 'hoc-phi': 'Học phí',
@@ -110,12 +118,23 @@ function chuanHoa(cot, gtRaw) {
   }
   const s = String(gtRaw ?? '').trim();
   if (!s) return null;
-  return s.slice(0, cot === 'dia_chi' ? 300 : cot === 'ktx_ghi_chu' ? 300 : 200);
+  return s.slice(0, DAI_TOI_DA[cot] || 200);
+}
+
+/**
+ * DATE từ mysql2 về là Date dựng lúc 00:00 GIỜ MÁY CHỦ — phải lấy ngày bằng getter địa phương.
+ * `toISOString()` đổi sang UTC nên máy đặt múi +07 (cả VPS) lùi một ngày: học sinh thấy ngày
+ * sinh sớm hơn một ngày, bấm lưu lại là ngày trong DB lùi thật (cùng bẫy với `giaTriSo` ở du-hoc.js).
+ */
+function ngayChuoi(x) {
+  if (!(x instanceof Date)) return x;
+  const p = (n) => String(n).padStart(2, '0');
+  return `${x.getFullYear()}-${p(x.getMonth() + 1)}-${p(x.getDate())}`;
 }
 
 /** So hai giá trị "như người dùng nhìn thấy" — DATE từ MySQL là Date object, từ form là chuỗi. */
 function nhuNhau(a, b) {
-  const chuan = (x) => (x instanceof Date ? x.toISOString().slice(0, 10) : x === null || x === undefined ? '' : String(x));
+  const chuan = (x) => (x instanceof Date ? ngayChuoi(x) : x === null || x === undefined ? '' : String(x));
   return chuan(a) === chuan(b);
 }
 
@@ -172,7 +191,7 @@ router.get('/ho-so-cua-toi', async (req, res) => {
 
     const khai = {};
     for (const c of Object.keys(COT_HS)) {
-      khai[c] = hs[c] instanceof Date ? hs[c].toISOString().slice(0, 10) : hs[c];
+      khai[c] = ngayChuoi(hs[c]);
     }
 
     res.json({
@@ -336,7 +355,7 @@ router.post('/yeu-cau-sua', async (req, res) => {
       const x = chuanHoa(c, v);
       if (x === undefined) continue;
       if (nhuNhau(hs[c], x)) continue;   // gửi lại y nguyên giá trị cũ thì không phải một thay đổi
-      thayDoi.push({ cot: c, nhan: COT_HS[c], cu: hs[c] instanceof Date ? hs[c].toISOString().slice(0, 10) : hs[c], moi: x });
+      thayDoi.push({ cot: c, nhan: COT_HS[c], cu: ngayChuoi(hs[c]), moi: x });
     }
     if (!thayDoi.length) return res.status(400).json({ error: 'Chưa có thay đổi nào so với hồ sơ hiện tại.' });
 

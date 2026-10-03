@@ -609,38 +609,41 @@ const TT_NHAN = {
 // Vì sao khoá sau khi gửi: tư vấn viên đang làm hồ sơ mà dữ liệu đổi dưới tay là hỏng việc thật
 // (đã in giấy tờ theo tên cũ, đã nộp trường theo nguyện vọng cũ).
 
-/** Nhóm các ô trong form — thứ tự này cũng là thứ tự học sinh điền. */
+/** Nhóm các ô trong form — thứ tự này cũng là thứ tự học sinh điền.
+ *  Theo MẪU KHÁCH chốt 2026-10-03 (mục 1 → 13 + quá trình làm việc). Server cũng chỉ nhận đúng
+ *  các cột này (COT_HS ở server/routes/du-hoc-hocvien.js) — thêm/bớt ô thì sửa cả hai chỗ. */
 const DH_NHOM = [
   { ten: 'Thông tin cá nhân', icon: 'fa-id-card',
-    cot: ['ho_ten', 'ngay_sinh', 'gioi_tinh', 'cccd', 'ho_chieu', 'ho_chieu_het_han', 'phone', 'email', 'dia_chi', 'lien_lac_khac'] },
-  { ten: 'Người bảo lãnh', icon: 'fa-user-shield',
-    cot: ['ph_ten', 'ph_phone', 'ph_quan_he'] },
+    cot: ['ho_ten', 'ten_trung', 'ngay_sinh', 'cccd', 'ho_chieu', 'dia_chi'] },
   { ten: 'Học vấn', icon: 'fa-graduation-cap',
-    cot: ['truong_tn', 'nam_tn', 'xep_loai', 'trinh_do_tieng'] },
-  { ten: 'Nguyện vọng', icon: 'fa-bullseye',
-    cot: ['truong_nv1', 'truong_nv2', 'truong_nv3', 'nganh', 'ky_nhap_hoc', 'loai_hinh'] },
-  { ten: 'Ký túc xá', icon: 'fa-bed',
-    cot: ['ktx_dang_ky', 'ktx_loai', 'ktx_ghi_chu'] },
+    cot: ['diem_lop10', 'diem_lop11', 'diem_lop12', 'truong_tn'] },
+  { ten: 'Ngoại ngữ', icon: 'fa-language',
+    cot: ['trinh_do_tieng'] },
+  { ten: 'Liên lạc', icon: 'fa-address-book',
+    cot: ['email', 'phone'] },
+  { ten: 'Thông tin bố', icon: 'fa-user-tie',
+    cot: ['bo_ten', 'bo_cccd', 'bo_ngay_sinh', 'bo_nghe', 'bo_phone'] },
+  { ten: 'Thông tin mẹ', icon: 'fa-user',
+    cot: ['me_ten', 'me_cccd', 'me_ngay_sinh', 'me_nghe', 'me_phone'] },
+  { ten: 'Chuyên ngành', icon: 'fa-bullseye',
+    cot: ['nganh'] },
+  { ten: 'Quá trình làm việc', icon: 'fa-briefcase',
+    cot: ['qua_trinh_lam_viec'] },
 ];
 
 /** Ô nào là select, ô nào là ngày, ô nào nhập nhiều dòng. Còn lại là input text. */
-const DH_CHON = {
-  gioi_tinh: [['', '— chọn —'], ['nam', 'Nam'], ['nu', 'Nữ'], ['khac', 'Khác']],
-  loai_hinh: [['', '— chọn —'], ['hoa-ngu', 'Học tiếng (Hoa ngữ)'], ['dai-hoc', 'Đại học'],
-              ['cao-hoc', 'Cao học'], ['tien-si', 'Tiến sĩ'], ['khac', 'Khác']],
-  ktx_dang_ky: [['chua-quyet', 'Chưa quyết định'], ['co', 'Có — tôi muốn ở ký túc xá'],
-                ['khong', 'Không — tôi tự thuê ngoài']],
-};
-const DH_NGAY = new Set(['ngay_sinh', 'ho_chieu_het_han']);
-const DH_NHIEU_DONG = new Set(['dia_chi', 'ktx_ghi_chu']);
+const DH_CHON = {};
+const DH_NGAY = new Set(['ngay_sinh', 'bo_ngay_sinh', 'me_ngay_sinh']);
+const DH_NHIEU_DONG = new Set(['dia_chi', 'trinh_do_tieng', 'qua_trinh_lam_viec']);
+/** Kiểu bàn phím số cho ô điểm (điểm có thể lẻ: 8.5 / 8,5 nên vẫn để text). */
+const DH_DIEM = new Set(['diem_lop10', 'diem_lop11', 'diem_lop12']);
 /** Gợi ý cho những ô học sinh hay điền sai hoặc bỏ trống vì không biết ghi gì. */
 const DH_GOI_Y = {
+  ten_trung: 'Chưa có tên tiếng Trung thì để trống, trung tâm sẽ hỗ trợ đặt',
   ho_chieu: 'Chưa có hộ chiếu thì để trống, trung tâm sẽ hướng dẫn làm',
-  ho_chieu_het_han: 'Phải còn hạn ít nhất 6 tháng khi xin visa',
-  trinh_do_tieng: 'Ví dụ: TOCFL A2, HSK 3, hoặc "chưa học"',
-  ky_nhap_hoc: 'Ví dụ: Kỳ Xuân 2027, hoặc 9/2027',
-  ktx_loai: 'Ví dụ: phòng 4 người, phòng đôi…',
-  lien_lac_khac: 'Zalo / LINE / Facebook để trung tâm liên lạc nhanh',
+  dia_chi: 'Ghi đúng như trên sổ hộ khẩu / CCCD',
+  trinh_do_tieng: 'Ví dụ: TOCFL A2, HSK 3. Chưa thi đỗ thì ghi đã học tiếng Trung bao lâu (vd: đã học 6 tháng)',
+  qua_trinh_lam_viec: 'Ghi rõ vị trí công việc, tên & địa chỉ công ty, thời gian làm. Chưa đi làm thì ghi "Chưa đi làm"',
 };
 
 const DH_KQ = { cho: 'Đang chờ kết quả', dau: 'Đạt', truot: 'Chưa đạt' };
@@ -884,9 +887,10 @@ function dhOHtml(c, nhan, batBuoc, khoa = false) {
     o = `<select ${chung}>${DH_CHON[c].map(([g, t]) =>
       `<option value="${g}"${String(v) === g ? ' selected' : ''}>${tdEsc(t)}</option>`).join('')}</select>`;
   } else if (DH_NHIEU_DONG.has(c)) {
-    o = `<textarea rows="2" ${chung}>${tdEsc(v)}</textarea>`;
+    o = `<textarea rows="${c === 'qua_trinh_lam_viec' ? 4 : 2}" ${chung}>${tdEsc(v)}</textarea>`;
   } else {
     o = `<input type="${DH_NGAY.has(c) ? 'date' : c === 'email' ? 'email' : c.includes('phone') ? 'tel' : 'text'}"
+           ${DH_DIEM.has(c) ? 'inputmode="decimal" placeholder="vd: 8.5"' : ''}
            value="${tdEsc(v)}" ${chung}>`;
   }
   return `<div class="dh-o ${DH_NHIEU_DONG.has(c) ? 'rong' : ''}">

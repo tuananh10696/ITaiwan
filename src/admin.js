@@ -3868,8 +3868,8 @@ function _dhVeDanhSachHtml(el, tq, ds) {
       <td>${_dhChipBuoc(h.buoc)}
         ${h.buoc === 'phong-van' ? _dhPvDong(h) : ''}
         ${h.buoc_tu ? `<div class="dh-sub">từ ${_dhNgay(h.buoc_tu)}</div>` : ''}</td>
-      <td>${h.truong_nv1 ? esc(h.truong_nv1) : '<span class="dh-sub">—</span>'}
-        <div class="dh-sub">${h.ky_nhap_hoc ? esc(h.ky_nhap_hoc) : ''}${h.loai_hinh ? ' · ' + DH_LOAI_HINH[h.loai_hinh] : ''}</div></td>
+      <td>${h.nganh ? esc(h.nganh) : '<span class="dh-sub">—</span>'}
+        <div class="dh-sub">${h.truong_do ? 'Đỗ: ' + esc(h.truong_do) : ''}</div></td>
       <td style="white-space:nowrap">
         ${h.tong_phi
           ? `${_tien(h.da_thu)}<span class="dh-sub"> / ${_tien(h.tong_phi)}</span>
@@ -3931,7 +3931,7 @@ function _dhVeDanhSachHtml(el, tq, ds) {
       <div class="data-table-wrapper dh-table-wrap">
         <table class="data-table">
           <thead><tr>
-            <th>Học sinh</th><th>Bước</th><th>Nguyện vọng</th><th>Tiền</th>
+            <th>Học sinh</th><th>Bước</th><th>Chuyên ngành</th><th>Tiền</th>
             <th style="text-align:center">Giấy tờ</th><th>Mốc gần nhất</th>
           </tr></thead>
           <tbody>${hang}</tbody>
@@ -4015,6 +4015,19 @@ function _dhVeChiTietHtml(el) {
   const hetHanGan = h.ho_chieu_het_han
     && new Date(h.ho_chieu_het_han) <= new Date(Date.now() + 182 * 864e5);
 
+  // Thông tin bố / mẹ: tên đậm, dòng phụ gộp CCCD · ngày sinh · nghề · SĐT.
+  const nguoiThan = (p) => {
+    const phu = [
+      h[`${p}_cccd`] && `CCCD ${esc(h[`${p}_cccd`])}`,
+      h[`${p}_ngay_sinh`] && `NS ${_dhNgay(h[`${p}_ngay_sinh`])}`,
+      h[`${p}_nghe`] && esc(h[`${p}_nghe`]),
+      h[`${p}_phone`] && esc(h[`${p}_phone`]),
+    ].filter(Boolean).join(' · ');
+    if (!h[`${p}_ten`] && !phu) return '';
+    return `${esc(h[`${p}_ten`] || '—')}${phu ? `<div class="dh-sub">${phu}</div>` : ''}`;
+  };
+  const diem = [h.diem_lop10, h.diem_lop11, h.diem_lop12];
+
   const thongTin = `
     <div class="data-table-wrapper" style="padding:16px">
       <div class="dh-block-head">
@@ -4023,21 +4036,22 @@ function _dhVeChiTietHtml(el) {
           <i class="fa-solid fa-pen"></i> Sửa</button>
       </div>
       <div class="dh-fields">
-        ${o('Ngày sinh', _dhNgay(h.ngay_sinh))}
-        ${o('Giới tính', h.gioi_tinh ? ({ nam: 'Nam', nu: 'Nữ', khac: 'Khác' })[h.gioi_tinh] : '')}
-        ${o('Điện thoại', esc(h.phone || ''))}
-        ${o('Email', esc(h.email || ''))}
-        ${o('CCCD', esc(h.cccd || ''))}
-        ${o('Hộ chiếu', h.ho_chieu ? `${esc(h.ho_chieu)}${h.ho_chieu_het_han
+        ${o('Họ tên tiếng Việt', esc(h.ho_ten || ''))}
+        ${o('Họ tên tiếng Trung', esc(h.ten_trung || ''))}
+        ${o('Ngày tháng năm sinh', _dhNgay(h.ngay_sinh))}
+        ${o('Số CCCD', esc(h.cccd || ''))}
+        ${o('Số hộ chiếu', h.ho_chieu ? `${esc(h.ho_chieu)}${h.ho_chieu_het_han
             ? ` <span class="${hetHanGan ? 'dh-warn' : 'dh-sub'}">(hết hạn ${_dhNgay(h.ho_chieu_het_han)}${hetHanGan ? ' ⚠' : ''})</span>` : ''}` : '')}
-        ${o('Địa chỉ', esc(h.dia_chi || ''))}
-        ${o('Liên lạc khác', esc(h.lien_lac_khac || ''))}
-        ${o('Người bảo lãnh', h.ph_ten ? `${esc(h.ph_ten)}${h.ph_quan_he ? ` (${esc(h.ph_quan_he)})` : ''}${h.ph_phone ? ' · ' + esc(h.ph_phone) : ''}` : '')}
-        ${o('Trường tốt nghiệp', h.truong_tn ? `${esc(h.truong_tn)}${h.nam_tn ? ' · ' + esc(h.nam_tn) : ''}${h.xep_loai ? ' · ' + esc(h.xep_loai) : ''}` : '')}
-        ${o('Trình độ tiếng', esc(h.trinh_do_tieng || ''))}
-        ${o('Nguyện vọng', [h.truong_nv1, h.truong_nv2, h.truong_nv3].filter(Boolean).map(esc).join('<br>'))}
-        ${o('Ngành', esc(h.nganh || ''))}
-        ${o('Kỳ nhập học', `${esc(h.ky_nhap_hoc || '')}${h.loai_hinh ? ' · ' + DH_LOAI_HINH[h.loai_hinh] : ''}`)}
+        ${o('Địa chỉ theo hộ khẩu', esc(h.dia_chi || ''))}
+        ${o('Điểm tổng kết lớp 10 · 11 · 12', diem.some(Boolean) ? diem.map((x) => (x ? esc(x) : '—')).join(' · ') : '')}
+        ${o('Tên trường cấp 3', esc(h.truong_tn || ''))}
+        ${o('Chứng chỉ ngoại ngữ', esc(h.trinh_do_tieng || ''))}
+        ${o('Email liên lạc', esc(h.email || ''))}
+        ${o('Số điện thoại', esc(h.phone || ''))}
+        ${o('Bố', nguoiThan('bo'))}
+        ${o('Mẹ', nguoiThan('me'))}
+        ${o('Đăng ký chuyên ngành', esc(h.nganh || ''))}
+        ${o('Quá trình làm việc', esc(h.qua_trinh_lam_viec || '').replace(/\n/g, '<br>'))}
         ${o('Tư vấn viên', esc(h.tu_van_ten || dhNhanSu.find((n) => n.id === h.tu_van_id)?.name || ''))}
         ${o('Nguồn khách', esc(h.nguon || ''))}
         ${o('Ngày nhận hồ sơ', _dhNgay(h.ngay_nhan))}
@@ -4317,88 +4331,79 @@ function dhFormHoSo(id) {
       khi học sinh nộp giấy tờ. Học sinh chưa có tài khoản trên hệ thống vẫn tạo hồ sơ được.</p>
 
     <div class="dh-form-sec">Cá nhân</div>
-    <div class="form-group"><label>Họ tên <span style="color:#EF4444">*</span></label>
+    <div class="form-group"><label>Họ tên tiếng Việt <span style="color:#EF4444">*</span></label>
       <input type="text" id="f-dh-ho-ten" value="${_escAttr(h.ho_ten || '')}"></div>
     <div class="form-row dh-f3">
-      <div class="form-group"><label>Ngày sinh</label>
+      <div class="form-group"><label>Họ tên tiếng Trung</label>
+        <input type="text" id="f-dh-ten-trung" value="${_escAttr(h.ten_trung || '')}"></div>
+      <div class="form-group"><label>Ngày tháng năm sinh</label>
         <input type="date" id="f-dh-ngay-sinh" value="${d(h.ngay_sinh)}"></div>
-      <div class="form-group"><label>Giới tính</label>
-        <select id="f-dh-gioi-tinh"><option value="">—</option>${opt({ nam: 'Nam', nu: 'Nữ', khac: 'Khác' }, h.gioi_tinh)}</select></div>
       <div class="form-group"><label>Mã hồ sơ</label>
         ${sua ? `<input type="text" value="${_escAttr(h.ma_hs || '')}" disabled>`
               : '<input type="text" id="f-dh-ma" placeholder="để trống = tự sinh HS-0001">'}</div>
     </div>
-    <div class="form-row dh-f3">
-      <div class="form-group"><label>Điện thoại</label>
-        <input type="text" id="f-dh-phone" value="${_escAttr(h.phone || '')}"></div>
-      <div class="form-group"><label>Email</label>
-        <input type="email" id="f-dh-email" value="${_escAttr(h.email || '')}"></div>
-      <div class="form-group"><label>Zalo / Facebook</label>
-        <input type="text" id="f-dh-lien-lac" value="${_escAttr(h.lien_lac_khac || '')}"></div>
-    </div>
-    <div class="form-row dh-f3">
-      <div class="form-group"><label>CCCD</label>
+    <div class="form-row">
+      <div class="form-group"><label>Số CCCD</label>
         <input type="text" id="f-dh-cccd" value="${_escAttr(h.cccd || '')}"></div>
       <div class="form-group"><label>Số hộ chiếu</label>
         <input type="text" id="f-dh-ho-chieu" value="${_escAttr(h.ho_chieu || '')}"></div>
-      <div class="form-group"><label>Hộ chiếu hết hạn</label>
-        <input type="date" id="f-dh-hc-het-han" value="${d(h.ho_chieu_het_han)}"></div>
     </div>
-    <div class="form-group"><label>Địa chỉ</label>
+    <div class="form-group"><label>Địa chỉ theo hộ khẩu</label>
       <input type="text" id="f-dh-dia-chi" value="${_escAttr(h.dia_chi || '')}"></div>
 
-    <div class="dh-form-sec">Người bảo lãnh</div>
+    <div class="dh-form-sec">Học vấn &amp; ngoại ngữ</div>
     <div class="form-row dh-f3">
-      <div class="form-group"><label>Họ tên</label>
-        <input type="text" id="f-dh-ph-ten" value="${_escAttr(h.ph_ten || '')}"></div>
-      <div class="form-group"><label>Điện thoại</label>
-        <input type="text" id="f-dh-ph-phone" value="${_escAttr(h.ph_phone || '')}"></div>
-      <div class="form-group"><label>Quan hệ</label>
-        <input type="text" id="f-dh-ph-quan-he" value="${_escAttr(h.ph_quan_he || '')}" placeholder="Bố / Mẹ / Anh…"></div>
+      <div class="form-group"><label>Điểm tổng kết lớp 10</label>
+        <input type="text" inputmode="decimal" id="f-dh-diem10" value="${_escAttr(h.diem_lop10 || '')}"></div>
+      <div class="form-group"><label>Điểm tổng kết lớp 11</label>
+        <input type="text" inputmode="decimal" id="f-dh-diem11" value="${_escAttr(h.diem_lop11 || '')}"></div>
+      <div class="form-group"><label>Điểm tổng kết lớp 12</label>
+        <input type="text" inputmode="decimal" id="f-dh-diem12" value="${_escAttr(h.diem_lop12 || '')}"></div>
+    </div>
+    <div class="form-group"><label>Tên trường cấp 3</label>
+      <input type="text" id="f-dh-truong-tn" value="${_escAttr(h.truong_tn || '')}"></div>
+    <div class="form-group"><label>Chứng chỉ ngoại ngữ</label>
+      <input type="text" id="f-dh-trinh-do" value="${_escAttr(h.trinh_do_tieng || '')}"
+             placeholder="TOCFL A2 / HSK 3 — chưa thi đỗ thì ghi đã học tiếng Trung bao lâu"></div>
+
+    <div class="dh-form-sec">Liên lạc</div>
+    <div class="form-row">
+      <div class="form-group"><label>Email liên lạc</label>
+        <input type="email" id="f-dh-email" value="${_escAttr(h.email || '')}"></div>
+      <div class="form-group"><label>Số điện thoại</label>
+        <input type="text" id="f-dh-phone" value="${_escAttr(h.phone || '')}"></div>
     </div>
 
-    <div class="dh-form-sec">Học vấn &amp; nguyện vọng</div>
+    ${[['bo', 'Bố'], ['me', 'Mẹ']].map(([p, ten]) => `
+    <div class="dh-form-sec">Thông tin ${ten.toLowerCase()}</div>
     <div class="form-row dh-f3">
-      <div class="form-group"><label>Trường đã tốt nghiệp</label>
-        <input type="text" id="f-dh-truong-tn" value="${_escAttr(h.truong_tn || '')}"></div>
-      <div class="form-group"><label>Năm TN</label>
-        <input type="text" id="f-dh-nam-tn" value="${_escAttr(h.nam_tn || '')}"></div>
-      <div class="form-group"><label>Xếp loại</label>
-        <input type="text" id="f-dh-xep-loai" value="${_escAttr(h.xep_loai || '')}"></div>
+      <div class="form-group"><label>Họ tên ${ten.toLowerCase()}</label>
+        <input type="text" id="f-dh-${p}-ten" value="${_escAttr(h[`${p}_ten`] || '')}"></div>
+      <div class="form-group"><label>Số CCCD</label>
+        <input type="text" id="f-dh-${p}-cccd" value="${_escAttr(h[`${p}_cccd`] || '')}"></div>
+      <div class="form-group"><label>Ngày tháng năm sinh</label>
+        <input type="date" id="f-dh-${p}-ngay-sinh" value="${d(h[`${p}_ngay_sinh`])}"></div>
     </div>
-    <div class="form-group"><label>Trình độ tiếng hiện có</label>
-      <input type="text" id="f-dh-trinh-do" value="${_escAttr(h.trinh_do_tieng || '')}" placeholder="TOCFL A2 / HSK 3 / chưa có"></div>
-    <div class="form-group"><label>Nguyện vọng 1</label>
-      <input type="text" id="f-dh-nv1" value="${_escAttr(h.truong_nv1 || '')}"></div>
     <div class="form-row">
-      <div class="form-group"><label>Nguyện vọng 2</label>
-        <input type="text" id="f-dh-nv2" value="${_escAttr(h.truong_nv2 || '')}"></div>
-      <div class="form-group"><label>Nguyện vọng 3</label>
-        <input type="text" id="f-dh-nv3" value="${_escAttr(h.truong_nv3 || '')}"></div>
-    </div>
-    <div class="form-row dh-f3">
-      <div class="form-group"><label>Ngành</label>
-        <input type="text" id="f-dh-nganh" value="${_escAttr(h.nganh || '')}"></div>
-      <div class="form-group"><label>Kỳ nhập học</label>
-        <input type="text" id="f-dh-ky" value="${_escAttr(h.ky_nhap_hoc || '')}" placeholder="2027 Xuân"></div>
-      <div class="form-group"><label>Loại hình</label>
-        <select id="f-dh-loai-hinh"><option value="">—</option>${opt(DH_LOAI_HINH, h.loai_hinh)}</select></div>
-    </div>
+      <div class="form-group"><label>Nghề nghiệp</label>
+        <input type="text" id="f-dh-${p}-nghe" value="${_escAttr(h[`${p}_nghe`] || '')}"></div>
+      <div class="form-group"><label>Số điện thoại</label>
+        <input type="text" id="f-dh-${p}-phone" value="${_escAttr(h[`${p}_phone`] || '')}"></div>
+    </div>`).join('')}
+
+    <div class="dh-form-sec">Chuyên ngành &amp; quá trình làm việc</div>
+    <div class="form-group"><label>Đăng ký chuyên ngành</label>
+      <input type="text" id="f-dh-nganh" value="${_escAttr(h.nganh || '')}"></div>
+    <div class="form-group"><label>Quá trình làm việc từ khi tốt nghiệp đến nay</label>
+      <textarea id="f-dh-qua-trinh" rows="3"
+        placeholder="Vị trí công việc, tên &amp; địa chỉ công ty, thời gian làm">${esc(h.qua_trinh_lam_viec || '')}</textarea></div>
 
     <div class="dh-form-sec">Ký túc xá</div>
-    <div class="form-row dh-f3">
-      <div class="form-group"><label>Nguyện vọng của học sinh</label>
-        <select id="f-dh-ktx-dk">${opt(DH_KTX_DK, h.ktx_dang_ky || 'chua-quyet')}</select></div>
-      <div class="form-group"><label>Loại phòng mong muốn</label>
-        <input type="text" id="f-dh-ktx-loai" value="${_escAttr(h.ktx_loai || '')}" placeholder="phòng 4 người"></div>
+    <div class="form-row">
       <div class="form-group"><label>Hạn đăng ký của trường</label>
         <input type="date" id="f-dh-ktx-han" value="${d(h.ktx_han)}"></div>
-    </div>
-    <div class="form-row">
       <div class="form-group"><label>Kết quả xếp phòng</label>
         <select id="f-dh-ktx-kq"><option value="">—</option>${opt(DH_KTX_KQ, h.ktx_kq)}</select></div>
-      <div class="form-group"><label>Ghi chú chỗ ở của học sinh</label>
-        <input type="text" id="f-dh-ktx-gc" value="${_escAttr(h.ktx_ghi_chu || '')}"></div>
     </div>
 
     <div class="dh-form-sec">Phỏng vấn</div>
@@ -4525,22 +4530,26 @@ function dhPickBo() {
 
 async function dhLuuHoSo(id) {
   const body = {
-    ho_ten: _dhVal('f-dh-ho-ten'),
-    ngay_sinh: _dhVal('f-dh-ngay-sinh'), gioi_tinh: _dhVal('f-dh-gioi-tinh'),
-    phone: _dhVal('f-dh-phone'), email: _dhVal('f-dh-email'), lien_lac_khac: _dhVal('f-dh-lien-lac'),
-    cccd: _dhVal('f-dh-cccd'), ho_chieu: _dhVal('f-dh-ho-chieu'), ho_chieu_het_han: _dhVal('f-dh-hc-het-han'),
+    // Chỉ gửi đúng bộ ô theo mẫu khách (2026-10-03). Cột cũ không còn trên form (giới tính, người
+    // bảo lãnh, nguyện vọng trường, kỳ nhập học, nguyện vọng KTX…) KHÔNG được gửi — server chỉ ghi
+    // cột có trong body, nhờ vậy dữ liệu cũ đã nhập không bị xoá trắng.
+    ho_ten: _dhVal('f-dh-ho-ten'), ten_trung: _dhVal('f-dh-ten-trung'),
+    ngay_sinh: _dhVal('f-dh-ngay-sinh'),
+    cccd: _dhVal('f-dh-cccd'), ho_chieu: _dhVal('f-dh-ho-chieu'),
     dia_chi: _dhVal('f-dh-dia-chi'),
-    ph_ten: _dhVal('f-dh-ph-ten'), ph_phone: _dhVal('f-dh-ph-phone'), ph_quan_he: _dhVal('f-dh-ph-quan-he'),
-    truong_tn: _dhVal('f-dh-truong-tn'), nam_tn: _dhVal('f-dh-nam-tn'), xep_loai: _dhVal('f-dh-xep-loai'),
-    trinh_do_tieng: _dhVal('f-dh-trinh-do'),
-    truong_nv1: _dhVal('f-dh-nv1'), truong_nv2: _dhVal('f-dh-nv2'), truong_nv3: _dhVal('f-dh-nv3'),
-    nganh: _dhVal('f-dh-nganh'), ky_nhap_hoc: _dhVal('f-dh-ky'), loai_hinh: _dhVal('f-dh-loai-hinh'),
+    diem_lop10: _dhVal('f-dh-diem10'), diem_lop11: _dhVal('f-dh-diem11'), diem_lop12: _dhVal('f-dh-diem12'),
+    truong_tn: _dhVal('f-dh-truong-tn'), trinh_do_tieng: _dhVal('f-dh-trinh-do'),
+    email: _dhVal('f-dh-email'), phone: _dhVal('f-dh-phone'),
+    bo_ten: _dhVal('f-dh-bo-ten'), bo_cccd: _dhVal('f-dh-bo-cccd'), bo_ngay_sinh: _dhVal('f-dh-bo-ngay-sinh'),
+    bo_nghe: _dhVal('f-dh-bo-nghe'), bo_phone: _dhVal('f-dh-bo-phone'),
+    me_ten: _dhVal('f-dh-me-ten'), me_cccd: _dhVal('f-dh-me-cccd'), me_ngay_sinh: _dhVal('f-dh-me-ngay-sinh'),
+    me_nghe: _dhVal('f-dh-me-nghe'), me_phone: _dhVal('f-dh-me-phone'),
+    nganh: _dhVal('f-dh-nganh'), qua_trinh_lam_viec: _dhVal('f-dh-qua-trinh'),
     ngay_phong_van: _dhVal('f-dh-ngay-pv'), kq_phong_van: _dhVal('f-dh-kq-pv'), truong_do: _dhVal('f-dh-truong-do'),
     loai_phong_van: _dhVal('f-dh-loai-pv'), ngay_pv_vp: _dhVal('f-dh-ngay-pv-vp'), kq_pv_vp: _dhVal('f-dh-kq-pv-vp'),
     ngay_nop_visa: _dhVal('f-dh-ngay-visa'), kq_visa: _dhVal('f-dh-kq-visa'),
     ngay_bay: _dhVal('f-dh-ngay-bay'), chuyen_bay: _dhVal('f-dh-chuyen-bay'),
-    ktx_dang_ky: _dhVal('f-dh-ktx-dk'), ktx_loai: _dhVal('f-dh-ktx-loai'),
-    ktx_ghi_chu: _dhVal('f-dh-ktx-gc'), ktx_kq: _dhVal('f-dh-ktx-kq'), ktx_han: _dhVal('f-dh-ktx-han'),
+    ktx_kq: _dhVal('f-dh-ktx-kq'), ktx_han: _dhVal('f-dh-ktx-han'),
     tong_phi: _dhSo('f-dh-tong-phi'), tu_van_id: _dhVal('f-dh-tu-van'), nguon: _dhVal('f-dh-nguon'),
     ngay_nhan: _dhVal('f-dh-ngay-nhan'),
     ghi_chu: document.getElementById('f-dh-ghi-chu')?.value || '',

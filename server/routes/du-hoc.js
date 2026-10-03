@@ -62,6 +62,11 @@ const COT_SUA = [
   'ph_ten', 'ph_phone', 'ph_quan_he',
   'truong_tn', 'nam_tn', 'xep_loai', 'trinh_do_tieng',
   'truong_nv1', 'truong_nv2', 'truong_nv3', 'nganh', 'ky_nhap_hoc', 'loai_hinh',
+  // Mẫu hồ sơ khách chốt (2026-10-03): điểm lớp 10/11/12, bố, mẹ, quá trình làm việc.
+  'diem_lop10', 'diem_lop11', 'diem_lop12',
+  'bo_ten', 'bo_cccd', 'bo_ngay_sinh', 'bo_nghe', 'bo_phone',
+  'me_ten', 'me_cccd', 'me_ngay_sinh', 'me_nghe', 'me_phone',
+  'qua_trinh_lam_viec',
   'tu_van_id', 'nguon', 'ngay_nhan',
   'ngay_phong_van', 'kq_phong_van', 'truong_do', 'ngay_nop_visa', 'kq_visa', 'ngay_bay',
   // Ba loại phỏng vấn (2026-09-27): trường dùng hai cột cũ ở dòng trên, VP Đài Bắc dùng hai cột này.
@@ -75,8 +80,16 @@ const COT_SUA = [
 /** Cột ngày: chuỗi rỗng phải thành NULL, không phải '' (MySQL ép '' thành 0000-00-00). */
 const COT_NGAY = new Set([
   'ngay_sinh', 'ho_chieu_het_han', 'ngay_nhan', 'ngay_phong_van', 'ngay_nop_visa', 'ngay_bay',
-  'ktx_han', 'ngay_pv_vp',
+  'ktx_han', 'ngay_pv_vp', 'bo_ngay_sinh', 'me_ngay_sinh',
 ]);
+/** Cột ngắn phải cắt đúng độ dài — MySQL strict mode từ chối cả câu UPDATE nếu vượt. */
+const DAI_TOI_DA = {
+  ten_trung: 80, cccd: 20, ho_chieu: 20, phone: 30, dia_chi: 300, trinh_do_tieng: 255,
+  diem_lop10: 10, diem_lop11: 10, diem_lop12: 10, truong_tn: 200, nganh: 200,
+  bo_ten: 120, bo_cccd: 20, bo_nghe: 120, bo_phone: 20,
+  me_ten: 120, me_cccd: 20, me_nghe: 120, me_phone: 20,
+  qua_trinh_lam_viec: 2000,
+};
 const COT_SO = new Set(['tong_phi', 'tu_van_id', 'user_id']);
 const ENUM_HOP_LE = {
   gioi_tinh: ['nam', 'nu', 'khac'],
@@ -165,7 +178,7 @@ function chuanGiaTri(cot, v) {
     return Number.isFinite(n) && n >= 0 ? n : null;
   }
   if (ENUM_HOP_LE[cot]) return ENUM_HOP_LE[cot].includes(v) ? v : null;
-  return String(v).trim().slice(0, 1000) || null;
+  return String(v).trim().slice(0, DAI_TOI_DA[cot] || 1000) || null;
 }
 
 /**
@@ -417,7 +430,7 @@ router.get('/du-hoc/ho-so', async (req, res) => {
     // sách (JOIN + GROUP BY sẽ đánh rơi chúng, mà đó đúng là nhóm cần đòi tiền nhất).
     const [rows] = await pool.query(
       `SELECT h.id, h.ma_hs, h.ho_ten, h.phone, h.email, h.buoc, h.buoc_tu, h.ky_nhap_hoc,
-              h.truong_nv1, h.loai_hinh, h.ngay_phong_van, h.kq_phong_van, h.ngay_nop_visa,
+              h.truong_nv1, h.nganh, h.truong_do, h.loai_hinh, h.ngay_phong_van, h.kq_phong_van, h.ngay_nop_visa,
               h.loai_phong_van, h.ngay_pv_vp, h.kq_pv_vp,
               h.kq_visa, h.ngay_bay, h.tong_phi, h.user_id, h.ho_chieu_het_han, h.created_at,
               u.name AS tu_van_ten,
