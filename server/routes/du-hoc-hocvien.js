@@ -24,6 +24,7 @@ import { requireAuth } from '../middleware/auth.js';
 import { BUOC } from './du-hoc.js';
 import { baoHocSinh, chuaCoBangTb, LOAI_TB } from '../utils/du-hoc-thong-bao.js';
 import { guiPush, guiPushVaiTro, guiNgam } from '../utils/push.js';
+import { taoHoSoDuHocChoHocVien } from '../utils/du-hoc-tao-hs.js';
 
 const router = Router();
 router.use(requireAuth);
@@ -127,9 +128,11 @@ function nhanBuoc(ma) {
 // thêm 4 vòng mạng.
 router.get('/ho-so-cua-toi', async (req, res) => {
   try {
-    const hs = await hoSoCuaToi(req.userId);
-    // KHÔNG phải học sinh du học — trả 200 với cờ, không phải 404. Trang profile gọi endpoint
-    // này cho MỌI học viên để biết có hiện mục du học hay không; 404 ở đó là lỗi giả.
+    let hs = await hoSoCuaToi(req.userId);
+    // Tự động tạo hồ sơ du học nếu chưa có (100% học sinh ITaiwan là du học sinh)
+    if (!hs) {
+      hs = await taoHoSoDuHocChoHocVien(req.userId);
+    }
     if (!hs) return res.json({ co: false });
 
     // Mỗi phần tử của Promise.all là [rows, fields] của mysql2 — destructure đồng loạt `[x]`

@@ -8,6 +8,7 @@ import { sendVerificationEmail, getAppBaseUrl } from '../utils/email.js';
 import { chanDangNhap, chanDangKy, chanGuiMail } from '../middleware/gioi-han.js';
 import { ghiNhanDangNhap, ipCuaReq } from '../utils/thiet-bi.js';
 import { guiPushVaiTro, guiNgam } from '../utils/push.js';
+import { taoHoSoDuHocChoHocVien } from '../utils/du-hoc-tao-hs.js';
 
 const router = Router();
 
@@ -35,10 +36,14 @@ router.post('/register', chanDangKy, async (req, res) => {
     
     const verificationToken = uuidv4();
 
-    await pool.query(
+    const [result] = await pool.query(
       `INSERT INTO users (name, email, phone, password_hash, avatar_letter, avatar_color, last_active, is_verified, verification_token) VALUES (?, ?, ?, ?, ?, ?, CURDATE(), false, ?)`,
       [name, email, phone || null, passwordHash, avatarLetter, avatarColor, verificationToken]
     );
+
+    // Tự động tạo hồ sơ du học cho học viên mới đăng ký (100% học viên ITaiwan là du học sinh)
+    taoHoSoDuHocChoHocVien(result.insertId, { name, email, phone, orgId: 1 })
+      .catch((e) => console.warn('Lỗi tự động tạo hồ sơ du học khi đăng ký:', e.message));
 
     // Send verification email
     const emailSent = await sendVerificationEmail(email, verificationToken);

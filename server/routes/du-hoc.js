@@ -51,28 +51,8 @@ const MA_BUOC = new Set(BUOC.map((b) => b.ma));
 /** Sáu bước đang chạy — dùng để đếm "hồ sơ đang xử lý", không tính hồ sơ đã bay/huỷ. */
 const BUOC_DANG_CHAY = ['ho-so', 'dong-tien', 'hoc', 'phong-van', 'visa', 'bay'];
 
-/**
- * Checklist giấy tờ mặc định của du học Đài Loan. CHÉP vào từng hồ sơ lúc tạo (không tra danh mục
- * chung): sửa danh mục về sau không được làm xê dịch những gì hồ sơ cũ đã tick, và mỗi hồ sơ được
- * thêm mục riêng. Trung tâm thấy thiếu/thừa thì sửa thẳng trong từng hồ sơ.
- */
-const GIAY_TO_MAC_DINH = [
-  ['Hộ chiếu (bản sao)', true],
-  ['CCCD/CMND (công chứng)', true],
-  ['Ảnh thẻ 3.5×4.5 (6 ảnh)', true],
-  ['Bằng tốt nghiệp (công chứng + dịch)', true],
-  ['Học bạ / bảng điểm (công chứng + dịch)', true],
-  ['Giấy khai sinh (công chứng + dịch)', true],
-  ['Giấy khám sức khoẻ', true],
-  ['Lý lịch tư pháp số 2', true],
-  ['Chứng minh tài chính (sổ tiết kiệm)', true],
-  ['Giấy bảo lãnh tài chính của phụ huynh', true],
-  ['Đơn xin nhập học của trường', true],
-  ['Kế hoạch học tập (讀書計畫書)', true],
-  ['Thư giới thiệu', false],
-  ['Chứng chỉ tiếng (TOCFL / HSK / TOEFL)', false],
-  ['Sơ yếu lý lịch', false],
-];
+import { GIAY_TO_MAC_DINH } from '../utils/du-hoc-tao-hs.js';
+export { GIAY_TO_MAC_DINH };
 
 /** Cột client được phép ghi. KHÔNG có org_id / id / ma_hs — đổi chủ sở hữu hồ sơ không phải việc
  *  của một form sửa thông tin. */

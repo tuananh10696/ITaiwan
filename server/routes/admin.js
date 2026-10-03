@@ -9,6 +9,7 @@ import { sendWelcomeEmail, sendAssignmentReminderEmail, isEmailConfigured, email
 import { toLimit, toPage } from '../utils/num.js';
 import { dsThietBi, goThietBi, TRAN_THIET_BI } from '../utils/thiet-bi.js';
 import { guiPush, guiNgam } from '../utils/push.js';
+import { taoHoSoDuHocChoHocVien } from '../utils/du-hoc-tao-hs.js';
 
 // Mật khẩu mặc định khi admin tạo tài khoản học viên mới từ trang Quản lý lớp
 // (học viên nên đổi lại sau khi đăng nhập lần đầu, ở trang Tài khoản > Thông tin cá nhân).
@@ -547,6 +548,12 @@ router.post('/users', async (req, res) => {
        vai === 'admin' ? 1 : 0, ten.charAt(0).toUpperCase()]
     );
 
+    // Tự động tạo hồ sơ du học nếu là học viên (100% học viên ITaiwan là du học sinh)
+    if (vai === 'student') {
+      taoHoSoDuHocChoHocVien(r.insertId, { name: ten, email: mail, phone, orgId: req.orgId })
+        .catch((e) => console.warn('Lỗi tự động tạo hồ sơ du học cho học viên mới:', e.message));
+    }
+
     // Báo mật khẩu cho chủ tài khoản. Không chặn luồng nếu gửi hỏng — tài khoản đã tạo xong,
     // và người tạo vẫn đọc được mật khẩu trên màn hình.
     sendWelcomeEmail(mail, mk, null)
@@ -727,6 +734,7 @@ router.put('/users/:id/approve', async (req, res) => {
   try {
     const { class_id } = req.body;
     await pool.query('UPDATE users SET is_approved = TRUE WHERE id = ?', [req.params.id]);
+    taoHoSoDuHocChoHocVien(req.params.id).catch(() => {});
     if (class_id) {
       const [already] = await pool.query('SELECT id FROM class_enrollments WHERE class_id = ? AND user_id = ?', [class_id, req.params.id]);
       if (!already.length) {
@@ -1053,6 +1061,7 @@ router.post('/classes/:id/students', async (req, res) => {
             continue;
           }
           userIds.push(co[0].id);
+          taoHoSoDuHocChoHocVien(co[0].id, { orgId: orgLop }).catch(() => {});
           continue;
         }
         if (conTrong <= 0) {
@@ -1069,6 +1078,7 @@ router.post('/classes/:id/students', async (req, res) => {
           );
           conTrong -= 1;
           userIds.push(ins.insertId);
+          taoHoSoDuHocChoHocVien(ins.insertId, { name: ten, email: mail, orgId: orgLop }).catch(() => {});
           // Gửi mail sau khi đã tạo xong — gửi lỗi thì tài khoản vẫn dùng được, đừng chặn luồng.
           sendWelcomeEmail(mail, DEFAULT_STUDENT_PASSWORD, null)
             .catch(e => console.warn('Không gửi được mail học viên:', e.message));

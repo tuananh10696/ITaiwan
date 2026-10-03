@@ -123,6 +123,8 @@ const navConfig = [
   },
 
 
+  { id: 'account-duhoc', path: 'tai-khoan/ho-so-du-hoc', label: 'Hồ sơ du học', icon: 'fa-solid fa-plane-departure' },
+
   {
     type: 'parent', id: 'cat-account', path: 'tai-khoan', label: 'Tài khoản', icon: 'fa-solid fa-circle-user',
     children: [
@@ -170,15 +172,8 @@ navConfig.forEach(item => {
 // e.g. /tocfl/thi-thu/band-a/de-1/doc
 pagePath['exam-taking'] = pagePath['exam']; // Same base, segs added by write()
 
-// `account-duhoc` CỐ Ý không nằm trong navConfig: chỉ học sinh CÓ hồ sơ du học mới dùng tới, để
-// vào menu thì mọi học viên đều thấy một mục không liên quan gì tới mình. Lối vào là thẻ ở trang
-// Thông tin cá nhân (chỉ hiện khi có hồ sơ) và từ chuông thông báo.
-// Khai tay đủ 4 bảng, nếu không: buildPath() dựng URL sai, <title> rỗng, nhóm cha không tự mở
-// (đúng bẫy đã ghi cho `hsk-30` ngay bên trên).
-registerPath('account-duhoc', 'tai-khoan/ho-so-du-hoc');
-pageTitles['account-duhoc'] = 'Hồ sơ du học';
-pageIcons['account-duhoc'] = 'fa-solid fa-plane-departure';
-pageParent['account-duhoc'] = 'cat-account';
+// `account-duhoc` đã nằm trong navConfig (đặt ngay trên nhóm Tài khoản) để 100% học viên du học
+// truy cập trực tiếp từ thanh sidebar /tai-khoan/ho-so-du-hoc.
 pageTitles['not-found'] = 'Không tìm thấy trang';
 pageIcons['not-found'] = 'fa-solid fa-compass';
 
@@ -189,7 +184,7 @@ const IMPLEMENTED_PAGES = new Set([
   'pron-vanmau', 'pron-thanhmau', 'pron-thanhdieu', 'pron-bangphienam',
   'tocfl-thoidai', 'tocfl-vocab',
   'account-profile', 'account-settings', 'account-notifications',
-  // Hồ sơ du học của học sinh — không có trong menu, xem ghi chú ở registerPath.
+  // Hồ sơ du học của học sinh — nằm trên sidebar.
   'account-duhoc',
   // Lộ trình của tôi. Cả 6 trang đều CẦN ĐĂNG NHẬP — dữ liệu là của riêng từng học viên,
   // nên cố ý không đưa vào PUBLIC_PAGES.
@@ -1501,6 +1496,10 @@ function navigate(page, params, opts) {
   // bài này cần mở khoá" ngay tại tab đang xem — xem ddKhoaPanelHtml().
 
 
+  const TRANG_DUOC_PHEP_CHUA_DUYET = new Set([
+    'account-duhoc', 'account-profile', 'account-settings', 'account-notifications',
+  ]);
+
   if (requireLogin && !state.isLoggedIn) {
     state.currentPage = 'dashboard';
     page = 'dashboard';
@@ -1508,7 +1507,7 @@ function navigate(page, params, opts) {
     // URL rác kiểu /bai-5-2/bai-tap (base của dashboard là '/'), F5 lại là rơi vào trang 404.
     params = null;
     setTimeout(() => openAuth(), 300);
-  } else if (requireLogin && state.isLoggedIn && !state.user.is_admin && !state.user.is_approved) {
+  } else if (requireLogin && state.isLoggedIn && !state.user.is_admin && !state.user.is_approved && !TRANG_DUOC_PHEP_CHUA_DUYET.has(page)) {
     state.currentPage = 'dashboard';
     page = 'dashboard';
     params = null;
