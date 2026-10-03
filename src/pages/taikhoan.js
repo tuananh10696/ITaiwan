@@ -619,7 +619,7 @@ const DH_NHOM = [
     cot: ['diem_lop10', 'diem_lop11', 'diem_lop12', 'truong_tn'] },
   { ten: 'Ngoại ngữ', icon: 'fa-language',
     cot: ['trinh_do_tieng'] },
-  { ten: 'Liên lạc', icon: 'fa-address-book',
+  { ten: 'Liên lạc', icon: 'fa-phone',
     cot: ['email', 'phone'] },
   { ten: 'Thông tin bố', icon: 'fa-user-tie',
     cot: ['bo_ten', 'bo_cccd', 'bo_ngay_sinh', 'bo_nghe', 'bo_phone'] },
