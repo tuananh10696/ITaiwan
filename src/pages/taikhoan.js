@@ -646,6 +646,24 @@ const DH_GOI_Y = {
   qua_trinh_lam_viec: 'Ghi rõ vị trí công việc, tên & địa chỉ công ty, thời gian làm. Chưa đi làm thì ghi "Chưa đi làm"',
 };
 
+/**
+ * Nhãn tiếng Việt dự phòng ở phía trình duyệt — dùng khi server không gửi nhãn cho một cột
+ * (server cũ/mới lệch nhau trong lúc deploy). Không bao giờ để lộ tên cột kiểu "lien_lac_khac".
+ */
+const DH_NHAN = {
+  ho_ten: 'Họ tên tiếng Việt', ten_trung: 'Họ tên tiếng Trung', ngay_sinh: 'Ngày tháng năm sinh',
+  cccd: 'Số CCCD', ho_chieu: 'Số hộ chiếu', dia_chi: 'Địa chỉ theo hộ khẩu',
+  diem_lop10: 'Điểm tổng kết lớp 10', diem_lop11: 'Điểm tổng kết lớp 11', diem_lop12: 'Điểm tổng kết lớp 12',
+  truong_tn: 'Tên trường cấp 3', trinh_do_tieng: 'Chứng chỉ ngoại ngữ',
+  email: 'Email liên lạc', phone: 'Số điện thoại',
+  bo_ten: 'Họ tên bố', bo_cccd: 'Số CCCD của bố', bo_ngay_sinh: 'Ngày sinh của bố',
+  bo_nghe: 'Nghề nghiệp của bố', bo_phone: 'Số điện thoại của bố',
+  me_ten: 'Họ tên mẹ', me_cccd: 'Số CCCD của mẹ', me_ngay_sinh: 'Ngày sinh của mẹ',
+  me_nghe: 'Nghề nghiệp của mẹ', me_phone: 'Số điện thoại của mẹ',
+  nganh: 'Đăng ký chuyên ngành', qua_trinh_lam_viec: 'Quá trình làm việc từ khi tốt nghiệp đến nay',
+};
+const dhNhan = (d, c) => d?.nhan_cot?.[c] || DH_NHAN[c] || 'Thông tin khác';
+
 const DH_KQ = { cho: 'Đang chờ kết quả', dau: 'Đạt', truot: 'Chưa đạt' };
 const DH_KTX_KQ = { cho: 'Đang chờ trường xếp', duoc: 'Đã được xếp phòng', 'khong-duoc': 'Chưa được xếp' };
 
@@ -807,7 +825,7 @@ function dhYeuCauHtml(d) {
             <span class="dh-sub">${dhNgay(y.created_at)}</span>
           </div>
           <ul class="dh-yc-ds">${(y.thay_doi || []).map((t) => `
-            <li>${tdEsc(t.nhan || t.cot)}: <s>${tdEsc(t.cu || '(trống)')}</s> → <strong>${tdEsc(t.moi || '(trống)')}</strong></li>`).join('')}</ul>
+            <li>${tdEsc(t.nhan || dhNhan(null, t.cot))}: <s>${tdEsc(t.cu || '(trống)')}</s> → <strong>${tdEsc(t.moi || '(trống)')}</strong></li>`).join('')}</ul>
           ${y.phan_hoi ? `<p class="dh-note"><i class="fa-solid fa-comment-dots"></i><span>Trung tâm: ${tdEsc(y.phan_hoi)}</span></p>` : ''}
         </div>`).join('')}
     </div>`;
@@ -910,7 +928,7 @@ function dhFormHtml(d) {
       ${DH_NHOM.map((n) => `
         <section class="dh-nhom">
           <h3><i class="fa-solid ${n.icon}"></i> ${tdEsc(n.ten)}</h3>
-          <div class="dh-luoi">${n.cot.map((c) => dhOHtml(c, d.nhan_cot[c] || c, bb.has(c))).join('')}</div>
+          <div class="dh-luoi">${n.cot.map((c) => dhOHtml(c, dhNhan(d, c), bb.has(c))).join('')}</div>
         </section>`).join('')}
 
       <div id="dh-msg"></div>
@@ -942,7 +960,7 @@ function dhXemHtml(d) {
         <section class="dh-nhom">
           <h3><i class="fa-solid ${n.icon}"></i> ${tdEsc(n.ten)}</h3>
           <dl class="dh-dl">${n.cot.map((c) => `
-            <div><dt>${tdEsc(d.nhan_cot[c] || c)}</dt><dd>${tdEsc(hien(c))}</dd></div>`).join('')}</dl>
+            <div><dt>${tdEsc(dhNhan(d, c))}</dt><dd>${tdEsc(hien(c))}</dd></div>`).join('')}</dl>
         </section>`).join('')}
 
       ${tkState.dhSua ? dhFormSuaHtml(d) : `
@@ -964,7 +982,7 @@ function dhFormSuaHtml(d) {
       <h3><i class="fa-solid fa-pen"></i> Yêu cầu sửa</h3>
       <p class="dh-sub">Sửa những ô cần đổi rồi ghi lý do. Trung tâm duyệt xong thì hồ sơ mới thay đổi.</p>
       ${DH_NHOM.map((n) => `
-        <div class="dh-luoi">${n.cot.map((c) => dhOHtml(c, d.nhan_cot[c] || c, false)).join('')}</div>`).join('')}
+        <div class="dh-luoi">${n.cot.map((c) => dhOHtml(c, dhNhan(d, c), false)).join('')}</div>`).join('')}
       <div class="dh-o rong">
         <label for="dh-ly-do">Lý do cần sửa <span class="dh-sao">*</span></label>
         <textarea id="dh-ly-do" rows="2" placeholder="Ví dụ: em vừa đổi số điện thoại"></textarea>
@@ -1027,7 +1045,7 @@ async function dhGui() {
   // ô là bắt người ta đọc cảnh báo hai lần cho một việc chưa làm được.
   const thieu = (d.bat_buoc || []).filter((c) => !String(dhGt(c) ?? '').trim());
   if (thieu.length) {
-    dhMsg(`Còn thiếu: ${thieu.map((c) => d.nhan_cot[c] || c).join(', ')}.`);
+    dhMsg(`Còn thiếu: ${thieu.map((c) => dhNhan(d, c)).join(', ')}.`);
     document.getElementById(`dh-${thieu[0]}`)?.focus();
     return;
   }

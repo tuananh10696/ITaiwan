@@ -39,9 +39,14 @@ try {
 
   // 1. Bộ ô trả về đúng mẫu khách
   const me = await G(HS, 'GET', '/du-hoc/ho-so-cua-toi');
-  const khoa = Object.keys(me.j?.nhan_cot || {});
-  kiem('nhan_cot đúng 25 ô theo mẫu khách', khoa.length === COT_KHACH.length && COT_KHACH.every((c) => khoa.includes(c)), khoa.join(','));
-  kiem('Không còn ô cũ (giới tính / nguyện vọng / KTX)', !['gioi_tinh', 'truong_nv1', 'ktx_dang_ky', 'ph_ten'].some((c) => khoa.includes(c)));
+  const nhan = me.j?.nhan_cot || {};
+  kiem('nhan_cot có đủ 25 ô theo mẫu khách', COT_KHACH.every((c) => nhan[c]), Object.keys(nhan).join(','));
+  kiem('Mọi nhãn là tiếng Việt, không lộ tên cột', Object.values(nhan).every((v) => !/_/.test(v)));
+  kiem('Có nhãn tiếng Việt cho cột cũ (lien_lac_khac)', nhan.lien_lac_khac === 'Liên lạc khác (Zalo/Facebook)');
+  kiem('Họ tên tiếng Trung KHÔNG bắt buộc', !(me.j?.bat_buoc || []).includes('ten_trung'));
+  const thu = await G(tok(uid), 'PUT', '/du-hoc/khai-bao', { lien_lac_khac: 'zalo', gioi_tinh: 'nam' });
+  const [[cu]] = await pool.query('SELECT lien_lac_khac, gioi_tinh FROM du_hoc_ho_so WHERE user_id = ?', [uid]);
+  kiem('Cột cũ vẫn KHÔNG ghi được dù có nhãn', thu.s === 200 && cu.lien_lac_khac === null && cu.gioi_tinh === null);
   kiem('Bắt buộc: họ tên, ngày sinh, SĐT, chuyên ngành', JSON.stringify(me.j?.bat_buoc) === JSON.stringify(['ho_ten', 'ngay_sinh', 'phone', 'nganh']));
 
   // 2. Lưu nháp đủ ô + chèn ô cấm

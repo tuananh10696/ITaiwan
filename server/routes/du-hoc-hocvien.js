@@ -74,6 +74,21 @@ const COT_HS = {
   qua_trinh_lam_viec: 'Quá trình làm việc từ khi tốt nghiệp đến nay',
 };
 const COT_NGAY = new Set(['ngay_sinh', 'bo_ngay_sinh', 'me_ngay_sinh']);
+/**
+ * Nhãn tiếng Việt của các cột ĐÃ BỎ khỏi form — CHỈ để hiển thị, học sinh không ghi được.
+ * Tab trình duyệt mở từ trước lúc deploy vẫn chạy JS cũ và vẽ các ô này; không có nhãn thì nó
+ * hiện nguyên tên cột ("lien_lac_khac") — khách đã gặp đúng lỗi này ngày 2026-10-03.
+ */
+const NHAN_CU = {
+  gioi_tinh: 'Giới tính', ho_chieu_het_han: 'Ngày hết hạn hộ chiếu',
+  lien_lac_khac: 'Liên lạc khác (Zalo/Facebook)',
+  ph_ten: 'Họ tên người bảo lãnh', ph_phone: 'Số điện thoại người bảo lãnh',
+  ph_quan_he: 'Quan hệ với người bảo lãnh',
+  nam_tn: 'Năm tốt nghiệp', xep_loai: 'Xếp loại',
+  truong_nv1: 'Trường nguyện vọng 1', truong_nv2: 'Trường nguyện vọng 2', truong_nv3: 'Trường nguyện vọng 3',
+  ky_nhap_hoc: 'Kỳ nhập học', loai_hinh: 'Loại hình du học',
+  ktx_dang_ky: 'Đăng ký ký túc xá', ktx_loai: 'Loại phòng mong muốn', ktx_ghi_chu: 'Yêu cầu thêm về chỗ ở',
+};
 const ENUM_HS = {};
 /** Độ dài tối đa theo cột (khớp kiểu cột trong DB). Không có trong bảng thì 200. */
 const DAI_TOI_DA = {
@@ -200,7 +215,7 @@ router.get('/ho-so-cua-toi', async (req, res) => {
       da_gui: !!hs.hs_gui_luc,
       gui_luc: hs.hs_gui_luc,
       khai,
-      nhan_cot: COT_HS,
+      nhan_cot: { ...NHAN_CU, ...COT_HS },
       bat_buoc: BAT_BUOC,
       // --- phần chỉ xem ---
       tien_do: {
