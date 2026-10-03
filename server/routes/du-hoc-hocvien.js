@@ -72,6 +72,14 @@ const COT_HS = {
   nganh: 'Đăng ký chuyên ngành',
 
   qua_trinh_lam_viec: 'Quá trình làm việc từ khi tốt nghiệp đến nay',
+
+  // Thêm lại theo yêu cầu 2026-10-03: nguyện vọng trường + đăng ký ký túc xá.
+  truong_nv1: 'Trường nguyện vọng 1',
+  truong_nv2: 'Trường nguyện vọng 2',
+  truong_nv3: 'Trường nguyện vọng 3',
+  ktx_dang_ky: 'Đăng ký ký túc xá',
+  ktx_loai: 'Loại phòng mong muốn',
+  ktx_ghi_chu: 'Yêu cầu thêm về chỗ ở',
 };
 const COT_NGAY = new Set(['ngay_sinh', 'bo_ngay_sinh', 'me_ngay_sinh']);
 /**
@@ -85,14 +93,12 @@ const NHAN_CU = {
   ph_ten: 'Họ tên người bảo lãnh', ph_phone: 'Số điện thoại người bảo lãnh',
   ph_quan_he: 'Quan hệ với người bảo lãnh',
   nam_tn: 'Năm tốt nghiệp', xep_loai: 'Xếp loại',
-  truong_nv1: 'Trường nguyện vọng 1', truong_nv2: 'Trường nguyện vọng 2', truong_nv3: 'Trường nguyện vọng 3',
   ky_nhap_hoc: 'Kỳ nhập học', loai_hinh: 'Loại hình du học',
-  ktx_dang_ky: 'Đăng ký ký túc xá', ktx_loai: 'Loại phòng mong muốn', ktx_ghi_chu: 'Yêu cầu thêm về chỗ ở',
 };
-const ENUM_HS = {};
+const ENUM_HS = { ktx_dang_ky: ['chua-quyet', 'co', 'khong'] };
 /** Độ dài tối đa theo cột (khớp kiểu cột trong DB). Không có trong bảng thì 200. */
 const DAI_TOI_DA = {
-  dia_chi: 300, trinh_do_tieng: 255, qua_trinh_lam_viec: 2000,
+  dia_chi: 300, trinh_do_tieng: 255, qua_trinh_lam_viec: 2000, ktx_ghi_chu: 300, ktx_loai: 60,
   diem_lop10: 10, diem_lop11: 10, diem_lop12: 10,
   cccd: 20, bo_cccd: 20, me_cccd: 20, bo_phone: 20, me_phone: 20,
   ten_trung: 80, bo_ten: 120, me_ten: 120, bo_nghe: 120, me_nghe: 120,

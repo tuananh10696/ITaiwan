@@ -88,7 +88,7 @@ const DAI_TOI_DA = {
   diem_lop10: 10, diem_lop11: 10, diem_lop12: 10, truong_tn: 200, nganh: 200,
   bo_ten: 120, bo_cccd: 20, bo_nghe: 120, bo_phone: 20,
   me_ten: 120, me_cccd: 20, me_nghe: 120, me_phone: 20,
-  qua_trinh_lam_viec: 2000,
+  qua_trinh_lam_viec: 2000, ktx_loai: 60, ktx_ghi_chu: 300,
 };
 const COT_SO = new Set(['tong_phi', 'tu_van_id', 'user_id']);
 const ENUM_HOP_LE = {

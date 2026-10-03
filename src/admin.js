@@ -3868,8 +3868,8 @@ function _dhVeDanhSachHtml(el, tq, ds) {
       <td>${_dhChipBuoc(h.buoc)}
         ${h.buoc === 'phong-van' ? _dhPvDong(h) : ''}
         ${h.buoc_tu ? `<div class="dh-sub">từ ${_dhNgay(h.buoc_tu)}</div>` : ''}</td>
-      <td>${h.nganh ? esc(h.nganh) : '<span class="dh-sub">—</span>'}
-        <div class="dh-sub">${h.truong_do ? 'Đỗ: ' + esc(h.truong_do) : ''}</div></td>
+      <td>${h.truong_nv1 ? esc(h.truong_nv1) : '<span class="dh-sub">—</span>'}
+        <div class="dh-sub">${[h.nganh && esc(h.nganh), h.truong_do && 'Đỗ: ' + esc(h.truong_do)].filter(Boolean).join(' · ')}</div></td>
       <td style="white-space:nowrap">
         ${h.tong_phi
           ? `${_tien(h.da_thu)}<span class="dh-sub"> / ${_tien(h.tong_phi)}</span>
@@ -3931,7 +3931,7 @@ function _dhVeDanhSachHtml(el, tq, ds) {
       <div class="data-table-wrapper dh-table-wrap">
         <table class="data-table">
           <thead><tr>
-            <th>Học sinh</th><th>Bước</th><th>Chuyên ngành</th><th>Tiền</th>
+            <th>Học sinh</th><th>Bước</th><th>Nguyện vọng · Ngành</th><th>Tiền</th>
             <th style="text-align:center">Giấy tờ</th><th>Mốc gần nhất</th>
           </tr></thead>
           <tbody>${hang}</tbody>
@@ -4031,8 +4031,8 @@ function _dhVeChiTietHtml(el) {
   const thongTin = `
     <div class="data-table-wrapper" style="padding:16px">
       <div class="dh-block-head">
-        <h3>Thông tin hồ sơ</h3>
-        <button class="btn btn-sm btn-outline" onclick="adminApp.dhFormHoSo(${h.id})">
+        <h3>Thông tin học sinh</h3>
+        <button class="btn btn-sm btn-outline" onclick="adminApp.dhFormHoSo(${h.id}, 'hs')">
           <i class="fa-solid fa-pen"></i> Sửa</button>
       </div>
       <div class="dh-fields">
@@ -4052,19 +4052,16 @@ function _dhVeChiTietHtml(el) {
         ${o('Mẹ', nguoiThan('me'))}
         ${o('Đăng ký chuyên ngành', esc(h.nganh || ''))}
         ${o('Quá trình làm việc', esc(h.qua_trinh_lam_viec || '').replace(/\n/g, '<br>'))}
-        ${o('Tư vấn viên', esc(h.tu_van_ten || dhNhanSu.find((n) => n.id === h.tu_van_id)?.name || ''))}
-        ${o('Nguồn khách', esc(h.nguon || ''))}
-        ${o('Ngày nhận hồ sơ', _dhNgay(h.ngay_nhan))}
-        ${o('Ký túc xá', h.ktx_dang_ky && h.ktx_dang_ky !== 'chua-quyet'
-            ? `${DH_KTX_DK[h.ktx_dang_ky]}${h.ktx_loai ? ' · ' + esc(h.ktx_loai) : ''}`
-              + `${h.ktx_kq ? ` <span class="dh-sub">(${DH_KTX_KQ[h.ktx_kq]})</span>` : ''}`
-              + `${h.ktx_han ? ` <span class="dh-sub">· hạn ${_dhNgay(h.ktx_han)}</span>` : ''}`
-            : (h.ktx_han ? `<span class="dh-sub">học sinh chưa chọn · hạn ${_dhNgay(h.ktx_han)}</span>` : ''))}
+        ${o('Nguyện vọng', [h.truong_nv1, h.truong_nv2, h.truong_nv3]
+            .map((t, i) => (t ? `${i + 1}. ${esc(t)}` : '')).filter(Boolean).join('<br>'))}
+        ${o('Đăng ký ký túc xá', h.ktx_dang_ky
+            ? `${DH_KTX_DK[h.ktx_dang_ky] || ''}${h.ktx_loai ? ' · ' + esc(h.ktx_loai) : ''}`
+              + `${h.ktx_ghi_chu ? `<div class="dh-sub">${esc(h.ktx_ghi_chu)}</div>` : ''}`
+            : '')}
         ${o('Học sinh khai hồ sơ', h.hs_gui_luc
             ? `<span class="dh-ok">Đã gửi ${_dhNgay(h.hs_gui_luc)}</span>`
             : (h.user_id ? '<span class="dh-warn">Chưa gửi</span>' : '<span class="dh-sub">chưa gắn tài khoản</span>'))}
       </div>
-      ${h.ghi_chu ? `<div class="dh-note"><i class="fa-solid fa-note-sticky"></i><span>${esc(h.ghi_chu)}</span></div>` : ''}
     </div>`;
 
   // --- Phỏng vấn: loại + từng buổi, bấm nhanh ngay trên màn chi tiết (2026-09-27) ---
@@ -4103,18 +4100,37 @@ function _dhVeChiTietHtml(el) {
       <div class="dh-pv-tomtat"><i class="fa-solid ${pvTomTat[0]}"></i><span>${esc(pvTomTat[1])}</span></div>
     </div>`;
 
-  // --- Mốc visa / bay --- (phỏng vấn đã có khối riêng ở trên)
+  // --- Vận hành hồ sơ: mọi ô TRUNG TÂM tự điền gom một chỗ (2026-10-03) ---
+  // Trước đây các ô này nằm lẫn cuối khối thông tin + một khối "Visa · Lịch bay" riêng, người dùng
+  // báo "không thấy đâu". Nút Sửa ở đây mở thẳng tab "Vận hành hồ sơ" của form.
   const kq = (v) => (v ? `<span class="badge ${v === 'dau' ? 'badge-success' : v === 'truot' ? 'badge-danger' : 'badge-gray'}">${DH_KET_QUA[v]}</span>` : '');
+  const pvDong = pv.buoi.filter((b) => b.ngay || b.kq)
+    .map((b) => `${esc(b.ten)}: ${b.ngay ? _dhNgay(b.ngay) : '—'} ${kq(b.kq)}`).join('<br>');
   const mocs = `
     <div class="data-table-wrapper" style="padding:16px">
-      <div class="dh-block-head"><h3>Visa · Lịch bay</h3></div>
-      <div class="dh-moc">
-        <div><span class="dh-sub">Nộp hồ sơ visa</span>
-          <b>${_dhNgay(h.ngay_nop_visa)}</b> ${kq(h.kq_visa)}</div>
-        <div><span class="dh-sub">Chuyến bay</span>
-          <b>${_dhNgay(h.ngay_bay)}</b>
-          ${h.chuyen_bay ? `<div class="dh-sub">${esc(h.chuyen_bay)}</div>` : ''}</div>
+      <div class="dh-block-head">
+        <h3>Vận hành hồ sơ</h3>
+        <button class="btn btn-sm btn-outline" onclick="adminApp.dhFormHoSo(${h.id}, 'vh')">
+          <i class="fa-solid fa-pen"></i> Sửa</button>
       </div>
+      <div class="dh-fields">
+        ${o('Mã hồ sơ', esc(h.ma_hs || ''))}
+        ${o('Tư vấn viên', esc(h.tu_van_ten || dhNhanSu.find((n) => n.id === h.tu_van_id)?.name || ''))}
+        ${o('Nguồn khách', esc(h.nguon || ''))}
+        ${o('Ngày nhận hồ sơ', _dhNgay(h.ngay_nhan))}
+        ${o('Tổng phí dịch vụ', h.tong_phi > 0 ? _tien(h.tong_phi) : '')}
+        ${o('Phỏng vấn', pv.loai
+            ? `${esc(LOAI_PV.find((l) => l.ma === pv.loai)?.ten || '')}${pvDong ? `<div class="dh-sub">${pvDong}</div>` : ''}`
+            : '')}
+        ${o('Trường đã đậu', esc(h.truong_do || ''))}
+        ${o('Visa', h.ngay_nop_visa || h.kq_visa ? `Nộp ${_dhNgay(h.ngay_nop_visa)} ${kq(h.kq_visa)}` : '')}
+        ${o('Lịch bay', h.ngay_bay ? `${_dhNgay(h.ngay_bay)}${h.chuyen_bay ? `<div class="dh-sub">${esc(h.chuyen_bay)}</div>` : ''}` : '')}
+        ${o('Ký túc xá (trường xếp)', h.ktx_kq || h.ktx_han
+            ? `${h.ktx_kq ? DH_KTX_KQ[h.ktx_kq] : 'Chưa có kết quả'}${h.ktx_han ? ` <span class="dh-sub">· hạn ${_dhNgay(h.ktx_han)}</span>` : ''}`
+            : '')}
+      </div>
+      ${h.ghi_chu ? `<div class="dh-note"><i class="fa-solid fa-note-sticky"></i><span>${esc(h.ghi_chu)}</span></div>`
+        : '<p class="dh-sub" style="margin:8px 0 0">Ghi chú: —</p>'}
     </div>`;
 
   // --- Checklist giấy tờ ---
@@ -4167,7 +4183,7 @@ function _dhVeChiTietHtml(el) {
         </div>
         <div class="dh-bar"><i style="width:${pct}%"></i></div>`
       : `<p class="dh-sub" style="margin:0 0 12px">Chưa chốt tổng phí dịch vụ.
-           Bấm <b>Sửa</b> ở khối thông tin để nhập, khi đó mới tính được công nợ.</p>`}
+           Bấm <b>Sửa</b> ở khối <b>Vận hành hồ sơ</b> để nhập, khi đó mới tính được công nợ.</p>`}
       ${tt.length ? `
         <div class="dh-tien-bang"><table class="data-table">
           <thead><tr><th>Ngày</th><th>Khoản</th><th style="text-align:right">Số tiền</th><th></th></tr></thead>
@@ -4302,7 +4318,7 @@ function dhFormLoaiPv() {
   hien('f-dh-pv-vp', loai === 'vp' || loai === 'ca-hai');
 }
 
-function dhFormHoSo(id) {
+function dhFormHoSo(id, tab = 'hs') {
   const sua = !!id;
   const h = sua && dhChiTiet && dhChiTiet.ho_so.id === id ? dhChiTiet.ho_so : {};
   const d = _dhNgayInput;
@@ -4330,17 +4346,24 @@ function dhFormHoSo(id) {
     <p class="dh-sub" style="margin:0 0 14px">Chỉ <b>họ tên</b> là bắt buộc — phần còn lại bổ sung dần
       khi học sinh nộp giấy tờ. Học sinh chưa có tài khoản trên hệ thống vẫn tạo hồ sơ được.</p>
 
+    <!-- Hai tab: thông tin HỌC SINH khai (theo mẫu khách) và phần VẬN HÀNH trung tâm tự điền.
+         Cả hai tab luôn nằm trong DOM (chỉ ẩn/hiện) nên bấm Lưu ở tab nào cũng gửi đủ mọi ô. -->
+    <div class="dh-tabs" id="dh-form-tabs" role="tablist">
+      <button type="button" class="dh-tab ${tab === 'vh' ? '' : 'active'}" data-tab="hs"
+              onclick="adminApp.dhFormTab('hs')"><i class="fa-solid fa-id-card"></i> Thông tin học sinh</button>
+      <button type="button" class="dh-tab ${tab === 'vh' ? 'active' : ''}" data-tab="vh"
+              onclick="adminApp.dhFormTab('vh')"><i class="fa-solid fa-briefcase"></i> Vận hành hồ sơ</button>
+    </div>
+
+    <div id="dh-tab-hs" ${tab === 'vh' ? 'hidden' : ''}>
     <div class="dh-form-sec">Cá nhân</div>
     <div class="form-group"><label>Họ tên tiếng Việt <span style="color:#EF4444">*</span></label>
       <input type="text" id="f-dh-ho-ten" value="${_escAttr(h.ho_ten || '')}"></div>
-    <div class="form-row dh-f3">
+    <div class="form-row">
       <div class="form-group"><label>Họ tên tiếng Trung</label>
         <input type="text" id="f-dh-ten-trung" value="${_escAttr(h.ten_trung || '')}"></div>
       <div class="form-group"><label>Ngày tháng năm sinh</label>
         <input type="date" id="f-dh-ngay-sinh" value="${d(h.ngay_sinh)}"></div>
-      <div class="form-group"><label>Mã hồ sơ</label>
-        ${sua ? `<input type="text" value="${_escAttr(h.ma_hs || '')}" disabled>`
-              : '<input type="text" id="f-dh-ma" placeholder="để trống = tự sinh HS-0001">'}</div>
     </div>
     <div class="form-row">
       <div class="form-group"><label>Số CCCD</label>
@@ -4398,12 +4421,41 @@ function dhFormHoSo(id) {
       <textarea id="f-dh-qua-trinh" rows="3"
         placeholder="Vị trí công việc, tên &amp; địa chỉ công ty, thời gian làm">${esc(h.qua_trinh_lam_viec || '')}</textarea></div>
 
-    <div class="dh-form-sec">Ký túc xá</div>
+    <div class="dh-form-sec">Nguyện vọng</div>
+    <div class="form-row dh-f3">
+      ${[1, 2, 3].map((n) => `<div class="form-group"><label>Trường nguyện vọng ${n}</label>
+        <input type="text" id="f-dh-nv${n}" value="${_escAttr(h[`truong_nv${n}`] || '')}"></div>`).join('')}
+    </div>
+
+    <div class="dh-form-sec">Đăng ký ký túc xá</div>
+    <div class="form-row dh-f3">
+      <div class="form-group"><label>Đăng ký ký túc xá</label>
+        <select id="f-dh-ktx-dk">${opt(DH_KTX_DK, h.ktx_dang_ky || 'chua-quyet')}</select></div>
+      <div class="form-group"><label>Loại phòng mong muốn</label>
+        <input type="text" id="f-dh-ktx-loai" value="${_escAttr(h.ktx_loai || '')}" placeholder="phòng 4 người"></div>
+      <div class="form-group"><label>Yêu cầu thêm về chỗ ở</label>
+        <input type="text" id="f-dh-ktx-gc" value="${_escAttr(h.ktx_ghi_chu || '')}"></div>
+    </div>
+    </div>
+
+    <div id="dh-tab-vh" ${tab === 'vh' ? '' : 'hidden'}>
+    <div class="dh-form-sec">Hồ sơ</div>
     <div class="form-row">
-      <div class="form-group"><label>Hạn đăng ký của trường</label>
-        <input type="date" id="f-dh-ktx-han" value="${d(h.ktx_han)}"></div>
-      <div class="form-group"><label>Kết quả xếp phòng</label>
-        <select id="f-dh-ktx-kq"><option value="">—</option>${opt(DH_KTX_KQ, h.ktx_kq)}</select></div>
+      <div class="form-group"><label>Mã hồ sơ</label>
+        ${sua ? `<input type="text" value="${_escAttr(h.ma_hs || '')}" disabled>`
+              : '<input type="text" id="f-dh-ma" placeholder="để trống = tự sinh HS-0001">'}</div>
+      <div class="form-group"><label>Tư vấn viên phụ trách</label>
+        <select id="f-dh-tu-van"><option value="">—</option>
+          ${dhNhanSu.map((n) => `<option value="${n.id}" ${h.tu_van_id === n.id ? 'selected' : ''}>${_escHtml(n.name)}</option>`).join('')}
+        </select></div>
+    </div>
+    <div class="form-row dh-f3">
+      <div class="form-group"><label>Nguồn khách</label>
+        <input type="text" id="f-dh-nguon" value="${_escAttr(h.nguon || '')}" placeholder="Facebook / giới thiệu…"></div>
+      <div class="form-group"><label>Ngày nhận hồ sơ</label>
+        <input type="date" id="f-dh-ngay-nhan" value="${d(h.ngay_nhan) || new Date().toISOString().slice(0, 10)}"></div>
+      <div class="form-group"><label>Tổng phí dịch vụ (₫)</label>
+        <input type="number" id="f-dh-tong-phi" value="${h.tong_phi || ''}" placeholder="0"></div>
     </div>
 
     <div class="dh-form-sec">Phỏng vấn</div>
@@ -4430,7 +4482,7 @@ function dhFormHoSo(id) {
         <select id="f-dh-kq-pv-vp"><option value="">—</option>${opt(DH_KET_QUA, h.kq_pv_vp)}</select></div>
     </div>
 
-    <div class="dh-form-sec">Tiến độ &amp; vận hành</div>
+    <div class="dh-form-sec">Visa &amp; lịch bay</div>
     <div class="form-row">
       <div class="form-group"><label>Ngày nộp visa</label>
         <input type="date" id="f-dh-ngay-visa" value="${d(h.ngay_nop_visa)}"></div>
@@ -4443,28 +4495,32 @@ function dhFormHoSo(id) {
       <div class="form-group"><label>Chuyến bay</label>
         <input type="text" id="f-dh-chuyen-bay" value="${_escAttr(h.chuyen_bay || '')}" placeholder="VN576 HAN-TPE 09:15"></div>
     </div>
-    <div class="form-row dh-f3">
-      <div class="form-group"><label>Tổng phí dịch vụ (₫)</label>
-        <input type="number" id="f-dh-tong-phi" value="${h.tong_phi || ''}" placeholder="0"></div>
-      <div class="form-group"><label>Tư vấn viên phụ trách</label>
-        <select id="f-dh-tu-van"><option value="">—</option>
-          ${dhNhanSu.map((n) => `<option value="${n.id}" ${h.tu_van_id === n.id ? 'selected' : ''}>${_escHtml(n.name)}</option>`).join('')}
-        </select></div>
-      <div class="form-group"><label>Nguồn khách</label>
-        <input type="text" id="f-dh-nguon" value="${_escAttr(h.nguon || '')}" placeholder="Facebook / giới thiệu…"></div>
-    </div>
+    <div class="dh-form-sec">Ký túc xá (trường xếp)</div>
     <div class="form-row">
-      <div class="form-group"><label>Ngày nhận hồ sơ</label>
-        <input type="date" id="f-dh-ngay-nhan" value="${d(h.ngay_nhan) || new Date().toISOString().slice(0, 10)}"></div>
+      <div class="form-group"><label>Hạn đăng ký của trường</label>
+        <input type="date" id="f-dh-ktx-han" value="${d(h.ktx_han)}"></div>
+      <div class="form-group"><label>Kết quả xếp phòng</label>
+        <select id="f-dh-ktx-kq"><option value="">—</option>${opt(DH_KTX_KQ, h.ktx_kq)}</select></div>
     </div>
+
     <div class="form-group"><label>Ghi chú</label>
       <textarea id="f-dh-ghi-chu" rows="3">${esc(h.ghi_chu || '')}</textarea></div>
+    </div>
   `, `<button class="btn btn-outline" onclick="adminApp.closeModal()">Huỷ</button>
       <button class="btn btn-primary" onclick="adminApp.dhLuuHoSo(${id || 'null'})">
         <i class="fa-solid fa-floppy-disk"></i> ${sua ? 'Lưu' : 'Tạo hồ sơ'}</button>`);
 
   _dhPickChon = null;
   if (!sua) dhPickTim();   // nạp sẵn danh sách, khỏi phải gõ mới thấy có ai
+}
+
+/** Chuyển tab trong form sửa hồ sơ — chỉ ẩn/hiện, KHÔNG vẽ lại (vẽ lại là mất chữ đang gõ). */
+function dhFormTab(tab) {
+  document.querySelectorAll('#dh-form-tabs .dh-tab').forEach((b) => b.classList.toggle('active', b.dataset.tab === tab));
+  const hs = document.getElementById('dh-tab-hs');
+  const vh = document.getElementById('dh-tab-vh');
+  if (hs) hs.hidden = tab !== 'hs';
+  if (vh) vh.hidden = tab !== 'vh';
 }
 
 // --- chọn học viên đã có tài khoản khi TẠO hồ sơ ---
@@ -4530,8 +4586,8 @@ function dhPickBo() {
 
 async function dhLuuHoSo(id) {
   const body = {
-    // Chỉ gửi đúng bộ ô theo mẫu khách (2026-10-03). Cột cũ không còn trên form (giới tính, người
-    // bảo lãnh, nguyện vọng trường, kỳ nhập học, nguyện vọng KTX…) KHÔNG được gửi — server chỉ ghi
+    // Chỉ gửi đúng bộ ô theo mẫu khách (2026-10-03) + nguyện vọng trường + đăng ký KTX. Cột cũ không
+    // còn trên form (giới tính, người bảo lãnh, kỳ nhập học, loại hình…) KHÔNG được gửi — server chỉ ghi
     // cột có trong body, nhờ vậy dữ liệu cũ đã nhập không bị xoá trắng.
     ho_ten: _dhVal('f-dh-ho-ten'), ten_trung: _dhVal('f-dh-ten-trung'),
     ngay_sinh: _dhVal('f-dh-ngay-sinh'),
@@ -4545,6 +4601,8 @@ async function dhLuuHoSo(id) {
     me_ten: _dhVal('f-dh-me-ten'), me_cccd: _dhVal('f-dh-me-cccd'), me_ngay_sinh: _dhVal('f-dh-me-ngay-sinh'),
     me_nghe: _dhVal('f-dh-me-nghe'), me_phone: _dhVal('f-dh-me-phone'),
     nganh: _dhVal('f-dh-nganh'), qua_trinh_lam_viec: _dhVal('f-dh-qua-trinh'),
+    truong_nv1: _dhVal('f-dh-nv1'), truong_nv2: _dhVal('f-dh-nv2'), truong_nv3: _dhVal('f-dh-nv3'),
+    ktx_dang_ky: _dhVal('f-dh-ktx-dk'), ktx_loai: _dhVal('f-dh-ktx-loai'), ktx_ghi_chu: _dhVal('f-dh-ktx-gc'),
     ngay_phong_van: _dhVal('f-dh-ngay-pv'), kq_phong_van: _dhVal('f-dh-kq-pv'), truong_do: _dhVal('f-dh-truong-do'),
     loai_phong_van: _dhVal('f-dh-loai-pv'), ngay_pv_vp: _dhVal('f-dh-ngay-pv-vp'), kq_pv_vp: _dhVal('f-dh-kq-pv-vp'),
     ngay_nop_visa: _dhVal('f-dh-ngay-visa'), kq_visa: _dhVal('f-dh-kq-visa'),
@@ -4858,7 +4916,7 @@ window.adminApp = {
   tbXem, tbGo, tbBoQua,
   // Hồ sơ du học
   dhMo, dhVeDanhSach, dhDoiBuocLoc, dhTim, dhDoiKy, dhXoaLoc, dhTrang,
-  dhFormHoSo, dhLuuHoSo, dhXoaHoSo, dhChuyenBuoc,
+  dhFormHoSo, dhFormTab, dhLuuHoSo, dhXoaHoSo, dhChuyenBuoc,
   // Bước Phỏng vấn: bấm nhanh trên màn chi tiết + ẩn/hiện hàng trong form (2026-09-27)
   dhPvLoai, dhPvNgay, dhPvKq, dhPvTruongDo, dhFormLoaiPv,
   dhFormThu, dhLuuThu, dhXoaThu,

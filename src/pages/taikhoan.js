@@ -629,12 +629,19 @@ const DH_NHOM = [
     cot: ['nganh'] },
   { ten: 'Quá trình làm việc', icon: 'fa-briefcase',
     cot: ['qua_trinh_lam_viec'] },
+  { ten: 'Nguyện vọng', icon: 'fa-school',
+    cot: ['truong_nv1', 'truong_nv2', 'truong_nv3'] },
+  { ten: 'Đăng ký ký túc xá', icon: 'fa-bed',
+    cot: ['ktx_dang_ky', 'ktx_loai', 'ktx_ghi_chu'] },
 ];
 
 /** Ô nào là select, ô nào là ngày, ô nào nhập nhiều dòng. Còn lại là input text. */
-const DH_CHON = {};
+const DH_CHON = {
+  ktx_dang_ky: [['chua-quyet', 'Chưa quyết định'], ['co', 'Có — tôi muốn ở ký túc xá'],
+                ['khong', 'Không — tôi tự thuê ngoài']],
+};
 const DH_NGAY = new Set(['ngay_sinh', 'bo_ngay_sinh', 'me_ngay_sinh']);
-const DH_NHIEU_DONG = new Set(['dia_chi', 'trinh_do_tieng', 'qua_trinh_lam_viec']);
+const DH_NHIEU_DONG = new Set(['dia_chi', 'trinh_do_tieng', 'qua_trinh_lam_viec', 'ktx_ghi_chu']);
 /** Kiểu bàn phím số cho ô điểm (điểm có thể lẻ: 8.5 / 8,5 nên vẫn để text). */
 const DH_DIEM = new Set(['diem_lop10', 'diem_lop11', 'diem_lop12']);
 /** Gợi ý cho những ô học sinh hay điền sai hoặc bỏ trống vì không biết ghi gì. */
@@ -644,6 +651,8 @@ const DH_GOI_Y = {
   dia_chi: 'Ghi đúng như trên sổ hộ khẩu / CCCD',
   trinh_do_tieng: 'Ví dụ: TOCFL A2, HSK 3. Chưa thi đỗ thì ghi đã học tiếng Trung bao lâu (vd: đã học 6 tháng)',
   qua_trinh_lam_viec: 'Ghi rõ vị trí công việc, tên & địa chỉ công ty, thời gian làm. Chưa đi làm thì ghi "Chưa đi làm"',
+  truong_nv1: 'Trường bạn muốn học nhất. Chưa biết thì để trống, tư vấn viên sẽ gợi ý',
+  ktx_loai: 'Ví dụ: phòng 4 người, phòng đôi…',
 };
 
 /**
@@ -661,6 +670,8 @@ const DH_NHAN = {
   me_ten: 'Họ tên mẹ', me_cccd: 'Số CCCD của mẹ', me_ngay_sinh: 'Ngày sinh của mẹ',
   me_nghe: 'Nghề nghiệp của mẹ', me_phone: 'Số điện thoại của mẹ',
   nganh: 'Đăng ký chuyên ngành', qua_trinh_lam_viec: 'Quá trình làm việc từ khi tốt nghiệp đến nay',
+  truong_nv1: 'Trường nguyện vọng 1', truong_nv2: 'Trường nguyện vọng 2', truong_nv3: 'Trường nguyện vọng 3',
+  ktx_dang_ky: 'Đăng ký ký túc xá', ktx_loai: 'Loại phòng mong muốn', ktx_ghi_chu: 'Yêu cầu thêm về chỗ ở',
 };
 const dhNhan = (d, c) => d?.nhan_cot?.[c] || DH_NHAN[c] || 'Thông tin khác';
 
