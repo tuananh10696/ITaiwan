@@ -51,7 +51,7 @@ const MA_BUOC = new Set(BUOC.map((b) => b.ma));
 /** Sáu bước đang chạy — dùng để đếm "hồ sơ đang xử lý", không tính hồ sơ đã bay/huỷ. */
 const BUOC_DANG_CHAY = ['ho-so', 'dong-tien', 'hoc', 'phong-van', 'visa', 'bay'];
 
-import { GIAY_TO_MAC_DINH } from '../utils/du-hoc-tao-hs.js';
+import { GIAY_TO_MAC_DINH, laHocSinh, SQL_LA_HOC_SINH } from '../utils/du-hoc-tao-hs.js';
 export { GIAY_TO_MAC_DINH };
 
 /** Cột client được phép ghi. KHÔNG có org_id / id / ma_hs — đổi chủ sở hữu hồ sơ không phải việc
@@ -631,11 +631,13 @@ async function loiGanHocVien(userId, req, hoSoHienTai = null) {
   // chạy trên bảng `users`. Sale / quản lý hồ sơ chỉ gắn được tài khoản do CHÍNH MÌNH tạo —
   // nếu không, họ dò id để kéo học viên của đồng nghiệp vào hồ sơ mình.
   const [u] = await pool.query(
-    `SELECT id FROM users WHERE id = ?${req.locOrg ? ' AND org_id = ?' : ''}`
+    `SELECT id, role, is_admin FROM users WHERE id = ?${req.locOrg ? ' AND org_id = ?' : ''}`
     + (req.nhanSuId ? ' AND created_by = ?' : ''),
     [id, ...(req.locOrg ? [req.orgId] : []), ...(req.nhanSuId ? [req.nhanSuId] : [])]
   );
   if (!u.length) return 'Tài khoản học viên không tồn tại trong phạm vi của bạn.';
+  // Hồ sơ du học CHỈ dành cho học sinh — giáo viên / quản trị / sale / quản lý hồ sơ không được gắn.
+  if (!laHocSinh(u[0])) return 'Tài khoản này là nhân sự (giáo viên / quản trị / sale), không gắn vào hồ sơ du học được.';
   // Một tài khoản chỉ nên đứng sau MỘT hồ sơ: hai hồ sơ cùng trỏ một người thì tiền và tiến độ
   // của em đó nằm rải hai chỗ, không ai biết chỗ nào là thật.
   const [h] = await pool.query(
@@ -1271,7 +1273,7 @@ router.get('/du-hoc/nhan-su', async (req, res) => {
 router.get('/du-hoc/hoc-vien', async (req, res) => {
   const tim = String(req.query.tim || '').trim();
   try {
-    const dk = ["u.role = 'student'"];
+    const dk = [SQL_LA_HOC_SINH];
     const ts = [];
     if (req.locOrg) { dk.push('u.org_id = ?'); ts.push(req.orgId); }
     if (req.nhanSuId) { dk.push('u.created_by = ?'); ts.push(req.nhanSuId); }

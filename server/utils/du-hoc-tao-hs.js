@@ -1,9 +1,13 @@
 // =============================================================
-// TỰ ĐỘNG TẠO HỒ SƠ DU HỌC CHO HỌC VIÊN  (2026-10-03)
+// TỰ ĐỘNG TẠO HỒ SƠ DU HỌC CHO HỌC SINH  (2026-10-03)
 // =============================================================
-// Vì 100% học viên của trung tâm ITaiwan là du học sinh:
-// Cứ có tài khoản đăng ký hoặc tạo tài khoản thì học sinh đó sẽ
-// được tự động thêm vào hồ sơ du học.
+// 100% học viên của trung tâm ITaiwan là du học sinh: cứ có tài khoản HỌC SINH (tự đăng ký hoặc
+// do trung tâm tạo) là tự có hồ sơ du học.
+//
+// ⚠️ CHỈ HỌC SINH. Giáo viên / quản trị / sale / quản lý hồ sơ TUYỆT ĐỐI không có hồ sơ.
+// Bẫy đã dính (03/10/2026): tài khoản đăng ký là học sinh -> được tạo hồ sơ -> sau đó admin đổi
+// vai trò sang giáo viên -> hồ sơ cũ vẫn nằm đó và giáo viên hiện trong danh sách du học. Vì vậy
+// MỌI chỗ đổi vai trò phải gọi `dongBoHoSoTheoVaiTro()` ngay sau câu UPDATE.
 import pool from '../config/db.js';
 
 export const GIAY_TO_MAC_DINH = [
@@ -24,9 +28,58 @@ export const GIAY_TO_MAC_DINH = [
   ['Sơ yếu lý lịch', false],
 ];
 
+/** Vai trò nhân sự — không bao giờ có hồ sơ du học. */
+export const VAI_TRO_NHAN_SU = ['admin', 'teacher', 'sale', 'ho_so'];
+
+/** Mảnh SQL "u là học sinh" — dùng chung để mọi câu lọc cùng một định nghĩa. */
+export const SQL_LA_HOC_SINH =
+  "(COALESCE(u.role, 'student') = 'student' AND COALESCE(u.is_admin, 0) = 0)";
+
+/** Tài khoản (bản ghi users) có phải học sinh không. Thiếu role coi như học sinh (mặc định DB). */
+export function laHocSinh(u) {
+  if (!u) return false;
+  if (u.is_admin) return false;
+  const role = String(u.role || 'student').toLowerCase();
+  return role === 'student';
+}
+
+const chuaCoBang = (err) => err && (err.code === 'ER_NO_SUCH_TABLE' || err.code === 'ER_BAD_FIELD_ERROR');
+
 /**
- * Tự động tạo hồ sơ du học cho học viên nếu chưa có.
- * Đảm bảo tính Idempotent (gọi nhiều lần không sinh trùng).
+ * Gỡ hồ sơ du học khỏi một tài khoản KHÔNG phải học sinh.
+ *   · Hồ sơ "rỗng" (chưa thu đồng nào, học sinh chưa gửi khai báo) -> XOÁ hẳn: đó là hồ sơ tự sinh,
+ *     không có dữ liệu nghiệp vụ gì để giữ.
+ *   · Hồ sơ đã có tiền / đã gửi -> chỉ CẮT liên kết (user_id = NULL), giữ nguyên dữ liệu: xoá là
+ *     mất luôn sổ thu tiền (ON DELETE CASCADE), trung tâm không đối soát lại được.
+ * @returns {Promise<number>} số hồ sơ đã xử lý
+ */
+export async function goHoSoNhanSu(userId) {
+  const uid = parseInt(userId, 10);
+  if (!uid) return 0;
+  try {
+    const [ds] = await pool.query(
+      `SELECT h.id, h.hs_gui_luc,
+              (SELECT COUNT(*) FROM du_hoc_thu_tien t WHERE t.ho_so_id = h.id) AS so_khoan
+         FROM du_hoc_ho_so h WHERE h.user_id = ?`,
+      [uid]
+    );
+    for (const h of ds) {
+      if (Number(h.so_khoan) === 0 && !h.hs_gui_luc) {
+        await pool.query('DELETE FROM du_hoc_ho_so WHERE id = ?', [h.id]);
+      } else {
+        await pool.query('UPDATE du_hoc_ho_so SET user_id = NULL WHERE id = ?', [h.id]);
+      }
+    }
+    return ds.length;
+  } catch (err) {
+    if (!chuaCoBang(err)) console.error(`[du-hoc] Lỗi gỡ hồ sơ của nhân sự ${uid}:`, err);
+    return 0;
+  }
+}
+
+/**
+ * Tự động tạo hồ sơ du học cho HỌC SINH nếu chưa có. Idempotent.
+ * Không phải học sinh -> trả null, và KHÔNG trả về hồ sơ cũ (nếu có thì gỡ luôn).
  *
  * @param {number|string} userId
  * @param {object} [thongTin] - { name, email, phone, orgId }
@@ -37,36 +90,29 @@ export async function taoHoSoDuHocChoHocVien(userId, thongTin = {}) {
   if (!uid || isNaN(uid)) return null;
 
   try {
-    // 1. Kiểm tra đã có hồ sơ du học cho user_id này chưa
-    const [co] = await pool.query('SELECT * FROM du_hoc_ho_so WHERE user_id = ? LIMIT 1', [uid]);
-    if (co.length > 0) {
-      return co[0];
-    }
-
-    // 2. Lấy thông tin tài khoản nếu chưa truyền đủ
+    // 1. Kiểm VAI TRÒ TRƯỚC. Bản cũ trả hồ sơ có sẵn trước khi kiểm vai trò -> giáo viên từng là
+    //    học sinh vẫn thấy hồ sơ của mình.
     const [uRows] = await pool.query(
       'SELECT id, name, email, phone, org_id, role, is_admin FROM users WHERE id = ?',
       [uid]
     );
     if (!uRows.length) return null;
     const u = uRows[0];
+    if (!laHocSinh(u)) {
+      await goHoSoNhanSu(uid);
+      return null;
+    }
 
-    // CHỈ tạo hồ sơ du học cho học viên (role = 'student' hoặc chưa gán role và is_admin=0).
-    // Tuyệt đối KHÔNG tạo cho giáo viên (teacher), quản trị viên (admin, is_admin=1), sale, quản lý hồ sơ (ho_so)...
-    const role = String(u.role || '').toLowerCase();
-    if (u.is_admin || role === 'admin' || role === 'teacher' || role === 'sale' || role === 'ho_so') {
-      return null;
-    }
-    if (role && role !== 'student') {
-      return null;
-    }
+    // 2. Đã có hồ sơ -> trả luôn
+    const [co] = await pool.query('SELECT * FROM du_hoc_ho_so WHERE user_id = ? LIMIT 1', [uid]);
+    if (co.length > 0) return co[0];
 
     const orgId = thongTin.orgId || u.org_id || 1;
     const hoTen = String(thongTin.name || u.name || '').trim() || 'Học viên';
     const email = String(thongTin.email || u.email || '').trim() || null;
     const phone = String(thongTin.phone || u.phone || '').trim() || null;
 
-    // 3. Sinh mã hồ sơ HS-XXXX
+    // 3. Sinh mã hồ sơ HS-XXXX (trùng thì lùi một nhịp, cùng lối với POST /admin/du-hoc/ho-so)
     const [m] = await pool.query(
       `SELECT COALESCE(MAX(CAST(SUBSTRING(ma_hs, 4) AS UNSIGNED)), 0) AS n
          FROM du_hoc_ho_so WHERE org_id = ? AND ma_hs REGEXP '^HS-[0-9]+$'`,
@@ -76,7 +122,6 @@ export async function taoHoSoDuHocChoHocVien(userId, thongTin = {}) {
 
     let hoSoId = null;
     let maCuoi = '';
-
     for (let lan = 0; lan < 6; lan++) {
       const ma = `HS-${String(so + 1 + lan).padStart(4, '0')}`;
       try {
@@ -92,13 +137,12 @@ export async function taoHoSoDuHocChoHocVien(userId, thongTin = {}) {
         if (e.code !== 'ER_DUP_ENTRY') throw e;
       }
     }
-
     if (!hoSoId) {
       console.warn(`[du-hoc] Không sinh được mã hồ sơ cho user ${uid}`);
       return null;
     }
 
-    // 4. Khởi tạo checklist giấy tờ mặc định
+    // 4. Checklist giấy tờ mặc định
     try {
       await pool.query(
         `INSERT INTO du_hoc_giay_to (ho_so_id, ten, bat_buoc, sort_order) VALUES ${GIAY_TO_MAC_DINH.map(() => '(?, ?, ?, ?)').join(', ')}`,
@@ -108,74 +152,63 @@ export async function taoHoSoDuHocChoHocVien(userId, thongTin = {}) {
       console.warn('[du-hoc] Lỗi chèn checklist giấy tờ mặc định:', errGiayTo.message);
     }
 
-    // 5. Ghi nhật ký khởi tạo
+    // 5. Nhật ký
     try {
       await pool.query(
         `INSERT INTO du_hoc_lich_su (ho_so_id, loai, noi_dung, nguoi_id, buoc_cu, buoc_moi)
          VALUES (?, 'he-thong', ?, ?, NULL, 'ho-so')`,
-        [hoSoId, `Tự động tạo hồ sơ ${maCuoi} khi có tài khoản`, uid]
+        [hoSoId, `Tự động tạo hồ sơ ${maCuoi} khi có tài khoản học sinh`, uid]
       );
     } catch (_) {}
 
     const [moi] = await pool.query('SELECT * FROM du_hoc_ho_so WHERE id = ?', [hoSoId]);
     return moi[0] || null;
   } catch (err) {
-    if (err && (err.code === 'ER_NO_SUCH_TABLE' || err.code === 'ER_BAD_FIELD_ERROR')) {
-      return null;
-    }
+    if (chuaCoBang(err)) return null;
     console.error(`[du-hoc] Lỗi tạo hồ sơ tự động cho user ${uid}:`, err);
     return null;
   }
 }
 
 /**
- * Quét toàn bộ học viên (role = 'student' hoặc NULL) chưa có hồ sơ du học và tự động tạo.
- * Giúp các học viên đã đăng ký trước đây lập tức có hồ sơ du học trong hệ thống.
+ * Gọi NGAY SAU mọi câu đổi vai trò: học sinh -> có hồ sơ; nhân sự -> gỡ hồ sơ.
+ */
+export async function dongBoHoSoTheoVaiTro(userId) {
+  // taoHoSoDuHocChoHocVien đã tự rẽ nhánh theo vai trò (nhân sự thì gỡ, học sinh thì tạo).
+  return taoHoSoDuHocChoHocVien(userId);
+}
+
+/**
+ * Chạy lúc khởi động server:
+ *   1. Gỡ hồ sơ khỏi mọi tài khoản nhân sự (sót lại từ trước khi có chốt chặn).
+ *   2. Tạo hồ sơ cho mọi học sinh chưa có.
  */
 export async function dongBoHocVienVaoDuHoc() {
   try {
-    // 1. Dọn dẹp bất kỳ hồ sơ nào lỡ gắn với tài khoản quản trị viên, giáo viên, sale, quản lý hồ sơ
-    try {
-      await pool.query(
-        `DELETE FROM du_hoc_ho_so
-          WHERE user_id IN (
-            SELECT id FROM users
-             WHERE is_admin = 1 OR role IN ('admin', 'teacher', 'sale', 'ho_so')
-          )`
-      );
-    } catch (eClean) {
-      console.warn('[du-hoc] Bỏ qua dọn dẹp hồ sơ nhân sự:', eClean.message);
-    }
+    const [nhanSu] = await pool.query(
+      `SELECT DISTINCT h.user_id FROM du_hoc_ho_so h JOIN users u ON u.id = h.user_id
+        WHERE NOT ${SQL_LA_HOC_SINH}`
+    );
+    for (const r of nhanSu) await goHoSoNhanSu(r.user_id);
+    if (nhanSu.length) console.log(`[du-hoc] Đã gỡ hồ sơ du học khỏi ${nhanSu.length} tài khoản nhân sự.`);
 
-    // 2. Chỉ quét những học sinh thực thụ (role = 'student' hoặc chưa có role và is_admin = 0)
     const [rows] = await pool.query(
-      `SELECT u.id, u.name, u.email, u.phone, u.org_id
-         FROM users u
-        WHERE (u.role = 'student' OR u.role IS NULL)
-          AND (u.is_admin = 0 OR u.is_admin IS NULL)
-          AND (u.role IS NULL OR u.role NOT IN ('teacher', 'admin', 'sale', 'ho_so'))
+      `SELECT u.id, u.name, u.email, u.phone, u.org_id FROM users u
+        WHERE ${SQL_LA_HOC_SINH}
           AND NOT EXISTS (SELECT 1 FROM du_hoc_ho_so h WHERE h.user_id = u.id)`
     );
-    if (!rows.length) return { da_tao: 0 };
     let dem = 0;
     for (const u of rows) {
       const hs = await taoHoSoDuHocChoHocVien(u.id, {
-        name: u.name,
-        email: u.email,
-        phone: u.phone,
-        orgId: u.org_id,
+        name: u.name, email: u.email, phone: u.phone, orgId: u.org_id,
       });
       if (hs) dem++;
     }
-    if (dem > 0) {
-      console.log(`[du-hoc] Đã đồng bộ tự động tạo hồ sơ du học cho ${dem} học viên.`);
-    }
-    return { da_tao: dem };
+    if (dem > 0) console.log(`[du-hoc] Đã tự động tạo hồ sơ du học cho ${dem} học sinh.`);
+    return { da_tao: dem, da_go: nhanSu.length };
   } catch (err) {
-    if (err && (err.code === 'ER_NO_SUCH_TABLE' || err.code === 'ER_BAD_FIELD_ERROR')) {
-      return { da_tao: 0 };
-    }
+    if (chuaCoBang(err)) return { da_tao: 0, da_go: 0 };
     console.warn('[du-hoc] Lỗi đồng bộ học viên vào hồ sơ du học:', err.message);
-    return { da_tao: 0 };
+    return { da_tao: 0, da_go: 0 };
   }
 }

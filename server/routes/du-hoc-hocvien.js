@@ -24,7 +24,7 @@ import { requireAuth } from '../middleware/auth.js';
 import { BUOC } from './du-hoc.js';
 import { baoHocSinh, chuaCoBangTb, LOAI_TB } from '../utils/du-hoc-thong-bao.js';
 import { guiPush, guiPushVaiTro, guiNgam } from '../utils/push.js';
-import { taoHoSoDuHocChoHocVien } from '../utils/du-hoc-tao-hs.js';
+import { taoHoSoDuHocChoHocVien, SQL_LA_HOC_SINH } from '../utils/du-hoc-tao-hs.js';
 
 const router = Router();
 router.use(requireAuth);
@@ -89,9 +89,13 @@ const NHAN_GIAY_TO = {
 
 const chuaCoBang = (err) => err && (err.code === 'ER_NO_SUCH_TABLE' || err.code === 'ER_BAD_FIELD_ERROR');
 
-/** Hồ sơ của CHÍNH người đang gọi. `null` nếu em này không phải học sinh du học. */
+/** Hồ sơ của CHÍNH người đang gọi. `null` nếu không phải học sinh du học (nhân sự luôn null). */
 async function hoSoCuaToi(userId) {
-  const [r] = await pool.query('SELECT * FROM du_hoc_ho_so WHERE user_id = ? LIMIT 1', [userId]);
+  const [r] = await pool.query(
+    `SELECT h.* FROM du_hoc_ho_so h JOIN users u ON u.id = h.user_id
+      WHERE h.user_id = ? AND ${SQL_LA_HOC_SINH} LIMIT 1`,
+    [userId]
+  );
   return r[0] || null;
 }
 
@@ -128,11 +132,9 @@ function nhanBuoc(ma) {
 // thêm 4 vòng mạng.
 router.get('/ho-so-cua-toi', async (req, res) => {
   try {
-    let hs = await hoSoCuaToi(req.userId);
-    // Tự động tạo hồ sơ du học nếu chưa có (100% học sinh ITaiwan là du học sinh)
-    if (!hs) {
-      hs = await taoHoSoDuHocChoHocVien(req.userId);
-    }
+    // Luôn đi qua helper: nó kiểm VAI TRÒ trước — nhân sự (giáo viên/quản trị/sale) trả null dù
+    // còn sót hồ sơ cũ; học sinh chưa có hồ sơ thì tự tạo (100% học sinh ITaiwan là du học sinh).
+    const hs = await taoHoSoDuHocChoHocVien(req.userId);
     if (!hs) return res.json({ co: false });
 
     // Mỗi phần tử của Promise.all là [rows, fields] của mysql2 — destructure đồng loạt `[x]`

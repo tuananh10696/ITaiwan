@@ -651,6 +651,8 @@ router.put('/users/:id', async (req, res) => {
     if (sets.length) {
       vals.push(targetId);
       await pool.query(`UPDATE users SET ${sets.join(', ')} WHERE id = ?`, vals);
+      // Đổi vai trò -> đồng bộ hồ sơ du học: thành nhân sự thì gỡ hồ sơ, về học sinh thì tạo lại.
+      if (vaiMoi !== undefined || is_admin !== undefined) await taoHoSoDuHocChoHocVien(targetId);
     }
 
 

@@ -14,6 +14,7 @@ import pool from '../config/db.js';
 import { requireAuth } from '../middleware/auth.js';
 import { loadRole, requireStaff, phamViQuanTri } from '../middleware/roles.js';
 import { sendWelcomeEmail } from '../utils/email.js';
+import { taoHoSoDuHocChoHocVien } from '../utils/du-hoc-tao-hs.js';
 
 const router = Router();
 
@@ -94,6 +95,8 @@ router.post('/teachers', async (req, res) => {
         return res.status(400).json({ error: 'Email này đã được dùng ở một tổ chức khác.' });
       }
       await pool.query('UPDATE users SET role = ?, is_approved = 1 WHERE id = ?', ['teacher', u.id]);
+      // Học sinh được nâng lên giáo viên -> gỡ hồ sơ du học tự sinh trước đó.
+      await taoHoSoDuHocChoHocVien(u.id);
       return res.status(200).json({ message: `Đã chuyển "${u.name}" thành giáo viên.`, id: u.id, nang_cap: true });
     }
 
@@ -149,6 +152,8 @@ router.delete('/teachers/:id', async (req, res) => {
     const [r] = await pool.query(
       `UPDATE users SET role = 'student' WHERE id = ? AND role = 'teacher'${dkOrg(req)}`, [id, ...tsOrg(req)]);
     if (!r.affectedRows) return res.status(404).json({ error: 'Không tìm thấy giáo viên.' });
+    // Về lại học sinh -> có hồ sơ du học như mọi học sinh khác.
+    await taoHoSoDuHocChoHocVien(id);
     res.json({ message: 'Đã bỏ vai trò giáo viên (tài khoản vẫn còn).' });
   } catch (err) {
     res.status(500).json({ error: 'Lỗi bỏ vai trò giáo viên.' });

@@ -599,8 +599,26 @@ async function init() {
       charMode: api.user.char_mode || 'traditional',
       is_admin: !!api.user.is_admin,
       is_approved: !!api.user.is_approved,
+      role: api.user.role || (api.user.is_admin ? 'admin' : 'student'),
     };
     state.charMode = api.user.char_mode || 'traditional';
+    // Vai trò trong tw_user là bản chụp lúc đăng nhập: admin đổi học sinh -> giáo viên sau đó thì
+    // bản chụp vẫn ghi 'student' và menu Hồ sơ du học vẫn hiện. Làm mới ngầm từ /auth/me.
+    api.get('/auth/me').then((d) => {
+      const u = d?.user;
+      if (!u || !state.user) return;
+      const roleMoi = u.role || (u.is_admin ? 'admin' : 'student');
+      const doi = roleMoi !== state.user.role || !!u.is_admin !== state.user.is_admin;
+      state.user.role = roleMoi;
+      state.user.is_admin = !!u.is_admin;
+      state.user.is_approved = !!u.is_approved;
+      // Chỉ gộp 3 trường vai trò vào bản lưu — ghi đè cả object là mất avatar_url của lần đăng nhập.
+      try {
+        Object.assign(api.user, { role: roleMoi, is_admin: u.is_admin, is_approved: u.is_approved });
+        localStorage.setItem('tw_user', JSON.stringify(api.user));
+      } catch (_) {}
+      if (doi) renderSidebar();
+    }).catch(() => {});
   }
   theoDoiChieuCaoKhung();
   // Đang chạy như app từ màn hình chính -> lộ mục "Kiểm tra hiển thị" ở đáy menu (chỉ chế độ này
@@ -1216,6 +1234,13 @@ function navBooksHtml(item) {
   </div>`;
 }
 
+/** Đang đăng nhập bằng tài khoản nhân sự (giáo viên / quản trị / sale / quản lý hồ sơ)? */
+function laNhanSu() {
+  if (!state.isLoggedIn || !state.user) return false;
+  if (state.user.is_admin) return true;
+  return (state.user.role || 'student') !== 'student';
+}
+
 function renderSidebar() {
   const nav = document.getElementById('sidebar-nav');
   if (!nav) return;
@@ -1232,6 +1257,8 @@ function renderSidebar() {
     if (item.type === 'group') {
       html += `<div class="nav-group-label">${item.label}</div>`;
     } else if (item.type === 'parent') {
+      // Hồ sơ du học chỉ dành cho HỌC SINH — giáo viên / quản trị / sale / quản lý hồ sơ không thấy mục này.
+      if (item.id === 'cat-duhoc' && laNhanSu()) return;
       const open = isMenuOpen(item.id);
       const hasActive = item.children.some(c => c.id === state.currentPage);
       const onclickHandler = item.id === 'cat-duhoc'
@@ -3984,6 +4011,7 @@ async function handleLogin(e) {
       charMode: data.user.char_mode || 'traditional',
       is_admin: !!data.user.is_admin,
       is_approved: !!data.user.is_approved,
+      role: data.user.role || (data.user.is_admin ? 'admin' : 'student'),
     };
     state.charMode = data.user.char_mode || 'traditional';
 
