@@ -51,8 +51,13 @@ export async function taoHoSoDuHocChoHocVien(userId, thongTin = {}) {
     if (!uRows.length) return null;
     const u = uRows[0];
 
-    // Tránh tự động tạo cho tài khoản giáo viên (teacher)
-    if (u.role === 'teacher') {
+    // CHỈ tạo hồ sơ du học cho học viên (role = 'student' hoặc chưa gán role và is_admin=0).
+    // Tuyệt đối KHÔNG tạo cho giáo viên (teacher), quản trị viên (admin, is_admin=1), sale, quản lý hồ sơ (ho_so)...
+    const role = String(u.role || '').toLowerCase();
+    if (u.is_admin || role === 'admin' || role === 'teacher' || role === 'sale' || role === 'ho_so') {
+      return null;
+    }
+    if (role && role !== 'student') {
       return null;
     }
 
@@ -129,11 +134,26 @@ export async function taoHoSoDuHocChoHocVien(userId, thongTin = {}) {
  */
 export async function dongBoHocVienVaoDuHoc() {
   try {
+    // 1. Dọn dẹp bất kỳ hồ sơ nào lỡ gắn với tài khoản quản trị viên, giáo viên, sale, quản lý hồ sơ
+    try {
+      await pool.query(
+        `DELETE FROM du_hoc_ho_so
+          WHERE user_id IN (
+            SELECT id FROM users
+             WHERE is_admin = 1 OR role IN ('admin', 'teacher', 'sale', 'ho_so')
+          )`
+      );
+    } catch (eClean) {
+      console.warn('[du-hoc] Bỏ qua dọn dẹp hồ sơ nhân sự:', eClean.message);
+    }
+
+    // 2. Chỉ quét những học sinh thực thụ (role = 'student' hoặc chưa có role và is_admin = 0)
     const [rows] = await pool.query(
       `SELECT u.id, u.name, u.email, u.phone, u.org_id
          FROM users u
         WHERE (u.role = 'student' OR u.role IS NULL)
           AND (u.is_admin = 0 OR u.is_admin IS NULL)
+          AND (u.role IS NULL OR u.role NOT IN ('teacher', 'admin', 'sale', 'ho_so'))
           AND NOT EXISTS (SELECT 1 FROM du_hoc_ho_so h WHERE h.user_id = u.id)`
     );
     if (!rows.length) return { da_tao: 0 };
@@ -148,7 +168,7 @@ export async function dongBoHocVienVaoDuHoc() {
       if (hs) dem++;
     }
     if (dem > 0) {
-      console.log(`[du-hoc] Đã đồng bộ tự động tạo hồ sơ du học cho ${dem} học viên cũ.`);
+      console.log(`[du-hoc] Đã đồng bộ tự động tạo hồ sơ du học cho ${dem} học viên.`);
     }
     return { da_tao: dem };
   } catch (err) {
