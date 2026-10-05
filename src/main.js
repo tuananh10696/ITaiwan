@@ -131,6 +131,14 @@ const navConfig = [
   },
 
   {
+    type: 'parent', id: 'cat-guide', path: 'huong-dan', label: 'Hướng dẫn', icon: 'fa-solid fa-circle-question',
+    children: [
+      { id: 'guide-cai-app', path: 'cai-app', label: 'Cài app (PWA)', icon: 'fa-solid fa-mobile-screen-button' },
+      { id: 'guide-dang-ky', path: 'dang-ky-tai-khoan', label: 'Cách tạo tài khoản', icon: 'fa-solid fa-user-plus' },
+    ],
+  },
+
+  {
     type: 'parent', id: 'cat-account', path: 'tai-khoan', label: 'Tài khoản', icon: 'fa-solid fa-circle-user',
     children: [
       { id: 'account-profile', path: 'ho-so', label: 'Thông tin cá nhân', icon: 'fa-solid fa-id-card' },
@@ -172,6 +180,9 @@ navConfig.forEach(item => {
   }
 });
 
+// Alias đường dẫn /huong-dan dẫn thẳng vào trang Hướng dẫn cài app
+pathPage['/huong-dan'] = 'guide-cai-app';
+
 // Trang không nằm trong sidebar nhưng vẫn cần URL riêng
 // exam-taking shares base path /tocfl/thi-thu — segs distinguish from setup
 // e.g. /tocfl/thi-thu/band-a/de-1/doc
@@ -191,6 +202,8 @@ const IMPLEMENTED_PAGES = new Set([
   'account-profile', 'account-settings', 'account-notifications',
   // Hồ sơ du học của học sinh — nằm trên sidebar.
   'account-duhoc',
+  // Hướng dẫn cài app & Đăng ký tài khoản (công khai)
+  'guide-cai-app', 'guide-dang-ky',
   // Lộ trình của tôi. Cả 6 trang đều CẦN ĐĂNG NHẬP — dữ liệu là của riêng từng học viên,
   // nên cố ý không đưa vào PUBLIC_PAGES.
   'path-overview', 'path-today', 'path-homework', 'path-progress', 'path-achievements',
@@ -206,6 +219,8 @@ const PUBLIC_PAGES = new Set([
   // Khang Hy, không phải nội dung riêng của dự án. Sổ tay để mở vì chưa đăng nhập vẫn dùng
   // được (lưu ở localStorage) — chặn lại thì mất luôn đường dẫn dắt người mới tạo tài khoản.
   'dictionary', 'radicals', 'notebook',
+  // Hướng dẫn cài app & đăng ký tài khoản: người mới vào web cần đọc được ngay
+  'guide-cai-app', 'guide-dang-ky',
 ]);
 // ============================================================
 // INIT
@@ -559,6 +574,17 @@ function dangKyServiceWorker() {
     });
   } catch { /* trình duyệt cũ: bỏ qua, web vẫn chạy như thường */ }
 }
+
+let deferredInstallPrompt = null;
+try {
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredInstallPrompt = e;
+    if (typeof window.app?.capNhatNutCaiApp === 'function') {
+      window.app.capNhatNutCaiApp();
+    }
+  });
+} catch { /* môi trường không hỗ trợ */ }
 
 async function init() {
   // Sổ tay từ vựng: nạp từ localStorage trước mọi thứ (renderer nào cũng có thể hỏi tới),
@@ -1601,6 +1627,7 @@ function navigate(page, params, opts) {
     case 'account-notifications':
     case 'account-duhoc':
     case 'path-kiemtra':
+    case 'guide-cai-app': case 'guide-dang-ky':
       veTrangNapDong(page, content); break;
     case 'pron-vanmau': renderPronFinals(content); break;
     case 'pron-thanhmau': renderPronInitials(content); break;
@@ -1656,6 +1683,8 @@ const MODULE_TRANG = {
   'account-notifications': () => import('./pages/taikhoan.js'),
   'account-duhoc': () => import('./pages/taikhoan.js'),
   'path-kiemtra': () => import('./pages/kiemtra.js'),
+  'guide-cai-app': () => import('./pages/huongdan.js'),
+  'guide-dang-ky': () => import('./pages/huongdan.js'),
 };
 
 /** Module đã nạp, khoá theo hàm nạp — bốn trang cùng một module thì chỉ tải một lần. */
@@ -4044,6 +4073,7 @@ function showApprovalContactModal() {
 }
 
 function showRegister() {
+  openModal('auth-modal');
   const formSide = document.getElementById('auth-form-side');
   formSide.innerHTML = `
     <img src="/favicon.png" alt="ITaiwan" width="56" height="56" class="auth-form-logo-img">
@@ -10295,6 +10325,23 @@ window.app = {
   openExamSetup,
   startExam,
   startTocflExam,
+
+  // Cài đặt app PWA
+  caiDatAppNhanh: async () => {
+    if (deferredInstallPrompt) {
+      deferredInstallPrompt.prompt();
+      try {
+        const { outcome } = await deferredInstallPrompt.userChoice;
+        deferredInstallPrompt = null;
+        if (outcome === 'accepted') {
+          toast('Đang cài đặt ứng dụng...');
+        }
+      } catch {}
+    } else {
+      toast('Trình duyệt chưa sẵn sàng cài 1 chạm. Vui lòng làm theo các bước hướng dẫn bên dưới.');
+    }
+  },
+  coTheCaiNhanh: () => !!deferredInstallPrompt,
 
   // Bài cô giao (dashboard)
   openAssignment,

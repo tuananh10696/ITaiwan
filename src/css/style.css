@@ -15068,3 +15068,456 @@ html.tw-standalone body {
 html.tw-standalone {
     --safe-bottom: min(max(env(safe-area-inset-bottom, 0px) - 24px, 0px), 10px);
 }
+
+/* ============================================================
+   TRANG HƯỚNG DẪN — CÀI APP & ĐĂNG KÝ TÀI KHOẢN (2026-10-05)
+   ============================================================ */
+.hd-wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding-bottom: 40px;
+}
+.hd-highlights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+}
+.hd-hl-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background: var(--surface);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-xl);
+    padding: 18px 20px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.hd-hl-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+.hd-hl-icon {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    border-radius: var(--radius-lg);
+    background: var(--primary-bg);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+.hd-hl-info h4 {
+    margin: 0 0 4px;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+.hd-hl-info p {
+    margin: 0;
+    font-size: 13.5px;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+/* Fast install banner */
+.hd-quick-install-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: #fff;
+    padding: 22px 26px;
+    border-radius: var(--radius-xl);
+    margin-bottom: 24px;
+    box-shadow: var(--shadow-md);
+}
+.hd-quick-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-full);
+    padding: 3px 10px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+.hd-quick-left h3 {
+    margin: 0 0 4px;
+    font-size: 20px;
+    font-weight: 800;
+}
+.hd-quick-left p {
+    margin: 0;
+    font-size: 14px;
+    opacity: 0.9;
+}
+.hd-btn-install {
+    white-space: nowrap;
+    padding: 12px 24px;
+    font-size: 14.5px;
+    font-weight: 700;
+    background: #fff !important;
+    color: var(--primary-dark) !important;
+    border: none;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+    cursor: pointer;
+}
+.hd-btn-install:hover {
+    background: #f0fdf4 !important;
+    transform: translateY(-2px);
+}
+
+/* Platform switch tabs */
+.hd-platform-tabs {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--border-light);
+    padding-bottom: 8px;
+}
+.hd-tab-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 22px;
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    border: 1px solid var(--border-light);
+    color: var(--text-muted);
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.hd-tab-btn:hover {
+    color: var(--primary);
+    border-color: var(--primary-light);
+}
+.hd-tab-btn.active {
+    background: var(--primary);
+    color: #fff;
+    border-color: var(--primary);
+    box-shadow: 0 4px 12px rgba(38, 86, 72, 0.25);
+}
+.hd-os-emoji {
+    font-size: 18px;
+}
+
+/* Guide content visibility */
+.hd-guide-content {
+    display: none;
+}
+.hd-guide-content.active {
+    display: block;
+}
+
+/* Alert boxes */
+.hd-note-alert {
+    display: flex;
+    gap: 14px;
+    background: color-mix(in srgb, var(--primary) 10%, #fff);
+    border: 1px solid color-mix(in srgb, var(--primary) 25%, transparent);
+    border-left: 4px solid var(--primary);
+    border-radius: var(--radius-lg);
+    padding: 16px 18px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-dark);
+    margin-bottom: 22px;
+}
+.hd-note-alert i {
+    font-size: 20px;
+    color: var(--primary);
+    margin-top: 2px;
+}
+.hd-success-box {
+    display: flex;
+    gap: 14px;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-left: 4px solid #16a34a;
+    border-radius: var(--radius-lg);
+    padding: 16px 18px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #14532d;
+    margin-top: 24px;
+}
+.hd-success-box i {
+    font-size: 22px;
+    color: #16a34a;
+    margin-top: 2px;
+}
+
+/* Steps list */
+.hd-steps-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.hd-step-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    background: var(--surface);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-xl);
+    padding: 20px 22px;
+    box-shadow: var(--shadow-sm);
+    transition: border-color 0.2s ease;
+}
+.hd-step-item:hover {
+    border-color: var(--primary-light);
+}
+.hd-step-num {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    border-radius: var(--radius-full);
+    background: var(--primary);
+    color: #fff;
+    font-size: 17px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 8px rgba(38, 86, 72, 0.3);
+}
+.hd-step-body h4 {
+    margin: 0 0 6px;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+.hd-step-body p {
+    margin: 0 0 8px;
+    font-size: 14.5px;
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+.hd-step-body code {
+    background: var(--bg-hover);
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+    font-size: 13.5px;
+    color: var(--primary-dark);
+}
+.hd-chip-preview {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--primary-bg);
+    color: var(--primary-dark);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: var(--radius-full);
+    margin-top: 4px;
+}
+
+/* FAQ Card */
+.hd-faq-card {
+    background: var(--surface);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-xl);
+    padding: 24px;
+    margin-top: 30px;
+}
+.hd-faq-card h3 {
+    margin: 0 0 16px;
+    font-size: 18px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-dark);
+}
+.hd-faq-card h3 i {
+    color: var(--primary);
+}
+.hd-faq-item {
+    padding: 12px 0;
+    border-top: 1px solid var(--border-light);
+}
+.hd-faq-item:first-of-type {
+    border-top: none;
+    padding-top: 0;
+}
+.hd-faq-item h5 {
+    margin: 0 0 6px;
+    font-size: 14.5px;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+.hd-faq-item p {
+    margin: 0;
+    font-size: 13.5px;
+    color: var(--text-muted);
+    line-height: 1.55;
+}
+
+/* Registration Guide Styles */
+.hd-reg-cta-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: #fff;
+    padding: 22px 26px;
+    border-radius: var(--radius-xl);
+    margin-bottom: 24px;
+    box-shadow: var(--shadow-md);
+}
+.hd-reg-cta-text h3 {
+    margin: 0 0 6px;
+    font-size: 20px;
+    font-weight: 800;
+}
+.hd-reg-cta-text p {
+    margin: 0;
+    font-size: 14.5px;
+    opacity: 0.9;
+}
+.hd-btn-register {
+    white-space: nowrap;
+    padding: 13px 24px;
+    font-size: 14.5px;
+    font-weight: 700;
+    background: #fff !important;
+    color: var(--primary-dark) !important;
+    border: none;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+    cursor: pointer;
+}
+.hd-btn-register:hover {
+    background: #f0fdf4 !important;
+    transform: translateY(-2px);
+}
+.hd-card {
+    background: var(--surface);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-xl);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 24px;
+}
+.hd-section-title {
+    margin: 0 0 20px;
+    font-size: 18px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-dark);
+}
+.hd-section-title i {
+    color: var(--primary);
+}
+.hd-info-table {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+    background: var(--bg-hover);
+    border-radius: var(--radius-lg);
+    padding: 14px 16px;
+}
+.hd-info-row {
+    display: flex;
+    gap: 10px;
+    font-size: 13.5px;
+    line-height: 1.5;
+}
+.hd-info-key {
+    font-weight: 700;
+    color: var(--text-dark);
+    min-width: 120px;
+    white-space: nowrap;
+}
+.hd-info-key i {
+    color: var(--primary);
+    width: 14px;
+    margin-right: 4px;
+}
+.hd-info-val {
+    color: var(--text-muted);
+}
+
+/* Support card */
+.hd-support-card {
+    background: linear-gradient(135deg, var(--surface) 0%, var(--primary-bg) 100%);
+    border-color: color-mix(in srgb, var(--primary) 30%, transparent);
+}
+.hd-support-head {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+.hd-support-icon {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    border-radius: var(--radius-xl);
+    background: var(--primary);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+}
+.hd-support-head h3 {
+    margin: 0 0 4px;
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--text-dark);
+}
+.hd-support-head p {
+    margin: 0;
+    font-size: 14px;
+    color: var(--text-muted);
+}
+.hd-support-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 640px) {
+    .hd-quick-install-banner,
+    .hd-reg-cta-banner {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .hd-btn-install,
+    .hd-btn-register {
+        width: 100%;
+        text-align: center;
+    }
+    .hd-platform-tabs {
+        flex-direction: column;
+    }
+    .hd-tab-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    .hd-info-row {
+        flex-direction: column;
+        gap: 2px;
+    }
+    .hd-support-actions {
+        flex-direction: column;
+    }
+    .hd-support-actions .btn {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+}
