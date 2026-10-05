@@ -26,7 +26,8 @@ function nhanDienOs() {
 // ============================================================
 export function renderGuideCaiApp(el) {
   const currentOs = nhanDienOs();
-  const coCaiNhanh = typeof window.app?.coTheCaiNhanh === 'function' && window.app.coTheCaiNhanh();
+  const isRealAndroid = /Android/i.test(navigator.userAgent || '');
+  const coCaiNhanh = typeof window.app?.coTheCaiNhanh === 'function' && window.app.coTheCaiNhanh() && isRealAndroid;
 
   el.innerHTML = `
     <div class="hd-wrap">
