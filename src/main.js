@@ -85,16 +85,18 @@ const navConfig = [
       { id: 'tocfl-vocab', path: 'tu-vung-theo-band', label: 'Tổng hợp từ vựng từng Band', icon: 'fa-solid fa-layer-group' },
       { id: 'exam', path: 'thi-thu', label: 'Thi thử TOCFL', icon: 'fa-solid fa-file-pen' },
       
-      { type: 'group', label: 'Học phát âm' },
-      { id: 'pron-vanmau', path: 'hoc-phat-am/van-mau', label: 'Vận mẫu', icon: 'fa-solid fa-wave-square' },
-      { id: 'pron-thanhmau', path: 'hoc-phat-am/thanh-mau', label: 'Thanh mẫu', icon: 'fa-solid fa-spell-check' },
-      { id: 'pron-thanhdieu', path: 'hoc-phat-am/thanh-dieu', label: 'Thanh điệu', icon: 'fa-solid fa-chart-line' },
-      { id: 'pron-bangphienam', path: 'hoc-phat-am/bang-phien-am', label: 'Bảng phiên âm', icon: 'fa-solid fa-table-cells' },
+      { type: 'subparent', id: 'cat-phatam', path: 'hoc-phat-am', label: 'Học phát âm', icon: 'fa-solid fa-microphone', children: [
+        { id: 'pron-vanmau', path: 'van-mau', label: 'Vận mẫu', icon: 'fa-solid fa-wave-square' },
+        { id: 'pron-thanhmau', path: 'thanh-mau', label: 'Thanh mẫu', icon: 'fa-solid fa-spell-check' },
+        { id: 'pron-thanhdieu', path: 'thanh-dieu', label: 'Thanh điệu', icon: 'fa-solid fa-chart-line' },
+        { id: 'pron-bangphienam', path: 'bang-phien-am', label: 'Bảng phiên âm', icon: 'fa-solid fa-table-cells' },
+      ]},
 
-      { type: 'group', label: 'Từ vựng & Hán tự' },
-      { id: 'dictionary', path: 'tu-vung/tu-dien', label: 'Từ điển Trung-Việt', icon: 'fa-solid fa-book-atlas' },
-      { id: 'notebook', path: 'tu-vung/so-tay', label: 'Sổ tay từ vựng', icon: 'fa-solid fa-book-bookmark' },
-      { id: 'radicals', path: 'tu-vung/bo-thu-han-tu', label: 'Bộ thủ Hán tự', icon: 'fa-solid fa-torii-gate' },
+      { type: 'subparent', id: 'cat-tuvung', path: 'tu-vung', label: 'Từ vựng & Hán tự', icon: 'fa-solid fa-book-open', children: [
+        { id: 'dictionary', path: 'tu-dien', label: 'Từ điển Trung-Việt', icon: 'fa-solid fa-book-atlas' },
+        { id: 'notebook', path: 'so-tay', label: 'Sổ tay từ vựng', icon: 'fa-solid fa-book-bookmark' },
+        { id: 'radicals', path: 'bo-thu-han-tu', label: 'Bộ thủ Hán tự', icon: 'fa-solid fa-torii-gate' },
+      ]},
     ],
   },
 
@@ -141,7 +143,7 @@ const navConfig = [
 // ------------------------------------------------------------
 const pageTitles = { 'exam-taking': 'Đang thi...', dictionary: 'Từ điển Trung-Việt' };
 const pageIcons = { dictionary: 'fa-solid fa-book-atlas' };
-const pageParent = {};
+const pageParents = {};
 // pagePath: id trang -> đường dẫn ('/tocfl/giao-trinh-duong-dai')
 // pathPage: đường dẫn -> id trang. Cả hai đều SINH TỰ ĐỘNG từ navConfig, không sửa tay.
 const pagePath = {};
@@ -157,14 +159,24 @@ navConfig.forEach(item => {
   if (item.type === 'parent') {
     item.children.forEach(c => {
       if (c.type === 'group') return;
-      pageTitles[c.id] = c.label;
-      pageIcons[c.id] = c.icon;
-      pageParent[c.id] = item.id;
-      registerPath(c.id, `${item.path}/${c.path}`);
+      if (c.type === 'subparent') {
+        c.children.forEach(cc => {
+          pageTitles[cc.id] = cc.label;
+          pageIcons[cc.id] = cc.icon;
+          pageParents[cc.id] = [item.id, c.id];
+          registerPath(cc.id, `${item.path}/${c.path}/${cc.path}`);
+        });
+      } else {
+        pageTitles[c.id] = c.label;
+        pageIcons[c.id] = c.icon;
+        pageParents[c.id] = [item.id];
+        registerPath(c.id, `${item.path}/${c.path}`);
+      }
     });
   } else if (item.id) {
     pageTitles[item.id] = item.label;
     pageIcons[item.id] = item.icon;
+    pageParents[item.id] = [];
     registerPath(item.id, item.path || '');
   }
 });
@@ -1189,11 +1201,12 @@ function toggleMenu(id, force) {
   persistOpenMenus();
 }
 
-function navLinkHtml(item, isChild) {
+function navLinkHtml(item, isChild, indent = 0) {
   // href thật để Google crawl được, người dùng mở tab mới / copy link được.
   // onclick chặn reload và điều hướng bằng router.
   return `<a class="nav-item${isChild ? ' nav-child' : ''}${state.currentPage === item.id ? ' active' : ''}"
       data-page="${item.id}" href="${pagePath[item.id] || '/'}"
+      ${indent ? `style="padding-left: ${indent}px;"` : ''}
       onclick="event.preventDefault(); window.app.navigate('${item.id}')">
       <i class="${item.icon}"></i>
       <span>${item.label}</span>
@@ -1244,13 +1257,10 @@ function navBooksHtml(item) {
   const tbId = 'thoidai';
   const menuKey = `${NAV_BOOKS_MENU}-${tbId}`;
   const onPage = state.currentPage === item.id;
-  const open = isMenuOpen(menuKey) || onPage;
   const curBook = onPage ? ddCurrentBook() : null;
-  return `<div class="nav-group nav-subgroup${open ? ' open' : ''}" data-menu="${menuKey}">
+  return `<div class="nav-group nav-subgroup open" data-menu="${menuKey}">
     <div class="nav-child-row">
       ${navLinkHtml(item, true)}
-      <button type="button" class="nav-subcaret" aria-expanded="${open}" aria-label="Danh sách quyển"
-        onclick="window.app.toggleMenu('${menuKey}')"><i class="fa-solid fa-chevron-down"></i></button>
     </div>
     <div class="nav-children"><div class="nav-children-inner">
       ${TB(tbId).books.map(b => {
@@ -1276,16 +1286,38 @@ function laNhanSu() {
   return (state.user.role || 'student') !== 'student';
 }
 
+function navSubparentHtml(item) {
+  const open = isMenuOpen(item.id);
+  const hasActive = item.children.some(c => c.id === state.currentPage);
+  const isOpen = open || hasActive;
+  return `<div class="nav-group nav-subgroup${isOpen ? ' open' : ''}" data-menu="${item.id}">
+    <div class="nav-child-row">
+      <button type="button" class="nav-item nav-child nav-parent${hasActive ? ' has-active' : ''}"
+        aria-expanded="${isOpen}" onclick="window.app.toggleMenu('${item.id}')"
+        style="width: 100%; border: none; background: transparent; text-align: left; margin: 0; padding-right: 16px;">
+        <i class="${item.icon}"></i>
+        <span>${item.label}</span>
+        <i class="fa-solid fa-chevron-down nav-caret"></i>
+      </button>
+    </div>
+    <div class="nav-children"><div class="nav-children-inner">
+      ${item.children.map(cc => navLinkHtml(cc, true, 56)).join('')}
+    </div></div>
+  </div>`;
+}
+
 function renderSidebar() {
   const nav = document.getElementById('sidebar-nav');
   if (!nav) return;
 
   // Tự mở nhóm chứa trang đang xem
-  const activeParent = pageParent[state.currentPage];
-  if (activeParent && !state.openMenus.includes(activeParent)) {
-    state.openMenus.push(activeParent);
-    persistOpenMenus();
-  }
+  const activeParents = pageParents[state.currentPage] || [];
+  activeParents.forEach(pid => {
+    if (!state.openMenus.includes(pid)) {
+      state.openMenus.push(pid);
+    }
+  });
+  persistOpenMenus();
 
   let html = '';
   navConfig.forEach(item => {
@@ -1298,7 +1330,7 @@ function renderSidebar() {
       const children = item.children.filter(c => !(c.id === 'guide-cai-app' && (laNative() || laStandalone())));
       if (!children.length) return;
       const open = isMenuOpen(item.id);
-      const hasActive = children.some(c => c.id === state.currentPage);
+      const hasActive = children.some(c => c.id === state.currentPage || (c.type === 'subparent' && c.children.some(cc => cc.id === state.currentPage)));
       const onclickHandler = item.id === 'cat-duhoc'
         ? `window.app.navigate('account-duhoc'); window.app.toggleMenu('${item.id}', true);`
         : `window.app.toggleMenu('${item.id}')`;
@@ -1312,6 +1344,7 @@ function renderSidebar() {
         <div class="nav-children"><div class="nav-children-inner">
           ${children.map(c => (
             c.type === 'group' ? `<div class="nav-group-label" style="padding: 10px 24px 4px 52px;">${c.label}</div>`
+            : c.type === 'subparent' ? navSubparentHtml(c)
             : c.type === 'book' ? navBookLinkHtml(c)
             : c.books ? navBooksHtml(c) : navLinkHtml(c, true))).join('')}
         </div></div>
@@ -1332,12 +1365,12 @@ function updateNavActive(page) {
     el.classList.toggle('active', el.dataset.page === page);
   });
 
-  const parentId = pageParent[page];
+  const parentIds = pageParents[page] || [];
   document.querySelectorAll('.nav-group[data-menu]').forEach(g => {
-    const isCurrent = g.dataset.menu === parentId;
+    const isCurrent = parentIds.includes(g.dataset.menu);
     const btn = g.querySelector('.nav-parent');
     if (btn) btn.classList.toggle('has-active', isCurrent);
-    if (isCurrent && !g.classList.contains('open')) toggleMenu(parentId, true);
+    if (isCurrent && !g.classList.contains('open')) toggleMenu(g.dataset.menu, true);
   });
 
   // Vào trang giáo trình thì bung sẵn danh sách quyển/cấp của ĐÚNG bộ đó (giống cách nhóm cha
