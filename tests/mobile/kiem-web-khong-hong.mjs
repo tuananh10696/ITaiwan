@@ -41,7 +41,9 @@ const TRANG = [['Trang chủ', '/'], ['Phát âm', '/hoc-phat-am/thanh-mau'],
   // Hai trang NẠP ĐỘNG — bắt lỗi tách route trên bản WEB. Module `lotrinh` cần đăng
   // nhập nên không đưa vào đây (bộ kiểm này chạy với tư cách khách).
   ['Từ điển', '/tu-vung/tu-dien'],
-  ['Bộ thủ Hán tự', '/tu-vung/bo-thu-han-tu']];
+  ['Bộ thủ Hán tự', '/tu-vung/bo-thu-han-tu'],
+  // Hướng dẫn (2026-10-05) — nạp động, mở cho khách. Trang tạo tài khoản phải có nút đăng ký.
+  ['Cài app', '/huong-dan/cai-app'], ['Tạo tài khoản', '/huong-dan/dang-ky-tai-khoan']];
 
 console.log('TRANG'.padEnd(20), 'KÝ TỰ'.padStart(7), '  LỖI');
 console.log('─'.repeat(40));
@@ -55,6 +57,13 @@ for (const [ten, url] of TRANG) {
   console.log(ten.padEnd(20), String(chu).padStart(7), '  ' + (n || '-'));
 }
 
+// Khách mở "Cách tạo tài khoản" phải thấy nút đăng ký — từng bị ẩn vì điều kiện hỏi `state.user`
+// (luôn có giá trị) thay vì `state.isLoggedIn`.
+await pg.goto('http://localhost:4601/huong-dan/dang-ky-tai-khoan', { waitUntil: 'networkidle' }).catch(() => {});
+await pg.waitForTimeout(600);
+const coNutDangKy = await pg.evaluate(() => !!document.querySelector('.hd-reg-cta-banner'));
+console.log('Nút đăng ký (khách) :', coNutDangKy ? 'CÓ' : 'KHÔNG — lỗi');
+
 const cls = await pg.evaluate(() => document.documentElement.className);
 const tuongDoi = goiApi.every((u) => new URL(u).origin === 'http://localhost:4601');
 
@@ -64,7 +73,7 @@ console.log('Số lời gọi API      :', goiApi.length);
 console.log('Lỗi JS              :', tong);
 if (loi.length) [...new Set(loi)].slice(0, 6).forEach((l) => console.log('  •', l.slice(0, 150)));
 
-const hong = tong > 0 || !tuongDoi || cls.includes('tw-native');
+const hong = tong > 0 || !tuongDoi || cls.includes('tw-native') || !coNutDangKy;
 console.log(hong ? '\n❌ BẢN WEB CÓ VẤN ĐỀ' : '\n✅ Bản web không bị ảnh hưởng');
 await b.close(); sv.close();
 process.exit(hong ? 1 : 0);

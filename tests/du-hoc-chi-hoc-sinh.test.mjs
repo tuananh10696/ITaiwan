@@ -26,11 +26,17 @@ const [[ad]] = await pool.query("SELECT id FROM users WHERE role = 'admin' ORDER
 const QT = tok(ad.id);
 
 try {
-  // 1. Học sinh tự đăng ký
+  // 1. Học sinh tự đăng ký: CHƯA duyệt -> chưa có hồ sơ; admin duyệt -> có hồ sơ
   await G(null, 'POST', '/auth/register', { name: 'HS Dang Ky', email: mail('reg'), password: '123456' });
   await ngu(800);
   const regId = await idTheoMail(mail('reg'));
-  kiem('Học sinh tự đăng ký -> có hồ sơ', (await soHoSo(regId)) === 1);
+  kiem('Học sinh tự đăng ký (chưa duyệt) -> CHƯA có hồ sơ', (await soHoSo(regId)) === 0);
+  const meChuaDuyet = await G(tok(regId), 'GET', '/du-hoc/ho-so-cua-toi');
+  kiem('Chưa duyệt mở /ho-so-cua-toi -> co:false, không tự sinh',
+    meChuaDuyet.j?.co === false && (await soHoSo(regId)) === 0);
+  await G(QT, 'PUT', `/admin/users/${regId}/approve`, {});
+  await ngu(800);
+  kiem('Admin duyệt -> có hồ sơ', (await soHoSo(regId)) === 1);
 
   // 2. Admin tạo tài khoản từng vai trò
   const ids = {};
@@ -44,9 +50,9 @@ try {
     kiem(`Admin tạo ${vai.toUpperCase()} -> KHÔNG có hồ sơ`, ids[vai] && (await soHoSo(ids[vai])) === 0, `id=${ids[vai]}`);
   }
 
-  // 3. Học sinh -> giáo viên (đúng ca khách gặp)
+  // 3. Học sinh -> giáo viên khi hồ sơ còn là hồ sơ TỰ SINH chưa ai đụng tới: dọn đi
   await G(QT, 'PUT', `/admin/users/${regId}`, { role: 'teacher' });
-  kiem('Đổi học sinh -> GIÁO VIÊN: hồ sơ bị gỡ', (await soHoSo(regId)) === 0);
+  kiem('Đổi học sinh (hồ sơ tự sinh trống) -> GIÁO VIÊN: hồ sơ được dọn', (await soHoSo(regId)) === 0);
   const me = await G(tok(regId), 'GET', '/du-hoc/ho-so-cua-toi');
   kiem('Giáo viên mở /ho-so-cua-toi -> co:false', me.j?.co === false, JSON.stringify(me.j).slice(0, 80));
   kiem('Giáo viên mở /ho-so-cua-toi KHÔNG tự sinh lại hồ sơ', (await soHoSo(regId)) === 0);
@@ -55,24 +61,58 @@ try {
   await G(QT, 'PUT', `/admin/users/${regId}`, { role: 'student' });
   kiem('Đổi giáo viên -> HỌC SINH: có lại hồ sơ', (await soHoSo(regId)) === 1);
 
-  // 5. Đường "Thêm giáo viên bằng email" nâng học sinh có sẵn
+  // 5. Hồ sơ ĐÃ CÓ DỮ LIỆU: đổi vai trò KHÔNG được xoá, đổi lại phải thấy đúng hồ sơ cũ.
+  //    (Bản 03/10 xoá cứng hồ sơ "chưa thu tiền + chưa gửi", kéo theo giấy tờ, nhật ký...)
+  const [[hsReg]] = await pool.query('SELECT id, ma_hs FROM du_hoc_ho_so WHERE user_id = ?', [regId]);
+  await ngu(1100); // updated_at tính theo giây: sửa cùng giây với lúc tạo thì không phân biệt được
+  await G(QT, 'PUT', `/admin/du-hoc/ho-so/${hsReg.id}`, { ghi_chu: 'Đã tư vấn qua điện thoại' });
+  await G(QT, 'PUT', `/admin/users/${regId}`, { role: 'teacher' });
+  const [[conLai]] = await pool.query('SELECT id, user_id, ghi_chu FROM du_hoc_ho_so WHERE id = ?', [hsReg.id]);
+  kiem('Hồ sơ có dữ liệu + đổi sang GIÁO VIÊN -> KHÔNG bị xoá, giữ liên kết',
+    conLai && conLai.user_id === regId && conLai.ghi_chu === 'Đã tư vấn qua điện thoại', JSON.stringify(conLai));
+  const meGv = await G(tok(regId), 'GET', '/du-hoc/ho-so-cua-toi');
+  kiem('…nhưng giáo viên vẫn không xem được hồ sơ', meGv.j?.co === false);
+  await G(QT, 'PUT', `/admin/users/${regId}`, { role: 'student' });
+  const meHs = await G(tok(regId), 'GET', '/du-hoc/ho-so-cua-toi');
+  kiem('Đổi lại HỌC SINH -> thấy đúng hồ sơ cũ, không sinh hồ sơ thứ hai',
+    (await soHoSo(regId)) === 1 && meHs.j?.ma_hs === hsReg.ma_hs, `${meHs.j?.ma_hs} vs ${hsReg.ma_hs}`);
+
+  // 6. Đường "Thêm giáo viên bằng email" nâng học sinh có sẵn
   await G(QT, 'POST', '/admin/teachers', { email: mail('student') });
-  kiem('Thêm GV bằng email của học sinh -> hồ sơ bị gỡ', (await soHoSo(ids.student)) === 0);
-  // 6. Bỏ vai trò giáo viên
+  kiem('Thêm GV bằng email của học sinh -> hồ sơ tự sinh được dọn', (await soHoSo(ids.student)) === 0);
+  // 7. Bỏ vai trò giáo viên
   await G(QT, 'DELETE', `/admin/teachers/${ids.student}`);
   kiem('Bỏ vai trò GV -> có lại hồ sơ', (await soHoSo(ids.student)) === 1);
 
-  // 7. Ô tìm học viên để gắn hồ sơ không có nhân sự
+  // 8. Admin "Tạo hồ sơ gắn tài khoản" cho học sinh đang có hồ sơ tự sinh trống -> được, hồ sơ
+  //    tự sinh nhường chỗ (trước đây luôn 400 "đã gắn với hồ sơ HS-xxxx").
+  const tao = await G(QT, 'POST', '/admin/du-hoc/ho-so', { ho_ten: 'Tao Tay', user_id: ids.student });
+  const [dsHs] = await pool.query('SELECT id FROM du_hoc_ho_so WHERE user_id = ?', [ids.student]);
+  kiem('Tạo hồ sơ gắn học sinh có hồ sơ tự sinh trống -> 201, chỉ còn hồ sơ mới',
+    tao.s === 201 && dsHs.length === 1 && dsHs[0].id === tao.j?.id, `${tao.s} ${tao.j?.error || ''} n=${dsHs.length}`);
+  // …còn hồ sơ có dữ liệu thì vẫn chặn
+  const tao2 = await G(QT, 'POST', '/admin/du-hoc/ho-so', { ho_ten: 'Tao Tay 2', user_id: regId });
+  kiem('Tạo hồ sơ gắn học sinh đã có hồ sơ CÓ DỮ LIỆU -> 400', tao2.s === 400, `${tao2.s}`);
+
+  // 9. Hai request cùng lúc không sinh hai hồ sơ
+  const r9 = await G(QT, 'POST', '/admin/users', { email: mail('songsong'), name: 'Song Song', password: '123456', role: 'student' });
+  await ngu(800);
+  await pool.query('DELETE FROM du_hoc_ho_so WHERE user_id = ?', [r9.j?.id]);
+  const t9 = tok(r9.j?.id);
+  await Promise.all([1, 2, 3, 4].map(() => G(t9, 'GET', '/du-hoc/ho-so-cua-toi')));
+  kiem('4 request /ho-so-cua-toi song song -> đúng 1 hồ sơ', (await soHoSo(r9.j?.id)) === 1);
+
+  // 10. Ô tìm học viên để gắn hồ sơ không có nhân sự
   const tim = await G(QT, 'GET', `/admin/du-hoc/hoc-vien?tim=${MA}`);
   const emails = (tim.j?.hoc_vien || []).map((x) => x.email);
   kiem('Ô tìm học viên KHÔNG trả nhân sự',
     !['teacher', 'sale', 'ho_so', 'admin'].some((v) => emails.includes(mail(v))), emails.join(','));
 
-  // 8. Gắn giáo viên vào hồ sơ thủ công -> bị chặn
+  // 11. Gắn giáo viên vào hồ sơ thủ công -> bị chặn
   const gan = await G(QT, 'POST', '/admin/du-hoc/ho-so', { ho_ten: 'Gan GV', user_id: ids.teacher });
   kiem('Tạo hồ sơ gắn tài khoản GIÁO VIÊN -> 400', gan.s === 400, `${gan.s} ${gan.j?.error || ''}`);
 
-  // 9. Giáo viên gọi cổng học sinh
+  // 12. Giáo viên gọi cổng học sinh
   const gv = await G(tok(ids.teacher), 'GET', '/du-hoc/ho-so-cua-toi');
   kiem('Tài khoản GV gọi /ho-so-cua-toi -> co:false', gv.j?.co === false);
 } finally {
@@ -80,7 +120,7 @@ try {
   const dsId = us.map((u) => u.id);
   if (dsId.length) {
     await pool.query('DELETE FROM du_hoc_ho_so WHERE user_id IN (?)', [dsId]);
-    await pool.query("DELETE FROM du_hoc_ho_so WHERE ho_ten = 'Gan GV'");
+    await pool.query("DELETE FROM du_hoc_ho_so WHERE ho_ten IN ('Gan GV', 'Tao Tay', 'Tao Tay 2')");
     await pool.query('DELETE FROM users WHERE id IN (?)', [dsId]);
   }
   for (const k of ketQua) console.log(`${k.dat ? '✅' : '❌'} ${k.ten}${k.dat ? '' : '  -> ' + k.chiTiet}`);

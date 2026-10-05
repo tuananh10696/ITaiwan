@@ -1184,11 +1184,8 @@ const MAY = [
   ['Safari trên macOS', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) Safari/605.1.15'],
   ['Edge trên Windows', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Edg/141.0'],
 ];
-// ⚠️ Mỗi học viên chỉ được 2 thiết bị (TRAN_THIET_BI trong server/utils/thiet-bi.js). Trình duyệt
-// của người đang thử tính là MỘT thiết bị, nên seed chỉ cấp sẵn 1 máy cho mỗi em — cấp 2 là đăng
-// nhập bằng trình duyệt thật lập tức 403 "đã đăng nhập trên 2 thiết bị" và không vào nổi tài khoản
-// nào. Ngoại lệ CỐ Ý: em hv10 giữ đủ 2 máy đang dùng để thử chính màn hình bị chặn và thao tác
-// "gỡ thiết bị" bên quản trị. Quản trị và giáo viên được miễn trừ (MIEN_TRU) nên không bị ảnh hưởng.
+// Giới hạn 2 thiết bị đã BỎ (2026-10-05) cùng màn "Thiết bị đăng nhập" của quản trị; bảng
+// user_devices / device_alerts vẫn còn trong schema nên seed vẫn điền cho đủ bộ, không còn chỗ nào đọc.
 const thietBi = [];
 for (const [i, h] of HOC_VIEN.entries()) {
   const so = h.ma === 'hv10' ? 3 : 1;   // hv10: 2 máy đang dùng + 1 máy đã bị gỡ

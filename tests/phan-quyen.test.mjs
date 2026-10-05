@@ -58,7 +58,6 @@ const ROUTES = [
   ['GET', '/admin/ktx/toa',                        { admin: 200, teacher: 403, student: 403, khach: 401 }],
   // Đề bài: giáo viên CÓ quyền (họ là người ra đề).
   ['GET', '/admin/de-bai',                         { admin: 200, teacher: 200, student: 403, khach: 401 }],
-  ['GET', '/admin/thiet-bi/canh-bao',              { admin: 200, teacher: 403, student: 403, khach: 401 }],
   ['DELETE', `/admin/classes/${lopGv.insertId}`,   { teacher: 403, student: 403, khach: 401 }],
   ['POST', '/admin/classes',                       { teacher: 403, student: 403, khach: 401 }],
   ['GET', '/exercise/notifications',               { admin: 200, teacher: 200, student: 200, khach: 401 }],

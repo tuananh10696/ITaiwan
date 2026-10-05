@@ -85,7 +85,6 @@ for (const [method, duong] of [
   ['GET', '/admin/classes'],
   ['GET', '/admin/teachers'],
   ['GET', '/admin/de-bai'],
-  ['GET', '/admin/thiet-bi/canh-bao'],
   ['POST', '/admin/classes'],
 ]) {
   const { ma } = await goi(method, duong, 'saleA', method === 'POST' ? { name: 'x' } : null);

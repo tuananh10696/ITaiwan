@@ -76,10 +76,13 @@ function traFile(res, phan, ten, cache) {
   res.type('application/json').send(s);
 }
 
-/** 402 = "cần trả tiền". Kèm mã sản phẩm để giao diện mời mua đúng thứ đang thiếu. */
+/**
+ * 402 = "chưa có quyền". Bản này không bán khoá: khách / tài khoản chưa duyệt chỉ học thử được
+ * SO_BAI_MO bài đầu mỗi quyển. Giữ mã 402 + các trường cũ để client (LoiCanQuyen) không phải đổi.
+ */
 function canMua(res, bo, quyen) {
   return res.status(402).json({
-    error: 'Nội dung này thuộc phần trả phí.',
+    error: `Bài này mở khi tài khoản được trung tâm duyệt. Trong lúc chờ, bạn học thử được ${SO_BAI_MO} bài đầu của mỗi quyển.`,
     can_quyen: true,
     bo,
     quyen,
@@ -315,12 +318,17 @@ router.get('/tocfl/:cap', (req, res) => {
 
 // ------------------------------------------------------------------ trạng thái
 /** Quyền của chính mình — giao diện dùng để biết bài nào hiện ổ khoá, gói còn hạn tới bao giờ. */
-router.get('/quyen', optionalAuth, (req, res) => {
-  // Bản này không bán khoá: mọi nội dung mở cho người đã đăng nhập. Giữ route để giao diện
-  // không phải bỏ lời gọi — nó đọc `tat_ca` để biết có vẽ ổ khoá nào không.
+router.get('/quyen', optionalAuth, async (req, res) => {
+  // Giao diện đọc `tat_ca` để biết có vẽ ổ khoá không, `cho_duyet` để biết nên mời đăng nhập hay
+  // mời liên hệ trung tâm. Chặn thật vẫn là biChan() ở trên.
+  let q = { tatCa: false, choDuyet: false };
+  try { if (req.userId) q = await quyenCuaNguoiDung(req.userId); } catch (err) {
+    console.error('Lỗi tra quyền nội dung:', err);
+  }
   res.json({
     dang_nhap: !!req.userId,
-    tat_ca: true,
+    tat_ca: q.tatCa,
+    cho_duyet: q.choDuyet,
     bo: [], quyen: [], het_han: null, so_bai_mo: SO_BAI_MO,
   });
 });

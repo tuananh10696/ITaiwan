@@ -3,9 +3,8 @@
 // ============================================================
 // Module NẠP ĐỘNG (4.40): Tách thành trang nạp động theo route để không làm phình
 // bundle chính `main.js`. Dùng chung các tiện ích lõi và hệ thống design tokens.
-import { app } from '../core/app.js';
 import { state } from '../core/state.js';
-import { tdEsc, toast, twPlayEnter } from '../core/ui.js';
+import { SO_BAI_MO } from '../../shared/noi-dung-mo.js';
 
 let hdOsTab = 'auto'; // 'auto' | 'ios' | 'android'
 
@@ -48,8 +47,8 @@ export function renderGuideCaiApp(el) {
         <div class="hd-hl-card">
           <div class="hd-hl-icon"><i class="fa-solid fa-bolt"></i></div>
           <div class="hd-hl-info">
-            <h4>Siêu nhẹ & Tiết kiệm pin</h4>
-            <p>Dung lượng &lt; 2MB, không tốn bộ nhớ lưu trữ, tải tài nguyên siêu tốc.</p>
+            <h4>Không cần qua kho ứng dụng</h4>
+            <p>Thêm thẳng từ trình duyệt, không phải tải bộ cài từ App Store hay Google Play.</p>
           </div>
         </div>
         <div class="hd-hl-card">
@@ -224,7 +223,7 @@ export function renderGuideCaiApp(el) {
         <div class="hd-faq-item">
           <h5>2. Cài app này có tốn dung lượng bộ nhớ máy không?</h5>
           <p>
-            Không. Ứng dụng sử dụng công nghệ PWA (Progressive Web App) tiêu chuẩn thế giới, dung lượng chỉ dưới 2MB (nhẹ hơn hàng trăm lần so với các app thông thường) nên tuyệt đối không lo đầy bộ nhớ điện thoại.
+            Ứng dụng dùng công nghệ PWA (Progressive Web App) nên không có bộ cài nặng như app thông thường. Trình duyệt chỉ lưu lại các bài học và âm thanh bạn đã mở để lần sau mở nhanh hơn, nên bộ nhớ dùng tăng dần theo lượng bài đã học. Gỡ app khỏi màn hình chính là phần lưu này được xoá theo.
           </p>
         </div>
       </div>
@@ -245,13 +244,14 @@ export function renderGuideDangKy(el) {
           <h1>Cách Tạo Tài Khoản ITaiwan</h1>
           <p>
             Hướng dẫn chi tiết từng bước đăng ký tài khoản học tập trên ITaiwan.
-            Tạo tài khoản ngay hôm nay để làm bài tập cô giao, thi thử TOCFL, tra cứu từ điển và theo dõi hồ sơ du học Đài Loan!
+            Tạo tài khoản là học thử được ngay; sau khi trung tâm duyệt, bạn làm được bài tập cô giao, thi thử TOCFL và theo dõi hồ sơ du học Đài Loan.
           </p>
         </div>
         <i class="fa-solid fa-user-graduate tv-hero-mark"></i>
       </div>
 
-      ${!state.user ? `
+      ${/* state.user LUÔN có giá trị (khách = object mặc định 'Học viên') — phải hỏi isLoggedIn */ ''}
+      ${!state.isLoggedIn ? `
       <!-- Action Card -->
       <div class="hd-reg-cta-banner">
         <div class="hd-reg-cta-text">
@@ -273,7 +273,7 @@ export function renderGuideDangKy(el) {
             <div class="hd-step-body">
               <h4>Mở bảng Đăng ký</h4>
               <p>
-                Bấm vào nút <strong>"Đăng ký tài khoản ngay"</strong> ở trên, hoặc bấm nút <strong>"Đăng nhập"</strong> ở góc trên bên phải màn hình (hoặc dưới thanh bên) rồi chọn liên kết <em>"Đăng ký ngay"</em>.
+                Bấm vào nút <strong>"Đăng ký tài khoản ngay"</strong> ở trên. Hoặc bấm nút <strong>"Đăng nhập"</strong> ở cuối thanh menu bên trái (hoặc biểu tượng tài khoản ở góc trên bên phải, rồi chọn <strong>"Đăng nhập"</strong>), sau đó chọn liên kết <em>"Đăng ký ngay"</em> dưới khung đăng nhập.
               </p>
             </div>
           </div>
@@ -309,7 +309,7 @@ export function renderGuideDangKy(el) {
             <div class="hd-step-body">
               <h4>Bấm nút "ĐĂNG KÝ"</h4>
               <p>
-                Sau khi điền đủ thông tin, bấm nút <strong>"ĐĂNG KÝ"</strong> màu xanh. Hệ thống sẽ tạo tài khoản của bạn ngay lập tức. Nếu có thông báo xác thực qua email, vui lòng mở hòm thư để xác nhận.
+                Sau khi điền đủ thông tin, bấm nút <strong>"ĐĂNG KÝ"</strong> màu xanh. Hệ thống sẽ gửi một email xác nhận tới địa chỉ bạn vừa nhập. <strong>Bạn phải mở email và bấm vào đường link xác nhận thì mới đăng nhập được.</strong> Không thấy email thì xem thêm trong mục Thư rác (Spam).
               </p>
             </div>
           </div>
@@ -319,8 +319,8 @@ export function renderGuideDangKy(el) {
             <div class="hd-step-body">
               <h4>Kích hoạt & Phân quyền lớp học</h4>
               <p>
-                Tài khoản vừa tạo có thể học thử ngay các bài học mở miễn phí (Từ vựng, Phát âm, các bài đầu của giáo trình).<br>
-                Để được cấp quyền làm bài tập cô giao, thi thử đề TOCFL và vào lớp học chính thức, bạn hãy liên hệ với trung tâm hoặc thầy cô phụ trách để được duyệt tài khoản.
+                Sau khi xác nhận email và đăng nhập, bạn học thử được ngay <strong>${SO_BAI_MO} bài đầu của mỗi quyển</strong> giáo trình, cùng các trang tra cứu (Phát âm, Từ vựng, Từ điển, Bộ thủ).<br>
+                Để học toàn bộ giáo trình, làm bài tập cô giao, thi thử đề TOCFL, vào lớp học chính thức và theo dõi hồ sơ du học, bạn hãy liên hệ với trung tâm hoặc thầy cô phụ trách để được duyệt tài khoản.
               </p>
             </div>
           </div>

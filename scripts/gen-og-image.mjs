@@ -251,34 +251,33 @@ const html = `<!DOCTYPE html>
     <div class="content">
       <div class="badge-row">
         <div class="top-pill">★ TRUNG TÂM DU HỌC ĐÀI LOAN</div>
-        <div class="top-pill top-pill-red">UY TÍN HÀNG ĐẦU</div>
       </div>
 
       <h1 class="brand-title">DU HỌC ITAIWAN</h1>
 
       <div class="brand-sub">
-        <span>Săn Học Bổng Toàn Phần</span>
+        <span>Săn Học Bổng Du Học Đài Loan</span>
         <span class="hanzi">愛台灣 • 學中文</span>
       </div>
 
       <div class="feature-list">
         <div class="feature-item">
           <div class="check-icon">✓</div>
-          <span>Đào tạo tiếng Trung Phồn thể &amp; Luyện thi TOCFL chuẩn đầu ra</span>
+          <span>Học tiếng Trung Phồn thể theo giáo trình Thời Đại</span>
         </div>
         <div class="feature-item">
           <div class="check-icon">✓</div>
-          <span>Tư vấn các hệ: Ngôn ngữ • 1+4 • Đại học • Thạc sĩ Đài Loan</span>
+          <span>Thi thử TOCFL trực tuyến: 18 đề Nghe – Đọc, chấm ngay</span>
         </div>
         <div class="feature-item">
           <div class="check-icon">✓</div>
-          <span>Cam kết tỷ lệ đỗ Visa cao &amp; Hỗ trợ làm hồ sơ trọn gói</span>
+          <span>Theo dõi tiến độ hồ sơ du học ngay trên tài khoản</span>
         </div>
       </div>
 
       <div class="footer-row">
         <div class="contact-item">
-          <span class="contact-label">Hotline 24/7</span>
+          <span class="contact-label">Điện thoại</span>
           <span>036 567 8977</span>
         </div>
         <div class="contact-item">

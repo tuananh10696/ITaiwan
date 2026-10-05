@@ -51,7 +51,7 @@ graph TD
     - SQL & DB: Quét ký tự backtick trong comment SQL template string; kiểm tra tính nhất quán giữa `server/config/init-db.js` và migration files.
   - **Security & RBAC**:
     - Kiểm tra JWT token (phải dùng `id` thay vì `userId`).
-    - Cơ chế giới hạn 2 thiết bị (`max_devices`), quản lý phiên đăng nhập.
+    - Quản lý phiên đăng nhập (giới hạn thiết bị đã bỏ 2026-10-05).
     - SQL Injection, sanitization đầu vào, CSRF/CORS qua `EXTRA_ORIGINS`.
   - **Pipeline & Data Assets**:
     - Quản lý pipeline sinh từ vựng, ngữ pháp, audio (`npm run audio:kiem`, Whisper script kiểm tra pinyin vs âm thực tế).

@@ -51,7 +51,9 @@ const MA_BUOC = new Set(BUOC.map((b) => b.ma));
 /** Sáu bước đang chạy — dùng để đếm "hồ sơ đang xử lý", không tính hồ sơ đã bay/huỷ. */
 const BUOC_DANG_CHAY = ['ho-so', 'dong-tien', 'hoc', 'phong-van', 'visa', 'bay'];
 
-import { GIAY_TO_MAC_DINH, laHocSinh, SQL_LA_HOC_SINH } from '../utils/du-hoc-tao-hs.js';
+import {
+  GIAY_TO_MAC_DINH, laHocSinh, SQL_LA_HOC_SINH, sqlTuSinhChuaDung, xoaHoSoTuSinhChuaDung,
+} from '../utils/du-hoc-tao-hs.js';
 export { GIAY_TO_MAC_DINH };
 
 /** Cột client được phép ghi. KHÔNG có org_id / id / ma_hs — đổi chủ sở hữu hồ sơ không phải việc
@@ -651,6 +653,10 @@ async function loiGanHocVien(userId, req, hoSoHienTai = null) {
   if (!u.length) return 'Tài khoản học viên không tồn tại trong phạm vi của bạn.';
   // Hồ sơ du học CHỈ dành cho học sinh — giáo viên / quản trị / sale / quản lý hồ sơ không được gắn.
   if (!laHocSinh(u[0])) return 'Tài khoản này là nhân sự (giáo viên / quản trị / sale), không gắn vào hồ sơ du học được.';
+  // Học sinh nào đã duyệt cũng có sẵn hồ sơ TỰ SINH (du-hoc-tao-hs.js). Hồ sơ đó mà chưa ai đụng
+  // tới thì nhường chỗ cho hồ sơ đang tạo / đang gắn — nếu không, "Tạo hồ sơ gắn tài khoản" và gắn
+  // lại hồ sơ cũ luôn bị chặn vì "đã gắn với hồ sơ HS-xxxx". Hồ sơ có dữ liệu thì vẫn chặn như cũ.
+  await xoaHoSoTuSinhChuaDung(id, hoSoHienTai);
   // Một tài khoản chỉ nên đứng sau MỘT hồ sơ: hai hồ sơ cùng trỏ một người thì tiền và tiến độ
   // của em đó nằm rải hai chỗ, không ai biết chỗ nào là thật.
   const [h] = await pool.query(
@@ -1295,6 +1301,7 @@ router.get('/du-hoc/hoc-vien', async (req, res) => {
       const q = `%${tim}%`;
       ts.push(q, q, q);
     }
+    // Hồ sơ TỰ SINH chưa ai đụng tới không tính là "đã có": gắn vào là nó tự nhường chỗ (loiGanHocVien).
     // Người CHƯA có hồ sơ xếp trước: đó mới là nhóm chọn được, để lẫn xuống dưới thì phải cuộn
     // qua một loạt mục xám mới thấy. `u.id DESC` chứ không phải `created_at DESC` — hàng loạt tài
     // khoản tạo trong cùng một giây có created_at bằng nhau, thứ tự khi đó không xác định.
@@ -1303,7 +1310,8 @@ router.get('/du-hoc/hoc-vien', async (req, res) => {
     // trùng ngay trên danh sách thay vì để họ bấm rồi mới nhận lỗi.
     const [rows] = await pool.query(
       `SELECT u.id, u.name, u.email, u.phone,
-              (SELECT h.ma_hs FROM du_hoc_ho_so h WHERE h.user_id = u.id LIMIT 1) AS ho_so_ma
+              (SELECT h.ma_hs FROM du_hoc_ho_so h WHERE h.user_id = u.id
+                  AND NOT ${sqlTuSinhChuaDung('h', { ktx: false })} LIMIT 1) AS ho_so_ma
          FROM users u
         WHERE ${dk.join(' AND ')}
         ORDER BY ho_so_ma IS NOT NULL, ${tim ? 'u.name' : 'u.id DESC'} LIMIT 20`,

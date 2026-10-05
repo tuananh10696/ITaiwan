@@ -29,7 +29,7 @@ Dự án ITaiwan áp dụng mô hình phối hợp 3 Agent chuyên biệt: **Age
    - `admin`: Toàn quyền.
    - `teacher`: Chỉ được xem và thao tác trên lớp mình được phân công (`teacher_id`).
    - `student`: Chỉ xem được thông tin cá nhân và lớp của mình sau khi đã được duyệt (`is_approved = 1`).
-   - Giới hạn tối đa 2 thiết bị đăng nhập đồng thời (`max_devices = 2`).
+   - KHÔNG còn giới hạn số thiết bị đăng nhập (đã bỏ 2026-10-05).
 
 ---
 

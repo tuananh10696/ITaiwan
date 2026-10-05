@@ -16,7 +16,6 @@ Hai cổng dùng chung một tài khoản, khác nhau ở vai trò: `student` ·
 | Đăng ký · Đăng nhập | Email + mật khẩu, JWT hạn 7 ngày |
 | Xác thực email | Gửi link xác thực, có nút gửi lại |
 | Chờ duyệt | Tài khoản mới phải được quản trị duyệt mới vào học được |
-| Giới hạn thiết bị | Tối đa 2 thiết bị / tài khoản; vượt thì bị chặn và sinh cảnh báo cho quản trị |
 | Vào lớp bằng mã mời | Nhập mã lớp giáo viên cấp; một học viên ở một lớp |
 | Xem không cần đăng nhập | Trang chủ, Học phát âm, Giáo trình, Từ vựng theo Band |
 
@@ -102,7 +101,7 @@ Phân quyền: **A** = quản trị · **G** = giáo viên (chỉ lớp mình ph
 | Đề bài & kiểm tra | ✅ | ✅ |
 | Giáo viên | ✅ | ❌ |
 | Học viên | ✅ | ❌ |
-| Hồ sơ du học · Ký túc xá · Sổ thu–chi · Thiết bị | ✅ | ❌ |
+| Hồ sơ du học · Ký túc xá · Sổ thu–chi | ✅ | ❌ |
 
 ### 2.1 Tổng quan
 Số liệu học viên / lớp / bài nộp, tài khoản chờ duyệt, hoạt động gần đây; bản riêng cho giáo viên chỉ gồm lớp của họ.
@@ -143,9 +142,6 @@ Quản lý toà nhà → phòng (tầng, sức chứa, loại nam/nữ/chung, gi
 ### 2.8 Sổ thu – chi
 Danh mục thu/chi tự định nghĩa · lập phiếu thu/phiếu chi (mã phiếu tự sinh, đối tượng, hình thức thanh toán, diễn giải, ảnh chứng từ) · lọc theo kỳ/loại/danh mục · báo cáo thu–chi–tồn · in phiếu · xuất CSV.
 
-### 2.9 Thiết bị đăng nhập
-Hàng chờ cảnh báo những lần đăng nhập bị chặn vì quá 2 thiết bị · xem thiết bị của từng học viên · gỡ thiết bị · đánh dấu đã xử lý. Dùng để chống chia sẻ tài khoản.
-
 ---
 
 ## 3. DỮ LIỆU KHÁCH CÓ TRONG HỆ THỐNG
@@ -170,7 +166,6 @@ Hàng chờ cảnh báo những lần đăng nhập bị chặn vì quá 2 thi�
 | Nhóm | Dữ liệu lưu | Bảng chính |
 |---|---|---|
 | Tài khoản | Họ tên, email, điện thoại, vai trò, trạng thái xác thực/duyệt, avatar, điểm, cấp độ, chuỗi ngày, cài đặt chữ Phồn/Giản, bật/tắt mail nhắc | `users` |
-| Thiết bị | Thiết bị đã đăng nhập, cảnh báo vượt hạn mức | `user_devices` · `device_alerts` |
 | Lớp học | Lớp, mã mời, giáo viên phụ trách, danh sách học viên, buổi học, điểm danh | `classes` · `class_enrollments` · `class_sessions` · `class_attendance` |
 | Bài cô giao | Bài tập gắn giáo trình, hạn nộp, lượt nhắc, trạng thái đã đọc, ghi chú học viên | `assignments` · `assignment_reminders` · `assignment_reads` · `student_notes` |
 | Đề tự soạn | Đề, câu hỏi (kèm ảnh), lượt giao, bài làm, điểm và lời phê | `de_bai` · `de_cau_hoi` · `de_giao` · `de_bai_lam` |

@@ -102,6 +102,7 @@ const DAI_TOI_DA = {
   diem_lop10: 10, diem_lop11: 10, diem_lop12: 10,
   cccd: 20, bo_cccd: 20, me_cccd: 20, bo_phone: 20, me_phone: 20,
   ten_trung: 80, bo_ten: 120, me_ten: 120, bo_nghe: 120, me_nghe: 120,
+  ho_ten: 120, ho_chieu: 20, phone: 30,
 };
 /** Bốn ô tối thiểu phải có thì mới cho gửi — thiếu là trung tâm không làm được gì với hồ sơ. */
 const BAT_BUOC = ['ho_ten', 'ngay_sinh', 'phone', 'nganh'];
@@ -122,7 +123,7 @@ const chuaCoBang = (err) => err && (err.code === 'ER_NO_SUCH_TABLE' || err.code 
 async function hoSoCuaToi(userId) {
   const [r] = await pool.query(
     `SELECT h.* FROM du_hoc_ho_so h JOIN users u ON u.id = h.user_id
-      WHERE h.user_id = ? AND ${SQL_LA_HOC_SINH} LIMIT 1`,
+      WHERE h.user_id = ? AND ${SQL_LA_HOC_SINH} ORDER BY h.id LIMIT 1`,
     [userId]
   );
   return r[0] || null;
@@ -173,7 +174,7 @@ function nhanBuoc(ma) {
 router.get('/ho-so-cua-toi', async (req, res) => {
   try {
     // Luôn đi qua helper: nó kiểm VAI TRÒ trước — nhân sự (giáo viên/quản trị/sale) trả null dù
-    // còn sót hồ sơ cũ; học sinh chưa có hồ sơ thì tự tạo (100% học sinh ITaiwan là du học sinh).
+    // còn hồ sơ cũ (và KHÔNG đụng gì tới hồ sơ đó); học sinh đã duyệt mà chưa có thì tự tạo.
     const hs = await taoHoSoDuHocChoHocVien(req.userId);
     if (!hs) return res.json({ co: false });
 

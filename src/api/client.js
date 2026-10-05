@@ -4,7 +4,6 @@
 // Capacitor nên đường dẫn tương đối trỏ vào chính WebView và luôn 404. `apiBase()` trả về
 // '/api' trên web và URL tuyệt đối tới máy chủ thật khi ở trong app. Xem src/utils/env.js.
 import { apiBase } from '../utils/env.js';
-import { maThietBi } from '../utils/thiet-bi.js';
 
 /**
  * Đọc phiên đăng nhập đã lưu — KHÔNG ĐƯỢC NÉM LỖI.
@@ -68,9 +67,7 @@ class ApiClient {
   get isLoggedIn() { return !!this.token && !!this.user; }
 
   async login(email, password) {
-    // device_id: mã ngẫu nhiên cố định của máy này, để server đếm số thiết bị của một tài khoản
-    // (giới hạn 2 — xem server/utils/thiet-bi.js). Không gửi thì server cho qua chứ không chặn.
-    const data = await this.post('/auth/login', { email, password, device_id: maThietBi() });
+    const data = await this.post('/auth/login', { email, password });
     this.token = data.token;
     this.user = data.user;
     localStorage.setItem('tw_token', data.token);

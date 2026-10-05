@@ -190,7 +190,7 @@ sudo certbot renew --dry-run      # gia hạn tự động phải chạy đượ
 1. Vercel → project `itaiwan-edu` → **xoá 2 Cron Jobs / tạm dừng project**. Để nguyên thì Vercel
    vẫn gửi mail nhắc từ DB Aiven — học viên nhận mail trùng, dữ liệu ghi vào hai nơi.
 2. Giữ Aiven thêm ~1 tuần làm bản dự phòng rồi xoá service.
-3. `device_id` lưu theo domain (localStorage) → trên domain mới **mỗi máy là máy mới** với giới hạn
+3. *(Giới hạn thiết bị đã bỏ 2026-10-05 — mục này chỉ còn là lịch sử.)* `device_id` lưu theo domain (localStorage) → trên domain mới **mỗi máy là máy mới** với giới hạn
    2 thiết bị. Lúc chuyển (27/09) production chỉ có 1 tài khoản nên chưa ảnh hưởng; nếu đã có học
    viên thật thì cân nhắc xoá `user_devices` của học viên sau khi chuyển.
 

@@ -35,8 +35,7 @@ npm run demo:day-du -- --xoa     # chỉ xoá
 
 Ra: 1 quản trị · 1 giáo viên · 11 học viên (+2 tài khoản chờ duyệt) · 2 lớp, kèm buổi học &
 điểm danh, bài cô giao, kết quả bài tập có lời phê, ngân hàng 1.600 câu TOCFL + lượt thi, sổ
-tay, thẻ ôn tập, nhịp học 120 ngày, đề tự soạn, hồ sơ du học, sổ thu chi, ký túc xá, thiết bị
-đăng nhập. Mật khẩu chung **ITaiwan@2026**; script in ra bảng tài khoản kèm đặc điểm từng em.
+tay, thẻ ôn tập, nhịp học 120 ngày, đề tự soạn, hồ sơ du học, sổ thu chi, ký túc xá. Mật khẩu chung **ITaiwan@2026**; script in ra bảng tài khoản kèm đặc điểm từng em.
 
 Mỗi em một "điểm nhấn" khác nhau (em chăm nhất, em nợ bài, em có lời phê chưa đọc, em gần như
 chưa có dữ liệu…) để không màn hình nào rơi vào cảnh "ai cũng giống ai".
@@ -51,9 +50,6 @@ chưa có dữ liệu…) để không màn hình nào rơi vào cảnh "ai cũn
    ```
 2. **Giới hạn 10 lần đăng nhập / 15 phút.** Thử lần lượt 13 tài khoản là chạm trần ngay. Chạy
    `TAT_GIOI_HAN=true npm run server` (biến này bị bỏ qua khi `NODE_ENV=production`).
-3. **Mỗi học viên chỉ được 2 thiết bị.** Seed cố ý chỉ cấp sẵn 1 máy cho mỗi em để trình duyệt
-   của bạn còn chỗ. Riêng `hv10@itaiwan.vn` đã dùng hết 2 máy — đăng nhập bằng em đó sẽ bị chặn,
-   đó là chủ đích để thử màn hình chặn và thao tác gỡ thiết bị bên quản trị.
 
 ### Lệnh hay dùng
 

@@ -19,19 +19,18 @@ const implemented = new Set(
 );
 // Trang chỉ tồn tại trong 1 phiên làm việc, không share được -> loại khỏi sitemap
 ['exam-taking'].forEach(p => implemented.delete(p));
+// CHỈ trang khách xem được. Trước đây loại trừ bằng một danh sách viết tay, và mỗi lần thêm trang
+// cần đăng nhập mà quên khai là sitemap lại có một URL soft-404 (Thi thử TOCFL, Bài kiểm tra,
+// Hồ sơ du học đều từng lọt). Khách mở trang không có trong PUBLIC_PAGES là bị đá về trang chủ.
+const congKhai = new Set(
+  (src.match(/const PUBLIC_PAGES = new Set\(\[([\s\S]*?)\]\)/) || [, ''])[1]
+    .match(/'([^']+)'/g)?.map(x => x.slice(1, -1)) || []
+);
+if (!congKhai.size) throw new Error('Không đọc được PUBLIC_PAGES trong src/main.js — đổi cách khai báo thì sửa regex ở đây.');
 
 // Bóc navConfig để lấy path
 const navSrc = src.slice(src.indexOf('const navConfig = ['), src.indexOf('\n];', src.indexOf('const navConfig = [')));
 const urls = [];
-/** Trang cần đăng nhập mới có nội dung -> không đưa vào sitemap. */
-const KHONG_VAO_SITEMAP = new Set([
-  'path-overview', 'path-today', 'path-homework', 'path-progress', 'path-achievements',
-  // Ba trang tài khoản chỉ có nội dung khi ĐÃ ĐĂNG NHẬP — cùng lý do với 5 trang Lộ trình.
-  // `account-membership` thì NGƯỢC LẠI: bảng giá cố ý mở cho khách (nằm trong PUBLIC_PAGES),
-  // và đó là trang đáng để Google lập chỉ mục nhất trong nhóm này (4.41).
-  'account-profile', 'account-settings', 'account-notifications',
-  // Khu HSK đang ẩn — hai trang này có `id` nên vốn tự vào sitemap từ navConfig.
-]);
 
 let currentParent = '';
 for (const line of navSrc.split('\n')) {
@@ -41,9 +40,8 @@ for (const line of navSrc.split('\n')) {
   if (!m) continue;
   const [, id, slug] = m;
   if (!implemented.has(id)) continue;
-  // 5 trang "Lộ trình của tôi" chỉ có nội dung khi ĐÃ ĐĂNG NHẬP — khách (và Googlebot) mở ra
-  // là bị đá về trang chủ, tức một trang soft-404 nữa trong sitemap. Không đưa vào (4.38).
-  if (KHONG_VAO_SITEMAP.has(id)) continue;
+  // Trang cần đăng nhập: khách (và Googlebot) mở ra là bị đá về trang chủ -> soft-404.
+  if (!congKhai.has(id)) continue;
   const isTop = /^\s*\{ id:/.test(line) && !line.includes('nav-child');
   const full = currentParent && !isTopLevel(navSrc, id) ? `${currentParent}/${slug}` : slug;
   urls.push({ id, loc: '/' + full.split('/').filter(Boolean).join('/') });

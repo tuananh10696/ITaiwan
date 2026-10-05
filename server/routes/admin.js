@@ -7,9 +7,8 @@ import { requireAuth } from '../middleware/auth.js';
 import { loadRole, requireStaff, requireAdminOnly, requireHoSoStaff, phamViQuanTri } from '../middleware/roles.js';
 import { sendWelcomeEmail, sendAssignmentReminderEmail, isEmailConfigured, emailStatus } from '../utils/email.js';
 import { toLimit, toPage } from '../utils/num.js';
-import { dsThietBi, goThietBi, TRAN_THIET_BI } from '../utils/thiet-bi.js';
 import { guiPush, guiNgam } from '../utils/push.js';
-import { taoHoSoDuHocChoHocVien } from '../utils/du-hoc-tao-hs.js';
+import { taoHoSoDuHocChoHocVien, dongBoHoSoTheoVaiTro } from '../utils/du-hoc-tao-hs.js';
 
 // Mật khẩu mặc định khi admin tạo tài khoản học viên mới từ trang Quản lý lớp
 // (học viên nên đổi lại sau khi đăng nhập lần đầu, ở trang Tài khoản > Thông tin cá nhân).
@@ -451,7 +450,6 @@ router.get('/tong-quan', async (req, res) => {
   await dem('cho_cham', `
     SELECT COUNT(*) AS so FROM de_bai_lam bl JOIN de_bai d ON d.id = bl.de_id
      WHERE d.org_id = ? AND bl.trang_thai = 'da-nop'`, [req.orgId]);
-  await dem('thiet_bi', 'SELECT COUNT(*) AS so FROM device_alerts WHERE da_xu_ly = 0');
 
   res.json(kq);
 });
@@ -550,7 +548,11 @@ router.post('/users', async (req, res) => {
 
     // Tự động tạo hồ sơ du học nếu là học viên (100% học viên ITaiwan là du học sinh)
     if (vai === 'student') {
-      taoHoSoDuHocChoHocVien(r.insertId, { name: ten, email: mail, phone, orgId: req.orgId })
+      // Sale / quản lý hồ sơ tạo thì hồ sơ thuộc về chính họ — nếu không, khu du học lọc theo
+      // tu_van_id và họ không thấy hồ sơ của học sinh mình vừa tạo.
+      taoHoSoDuHocChoHocVien(r.insertId, {
+        name: ten, email: mail, phone, orgId: req.orgId, tuVanId: req.nhanSuId, nguoiId: req.userId,
+      })
         .catch((e) => console.warn('Lỗi tự động tạo hồ sơ du học cho học viên mới:', e.message));
     }
 
@@ -651,8 +653,9 @@ router.put('/users/:id', async (req, res) => {
     if (sets.length) {
       vals.push(targetId);
       await pool.query(`UPDATE users SET ${sets.join(', ')} WHERE id = ?`, vals);
-      // Đổi vai trò -> đồng bộ hồ sơ du học: thành nhân sự thì gỡ hồ sơ, về học sinh thì tạo lại.
-      if (vaiMoi !== undefined || is_admin !== undefined) await taoHoSoDuHocChoHocVien(targetId);
+      // Đổi vai trò -> đồng bộ hồ sơ du học: về học sinh thì có hồ sơ; thành nhân sự thì chỉ dọn
+      // hồ sơ tự sinh chưa ai đụng tới — hồ sơ có dữ liệu giữ nguyên (xem du-hoc-tao-hs.js).
+      if (vaiMoi !== undefined || is_admin !== undefined) await dongBoHoSoTheoVaiTro(targetId, { nguoiId: req.userId });
     }
 
 
@@ -736,7 +739,7 @@ router.put('/users/:id/approve', async (req, res) => {
   try {
     const { class_id } = req.body;
     await pool.query('UPDATE users SET is_approved = TRUE WHERE id = ?', [req.params.id]);
-    taoHoSoDuHocChoHocVien(req.params.id).catch(() => {});
+    taoHoSoDuHocChoHocVien(req.params.id, { nguoiId: req.userId }).catch(() => {});
     if (class_id) {
       const [already] = await pool.query('SELECT id FROM class_enrollments WHERE class_id = ? AND user_id = ?', [class_id, req.params.id]);
       if (!already.length) {
@@ -1063,7 +1066,7 @@ router.post('/classes/:id/students', async (req, res) => {
             continue;
           }
           userIds.push(co[0].id);
-          taoHoSoDuHocChoHocVien(co[0].id, { orgId: orgLop }).catch(() => {});
+          taoHoSoDuHocChoHocVien(co[0].id, { orgId: orgLop, nguoiId: req.userId }).catch(() => {});
           continue;
         }
         if (conTrong <= 0) {
@@ -1080,7 +1083,7 @@ router.post('/classes/:id/students', async (req, res) => {
           );
           conTrong -= 1;
           userIds.push(ins.insertId);
-          taoHoSoDuHocChoHocVien(ins.insertId, { name: ten, email: mail, orgId: orgLop }).catch(() => {});
+          taoHoSoDuHocChoHocVien(ins.insertId, { name: ten, email: mail, orgId: orgLop, nguoiId: req.userId }).catch(() => {});
           // Gửi mail sau khi đã tạo xong — gửi lỗi thì tài khoản vẫn dùng được, đừng chặn luồng.
           sendWelcomeEmail(mail, DEFAULT_STUDENT_PASSWORD, null)
             .catch(e => console.warn('Không gửi được mail học viên:', e.message));
@@ -1970,81 +1973,6 @@ router.get('/seed', async (req, res) => {
     res.json({ message: 'Seeded successfully' });
   } catch (err) {
     res.status(500).json({ error: err.message });
-  }
-});
-
-// =============================================================
-// THIẾT BỊ ĐĂNG NHẬP — theo dõi chia sẻ tài khoản (2026-09-15)
-// =============================================================
-// Chính sách: tối đa 2 thiết bị/tài khoản; máy thứ 3 bị chặn và ghi vào `device_alerts`.
-// Xem server/utils/thiet-bi.js. Khu này để admin trả lời được câu "em đổi máy rồi, mở giúp em"
-// mà không phải vào thẳng DB.
-//
-// CHỈ admin nền tảng: danh sách cảnh báo trải khắp mọi tổ chức, và gỡ thiết bị là thao tác đụng
-// tới tài khoản người khác.
-
-/** Hàng chờ cảnh báo: ai đang bị chặn vì quá số thiết bị. */
-router.get('/thiet-bi/canh-bao', requireAdminOnly, async (req, res) => {
-  try {
-    const chuaXuLy = String(req.query.trang_thai || 'chua') === 'chua';
-    const [rows] = await pool.query(
-      `SELECT d.id, d.user_id, d.ten, d.user_agent, d.ip, d.so_dang_co, d.tao_luc, d.da_xu_ly,
-              u.name, u.email
-         FROM device_alerts d JOIN users u ON u.id = d.user_id
-        ${chuaXuLy ? 'WHERE d.da_xu_ly = FALSE' : ''}
-        ORDER BY d.tao_luc DESC LIMIT 100`);
-    // Gộp theo tài khoản: một người bị chặn 20 lần trong ngày là MỘT vấn đề, không phải 20.
-    // Để phẳng thì hàng chờ đầy những dòng trùng nhau và admin bỏ sót ca khác.
-    const theoNguoi = new Map();
-    for (const r of rows) {
-      const k = r.user_id;
-      if (!theoNguoi.has(k)) theoNguoi.set(k, { ...r, so_lan_bi_chan: 0, ids: [] });
-      const g = theoNguoi.get(k);
-      g.so_lan_bi_chan++;
-      g.ids.push(r.id);
-    }
-    res.json({ canh_bao: [...theoNguoi.values()], tran: TRAN_THIET_BI });
-  } catch (err) {
-    if (err.code === 'ER_NO_SUCH_TABLE') return res.json({ canh_bao: [], tran: TRAN_THIET_BI, chua_migrate: true });
-    console.error('Lỗi tải cảnh báo thiết bị:', err);
-    res.status(500).json({ error: 'Lỗi tải cảnh báo thiết bị.' });
-  }
-});
-
-/** Thiết bị đang hoạt động của một tài khoản. */
-router.get('/thiet-bi/:userId', requireAdminOnly, async (req, res) => {
-  try {
-    res.json({ thiet_bi: await dsThietBi(req.params.userId), tran: TRAN_THIET_BI });
-  } catch (err) {
-    console.error('Lỗi tải thiết bị:', err);
-    res.status(500).json({ error: 'Lỗi tải danh sách thiết bị.' });
-  }
-});
-
-/** Gỡ một thiết bị để học viên đăng nhập được trên máy mới. */
-router.delete('/thiet-bi/:userId/:id', requireAdminOnly, async (req, res) => {
-  try {
-    const ok = await goThietBi(req.params.userId, req.params.id, req.userId);
-    if (!ok) return res.status(404).json({ error: 'Không tìm thấy thiết bị.' });
-    // Gỡ máy xong thì hàng chờ cảnh báo của người đó coi như đã xử lý — nếu không, cùng một ca
-    // cứ nằm lại đó và admin không biết cái nào còn phải làm.
-    await pool.query('UPDATE device_alerts SET da_xu_ly = TRUE, xu_ly_boi = ?, xu_ly_luc = NOW() WHERE user_id = ? AND da_xu_ly = FALSE',
-      [req.userId, req.params.userId]).catch(() => {});
-    res.json({ message: 'Đã gỡ thiết bị. Học viên có thể đăng nhập trên máy mới.' });
-  } catch (err) {
-    console.error('Lỗi gỡ thiết bị:', err);
-    res.status(500).json({ error: 'Lỗi gỡ thiết bị.' });
-  }
-});
-
-/** Bỏ qua cảnh báo mà KHÔNG gỡ máy nào (ví dụ: xác minh đúng là chia sẻ tài khoản). */
-router.post('/thiet-bi/canh-bao/:userId/da-xu-ly', requireAdminOnly, async (req, res) => {
-  try {
-    await pool.query('UPDATE device_alerts SET da_xu_ly = TRUE, xu_ly_boi = ?, xu_ly_luc = NOW() WHERE user_id = ? AND da_xu_ly = FALSE',
-      [req.userId, req.params.userId]);
-    res.json({ message: 'Đã đánh dấu xử lý.' });
-  } catch (err) {
-    res.status(500).json({ error: 'Lỗi cập nhật.' });
   }
 });
 

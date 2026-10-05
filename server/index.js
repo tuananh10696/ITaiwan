@@ -26,7 +26,6 @@ import pushRoutes from './routes/push.js';
 import cronRoutes from './routes/cron.js';
 import exerciseRoutes from './routes/exercise.js';
 import noiDungRoutes from './routes/noi-dung.js';
-import { dongBoHocVienVaoDuHoc } from './utils/du-hoc-tao-hs.js';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -203,8 +202,6 @@ if (!process.env.VERCEL) {
     console.log(`   GET  /api/blog`);
     console.log(`   GET  /api/health`);
     console.log('');
-    // Tự động quét và đồng bộ hồ sơ du học cho toàn bộ học viên
-    dongBoHocVienVaoDuHoc().catch(() => {});
   });
 }
 

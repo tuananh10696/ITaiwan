@@ -11,15 +11,19 @@ Dự án tách ra từ một hệ thống lớn hơn (nhiều bộ giáo trình 
 
 - **Giáo trình Thời Đại** (5 quyển) — bộ giáo trình duy nhất
 - Học phát âm · Từ vựng TOCFL · Thi thử TOCFL · Từ điển · Bộ thủ · Sổ tay · Lộ trình
-- Cổng quản trị: lớp học, đề bài, giáo viên, học viên, hồ sơ du học, ký túc xá, sổ thu chi,
-  thiết bị đăng nhập
+- Cổng quản trị: lớp học, đề bài, giáo viên, học viên, hồ sơ du học, ký túc xá, sổ thu chi
 
-Đã gỡ hẳn: giáo trình Đương đại, HSK, khu Cộng đồng, khu Luyện tập (flashcard/trắc nghiệm/hội
+Đã gỡ hẳn: giới hạn 2 thiết bị đăng nhập + màn "Thiết bị đăng nhập" của quản trị (2026-10-05 —
+mở nhiều ứng dụng trên CÙNG một máy bị tính thành nhiều thiết bị; bảng `user_devices` /
+`device_alerts` còn trong schema nhưng không chỗ nào đọc), giáo trình Đương đại, HSK, khu Cộng đồng, khu Luyện tập (flashcard/trắc nghiệm/hội
 thoại/luyện nói đứng riêng), Kho từ vựng gộp, và **toàn bộ phần bán hàng** (bảng giá, thanh
 toán, quyền học theo khoá, mô hình cho thuê nhiều trung tâm).
 
-→ Hệ quả: **mọi nội dung mở cho mọi học viên đã được duyệt tài khoản.** `server/utils/quyen-noi-dung.js`
-luôn trả "có quyền"; nếu sau này muốn bán khoá thì chỉ phải thay ruột file đó.
+→ Hệ quả: quyền học chỉ phụ thuộc **tài khoản đã được duyệt hay chưa** (2026-10-05, giống bên
+taiwanese nhưng "đã duyệt" thay cho "đã mua"): khách và tài khoản chưa duyệt học thử `SO_BAI_MO`
+(3) bài đầu mỗi quyển (`shared/noi-dung-mo.js`), không có đề thi thử; học sinh đã duyệt + mọi nhân
+sự xem hết. Quyết định nằm ở `server/utils/quyen-noi-dung.js`; kiểm bằng `npm run test:hoc-thu`.
+Hồ sơ du học cũng chỉ mở (và chỉ được tạo) sau khi duyệt.
 
 ---
 

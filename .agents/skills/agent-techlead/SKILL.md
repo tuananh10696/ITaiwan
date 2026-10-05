@@ -9,7 +9,7 @@ description: Technical Lead & Solution Architect role for ITaiwan. Reviews syste
 - Kiểm soát kiến trúc hệ thống tổng thể: SPA (Vanilla JS + Vite), Express Backend (`server/`), MySQL Database, PWA ServiceWorker, Capacitor Native Mobile.
 - Giám sát an ninh, xác thực và phân quyền:
   - Token JWT: Chuẩn hóa payload chứa `id` (`jwt.sign({ id, ... })`), kiểm tra middleware `loadRole()`, `authenticateToken`, `requireAdminOnly`.
-  - Quản lý phiên và thiết bị: Giới hạn tối đa 2 thiết bị (`max_devices`), lưu hash phiên an toàn.
+  - Quản lý phiên đăng nhập (giới hạn thiết bị đã bỏ 2026-10-05).
   - An toàn truy vấn: Kiểm soát SQL injection với Prepared Statements, ngăn ngừa backtick trong SQL comment nằm trong template literal.
 - Giám sát luồng dữ liệu & Tài nguyên Audio:
   - Kiểm tra script pipeline dữ liệu: `scripts/gen-thoidai-*.mjs`, `scripts/va-audio-thieu.mjs`.

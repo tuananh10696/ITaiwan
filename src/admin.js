@@ -310,7 +310,6 @@ const VAI_CUA_KHU = {
   classes: ['admin', 'teacher'],
   'de-bai': ['admin', 'teacher'],
   teachers: ['admin'],
-  'thiet-bi': ['admin'],
   users: ['admin', 'ho_so', 'sale'],
   'du-hoc': ['admin', 'ho_so', 'sale'],
   'du-hoc-truong': ['admin', 'ho_so', 'sale'],
@@ -515,7 +514,6 @@ const ADMIN_ROUTES = [
   { section: 'classes',    slug: 'lop-hoc',     title: 'Quản lý lớp' },
   { section: 'users',      slug: 'nguoi-dung',  title: 'Học viên & tài khoản' },
   { section: 'teachers',   slug: 'giao-vien',   title: 'Quản lý Giáo viên' },
-  { section: 'thiet-bi',   slug: 'thiet-bi',    title: 'Thiết bị đăng nhập' },
   // Hồ sơ du học của trung tâm
   { section: 'du-hoc',     slug: 'du-hoc',      title: 'Hồ sơ du học' },
   { section: 'du-hoc-truong', slug: 'tien-do-truong', title: 'Tiến độ theo trường' },
@@ -638,7 +636,6 @@ function renderCurrentSection() {
     case 'users': renderUsers(content); break;
     case 'teachers': renderTeachers(content); break;
     case 'classes': renderClasses(content); break;
-    case 'thiet-bi': renderThietBi(content); break;
     case 'du-hoc': renderDuHoc(content); break;
     case 'du-hoc-truong': renderTienDoTruong(content); break;
     case 'quy': renderQuy(content); break;
@@ -1260,7 +1257,6 @@ async function renderTongQuanQuanTri(el) {
       ['du_hoc_yeu_cau', 'yêu cầu sửa hồ sơ chờ duyệt', 'fa-pen-to-square', 'du-hoc'],
       ['du_hoc_dung', 'hồ sơ du học đứng yên quá 30 ngày', 'fa-plane-departure', 'du-hoc'],
       ['ktx_no', 'người ở KTX chưa đóng tiền kỳ này', 'fa-bed', 'ktx'],
-      ['thiet_bi', 'cảnh báo thiết bị chưa xử lý', 'fa-mobile-screen-button', 'thiet-bi'],
     ].filter(([key]) => cb[key] > 0);
 
     el.innerHTML = `
@@ -3433,141 +3429,6 @@ let _dragState = { table: null, dragIdx: null, items: [] };
 // EXPOSE PUBLIC API + INIT
 // ============================================================
 
-// =============================================================
-// THIẾT BỊ ĐĂNG NHẬP — chống chia sẻ tài khoản (2026-09-15)
-// =============================================================
-// Chính sách: tối đa 2 thiết bị/tài khoản. Máy thứ 3 bị CHẶN đăng nhập và để lại một dòng ở đây.
-// Màn này trả lời đúng một câu hỏi vận hành: "ai đang bị kẹt, và tôi bấm gì để mở cho họ?".
-//
-// Một dòng ở đây KHÔNG có nghĩa là học viên gian lận — đổi điện thoại, cài lại máy, xoá dữ liệu
-// trình duyệt đều sinh ra "máy mới". Nên giao diện đưa ra hai hành động ngang nhau: gỡ máy cũ
-// (trường hợp đổi máy thật) và bỏ qua (trường hợp đúng là chia sẻ tài khoản), chứ không mặc định
-// coi ai cũng là gian lận.
-
-let tbCanhBao = [];
-
-async function renderThietBi(el) {
-  const luot = el.dataset.luot;
-  el.innerHTML = '<div style="text-align:center;padding:40px;color:var(--admin-text-muted)"><i class="fa-solid fa-spinner fa-spin" style="font-size:24px"></i></div>';
-  try {
-    const d = await apiGet('/admin/thiet-bi/canh-bao');
-    if (!conDungLuot(el, luot)) return;
-    tbCanhBao = d.canh_bao || [];
-    _tbVe(el, d);
-  } catch (err) {
-    el.innerHTML = `<div class="empty-state"><p>${_escHtml(err.message || 'Lỗi tải danh sách.')}</p></div>`;
-  }
-}
-
-function _tbVe(el, d) {
-  _tbBadge(tbCanhBao.length);
-  const chuaMigrate = d.chua_migrate
-    ? `<div class="alert alert-warning">Chưa chạy <code>migration-thiet-bi.sql</code> — giới hạn thiết bị đang TẮT.
-       Chạy <code>npm run db:migrate:prod</code> để bật.</div>` : '';
-
-  const rong = `
-    <div class="empty-state">
-      <i class="fa-solid fa-circle-check" style="font-size:32px;color:#16a34a"></i>
-      <p>Không có tài khoản nào đang bị chặn vì quá số thiết bị.</p>
-      <span>Mỗi tài khoản học viên dùng được trên tối đa ${d.tran || 2} thiết bị. Giáo viên và quản trị viên không bị giới hạn.</span>
-    </div>`;
-
-  const hang = tbCanhBao.map((c) => `
-    <tr>
-      <td>
-        <strong>${esc(c.name || '(không tên)')}</strong>
-        <div style="font-size:12px;color:var(--admin-text-muted)">${esc(c.email || '')}</div>
-      </td>
-      <td>${esc(c.ten || 'không rõ')}<div style="font-size:12px;color:var(--admin-text-muted)">IP ${esc(c.ip || '?')}</div></td>
-      <td style="text-align:center">${c.so_lan_bi_chan}</td>
-      <td>${_tbGio(c.tao_luc)}</td>
-      <td style="white-space:nowrap">
-        <button class="btn btn-sm btn-outline" onclick="adminApp.tbXem(${c.user_id}, '${esc(c.name || '')}')">
-          <i class="fa-solid fa-mobile-screen-button"></i> Xem máy
-        </button>
-        <button class="btn btn-sm btn-outline" onclick="adminApp.tbBoQua(${c.user_id})">Bỏ qua</button>
-      </td>
-    </tr>`).join('');
-
-  // `section-header` / `section-sub` KHÔNG tồn tại trong admin.css (cổng học viên mới có) — dùng
-  // chúng là mất style mà không có lỗi nào hiện ra, đúng bẫy đã ghi ở CLAUDE.md 4.42.
-  // `table-toolbar` + `data-table-wrapper` là cặp mà mọi màn khác trong admin đang dùng.
-  el.innerHTML = `
-    <div class="table-toolbar">
-      <div>
-        <h2 style="margin:0">Thiết bị đăng nhập</h2>
-        <p style="margin:4px 0 0;font-size:13px;color:var(--admin-text-secondary)">
-          Tài khoản bị chặn vì đăng nhập quá ${d.tran || 2} thiết bị.
-          Đổi máy thật thì gỡ máy cũ; đúng là chia sẻ tài khoản thì bỏ qua.</p>
-      </div>
-    </div>
-    ${chuaMigrate}
-    ${tbCanhBao.length ? `
-      <div class="data-table-wrapper">
-        <table class="data-table">
-          <thead><tr><th>Học viên</th><th>Máy bị chặn</th><th style="text-align:center">Số lần</th><th>Gần nhất</th><th></th></tr></thead>
-          <tbody>${hang}</tbody>
-        </table>
-      </div>` : rong}`;
-}
-
-function _tbGio(x) {
-  if (!x) return '—';
-  const d = new Date(x);
-  return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')} ${d.getDate()}/${d.getMonth() + 1}`;
-}
-
-function _tbBadge(n) {
-  const b = document.getElementById('tb-badge');
-  if (!b) return;
-  b.hidden = !n;
-  b.textContent = n > 99 ? '99+' : String(n);
-}
-
-/** Danh sách máy đang hoạt động của một học viên, kèm nút gỡ từng máy. */
-async function tbXem(userId, ten) {
-  try {
-    const d = await apiGet(`/admin/thiet-bi/${userId}`);
-    const ds = d.thiet_bi || [];
-    const body = ds.length ? `
-      <p>Tài khoản <strong>${esc(ten)}</strong> đang dùng ${ds.length}/${d.tran} thiết bị.
-         Gỡ một máy để học viên đăng nhập được trên máy mới.</p>
-      <table class="data-table"><tbody>
-      ${ds.map((t) => `
-        <tr>
-          <td><strong>${esc(t.ten || 'không rõ')}</strong>
-            <div style="font-size:12px;color:var(--admin-text-muted)">IP ${esc(t.ip_lan_cuoi || '?')} · đăng nhập ${t.so_lan} lần · gần nhất ${_tbGio(t.lan_cuoi)}</div></td>
-          <td style="text-align:right"><button class="btn btn-sm btn-danger" onclick="adminApp.tbGo(${userId}, ${t.id})">Gỡ máy này</button></td>
-        </tr>`).join('')}
-      </tbody></table>`
-      : '<p>Tài khoản này hiện không có thiết bị nào đang hoạt động.</p>';
-    openModal(`Thiết bị của ${esc(ten)}`, body);
-  } catch (err) {
-    alert(err.message || 'Lỗi tải danh sách thiết bị.');
-  }
-}
-
-async function tbGo(userId, id) {
-  if (!confirm('Gỡ thiết bị này? Học viên sẽ phải đăng nhập lại trên máy đó.')) return;
-  try {
-    await apiDel(`/admin/thiet-bi/${userId}/${id}`);
-    closeModal();
-    renderThietBi(document.getElementById('admin-content'));
-  } catch (err) {
-    alert(err.message || 'Lỗi gỡ thiết bị.');
-  }
-}
-
-async function tbBoQua(userId) {
-  if (!confirm('Bỏ qua cảnh báo này mà KHÔNG gỡ máy nào?')) return;
-  try {
-    await apiPost(`/admin/thiet-bi/canh-bao/${userId}/da-xu-ly`, {});
-    renderThietBi(document.getElementById('admin-content'));
-  } catch (err) {
-    alert(err.message || 'Lỗi cập nhật.');
-  }
-}
-
 // ============================================================
 // HỒ SƠ DU HỌC (2026-09-15) — chỉ quản trị trung tâm
 // ============================================================
@@ -4118,6 +3979,7 @@ function _dhVeChiTietHtml(el) {
         ${o('Tư vấn viên', esc(h.tu_van_ten || dhNhanSu.find((n) => n.id === h.tu_van_id)?.name || ''))}
         ${o('Nguồn khách', esc(h.nguon || ''))}
         ${o('Ngày nhận hồ sơ', _dhNgay(h.ngay_nhan))}
+        ${o('Kỳ nhập học', esc(h.ky_nhap_hoc || ''))}
         ${o('Tổng phí dịch vụ', h.tong_phi > 0 ? _tien(h.tong_phi) : '')}
         ${o('Phỏng vấn', pv.loai
             ? `${esc(LOAI_PV.find((l) => l.ma === pv.loai)?.ten || '')}${pvDong ? `<div class="dh-sub">${pvDong}</div>` : ''}`
@@ -4457,6 +4319,14 @@ function dhFormHoSo(id, tab = 'hs') {
       <div class="form-group"><label>Tổng phí dịch vụ (₫)</label>
         <input type="number" id="f-dh-tong-phi" value="${h.tong_phi || ''}" placeholder="0"></div>
     </div>
+    <!-- Hai ô này bị gỡ khỏi form học sinh theo mẫu khách (2026-10-03) nhưng ô dashboard "Hộ chiếu
+         sắp hết hạn" và bộ lọc "Kỳ nhập học" vẫn đọc chúng — không ai nhập được thì hai chỗ đó chết. -->
+    <div class="form-row">
+      <div class="form-group"><label>Hộ chiếu hết hạn</label>
+        <input type="date" id="f-dh-hc-het-han" value="${d(h.ho_chieu_het_han)}"></div>
+      <div class="form-group"><label>Kỳ nhập học</label>
+        <input type="text" id="f-dh-ky" value="${_escAttr(h.ky_nhap_hoc || '')}" placeholder="2027 Xuân"></div>
+    </div>
 
     <div class="dh-form-sec">Phỏng vấn</div>
     <div class="form-row">
@@ -4587,7 +4457,7 @@ function dhPickBo() {
 async function dhLuuHoSo(id) {
   const body = {
     // Chỉ gửi đúng bộ ô theo mẫu khách (2026-10-03) + nguyện vọng trường + đăng ký KTX. Cột cũ không
-    // còn trên form (giới tính, người bảo lãnh, kỳ nhập học, loại hình…) KHÔNG được gửi — server chỉ ghi
+    // còn trên form (giới tính, người bảo lãnh, loại hình…) KHÔNG được gửi — server chỉ ghi
     // cột có trong body, nhờ vậy dữ liệu cũ đã nhập không bị xoá trắng.
     ho_ten: _dhVal('f-dh-ho-ten'), ten_trung: _dhVal('f-dh-ten-trung'),
     ngay_sinh: _dhVal('f-dh-ngay-sinh'),
@@ -4610,6 +4480,7 @@ async function dhLuuHoSo(id) {
     ktx_kq: _dhVal('f-dh-ktx-kq'), ktx_han: _dhVal('f-dh-ktx-han'),
     tong_phi: _dhSo('f-dh-tong-phi'), tu_van_id: _dhVal('f-dh-tu-van'), nguon: _dhVal('f-dh-nguon'),
     ngay_nhan: _dhVal('f-dh-ngay-nhan'),
+    ho_chieu_het_han: _dhVal('f-dh-hc-het-han'), ky_nhap_hoc: _dhVal('f-dh-ky'),
     ghi_chu: document.getElementById('f-dh-ghi-chu')?.value || '',
   };
   if (!body.ho_ten) return toast('Chưa nhập họ tên học sinh.', 'error');
@@ -4913,7 +4784,6 @@ window.adminApp = {
   ...tdtHandlers,
   // Push thông báo (2026-09-28) — nút chuông ở thanh tiêu đề
   pushMo, pushBat, pushTat, pushThu,
-  tbXem, tbGo, tbBoQua,
   // Hồ sơ du học
   dhMo, dhVeDanhSach, dhDoiBuocLoc, dhTim, dhDoiKy, dhXoaLoc, dhTrang,
   dhFormHoSo, dhFormTab, dhLuuHoSo, dhXoaHoSo, dhChuyenBuoc,

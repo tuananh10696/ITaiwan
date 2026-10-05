@@ -6,9 +6,7 @@ import pool from '../config/db.js';
 import { requireAuth, generateToken } from '../middleware/auth.js';
 import { sendVerificationEmail, getAppBaseUrl } from '../utils/email.js';
 import { chanDangNhap, chanDangKy, chanGuiMail } from '../middleware/gioi-han.js';
-import { ghiNhanDangNhap, ipCuaReq } from '../utils/thiet-bi.js';
 import { guiPushVaiTro, guiNgam } from '../utils/push.js';
-import { taoHoSoDuHocChoHocVien } from '../utils/du-hoc-tao-hs.js';
 
 const router = Router();
 
@@ -41,9 +39,8 @@ router.post('/register', chanDangKy, async (req, res) => {
       [name, email, phone || null, passwordHash, avatarLetter, avatarColor, verificationToken]
     );
 
-    // Tự động tạo hồ sơ du học cho học viên mới đăng ký (100% học viên ITaiwan là du học sinh)
-    taoHoSoDuHocChoHocVien(result.insertId, { name, email, phone, orgId: 1 })
-      .catch((e) => console.warn('Lỗi tự động tạo hồ sơ du học khi đăng ký:', e.message));
+    // Hồ sơ du học KHÔNG tạo ở đây: tài khoản chưa xác thực email, chưa được duyệt — tạo lúc này là
+    // tài khoản rác / đăng ký nhầm cũng có hồ sơ. Hồ sơ sinh ra khi admin duyệt (xem du-hoc-tao-hs.js).
 
     // Send verification email
     const emailSent = await sendVerificationEmail(email, verificationToken);
@@ -179,36 +176,13 @@ router.post('/login', chanDangNhap, async (req, res) => {
     // thì hàm kia luôn thấy "hôm nay tính rồi" và chuỗi đứng im mãi mãi.
     const newStreak = user.streak;
 
-    // ------------------------------------------------ giới hạn thiết bị (2026-09-15)
-    // Đặt SAU khi đã kiểm mật khẩu: kiểm trước thì endpoint này thành công cụ dò xem một email có
-    // tồn tại hay không (thông báo "quá số thiết bị" chỉ xuất hiện với tài khoản CÓ THẬT).
-    // Đặt TRƯỚC khi phát token: phát rồi mới chặn thì token vẫn dùng được cho mọi API khác.
-    const tb = await ghiNhanDangNhap({
-      userId: user.id,
-      vaiTro: user.role || (user.is_admin ? 'admin' : 'student'),
-      deviceId: req.body?.device_id,
-      userAgent: req.headers['user-agent'],
-      ip: ipCuaReq(req),
-    });
-    if (!tb.cho) {
-      const ds = (tb.ds || []).map((d) => d.ten).filter(Boolean).join(' và ');
-      return res.status(403).json({
-        error: `Tài khoản này đã đăng nhập trên ${tb.tran} thiết bị${ds ? ` (${ds})` : ''}. `
-             + 'Mỗi tài khoản chỉ dùng được trên 2 thiết bị. Vui lòng liên hệ quản trị viên để gỡ bớt thiết bị cũ.',
-        qua_thiet_bi: true,
-        so_thiet_bi: tb.so,
-        tran_thiet_bi: tb.tran,
-      });
-    }
+    // Giới hạn 2 thiết bị (2026-09-15) đã BỎ (2026-10-05): mã thiết bị lưu theo từng trình duyệt /
+    // từng app, nên một người mở bằng nhiều ứng dụng khác nhau trên CÙNG một máy bị tính thành
+    // nhiều thiết bị và bị chặn đăng nhập. Bảng user_devices / device_alerts giữ lại (không DROP) cho dữ liệu cũ.
 
     const token = generateToken(user);
     res.json({
       message: 'Đăng nhập thành công!',
-      // Cảnh báo "đang dùng 2/2 thiết bị" — báo TRƯỚC khi họ bị chặn ở máy thứ 3, chứ không phải
-      // sau. Null khi chưa chạm hạn mức, khi là nhân sự, hoặc khi client chưa gửi device_id.
-      canh_bao_thiet_bi: tb.canhBao,
-      so_thiet_bi: tb.so,
-      tran_thiet_bi: tb.tran,
       token,
       user: {
         id: user.id,

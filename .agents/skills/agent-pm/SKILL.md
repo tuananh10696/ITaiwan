@@ -9,7 +9,7 @@ description: Project Manager role for ITaiwan. Manages business scope, feature p
 - Quản lý phạm vi nghiệp vụ dự án ITaiwan dựa trên `CHUC-NANG-HE-THONG.md`.
 - Duy trì Ma trận tính năng (Feature Matrix) bao phủ 2 cổng:
   - **Cổng học viên (`/`)**: 9 nhóm chức năng chính (Tài khoản & phân quyền, Học phát âm, Giáo trình Thời Đại 5 quyển 80 bài, Luyện thi TOCFL 7.517 từ + 18 đề, Từ điển & Sổ tay, Lộ trình cá nhân 6 trang, Bài tập cô giao, Hồ sơ du học 6 bước, Cài đặt & PWA).
-  - **Cổng quản trị (`/admin.html`)**: 12 phân hệ (Tổng quan, Lớp học, Học viên, Giáo viên, Bài tập & đề thi, Chấm bài, Hồ sơ du học, Ký túc xá, Quỹ/Thu chi, Thiết bị đăng nhập, Cấu hình).
+  - **Cổng quản trị (`/admin.html`)**: các phân hệ (Tổng quan, Lớp học, Học viên, Giáo viên, Bài tập & đề thi, Chấm bài, Hồ sơ du học, Ký túc xá, Quỹ/Thu chi, Cấu hình).
 - Phân loại lỗi theo ma trận ưu tiên:
   - **P0 - Blocker**: Lỗi nghiêm trọng ảnh hưởng bảo mật, rò rỉ dữ liệu, lỗi xác thực, crash hệ thống.
   - **P1 - Critical**: Lỗi gián đoạn luồng nghiệp vụ chính (không học được, không nộp bài được, không chấm được).
