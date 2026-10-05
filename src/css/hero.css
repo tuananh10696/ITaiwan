@@ -18,7 +18,7 @@
   overflow: hidden;
   /* 2026-09-22: dải teal -> kem đổi sang XANH LÁ -> CÁT theo ảnh mẫu (sage #A2CBAC, xanh
      rừng #255645, cát #D2A16A đọc từ chính ảnh). */
-  background: linear-gradient(168deg, #2E6B58 0%, #4C8F72 36%, #9CBF9E 70%, var(--peach) 100%);
+  background: linear-gradient(168deg, #15517A 0%, #2072AC 36%, #67A3D1 70%, var(--peach) 100%);
   border: none;
   box-shadow: var(--shadow-lg);
   /* 262px: bản trước 300px cho khối chữ có cả địa chỉ; nay chỉ còn tên + khẩu hiệu + 2 dòng
@@ -44,10 +44,10 @@
   z-index: 1;
   pointer-events: none;
   background: linear-gradient(96deg,
-    rgba(26, 63, 53, 0.94) 0%,
-    rgba(32, 74, 62, 0.92) 38%,
-    rgba(46, 107, 88, 0.66) 50%,
-    rgba(124, 163, 140, 0.20) 64%,
+    rgba(17, 28, 43, 0.94) 0%,
+    rgba(21, 81, 122, 0.92) 38%,
+    rgba(32, 114, 172, 0.66) 50%,
+    rgba(103, 163, 209, 0.20) 64%,
     rgba(255, 255, 255, 0) 76%);
 }
 
@@ -122,12 +122,12 @@
   font-size: 15px;
   font-weight: 600;
   color: rgba(255, 255, 255, 0.92);
-  text-shadow: 0 1px 3px rgba(17, 45, 35, 0.35);
+  text-shadow: 0 1px 3px rgba(17, 28, 43, 0.35);
 }
 
 .hero-text-panel p {
   /* Bóng chữ mảnh: dòng mô tả dài hơn vùng nền đậm nên đuôi câu nằm trên phần ảnh đã sáng. */
-  text-shadow: 0 1px 3px rgba(17, 45, 35, 0.35);
+  text-shadow: 0 1px 3px rgba(17, 28, 43, 0.35);
   font-size: 14px;
   margin-top: 10px;
   color: rgba(255, 255, 255, 0.87);

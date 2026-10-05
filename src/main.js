@@ -79,34 +79,22 @@ const navConfig = [
   { id: 'dashboard', path: '', label: 'Trang chủ', icon: 'fa-solid fa-house' },
 
   {
-    type: 'parent', id: 'cat-pron', path: 'hoc-phat-am', label: 'Học phát âm', icon: 'fa-solid fa-volume-high',
-    children: [
-      { id: 'pron-vanmau', path: 'van-mau', label: 'Vận mẫu', icon: 'fa-solid fa-wave-square' },
-      { id: 'pron-thanhmau', path: 'thanh-mau', label: 'Thanh mẫu', icon: 'fa-solid fa-spell-check' },
-      { id: 'pron-thanhdieu', path: 'thanh-dieu', label: 'Thanh điệu', icon: 'fa-solid fa-chart-line' },
-      { id: 'pron-bangphienam', path: 'bang-phien-am', label: 'Bảng phiên âm', icon: 'fa-solid fa-table-cells' },
-    ],
-  },
-
-  {
     type: 'parent', id: 'cat-tocfl', path: 'tocfl', label: 'TOCFL', icon: 'fa-solid fa-graduation-cap',
     children: [
-      // `books: true` -> mục này có thêm CẤP 3 trong sidebar: các quyển (xem navBooksHtml).
-      // Mọi quyển dùng CHUNG page id này, quyển chỉ là một đoạn URL (/quyen-2) do PAGE_PARAMS đọc.
       { id: 'tocfl-thoidai', path: 'giao-trinh-thoi-dai', label: 'Giáo trình thời đại', icon: 'fa-solid fa-book', books: true },
       { id: 'tocfl-vocab', path: 'tu-vung-theo-band', label: 'Tổng hợp từ vựng từng Band', icon: 'fa-solid fa-layer-group' },
       { id: 'exam', path: 'thi-thu', label: 'Thi thử TOCFL', icon: 'fa-solid fa-file-pen' },
-    ],
-  },
+      
+      { type: 'group', label: 'Học phát âm' },
+      { id: 'pron-vanmau', path: 'hoc-phat-am/van-mau', label: 'Vận mẫu', icon: 'fa-solid fa-wave-square' },
+      { id: 'pron-thanhmau', path: 'hoc-phat-am/thanh-mau', label: 'Thanh mẫu', icon: 'fa-solid fa-spell-check' },
+      { id: 'pron-thanhdieu', path: 'hoc-phat-am/thanh-dieu', label: 'Thanh điệu', icon: 'fa-solid fa-chart-line' },
+      { id: 'pron-bangphienam', path: 'hoc-phat-am/bang-phien-am', label: 'Bảng phiên âm', icon: 'fa-solid fa-table-cells' },
 
-
-
-  {
-    type: 'parent', id: 'cat-words', path: 'tu-vung', label: 'Từ vựng & Hán tự', icon: 'fa-solid fa-language',
-    children: [
-      { id: 'dictionary', path: 'tu-dien', label: 'Từ điển Trung-Việt', icon: 'fa-solid fa-book-atlas' },
-      { id: 'notebook', path: 'so-tay', label: 'Sổ tay từ vựng', icon: 'fa-solid fa-book-bookmark' },
-      { id: 'radicals', path: 'bo-thu-han-tu', label: 'Bộ thủ Hán tự', icon: 'fa-solid fa-torii-gate' },
+      { type: 'group', label: 'Từ vựng & Hán tự' },
+      { id: 'dictionary', path: 'tu-vung/tu-dien', label: 'Từ điển Trung-Việt', icon: 'fa-solid fa-book-atlas' },
+      { id: 'notebook', path: 'tu-vung/so-tay', label: 'Sổ tay từ vựng', icon: 'fa-solid fa-book-bookmark' },
+      { id: 'radicals', path: 'tu-vung/bo-thu-han-tu', label: 'Bộ thủ Hán tự', icon: 'fa-solid fa-torii-gate' },
     ],
   },
 
@@ -168,6 +156,7 @@ function registerPath(id, path) {
 navConfig.forEach(item => {
   if (item.type === 'parent') {
     item.children.forEach(c => {
+      if (c.type === 'group') return;
       pageTitles[c.id] = c.label;
       pageIcons[c.id] = c.icon;
       pageParent[c.id] = item.id;
@@ -180,8 +169,9 @@ navConfig.forEach(item => {
   }
 });
 
-// Alias đường dẫn /huong-dan dẫn thẳng vào trang Hướng dẫn cài app
-pathPage['/huong-dan'] = 'guide-cai-app';
+// Alias đường dẫn /huong-dan dẫn thẳng vào trang Hướng dẫn cài app (trong app native / PWA đã
+// cài thì mục đó bị ẩn khỏi menu -> dẫn sang trang tạo tài khoản).
+pathPage['/huong-dan'] = laNative() || laStandalone() ? 'guide-dang-ky' : 'guide-cai-app';
 
 // Trang không nằm trong sidebar nhưng vẫn cần URL riêng
 // exam-taking shares base path /tocfl/thi-thu — segs distinguish from setup
@@ -577,9 +567,16 @@ function dangKyServiceWorker() {
 
 let deferredInstallPrompt = null;
 try {
+  // KHÔNG preventDefault(): làm vậy là tắt gợi ý cài app có sẵn của Chrome Android ở MỌI trang,
+  // trong khi nút cài 1 chạm chỉ nằm ở trang Hướng dẫn. Giữ sự kiện lại vẫn gọi prompt() được.
   window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
     deferredInstallPrompt = e;
+    if (typeof window.app?.capNhatNutCaiApp === 'function') {
+      window.app.capNhatNutCaiApp();
+    }
+  });
+  window.addEventListener('appinstalled', () => {
+    deferredInstallPrompt = null;
     if (typeof window.app?.capNhatNutCaiApp === 'function') {
       window.app.capNhatNutCaiApp();
     }
@@ -635,6 +632,8 @@ async function init() {
       if (!u || !state.user) return;
       const roleMoi = u.role || (u.is_admin ? 'admin' : 'student');
       const doi = roleMoi !== state.user.role || !!u.is_admin !== state.user.is_admin;
+      // Vừa được duyệt (hoặc bị đổi vai trò) -> quyền nội dung đổi theo: nạp lại để gỡ ổ khoá.
+      const doiQuyen = doi || !!u.is_approved !== !!state.user.is_approved;
       state.user.role = roleMoi;
       state.user.is_admin = !!u.is_admin;
       state.user.is_approved = !!u.is_approved;
@@ -644,6 +643,7 @@ async function init() {
         localStorage.setItem('tw_user', JSON.stringify(api.user));
       } catch (_) {}
       if (doi) renderSidebar();
+      if (doiQuyen) napQuyenNoiDung();
     }).catch(() => {});
   }
   theoDoiChieuCaoKhung();
@@ -1146,9 +1146,18 @@ function syncSeoTags(page) {
     ? 'Du Học ITaiwan - Trung Tâm Tư Vấn Du Học Đài Loan & Học Tiếng Trung Phồn Thể'
     : label + ' · Du Học ITaiwan';
   const url = SITE_ORIGIN + location.pathname + location.search;
-  const set = (sel, attr, val) => { const el = document.querySelector(sel); if (el) el.setAttribute(attr, val); };
-  set('link[rel="canonical"]', 'href', url);
-  set('meta[property="og:url"]', 'content', url);
+  // `tao`: thẻ chưa có thì tạo — index.html cố ý không đặt sẵn canonical / og:url (xem ở đó).
+  const set = (sel, attr, val, tao) => {
+    let el = document.querySelector(sel);
+    if (!el && tao) {
+      el = document.createElement(tao.tag);
+      Object.entries(tao.attrs).forEach(([k, v]) => el.setAttribute(k, v));
+      document.head.appendChild(el);
+    }
+    if (el) el.setAttribute(attr, val);
+  };
+  set('link[rel="canonical"]', 'href', url, { tag: 'link', attrs: { rel: 'canonical' } });
+  set('meta[property="og:url"]', 'content', url, { tag: 'meta', attrs: { property: 'og:url' } });
   set('meta[property="og:title"]', 'content', document.title);
   set('meta[name="twitter:title"]', 'content', document.title);
 }
@@ -1285,8 +1294,11 @@ function renderSidebar() {
     } else if (item.type === 'parent') {
       // Hồ sơ du học chỉ dành cho HỌC SINH — giáo viên / quản trị / sale / quản lý hồ sơ không thấy mục này.
       if (item.id === 'cat-duhoc' && laNhanSu()) return;
+      // "Cài app (PWA)" vô nghĩa khi đang ở trong app native (Capacitor) hoặc PWA đã cài.
+      const children = item.children.filter(c => !(c.id === 'guide-cai-app' && (laNative() || laStandalone())));
+      if (!children.length) return;
       const open = isMenuOpen(item.id);
-      const hasActive = item.children.some(c => c.id === state.currentPage);
+      const hasActive = children.some(c => c.id === state.currentPage);
       const onclickHandler = item.id === 'cat-duhoc'
         ? `window.app.navigate('account-duhoc'); window.app.toggleMenu('${item.id}', true);`
         : `window.app.toggleMenu('${item.id}')`;
@@ -1298,7 +1310,9 @@ function renderSidebar() {
           <i class="fa-solid fa-chevron-down nav-caret"></i>
         </button>
         <div class="nav-children"><div class="nav-children-inner">
-          ${item.children.map(c => (c.type === 'book' ? navBookLinkHtml(c)
+          ${children.map(c => (
+            c.type === 'group' ? `<div class="nav-group-label" style="padding: 10px 24px 4px 52px;">${c.label}</div>`
+            : c.type === 'book' ? navBookLinkHtml(c)
             : c.books ? navBooksHtml(c) : navLinkHtml(c, true))).join('')}
         </div></div>
       </div>`;
@@ -1557,8 +1571,10 @@ function navigate(page, params, opts) {
   // bài này cần mở khoá" ngay tại tab đang xem — xem ddKhoaPanelHtml().
 
 
+  // Chưa duyệt: chỉ học thử (bài mở của giáo trình nằm trong PUBLIC_PAGES) + mấy trang tài khoản.
+  // Hồ sơ du học là chức năng của học sinh đã duyệt (hồ sơ cũng chỉ được tạo lúc duyệt).
   const TRANG_DUOC_PHEP_CHUA_DUYET = new Set([
-    'account-duhoc', 'account-profile', 'account-settings', 'account-notifications',
+    'account-profile', 'account-settings', 'account-notifications',
   ]);
 
   if (requireLogin && !state.isLoggedIn) {
@@ -1869,14 +1885,7 @@ function heroHtml() {
           </a>
         </div>
 
-        <div class="hero-actions">
-          <a class="hero-cta" href="${FB_TRUNG_TAM}" target="_blank" rel="noopener noreferrer">
-            <i class="fa-brands fa-facebook"></i><span>Liên hệ qua Facebook</span>
-          </a>
-          <button class="hero-ghost" onclick="window.app.navigate('${dangHoc ? 'path-today' : 'tocfl-thoidai'}')">
-            <i class="fa-solid fa-book-open"></i><span>${dangHoc ? 'Hôm nay học gì?' : 'Học thử miễn phí'}</span>
-          </button>
-        </div>
+
       </div>
       <div class="hero-image-panel"></div>
     </div>`;
@@ -2628,7 +2637,7 @@ function renderExamSetup(el) {
   if (napExam.canQuyen) {
     el.innerHTML = `<div class="exam-page">${ddKhoaPanelHtml(
       { ...napExam.canQuyen, soBaiMo: state.quyen.soBaiMo || 3 },
-      'Ngân hàng đề thi thử thuộc phần trả phí')}</div>`;
+      'Đề thi thử mở khi tài khoản được duyệt')}</div>`;
     return;
   }
   // Ba band ba màu để phân biệt trình độ, nhưng LẤY TỪ BẢNG MÀU CỦA APP (teal -> đất -> cam),
@@ -4065,7 +4074,7 @@ function closeAuth() {
 
 function showApprovalContactModal() {
   openDialog('Tài khoản chưa kích hoạt',
-    '<p style="margin-bottom:15px;line-height:1.5;">Tài khoản của bạn hiện đang chờ giáo viên duyệt. Bạn chỉ có thể xem trang chủ.</p>' +
+    `<p style="margin-bottom:15px;line-height:1.5;">Tài khoản của bạn hiện đang chờ giáo viên duyệt. Trong lúc chờ, bạn học thử được ${state.quyen?.soBaiMo || 3} bài đầu của mỗi quyển giáo trình và dùng các trang tra cứu (phát âm, từ vựng, từ điển, bộ thủ).</p>` +
     '<p style="margin-bottom:20px;line-height:1.5;">Vui lòng liên hệ với Facebook <b>Tỉnh Hoàng</b> để được mở tài khoản và cấp quyền sử dụng các chức năng học tập:</p>' +
     '<a href="https://www.facebook.com/tinh.hoang.858548/about" target="_blank" class="btn btn-primary" style="display:inline-block;text-decoration:none;"><i class="fa-brands fa-facebook"></i> Liên hệ Tỉnh Hoàng</a>',
     '<button class="btn btn-outline" onclick="window.app.closeDialog()">Đóng</button>'
@@ -5605,7 +5614,7 @@ async function napQuyenNoiDung() {
     // client vứt đi, nên học viên mua lẻ một quyển vẫn thấy ổ khoá trên chính bài mình đã trả
     // tiền — trông như mua hụt. Đó là loại lỗi làm mất niềm tin nhanh nhất ở khâu bán hàng.
     state.quyen = {
-      daNap: true, tatCa: !!d.tat_ca,
+      daNap: true, tatCa: !!d.tat_ca, choDuyet: !!d.cho_duyet,
       bo: d.bo || [], quyen: d.quyen || [], hetHan: d.het_han || null,
       // Lấy từ server thay vì viết cứng 3: đổi chính sách số bài mở chỉ phải sửa SO_BAI_MO
       // trong shared/noi-dung-mo.js, không phải đi sửa từng câu chữ trong giao diện.
@@ -5633,7 +5642,7 @@ function ddCoQuyenBo(bo, quyen = null) {
 function ddDauKhoaHtml(lessonId) {
   if (ddCoQuyenBo(TB().id, bocKhoaBai(lessonId)?.quyen)) return '';
   if (baiMo(lessonId)) return '<span class="dd-lesson-mo" title="Bài học thử, mở cho mọi người">Mở</span>';
-  return '<i class="fa-solid fa-lock dd-lesson-khoa" title="Cần mở khoá để học bài này"></i>';
+  return '<i class="fa-solid fa-lock dd-lesson-khoa" title="Mở khi tài khoản được duyệt"></i>';
 }
 
 // ============================================================
@@ -5646,18 +5655,20 @@ function ddDauKhoaHtml(lessonId) {
 
 const TEN_BO = { thoidai: 'Giáo trình Thời Đại', 'thi-thu': 'Ngân hàng đề thi thử' };
 
-function ddKhoaPanelHtml(khoa, tieuDe = 'Bài này thuộc phần trả phí') {
+function ddKhoaPanelHtml(khoa, tieuDe = 'Bài này mở khi tài khoản được duyệt') {
   const soMo = khoa?.soBaiMo || 3;
   const ten = TEN_BO[khoa?.bo] || 'bộ giáo trình này';
+  // Không bán khoá (2026-10-05): khách -> mời đăng nhập; đã có tài khoản mà chưa duyệt -> mời liên
+  // hệ trung tâm (cùng hộp thoại với lúc bị chặn ở các trang học sinh).
   const nutChinh = state.isLoggedIn
-    ? `<button class="btn btn-primary" onclick="window.app.moBangGia('${tdEsc(khoa?.sanPham || '')}')"><i class="fa-solid fa-unlock"></i> Xem gói học</button>`
-    : `<button class="btn btn-primary" onclick="window.app.openAuth()"><i class="fa-solid fa-right-to-bracket"></i> Đăng nhập</button>`;
-  // Đề thi thử KHÔNG có bài mở nào (chốt 2026-09-09), nên câu "3 bài đầu miễn phí" và nút "học
-  // thử bài 1" đều vô nghĩa ở đó — nói vậy là hứa một thứ không tồn tại.
+    ? '<button class="btn btn-primary" onclick="window.app.showApprovalContactModal()"><i class="fa-solid fa-user-check"></i> Liên hệ để được duyệt</button>'
+    : '<button class="btn btn-primary" onclick="window.app.openAuth()"><i class="fa-solid fa-right-to-bracket"></i> Đăng nhập</button>';
+  // Đề thi thử KHÔNG có bài mở nào (chốt 2026-09-09), nên câu "N bài đầu" và nút "học thử bài 1"
+  // đều vô nghĩa ở đó — nói vậy là hứa một thứ không tồn tại.
   const laThi = khoa?.bo === 'thi-thu';
   const loiGiaiThich = laThi
-    ? `Ngân hàng ${TC_KHO.deTocfl} đề thi thử TOCFL (đề thật của SC-TOP) mở khi bạn có gói học hoặc mua riêng phần thi thử.`
-    : `Bạn đang xem <strong>${tdEsc(ten)}</strong>. ${soMo} bài đầu của mỗi quyển/cấp mở miễn phí cho mọi người${state.isLoggedIn ? '' : ', kể cả khi chưa đăng nhập'} — từ bài ${soMo + 1} trở đi cần mở khoá.`;
+    ? `Ngân hàng ${TC_KHO.deTocfl} đề thi thử TOCFL (đề thật của SC-TOP) mở khi tài khoản của bạn được trung tâm duyệt.`
+    : `Bạn đang xem <strong>${tdEsc(ten)}</strong>. Khi chưa đăng nhập hoặc tài khoản đang chờ duyệt, bạn học thử được ${soMo} bài đầu của mỗi quyển — từ bài ${soMo + 1} trở đi mở khi tài khoản được trung tâm duyệt.`;
   return `
     <div class="dd-khoa-panel">
       <div class="dd-khoa-ic"><i class="fa-solid fa-lock"></i></div>
@@ -10326,17 +10337,23 @@ window.app = {
   startExam,
   startTocflExam,
 
+  // Tấm chắn bài học: tài khoản chưa duyệt bấm "Liên hệ để được duyệt"
+  showApprovalContactModal,
   // Cài đặt app PWA
   caiDatAppNhanh: async () => {
     if (deferredInstallPrompt) {
-      deferredInstallPrompt.prompt();
+      // Mỗi sự kiện chỉ prompt() được MỘT lần — bỏ tham chiếu ngay, rồi vẽ lại để nút biến mất
+      // (trước đây nút còn nguyên, bấm lần hai ra thông báo "chưa sẵn sàng" sai ngữ cảnh).
+      const ev = deferredInstallPrompt;
+      deferredInstallPrompt = null;
       try {
-        const { outcome } = await deferredInstallPrompt.userChoice;
-        deferredInstallPrompt = null;
+        ev.prompt();
+        const { outcome } = await ev.userChoice;
         if (outcome === 'accepted') {
           toast('Đang cài đặt ứng dụng...');
         }
       } catch {}
+      if (typeof window.app?.capNhatNutCaiApp === 'function') window.app.capNhatNutCaiApp();
     } else {
       toast('Trình duyệt chưa sẵn sàng cài 1 chạm. Vui lòng làm theo các bước hướng dẫn bên dưới.');
     }
