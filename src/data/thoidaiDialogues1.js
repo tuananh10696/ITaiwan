@@ -277,11 +277,11 @@ export const thoidaiDialogues1 = {
     "vi": "A, là sinh nhật cậu!"
    },
    {
-    "text": "一文:生日快樂!",
+    "text": "宜文:生日快樂!",
     "start": 20.76,
     "end": 24.32,
-    "pinyin": "yī wén shēng rì kuài lè",
-    "vi": "Nhất Văn: Chúc mừng sinh nhật!"
+    "pinyin": "yí wén shēng rì kuài lè",
+    "vi": "Nghi Văn: Chúc mừng sinh nhật!"
    },
    {
     "text": "謝謝!",
@@ -483,7 +483,7 @@ export const thoidaiDialogues1 = {
   "audio": "/audio/thoidai/B1L03-3.mp3",
   "cues": [
    {
-    "text": "\"有美的生日\"",
+    "text": "\"友美的生日\"",
     "start": 2.16,
     "end": 4.16,
     "pinyin": "yǒu měi de shēng rì",
@@ -1071,10 +1071,10 @@ export const thoidaiDialogues1 = {
     "vi": "Tớ không biết bơi."
    },
    {
-    "text": "一文, 你會游泳嗎?",
+    "text": "宜文, 你會游泳嗎?",
     "start": 36,
     "end": 39.5,
-    "pinyin": "yī wén nǐ huì yóu yǒng ma",
+    "pinyin": "yí wén nǐ huì yóu yǒng ma",
     "vi": "Nghi Văn, cậu biết bơi không?"
    },
    {

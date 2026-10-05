@@ -32,7 +32,13 @@ const IM = process.argv.includes('--im');
 const PUB = path.join(ROOT, 'public');
 
 const noi = (...a) => { if (!IM) console.log(...a); };
-const coFile = (p) => fs.existsSync(path.join(PUB, p));
+// Bỏ chuỗi truy vấn (`?_=7` chống cache trong HTML gốc) và giải mã URL (`%E9%A2%98` = 题) trước khi xét —
+// trình duyệt / máy chủ tĩnh làm y như vậy, không làm là báo "thiếu" oan cho file có thật.
+const coFile = (p) => {
+  let s = String(p).split(/[?#]/)[0];
+  try { s = decodeURIComponent(s); } catch { /* giữ nguyên */ }
+  return fs.existsSync(path.join(PUB, s));
+};
 
 // ---------------------------------------------------------------- gom mọi tham chiếu
 /** [{src, oNoi, hanzi}] — hanzi chỉ có với từ vựng, dùng để xét độ dài trên mỗi âm tiết. */
@@ -72,8 +78,10 @@ for (const p of dequy(path.join(PUB, 'data')).concat(dequy(path.join(ROOT, 'src/
   // Giáo trình và TOCFL đã quét ở bước 1 (kèm chữ Hán) — quét lại là đếm đôi.
   if (/[/\\]data[/\\](giaotrinh|tocfl)[/\\]/.test(p) || /[/\\]src[/\\]data[/\\]thoidai(Vocab|Dialogues)/.test(p)) continue;
   const txt = fs.readFileSync(p, 'utf8');
-  for (const raw of txt.match(/["'](\/audio\/[^"']*|https?:\/\/[^"']*\.(?:mp3|m4a|ogg|wav))["']/g) || []) {
-    thamChieu.push({ src: raw.slice(1, -1), oNoi: path.relative(ROOT, p) });
+  // `[^"'\\]`: đường dẫn nằm trong HTML ở CHUỖI JSON (`src=\"/audio/…mp3\"`) có dấu `\` ngay trước
+  // dấu nháy đóng — bắt dính nó là báo "thiếu file" oan cho file có thật.
+  for (const raw of txt.match(/["'](\/audio\/[^"'\\]*|https?:\/\/[^"'\\]*\.(?:mp3|m4a|ogg|wav))\\?["']/g) || []) {
+    thamChieu.push({ src: raw.replace(/\\?["']$/, '').slice(1), oNoi: path.relative(ROOT, p) });
   }
 }
 

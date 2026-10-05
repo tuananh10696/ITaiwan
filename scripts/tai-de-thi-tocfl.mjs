@@ -64,7 +64,7 @@ for (const [url, { rel, loai }] of ds) {
     tai(url, goc, loai);
     if (!fs.existsSync(dich)) {
       fs.mkdirSync(path.dirname(dich), { recursive: true });
-      if (laAm) execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', goc, '-ac', '1', '-ar', '22050', '-b:a', '48k', dich]);
+      if (laAm) execFileSync('ffmpeg', ['-y', '-loglevel', 'error', '-i', goc, '-vn', '-map_metadata', '-1', '-ac', '1', '-ar', '22050', '-b:a', '48k', dich]);   // -vn: bỏ ẢNH BÌA nhúng (có file 62s nặng 5 MB vì nó)
       else fs.copyFileSync(goc, dich);
     }
     if (laAm) {

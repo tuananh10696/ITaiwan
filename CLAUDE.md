@@ -162,6 +162,10 @@ tự bỏ các clip đó.
   (chủ dự án quyết định 2026-10-01 — không trỏ sang web khác nữa); ô nguồn đó không có dùng vận mẫu đọc
   riêng của sách. Đừng đưa lại URL ngoài vào `pinyinChartAudio`: `scripts/tai-am-bang-phien-am.mjs` chuyển
   mọi URL ngoài về bản lưu tại chỗ. Ô `huang` của nguồn đó là giọng nữ (cả bảng giọng nam), `miu` không có bản thu.
+  ⚠️ Bản thu đó nén 40 kbps, MẤT dải tần cao: 108 ô nhóm z/c/s/zh/ch/sh (và vài ô f/h/j/x) gần như không nghe ra
+  phụ âm đầu ("cāi" nghe như "āi"; đo đoạn phụ âm 0–20 ms, bản của sách 55–220 ms). 2026-10-05 thay 92 ô bằng bản
+  ghi sách / bản thu từ vựng / giọng máy đã đo thanh — `scripts/va-bang-phien-am-phu-am.mjs` (danh sách đo được
+  nằm trong script); 16 ô không có chữ thanh 1 nào (cē, shēi, zuō…) giữ file cũ.
 
 ## Bài tập: câu NGHE
 
