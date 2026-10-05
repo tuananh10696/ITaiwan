@@ -38,7 +38,6 @@ export function renderGuideCaiApp(el) {
           <h1>Cài Đặt App ITaiwan</h1>
           <p>
             Chỉ mất <strong>10 giây</strong> để cài ứng dụng ra màn hình chính điện thoại.
-            Học tập toàn màn hình, mở bài học tức thì, không tốn dung lượng máy và hoàn toàn không cần tải qua App Store / Google Play!
           </p>
         </div>
         <i class="fa-solid fa-mobile-screen tv-hero-mark"></i>
@@ -86,11 +85,11 @@ export function renderGuideCaiApp(el) {
       <div class="hd-platform-tabs">
         <button type="button" class="hd-tab-btn ${currentOs === 'ios' ? 'active' : ''}" onclick="window.app.doiTabCaiApp('ios')">
           <span class="hd-os-emoji">🍎</span>
-          <span>iPhone / iPad (iOS)</span>
+          <span>iOS</span>
         </button>
         <button type="button" class="hd-tab-btn ${currentOs === 'android' ? 'active' : ''}" onclick="window.app.doiTabCaiApp('android')">
           <span class="hd-os-emoji">🤖</span>
-          <span>Điện thoại Android</span>
+          <span>Android</span>
         </button>
       </div>
 
@@ -252,6 +251,7 @@ export function renderGuideDangKy(el) {
         <i class="fa-solid fa-user-graduate tv-hero-mark"></i>
       </div>
 
+      ${!state.user ? `
       <!-- Action Card -->
       <div class="hd-reg-cta-banner">
         <div class="hd-reg-cta-text">
@@ -261,7 +261,7 @@ export function renderGuideDangKy(el) {
         <button class="btn btn-primary hd-btn-register" onclick="window.app.moModalDangKy()">
           <i class="fa-solid fa-user-plus"></i> ĐĂNG KÝ TÀI KHOẢN NGAY
         </button>
-      </div>
+      </div>` : ''}
 
       <!-- 4 Steps of Registration -->
       <div class="hd-card hd-steps-container">
@@ -327,24 +327,7 @@ export function renderGuideDangKy(el) {
         </div>
       </div>
 
-      <!-- Contact Support Box -->
-      <div class="hd-card hd-support-card">
-        <div class="hd-support-head">
-          <div class="hd-support-icon"><i class="fa-solid fa-phone"></i></div>
-          <div>
-            <h3>Cần hỗ trợ kích hoạt tài khoản hoặc tư vấn lộ trình?</h3>
-            <p>Đội ngũ thầy cô và tư vấn viên ITaiwan luôn sẵn sàng hỗ trợ bạn 24/7.</p>
-          </div>
-        </div>
-        <div class="hd-support-actions">
-          <a href="https://www.facebook.com/tinh.hoang.858548/about" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-            <i class="fa-brands fa-facebook"></i> Nhắn tin Facebook Tỉnh Hoàng
-          </a>
-          <button class="btn btn-outline" onclick="window.app.moModalDangKy()">
-            <i class="fa-solid fa-user-plus"></i> Đăng ký tài khoản ngay
-          </button>
-        </div>
-      </div>
+
     </div>
   `;
 }
