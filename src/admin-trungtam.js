@@ -28,6 +28,7 @@ const openModal = (...a) => A.openModal(...a);
 const closeModal = (...a) => A.closeModal(...a);
 const confirmDialog = (...a) => A.confirmDialog(...a);
 const _tien = (n) => A._tien(n);
+const laAdmin = () => !!A.laAdmin?.();
 /** Xem admin.js: kết quả về muộn của khu cũ không được ghi đè khu đang mở. */
 const conDungLuot = (el, luot) => A.conDungLuot(el, luot);
 
@@ -182,7 +183,7 @@ async function renderQuy(el) {
         </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
           <button class="btn btn-outline" onclick="adminApp.quyBaoCao()"><i class="fa-solid fa-chart-column"></i> Báo cáo</button>
-          <button class="btn btn-outline" onclick="adminApp.quyDanhMuc()"><i class="fa-solid fa-tags"></i> Danh mục</button>
+          ${laAdmin() ? '<button class="btn btn-outline" onclick="adminApp.quyDanhMuc()"><i class="fa-solid fa-tags"></i> Danh mục</button>' : ''}
           <button class="btn btn-outline" onclick="adminApp.quyForm('chi')"><i class="fa-solid fa-minus"></i> Phiếu chi</button>
           <button class="btn btn-primary" onclick="adminApp.quyForm('thu')"><i class="fa-solid fa-plus"></i> Phiếu thu</button>
         </div>

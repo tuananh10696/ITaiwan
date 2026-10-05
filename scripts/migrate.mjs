@@ -64,6 +64,7 @@ const THU_TU = [
   'migration-phong-van.sql',
   'migration-push.sql',
   'migration-du-hoc-ho-so-khach.sql',
+  'migration-du-hoc-nop-truong.sql',
 ];
 
 // Bảng đếm để đối chiếu trước/sau. Bảng nào chưa tồn tại thì bỏ qua.

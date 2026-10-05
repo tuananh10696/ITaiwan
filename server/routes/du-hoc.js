@@ -1,7 +1,7 @@
 // =============================================================
 // QUẢN LÝ HỒ SƠ DU HỌC — cho trung tâm thuê hệ thống (2026-09-15)
 // =============================================================
-// Luồng: Nhận hồ sơ -> Đóng tiền -> Học -> Phỏng vấn trường -> Xin visa -> Chốt lịch bay.
+// Luồng: Nhận hồ sơ -> Đóng tiền -> Học -> Tiến độ hồ sơ trường -> Phỏng vấn -> Xin visa -> Chốt lịch bay.
 //
 // Mount ở /api/admin nên đường dẫn thật là /api/admin/du-hoc/...
 // Tách khỏi routes/admin.js (đã ~2.100 dòng) theo quy ước "route mới thì file mới" trong CLAUDE.md.
@@ -30,7 +30,7 @@ const router = Router();
 // `phamViQuanTri` lại tra bảng QUYEN bằng chính `req.path` -> mọi luật hết khớp.
 // `next('router')` thoát hẳn router này và trả quyền điều khiển về app để đi tiếp router sau.
 router.use((req, res, next) => (/^\/du-hoc(\/|$)/.test(req.path) ? next() : next('router')));
-router.use(requireAuth, loadRole, requireStaff, phamViQuanTri, requireHoSoStaff);
+router.use(requireAuth, loadRole, requireStaff, phamViQuanTri);
 
 // ------------------------------------------------------------------ hằng số
 
@@ -39,6 +39,10 @@ export const BUOC = [
   { ma: 'ho-so',      ten: 'Nhận hồ sơ',       icon: 'fa-folder-open',      mau: '#64748B' },
   { ma: 'dong-tien',  ten: 'Đóng tiền',        icon: 'fa-money-bill-wave',  mau: '#D97706' },
   { ma: 'hoc',        ten: 'Học',              icon: 'fa-graduation-cap',   mau: '#2563EB' },
+  // Chen giữa "Học" và "Phỏng vấn" (2026-10-05, khách yêu cầu): hồ sơ đã nộp sang các trường và
+  // đang chờ trường xét. Mã là 'nop-truong' — ĐỪNG nhầm với khu con "Tiến độ theo trường" của
+  // admin (xem từng trường có những em nào), đó là một màn hình, còn đây là một BƯỚC của hồ sơ.
+  { ma: 'nop-truong', ten: 'Tiến độ hồ sơ trường', icon: 'fa-school',       mau: '#0D9488' },
   // "Phỏng vấn" gồm phỏng vấn trường và/hoặc phỏng vấn VP Đài Bắc — xem shared/phong-van.js.
   { ma: 'phong-van',  ten: 'Phỏng vấn',        icon: 'fa-comments',         mau: '#7C3AED' },
   { ma: 'visa',       ten: 'Xin visa',         icon: 'fa-passport',         mau: '#0891B2' },
@@ -49,7 +53,9 @@ export const BUOC = [
 ];
 const MA_BUOC = new Set(BUOC.map((b) => b.ma));
 /** Sáu bước đang chạy — dùng để đếm "hồ sơ đang xử lý", không tính hồ sơ đã bay/huỷ. */
-const BUOC_DANG_CHAY = ['ho-so', 'dong-tien', 'hoc', 'phong-van', 'visa', 'bay'];
+const BUOC_DANG_CHAY = ['ho-so', 'dong-tien', 'hoc', 'nop-truong', 'phong-van', 'visa', 'bay'];
+/** Dạng đã bọc nháy để nhét vào `IN (...)` — một nguồn duy nhất, đừng viết tay danh sách bước ở câu SQL. */
+const SQL_DANG_CHAY = BUOC_DANG_CHAY.map((b) => `'${b}'`).join(',');
 
 import {
   GIAY_TO_MAC_DINH, laHocSinh, SQL_LA_HOC_SINH, sqlTuSinhChuaDung, xoaHoSoTuSinhChuaDung,
@@ -266,6 +272,91 @@ function locThanHoSo(body, req) {
 }
 
 // =============================================================
+// SỐ LIỆU THEO VAI TRÒ (2026-10-05)
+// =============================================================
+// Bốn ô trên đầu màn Hồ sơ du học (Hồ sơ đang xử lý · Đã thu · Còn phải thu · Thu 30 ngày qua).
+// Khách chốt ai thấy gì:
+//   admin       — tổng thể cả trung tâm, đủ 4 ô.
+//   ho_so       — (quản lý hồ sơ) CHỈ ô "Hồ sơ đang xử lý", đếm TOÀN trung tâm, không có tiền.
+//   sale        — đủ 4 ô nhưng chỉ tính hồ sơ mình phụ trách (`tu_van_id`).
+//   teacher     — đủ 4 ô, tính hồ sơ của học sinh trong lớp mình dạy (và hồ sơ mình tư vấn nếu có).
+// Mục tiêu cuối: chỉ admin nhìn được tiền ra vào CỦA TRUNG TÂM. Số tiền của sale/giáo viên ở đây
+// chỉ là của những em họ phụ trách, không phải dòng tiền toàn trung tâm.
+// Việc lọc nằm ở SERVER: ô nào vai trò đó không được thấy thì KHÔNG tính và không gửi về — ẩn bằng
+// giao diện thì bấm F12 là thấy.
+function phamViSoLieu(req) {
+  const org = req.locOrg ? ' AND h.org_id = ?' : '';
+  const tsOrg_ = req.locOrg ? [req.orgId] : [];
+  if (req.role === 'teacher') {
+    return {
+      pham_vi: 'hoc-sinh-lop', tien: true,
+      sql: `${org} AND (h.tu_van_id = ? OR h.user_id IN (
+              SELECT ce.user_id FROM class_enrollments ce JOIN classes c ON c.id = ce.class_id
+               WHERE c.teacher_id = ?))`,
+      ts: [...tsOrg_, req.userId, req.userId],
+    };
+  }
+  if (req.role === 'sale') {
+    return { pham_vi: 'ca-nhan', tien: true, sql: `${org} AND h.tu_van_id = ?`, ts: [...tsOrg_, req.userId] };
+  }
+  if (req.role === 'ho_so') {
+    return { pham_vi: 'toan-bo', tien: false, sql: org, ts: tsOrg_ };
+  }
+  return { pham_vi: 'toan-bo', tien: true, sql: org, ts: tsOrg_ };
+}
+
+const SO_LIEU_RONG = {
+  dang_chay: 0, tien: null, hien_tien: false,
+};
+
+/** Tính các ô số liệu cho người đang gọi. `tien` là null khi vai trò đó không được thấy tiền. */
+async function tinhSoLieu(req) {
+  const p = phamViSoLieu(req);
+  const [[d]] = await pool.query(
+    `SELECT COUNT(*) AS so FROM du_hoc_ho_so h WHERE h.buoc IN (${SQL_DANG_CHAY})${p.sql}`, p.ts);
+  const kq = { dang_chay: Number(d.so) || 0, tien: null, hien_tien: p.tien, pham_vi: p.pham_vi, vai: req.role };
+  if (!p.tien) return kq;
+
+  // Công nợ: tổng phí đã chốt trừ số thực thu. Tính bằng subquery thay vì JOIN + GROUP BY để
+  // hồ sơ CHƯA thu đồng nào vẫn được đếm (JOIN thường sẽ đánh rơi chúng).
+  const [tien] = await pool.query(
+    `SELECT
+       COALESCE(SUM(h.tong_phi), 0) AS tong_phi,
+       COALESCE(SUM((SELECT COALESCE(SUM(CASE WHEN tt.loai = 'hoan' THEN -tt.so_tien ELSE tt.so_tien END), 0)
+                       FROM du_hoc_thu_tien tt WHERE tt.ho_so_id = h.id)), 0) AS da_thu
+     FROM du_hoc_ho_so h
+     WHERE h.buoc <> 'huy'${p.sql}`, p.ts);
+  // Thu trong 30 ngày gần nhất — con số trung tâm nhìn hằng ngày.
+  const [thu30] = await pool.query(
+    `SELECT COALESCE(SUM(CASE WHEN tt.loai = 'hoan' THEN -tt.so_tien ELSE tt.so_tien END), 0) AS so
+       FROM du_hoc_thu_tien tt JOIN du_hoc_ho_so h ON h.id = tt.ho_so_id
+      WHERE tt.ngay_thu >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)${p.sql}`, p.ts);
+  const tongPhi = Number(tien[0]?.tong_phi || 0);
+  const daThu = Number(tien[0]?.da_thu || 0);
+  kq.tien = {
+    tong_phi: tongPhi, da_thu: daThu, con_thieu: Math.max(0, tongPhi - daThu),
+    thu_30_ngay: Number(thu30[0]?.so || 0),
+  };
+  return kq;
+}
+
+// Giáo viên vào được ĐÚNG route này của khu du học (bảng QUYEN ở roles.js) — chỉ vài con số, không
+// có tên, CCCD hay danh sách hồ sơ. Đứng TRƯỚC `requireHoSoStaff` bên dưới, nếu không giáo viên bị
+// chặn ở đó. Thêm route nào khác vào trước dòng `router.use(requireHoSoStaff)` là mở nó cho giáo
+// viên — đừng làm vậy với route trả dữ liệu cá nhân.
+router.get('/du-hoc/so-lieu', async (req, res) => {
+  try {
+    res.json(await tinhSoLieu(req));
+  } catch (err) {
+    if (chuaCoBang(err)) return res.json({ ...SO_LIEU_RONG, hien_tien: req.role !== 'ho_so', chua_migrate: true });
+    console.error('Lỗi số liệu du học:', err);
+    res.status(500).json({ error: loiBang(err, 'Không tải được số liệu hồ sơ du học.') });
+  }
+});
+
+router.use(requireHoSoStaff);
+
+// =============================================================
 // TỔNG QUAN
 // =============================================================
 // Một request trả đủ mọi con số của bảng điều khiển: bảng điều khiển gọi 5 endpoint là 5 vòng
@@ -280,25 +371,8 @@ router.get('/du-hoc/tong-quan', async (req, res) => {
       t
     );
 
-    // Công nợ: tổng phí đã chốt trừ số thực thu. Tính bằng subquery thay vì JOIN + GROUP BY để
-    // hồ sơ CHƯA thu đồng nào vẫn được đếm (JOIN thường sẽ đánh rơi chúng).
-    const [tien] = await pool.query(
-      `SELECT
-         COALESCE(SUM(h.tong_phi), 0) AS tong_phi,
-         COALESCE(SUM((SELECT COALESCE(SUM(CASE WHEN tt.loai = 'hoan' THEN -tt.so_tien ELSE tt.so_tien END), 0)
-                         FROM du_hoc_thu_tien tt WHERE tt.ho_so_id = h.id)), 0) AS da_thu
-       FROM du_hoc_ho_so h
-       WHERE h.buoc <> 'huy'${o}`,
-      t
-    );
-
-    // Thu trong 30 ngày gần nhất — con số trung tâm nhìn hằng ngày.
-    const [thu30] = await pool.query(
-      `SELECT COALESCE(SUM(CASE WHEN tt.loai = 'hoan' THEN -tt.so_tien ELSE tt.so_tien END), 0) AS so
-         FROM du_hoc_thu_tien tt JOIN du_hoc_ho_so h ON h.id = tt.ho_so_id
-        WHERE tt.ngay_thu >= DATE_SUB(CURDATE(), INTERVAL 30 DAY)${o}`,
-      t
-    );
+    // Bốn ô số liệu đầu màn hình — phạm vi và quyền xem tiền theo vai trò, xem `phamViSoLieu`.
+    const soLieu = await tinhSoLieu(req);
 
     // --- VIỆC CẦN LÀM ---
     // Mỗi truy vấn trả lời một câu hỏi vận hành cụ thể. Giới hạn 20 để màn hình không thành một
@@ -337,7 +411,7 @@ router.get('/du-hoc/tong-quan', async (req, res) => {
          FROM du_hoc_ho_so h
         WHERE h.ho_chieu_het_han IS NOT NULL
           AND h.ho_chieu_het_han <= DATE_ADD(CURDATE(), INTERVAL 6 MONTH)
-          AND h.buoc IN ('ho-so','dong-tien','hoc','phong-van','visa','bay')${o}
+          AND h.buoc IN (${SQL_DANG_CHAY})${o}
         ORDER BY h.ho_chieu_het_han LIMIT 20`,
       t
     );
@@ -348,35 +422,38 @@ router.get('/du-hoc/tong-quan', async (req, res) => {
       `SELECT h.id, h.ma_hs, h.ho_ten, h.buoc, h.buoc_tu,
               DATEDIFF(CURDATE(), h.buoc_tu) AS so_ngay
          FROM du_hoc_ho_so h
-        WHERE h.buoc_tu IS NOT NULL AND h.buoc IN ('ho-so','dong-tien','hoc','phong-van','visa','bay')
+        WHERE h.buoc_tu IS NOT NULL AND h.buoc IN (${SQL_DANG_CHAY})
           AND h.buoc_tu <= DATE_SUB(CURDATE(), INTERVAL 30 DAY)${o}
         ORDER BY h.buoc_tu LIMIT 20`,
       t
     );
     viec.bo_quen = im;
 
-    const [congNo] = await pool.query(
-      `SELECT h.id, h.ma_hs, h.ho_ten, h.tong_phi,
-              (SELECT COALESCE(SUM(CASE WHEN tt.loai = 'hoan' THEN -tt.so_tien ELSE tt.so_tien END), 0)
-                 FROM du_hoc_thu_tien tt WHERE tt.ho_so_id = h.id) AS da_thu
-         FROM du_hoc_ho_so h
-        WHERE h.tong_phi > 0 AND h.buoc <> 'huy'${o}
-       HAVING da_thu < h.tong_phi
-        ORDER BY (h.tong_phi - da_thu) DESC LIMIT 20`,
-      t
-    );
-    viec.cong_no = congNo;
+    // Danh sách "còn nợ" kèm số tiền từng em: quản lý hồ sơ không được thấy tiền nên bỏ hẳn.
+    if (soLieu.hien_tien) {
+      const [congNo] = await pool.query(
+        `SELECT h.id, h.ma_hs, h.ho_ten, h.tong_phi,
+                (SELECT COALESCE(SUM(CASE WHEN tt.loai = 'hoan' THEN -tt.so_tien ELSE tt.so_tien END), 0)
+                   FROM du_hoc_thu_tien tt WHERE tt.ho_so_id = h.id) AS da_thu
+           FROM du_hoc_ho_so h
+          WHERE h.tong_phi > 0 AND h.buoc <> 'huy'${o}
+         HAVING da_thu < h.tong_phi
+          ORDER BY (h.tong_phi - da_thu) DESC LIMIT 20`,
+        t
+      );
+      viec.cong_no = congNo;
+    } else {
+      viec.cong_no = [];
+    }
 
     res.json({
       buoc: BUOC,
       theo_buoc: theoBuoc,
-      dang_chay: theoBuoc.filter((x) => BUOC_DANG_CHAY.includes(x.buoc)).reduce((s, x) => s + x.so, 0),
-      tien: {
-        tong_phi: Number(tien[0]?.tong_phi || 0),
-        da_thu: Number(tien[0]?.da_thu || 0),
-        con_thieu: Math.max(0, Number(tien[0]?.tong_phi || 0) - Number(tien[0]?.da_thu || 0)),
-        thu_30_ngay: Number(thu30[0]?.so || 0),
-      },
+      dang_chay: soLieu.dang_chay,
+      tien: soLieu.tien,
+      hien_tien: soLieu.hien_tien,
+      pham_vi: soLieu.pham_vi,
+      vai: soLieu.vai,
       viec,
     });
   } catch (err) {
@@ -385,7 +462,8 @@ router.get('/du-hoc/tong-quan', async (req, res) => {
       // nguyên nhân, thay vì một màn hình lỗi không ai biết phải làm gì.
       return res.json({
         buoc: BUOC, theo_buoc: [], dang_chay: 0,
-        tien: { tong_phi: 0, da_thu: 0, con_thieu: 0, thu_30_ngay: 0 },
+        tien: req.role === 'ho_so' ? null : { tong_phi: 0, da_thu: 0, con_thieu: 0, thu_30_ngay: 0 },
+        hien_tien: req.role !== 'ho_so', vai: req.role,
         viec: { phong_van: [], sap_bay: [], ho_chieu: [], bo_quen: [], cong_no: [] },
         chua_migrate: true,
       });
@@ -408,7 +486,7 @@ router.get('/du-hoc/ho-so', async (req, res) => {
     if (req.nhanSuId) { dk.push('h.tu_van_id = ?'); ts.push(req.nhanSuId); }
 
     if (req.query.buoc && MA_BUOC.has(req.query.buoc)) { dk.push('h.buoc = ?'); ts.push(req.query.buoc); }
-    else if (req.query.buoc === 'dang-chay') { dk.push(`h.buoc IN ('ho-so','dong-tien','hoc','phong-van','visa','bay')`); }
+    else if (req.query.buoc === 'dang-chay') { dk.push(`h.buoc IN (${SQL_DANG_CHAY})`); }
 
     const tv = parseInt(req.query.tu_van || '', 10);
     if (Number.isFinite(tv)) { dk.push('h.tu_van_id = ?'); ts.push(tv); }

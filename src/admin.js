@@ -311,10 +311,11 @@ const VAI_CUA_KHU = {
   'de-bai': ['admin', 'teacher'],
   teachers: ['admin'],
   users: ['admin', 'ho_so', 'sale'],
-  'du-hoc': ['admin', 'ho_so', 'sale'],
+  // Giáo viên chỉ thấy bốn ô số liệu của học sinh lớp mình (renderDuHoc rẽ nhánh theo vai trò).
+  'du-hoc': ['admin', 'ho_so', 'sale', 'teacher'],
   'du-hoc-truong': ['admin', 'ho_so', 'sale'],
   ktx: ['admin', 'ho_so', 'sale'],
-  quy: ['admin', 'ho_so', 'sale'],
+  quy: ['admin', 'ho_so', 'sale', 'teacher'],
 };
 function chanKhuCam() {
   const duoc = VAI_CUA_KHU[currentSection];
@@ -1237,6 +1238,58 @@ function _tqDoHtml(nhan, giaTri) {
     </div>`;
 }
 
+/**
+ * Tổng quan của SALE / QUẢN LÝ HỒ SƠ — không có tiền, không có thu chi (chỉ admin xem).
+ * Thay vào đó là thứ họ làm hằng ngày: hồ sơ đang ở bước nào, ai sắp phỏng vấn / sắp bay, việc kẹt.
+ */
+function _tqVeNhanSu(el, d, theViec) {
+  const hs = d.ho_so || { cac_buoc: [], theo_buoc: [], sap_phong_van: 0, sap_bay: 0 };
+  const cb = d.canh_bao || {};
+  const dem = {};
+  hs.theo_buoc.forEach((x) => { dem[x.buoc] = x.so; });
+  const chay = hs.cac_buoc.filter((b) => !['hoan-thanh', 'tam-dung', 'huy'].includes(b.ma));
+  const dangXuLy = chay.reduce((n, b) => n + (dem[b.ma] || 0), 0);
+  const dinh = Math.max(1, ...chay.map((b) => dem[b.ma] || 0));
+  const quanLy = vaiTro() === 'ho_so';
+
+  const theBuoc = `
+    <div class="tq-the">
+      <div class="tq-the-dau"><h3>Hồ sơ theo bước</h3><a class="tq-the-link" onclick="adminApp.navigate('du-hoc')">Hồ sơ du học</a></div>
+      ${!dangXuLy ? '<p class="tq-trong">Chưa có hồ sơ nào đang xử lý.</p>' : `
+      <div class="tq-thanh-ds">${chay.map((b) => `
+        <div class="tq-thanh-hang">
+          <span class="tq-thanh-ten" title="${esc(b.ten)}">${esc(b.ten)}</span>
+          <span class="tq-thanh-ray"><i style="width:${(dem[b.ma] || 0) ? Math.max(3, ((dem[b.ma] || 0) / dinh) * 100) : 0}%;background:${b.mau}"></i></span>
+          <span class="tq-thanh-so">${dem[b.ma] || 0}</span>
+        </div>`).join('')}</div>`}
+      <p class="tq-ghi-chu">${quanLy ? 'Tính trên toàn trung tâm.' : 'Chỉ tính hồ sơ bạn phụ trách.'}</p>
+    </div>`;
+
+  el.innerHTML = `
+    <div class="admin-alert" style="background:#EEF3FB;border-color:#C9D9F0">
+      <i class="fa-solid fa-circle-info" style="color:#1E4E9C"></i>
+      <div>Phỏng vấn, chuyến bay và các việc cần xử lý dưới đây là của <b>hồ sơ bạn phụ trách</b>.</div>
+    </div>
+    <div class="tq-luoi-o">
+      ${_tqOHtml({ nhan: 'Hồ sơ đang xử lý', so: dangXuLy, phu: quanLy ? 'Toàn trung tâm' : 'Hồ sơ của bạn',
+        mau: '#265648', icon: 'fa-folder-open', di: 'du-hoc' })}
+      ${_tqOHtml({ nhan: 'Phỏng vấn trong 14 ngày', so: hs.sap_phong_van, phu: hs.sap_phong_van ? 'Cần chuẩn bị' : 'Chưa có lịch',
+        mau: '#2F6B58', icon: 'fa-comments', di: 'du-hoc' })}
+      ${_tqOHtml({ nhan: 'Bay trong 30 ngày', so: hs.sap_bay, phu: hs.sap_bay ? 'Kiểm tra vé, giấy tờ' : 'Chưa có lịch',
+        mau: '#17794A', icon: 'fa-plane-departure', di: 'du-hoc' })}
+      ${_tqOHtml({ nhan: 'Hồ sơ đứng yên quá 30 ngày', so: cb.du_hoc_dung || 0, phu: cb.du_hoc_dung ? 'Đang bị bỏ quên' : 'Không có',
+        mau: 'var(--admin-warning)', icon: 'fa-hourglass-half', di: 'du-hoc' })}
+      ${_tqOHtml({ nhan: 'Yêu cầu sửa hồ sơ', so: cb.du_hoc_yeu_cau || 0, phu: 'Chờ bạn duyệt',
+        mau: '#1E4E9C', icon: 'fa-pen-to-square', di: 'du-hoc' })}
+      ${_tqOHtml({ nhan: 'Tài khoản chờ duyệt', so: cb.cho_duyet || 0, phu: 'Do bạn tạo',
+        mau: '#B2571F', icon: 'fa-user-check', di: 'users' })}
+    </div>
+    <div class="admin-cols-2 tq-hang">
+      ${theBuoc}
+      ${theViec}
+    </div>`;
+}
+
 async function renderTongQuanQuanTri(el) {
   const luot = el.dataset.luot;
   try {
@@ -1258,6 +1311,24 @@ async function renderTongQuanQuanTri(el) {
       ['du_hoc_dung', 'hồ sơ du học đứng yên quá 30 ngày', 'fa-plane-departure', 'du-hoc'],
       ['ktx_no', 'người ở KTX chưa đóng tiền kỳ này', 'fa-bed', 'ktx'],
     ].filter(([key]) => cb[key] > 0);
+
+    const theViec = `
+      <div class="tq-the">
+        <div class="tq-the-dau"><h3>Cần xử lý</h3>${viec.length ? `<span class="tq-the-dem">${viec.length}</span>` : ''}</div>
+        ${!viec.length
+          ? '<p class="tq-trong">Không có việc nào đang kẹt. 🎉</p>'
+          : `<ul class="tq-viec">${viec.map(([key, nhan, icon, di]) => `
+              <li onclick="adminApp.navigate('${di}')">
+                <i class="fa-solid ${icon}"></i>
+                <span>${nhan}</span>
+                <b>${cb[key]}</b>
+                <i class="fa-solid fa-chevron-right tq-viec-mui"></i>
+              </li>`).join('')}</ul>`}
+      </div>`;
+
+    // Tiền và thu chi CHỈ admin được xem (khách chốt 2026-10-05). Server đã không tính / không gửi
+    // phần tiền cho sale và quản lý hồ sơ (`an_tien`) — ở đây vẽ bố cục khác hẳn, xoay quanh hồ sơ.
+    if (d.an_tien) return _tqVeNhanSu(el, d, theViec);
 
     el.innerHTML = `
       ${laNhanSuHoSo() ? `<div class="admin-alert" style="background:#EEF3FB;border-color:#C9D9F0">
@@ -1328,18 +1399,7 @@ async function renderTongQuanQuanTri(el) {
                 </div>`).join('')}</div>`}
         </div>`}
 
-        <div class="tq-the">
-          <div class="tq-the-dau"><h3>Cần xử lý</h3>${viec.length ? `<span class="tq-the-dem">${viec.length}</span>` : ''}</div>
-          ${!viec.length
-            ? '<p class="tq-trong">Không có việc nào đang kẹt. 🎉</p>'
-            : `<ul class="tq-viec">${viec.map(([key, nhan, icon, di]) => `
-                <li onclick="adminApp.navigate('${di}')">
-                  <i class="fa-solid ${icon}"></i>
-                  <span>${nhan}</span>
-                  <b>${cb[key]}</b>
-                  <i class="fa-solid fa-chevron-right tq-viec-mui"></i>
-                </li>`).join('')}</ul>`}
-        </div>
+        ${theViec}
       </div>
     `;
   } catch (err) {
@@ -1650,14 +1710,13 @@ async function openUserForm(id) {
     u = data.user;
   } catch (e) { toast('Không tìm thấy.', 'error'); return; }
 
-  // Danh sách lớp nằm ở khu KHÁC: sale / quản lý hồ sơ nhận 403 ở đó. Gọi trong try riêng,
-  // nếu không thì một lỗi 403 vô hại làm cả form sửa tài khoản không mở được.
-  if (!laNhanSuHoSo()) {
-    try {
-      const cData = await apiGet('/admin/classes');
-      if (cData && cData.classes) classesList = cData.classes;
-    } catch (e) { /* không có quyền xem lớp thì bỏ ô chọn lớp */ }
-  }
+  // Danh sách lớp: admin / giáo viên gọi /classes; sale / quản lý hồ sơ không vào được khu đó nên có
+  // lối riêng /classes-options (chỉ id + tên). Gọi trong try riêng: lỗi ở đây không được làm cả
+  // form sửa tài khoản không mở được. Với sale / quản lý, ô này cho phép xếp lớp TRƯỚC khi duyệt.
+  try {
+    const cData = await apiGet(laNhanSuHoSo() ? '/admin/classes-options' : '/admin/classes');
+    if (cData && cData.classes) classesList = cData.classes;
+  } catch (e) { /* không có quyền xem lớp thì bỏ ô chọn lớp */ }
 
   openModal(`Sửa người dùng #${id}`, `
     <div class="form-row">
@@ -1669,8 +1728,8 @@ async function openUserForm(id) {
       ${classesList.length ? `<div class="form-group">
         <label>Lớp học</label>
         <select id="f-class-id">
-          <option value="">-- Không có lớp --</option>
-          ${classesList.map(c => `<option value="${c.id}" ${u.class_id === c.id ? 'selected' : ''}>${c.name}</option>`).join('')}
+          <option value="">${laNhanSuHoSo() ? '-- Giữ nguyên / chưa xếp lớp --' : '-- Không có lớp --'}</option>
+          ${classesList.map(c => `<option value="${c.id}" ${u.class_id === c.id ? 'selected' : ''}>${esc(c.name)}</option>`).join('')}
         </select>
       </div>` : ''}
     </div>
@@ -1738,14 +1797,17 @@ async function approveUser(id, name) {
   // Load danh sách lớp để cho chọn
   var classOptions = '<option value="">(Không xếp lớp)</option>';
   try {
-    var cData = await apiGet('/admin/classes');
+    // Sale / quản lý hồ sơ không vào được khu Quản lý lớp (GET /classes bị chặn) nên có lối riêng
+    // chỉ trả id + tên lớp. Trước đây họ gọi /classes, nhận 403 rồi im lặng -> ô chọn lớp chỉ có
+    // đúng một dòng "(Không xếp lớp)" và trông như tính năng không tồn tại.
+    var cData = await apiGet(laAdmin() ? '/admin/classes' : '/admin/classes-options');
     if (cData.classes && cData.classes.length) {
       for (var i = 0; i < cData.classes.length; i++) {
         var c = cData.classes[i];
-        classOptions += '<option value="' + c.id + '">' + c.name + '</option>';
+        classOptions += '<option value="' + c.id + '">' + esc(c.name) + (c.teacher_name ? ' — ' + esc(c.teacher_name) : '') + '</option>';
       }
     }
-  } catch (e) { /* ignore */ }
+  } catch (e) { toast('Không tải được danh sách lớp — vẫn duyệt được, xếp lớp sau.', 'error'); }
 
   openModal('Duyệt tài khoản: ' + name, 
     '<p style="margin-bottom:12px">Xác nhận duyệt tài khoản <b>' + name + '</b>? Học viên sẽ có thể đăng nhập và sử dụng hệ thống.</p>' +
@@ -3432,9 +3494,10 @@ let _dragState = { table: null, dragIdx: null, items: [] };
 // ============================================================
 // HỒ SƠ DU HỌC (2026-09-15) — chỉ quản trị trung tâm
 // ============================================================
-// Luồng: Nhận hồ sơ -> Đóng tiền -> Học -> Phỏng vấn -> Xin visa -> Chốt lịch bay.
+// Luồng: Nhận hồ sơ -> Đóng tiền -> Học -> Tiến độ hồ sơ trường -> Phỏng vấn -> Xin visa -> Chốt lịch bay.
 // "Phỏng vấn" gồm phỏng vấn trường và/hoặc phỏng vấn VP Đài Bắc (shared/phong-van.js).
-// Backend: server/routes/du-hoc.js. Giáo viên KHÔNG vào được (hồ sơ có CCCD, hộ chiếu, tiền).
+// Backend: server/routes/du-hoc.js. Giáo viên chỉ thấy bốn ô số liệu (`_dhVeSoLieuGiaoVien`), không vào được
+// danh sách hay chi tiết hồ sơ (có CCCD, hộ chiếu, tiền).
 //
 // Hai màn, đổi bằng `dhView` giống cách Quản lý lớp làm: danh sách -> chi tiết một hồ sơ.
 
@@ -3528,6 +3591,8 @@ function _dhChipBuoc(ma) {
 // ------------------------------------------------------------------ điều phối
 
 async function renderDuHoc(el) {
+  // Giáo viên không có danh sách / chi tiết hồ sơ — kể cả khi gõ tay URL #/du-hoc/12 (server cũng 403).
+  if (vaiTro() === 'teacher') return _dhVeSoLieuGiaoVien(el);
   if (dhView === 'detail' && dhId) return _dhVeChiTiet(el);
   const r = await _dhVeDanhSach(el);
   dhNapYeuCau();     // nạp sau, không chặn cả màn vì một request phụ
@@ -3659,23 +3724,63 @@ async function _dhVeDanhSach(el) {
   }
 }
 
+/**
+ * Bốn ô số liệu đầu màn Hồ sơ du học, theo vai trò (2026-10-05, khách chốt):
+ *   admin — đủ 4 ô, cả trung tâm · quản lý hồ sơ — CHỈ ô "Hồ sơ đang xử lý" (toàn trung tâm) ·
+ *   sale / giáo viên — đủ 4 ô nhưng chỉ tính học sinh mình phụ trách.
+ * Server là nơi quyết định (`tq.hien_tien`, `tq.pham_vi` — du-hoc.js `phamViSoLieu`): ô tiền mà vai
+ * trò đó không được thấy thì server không tính và không gửi, nên ở đây chỉ việc vẽ cái nhận được.
+ */
+function _dhSoLieuHtml(tq) {
+  const t = tq.tien || {};
+  const the = (mau, icon, so, nhan, laTien) => `
+      <div class="stat-card"><div class="stat-icon" style="background:${mau}1a;color:${mau}"><i class="fa-solid ${icon}"></i></div>
+        <div><div class="stat-value${laTien ? ' stat-tien' : ''}">${so}</div><div class="stat-label">${nhan}</div></div></div>`;
+  const ghiChu = {
+    'ca-nhan': 'Số liệu chỉ tính hồ sơ bạn phụ trách, tư vấn.',
+    'hoc-sinh-lop': 'Số liệu chỉ tính học sinh trong lớp bạn phụ trách.',
+  }[tq.pham_vi] || (tq.vai === 'ho_so'
+    ? 'Số hồ sơ đang xử lý tính trên toàn trung tâm; danh sách bên dưới chỉ gồm hồ sơ bạn phụ trách.' : '');
+  return `
+    <div class="stats-grid stats-grid--4">
+      ${the('#265648', 'fa-folder-open', tq.dang_chay || 0, 'Hồ sơ đang xử lý')}
+      ${tq.hien_tien === false ? '' : `
+      ${the('#16A34A', 'fa-hand-holding-dollar', _tien(t.da_thu), 'Đã thu', true)}
+      ${the('#B85C1A', 'fa-scale-unbalanced', _tien(t.con_thieu), 'Còn phải thu', true)}
+      ${the('#2F6B58', 'fa-calendar-day', _tien(t.thu_30_ngay), 'Thu 30 ngày qua', true)}`}
+    </div>
+    ${ghiChu ? `<p class="dh-sub" style="margin:-8px 0 16px">${ghiChu}</p>` : ''}`;
+}
+
+/** Màn Hồ sơ du học của GIÁO VIÊN: chỉ bốn ô số liệu, không danh sách / chi tiết (có CCCD, hộ chiếu). */
+async function _dhVeSoLieuGiaoVien(el) {
+  const luot = el.dataset.luot;
+  el.innerHTML = '<div style="text-align:center;padding:40px;color:var(--admin-text-muted)"><i class="fa-solid fa-spinner fa-spin" style="font-size:24px"></i></div>';
+  try {
+    const sl = await apiGet('/admin/du-hoc/so-lieu');
+    if (!conDungLuot(el, luot)) return;
+    el.innerHTML = `
+      <div class="table-toolbar">
+        <div style="flex:1;min-width:0">
+          <h2 style="margin:0">Hồ sơ du học</h2>
+          <p style="margin:4px 0 0;font-size:13px;color:var(--admin-text-muted)">
+            Tình hình hồ sơ du học của học sinh trong lớp bạn phụ trách.</p>
+        </div>
+      </div>
+      ${sl.chua_migrate ? '<div class="alert alert-warning">Chưa chạy migration hồ sơ du học.</div>' : ''}
+      ${_dhSoLieuHtml(sl)}
+      <p class="dh-sub">Chi tiết từng hồ sơ do sale / quản lý hồ sơ phụ trách và chỉ họ xem được.</p>`;
+  } catch (err) {
+    el.innerHTML = `<div class="empty-state"><p>${_escHtml(err.message || 'Không tải được số liệu hồ sơ du học.')}</p></div>`;
+  }
+}
+
 function _dhVeDanhSachHtml(el, tq, ds) {
   const chuaMigrate = (tq.chua_migrate || ds.chua_migrate)
     ? `<div class="alert alert-warning">Chưa chạy <code>migration-du-hoc.sql</code>.
        Chạy <code>npm run db:migrate:prod</code> để bật khu Hồ sơ du học.</div>` : '';
 
-  const t = tq.tien || {};
-  const soLieu = `
-    <div class="stats-grid stats-grid--4">
-      <div class="stat-card"><div class="stat-icon" style="background:#2656481a;color:#265648"><i class="fa-solid fa-folder-open"></i></div>
-        <div><div class="stat-value">${tq.dang_chay || 0}</div><div class="stat-label">Hồ sơ đang xử lý</div></div></div>
-      <div class="stat-card"><div class="stat-icon" style="background:#16A34A1a;color:#16A34A"><i class="fa-solid fa-hand-holding-dollar"></i></div>
-        <div><div class="stat-value stat-tien">${_tien(t.da_thu)}</div><div class="stat-label">Đã thu</div></div></div>
-      <div class="stat-card"><div class="stat-icon" style="background:#B85C1A1a;color:#B85C1A"><i class="fa-solid fa-scale-unbalanced"></i></div>
-        <div><div class="stat-value stat-tien">${_tien(t.con_thieu)}</div><div class="stat-label">Còn phải thu</div></div></div>
-      <div class="stat-card"><div class="stat-icon" style="background:#2F6B581a;color:#2F6B58"><i class="fa-solid fa-calendar-day"></i></div>
-        <div><div class="stat-value stat-tien">${_tien(t.thu_30_ngay)}</div><div class="stat-label">Thu 30 ngày qua</div></div></div>
-    </div>`;
+  const soLieu = _dhSoLieuHtml(tq);
 
   // --- VIỆC CẦN LÀM ---
   // Nhóm nào rỗng thì ẩn hẳn nhóm đó; rỗng cả 5 thì ẩn cả khối. Để lại năm ô trống trông như hệ
@@ -3764,7 +3869,7 @@ function _dhVeDanhSachHtml(el, tq, ds) {
       <div style="flex:1;min-width:0">
         <h2 style="margin:0">Hồ sơ du học</h2>
         <p style="margin:4px 0 0;font-size:13px;color:var(--admin-text-muted)">
-          Nhận hồ sơ → Đóng tiền → Học → Phỏng vấn → Xin visa → Chốt lịch bay.</p>
+          Nhận hồ sơ → Đóng tiền → Học → Tiến độ hồ sơ trường → Phỏng vấn → Xin visa → Chốt lịch bay.</p>
       </div>
       <button class="btn btn-primary" onclick="adminApp.dhFormHoSo()">
         <i class="fa-solid fa-plus"></i> Thêm hồ sơ
@@ -3842,7 +3947,7 @@ function _dhVeChiTietHtml(el) {
 
   const pv = tinhPhongVan(h);
 
-  // --- Thanh 6 bước. Bấm thẳng vào bước để chuyển; cho tới/lùi tự do (trượt visa phải làm lại). ---
+  // --- Thanh bước (7 bước chính). Bấm thẳng vào bước để chuyển; cho tới/lùi tự do (trượt visa phải làm lại). ---
   const chinh = dhBuocList.filter((b) => !['hoan-thanh', 'tam-dung', 'huy'].includes(b.ma));
   const viTri = chinh.findIndex((b) => b.ma === h.buoc);
   const ketThuc = ['hoan-thanh', 'tam-dung', 'huy'].includes(h.buoc);
@@ -3932,7 +4037,7 @@ function _dhVeChiTietHtml(el) {
       <button type="button" class="k-${k} ${b.kq === k ? 'active' : ''}" aria-pressed="${b.kq === k}"
               onclick="adminApp.dhPvKq('${b.ma}','${k}')">${DH_KET_QUA[k]}</button>`).join('');
   const pvTomTat = !pv.loai ? ['fa-circle-question', 'Chọn loại phỏng vấn cho hồ sơ này.']
-    : pv.du ? ['fa-circle-check', h.buoc === 'phong-van' || ['ho-so', 'dong-tien', 'hoc'].includes(h.buoc)
+    : pv.du ? ['fa-circle-check', h.buoc === 'phong-van' || ['ho-so', 'dong-tien', 'hoc', 'nop-truong'].includes(h.buoc)
       ? `Đã đậu đủ phỏng vấn.${h.buoc !== 'phong-van' ? ' Hồ sơ chỉ tự chuyển sang "Xin visa" khi đang ở bước "Phỏng vấn".' : ''}`
       : 'Đã đậu đủ phỏng vấn.']
       : pv.truot ? ['fa-circle-xmark', 'Có buổi phỏng vấn trượt — cần xử lý.']
@@ -4774,7 +4879,7 @@ async function dhNapNhanSu() {
 
 // Nạp cầu nối cho module 3 khu trung tâm TRƯỚC khi gắn handler — module gọi các helper này
 // ngay từ lần render đầu tiên.
-dangKyTrungTam({ apiGet, apiPost, apiPut, apiDel, esc, toast, openModal, closeModal, confirmDialog, _tien, conDungLuot });
+dangKyTrungTam({ apiGet, apiPost, apiPut, apiDel, esc, toast, openModal, closeModal, confirmDialog, _tien, conDungLuot, laAdmin });
 dangKyTienDoTruong({ apiGet, esc, conDungLuot, syncUrl: syncAdminUrl, moHoSo: dhMoTuKhuKhac, pvDong: _dhPvDong });
 
 window.adminApp = {

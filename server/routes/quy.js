@@ -3,8 +3,9 @@
 // =============================================================
 // Mount ở /api/admin nên đường dẫn thật là /api/admin/quy/...
 //
-// PHÂN QUYỀN — chỉ QUẢN TRỊ, như khu du học. Giáo viên không khai
-// trong bảng QUYEN nên tự nhận 403: đây là toàn bộ dòng tiền của trung tâm.
+// PHÂN QUYỀN (2026-10-05): CHỈ ADMIN nhìn được dòng tiền của TRUNG TÂM. Mọi vai trò khác (quản lý
+// hồ sơ, sale, giáo viên) vẫn lập được phiếu thu / chi, nhưng chỉ thấy và sửa phiếu do CHÍNH MÌNH
+// lập (xem `phieuCuaMinh`); báo cáo của họ chỉ gồm phiếu của mình, không gộp tiền du học / ký túc xá.
 //
 // ⚠️ BÁO CÁO GỘP BA NGUỒN LÚC ĐỌC, KHÔNG SINH PHIẾU TỰ ĐỘNG (chốt 17/09/2026).
 //    `quy_phieu` chỉ chứa phiếu tự tạo; tiền du học nằm ở `du_hoc_thu_tien`, tiền phòng ở
@@ -13,7 +14,7 @@
 import { Router } from 'express';
 import pool from '../config/db.js';
 import { requireAuth } from '../middleware/auth.js';
-import { loadRole, requireStaff, phamViQuanTri, requireHoSoStaff } from '../middleware/roles.js';
+import { loadRole, requireStaff, phamViQuanTri } from '../middleware/roles.js';
 
 const router = Router();
 
@@ -27,7 +28,15 @@ const router = Router();
 // `phamViQuanTri` lại tra bảng QUYEN bằng chính `req.path` -> mọi luật hết khớp.
 // `next('router')` thoát hẳn router này và trả quyền điều khiển về app để đi tiếp router sau.
 router.use((req, res, next) => (/^\/quy(\/|$)/.test(req.path) ? next() : next('router')));
-router.use(requireAuth, loadRole, requireStaff, phamViQuanTri, requireHoSoStaff);
+// Không có requireHoSoStaff: giáo viên cũng lập được phiếu. Bảng QUYEN ở roles.js là lưới thứ nhất.
+router.use(requireAuth, loadRole, requireStaff, phamViQuanTri);
+
+/**
+ * Id người lập mà truy vấn phải lọc theo; null = admin (thấy hết). Sale / quản lý hồ sơ đã có
+ * `req.nhanSuId`, giáo viên thì KHÔNG (cố ý — `nhanSuId` còn quyết định nhiều chỗ khác như /stats),
+ * nên tính riêng ở đây. Quên gọi hàm này ở một truy vấn mới là giáo viên đọc được sổ quỹ cả trung tâm.
+ */
+const phieuCuaMinh = (req) => req.nhanSuId || (req.role === 'teacher' ? req.userId : null);
 
 /** Ảnh chứng từ: cùng ngưỡng với biên lai du học (4.51) — client đã nén trước khi gửi. */
 const ANH_TOI_DA = 900_000;
@@ -192,7 +201,7 @@ router.get('/quy/phieu', async (req, res) => {
     const dk = ['p.org_id = ?']; const ts = [orgCua(req)];
     // Sale / quản lý hồ sơ chỉ thấy phiếu do CHÍNH MÌNH lập. Sổ quỹ chứa toàn bộ dòng tiền của
     // trung tâm (lương, chi phí vận hành) — không phải thứ nhân viên kinh doanh cần thấy.
-    if (req.nhanSuId) { dk.push('p.nguoi_lap_id = ?'); ts.push(req.nhanSuId); }
+    if (phieuCuaMinh(req)) { dk.push('p.nguoi_lap_id = ?'); ts.push(phieuCuaMinh(req)); }
     if (['thu', 'chi'].includes(loai)) { dk.push('p.loai = ?'); ts.push(loai); }
     if (ngay(tu)) { dk.push('p.ngay >= ?'); ts.push(ngay(tu)); }
     if (ngay(den)) { dk.push('p.ngay <= ?'); ts.push(ngay(den)); }
@@ -368,12 +377,11 @@ router.get('/quy/bao-cao', async (req, res) => {
   const tu = ngay(req.query.tu) || '1970-01-01';
   const den = ngay(req.query.den) || '2999-12-31';
   const orgId = orgCua(req);
-  // Báo cáo gộp BA nguồn tiền, nên phải lọc cả ba theo người phụ trách — sót một nguồn là con
-  // số tổng của sale này gồm cả tiền của sale khác, mà nhìn bảng không ai phát hiện ra.
-  const chiMinh = req.nhanSuId ? ' AND p.nguoi_lap_id = ?' : '';
-  const chiMinhHoSo = req.nhanSuId ? ' AND h.tu_van_id = ?' : '';
-  const chiMinhKtx = req.nhanSuId ? ' AND hs.tu_van_id = ?' : '';
-  const tsMinh = req.nhanSuId ? [req.nhanSuId] : [];
+  // Không phải admin: báo cáo CHỈ gồm phiếu do chính mình lập. Hai nguồn kia (tiền du học, tiền ký
+  // túc xá) là dòng tiền của trung tâm nên bỏ hẳn — trước đây sale vẫn thấy phần của hồ sơ mình phụ trách.
+  const chiMinhId = phieuCuaMinh(req);
+  const chiMinh = chiMinhId ? ' AND p.nguoi_lap_id = ?' : '';
+  const tsMinh = chiMinhId ? [chiMinhId] : [];
   try {
     // 1. Phiếu tự lập
     const [phieu] = await pool.query(
@@ -383,18 +391,18 @@ router.get('/quy/bao-cao', async (req, res) => {
     );
     // 2. Phí dịch vụ du học — `hoan` là tiền TRẢ RA nên tính là chi.
     let duHoc = [];
-    try {
+    if (!chiMinhId) try {
       const [r] = await pool.query(
         `SELECT IF(t.loai='hoan','chi','thu') AS loai, t.ngay_thu AS ngay, t.so_tien,
                 'Phí dịch vụ du học' AS danh_muc
            FROM du_hoc_thu_tien t JOIN du_hoc_ho_so h ON h.id = t.ho_so_id
-          WHERE h.org_id = ? AND t.ngay_thu BETWEEN ? AND ?${chiMinhHoSo}`, [orgId, tu, den, ...tsMinh]
+          WHERE h.org_id = ? AND t.ngay_thu BETWEEN ? AND ?`, [orgId, tu, den]
       );
       duHoc = r;
     } catch (e) { if (!chuaCoBang(e)) throw e; }
     // 3. Tiền ký túc xá
     let ktx = [];
-    try {
+    if (!chiMinhId) try {
       const [r] = await pool.query(
         `SELECT IF(tt.loai='hoan-coc','chi','thu') AS loai, tt.ngay_thu AS ngay, tt.so_tien,
                 'Tiền ký túc xá' AS danh_muc
@@ -402,8 +410,7 @@ router.get('/quy/bao-cao', async (req, res) => {
            JOIN ktx_o o ON o.id = tt.o_id
            JOIN ktx_phong p ON p.id = o.phong_id
            JOIN ktx_toa toa ON toa.id = p.toa_id
-           ${req.nhanSuId ? 'JOIN du_hoc_ho_so hs ON hs.id = o.ho_so_id' : ''}
-          WHERE toa.org_id = ? AND tt.ngay_thu BETWEEN ? AND ?${chiMinhKtx}`, [orgId, tu, den, ...tsMinh]
+          WHERE toa.org_id = ? AND tt.ngay_thu BETWEEN ? AND ?`, [orgId, tu, den]
       );
       ktx = r;
     } catch (e) { if (!chuaCoBang(e)) throw e; }

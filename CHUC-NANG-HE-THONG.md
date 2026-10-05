@@ -75,7 +75,7 @@ Kèm mục **Đọc thêm (văn hoá)** ở cuối mỗi bài và **Luyện tậ
 
 ### 1.8 Hồ sơ du học (chỉ học viên có hồ sơ)
 
-Tự khai hồ sơ và gửi lên · theo dõi tiến độ 6 bước (Nhận hồ sơ → Đóng tiền → Học → Phỏng vấn → Visa → Bay) · xem giấy tờ còn thiếu · xem lịch sử đóng tiền · gửi yêu cầu sửa thông tin · nhận thông báo từ trung tâm.
+Tự khai hồ sơ và gửi lên · theo dõi tiến độ 7 bước (Nhận hồ sơ → Đóng tiền → Học → Tiến độ hồ sơ trường → Phỏng vấn → Visa → Bay) · xem giấy tờ còn thiếu · xem lịch sử đóng tiền · gửi yêu cầu sửa thông tin · nhận thông báo từ trung tâm.
 
 ### 1.9 Tài khoản & nền tảng
 

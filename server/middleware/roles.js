@@ -162,6 +162,10 @@ const QUYEN = [
   // SELECT (kể cả khi tra qua id khoản thu / id giấy tờ), nên thêm một vòng truy vấn nữa ở đây chỉ
   // tốn công mà không chặn thêm được gì.
   { vai: [QT], method: ['GET', 'POST', 'PUT', 'DELETE'], re: /^\/du-hoc(\/.*)?$/, qua: null },
+  // NGOẠI LỆ DUY NHẤT cho giáo viên (2026-10-05, khách yêu cầu): bốn ô số liệu đầu màn Hồ sơ du học,
+  // tính trên học sinh trong lớp mình dạy. Route chỉ trả vài con số (không tên, không CCCD) và tự lọc
+  // theo giáo viên ở du-hoc.js (`phamViSoLieu`). Đừng mở thêm route du-hoc nào khác cho GV ở đây.
+  { vai: [GV], method: ['GET'], re: /^\/du-hoc\/so-lieu$/, qua: null },
 
   // --- Đề bài tập / bài kiểm tra tự soạn (2026-09-17) ---
   // Chủ dự án chốt: GIÁO VIÊN tạo được đề, nhưng chỉ giao cho lớp mình phụ trách.
@@ -202,10 +206,12 @@ const QUYEN = [
   { vai: NS, method: ['GET', 'PUT', 'DELETE'], re: /^\/users\/(\d+)$/, qua: 'taikhoan', nhom: 1 },
   { vai: NS, method: ['PUT'], re: /^\/users\/(\d+)\/(password|approve)$/, qua: 'taikhoan', nhom: 1 },
   { vai: NS, method: ['POST'], re: /^\/users\/(\d+)\/verify$/, qua: 'taikhoan', nhom: 1 },
+  // Danh sách lớp CHỈ để chọn khi duyệt tài khoản (id + tên + giáo viên), không có học viên hay điểm.
+  { vai: NS, method: ['GET'], re: /^\/classes-options$/, qua: null },
 
   // --- HỒ SƠ DU HỌC: chỉ hồ sơ mình phụ trách ---
   // `theo-truong` (tiến độ theo trường) tự lọc bằng dkOrg như tong-quan.
-  { vai: NS, method: ['GET'], re: /^\/du-hoc\/(tong-quan|ho-so|nhan-su|hoc-vien|yeu-cau-sua|theo-truong)$/, qua: null },
+  { vai: NS, method: ['GET'], re: /^\/du-hoc\/(tong-quan|so-lieu|ho-so|nhan-su|hoc-vien|yeu-cau-sua|theo-truong)$/, qua: null },
   { vai: NS, method: ['POST'], re: /^\/du-hoc\/ho-so$/, qua: null },
   { vai: NS, method: ['GET', 'POST', 'PUT', 'DELETE'], re: /^\/du-hoc\/ho-so\/(\d+)(\/.*)?$/, qua: 'hoso', nhom: 1 },
   { vai: NS, method: ['GET', 'PUT', 'DELETE'], re: /^\/du-hoc\/thu-tien\/(\d+)(\/anh)?$/, qua: 'thu-tien', nhom: 1 },
@@ -214,9 +220,11 @@ const QUYEN = [
 
   // --- SỔ THU CHI: chỉ phiếu do chính mình lập ---
   // Danh mục thu/chi là dữ liệu dùng chung của trung tâm: đọc được, KHÔNG sửa được.
-  { vai: NS, method: ['GET'], re: /^\/quy\/(danh-muc|phieu|bao-cao)$/, qua: null },
-  { vai: NS, method: ['POST'], re: /^\/quy\/phieu$/, qua: null },
-  { vai: NS, method: ['GET', 'PUT', 'DELETE'], re: /^\/quy\/phieu\/(\d+)(\/anh)?$/, qua: 'phieu', nhom: 1 },
+  // Giáo viên cũng lập được phiếu (2026-10-05, khách yêu cầu) — cùng luật với sale: chỉ phiếu của mình.
+  // quy.js tự lọc `nguoi_lap_id` (hàm `phieuCuaMinh`) và `qua: 'phieu'` kiểm sở hữu theo id.
+  { vai: [...NS, GV], method: ['GET'], re: /^\/quy\/(danh-muc|phieu|bao-cao)$/, qua: null },
+  { vai: [...NS, GV], method: ['POST'], re: /^\/quy\/phieu$/, qua: null },
+  { vai: [...NS, GV], method: ['GET', 'PUT', 'DELETE'], re: /^\/quy\/phieu\/(\d+)(\/anh)?$/, qua: 'phieu', nhom: 1 },
 
   // --- KÝ TÚC XÁ: đọc sơ đồ toà/phòng, chỉ thao tác người ở gắn hồ sơ mình ---
   // Toà và phòng là tài sản của trung tâm -> chỉ admin thêm/sửa/xoá. Sale cần đọc để biết

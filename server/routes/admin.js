@@ -9,6 +9,7 @@ import { sendWelcomeEmail, sendAssignmentReminderEmail, isEmailConfigured, email
 import { toLimit, toPage } from '../utils/num.js';
 import { guiPush, guiNgam } from '../utils/push.js';
 import { taoHoSoDuHocChoHocVien, dongBoHoSoTheoVaiTro } from '../utils/du-hoc-tao-hs.js';
+import { BUOC } from './du-hoc.js';
 
 // Mật khẩu mặc định khi admin tạo tài khoản học viên mới từ trang Quản lý lớp
 // (học viên nên đổi lại sau khi đăng nhập lần đầu, ở trang Tài khoản > Thông tin cá nhân).
@@ -35,7 +36,7 @@ for (const khu of ['/vocabulary', '/exam-questions',
 // Ba khu dưới đây mở thêm cho quản lý hồ sơ và sale (2026-09-22). Vẫn là lưới thứ hai: bảng
 // QUYEN phân xử từng route, và mỗi route TỰ lọc dữ liệu theo `req.nhanSuId` — sale vào được
 // '/users' nhưng chỉ đọc được tài khoản do chính mình tạo.
-for (const khu of ['/users', '/pending-count', '/tong-quan']) {
+for (const khu of ['/users', '/pending-count', '/tong-quan', '/classes-options']) {
   router.use(khu, requireHoSoStaff);
 }
 
@@ -292,10 +293,15 @@ router.get('/tong-quan', async (req, res) => {
     nguon_khac: { du_hoc_da_thu: 0, du_hoc_con_phai_thu: 0, ktx_thang_nay: 0, ktx_no_nguoi: 0 },
     lop: [],
     canh_bao: {},
+    an_tien: !!ns,   // true = vai trò này không được xem tiền: giao diện bỏ hẳn các ô tiền
+    ho_so: null,
   };
 
+  // ⚠️ TIỀN CHỈ DÀNH CHO ADMIN (2026-10-05, khách yêu cầu): ba khối "TIỀN" dưới đây bỏ qua hẳn khi
+  // người gọi là sale / quản lý hồ sơ. Không tính thì không có gì để lộ — ẩn ở giao diện thôi thì
+  // F12 là thấy. Sale vẫn tạo và xem được phiếu của CHÍNH MÌNH ở khu Sổ thu – chi (route /quy).
   // ---------- TIỀN: sổ thu chi ----------
-  try {
+  if (!ns) try {
     const [[k]] = await pool.query(`
       SELECT
         SUM(CASE WHEN ngay = CURDATE() AND loai='thu' THEN so_tien ELSE 0 END) AS hom_nay_thu,
@@ -346,7 +352,7 @@ router.get('/tong-quan', async (req, res) => {
   }
 
   // ---------- TIỀN: hai nguồn thu riêng ----------
-  try {
+  if (!ns) try {
     const [[t]] = await pool.query(`
       SELECT COALESCE(SUM(CASE WHEN tt.loai='hoan' THEN -tt.so_tien ELSE tt.so_tien END), 0) AS da_thu
         FROM du_hoc_thu_tien tt JOIN du_hoc_ho_so h ON h.id = tt.ho_so_id
@@ -363,7 +369,7 @@ router.get('/tong-quan', async (req, res) => {
   } catch (e) { console.warn('Tổng quan: bỏ qua du học —', e.code || e.message); }
 
   try {
-    const [[t]] = await pool.query(`
+    const [[t]] = ns ? [[{ tien: 0 }]] : await pool.query(`
       SELECT COALESCE(SUM(th.so_tien), 0) AS tien
         FROM ktx_thu_tien th JOIN ktx_o o ON o.id = th.o_id
         JOIN ktx_phong p ON p.id = o.phong_id JOIN ktx_toa toa ON toa.id = p.toa_id
@@ -380,6 +386,38 @@ router.get('/tong-quan', async (req, res) => {
     kq.nguon_khac.ktx_thang_nay = +t.tien || 0;
     kq.nguon_khac.ktx_no_nguoi = +n.so || 0;
   } catch (e) { console.warn('Tổng quan: bỏ qua ký túc xá —', e.code || e.message); }
+
+  // ---------- HỒ SƠ DU HỌC (chỉ sale / quản lý hồ sơ) ----------
+  // Thứ thay cho các ô tiền: họ cần biết hồ sơ mình đang kẹt ở bước nào và việc gì sắp tới hạn.
+  // Quản lý hồ sơ nhìn con số này trên TOÀN trung tâm, sale chỉ trên hồ sơ mình phụ trách —
+  // cùng quy ước với bốn ô ở đầu màn Hồ sơ du học (du-hoc.js, `phamViSoLieu`).
+  if (ns) try {
+    const locHs = req.role === 'ho_so' ? '' : locHoSo;
+    const tsHs = req.role === 'ho_so' ? [] : tsNs;
+    const [theoBuoc] = await pool.query(
+      `SELECT h.buoc, COUNT(*) AS so FROM du_hoc_ho_so h WHERE h.org_id = ?${locHs} GROUP BY h.buoc`,
+      [req.orgId, ...tsHs]);
+    // Hai việc có hạn: phỏng vấn trong 14 ngày (trường hoặc VP Đài Bắc) và bay trong 30 ngày.
+    // Hai việc này luôn tính trên hồ sơ CỦA MÌNH, kể cả quản lý hồ sơ — chúng dẫn tới danh sách
+    // tên người, mà danh sách đó vốn đã lọc theo người phụ trách.
+    const [[pv]] = await pool.query(
+      `SELECT COUNT(*) AS so FROM du_hoc_ho_so h
+        WHERE h.org_id = ? AND h.buoc NOT IN ('huy', 'tam-dung', 'hoan-thanh')${locHoSo}
+          AND ((h.ngay_phong_van BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 14 DAY)
+                AND (h.kq_phong_van IS NULL OR h.kq_phong_van = 'cho'))
+            OR (h.ngay_pv_vp BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 14 DAY)
+                AND (h.kq_pv_vp IS NULL OR h.kq_pv_vp = 'cho')))`, [req.orgId, ...tsNs]);
+    const [[bay]] = await pool.query(
+      `SELECT COUNT(*) AS so FROM du_hoc_ho_so h
+        WHERE h.org_id = ? AND h.buoc NOT IN ('huy', 'tam-dung', 'hoan-thanh')${locHoSo}
+          AND h.ngay_bay BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 30 DAY)`, [req.orgId, ...tsNs]);
+    kq.ho_so = {
+      cac_buoc: BUOC,   // tên + icon + màu từng bước, để giao diện không phải chép lại danh sách
+      theo_buoc: theoBuoc.map((x) => ({ buoc: x.buoc, so: Number(x.so) })),
+      sap_phong_van: Number(pv.so) || 0,
+      sap_bay: Number(bay.so) || 0,
+    };
+  } catch (e) { console.warn('Tổng quan: bỏ qua hồ sơ du học —', e.code || e.message); }
 
   // ---------- TÌNH TRẠNG LỚP ----------
   // Sale / quản lý hồ sơ không dính dáng tới lớp học: bỏ hẳn khối này thay vì trả bảng rỗng,
@@ -607,6 +645,18 @@ router.put('/users/:id', async (req, res) => {
     const { name, email, phone, level_label, level_num, points, streak, is_admin, class_id } = req.body;
     const targetId = parseInt(req.params.id, 10);
 
+    // Lớp: kiểm TRƯỚC mọi thay đổi, để lớp sai thì không có gì bị ghi dở. Sale / quản lý hồ sơ chọn được
+    // lớp cho học viên của mình nhưng KHÔNG gỡ được học viên khỏi lớp (class_id rỗng bị bỏ qua):
+    // ô chọn của họ chỉ liệt kê lớp đang mở, nên học viên đang ở lớp đã đóng sẽ hiện ô trống và
+    // một lần bấm Cập nhật là mất xếp lớp mà không ai chủ ý.
+    let lopMoi = class_id;
+    if (!req.laAdmin && !class_id) lopMoi = undefined;
+    if (lopMoi) {
+      const [lop] = await pool.query(
+        `SELECT id FROM classes WHERE id = ?${req.locOrg ? ' AND org_id = ?' : ''}`, [lopMoi, ...thamSoOrg(req)]);
+      if (!lop.length) return res.status(400).json({ error: 'Lớp được chọn không tồn tại.' });
+    }
+
     // Chỉ cập nhật những trường thực sự được gửi lên. Bản cũ ghi đè TẤT CẢ các cột, nên form nào
     // thiếu 1 field là cột đó bị set undefined -> mysql2 gửi NULL -> `name` NOT NULL sẽ lỗi 500,
     // còn points/streak thì âm thầm bị xoá về NULL.
@@ -659,15 +709,15 @@ router.put('/users/:id', async (req, res) => {
     }
 
 
-    if (class_id !== undefined) {
-      if (!class_id) {
+    if (lopMoi !== undefined) {
+      if (!lopMoi) {
         await pool.query('DELETE FROM class_enrollments WHERE user_id = ?', [req.params.id]);
       } else {
         const [exists] = await pool.query('SELECT id FROM class_enrollments WHERE user_id = ?', [req.params.id]);
         if (exists.length) {
-          await pool.query('UPDATE class_enrollments SET class_id = ? WHERE user_id = ?', [class_id, req.params.id]);
+          await pool.query('UPDATE class_enrollments SET class_id = ? WHERE user_id = ?', [lopMoi, req.params.id]);
         } else {
-          await pool.query('INSERT INTO class_enrollments (class_id, user_id) VALUES (?, ?)', [class_id, req.params.id]);
+          await pool.query('INSERT INTO class_enrollments (class_id, user_id) VALUES (?, ?)', [lopMoi, req.params.id]);
         }
       }
     }
@@ -734,10 +784,35 @@ router.delete('/users/:id', async (req, res) => {
   }
 });
 
+// Danh sách lớp để CHỌN khi duyệt tài khoản. Sale / quản lý hồ sơ không vào được khu Quản lý lớp
+// (GET /classes bị chặn) nên cần một lối riêng, và lối này chỉ trả id + tên + giáo viên — không có
+// sĩ số, điểm hay danh sách học viên.
+router.get('/classes-options', async (req, res) => {
+  try {
+    const [rows] = await pool.query(
+      `SELECT c.id, c.name, u.name AS teacher_name
+         FROM classes c LEFT JOIN users u ON u.id = c.teacher_id
+        WHERE c.is_active = 1${req.locOrg ? ' AND c.org_id = ?' : ''}
+        ORDER BY c.name`, thamSoOrg(req));
+    res.json({ classes: rows });
+  } catch (err) {
+    console.error('Lỗi danh sách lớp để chọn:', err);
+    res.status(500).json({ error: 'Không tải được danh sách lớp.' });
+  }
+});
+
 // Duyệt tài khoản — tuỳ chọn xếp vào lớp
 router.put('/users/:id/approve', async (req, res) => {
   try {
     const { class_id } = req.body;
+    // Kiểm lớp TRƯỚC khi duyệt: lớp không có thì trả lỗi rõ ràng và tài khoản vẫn "chờ duyệt",
+    // thay vì duyệt xong mới báo lỗi xếp lớp — người duyệt không biết em đó đã vào hệ thống hay chưa.
+    if (class_id) {
+      const [lop] = await pool.query(
+        `SELECT id FROM classes WHERE id = ?${req.locOrg ? ' AND org_id = ?' : ''}`,
+        [class_id, ...thamSoOrg(req)]);
+      if (!lop.length) return res.status(400).json({ error: 'Lớp được chọn không tồn tại.' });
+    }
     await pool.query('UPDATE users SET is_approved = TRUE WHERE id = ?', [req.params.id]);
     taoHoSoDuHocChoHocVien(req.params.id, { nguoiId: req.userId }).catch(() => {});
     if (class_id) {

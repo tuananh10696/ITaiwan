@@ -116,7 +116,7 @@ for (const cau of ['Chưa chọn trường', 'chưa có trường', 'Đang tìm 
 dat('"Đại học Đài Loan" VẪN là tên trường (tên thường gọi của NTU)', khoaTruong('Đại học Đài Loan') !== '');
 
 console.log('\n── 4. Nhóm hồ sơ ────────────────────────────────────────');
-const BUOC = ['ho-so', 'dong-tien', 'hoc', 'phong-van', 'visa', 'bay', 'hoan-thanh', 'tam-dung', 'huy'];
+const BUOC = ['ho-so', 'dong-tien', 'hoc', 'nop-truong', 'phong-van', 'visa', 'bay', 'hoan-thanh', 'tam-dung', 'huy'];
 const HS = [
   { id: 1, ho_ten: 'An', buoc: 'visa', truong_nv1: 'Đại học Phụ Nhân', truong_nv2: 'Đại học Đài Bắc', truong_do: 'ĐH Phụ Nhân' },
   { id: 2, ho_ten: 'Bình', buoc: 'hoc', truong_nv1: 'đại học phụ nhân', truong_nv2: 'Đại học Phụ Nhân' },

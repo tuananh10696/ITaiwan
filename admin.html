@@ -103,11 +103,11 @@
           <i class="fa-solid fa-users"></i> Tài khoản <span id="pending-badge" class="pending-badge" style="display:none"></span>
         </div>
 
-        <!-- Hồ sơ du học: Nhận hồ sơ -> Đóng tiền -> Học -> Phỏng vấn -> Visa -> Bay.
-             data-tu-quan-tri = quản trị. Giáo viên KHÔNG thấy, vì hồ sơ có CCCD / hộ chiếu /
-             tiền nong (server cũng chặn, xem middleware/roles.js). -->
-        <div class="nav-section-label" data-vai="admin,ho_so,sale">DU HỌC</div>
-        <div class="nav-item" data-section="du-hoc" data-vai="admin,ho_so,sale" onclick="adminApp.navigate('du-hoc')">
+        <!-- Hồ sơ du học: Nhận hồ sơ -> Đóng tiền -> Học -> Tiến độ hồ sơ trường -> Phỏng vấn -> Visa -> Bay.
+             Giáo viên chỉ thấy MỤC NÀY và trong đó chỉ có bốn ô số liệu của học sinh lớp mình — danh sách
+             và chi tiết hồ sơ (CCCD / hộ chiếu / tiền nong) bị server chặn, xem middleware/roles.js. -->
+        <div class="nav-section-label" data-vai="admin,ho_so,sale,teacher">DU HỌC</div>
+        <div class="nav-item" data-section="du-hoc" data-vai="admin,ho_so,sale,teacher" onclick="adminApp.navigate('du-hoc')">
           <i class="fa-solid fa-plane-departure"></i> Hồ sơ du học
         </div>
         <!-- Mỗi trường bao nhiêu em đăng ký, từng em đang ở bước nào (src/admin-tien-do-truong.js). -->
@@ -118,8 +118,8 @@
           <i class="fa-solid fa-bed"></i><span>Ký túc xá</span>
         </div>
 
-        <div class="nav-section-label" data-vai="admin,ho_so,sale">VẬN HÀNH</div>
-        <div class="nav-item" data-section="quy" data-vai="admin,ho_so,sale" onclick="adminApp.navigate('quy')">
+        <div class="nav-section-label" data-vai="admin,ho_so,sale,teacher">VẬN HÀNH</div>
+        <div class="nav-item" data-section="quy" data-vai="admin,ho_so,sale,teacher" onclick="adminApp.navigate('quy')">
           <i class="fa-solid fa-wallet"></i><span>Sổ thu – chi</span>
         </div>
       </nav>
