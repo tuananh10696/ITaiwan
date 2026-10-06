@@ -17,6 +17,7 @@ import { loadRole, requireStaff, phamViQuanTri, requireHoSoStaff } from '../midd
 import { baoHocSinh } from '../utils/du-hoc-thong-bao.js';
 import { dungBoGop, nhomTheoTruong, PHAM_VI } from '../utils/nhom-truong.js';
 import { LOAI_PV, MA_LOAI_PV, COT_PV, tinhPhongVan } from '../../shared/phong-van.js';
+import { chuoiHe } from '../../shared/he-du-hoc.js';
 
 const router = Router();
 
@@ -69,7 +70,7 @@ const COT_SUA = [
   'dia_chi', 'phone', 'email', 'lien_lac_khac',
   'ph_ten', 'ph_phone', 'ph_quan_he',
   'truong_tn', 'nam_tn', 'xep_loai', 'trinh_do_tieng',
-  'truong_nv1', 'truong_nv2', 'truong_nv3', 'nganh', 'ky_nhap_hoc', 'loai_hinh',
+  'truong_nv1', 'truong_nv2', 'truong_nv3', 'nganh', 'he_nguyen_vong', 'ky_nhap_hoc', 'loai_hinh',
   // Mẫu hồ sơ khách chốt (2026-10-03): điểm lớp 10/11/12, bố, mẹ, quá trình làm việc.
   'diem_lop10', 'diem_lop11', 'diem_lop12',
   'bo_ten', 'bo_cccd', 'bo_ngay_sinh', 'bo_nghe', 'bo_phone',
@@ -186,6 +187,7 @@ function chuanGiaTri(cot, v) {
     return Number.isFinite(n) && n >= 0 ? n : null;
   }
   if (ENUM_HOP_LE[cot]) return ENUM_HOP_LE[cot].includes(v) ? v : null;
+  if (cot === 'he_nguyen_vong') return chuoiHe(v);
   return String(v).trim().slice(0, DAI_TOI_DA[cot] || 1000) || null;
 }
 

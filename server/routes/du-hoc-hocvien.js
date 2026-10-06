@@ -22,6 +22,7 @@ import { Router } from 'express';
 import pool from '../config/db.js';
 import { requireAuth } from '../middleware/auth.js';
 import { BUOC } from './du-hoc.js';
+import { chuoiHe } from '../../shared/he-du-hoc.js';
 import { baoHocSinh, chuaCoBangTb, LOAI_TB } from '../utils/du-hoc-thong-bao.js';
 import { guiPush, guiPushVaiTro, guiNgam } from '../utils/push.js';
 import { taoHoSoDuHocChoHocVien, SQL_LA_HOC_SINH } from '../utils/du-hoc-tao-hs.js';
@@ -69,7 +70,10 @@ const COT_HS = {
   me_nghe: 'Nghề nghiệp của mẹ',
   me_phone: 'Số điện thoại của mẹ',
 
-  nganh: 'Đăng ký chuyên ngành',
+  // Mục Nguyện vọng (2026-10-06): Hệ (chọn tối đa 2) -> Ngành -> 3 trường. Ô "Đăng ký chuyên ngành"
+  // cũ được gộp vào đây và đổi nhãn; cột `nganh` giữ nguyên nên dữ liệu đã nhập không mất.
+  he_nguyen_vong: 'Hệ nguyện vọng',
+  nganh: 'Ngành nguyện vọng',
 
   qua_trinh_lam_viec: 'Quá trình làm việc từ khi tốt nghiệp đến nay',
 
@@ -102,7 +106,7 @@ const DAI_TOI_DA = {
   diem_lop10: 10, diem_lop11: 10, diem_lop12: 10,
   cccd: 20, bo_cccd: 20, me_cccd: 20, bo_phone: 20, me_phone: 20,
   ten_trung: 80, bo_ten: 120, me_ten: 120, bo_nghe: 120, me_nghe: 120,
-  ho_ten: 120, ho_chieu: 20, phone: 30,
+  ho_ten: 120, ho_chieu: 20, phone: 30, he_nguyen_vong: 120,
 };
 /** Bốn ô tối thiểu phải có thì mới cho gửi — thiếu là trung tâm không làm được gì với hồ sơ. */
 const BAT_BUOC = ['ho_ten', 'ngay_sinh', 'phone', 'nganh'];
@@ -133,6 +137,8 @@ async function hoSoCuaToi(userId) {
 function chuanHoa(cot, gtRaw) {
   if (!(cot in COT_HS)) return undefined;
   if (ENUM_HS[cot]) return ENUM_HS[cot].includes(gtRaw) ? gtRaw : undefined;
+  // Hệ: lọc mã lạ, bỏ trùng, tối đa MAX_HE — client đã chặn nhưng server là nơi quyết định.
+  if (cot === 'he_nguyen_vong') return chuoiHe(gtRaw);
   if (COT_NGAY.has(cot)) {
     const d = String(gtRaw || '').slice(0, 10);
     // Chuỗi rỗng phải thành NULL chứ không phải '' — MySQL ép '' thành 0000-00-00.

@@ -14,6 +14,7 @@ import {
 } from './admin-trungtam.js';
 // Bước Phỏng vấn: 3 loại + trạng thái từng buổi. Quy tắc DÙNG CHUNG với server (tự chuyển bước).
 import { LOAI_PV, BUOI_PV, tinhPhongVan, loaiPv } from '../shared/phong-van.js';
+import { HE_DU_HOC, MAX_HE, danhSachHe, chuoiHe, tenHe } from '../shared/he-du-hoc.js';
 // Push thông báo lên thiết bị của nhân viên (2026-09-28) — phần trình duyệt dùng chung với cổng học viên.
 import { trangThaiPush, batPush, tatPush, dongBoPush, ngheDoiDangKy, NHAN_PUSH } from './core/push.js';
 // Tiến độ theo trường (2026-09-25) — khu con của Du học, cùng lối cầu nối như module trên.
@@ -3618,6 +3619,9 @@ async function renderDuHoc(el) {
  * xong là đang đợi, để lẫn vào một tab riêng thì không ai nhớ mở.
  * Rỗng thì ẩn hẳn khối (không để một ô "chưa có yêu cầu nào" chiếm chỗ).
  */
+/** Giá trị cũ/mới trong yêu cầu sửa, đổi mã Hệ sang tên để người duyệt đọc được. */
+const _dhGtYc = (t, v) => (t.cot === 'he_nguyen_vong' ? tenHe(v) : v);
+
 async function dhNapYeuCau() {
   const slot = document.getElementById('dh-yc-slot');
   if (!slot) return;
@@ -3638,7 +3642,7 @@ async function dhNapYeuCau() {
           </div>
           <ul class="dh-yc-ds">${(y.thay_doi || []).map((t) => `
             <li><span class="dh-yc-nhan">${esc(t.nhan || t.cot)}</span>
-              <s>${esc(t.cu || '(trống)')}</s> → <strong>${esc(t.moi || '(trống)')}</strong></li>`).join('')}</ul>
+              <s>${esc(_dhGtYc(t, t.cu) || '(trống)')}</s> → <strong>${esc(_dhGtYc(t, t.moi) || '(trống)')}</strong></li>`).join('')}</ul>
           ${y.ly_do ? `<div class="dh-sub dh-yc-lydo"><i class="fa-solid fa-quote-left"></i> ${esc(y.ly_do)}</div>` : ''}
           <div class="dh-yc-nut">
             <button class="btn btn-outline btn-sm" onclick="adminApp.dhTuChoiYc(${y.id})">Từ chối</button>
@@ -4029,10 +4033,12 @@ function _dhVeChiTietHtml(el) {
         ${o('Số điện thoại', esc(h.phone || ''))}
         ${o('Bố', nguoiThan('bo'))}
         ${o('Mẹ', nguoiThan('me'))}
-        ${o('Đăng ký chuyên ngành', esc(h.nganh || ''))}
         ${o('Quá trình làm việc', esc(h.qua_trinh_lam_viec || '').replace(/\n/g, '<br>'))}
-        ${o('Nguyện vọng', [h.truong_nv1, h.truong_nv2, h.truong_nv3]
-            .map((t, i) => (t ? `${i + 1}. ${esc(t)}` : '')).filter(Boolean).join('<br>'))}
+        ${o('Nguyện vọng', [
+          h.he_nguyen_vong ? `<b>Hệ:</b> ${esc(tenHe(h.he_nguyen_vong))}` : '',
+          h.nganh ? `<b>Ngành:</b> ${esc(h.nganh)}` : '',
+          ...[h.truong_nv1, h.truong_nv2, h.truong_nv3].map((t, i) => (t ? `<b>Trường ${i + 1}:</b> ${esc(t)}` : '')),
+        ].filter(Boolean).join('<br>'))}
         ${o('Đăng ký ký túc xá', h.ktx_dang_ky
             ? `${DH_KTX_DK[h.ktx_dang_ky] || ''}${h.ktx_loai ? ' · ' + esc(h.ktx_loai) : ''}`
               + `${h.ktx_ghi_chu ? `<div class="dh-sub">${esc(h.ktx_ghi_chu)}</div>` : ''}`
@@ -4394,14 +4400,20 @@ function dhFormHoSo(id, tab = 'hs') {
         <input type="text" id="f-dh-${p}-phone" value="${_escAttr(h[`${p}_phone`] || '')}"></div>
     </div>`).join('')}
 
-    <div class="dh-form-sec">Chuyên ngành &amp; quá trình làm việc</div>
-    <div class="form-group"><label>Đăng ký chuyên ngành</label>
-      <input type="text" id="f-dh-nganh" value="${_escAttr(h.nganh || '')}"></div>
+    <div class="dh-form-sec">Quá trình làm việc</div>
     <div class="form-group"><label>Quá trình làm việc từ khi tốt nghiệp đến nay</label>
       <textarea id="f-dh-qua-trinh" rows="3"
         placeholder="Vị trí công việc, tên &amp; địa chỉ công ty, thời gian làm">${esc(h.qua_trinh_lam_viec || '')}</textarea></div>
 
     <div class="dh-form-sec">Nguyện vọng</div>
+    <div class="form-group"><label>Hệ nguyện vọng <span class="dh-sub">(tối đa ${MAX_HE})</span></label>
+      <div id="f-dh-he">${HE_DU_HOC.map((x) => `
+        <label style="display:inline-flex;align-items:center;gap:6px;margin:0 16px 6px 0;font-weight:500;cursor:pointer">
+          <input type="checkbox" value="${x.ma}" ${danhSachHe(h.he_nguyen_vong).includes(x.ma) ? 'checked' : ''}
+                 onchange="adminApp.dhChonHeAdmin(this)"> ${esc(x.ten)}</label>`).join('')}</div></div>
+    <div class="form-group"><label>Ngành nguyện vọng</label>
+      <input type="text" id="f-dh-nganh" value="${_escAttr(h.nganh || '')}"
+             placeholder="Ví dụ: Quản trị kinh doanh, Công nghệ thông tin"></div>
     <div class="form-row dh-f3">
       ${[1, 2, 3].map((n) => `<div class="form-group"><label>Trường nguyện vọng ${n}</label>
         <input type="text" id="f-dh-nv${n}" value="${_escAttr(h[`truong_nv${n}`] || '')}"></div>`).join('')}
@@ -4588,7 +4600,9 @@ async function dhLuuHoSo(id) {
     bo_nghe: _dhVal('f-dh-bo-nghe'), bo_phone: _dhVal('f-dh-bo-phone'),
     me_ten: _dhVal('f-dh-me-ten'), me_cccd: _dhVal('f-dh-me-cccd'), me_ngay_sinh: _dhVal('f-dh-me-ngay-sinh'),
     me_nghe: _dhVal('f-dh-me-nghe'), me_phone: _dhVal('f-dh-me-phone'),
-    nganh: _dhVal('f-dh-nganh'), qua_trinh_lam_viec: _dhVal('f-dh-qua-trinh'),
+    nganh: _dhVal('f-dh-nganh'),
+    he_nguyen_vong: chuoiHe([...document.querySelectorAll('#f-dh-he input:checked')].map((i) => i.value)) || '',
+    qua_trinh_lam_viec: _dhVal('f-dh-qua-trinh'),
     truong_nv1: _dhVal('f-dh-nv1'), truong_nv2: _dhVal('f-dh-nv2'), truong_nv3: _dhVal('f-dh-nv3'),
     ktx_dang_ky: _dhVal('f-dh-ktx-dk'), ktx_loai: _dhVal('f-dh-ktx-loai'), ktx_ghi_chu: _dhVal('f-dh-ktx-gc'),
     ngay_phong_van: _dhVal('f-dh-ngay-pv'), kq_phong_van: _dhVal('f-dh-kq-pv'), truong_do: _dhVal('f-dh-truong-do'),
@@ -4882,6 +4896,12 @@ function dhBoHocVien() {
 }
 
 /** Nạp danh sách nhân sự một lần cho ô "tư vấn viên phụ trách" trong form. */
+/** Form admin: không cho tick quá MAX_HE hệ (cùng giới hạn với form của học sinh). */
+function dhChonHeAdmin(el) {
+  const dang = document.querySelectorAll('#f-dh-he input:checked');
+  if (dang.length > MAX_HE) { el.checked = false; toast(`Chỉ chọn tối đa ${MAX_HE} hệ.`, 'error'); }
+}
+
 async function dhNapNhanSu() {
   if (dhNhanSu.length) return;
   try {
@@ -4904,7 +4924,7 @@ window.adminApp = {
   pushMo, pushBat, pushTat, pushThu,
   // Hồ sơ du học
   dhMo, dhVeDanhSach, dhDoiBuocLoc, dhTim, dhDoiKy, dhXoaLoc, dhTrang,
-  dhFormHoSo, dhFormTab, dhLuuHoSo, dhXoaHoSo, dhChuyenBuoc,
+  dhFormHoSo, dhFormTab, dhLuuHoSo, dhXoaHoSo, dhChuyenBuoc, dhChonHeAdmin,
   // Bước Phỏng vấn: bấm nhanh trên màn chi tiết + ẩn/hiện hàng trong form (2026-09-27)
   dhPvLoai, dhPvNgay, dhPvKq, dhPvTruongDo, dhFormLoaiPv,
   dhFormThu, dhLuuThu, dhXoaThu,

@@ -16,6 +16,7 @@ import api from '../api/client.js';
 import { quenBaiBiKhoa } from '../data/giaotrinh-kho.js';
 // Bước Phỏng vấn: trường / VP Đài Bắc / cả 2 — cùng quy tắc với server và cổng quản trị.
 import { tinhPhongVan } from '../../shared/phong-van.js';
+import { HE_DU_HOC, MAX_HE, danhSachHe, chuoiHe, tenHe } from '../../shared/he-du-hoc.js';
 // Push thông báo lên điện thoại (2026-09-28) — phần trình duyệt dùng chung với cổng quản trị.
 import { trangThaiPush, batPush, tatPush, NHAN_PUSH } from '../core/push.js';
 
@@ -625,12 +626,13 @@ const DH_NHOM = [
     cot: ['bo_ten', 'bo_cccd', 'bo_ngay_sinh', 'bo_nghe', 'bo_phone'] },
   { ten: 'Thông tin mẹ', icon: 'fa-user',
     cot: ['me_ten', 'me_cccd', 'me_ngay_sinh', 'me_nghe', 'me_phone'] },
-  { ten: 'Chuyên ngành', icon: 'fa-bullseye',
-    cot: ['nganh'] },
   { ten: 'Quá trình làm việc', icon: 'fa-briefcase',
     cot: ['qua_trinh_lam_viec'] },
+  // Nguyện vọng (2026-10-06): ô "Đăng ký chuyên ngành" cũ gộp vào đây. Thứ tự học sinh điền:
+  // chọn hệ (tối đa 2) -> ngành -> ba trường. `ghiChu` hiện ngay dưới tiêu đề nhóm.
   { ten: 'Nguyện vọng', icon: 'fa-school',
-    cot: ['truong_nv1', 'truong_nv2', 'truong_nv3'] },
+    ghiChu: 'Chọn hệ bạn muốn học, ghi ngành, rồi ghi tối đa 3 trường theo thứ tự ưu tiên. Chưa biết thì để trống — tư vấn viên sẽ gợi ý.',
+    cot: ['he_nguyen_vong', 'nganh', 'truong_nv1', 'truong_nv2', 'truong_nv3'] },
   { ten: 'Đăng ký ký túc xá', icon: 'fa-bed',
     cot: ['ktx_dang_ky', 'ktx_loai', 'ktx_ghi_chu'] },
 ];
@@ -651,8 +653,19 @@ const DH_GOI_Y = {
   dia_chi: 'Ghi đúng như trên sổ hộ khẩu / CCCD',
   trinh_do_tieng: 'Ví dụ: TOCFL A2, HSK 3. Chưa thi đỗ thì ghi đã học tiếng Trung bao lâu (vd: đã học 6 tháng)',
   qua_trinh_lam_viec: 'Ghi rõ vị trí công việc, tên & địa chỉ công ty, thời gian làm. Chưa đi làm thì ghi "Chưa đi làm"',
+  nganh: 'Ghi ngành bạn muốn học. Chưa chắc chắn thì ghi 1–2 ngành bạn quan tâm nhất',
   truong_nv1: 'Trường bạn muốn học nhất. Chưa biết thì để trống, tư vấn viên sẽ gợi ý',
+  truong_nv2: 'Trường dự phòng nếu nguyện vọng 1 không đỗ',
+  truong_nv3: 'Trường dự phòng thứ hai',
   ktx_loai: 'Ví dụ: phòng 4 người, phòng đôi…',
+};
+
+/** Chữ mẫu mờ trong ô trống — cho học sinh biết nên điền kiểu gì (đã có chữ thì tự biến mất). */
+const DH_MAU = {
+  nganh: 'Ví dụ: Quản trị kinh doanh, Công nghệ thông tin, Điều dưỡng…',
+  truong_nv1: 'Ví dụ: Đại học Phụ Nhân',
+  truong_nv2: 'Ví dụ: Đại học Minh Truyền',
+  truong_nv3: 'Ví dụ: Đại học Đài Bắc',
 };
 
 /**
@@ -669,7 +682,7 @@ const DH_NHAN = {
   bo_nghe: 'Nghề nghiệp của bố', bo_phone: 'Số điện thoại của bố',
   me_ten: 'Họ tên mẹ', me_cccd: 'Số CCCD của mẹ', me_ngay_sinh: 'Ngày sinh của mẹ',
   me_nghe: 'Nghề nghiệp của mẹ', me_phone: 'Số điện thoại của mẹ',
-  nganh: 'Đăng ký chuyên ngành', qua_trinh_lam_viec: 'Quá trình làm việc từ khi tốt nghiệp đến nay',
+  he_nguyen_vong: 'Hệ nguyện vọng', nganh: 'Ngành nguyện vọng', qua_trinh_lam_viec: 'Quá trình làm việc từ khi tốt nghiệp đến nay',
   truong_nv1: 'Trường nguyện vọng 1', truong_nv2: 'Trường nguyện vọng 2', truong_nv3: 'Trường nguyện vọng 3',
   ktx_dang_ky: 'Đăng ký ký túc xá', ktx_loai: 'Loại phòng mong muốn', ktx_ghi_chu: 'Yêu cầu thêm về chỗ ở',
 };
@@ -905,8 +918,41 @@ function dhTuVanHtml(d) {
 /** Giá trị đang hiển thị của một ô: ưu tiên cái người dùng vừa gõ, rồi mới tới dữ liệu server. */
 const dhGt = (c) => (c in tkState.dhNhap ? tkState.dhNhap[c] : (tkState.dh?.khai?.[c] ?? '')) ?? '';
 
+/**
+ * Ô chọn HỆ: các thẻ checkbox, tối đa MAX_HE. Chạm cả thẻ là chọn (không phải nhắm vào ô vuông
+ * nhỏ). Đủ MAX_HE thì các thẻ còn lại mờ đi + bị khoá, bỏ chọn một thẻ để đổi. Cập nhật tại chỗ
+ * trong `dhChonHe` chứ không vẽ lại cả trang — vẽ lại giữa chừng làm nhảy cuộn trên điện thoại.
+ */
+function dhDemHe(n) {
+  return n >= MAX_HE
+    ? `Đã chọn ${n}/${MAX_HE} hệ — bỏ chọn một hệ nếu muốn đổi.`
+    : n ? `Đã chọn ${n}/${MAX_HE} hệ — bạn còn chọn thêm được ${MAX_HE - n} hệ.`
+      : `Chọn tối đa ${MAX_HE} hệ bạn muốn học. Chưa chắc thì để trống, tư vấn viên sẽ tư vấn.`;
+}
+function dhHeHtml(v, khoa) {
+  const chon = new Set(danhSachHe(v));
+  const day = chon.size >= MAX_HE;
+  return `<div class="dh-o rong">
+    <span class="dh-nhan" id="dh-he-nhan">Hệ nguyện vọng <span class="dh-sub">(chọn tối đa ${MAX_HE})</span></span>
+    <div class="dh-he" id="dh-he" role="group" aria-labelledby="dh-he-nhan">
+      ${HE_DU_HOC.map((h) => {
+        const on = chon.has(h.ma);
+        const kh = khoa || (!on && day);
+        return `<label class="dh-he-i${on ? ' on' : ''}${kh ? ' khoa' : ''}">
+          <input type="checkbox" value="${h.ma}" ${on ? 'checked' : ''} ${kh ? 'disabled' : ''}
+                 onchange="window.app.dhChonHe(this)">
+          <span class="dh-he-hop" aria-hidden="true"><i class="fa-solid fa-check"></i></span>
+          <span class="dh-he-ten">${tdEsc(h.ten)}</span>
+        </label>`;
+      }).join('')}
+    </div>
+    <div class="dh-goi-y" id="dh-he-dem" aria-live="polite">${tdEsc(dhDemHe(chon.size))}</div>
+  </div>`;
+}
+
 function dhOHtml(c, nhan, batBuoc, khoa = false) {
   const v = dhGt(c);
+  if (c === 'he_nguyen_vong') return dhHeHtml(v, khoa);
   const id = `dh-${c}`;
   const goiY = DH_GOI_Y[c] ? `<div class="dh-goi-y">${tdEsc(DH_GOI_Y[c])}</div>` : '';
   const chung = `id="${id}" ${khoa ? 'disabled' : `oninput="window.app.dhGo('${c}', this.value)" onchange="window.app.dhGo('${c}', this.value)"`}`;
@@ -916,13 +962,15 @@ function dhOHtml(c, nhan, batBuoc, khoa = false) {
     o = `<select ${chung}>${DH_CHON[c].map(([g, t]) =>
       `<option value="${g}"${String(v) === g ? ' selected' : ''}>${tdEsc(t)}</option>`).join('')}</select>`;
   } else if (DH_NHIEU_DONG.has(c)) {
-    o = `<textarea rows="${c === 'qua_trinh_lam_viec' ? 4 : 2}" ${chung}>${tdEsc(v)}</textarea>`;
+    o = `<textarea rows="${c === 'qua_trinh_lam_viec' ? 4 : 2}" ${DH_MAU[c] ? `placeholder="${tdEsc(DH_MAU[c])}"` : ''} ${chung}>${tdEsc(v)}</textarea>`;
   } else {
     o = `<input type="${DH_NGAY.has(c) ? 'date' : c === 'email' ? 'email' : c.includes('phone') ? 'tel' : 'text'}"
            ${DH_DIEM.has(c) ? 'inputmode="decimal" placeholder="vd: 8.5"' : ''}
+           ${DH_MAU[c] ? `placeholder="${tdEsc(DH_MAU[c])}" autocomplete="off" enterkeyhint="next"` : ''}
            value="${tdEsc(v)}" ${chung}>`;
   }
-  return `<div class="dh-o ${DH_NHIEU_DONG.has(c) ? 'rong' : ''}">
+  // Ô ngành chiếm cả hàng để ba ô trường bên dưới nằm đủ một hàng trên màn rộng.
+  return `<div class="dh-o ${DH_NHIEU_DONG.has(c) || c === 'nganh' ? 'rong' : ''}">
     <label for="${id}">${tdEsc(nhan)}${batBuoc ? ' <span class="dh-sao">*</span>' : ''}</label>
     ${o}${goiY}</div>`;
 }
@@ -939,6 +987,7 @@ function dhFormHtml(d) {
       ${DH_NHOM.map((n) => `
         <section class="dh-nhom">
           <h3><i class="fa-solid ${n.icon}"></i> ${tdEsc(n.ten)}</h3>
+          ${n.ghiChu ? `<p class="dh-nhom-ghi">${tdEsc(n.ghiChu)}</p>` : ''}
           <div class="dh-luoi">${n.cot.map((c) => dhOHtml(c, dhNhan(d, c), bb.has(c))).join('')}</div>
         </section>`).join('')}
 
@@ -958,6 +1007,7 @@ function dhXemHtml(d) {
     const v = d.khai[c];
     if (v === null || v === undefined || v === '') return '—';
     if (DH_NGAY.has(c)) return dhNgay(v);
+    if (c === 'he_nguyen_vong') return tenHe(v) || '—';
     const chon = DH_CHON[c]?.find(([g]) => g === String(v));
     return chon ? chon[1] : String(v);
   };
@@ -1016,6 +1066,25 @@ function dhFormSuaHtml(d) {
  * `_ddTrItemHtml` phải ở cấp module ở 4.22b, và `hskExamViet` chỉ ghi state ở 4.34d).
  */
 function dhGo(cot, giaTri) { tkState.dhNhap[cot] = giaTri; }
+
+/** Bấm một thẻ "Hệ": cập nhật state + trạng thái các thẻ + dòng đếm, tại chỗ. */
+function dhChonHe(el) {
+  const wrap = document.getElementById('dh-he');
+  if (!wrap) return;
+  const hop = [...wrap.querySelectorAll('input[type="checkbox"]')];
+  const ds = hop.filter((i) => i.checked).map((i) => i.value);
+  if (ds.length > MAX_HE) { el.checked = false; return; }   // lưới an toàn — thẻ thứ 3 vốn đã bị khoá
+  const day = ds.length >= MAX_HE;
+  for (const i of hop) {
+    i.disabled = !i.checked && day;
+    const the = i.closest('.dh-he-i');
+    the.classList.toggle('on', i.checked);
+    the.classList.toggle('khoa', i.disabled);
+  }
+  const dem = document.getElementById('dh-he-dem');
+  if (dem) dem.textContent = dhDemHe(ds.length);
+  dhGo('he_nguyen_vong', chuoiHe(ds) || '');
+}
 
 function dhMsg(loi, ok) {
   const el = document.getElementById('dh-msg');
@@ -1130,5 +1199,5 @@ export const handlers = {
   tkTbLoc, tkTbMo, tkTbDocHet,
   // Hồ sơ du học (2026-09-16). Thiếu một tên ở đây thì nút bấm im lặng không chạy — lỗi chỉ
   // hiện ở console (quy ước 4.4).
-  dhGo, dhLuuNhap, dhGui, dhTaiLai, dhMoSua, dhDongSua, dhGuiSua, dhDocTb,
+  dhGo, dhChonHe, dhLuuNhap, dhGui, dhTaiLai, dhMoSua, dhDongSua, dhGuiSua, dhDocTb,
 };

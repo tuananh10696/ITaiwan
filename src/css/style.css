@@ -14681,6 +14681,49 @@ ol.vh-list li::before {
 }
 .dh-goi-y { font-size: 11.5px; color: var(--text-muted); }
 
+/* --- form khai báo: chữ mẫu, vòng focus, ô chọn Hệ (2026-10-06) --- */
+.dh-o input::placeholder, .dh-o textarea::placeholder { color: var(--text-muted); opacity: .85; }
+.dh-o input:focus, .dh-o select:focus, .dh-o textarea:focus {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 18%, transparent);
+}
+.dh-nhom-ghi { margin: -4px 0 12px; font-size: 13px; line-height: 1.5; color: var(--text-secondary); }
+.dh-o .dh-nhan { font-size: 12.5px; font-weight: 700; color: var(--text-secondary); }
+
+/* Thẻ chọn Hệ. Input thật phủ kín thẻ (opacity 0) nên chạm đâu trên thẻ cũng là bấm vào checkbox
+   — vừa cho ngón tay, vừa giữ nguyên bàn phím / đọc màn hình. Selector có `.dh-o` đứng trước để
+   thắng `.dh-o label` và `.dh-o input` ở trên (cùng độ ưu tiên thì file sau thắng, nhưng hai luật
+   đó nằm TRƯỚC khối này nên đặc thù hơn là cách chắc chắn nhất). */
+.dh-he { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 8px; }
+.dh-o .dh-he-i {
+  position: relative; display: flex; align-items: center; gap: 10px;
+  min-height: 48px; padding: 10px 12px; font-size: 14px; font-weight: 600; line-height: 1.3;
+  color: var(--text-primary); background: var(--surface);
+  border: 1.5px solid var(--border); border-radius: 10px;
+  cursor: pointer; user-select: none;
+  transition: border-color var(--dur-fast, .15s), background var(--dur-fast, .15s), opacity var(--dur-fast, .15s);
+}
+.dh-o .dh-he-i:hover { border-color: var(--primary-light); }
+.dh-o .dh-he-i input {
+  position: absolute; inset: 0; width: 100%; height: 100%; min-height: 0; margin: 0; padding: 0;
+  opacity: 0; cursor: inherit;
+}
+.dh-he-hop {
+  flex: none; width: 22px; height: 22px; border-radius: 6px;
+  display: grid; place-items: center;
+  border: 2px solid var(--surface-3); background: #fff;
+  transition: background var(--dur-fast, .15s), border-color var(--dur-fast, .15s);
+}
+.dh-he-hop i { font-size: 11px; color: #fff; opacity: 0; transform: scale(.6); transition: opacity .12s, transform .12s; }
+.dh-o .dh-he-i.on {
+  border-color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 9%, var(--surface));
+}
+.dh-he-i.on .dh-he-hop { background: var(--primary); border-color: var(--primary); }
+.dh-he-i.on .dh-he-hop i { opacity: 1; transform: none; }
+.dh-o .dh-he-i.khoa { opacity: .45; cursor: not-allowed; }
+.dh-o .dh-he-i.khoa:hover { border-color: var(--border); }
+.dh-he-i:focus-within { outline: 2px solid var(--primary); outline-offset: 2px; }
+
 .dh-dl { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px 14px; margin: 0; }
 .dh-dl > div { min-width: 0; }
 .dh-dl dt { font-size: 11.5px; text-transform: uppercase; color: var(--text-muted); font-weight: 700; }
@@ -14723,9 +14766,14 @@ ol.vh-list li::before {
   .dh-hero { padding: 18px; }
   .dh-hero h1 { font-size: 19px; }
   .dh-luoi, .dh-dl { grid-template-columns: 1fr; }
+  /* 16px: dưới mức này iOS tự phóng to trang khi chạm vào ô nhập, rất khó chịu khi điền form dài. */
+  .dh-o input, .dh-o select, .dh-o textarea { font-size: 16px; }
+  .dh-he { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .dh-step { flex-basis: 74px; }
   .dh-step-ten { font-size: 11px; }
 }
+/* Sau khối 600px ở trên — cùng độ ưu tiên thì khối đứng sau thắng. */
+@media (max-width: 340px) { .dh-he { grid-template-columns: 1fr; } }
 
 /* === BÀI KIỂM TRA CÔ GIAO (đề tự soạn) — 2026-09-17, chỉnh lại 17/09 ===
    Dùng lại .btn của khu sẵn có; khối này CHỈ chứa selector MỚI

@@ -24,7 +24,7 @@ const COT_KHACH = [
   'diem_lop10', 'diem_lop11', 'diem_lop12', 'truong_tn', 'trinh_do_tieng', 'email', 'phone',
   'bo_ten', 'bo_cccd', 'bo_ngay_sinh', 'bo_nghe', 'bo_phone',
   'me_ten', 'me_cccd', 'me_ngay_sinh', 'me_nghe', 'me_phone',
-  'nganh', 'qua_trinh_lam_viec',
+  'nganh', 'he_nguyen_vong', 'qua_trinh_lam_viec',
   'truong_nv1', 'truong_nv2', 'truong_nv3', 'ktx_dang_ky', 'ktx_loai', 'ktx_ghi_chu',
 ];
 
@@ -48,7 +48,7 @@ try {
   const thu = await G(tok(uid), 'PUT', '/du-hoc/khai-bao', { lien_lac_khac: 'zalo', gioi_tinh: 'nam' });
   const [[cu]] = await pool.query('SELECT lien_lac_khac, gioi_tinh FROM du_hoc_ho_so WHERE user_id = ?', [uid]);
   kiem('Cột cũ vẫn KHÔNG ghi được dù có nhãn', thu.s === 200 && cu.lien_lac_khac === null && cu.gioi_tinh === null);
-  kiem('Bắt buộc: họ tên, ngày sinh, SĐT, chuyên ngành', JSON.stringify(me.j?.bat_buoc) === JSON.stringify(['ho_ten', 'ngay_sinh', 'phone', 'nganh']));
+  kiem('Bắt buộc: họ tên, ngày sinh, SĐT, ngành nguyện vọng', JSON.stringify(me.j?.bat_buoc) === JSON.stringify(['ho_ten', 'ngay_sinh', 'phone', 'nganh']));
 
   // 2. Lưu nháp đủ ô + chèn ô cấm
   const dl = {
@@ -67,12 +67,12 @@ try {
   kiem('Ô cấm không ghi được (gioi_tinh/ph_ten/tong_phi/buoc)',
     db.gioi_tinh === null && db.ph_ten === null && Number(db.tong_phi) === 0 && db.buoc !== 'visa');
   const sau = (await G(HS, 'GET', '/du-hoc/ho-so-cua-toi')).j?.khai || {};
-  const lech = COT_KHACH.filter((c) => c !== 'nganh' && String(sau[c] ?? '') !== String(dl[c] ?? ''));
+  const lech = COT_KHACH.filter((c) => c !== 'nganh' && c !== 'he_nguyen_vong' && String(sau[c] ?? '') !== String(dl[c] ?? ''));
   kiem('Đọc lại đúng mọi ô (kể cả 3 ngày sinh, không lệch múi giờ)', !lech.length, lech.map((c) => `${c}: ${sau[c]} != ${dl[c]}`).join(' | '));
 
-  // 3. Gửi khi thiếu chuyên ngành -> 400
+  // 3. Gửi khi thiếu ngành nguyện vọng -> 400
   const thieu = await G(HS, 'POST', '/du-hoc/gui-khai-bao', {});
-  kiem('Gửi thiếu chuyên ngành -> 400', thieu.s === 400 && /chuyên ngành/i.test(thieu.j?.error || ''), JSON.stringify(thieu.j));
+  kiem('Gửi thiếu ngành nguyện vọng -> 400', thieu.s === 400 && /ngành nguyện vọng/i.test(thieu.j?.error || ''), JSON.stringify(thieu.j));
 
   // 4. Độ dài: điểm > 10 ký tự bị cắt, quá trình làm việc dài 1500 ký tự vẫn lưu
   const dai = 'x'.repeat(1500);
@@ -104,6 +104,36 @@ try {
   const duyet = await G(QT, 'POST', `/admin/du-hoc/yeu-cau-sua/${ycRow.id}/duyet`, { dong_y: true });
   const [[db8]] = await pool.query('SELECT bo_nghe FROM du_hoc_ho_so WHERE id = ?', [db.id]);
   kiem('Duyệt yêu cầu sửa -> bo_nghe = Bác sĩ', db8.bo_nghe === 'Bác sĩ', `status=${duyet.s} ${JSON.stringify(duyet.j)}`);
+  // 9. Ô "Hệ" nguyện vọng (2026-10-06): tối đa 2, mã lạ bị bỏ, lưu theo thứ tự cố định
+  const heDb = async () => (await pool.query('SELECT he_nguyen_vong FROM du_hoc_ho_so WHERE id = ?', [db.id]))[0][0].he_nguyen_vong;
+  kiem('nhãn "Ngành nguyện vọng" + "Hệ nguyện vọng"', (await G(HS, 'GET', '/du-hoc/ho-so-cua-toi')).j?.nhan_cot?.nganh === 'Ngành nguyện vọng'
+    && (await G(HS, 'GET', '/du-hoc/ho-so-cua-toi')).j?.nhan_cot?.he_nguyen_vong === 'Hệ nguyện vọng');
+  // Hồ sơ đã gửi (bước 5) nên ghi trực tiếp bằng DB để thử riêng phần chuẩn hoá của PUT khai-bao
+  await pool.query('UPDATE du_hoc_ho_so SET hs_gui_luc = NULL WHERE id = ?', [db.id]);
+  await G(HS, 'PUT', '/du-hoc/khai-bao', { he_nguyen_vong: 'he-ngon-ngu,he-1-4' });
+  kiem('Lưu 2 hệ theo thứ tự cố định (không theo thứ tự gửi)', (await heDb()) === 'he-1-4,he-ngon-ngu', await heDb());
+  await G(HS, 'PUT', '/du-hoc/khai-bao', { he_nguyen_vong: 'he-1-4,he-tu-tuc,he-thac-si' });
+  kiem('Gửi 3 hệ -> server chỉ giữ tối đa 2', (await heDb()).split(',').length === 2, await heDb());
+  await G(HS, 'PUT', '/du-hoc/khai-bao', { he_nguyen_vong: 'khong-co,he-hoa-kieu,he-hoa-kieu' });
+  kiem('Mã lạ bị bỏ, mã trùng chỉ tính một', (await heDb()) === 'he-hoa-kieu', await heDb());
+  await G(HS, 'PUT', '/du-hoc/khai-bao', { he_nguyen_vong: '' });
+  kiem('Bỏ chọn hết -> NULL', (await heDb()) === null);
+  await G(HS, 'PUT', '/du-hoc/khai-bao', { he_nguyen_vong: 'he-tu-tuc' });
+  const sauHe = (await G(HS, 'GET', '/du-hoc/ho-so-cua-toi')).j?.khai?.he_nguyen_vong;
+  kiem('Đọc lại hệ đúng', sauHe === 'he-tu-tuc', String(sauHe));
+  const ctHe = await G(QT, 'GET', `/admin/du-hoc/ho-so/${db.id}`);
+  kiem('Admin đọc được hệ học sinh chọn', (ctHe.j?.ho_so || ctHe.j)?.he_nguyen_vong === 'he-tu-tuc');
+  const putHe = await G(QT, 'PUT', `/admin/du-hoc/ho-so/${db.id}`, { he_nguyen_vong: 'he-thac-si,he-1-4,he-tu-tuc' });
+  kiem('Admin sửa hệ -> 200, cũng giới hạn 2 (giữ 2 hệ đứng trước trong danh sách) và đúng thứ tự', putHe.s === 200 && (await heDb()) === 'he-1-4,he-tu-tuc', `${putHe.s} ${await heDb()}`);
+  // Yêu cầu sửa sau khi gửi: đổi hệ thành chính nó (khác thứ tự) không phải một thay đổi
+  await G(HS, 'POST', '/du-hoc/gui-khai-bao', {});
+  const ycGiong = await G(HS, 'POST', '/du-hoc/yeu-cau-sua', { thay_doi: { he_nguyen_vong: 'he-tu-tuc,he-1-4' }, ly_do: 'thử' });
+  kiem('Yêu cầu sửa hệ trùng giá trị cũ (chỉ khác thứ tự) -> 400', ycGiong.s === 400, JSON.stringify(ycGiong.j));
+  const ycHe = await G(HS, 'POST', '/du-hoc/yeu-cau-sua', { thay_doi: { he_nguyen_vong: 'he-hoa-kieu' }, ly_do: 'đổi ý' });
+  kiem('Yêu cầu sửa hệ khác -> 201', ycHe.s === 201, JSON.stringify(ycHe.j));
+  const [[ycHeRow]] = await pool.query('SELECT id FROM du_hoc_yeu_cau_sua WHERE ho_so_id = ? AND trang_thai = "cho" ORDER BY id DESC LIMIT 1', [db.id]);
+  await G(QT, 'POST', `/admin/du-hoc/yeu-cau-sua/${ycHeRow.id}/duyet`, { dong_y: true });
+  kiem('Duyệt yêu cầu sửa hệ -> áp dụng', (await heDb()) === 'he-hoa-kieu', await heDb());
 } catch (e) {
   kiem('Không lỗi bất ngờ', false, e.stack);
 } finally {
