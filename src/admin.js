@@ -1705,6 +1705,7 @@ async function luuTaiKhoanMoi() {
 async function openUserForm(id) {
   let u = {};
   let classesList = [];
+  let classesLoi = false;
   try {
     const data = await apiGet(`/admin/users/${id}`);
     u = data.user;
@@ -1716,7 +1717,23 @@ async function openUserForm(id) {
   try {
     const cData = await apiGet(laNhanSuHoSo() ? '/admin/classes-options' : '/admin/classes');
     if (cData && cData.classes) classesList = cData.classes;
-  } catch (e) { /* không có quyền xem lớp thì bỏ ô chọn lớp */ }
+  } catch (e) { classesLoi = true; }
+
+  // Mục Lớp học LUÔN hiện. Trước đây ẩn khi danh sách lớp rỗng nên trung tâm chưa tạo lớp nào
+  // (prod 2026-10-06) tưởng tính năng không tồn tại. Chưa có lớp thì chỉ hiện lời nhắc, KHÔNG có
+  // <select id="f-class-id"> — saveUser không gửi class_id, nên lưu form không đụng tới xếp lớp.
+  const oLop = classesList.length ? `<div class="form-group">
+        <label>Lớp học</label>
+        <select id="f-class-id">
+          <option value="">${laNhanSuHoSo() ? '-- Giữ nguyên / chưa xếp lớp --' : '-- Không có lớp --'}</option>
+          ${classesList.map(c => `<option value="${c.id}" ${u.class_id === c.id ? 'selected' : ''}>${esc(c.name)}</option>`).join('')}
+        </select>
+      </div>` : `<div class="form-group">
+        <label>Lớp học</label>
+        <div style="font-size:13px;color:var(--admin-text-muted);line-height:1.5">${classesLoi
+          ? 'Không tải được danh sách lớp. Tải lại trang rồi thử lại.'
+          : 'Trung tâm chưa có lớp nào đang mở. Tạo lớp ở mục <b>Quản lý lớp</b>, sau đó quay lại đây để xếp lớp cho học viên.'}</div>
+      </div>`;
 
   openModal(`Sửa người dùng #${id}`, `
     <div class="form-row">
@@ -1725,13 +1742,7 @@ async function openUserForm(id) {
     </div>
     <div class="form-row">
       <div class="form-group"><label>SĐT</label><input id="f-phone" value="${u.phone || ''}"></div>
-      ${classesList.length ? `<div class="form-group">
-        <label>Lớp học</label>
-        <select id="f-class-id">
-          <option value="">${laNhanSuHoSo() ? '-- Giữ nguyên / chưa xếp lớp --' : '-- Không có lớp --'}</option>
-          ${classesList.map(c => `<option value="${c.id}" ${u.class_id === c.id ? 'selected' : ''}>${esc(c.name)}</option>`).join('')}
-        </select>
-      </div>` : ''}
+      ${oLop}
     </div>
     <div class="form-row">
       <div class="form-group"><label>Level Label</label><input id="f-level-label" value="${u.level_label || ''}"></div>
@@ -1808,10 +1819,12 @@ async function approveUser(id, name) {
       }
     }
   } catch (e) { toast('Không tải được danh sách lớp — vẫn duyệt được, xếp lớp sau.', 'error'); }
+  const chuaCoLop = classOptions.indexOf('value="') < 0;
 
   openModal('Duyệt tài khoản: ' + name, 
     '<p style="margin-bottom:12px">Xác nhận duyệt tài khoản <b>' + name + '</b>? Học viên sẽ có thể đăng nhập và sử dụng hệ thống.</p>' +
-    '<div class="form-group"><label>Xếp vào lớp (tuỳ chọn)</label><select id="approve-class">' + classOptions + '</select></div>',
+    '<div class="form-group"><label>Xếp vào lớp (tuỳ chọn)</label><select id="approve-class">' + classOptions + '</select>' +
+      (chuaCoLop ? '<small style="color:var(--admin-text-muted)">Trung tâm chưa có lớp nào đang mở — tạo lớp ở mục Quản lý lớp để xếp được.</small>' : '') + '</div>',
     '<button class="btn btn-outline" onclick="adminApp.closeModal()">Hủy</button>' +
     ' <button class="btn btn-primary" onclick="adminApp._doApprove(' + id + ')"><i class="fa-solid fa-check"></i> Duyệt</button>'
   );
