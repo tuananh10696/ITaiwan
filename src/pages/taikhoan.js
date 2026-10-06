@@ -634,7 +634,7 @@ const DH_NHOM = [
     ghiChu: 'Chọn hệ bạn muốn học, ghi ngành, rồi ghi tối đa 3 trường theo thứ tự ưu tiên. Chưa biết thì để trống — tư vấn viên sẽ gợi ý.',
     cot: ['he_nguyen_vong', 'nganh', 'truong_nv1', 'truong_nv2', 'truong_nv3'] },
   { ten: 'Đăng ký ký túc xá', icon: 'fa-bed',
-    cot: ['ktx_dang_ky', 'ktx_loai', 'ktx_ghi_chu'] },
+    cot: ['ktx_dang_ky'] },
 ];
 
 /** Ô nào là select, ô nào là ngày, ô nào nhập nhiều dòng. Còn lại là input text. */
@@ -643,7 +643,7 @@ const DH_CHON = {
                 ['khong', 'Không — tôi tự thuê ngoài']],
 };
 const DH_NGAY = new Set(['ngay_sinh', 'bo_ngay_sinh', 'me_ngay_sinh']);
-const DH_NHIEU_DONG = new Set(['dia_chi', 'trinh_do_tieng', 'qua_trinh_lam_viec', 'ktx_ghi_chu']);
+const DH_NHIEU_DONG = new Set(['dia_chi', 'trinh_do_tieng', 'qua_trinh_lam_viec']);
 /** Kiểu bàn phím số cho ô điểm (điểm có thể lẻ: 8.5 / 8,5 nên vẫn để text). */
 const DH_DIEM = new Set(['diem_lop10', 'diem_lop11', 'diem_lop12']);
 /** Gợi ý cho những ô học sinh hay điền sai hoặc bỏ trống vì không biết ghi gì. */
@@ -657,15 +657,12 @@ const DH_GOI_Y = {
   truong_nv1: 'Trường bạn muốn học nhất. Chưa biết thì để trống, tư vấn viên sẽ gợi ý',
   truong_nv2: 'Trường dự phòng nếu nguyện vọng 1 không đỗ',
   truong_nv3: 'Trường dự phòng thứ hai',
-  ktx_loai: 'Ví dụ: phòng 4 người, phòng đôi…',
 };
 
 /** Chữ mẫu mờ trong ô trống — cho học sinh biết nên điền kiểu gì (đã có chữ thì tự biến mất). */
+// KHÔNG đặt chữ mẫu có tên trường (chủ dự án chốt 2026-10-06) — học sinh dễ điền y nguyên cái mẫu.
 const DH_MAU = {
   nganh: 'Ví dụ: Quản trị kinh doanh, Công nghệ thông tin, Điều dưỡng…',
-  truong_nv1: 'Ví dụ: Đại học Phụ Nhân',
-  truong_nv2: 'Ví dụ: Đại học Minh Truyền',
-  truong_nv3: 'Ví dụ: Đại học Đài Bắc',
 };
 
 /**
@@ -684,7 +681,7 @@ const DH_NHAN = {
   me_nghe: 'Nghề nghiệp của mẹ', me_phone: 'Số điện thoại của mẹ',
   he_nguyen_vong: 'Hệ nguyện vọng', nganh: 'Ngành nguyện vọng', qua_trinh_lam_viec: 'Quá trình làm việc từ khi tốt nghiệp đến nay',
   truong_nv1: 'Trường nguyện vọng 1', truong_nv2: 'Trường nguyện vọng 2', truong_nv3: 'Trường nguyện vọng 3',
-  ktx_dang_ky: 'Đăng ký ký túc xá', ktx_loai: 'Loại phòng mong muốn', ktx_ghi_chu: 'Yêu cầu thêm về chỗ ở',
+  ktx_dang_ky: 'Đăng ký ký túc xá',
 };
 const dhNhan = (d, c) => d?.nhan_cot?.[c] || DH_NHAN[c] || 'Thông tin khác';
 

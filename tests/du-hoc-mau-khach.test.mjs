@@ -25,7 +25,7 @@ const COT_KHACH = [
   'bo_ten', 'bo_cccd', 'bo_ngay_sinh', 'bo_nghe', 'bo_phone',
   'me_ten', 'me_cccd', 'me_ngay_sinh', 'me_nghe', 'me_phone',
   'nganh', 'he_nguyen_vong', 'qua_trinh_lam_viec',
-  'truong_nv1', 'truong_nv2', 'truong_nv3', 'ktx_dang_ky', 'ktx_loai', 'ktx_ghi_chu',
+  'truong_nv1', 'truong_nv2', 'truong_nv3', 'ktx_dang_ky',
 ];
 
 const [[ad]] = await pool.query("SELECT id FROM users WHERE role = 'admin' ORDER BY id LIMIT 1");
@@ -58,12 +58,14 @@ try {
     bo_ten: 'Nguyễn Văn B', bo_cccd: '001170000001', bo_ngay_sinh: '1970-01-01', bo_nghe: 'Kỹ sư', bo_phone: '0911111111',
     me_ten: 'Trần Thị C', me_cccd: '001172000002', me_ngay_sinh: '1972-12-31', me_nghe: 'Giáo viên', me_phone: '0922222222',
     qua_trinh_lam_viec: 'Dòng 1\nDòng 2',
-    truong_nv1: 'NCKU', truong_nv2: 'NTU', truong_nv3: 'NTNU', ktx_dang_ky: 'co', ktx_loai: 'Phòng 4 người', ktx_ghi_chu: 'Gần trường',
+    truong_nv1: 'NCKU', truong_nv2: 'NTU', truong_nv3: 'NTNU', ktx_dang_ky: 'co', ktx_loai: 'Phòng 4 người', ktx_ghi_chu: 'Gần trường',   // 2 ô sau KHÔNG được ghi (đã bỏ khỏi form)
     gioi_tinh: 'nam', ph_ten: 'X', tong_phi: 999, buoc: 'visa',
   };
   const luu = await G(HS, 'PUT', '/du-hoc/khai-bao', dl);
   kiem('Lưu nháp OK', luu.s === 200, JSON.stringify(luu.j));
   const [[db]] = await pool.query('SELECT * FROM du_hoc_ho_so WHERE user_id = ?', [uid]);
+  kiem('Hai ô ký túc xá đã bỏ (loại phòng, yêu cầu thêm) KHÔNG ghi được, "Đăng ký ký túc xá" vẫn ghi được',
+    db.ktx_loai === null && db.ktx_ghi_chu === null && db.ktx_dang_ky === 'co');
   kiem('Ô cấm không ghi được (gioi_tinh/ph_ten/tong_phi/buoc)',
     db.gioi_tinh === null && db.ph_ten === null && Number(db.tong_phi) === 0 && db.buoc !== 'visa');
   const sau = (await G(HS, 'GET', '/du-hoc/ho-so-cua-toi')).j?.khai || {};

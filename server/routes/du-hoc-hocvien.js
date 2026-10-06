@@ -82,8 +82,7 @@ const COT_HS = {
   truong_nv2: 'Trường nguyện vọng 2',
   truong_nv3: 'Trường nguyện vọng 3',
   ktx_dang_ky: 'Đăng ký ký túc xá',
-  ktx_loai: 'Loại phòng mong muốn',
-  ktx_ghi_chu: 'Yêu cầu thêm về chỗ ở',
+  // `ktx_loai` / `ktx_ghi_chu` đã bỏ khỏi form học sinh (2026-10-06) — xem NHAN_CU bên dưới.
 };
 const COT_NGAY = new Set(['ngay_sinh', 'bo_ngay_sinh', 'me_ngay_sinh']);
 /**
@@ -98,6 +97,7 @@ const NHAN_CU = {
   ph_quan_he: 'Quan hệ với người bảo lãnh',
   nam_tn: 'Năm tốt nghiệp', xep_loai: 'Xếp loại',
   ky_nhap_hoc: 'Kỳ nhập học', loai_hinh: 'Loại hình du học',
+  ktx_loai: 'Loại phòng mong muốn', ktx_ghi_chu: 'Yêu cầu thêm về chỗ ở',
 };
 const ENUM_HS = { ktx_dang_ky: ['chua-quyet', 'co', 'khong'] };
 /** Độ dài tối đa theo cột (khớp kiểu cột trong DB). Không có trong bảng thì 200. */

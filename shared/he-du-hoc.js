@@ -6,8 +6,8 @@
 // thứ tự của HE_DU_HOC (không theo thứ tự bấm) để hai lần lưu cùng một lựa chọn ra cùng một chuỗi
 // — nếu không, "so cũ/mới" của yêu cầu sửa sẽ báo có thay đổi khi chẳng đổi gì.
 //
-// Nhãn lấy NGUYÊN VĂN từ khách (kể cả "Hệ inten"). Muốn sửa chữ hiển thị thì sửa ở đây, mã giữ
-// nguyên để không mất liên kết với dữ liệu đã lưu.
+// Nhãn lấy từ khách; "Hệ intern" ban đầu khách ghi "inten" (chủ dự án chốt sửa 2026-10-06). Muốn sửa
+// chữ hiển thị thì sửa ở đây, mã giữ nguyên để không mất liên kết với dữ liệu đã lưu.
 //
 // File này KHÔNG import gì và không đụng DOM/Node (cùng lối shared/phong-van.js).
 
@@ -20,7 +20,7 @@ export const HE_DU_HOC = [
   { ma: 'he-hoa-kieu', ten: 'Hệ hoa kiều' },
   { ma: 'he-tu-tuc', ten: 'Hệ tự túc' },
   { ma: 'he-thac-si', ten: 'Hệ thạc sĩ' },
-  { ma: 'he-inten', ten: 'Hệ inten' },
+  { ma: 'he-inten', ten: 'Hệ intern' },
 ];
 const MA_HE = new Set(HE_DU_HOC.map((h) => h.ma));
 
