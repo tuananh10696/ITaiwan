@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import pool from '../config/db.js';
 import { requireAuth, generateToken } from '../middleware/auth.js';
 import { sendVerificationEmail, getAppBaseUrl } from '../utils/email.js';
-import { chanDangNhap, chanDangKy, chanGuiMail } from '../middleware/gioi-han.js';
+import { chanDangKy, chanGuiMail } from '../middleware/gioi-han.js';
 import { guiPushVaiTro, guiNgam } from '../utils/push.js';
 
 const router = Router();
@@ -139,7 +139,9 @@ router.post('/resend-verification', chanGuiMail, async (req, res) => {
 });
 
 // POST /api/auth/login
-router.post('/login', chanDangNhap, async (req, res) => {
+// Không còn giới hạn tần suất đăng nhập (2026-10-07, khách yêu cầu bỏ): trước đây 10 lượt/15 phút
+// mỗi IP, cả lớp học / ký túc xá dùng chung một IP nên bị chặn lẫn nhau.
+router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) {

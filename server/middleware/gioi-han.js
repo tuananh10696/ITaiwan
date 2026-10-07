@@ -3,7 +3,7 @@
 //
 // Trước đợt này hệ thống KHÔNG có lớp nào giới hạn số lời gọi, nên ba việc sau đều làm được bằng
 // một vòng lặp bash:
-//   • dò mật khẩu: /auth/login không đếm số lần sai, bcrypt cost 10 vẫn cho ~10 lần thử/giây;
+//   • dò mật khẩu (phần giới hạn đăng nhập đã BỎ ngày 2026-10-07 theo yêu cầu khách);
 //   • cào nội dung: 3 bài mở × 17 quyển × 3 loại tài nguyên là hơn 150 file, lấy hết trong vài
 //     giây; một tài khoản đã mua một quyển thì lấy trọn quyển đó cũng nhanh như vậy;
 //   • spam: đăng ký hàng loạt, gửi lại mail xác nhận liên tục (mỗi lần là một email thật đi ra,
@@ -108,12 +108,6 @@ export function gioiHan({ ten, tran, phut, loi, theoNguoiDung = false, boQua = n
 // ------------------------------------------------------------------ các mức dùng sẵn
 //
 // Con số chọn theo hành vi THẬT của người dùng, không chọn cho tròn:
-
-/** Đăng nhập: người quên mật khẩu thử 3-4 lần là cùng; 10 lần/15 phút vẫn thoải mái cho họ. */
-export const chanDangNhap = gioiHan({
-  ten: 'dang-nhap', tran: 10, phut: 15,
-  loi: 'Bạn đã thử đăng nhập quá nhiều lần. Vui lòng đợi ít phút rồi thử lại.',
-});
 
 /** Đăng ký / gửi lại mail xác nhận: mỗi lần là một email thật đi ra. */
 export const chanDangKy = gioiHan({

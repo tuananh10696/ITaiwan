@@ -635,6 +635,9 @@ const DH_NHOM = [
     cot: ['he_nguyen_vong', 'nganh', 'truong_nv1', 'truong_nv2', 'truong_nv3'] },
   { ten: 'Đăng ký ký túc xá', icon: 'fa-bed',
     cot: ['ktx_dang_ky'] },
+  // Người tư vấn (2026-10-07): chọn trong danh sách nhân viên sale (server trả `danh_sach_tu_van`).
+  { ten: 'Người tư vấn', icon: 'fa-user-tie',
+    cot: ['tu_van_id'] },
 ];
 
 /** Ô nào là select, ô nào là ngày, ô nào nhập nhiều dòng. Còn lại là input text. */
@@ -657,6 +660,7 @@ const DH_GOI_Y = {
   truong_nv1: 'Trường bạn muốn học nhất. Chưa biết thì để trống, tư vấn viên sẽ gợi ý',
   truong_nv2: 'Trường dự phòng nếu nguyện vọng 1 không đỗ',
   truong_nv3: 'Trường dự phòng thứ hai',
+  tu_van_id: 'Chọn nhân viên sẽ đồng hành tư vấn hồ sơ cho bạn. Chưa biết chọn ai thì để trống, trung tâm sẽ sắp xếp',
 };
 
 /** Chữ mẫu mờ trong ô trống — cho học sinh biết nên điền kiểu gì (đã có chữ thì tự biến mất). */
@@ -681,7 +685,7 @@ const DH_NHAN = {
   me_nghe: 'Nghề nghiệp của mẹ', me_phone: 'Số điện thoại của mẹ',
   he_nguyen_vong: 'Hệ nguyện vọng', nganh: 'Ngành nguyện vọng', qua_trinh_lam_viec: 'Quá trình làm việc từ khi tốt nghiệp đến nay',
   truong_nv1: 'Trường nguyện vọng 1', truong_nv2: 'Trường nguyện vọng 2', truong_nv3: 'Trường nguyện vọng 3',
-  ktx_dang_ky: 'Đăng ký ký túc xá',
+  ktx_dang_ky: 'Đăng ký ký túc xá', tu_van_id: 'Người tư vấn',
 };
 const dhNhan = (d, c) => d?.nhan_cot?.[c] || DH_NHAN[c] || 'Thông tin khác';
 
@@ -846,7 +850,7 @@ function dhYeuCauHtml(d) {
             <span class="dh-sub">${dhNgay(y.created_at)}</span>
           </div>
           <ul class="dh-yc-ds">${(y.thay_doi || []).map((t) => `
-            <li>${tdEsc(t.nhan || dhNhan(null, t.cot))}: <s>${tdEsc(t.cu || '(trống)')}</s> → <strong>${tdEsc(t.moi || '(trống)')}</strong></li>`).join('')}</ul>
+            <li>${tdEsc(t.nhan || dhNhan(null, t.cot))}: <s>${tdEsc(t.cu_ten || t.cu || '(trống)')}</s> → <strong>${tdEsc(t.moi_ten || t.moi || '(trống)')}</strong></li>`).join('')}</ul>
           ${y.phan_hoi ? `<p class="dh-note"><i class="fa-solid fa-comment-dots"></i><span>Trung tâm: ${tdEsc(y.phan_hoi)}</span></p>` : ''}
         </div>`).join('')}
     </div>`;
@@ -955,7 +959,10 @@ function dhOHtml(c, nhan, batBuoc, khoa = false) {
   const chung = `id="${id}" ${khoa ? 'disabled' : `oninput="window.app.dhGo('${c}', this.value)" onchange="window.app.dhGo('${c}', this.value)"`}`;
 
   let o;
-  if (DH_CHON[c]) {
+  if (c === 'tu_van_id') {
+    o = `<select ${chung}><option value="">— Chưa chọn —</option>${(tkState.dh?.danh_sach_tu_van || []).map((u) =>
+      `<option value="${u.id}"${String(v) === String(u.id) ? ' selected' : ''}>${tdEsc(u.name)}</option>`).join('')}</select>`;
+  } else if (DH_CHON[c]) {
     o = `<select ${chung}>${DH_CHON[c].map(([g, t]) =>
       `<option value="${g}"${String(v) === g ? ' selected' : ''}>${tdEsc(t)}</option>`).join('')}</select>`;
   } else if (DH_NHIEU_DONG.has(c)) {
@@ -1005,6 +1012,7 @@ function dhXemHtml(d) {
     if (v === null || v === undefined || v === '') return '—';
     if (DH_NGAY.has(c)) return dhNgay(v);
     if (c === 'he_nguyen_vong') return tenHe(v) || '—';
+    if (c === 'tu_van_id') return (d.danh_sach_tu_van || []).find((u) => String(u.id) === String(v))?.name || '—';
     const chon = DH_CHON[c]?.find(([g]) => g === String(v));
     return chon ? chon[1] : String(v);
   };

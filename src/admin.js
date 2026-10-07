@@ -3620,7 +3620,7 @@ async function renderDuHoc(el) {
  * Rỗng thì ẩn hẳn khối (không để một ô "chưa có yêu cầu nào" chiếm chỗ).
  */
 /** Giá trị cũ/mới trong yêu cầu sửa, đổi mã Hệ sang tên để người duyệt đọc được. */
-const _dhGtYc = (t, v) => (t.cot === 'he_nguyen_vong' ? tenHe(v) : v);
+const _dhGtYc = (t, v, ten) => (t.cot === 'he_nguyen_vong' ? tenHe(v) : t.cot === 'tu_van_id' ? (ten || v) : v);
 
 async function dhNapYeuCau() {
   const slot = document.getElementById('dh-yc-slot');
@@ -3642,7 +3642,7 @@ async function dhNapYeuCau() {
           </div>
           <ul class="dh-yc-ds">${(y.thay_doi || []).map((t) => `
             <li><span class="dh-yc-nhan">${esc(t.nhan || t.cot)}</span>
-              <s>${esc(_dhGtYc(t, t.cu) || '(trống)')}</s> → <strong>${esc(_dhGtYc(t, t.moi) || '(trống)')}</strong></li>`).join('')}</ul>
+              <s>${esc(_dhGtYc(t, t.cu, t.cu_ten) || '(trống)')}</s> → <strong>${esc(_dhGtYc(t, t.moi, t.moi_ten) || '(trống)')}</strong></li>`).join('')}</ul>
           ${y.ly_do ? `<div class="dh-sub dh-yc-lydo"><i class="fa-solid fa-quote-left"></i> ${esc(y.ly_do)}</div>` : ''}
           <div class="dh-yc-nut">
             <button class="btn btn-outline btn-sm" onclick="adminApp.dhTuChoiYc(${y.id})">Từ chối</button>

@@ -31,6 +31,7 @@ const COT_KHACH = [
 const [[ad]] = await pool.query("SELECT id FROM users WHERE role = 'admin' ORDER BY id LIMIT 1");
 const QT = tok(ad.id);
 let uid = null;
+const phu = [];   // tài khoản phụ tạo trong test, dọn ở finally
 
 try {
   const tao = await G(QT, 'POST', '/admin/users', { email: `${MA}@local.invalid`, name: 'HS Mau Khach', password: '123456', role: 'student' });
@@ -136,6 +137,42 @@ try {
   const [[ycHeRow]] = await pool.query('SELECT id FROM du_hoc_yeu_cau_sua WHERE ho_so_id = ? AND trang_thai = "cho" ORDER BY id DESC LIMIT 1', [db.id]);
   await G(QT, 'POST', `/admin/du-hoc/yeu-cau-sua/${ycHeRow.id}/duyet`, { dong_y: true });
   kiem('Duyệt yêu cầu sửa hệ -> áp dụng', (await heDb()) === 'he-hoa-kieu', await heDb());
+
+  // 10. Người tư vấn (2026-10-07): học sinh chọn trong danh sách sale; id lạ bị bỏ
+  const taoNv = async (role, hau = '') => {
+    const [r] = await pool.query(
+      "INSERT INTO users (name, email, password_hash, role, is_admin, is_verified, is_approved) VALUES (?,?,?,?,0,1,1)",
+      [`NV ${role} ${MA}${hau}`, `${role}-${MA}${hau}@local.invalid`, 'x', role]);
+    phu.push(r.insertId); return r.insertId;
+  };
+  const sale1 = await taoNv('sale');
+  const gv = await taoNv('teacher');
+  const tvDb = async () => (await pool.query('SELECT tu_van_id FROM du_hoc_ho_so WHERE id = ?', [db.id]))[0][0].tu_van_id;
+  const ds = (await G(HS, 'GET', '/du-hoc/ho-so-cua-toi')).j?.danh_sach_tu_van || [];
+  kiem('Danh sách người tư vấn có sale, không có giáo viên, chỉ id + tên',
+    ds.some((u) => u.id === sale1) && !ds.some((u) => u.id === gv) && ds.every((u) => Object.keys(u).sort().join() === 'id,name'), JSON.stringify(ds));
+  kiem('Có nhãn "Người tư vấn"', (await G(HS, 'GET', '/du-hoc/ho-so-cua-toi')).j?.nhan_cot?.tu_van_id === 'Người tư vấn');
+  await pool.query('UPDATE du_hoc_ho_so SET hs_gui_luc = NULL, tu_van_id = NULL WHERE id = ?', [db.id]);
+  await G(HS, 'PUT', '/du-hoc/khai-bao', { tu_van_id: String(gv) });
+  kiem('Chọn giáo viên làm người tư vấn -> bị bỏ qua', (await tvDb()) === null, String(await tvDb()));
+  await G(HS, 'PUT', '/du-hoc/khai-bao', { tu_van_id: 'abc' });
+  kiem('Id không phải số -> bị bỏ qua', (await tvDb()) === null);
+  await G(HS, 'PUT', '/du-hoc/khai-bao', { tu_van_id: String(sale1) });
+  kiem('Chọn sale -> lưu được', (await tvDb()) === sale1, String(await tvDb()));
+  const me10 = (await G(HS, 'GET', '/du-hoc/ho-so-cua-toi')).j;
+  kiem('Đọc lại: khai.tu_van_id đúng + thẻ "Người tư vấn của bạn" ra đúng sale', me10?.khai?.tu_van_id === sale1 && me10?.tu_van?.name === `NV sale ${MA}`, JSON.stringify(me10?.tu_van));
+  await G(HS, 'PUT', '/du-hoc/khai-bao', { tu_van_id: '' });
+  kiem('Bỏ chọn -> NULL', (await tvDb()) === null);
+  await G(HS, 'PUT', '/du-hoc/khai-bao', { tu_van_id: sale1 });
+  await G(HS, 'POST', '/du-hoc/gui-khai-bao', {});
+  const sale2 = await taoNv('sale', 'B');
+  const ycTv = await G(HS, 'POST', '/du-hoc/yeu-cau-sua', { thay_doi: { tu_van_id: String(sale2) }, ly_do: 'đổi người tư vấn' });
+  kiem('Yêu cầu sửa người tư vấn -> 201', ycTv.s === 201, JSON.stringify(ycTv.j));
+  const [[ycTvRow]] = await pool.query('SELECT id, thay_doi FROM du_hoc_yeu_cau_sua WHERE ho_so_id = ? AND trang_thai = "cho" ORDER BY id DESC LIMIT 1', [db.id]);
+  const muc = JSON.parse(ycTvRow.thay_doi)[0];
+  kiem('Yêu cầu sửa lưu id + tên cũ/mới', muc?.moi === sale2 && muc?.cu === sale1 && muc?.moi_ten === `NV sale ${MA}B` && muc?.cu_ten === `NV sale ${MA}`, JSON.stringify(muc));
+  await G(QT, 'POST', `/admin/du-hoc/yeu-cau-sua/${ycTvRow.id}/duyet`, { dong_y: true });
+  kiem('Duyệt -> tu_van_id đổi sang sale mới', (await tvDb()) === sale2, String(await tvDb()));
 } catch (e) {
   kiem('Không lỗi bất ngờ', false, e.stack);
 } finally {
@@ -149,6 +186,7 @@ try {
     }
     await pool.query('DELETE FROM users WHERE id = ?', [uid]).catch(() => {});
   }
+  for (const id of phu) await pool.query('DELETE FROM users WHERE id = ?', [id]).catch(() => {});
   for (const k of ketQua) console.log(`${k.dat ? '✅' : '❌'} ${k.ten}${k.dat ? '' : ' — ' + k.chiTiet}`);
   const hong = ketQua.filter((k) => !k.dat).length;
   console.log(`\n${ketQua.length - hong}/${ketQua.length} đạt`);

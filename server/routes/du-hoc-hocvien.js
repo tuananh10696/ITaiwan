@@ -14,7 +14,10 @@
 //   · gửi chốt (khoá form), sau đó muốn sửa thì gửi yêu cầu cho trung tâm duyệt
 //   · XEM: bước hiện tại, mốc phỏng vấn/visa/bay, tiền đã đóng, còn thiếu giấy tờ gì, tư vấn viên
 //
-// HỌC SINH KHÔNG ĐƯỢC ĐỤNG: `tong_phi`, `tu_van_id`, `buoc`, mọi cột kết quả (`kq_*`), `ma_hs`,
+// HỌC SINH CHỌN ĐƯỢC NGƯỜI TƯ VẤN (2026-10-07): `tu_van_id`, nhưng CHỈ trong số tài khoản role 'sale'
+// (hoặc người đang phụ trách sẵn) — kiểm ở server trong `idTuVanHopLe`, không tin client.
+//
+// HỌC SINH KHÔNG ĐƯỢC ĐỤNG: `tong_phi`, `buoc`, mọi cột kết quả (`kq_*`), `ma_hs`,
 // `org_id`, `user_id`, `ghi_chu` (ghi chú nội bộ của tư vấn viên), `ktx_kq`, `ktx_han`.
 // Danh sách trắng nằm ở COT_HS bên dưới — thêm cột mới vào hồ sơ thì phải tự hỏi: học sinh có
 // được khai cột này không? Mặc định là KHÔNG.
@@ -82,6 +85,9 @@ const COT_HS = {
   truong_nv2: 'Trường nguyện vọng 2',
   truong_nv3: 'Trường nguyện vọng 3',
   ktx_dang_ky: 'Đăng ký ký túc xá',
+  // Người tư vấn (2026-10-07): chọn trong danh sách nhân viên sale. Đây là CỘT SỐ (id), không phải
+  // chữ — chuanHoa kiểm id có nằm trong danh sách được chọn hay không.
+  tu_van_id: 'Người tư vấn',
   // `ktx_loai` / `ktx_ghi_chu` đã bỏ khỏi form học sinh (2026-10-06) — xem NHAN_CU bên dưới.
 };
 const COT_NGAY = new Set(['ngay_sinh', 'bo_ngay_sinh', 'me_ngay_sinh']);
@@ -134,8 +140,14 @@ async function hoSoCuaToi(userId) {
 }
 
 /** Chuẩn hoá một giá trị học sinh gửi lên theo đúng kiểu cột. Trả `undefined` nếu cột không hợp lệ. */
-function chuanHoa(cot, gtRaw) {
+function chuanHoa(cot, gtRaw, tuVanHopLe) {
   if (!(cot in COT_HS)) return undefined;
+  if (cot === 'tu_van_id') {
+    if (gtRaw === null || gtRaw === undefined || String(gtRaw).trim() === '') return null;   // bỏ chọn
+    const id = Number(gtRaw);
+    // Id lạ (không phải sale, không phải người đang phụ trách) bị bỏ qua như cột không hợp lệ.
+    return Number.isInteger(id) && tuVanHopLe?.has(id) ? id : undefined;
+  }
   if (ENUM_HS[cot]) return ENUM_HS[cot].includes(gtRaw) ? gtRaw : undefined;
   // Hệ: lọc mã lạ, bỏ trùng, tối đa MAX_HE — client đã chặn nhưng server là nơi quyết định.
   if (cot === 'he_nguyen_vong') return chuoiHe(gtRaw);
@@ -147,6 +159,20 @@ function chuanHoa(cot, gtRaw) {
   const s = String(gtRaw ?? '').trim();
   if (!s) return null;
   return s.slice(0, DAI_TOI_DA[cot] || 200);
+}
+
+/** Id nhân viên sale (role = 'sale'). Học sinh chỉ chọn người tư vấn trong danh sách này. */
+async function danhSachSale(hs) {
+  const [rows] = await pool.query(
+    "SELECT id, name FROM users WHERE role = 'sale' OR id = ? ORDER BY name LIMIT 200",
+    [hs.tu_van_id || 0]
+  );
+  return rows;
+}
+/** Tập id học sinh được phép đặt vào `tu_van_id`: mọi sale + người đang phụ trách hồ sơ này
+ *  (có thể là quản lý hồ sơ do trung tâm gán — không được làm họ "biến mất" khỏi ô chọn). */
+async function idTuVanHopLe(hs) {
+  return new Set((await danhSachSale(hs)).map((u) => u.id));
 }
 
 /**
@@ -187,7 +213,7 @@ router.get('/ho-so-cua-toi', async (req, res) => {
     // Mỗi phần tử của Promise.all là [rows, fields] của mysql2 — destructure đồng loạt `[x]`
     // để mọi biến đều là MẢNG BẢN GHI. Trộn hai kiểu (`[[a]]` chỗ này, `[a]` chỗ kia) là chỗ
     // rất dễ gọi `.map` lên một bản ghi đơn lẻ.
-    const [[tien], [giayTo], [tuVan], [thongBao], [ycSua]] = await Promise.all([
+    const [[tien], [giayTo], [tuVan], [thongBao], [ycSua], dsTuVan] = await Promise.all([
       pool.query(
         `SELECT COALESCE(SUM(CASE WHEN loai = 'thu'  THEN so_tien END), 0) AS da_thu,
                 COALESCE(SUM(CASE WHEN loai = 'hoan' THEN so_tien END), 0) AS da_hoan
@@ -206,6 +232,7 @@ router.get('/ho-so-cua-toi', async (req, res) => {
       pool.query(
         `SELECT id, thay_doi, ly_do, trang_thai, phan_hoi, created_at, duyet_luc
            FROM du_hoc_yeu_cau_sua WHERE ho_so_id = ? ORDER BY created_at DESC LIMIT 10`, [hs.id]),
+      danhSachSale(hs),
     ]);
 
     // Các khoản thu — không trả `ghi_chu` (nội bộ), chỉ báo có chứng từ ảnh hay không.
@@ -230,6 +257,8 @@ router.get('/ho-so-cua-toi', async (req, res) => {
       khai,
       nhan_cot: { ...NHAN_CU, ...COT_HS },
       bat_buoc: BAT_BUOC,
+      // Danh sách để chọn người tư vấn: chỉ id + tên (liên hệ chỉ hiện sau khi đã được gán).
+      danh_sach_tu_van: dsTuVan,
       // --- phần chỉ xem ---
       tien_do: {
         buoc: hs.buoc,
@@ -279,10 +308,11 @@ router.put('/khai-bao', async (req, res) => {
       return res.status(409).json({ error: 'Hồ sơ đã gửi nên không sửa trực tiếp được. Hãy gửi yêu cầu sửa để trung tâm duyệt.' });
     }
 
+    const tuVanHopLe = await idTuVanHopLe(hs);
     const cot = [];
     const gt = [];
     for (const [c, v] of Object.entries(req.body || {})) {
-      const x = chuanHoa(c, v);
+      const x = chuanHoa(c, v, tuVanHopLe);
       if (x === undefined) continue;
       cot.push(c); gt.push(x);
     }
@@ -311,10 +341,11 @@ router.post('/gui-khai-bao', async (req, res) => {
 
     // Lưu nốt phần đang gõ dở rồi mới chốt — nếu không, ô vừa gõ mà chưa kịp auto-save sẽ mất
     // và học sinh không sửa lại được nữa (đúng cái mình vừa cảnh báo họ).
+    const tuVanHopLe = await idTuVanHopLe(hs);
     const cot = [];
     const gt = [];
     for (const [c, v] of Object.entries(req.body || {})) {
-      const x = chuanHoa(c, v);
+      const x = chuanHoa(c, v, tuVanHopLe);
       if (x === undefined) continue;
       cot.push(c); gt.push(x);
     }
@@ -378,12 +409,18 @@ router.post('/yeu-cau-sua', async (req, res) => {
     }
 
     // Lưu NGUYÊN CẶP cũ→mới: người duyệt phải thấy "đổi từ gì sang gì" mới quyết được.
+    const dsSale = await danhSachSale(hs);
+    const tuVanHopLe = new Set(dsSale.map((u) => u.id));
+    const tenSale = (id) => dsSale.find((u) => u.id === Number(id))?.name || null;
     const thayDoi = [];
     for (const [c, v] of Object.entries(req.body?.thay_doi || {})) {
-      const x = chuanHoa(c, v);
+      const x = chuanHoa(c, v, tuVanHopLe);
       if (x === undefined) continue;
       if (nhuNhau(hs[c], x)) continue;   // gửi lại y nguyên giá trị cũ thì không phải một thay đổi
-      thayDoi.push({ cot: c, nhan: COT_HS[c], cu: ngayChuoi(hs[c]), moi: x });
+      const muc = { cot: c, nhan: COT_HS[c], cu: ngayChuoi(hs[c]), moi: x };
+      // `cu` / `moi` của người tư vấn là ID (để áp vào cột khi duyệt) — kèm tên cho người đọc.
+      if (c === 'tu_van_id') { muc.cu_ten = tenSale(hs[c]); muc.moi_ten = tenSale(x); }
+      thayDoi.push(muc);
     }
     if (!thayDoi.length) return res.status(400).json({ error: 'Chưa có thay đổi nào so với hồ sơ hiện tại.' });
 
