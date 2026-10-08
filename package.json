@@ -61,14 +61,14 @@
     "gv:tao": "node scripts/tao-giao-vien.mjs",
     "db:anon:local": "node scripts/anonymize-local.mjs",
     "test:trung-tam": "node tests/luong-trung-tam.test.mjs",
-    "test": "node tests/nhom-truong.test.mjs && node tests/phan-quyen.test.mjs && node tests/luong-trung-tam.test.mjs && node tests/luong-giaovien-hocvien.test.mjs && node tests/chong-cay-diem.test.mjs",
+    "test": "node tests/phan-quyen.test.mjs && node tests/luong-trung-tam.test.mjs && node tests/luong-giaovien-hocvien.test.mjs && node tests/chong-cay-diem.test.mjs",
     "test:vai-tro": "node tests/vai-tro-nhan-su.test.mjs",
-    "test:truong": "node tests/nhom-truong.test.mjs",
+    "test:truong": "node tests/du-hoc-truong.test.mjs",
     "test:phong-van": "node tests/phong-van.test.mjs",
     "test:so-lieu": "node tests/du-hoc-so-lieu-vai-tro.test.mjs",
     "test:push": "node tests/push.test.mjs",
     "test:hoc-thu": "node tests/hoc-thu-cho-duyet.test.mjs",
-    "test:du-hoc": "node tests/du-hoc-chi-hoc-sinh.test.mjs && node tests/du-hoc-mau-khach.test.mjs && node tests/du-hoc-giay-to-anh.test.mjs",
+    "test:du-hoc": "node tests/du-hoc-chi-hoc-sinh.test.mjs && node tests/du-hoc-mau-khach.test.mjs && node tests/du-hoc-giay-to-anh.test.mjs && node tests/du-hoc-truong.test.mjs",
     "du-hoc:tao-ho-so": "node scripts/du-hoc-tao-ho-so.mjs"
   },
   "devDependencies": {

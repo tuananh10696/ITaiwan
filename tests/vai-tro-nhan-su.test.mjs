@@ -42,13 +42,16 @@ const taoHoSo = async (tuVan, nhan) => {
   const [r] = await pool.query(
     `INSERT INTO du_hoc_ho_so (org_id, ma_hs, ho_ten, tu_van_id, buoc, cccd, tong_phi, truong_nv1)
      VALUES (1,?,?,?,'ho-so','0123456789',50000000,?)`,
-    // Cả hai hồ sơ cùng MỘT trường: màn "Tiến độ theo trường" gom theo trường, nên đây đúng là
-    // chỗ dễ rò nhất — thẻ của trường chung không được kéo học sinh của sale kia vào.
     [`HS-${MA}-${nhan}`, `Học sinh ${nhan} ${MA}`, tuVan, `Đại học Thử ${MA}`]);
   return r.insertId;
 };
 const hoSoA = await taoHoSo(saleA, 'A');
 const hoSoB = await taoHoSo(saleB, 'B');
+// Cả hai hồ sơ cùng MỘT trường: màn "Tiến độ theo trường" liệt kê học sinh theo trường, nên đây đúng
+// là chỗ dễ rò nhất — thẻ của trường chung không được kéo học sinh của sale kia vào.
+const [trThu] = await pool.query('INSERT INTO du_hoc_truong (ten) VALUES (?)', [`Đại học Thử ${MA}`]);
+const truongThu = trThu.insertId;
+await pool.query('INSERT INTO du_hoc_truong_hs (truong_id, ho_so_id) VALUES (?, ?), (?, ?)', [truongThu, hoSoA, truongThu, hoSoB]);
 
 const taoPhieu = async (nguoiLap, nhan) => {
   const [r] = await pool.query(
@@ -116,12 +119,22 @@ console.log('\n── 2. Hồ sơ du học: chỉ thấy của mình ───�
 {
   // Tiến độ theo trường: gom theo trường chứ không theo người, nên phải kiểm riêng.
   const { ma, j } = await goi('GET', '/admin/du-hoc/theo-truong', 'saleA');
-  const ids = [...(j?.truong || []).flatMap((t) => t.hoc_sinh.map((h) => h.id)), ...(j?.chua_khai || []).map((h) => h.id)];
+  const ids = (j?.truong || []).flatMap((t) => t.hoc_sinh.map((h) => h.ho_so_id));
   dat(`sale A mở được tiến độ theo trường (${ma})`, ma === 200 && ids.includes(hoSoA));
   dat('tiến độ theo trường của sale A KHÔNG có hồ sơ của sale B (dù cùng trường)', !ids.includes(hoSoB));
   const the = (j?.truong || []).find((t) => t.ten === `Đại học Thử ${MA}`);
   dat('thẻ trường chung chỉ đếm 1 học sinh với sale A', the?.tong === 1);
   dat('không trả CCCD trong tiến độ theo trường', !JSON.stringify(j || {}).includes('0123456789'));
+  dat('sale không được sửa (sua_duoc=false)', j?.sua_duoc === false);
+  // Ghi (thêm trường / thêm học sinh / đặt kết quả / gỡ) chỉ quản trị — sale và quản lý hồ sơ phải 403.
+  const w1 = await goi('POST', '/admin/du-hoc/theo-truong', 'saleA', { ten: `Sale thu them ${MA}` });
+  const w2 = await goi('POST', `/admin/du-hoc/theo-truong/${truongThu}/hoc-sinh`, 'saleA', { ho_so_id: hoSoA });
+  const [[mA]] = await pool.query('SELECT id FROM du_hoc_truong_hs WHERE truong_id = ? AND ho_so_id = ?', [truongThu, hoSoA]);
+  const w3 = await goi('PUT', `/admin/du-hoc/theo-truong-hs/${mA.id}`, 'saleA', { ket_qua: 'dau' });
+  const w4 = await goi('DELETE', `/admin/du-hoc/theo-truong-hs/${mA.id}`, 'hoSo');
+  const w5 = await goi('DELETE', `/admin/du-hoc/theo-truong/${truongThu}`, 'saleA');
+  dat('sale / quản lý hồ sơ KHÔNG ghi được tiến độ theo trường (403)',
+    [w1, w2, w3, w4, w5].every((w) => w.ma === 403), [w1, w2, w3, w4, w5].map((w) => w.ma).join(','));
 }
 
 console.log('\n── 3. Không chuyển được hồ sơ sang tên người khác ───────');
@@ -227,6 +240,7 @@ console.log('\n── 9. Bảng điều khiển ──────────�
 
 // ------------------------------------------------------------------ dọn
 await pool.query('DELETE FROM quy_phieu WHERE ma_phieu LIKE ?', [`PT-${MA}-%`]);
+await pool.query('DELETE FROM du_hoc_truong WHERE ten LIKE ?', [`%${MA}%`]);
 await pool.query('DELETE FROM du_hoc_ho_so WHERE ma_hs LIKE ?', [`HS-${MA}-%`]);
 await pool.query('DELETE FROM users WHERE email LIKE ?', [`%${MA}@local.invalid`]);
 const [[con]] = await pool.query(

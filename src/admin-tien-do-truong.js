@@ -1,11 +1,11 @@
 // =============================================================
-// TIẾN ĐỘ THEO TRƯỜNG (2026-09-25) — khu con của Du học
+// TIẾN ĐỘ THEO TRƯỜNG — quản trị tự quản lý (2026-10-08)
 // =============================================================
-// Mỗi trường có bao nhiêu học sinh đăng ký và từng em đang ở bước nào. Trường lấy từ nguyện vọng
-// 1–3 + trường đã đậu trong hồ sơ (học sinh tự khai ở cổng học sinh, hoặc tư vấn viên nhập); các
-// cách viết khác nhau của cùng một trường đã được server gộp sẵn — xem server/utils/nhom-truong.js.
-// Backend: GET /api/admin/du-hoc/theo-truong. Sale / quản lý hồ sơ chỉ thấy hồ sơ mình phụ trách
-// (server lọc, không phải giao diện).
+// Quản trị tự thêm từng trường, rồi thêm học sinh (chọn từ hồ sơ du học có sẵn) vào trường đó,
+// giống thêm lớp rồi add học sinh. Mỗi học sinh trong trường hiện: họ tên, bước hồ sơ, kỳ nhập học,
+// ngành, tư vấn viên + kết quả riêng của trường đó (Đang chờ / Đậu / Trượt). Một em thuộc được nhiều trường.
+// Backend: /api/admin/du-hoc/theo-truong (xem server/routes/du-hoc.js). Sale / quản lý hồ sơ chỉ XEM
+// học sinh thuộc hồ sơ mình phụ trách; thêm / sửa / xoá chỉ quản trị (`sua_duoc` do server báo).
 //
 // Cùng lối với admin-trungtam.js: module được admin.js import, CẦU NỐI MỘT CHIỀU qua `dangKy()`
 // (import ngược admin.js là vòng lặp), mọi hàm gọi từ HTML nằm trong `tdtHandlers` và được
@@ -14,73 +14,43 @@ let A = {};
 export function dangKy(api) { A = api; }
 
 const apiGet = (...a) => A.apiGet(...a);
+const apiPost = (...a) => A.apiPost(...a);
+const apiPut = (...a) => A.apiPut(...a);
+const apiDel = (...a) => A.apiDel(...a);
 const esc = (s) => A.esc(s);
+const toast = (...a) => A.toast(...a);
 const conDungLuot = (el, luot) => A.conDungLuot(el, luot);
-// Dòng trạng thái từng buổi phỏng vấn (trường / VP Đài Bắc) — dùng lại đúng bản của khu Hồ sơ
-// du học để hai màn không vẽ hai kiểu cho cùng một hồ sơ.
-const pvDong = (h) => A.pvDong(h);
-
 
 // ------------------------------------------------------------------ trạng thái
 
-const LOC_MAC_DINH = { ky: '', trang_thai: '', nv: 'tat-ca' };
-let loc = { ...LOC_MAC_DINH };
 let tim = '';                 // lọc ngay trên trình duyệt, không gọi lại API
 let duLieu = null;            // response gần nhất
-let focusSau = null;          // id ô lọc cần focus lại sau khi vẽ lại khung
+let truongDangThem = null;    // id trường đang mở hộp "Thêm học sinh"
+let demTim = 0;               // chống kết quả tìm cũ về sau ghi đè kết quả tìm mới
+let henTim = null;
 /**
- * Trạng thái mở/đóng NGƯỜI DÙNG đã bấm, theo khoá trường ('' = thẻ "chưa khai trường").
- * Khoá chưa bấm lần nào thì theo mặc định: đóng, trừ khi đang tìm theo tên học sinh (mở sẵn thẻ
- * có em khớp). Tách "đã bấm" khỏi "mặc định" để bấm thu gọn được cả thẻ đang mở sẵn vì tìm kiếm.
+ * Trạng thái mở/đóng NGƯỜI DÙNG đã bấm, theo id trường. Chưa bấm thì mặc định đóng, trừ khi đang
+ * tìm theo tên học sinh (mở sẵn thẻ có em khớp) — tách "đã bấm" khỏi "mặc định" để bấm thu gọn
+ * được cả thẻ đang mở sẵn vì tìm kiếm.
  */
 const moTay = new Map();
-const laMo = (khoa, macDinh) => (moTay.has(khoa) ? moTay.get(khoa) : macDinh);
+const laMo = (id, macDinh) => (moTay.has(id) ? moTay.get(id) : macDinh);
 
-/** Mảng cặp chứ không object: khoá '1' là chỉ mục số nguyên, Object.entries luôn đẩy nó lên đầu. */
-const PHAM_VI_DS = [
-  ['tat-ca', 'Mọi nguyện vọng + trường đậu'],
-  ['1', 'Chỉ nguyện vọng 1'],
-  ['do', 'Chỉ trường đã đậu'],
-];
-const PHAM_VI = Object.fromEntries(PHAM_VI_DS);
-/** Nhãn nhóm "không có trường" đổi theo phạm vi đang đếm. */
-const NHAN_CHUA_KHAI = {
-  'tat-ca': 'Chưa khai trường nào',
-  1: 'Chưa khai nguyện vọng 1',
-  do: 'Chưa có trường đậu',
-};
-const NHAN_VAI = { nv1: 'NV1', nv2: 'NV2', nv3: 'NV3', do: 'Đậu' };
 const KET_QUA = { cho: 'Đang chờ', dau: 'Đậu', truot: 'Trượt' };
 const MAU_KQ = { cho: 'badge-gray', dau: 'badge-success', truot: 'badge-danger' };
 
 const $ = (id) => document.getElementById(id);
-const coLoc = () => !!(loc.ky || loc.trang_thai || loc.nv !== 'tat-ca' || tim.trim());
-const ngay = (d) => (d ? new Date(d).toLocaleDateString('vi-VN') : '');
 /** Bỏ dấu để ô tìm gõ "dai hoc" vẫn ra "Đại học". */
-const boDau = (s) => String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+const boDau = (s) => String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '')
   .replace(/đ/g, 'd').replace(/Đ/g, 'D').toLowerCase();
 const buoc = (ma) => (duLieu?.buoc || []).find((b) => b.ma === ma)
   || { ma, ten: ma, icon: 'fa-circle', mau: '#94A3B8' };
 const spin = '<div style="text-align:center;padding:40px;color:var(--admin-text-muted)"><i class="fa-solid fa-spinner fa-spin" style="font-size:24px"></i></div>';
 
 // ------------------------------------------------------------------ URL
-
-/** Bộ lọc lên URL để F5 / gửi link vẫn đúng màn đang xem. admin.js gọi khi dựng hash. */
-export function tdtQuery() {
-  const q = new URLSearchParams();
-  if (loc.ky) q.set('ky', loc.ky);
-  if (loc.trang_thai) q.set('trang-thai', loc.trang_thai);
-  if (loc.nv !== 'tat-ca') q.set('nv', loc.nv);
-  return q;
-}
-/** Ngược lại: URL -> bộ lọc. Giá trị lạ để server tự bỏ qua, ở đây chỉ chặn `nv`. */
-export function tdtNapQuery(q) {
-  loc = {
-    ky: (q.get('ky') || '').slice(0, 40),   // server cũng cắt 40 ký tự
-    trang_thai: q.get('trang-thai') || '',
-    nv: Object.hasOwn(PHAM_VI, q.get('nv') || '') ? q.get('nv') : 'tat-ca',
-  };
-}
+// Màn này không còn bộ lọc nào đưa lên URL; giữ hai hàm để admin.js không phải đổi chỗ gọi.
+export function tdtQuery() { return new URLSearchParams(); }
+export function tdtNapQuery() { /* không có gì để nạp */ }
 
 // ------------------------------------------------------------------ tải + vẽ
 
@@ -88,11 +58,7 @@ export async function renderTienDoTruong(el) {
   const luot = el.dataset.luot;
   el.innerHTML = spin;
   try {
-    const qs = new URLSearchParams();
-    if (loc.ky) qs.set('ky', loc.ky);
-    if (loc.trang_thai) qs.set('trang_thai', loc.trang_thai);
-    if (loc.nv !== 'tat-ca') qs.set('nv', loc.nv);
-    const d = await apiGet('/admin/du-hoc/theo-truong' + (qs.toString() ? '?' + qs : ''));
+    const d = await apiGet('/admin/du-hoc/theo-truong');
     if (!conDungLuot(el, luot)) return;
     duLieu = d;
     veKhung(el);
@@ -104,54 +70,29 @@ export async function renderTienDoTruong(el) {
 
 function veKhung(el) {
   const d = duLieu;
-  const soDau = d.da_dau ?? 0;
-  // Kỳ đang lọc (từ URL / link gửi nhau) mà không còn trong danh sách vẫn phải hiện trong ô chọn —
-  // nếu không, ô hiện "Mọi kỳ" trong khi dữ liệu vẫn lọc theo kỳ đó, đổi ô khác là kỳ mất âm thầm.
-  const kyList = d.ky_list || [];
-  const kyHien = loc.ky && !kyList.includes(loc.ky) ? [loc.ky, ...kyList] : kyList;
-  // Trạng thái lạ trên URL: server đã bỏ qua, ở đây dọn luôn khỏi URL cho khớp ô chọn.
-  if (loc.trang_thai && loc.trang_thai !== 'dang-chay' && !(d.buoc || []).some((b) => b.ma === loc.trang_thai)) {
-    loc.trang_thai = '';
-    A.syncUrl(true);
-  }
-  const opt = (v, nhan, cur) => `<option value="${esc(v)}" ${cur === v ? 'selected' : ''}>${esc(nhan)}</option>`;
-
+  const soDau = d.truong.reduce((n, t) => n + t.dau, 0);
   el.innerHTML = `
     <div class="table-toolbar">
       <div>
         <h2 style="margin:0">Tiến độ theo trường</h2>
         <p style="margin:4px 0 0;font-size:13px;color:var(--admin-text-muted)">
-          Trường lấy từ nguyện vọng 1–3 và trường đã đậu trong hồ sơ. Các cách viết khác nhau của
-          cùng một trường được gộp tự động.</p>
+          ${d.sua_duoc
+            ? 'Thêm trường, rồi thêm học sinh vào từng trường để theo dõi. Một học sinh có thể thuộc nhiều trường.'
+            : 'Các trường và học sinh thuộc hồ sơ bạn phụ trách.'}</p>
       </div>
+      ${d.sua_duoc ? `<button class="btn btn-primary" onclick="adminApp.tdtFormTruong()">
+        <i class="fa-solid fa-plus"></i> Thêm trường</button>` : ''}
     </div>
-    ${d.chua_migrate ? `<div class="alert alert-warning">Chưa chạy <code>migration-du-hoc.sql</code>.
-       Chạy <code>npm run db:migrate:prod</code> để bật khu Hồ sơ du học.</div>` : ''}
-    ${d.bi_cat ? `<div class="alert alert-warning">Chỉ tính ${Number(d.tran).toLocaleString('vi-VN')} hồ sơ
-       mới nhất — lọc theo kỳ nhập học để xem đủ.</div>` : ''}
+    ${d.chua_migrate ? `<div class="alert alert-warning">Chưa chạy migration cho màn này.
+       Chạy <code>npm run db:migrate:prod</code>.</div>` : ''}
     <div class="stats-grid stats-grid--4">
-      ${the('fa-school', '#265648', d.truong.length, 'Trường có học sinh đăng ký')}
-      ${the('fa-user-graduate', '#1F7A52', d.tong_ho_so, 'Hồ sơ trong bộ lọc')}
-      ${the('fa-circle-check', '#16A34A', soDau, 'Đã có trường đậu')}
-      ${the('fa-circle-question', '#B85C1A', d.chua_khai.length, NHAN_CHUA_KHAI[d.pham_vi] || NHAN_CHUA_KHAI['tat-ca'])}
+      ${the('fa-school', '#265648', d.truong.length, 'Trường')}
+      ${the('fa-user-graduate', '#1F7A52', d.tong_luot, 'Lượt học sinh')}
+      ${the('fa-circle-check', '#16A34A', soDau, 'Lượt đã đậu')}
     </div>
     <div class="dh-filter">
-      <input type="search" id="tdt-tim" placeholder="Tìm trường, tên học sinh, mã hồ sơ…"
+      <input type="search" id="tdt-tim" placeholder="Tìm trường hoặc tên học sinh…"
              value="${esc(tim)}" oninput="adminApp.tdtTim()">
-      <select id="tdt-ky" onchange="adminApp.tdtDoiLoc()" aria-label="Kỳ nhập học">
-        ${opt('', 'Mọi kỳ nhập học', loc.ky)}
-        ${kyHien.map((k) => opt(k, k, loc.ky)).join('')}
-      </select>
-      <select id="tdt-tt" onchange="adminApp.tdtDoiLoc()" aria-label="Trạng thái hồ sơ">
-        ${opt('', 'Mọi trạng thái', loc.trang_thai)}
-        ${opt('dang-chay', 'Đang xử lý', loc.trang_thai)}
-        ${(d.buoc || []).map((b) => opt(b.ma, b.ten, loc.trang_thai)).join('')}
-      </select>
-      <select id="tdt-nv" onchange="adminApp.tdtDoiLoc()" aria-label="Tính theo">
-        ${PHAM_VI_DS.map(([v, n]) => opt(v, n, loc.nv)).join('')}
-      </select>
-      <button id="tdt-xoa-loc" class="btn btn-outline btn-sm" onclick="adminApp.tdtXoaLoc()"
-              style="${coLoc() ? '' : 'display:none'}">Xoá lọc</button>
       <span class="tdt-nut-mo">
         <button class="btn btn-outline btn-sm" onclick="adminApp.tdtMoHet()">
           <i class="fa-solid fa-chevron-down"></i><span>Mở hết</span></button>
@@ -159,12 +100,8 @@ function veKhung(el) {
           <i class="fa-solid fa-chevron-right"></i><span>Thu gọn</span></button>
       </span>
     </div>
-    <div class="tdt-chu-giai">${(d.buoc || []).map((b) =>
-      `<span><i style="background:${b.mau}"></i>${esc(b.ten)}</span>`).join('')}</div>
     <div id="tdt-ds"></div>`;
   veDanhSach();
-  // Đổi ô lọc là vẽ lại cả khung -> ô vừa đổi bị thay mới, focus rơi về <body>. Trả focus lại.
-  if (focusSau) { $(focusSau)?.focus(); focusSau = null; }
 }
 
 function the(icon, mau, so, nhan) {
@@ -178,86 +115,56 @@ function veDanhSach() {
   if (!khung || !duLieu) return;
   const q = boDau(tim.trim());
 
-  // Tìm khớp TÊN TRƯỜNG (kể cả cách viết đã gộp) -> giữ nguyên cả trường. Không khớp tên trường
-  // nhưng có học sinh khớp -> chỉ hiện những em đó và mở sẵn thẻ, để gõ tên một em là thấy ngay
-  // em ấy đăng ký những trường nào.
+  // Tìm khớp TÊN TRƯỜNG -> giữ nguyên cả trường. Không khớp tên trường nhưng có học sinh khớp ->
+  // chỉ hiện những em đó và mở sẵn thẻ, để gõ tên một em là thấy ngay em ấy thuộc những trường nào.
   const locThe = (t) => {
     if (!q) return t;
-    if (boDau([t.ten, ...t.bien_the].join(' ')).includes(q)) return t;
-    const hs = t.hoc_sinh.filter((h) => boDau(`${h.ho_ten} ${h.ma_hs}`).includes(q));
+    if (boDau(t.ten).includes(q)) return t;
+    const hs = t.hoc_sinh.filter((h) => boDau(h.ho_ten).includes(q));
     return hs.length ? { ...t, hoc_sinh: hs, loc_hs: true } : null;
   };
   const ds = duLieu.truong.map(locThe).filter(Boolean);
-  const chuaKhai = q
-    ? duLieu.chua_khai.filter((h) => boDau(`${h.ho_ten} ${h.ma_hs}`).includes(q))
-    : duLieu.chua_khai;
 
-  if (!ds.length && !chuaKhai.length) {
+  if (!ds.length) {
     khung.innerHTML = `
       <div class="empty-state">
         <i class="fa-solid fa-school" style="font-size:32px;color:var(--admin-text-muted)"></i>
-        <p>${q || loc.ky || loc.trang_thai || loc.nv !== 'tat-ca'
-          ? 'Không có trường hay học sinh nào khớp bộ lọc.'
-          : 'Chưa có hồ sơ du học nào khai trường.'}</p>
+        <p>${q ? 'Không có trường hay học sinh nào khớp.'
+          : duLieu.sua_duoc ? 'Chưa có trường nào. Bấm “Thêm trường” để bắt đầu.' : 'Chưa có trường nào.'}</p>
       </div>`;
     return;
   }
-
-  khung.innerHTML = ds.map(theTruong).join('')
-    + (chuaKhai.length ? theChuaKhai(chuaKhai) : '');
-}
-
-/** Thanh ngang chia theo bước: nhìn một cái là biết trường này đang dồn ở đâu. */
-function thanhBuoc(theoBuoc, tong) {
-  const phan = (duLieu.buoc || []).filter((b) => theoBuoc[b.ma]).map((b) => {
-    const so = theoBuoc[b.ma];
-    return `<i style="flex:${so};background:${b.mau}" title="${esc(b.ten)}: ${so}"></i>`;
-  }).join('');
-  const nhan = (duLieu.buoc || []).filter((b) => theoBuoc[b.ma]).map((b) =>
-    `<span><i style="background:${b.mau}"></i>${esc(b.ten)} <b>${theoBuoc[b.ma]}</b></span>`).join('');
-  return `<div class="tdt-bar" role="img" aria-label="Phân bổ ${tong} học sinh theo bước">${phan}</div>
-    <div class="tdt-bar-nhan">${nhan}</div>`;
+  khung.innerHTML = ds.map(theTruong).join('');
 }
 
 function theTruong(t) {
-  const mo = laMo(t.khoa, !!t.loc_hs);
+  const mo = laMo(t.id, !!t.loc_hs);
+  const sua = duLieu.sua_duoc;
   const dem = [
-    t.nv1 && `<span>NV1 <b>${t.nv1}</b></span>`, t.nv2 && `<span>NV2 <b>${t.nv2}</b></span>`,
-    t.nv3 && `<span>NV3 <b>${t.nv3}</b></span>`,
+    t.cho && `<span>Đang chờ <b>${t.cho}</b></span>`,
     t.dau && `<span class="tdt-dau">Đậu <b>${t.dau}</b></span>`,
+    t.truot && `<span>Trượt <b>${t.truot}</b></span>`,
   ].filter(Boolean).join('<span class="tdt-cham">·</span>');
   return `
     <div class="tdt-truong${mo ? ' is-mo' : ''}">
-      <button class="tdt-head" data-khoa="${esc(t.khoa)}" onclick="adminApp.tdtMoDong(this.dataset.khoa, this.getAttribute('aria-expanded'))"
+      <button class="tdt-head" onclick="adminApp.tdtMoDong(${t.id}, this.getAttribute('aria-expanded'))"
               aria-expanded="${mo ? 'true' : 'false'}">
         <i class="fa-solid ${mo ? 'fa-chevron-down' : 'fa-chevron-right'} tdt-caret"></i>
-        <span class="tdt-ten">${esc(t.ten)}
-          ${t.bien_the.length ? `<span class="dh-sub">· gộp ${t.bien_the.length} cách viết</span>` : ''}</span>
+        <span class="tdt-ten">${esc(t.ten)}</span>
         <span class="tdt-tong"><b>${t.tong}</b> học sinh${t.loc_hs ? ` <span class="dh-sub">(khớp ${t.hoc_sinh.length})</span>` : ''}</span>
       </button>
-      <div class="tdt-tomtat">${dem}</div>
-      ${thanhBuoc(t.theo_buoc, t.tong)}
+      ${dem ? `<div class="tdt-tomtat">${dem}</div>` : ''}
       ${mo ? `
-        ${t.bien_the.length ? `<div class="tdt-bien-the"><i class="fa-solid fa-layer-group"></i><span>Các cách viết đã gộp:
-          ${t.bien_the.map((b) => `<b>${esc(b)}</b>`).join(', ')}</span></div>` : ''}
-        ${bangHocSinh(t.hoc_sinh, true)}` : ''}
-    </div>`;
-}
-
-function theChuaKhai(ds) {
-  const mo = laMo('', !!tim.trim());
-  const theoBuoc = {};
-  ds.forEach((h) => { theoBuoc[h.buoc] = (theoBuoc[h.buoc] || 0) + 1; });
-  return `
-    <div class="tdt-truong tdt-chua-khai${mo ? ' is-mo' : ''}">
-      <button class="tdt-head" data-khoa="" onclick="adminApp.tdtMoDong(this.dataset.khoa, this.getAttribute('aria-expanded'))"
-              aria-expanded="${mo ? 'true' : 'false'}">
-        <i class="fa-solid ${mo ? 'fa-chevron-down' : 'fa-chevron-right'} tdt-caret"></i>
-        <span class="tdt-ten">${esc(NHAN_CHUA_KHAI[duLieu.pham_vi] || NHAN_CHUA_KHAI['tat-ca'])}</span>
-        <span class="tdt-tong"><b>${ds.length}</b> học sinh</span>
-      </button>
-      ${thanhBuoc(theoBuoc, ds.length)}
-      ${mo ? bangHocSinh(ds, false) : ''}
+        ${sua ? `<div class="tdt-thao-tac">
+          <button class="btn btn-sm btn-primary" onclick="adminApp.tdtFormHocSinh(${t.id})">
+            <i class="fa-solid fa-user-plus"></i> Thêm học sinh</button>
+          <button class="btn btn-sm btn-outline" onclick="adminApp.tdtFormTruong(${t.id})">
+            <i class="fa-solid fa-pen"></i> Đổi tên</button>
+          <button class="btn btn-sm btn-outline" onclick="adminApp.tdtXoaTruong(${t.id})">
+            <i class="fa-solid fa-trash"></i> Xoá trường</button>
+        </div>` : ''}
+        ${t.hoc_sinh.length ? bangHocSinh(t.hoc_sinh, sua)
+          : '<p class="dh-sub" style="margin:12px 0 0">Chưa có học sinh nào trong trường này.</p>'}` : ''}
     </div>`;
 }
 
@@ -266,36 +173,27 @@ function chipBuoc(ma) {
   return `<span class="dh-chip" style="--c:${b.mau}"><i class="fa-solid ${b.icon}"></i> ${esc(b.ten)}</span>`;
 }
 
-function oKetQua(ngayMoc, kq) {
-  if (!ngayMoc && !kq) return '<span class="dh-sub">—</span>';
-  return `${ngayMoc ? `<div>${ngay(ngayMoc)}</div>` : ''}
-    ${kq ? `<span class="badge ${MAU_KQ[kq] || 'badge-gray'}">${KET_QUA[kq] || esc(kq)}</span>` : ''}`;
-}
-
-/** `coTruong` = đang ở trong thẻ một trường (có cột nguyện vọng); thẻ "chưa khai" thì không. */
-function bangHocSinh(ds, coTruong) {
+function bangHocSinh(ds, sua) {
   const hang = ds.map((h) => `
-    <tr class="dh-row" onclick="adminApp.tdtMoHoSo(${Number(h.id)})">
-      <td><strong>${esc(h.ho_ten)}</strong>
-        <div class="dh-sub">${esc(h.ma_hs)}${h.ky_nhap_hoc ? ' · ' + esc(h.ky_nhap_hoc) : ''}${h.nganh ? ' · ' + esc(h.nganh) : ''}</div></td>
-      ${coTruong ? `<td class="tdt-o-dk">${(h.vai || []).map((v) =>
-        `<span class="tdt-vai tdt-vai-${v}">${NHAN_VAI[v] || esc(v)}</span>`).join('')}
-        ${h.dau_truong_khac ? `<div class="dh-sub">Đã đậu: ${esc(h.dau_truong_khac)}</div>` : ''}</td>` : ''}
-      <td>${chipBuoc(h.buoc)}${h.buoc_tu ? `<div class="dh-sub">từ ${ngay(h.buoc_tu)}</div>` : ''}</td>
-      <td>${pvDong(h)}</td>
-      <td>${oKetQua(h.ngay_nop_visa, h.kq_visa)}</td>
-      <td style="white-space:nowrap">${h.ngay_bay ? ngay(h.ngay_bay) : '<span class="dh-sub">—</span>'}</td>
-      <td style="text-align:center">${Number(h.thieu_giay_to)
-        ? `<span class="badge badge-warning">thiếu ${Number(h.thieu_giay_to)}</span>`
-        : '<span class="badge badge-success">đủ</span>'}</td>
+    <tr class="dh-row">
+      <td><a href="#" class="tdt-ten-hs" onclick="event.preventDefault();adminApp.tdtMoHoSo(${Number(h.ho_so_id)})"><strong>${esc(h.ho_ten)}</strong></a></td>
+      <td>${chipBuoc(h.buoc)}</td>
+      <td>${h.ky_nhap_hoc ? esc(h.ky_nhap_hoc) : '<span class="dh-sub">—</span>'}</td>
+      <td>${h.nganh ? esc(h.nganh) : '<span class="dh-sub">—</span>'}</td>
       <td>${h.tu_van_ten ? esc(h.tu_van_ten) : '<span class="dh-sub">—</span>'}</td>
+      <td style="white-space:nowrap">${sua
+        ? `<select onchange="adminApp.tdtDoiKetQua(${h.id}, this.value)" aria-label="Kết quả của ${esc(h.ho_ten)}">
+            ${Object.entries(KET_QUA).map(([k, v]) => `<option value="${k}" ${h.ket_qua === k ? 'selected' : ''}>${v}</option>`).join('')}
+          </select>
+          <button class="btn-icon" title="Gỡ khỏi trường" onclick="adminApp.tdtGoHocSinh(${h.id}, '${esc(h.ho_ten).replace(/'/g, '&#39;')}')">
+            <i class="fa-solid fa-user-minus"></i></button>`
+        : `<span class="badge ${MAU_KQ[h.ket_qua] || 'badge-gray'}">${KET_QUA[h.ket_qua] || esc(h.ket_qua)}</span>`}</td>
     </tr>`).join('');
   return `
     <div class="data-table-wrapper dh-table-wrap tdt-bang">
       <table class="data-table">
         <thead><tr>
-          <th>Học sinh</th>${coTruong ? '<th>Đăng ký</th>' : ''}<th>Tiến độ</th><th>Phỏng vấn</th>
-          <th>Visa</th><th>Ngày bay</th><th style="text-align:center">Giấy tờ</th><th>Tư vấn viên</th>
+          <th>Học sinh</th><th>Bước hồ sơ</th><th>Kỳ nhập học</th><th>Ngành</th><th>Tư vấn viên</th><th>Kết quả</th>
         </tr></thead>
         <tbody>${hang}</tbody>
       </table>
@@ -304,61 +202,138 @@ function bangHocSinh(ds, coTruong) {
 
 // ------------------------------------------------------------------ thao tác
 
-function veLai() { renderTienDoTruong($('admin-content')); }
+function veLai() { return renderTienDoTruong($('admin-content')); }
 
-function tdtDoiLoc() {
-  focusSau = document.activeElement?.id || null;
-  loc = {
-    ky: $('tdt-ky')?.value || '',
-    trang_thai: $('tdt-tt')?.value || '',
-    nv: $('tdt-nv')?.value || 'tat-ca',
-  };
-  A.syncUrl(true);
-  veLai();
+/** Thao tác ghi: lỗi từ server (trùng tên, đã có trong trường...) hiện nguyên văn. */
+async function lam(viec, thanhCong) {
+  try {
+    await viec();
+    if (thanhCong) toast(thanhCong);
+    return true;
+  } catch (err) {
+    toast(err.message || 'Không thực hiện được.', 'error');
+    return false;
+  }
 }
 
 function tdtTim() {
   tim = $('tdt-tim')?.value || '';
   // Kết quả tìm mới thì bỏ trạng thái mở/đóng đã bấm trước đó: thẻ lỡ đóng tay từ trước sẽ che
-  // mất đúng học sinh vừa tìm ra. Bấm đóng/mở trong lúc đang tìm vẫn giữ được như thường.
+  // mất đúng học sinh vừa tìm ra.
   moTay.clear();
-  const nut = $('tdt-xoa-loc');
-  if (nut) nut.style.display = coLoc() ? '' : 'none';
   veDanhSach();
 }
 
-function tdtXoaLoc() {
-  loc = { ...LOC_MAC_DINH };
-  tim = '';
-  A.syncUrl(true);
-  veLai();
-}
-
-function tdtMoDong(khoa, dangMoStr) {
-  const k = String(khoa ?? '');
-  moTay.set(k, dangMoStr !== 'true');
-  veDanhSach();
-  // veDanhSach thay cả #tdt-ds -> nút vừa bấm bị huỷ, focus rơi về <body> (người dùng bàn phím
-  // bấm Tab lại từ đầu trang). Đặt lại vào nút mới cùng khoá; so dataset để khỏi escape selector.
-  [...document.querySelectorAll('#tdt-ds .tdt-head')].find((b) => b.dataset.khoa === k)?.focus();
-}
-
-/** Khoá của mọi thẻ đang có, kể cả thẻ "chưa khai trường". */
-const moiKhoa = () => [...(duLieu?.truong || []).map((t) => t.khoa), ''];
-
-function tdtMoHet() {
-  moiKhoa().forEach((k) => moTay.set(k, true));
+function tdtMoDong(id, dangMoStr) {
+  moTay.set(Number(id), dangMoStr !== 'true');
   veDanhSach();
 }
-
-function tdtThuGon() {
-  moiKhoa().forEach((k) => moTay.set(k, false));
-  veDanhSach();
-}
+function tdtMoHet() { duLieu?.truong.forEach((t) => moTay.set(t.id, true)); veDanhSach(); }
+function tdtThuGon() { duLieu?.truong.forEach((t) => moTay.set(t.id, false)); veDanhSach(); }
 
 /** Mở hồ sơ: đổi hẳn sang khu Hồ sơ du học để menu, tiêu đề và nút Back đi đúng. */
 function tdtMoHoSo(id) { A.moHoSo(id); }
 
+// --- trường ---
+/** `id` có -> đổi tên trường đó; không có -> thêm trường mới. */
+function tdtFormTruong(id) {
+  const t = id ? duLieu.truong.find((x) => x.id === Number(id)) : null;
+  A.openModal(t ? 'Đổi tên trường' : 'Thêm trường', `
+    <div class="form-group"><label>Tên trường <span style="color:#EF4444">*</span></label>
+      <input type="text" id="tdt-f-ten" maxlength="200" value="${esc(t?.ten || '')}"
+             placeholder="vd: Đại học Thành Công (NCKU)"
+             onkeydown="if(event.key==='Enter')adminApp.tdtLuuTruong(${t ? t.id : 0})"></div>
+  `, `<button class="btn btn-outline" onclick="adminApp.closeModal()">Huỷ</button>
+      <button class="btn btn-primary" onclick="adminApp.tdtLuuTruong(${t ? t.id : 0})">${t ? 'Lưu' : 'Thêm'}</button>`);
+  $('tdt-f-ten')?.focus();
+}
+
+async function tdtLuuTruong(id) {
+  const ten = ($('tdt-f-ten')?.value || '').trim();
+  if (!ten) return toast('Chưa nhập tên trường.', 'error');
+  const ok = await lam(
+    () => (Number(id) ? apiPut(`/admin/du-hoc/theo-truong/${id}`, { ten }) : apiPost('/admin/du-hoc/theo-truong', { ten })),
+    Number(id) ? 'Đã đổi tên.' : 'Đã thêm trường.'
+  );
+  if (!ok) return;
+  A.closeModal();
+  await veLai();
+}
+
+function tdtXoaTruong(id) {
+  const t = duLieu.truong.find((x) => x.id === Number(id));
+  if (!t) return;
+  A.confirmDialog('Xoá trường',
+    `Xoá “${t.ten}”${t.tong ? ` và danh sách ${t.tong} học sinh trong trường này` : ''}? Hồ sơ du học của học sinh KHÔNG bị xoá.`,
+    async () => { if (await lam(() => apiDel(`/admin/du-hoc/theo-truong/${id}`), 'Đã xoá trường.')) await veLai(); });
+}
+
+// --- học sinh trong trường ---
+function tdtFormHocSinh(truongId) {
+  truongDangThem = Number(truongId);
+  const t = duLieu.truong.find((x) => x.id === truongDangThem);
+  A.openModal(`Thêm học sinh vào ${t?.ten || 'trường'}`, `
+    <div class="form-group"><label>Tìm hồ sơ học sinh</label>
+      <input type="search" id="tdt-f-tim" placeholder="Gõ tên, mã hồ sơ hoặc số điện thoại…" oninput="adminApp.tdtTimHocSinh()"></div>
+    <div id="tdt-f-kq" class="dh-sub">Gõ để tìm trong các hồ sơ du học đã có.</div>
+  `, `<button class="btn btn-outline" onclick="adminApp.closeModal()">Đóng</button>`);
+  $('tdt-f-tim')?.focus();
+}
+
+function tdtTimHocSinh() {
+  clearTimeout(henTim);
+  henTim = setTimeout(async () => {
+    const q = ($('tdt-f-tim')?.value || '').trim();
+    const khung = $('tdt-f-kq');
+    if (!khung) return;
+    if (!q) { khung.innerHTML = 'Gõ để tìm trong các hồ sơ du học đã có.'; return; }
+    const lan = ++demTim;
+    try {
+      const r = await apiGet(`/admin/du-hoc/ho-so?tim=${encodeURIComponent(q)}&moi_trang=10`);
+      if (lan !== demTim || !$('tdt-f-kq')) return;
+      const t = duLieu.truong.find((x) => x.id === truongDangThem);
+      const daCo = new Set((t?.hoc_sinh || []).map((h) => h.ho_so_id));
+      const ds = r.ho_so || [];
+      khung.innerHTML = ds.length ? `<ul class="tdt-ung-vien">${ds.map((h) => `
+        <li>
+          <div><strong>${esc(h.ho_ten)}</strong>
+            <div class="dh-sub">${esc(h.ma_hs)}${h.ky_nhap_hoc ? ' · ' + esc(h.ky_nhap_hoc) : ''}${h.nganh ? ' · ' + esc(h.nganh) : ''}</div></div>
+          ${daCo.has(h.id)
+            ? '<span class="dh-sub">đã có trong trường</span>'
+            : `<button class="btn btn-sm btn-primary" onclick="adminApp.tdtThemHocSinh(${h.id}, this)">Thêm</button>`}
+        </li>`).join('')}</ul>${r.tong > ds.length ? `<p class="dh-sub">Còn ${r.tong - ds.length} hồ sơ nữa — gõ rõ hơn để thu hẹp.</p>` : ''}`
+        : 'Không tìm thấy hồ sơ nào.';
+    } catch (err) {
+      if (lan === demTim && $('tdt-f-kq')) khung.textContent = err.message || 'Không tìm được.';
+    }
+  }, 250);
+}
+
+async function tdtThemHocSinh(hoSoId, nut) {
+  nut.disabled = true;
+  const ok = await lam(() => apiPost(`/admin/du-hoc/theo-truong/${truongDangThem}/hoc-sinh`, { ho_so_id: hoSoId }), 'Đã thêm học sinh.');
+  if (!ok) { nut.disabled = false; return; }
+  nut.replaceWith(Object.assign(document.createElement('span'), { className: 'dh-sub', textContent: 'đã thêm' }));
+  moTay.set(truongDangThem, true);
+  // Vẽ lại nền ngay, giữ hộp tìm đang mở để thêm tiếp nhiều em liền nhau.
+  try {
+    duLieu = await apiGet('/admin/du-hoc/theo-truong');
+    veKhung($('admin-content'));
+  } catch (_) { /* nền cũ vẫn dùng được, lần mở sau sẽ tải lại */ }
+}
+
+async function tdtDoiKetQua(id, ketQua) {
+  if (await lam(() => apiPut(`/admin/du-hoc/theo-truong-hs/${id}`, { ket_qua: ketQua }), 'Đã cập nhật kết quả.')) await veLai();
+  else await veLai();   // lỗi thì trả ô chọn về giá trị thật trên server
+}
+
+function tdtGoHocSinh(id, ten) {
+  A.confirmDialog('Gỡ học sinh khỏi trường', `Gỡ “${ten}” khỏi trường này? Hồ sơ du học của em không bị xoá.`,
+    async () => { if (await lam(() => apiDel(`/admin/du-hoc/theo-truong-hs/${id}`), 'Đã gỡ khỏi trường.')) await veLai(); });
+}
+
 export const tdtHandlers = {
-  tdtDoiLoc, tdtTim, tdtXoaLoc, tdtMoDong, tdtMoHet, tdtThuGon, tdtMoHoSo,
+  tdtTim, tdtMoDong, tdtMoHet, tdtThuGon, tdtMoHoSo,
+  tdtFormTruong, tdtLuuTruong, tdtXoaTruong,
+  tdtFormHocSinh, tdtTimHocSinh, tdtThemHocSinh, tdtDoiKetQua, tdtGoHocSinh,
 };

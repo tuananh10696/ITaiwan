@@ -50,7 +50,7 @@ async function initDatabase() {
   const tables = [
     'de_bai_lam', 'de_giao', 'de_cau_hoi', 'de_bai',
     'ktx_thu_tien', 'ktx_o', 'ktx_phong', 'ktx_toa', 'quy_phieu', 'quy_danh_muc',
-    'du_hoc_giay_to_anh', 'du_hoc_giay_to', 'du_hoc_thu_tien', 'du_hoc_lich_su', 'du_hoc_yeu_cau_sua',
+    'du_hoc_truong_hs', 'du_hoc_truong', 'du_hoc_giay_to_anh', 'du_hoc_giay_to', 'du_hoc_thu_tien', 'du_hoc_lich_su', 'du_hoc_yeu_cau_sua',
     'du_hoc_thong_bao', 'du_hoc_ho_so',
     'device_alerts', 'user_devices',
     'schema_migrations', 'teacher_reviews', 'teacher_notes',

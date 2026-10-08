@@ -4964,7 +4964,7 @@ async function dhNapNhanSu() {
 // Nạp cầu nối cho module 3 khu trung tâm TRƯỚC khi gắn handler — module gọi các helper này
 // ngay từ lần render đầu tiên.
 dangKyTrungTam({ apiGet, apiPost, apiPut, apiDel, esc, toast, openModal, closeModal, confirmDialog, _tien, conDungLuot, laAdmin });
-dangKyTienDoTruong({ apiGet, esc, conDungLuot, syncUrl: syncAdminUrl, moHoSo: dhMoTuKhuKhac, pvDong: _dhPvDong });
+dangKyTienDoTruong({ apiGet, apiPost, apiPut, apiDel, esc, toast, openModal, closeModal, confirmDialog, conDungLuot, moHoSo: dhMoTuKhuKhac });
 
 window.adminApp = {
   // Ba khu vận hành trung tâm — quên dòng này là mọi nút trong đó im lặng không chạy (quy ước 4.4).
