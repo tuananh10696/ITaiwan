@@ -4,8 +4,9 @@
 // Quản trị tự thêm từng trường, rồi thêm học sinh (chọn từ hồ sơ du học có sẵn) vào trường đó,
 // giống thêm lớp rồi add học sinh. Mỗi học sinh trong trường hiện: họ tên, bước hồ sơ, kỳ nhập học,
 // ngành, tư vấn viên + kết quả riêng của trường đó (Đang chờ / Đậu / Trượt). Một em thuộc được nhiều trường.
-// Backend: /api/admin/du-hoc/theo-truong (xem server/routes/du-hoc.js). Sale / quản lý hồ sơ chỉ XEM
-// học sinh thuộc hồ sơ mình phụ trách; thêm / sửa / xoá chỉ quản trị (`sua_duoc` do server báo).
+// Backend: /api/admin/du-hoc/theo-truong (xem server/routes/du-hoc.js). Quản trị + quản lý hồ sơ thấy
+// mọi học sinh, sale chỉ thấy học sinh thuộc hồ sơ mình phụ trách (server lọc). Cả ba thêm / gỡ học
+// sinh và đặt kết quả được; thêm / đổi tên / xoá TRƯỜNG chỉ quản trị (`sua_duoc` do server báo).
 //
 // Cùng lối với admin-trungtam.js: module được admin.js import, CẦU NỐI MỘT CHIỀU qua `dangKy()`
 // (import ngược admin.js là vòng lặp), mọi hàm gọi từ HTML nằm trong `tdtHandlers` và được
@@ -37,7 +38,6 @@ const moTay = new Map();
 const laMo = (id, macDinh) => (moTay.has(id) ? moTay.get(id) : macDinh);
 
 const KET_QUA = { cho: 'Đang chờ', dau: 'Đậu', truot: 'Trượt' };
-const MAU_KQ = { cho: 'badge-gray', dau: 'badge-success', truot: 'badge-danger' };
 
 const $ = (id) => document.getElementById(id);
 /** Bỏ dấu để ô tìm gõ "dai hoc" vẫn ra "Đại học". */
@@ -78,7 +78,7 @@ function veKhung(el) {
         <p style="margin:4px 0 0;font-size:13px;color:var(--admin-text-muted)">
           ${d.sua_duoc
             ? 'Thêm trường, rồi thêm học sinh vào từng trường để theo dõi. Một học sinh có thể thuộc nhiều trường.'
-            : 'Các trường và học sinh thuộc hồ sơ bạn phụ trách.'}</p>
+            : 'Thêm học sinh vào các trường để theo dõi. Một học sinh có thể thuộc nhiều trường.'}</p>
       </div>
       ${d.sua_duoc ? `<button class="btn btn-primary" onclick="adminApp.tdtFormTruong()">
         <i class="fa-solid fa-plus"></i> Thêm trường</button>` : ''}
@@ -139,7 +139,7 @@ function veDanhSach() {
 
 function theTruong(t) {
   const mo = laMo(t.id, !!t.loc_hs);
-  const sua = duLieu.sua_duoc;
+  const sua = duLieu.sua_duoc;   // quản lý TRƯỜNG; thêm / gỡ học sinh thì ai cũng làm được
   const dem = [
     t.cho && `<span>Đang chờ <b>${t.cho}</b></span>`,
     t.dau && `<span class="tdt-dau">Đậu <b>${t.dau}</b></span>`,
@@ -155,15 +155,15 @@ function theTruong(t) {
       </button>
       ${dem ? `<div class="tdt-tomtat">${dem}</div>` : ''}
       ${mo ? `
-        ${sua ? `<div class="tdt-thao-tac">
+        <div class="tdt-thao-tac">
           <button class="btn btn-sm btn-primary" onclick="adminApp.tdtFormHocSinh(${t.id})">
             <i class="fa-solid fa-user-plus"></i> Thêm học sinh</button>
-          <button class="btn btn-sm btn-outline" onclick="adminApp.tdtFormTruong(${t.id})">
+          ${sua ? `<button class="btn btn-sm btn-outline" onclick="adminApp.tdtFormTruong(${t.id})">
             <i class="fa-solid fa-pen"></i> Đổi tên</button>
           <button class="btn btn-sm btn-outline" onclick="adminApp.tdtXoaTruong(${t.id})">
-            <i class="fa-solid fa-trash"></i> Xoá trường</button>
-        </div>` : ''}
-        ${t.hoc_sinh.length ? bangHocSinh(t.hoc_sinh, sua)
+            <i class="fa-solid fa-trash"></i> Xoá trường</button>` : ''}
+        </div>
+        ${t.hoc_sinh.length ? bangHocSinh(t.hoc_sinh)
           : '<p class="dh-sub" style="margin:12px 0 0">Chưa có học sinh nào trong trường này.</p>'}` : ''}
     </div>`;
 }
@@ -173,7 +173,7 @@ function chipBuoc(ma) {
   return `<span class="dh-chip" style="--c:${b.mau}"><i class="fa-solid ${b.icon}"></i> ${esc(b.ten)}</span>`;
 }
 
-function bangHocSinh(ds, sua) {
+function bangHocSinh(ds) {
   const hang = ds.map((h) => `
     <tr class="dh-row">
       <td><a href="#" class="tdt-ten-hs" onclick="event.preventDefault();adminApp.tdtMoHoSo(${Number(h.ho_so_id)})"><strong>${esc(h.ho_ten)}</strong></a></td>
@@ -181,13 +181,12 @@ function bangHocSinh(ds, sua) {
       <td>${h.ky_nhap_hoc ? esc(h.ky_nhap_hoc) : '<span class="dh-sub">—</span>'}</td>
       <td>${h.nganh ? esc(h.nganh) : '<span class="dh-sub">—</span>'}</td>
       <td>${h.tu_van_ten ? esc(h.tu_van_ten) : '<span class="dh-sub">—</span>'}</td>
-      <td style="white-space:nowrap">${sua
-        ? `<select onchange="adminApp.tdtDoiKetQua(${h.id}, this.value)" aria-label="Kết quả của ${esc(h.ho_ten)}">
-            ${Object.entries(KET_QUA).map(([k, v]) => `<option value="${k}" ${h.ket_qua === k ? 'selected' : ''}>${v}</option>`).join('')}
-          </select>
-          <button class="btn-icon" title="Gỡ khỏi trường" onclick="adminApp.tdtGoHocSinh(${h.id}, '${esc(h.ho_ten).replace(/'/g, '&#39;')}')">
-            <i class="fa-solid fa-user-minus"></i></button>`
-        : `<span class="badge ${MAU_KQ[h.ket_qua] || 'badge-gray'}">${KET_QUA[h.ket_qua] || esc(h.ket_qua)}</span>`}</td>
+      <td style="white-space:nowrap">
+        <select onchange="adminApp.tdtDoiKetQua(${h.id}, this.value)" aria-label="Kết quả của ${esc(h.ho_ten)}">
+          ${Object.entries(KET_QUA).map(([k, v]) => `<option value="${k}" ${h.ket_qua === k ? 'selected' : ''}>${v}</option>`).join('')}
+        </select>
+        <button class="btn-icon" title="Gỡ khỏi trường" onclick="adminApp.tdtGoHocSinh(${h.id}, '${esc(h.ho_ten).replace(/'/g, '&#39;')}')">
+          <i class="fa-solid fa-user-minus"></i></button></td>
     </tr>`).join('');
   return `
     <div class="data-table-wrapper dh-table-wrap tdt-bang">
@@ -289,7 +288,7 @@ function tdtTimHocSinh() {
     if (!q) { khung.innerHTML = 'Gõ để tìm trong các hồ sơ du học đã có.'; return; }
     const lan = ++demTim;
     try {
-      const r = await apiGet(`/admin/du-hoc/ho-so?tim=${encodeURIComponent(q)}&moi_trang=10`);
+      const r = await apiGet(`/admin/du-hoc/theo-truong/tim-hoc-sinh?q=${encodeURIComponent(q)}`);
       if (lan !== demTim || !$('tdt-f-kq')) return;
       const t = duLieu.truong.find((x) => x.id === truongDangThem);
       const daCo = new Set((t?.hoc_sinh || []).map((h) => h.ho_so_id));

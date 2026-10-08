@@ -125,16 +125,48 @@ console.log('\n── 2. Hồ sơ du học: chỉ thấy của mình ───�
   const the = (j?.truong || []).find((t) => t.ten === `Đại học Thử ${MA}`);
   dat('thẻ trường chung chỉ đếm 1 học sinh với sale A', the?.tong === 1);
   dat('không trả CCCD trong tiến độ theo trường', !JSON.stringify(j || {}).includes('0123456789'));
-  dat('sale không được sửa (sua_duoc=false)', j?.sua_duoc === false);
-  // Ghi (thêm trường / thêm học sinh / đặt kết quả / gỡ) chỉ quản trị — sale và quản lý hồ sơ phải 403.
-  const w1 = await goi('POST', '/admin/du-hoc/theo-truong', 'saleA', { ten: `Sale thu them ${MA}` });
-  const w2 = await goi('POST', `/admin/du-hoc/theo-truong/${truongThu}/hoc-sinh`, 'saleA', { ho_so_id: hoSoA });
+  dat('sale không quản lý được TRƯỜNG (sua_duoc=false)', j?.sua_duoc === false);
+
+  // Tìm học sinh để thêm vào trường: sale chỉ tìm được hồ sơ mình phụ trách.
+  const tA = await goi('GET', `/admin/du-hoc/theo-truong/tim-hoc-sinh?q=${MA}`, 'saleA');
+  const idsTim = (tA.j?.ho_so || []).map((h) => h.id);
+  dat('sale A tìm học sinh: có hồ sơ của mình, KHÔNG có hồ sơ của sale B', idsTim.includes(hoSoA) && !idsTim.includes(hoSoB), idsTim.join(','));
+  dat('kết quả tìm không lộ CCCD', !JSON.stringify(tA.j || {}).includes('0123456789'));
+  const [trRieng] = await pool.query('INSERT INTO du_hoc_truong (ten) VALUES (?)', [`Trường riêng ${MA}`]);
+  const them = await goi('POST', `/admin/du-hoc/theo-truong/${trRieng.insertId}/hoc-sinh`, 'saleA', { ho_so_id: hoSoA });
+  dat('sale A thêm học sinh của mình vào trường -> 201', them.ma === 201, `${them.ma}`);
+  const themB = await goi('POST', `/admin/du-hoc/theo-truong/${trRieng.insertId}/hoc-sinh`, 'saleA', { ho_so_id: hoSoB });
+  dat('sale A thêm học sinh của sale B -> 404 (không thấy)', themB.ma === 404, `${themB.ma}`);
+  // sale B chen học sinh của mình vào trường chung; sale A không được đổi / gỡ dòng đó.
+  const [[mB]] = await pool.query('SELECT id FROM du_hoc_truong_hs WHERE truong_id = ? AND ho_so_id = ?', [truongThu, hoSoB]);
+  const doiB = await goi('PUT', `/admin/du-hoc/theo-truong-hs/${mB.id}`, 'saleA', { ket_qua: 'dau' });
+  const goB = await goi('DELETE', `/admin/du-hoc/theo-truong-hs/${mB.id}`, 'saleA');
+  const [[conB]] = await pool.query('SELECT ket_qua FROM du_hoc_truong_hs WHERE id = ?', [mB.id]);
+  dat('sale A KHÔNG đổi / gỡ được dòng của học sinh sale B (404, dữ liệu nguyên vẹn)',
+    doiB.ma === 404 && goB.ma === 404 && conB?.ket_qua === 'cho', `${doiB.ma},${goB.ma},${conB?.ket_qua}`);
   const [[mA]] = await pool.query('SELECT id FROM du_hoc_truong_hs WHERE truong_id = ? AND ho_so_id = ?', [truongThu, hoSoA]);
-  const w3 = await goi('PUT', `/admin/du-hoc/theo-truong-hs/${mA.id}`, 'saleA', { ket_qua: 'dau' });
-  const w4 = await goi('DELETE', `/admin/du-hoc/theo-truong-hs/${mA.id}`, 'hoSo');
-  const w5 = await goi('DELETE', `/admin/du-hoc/theo-truong/${truongThu}`, 'saleA');
-  dat('sale / quản lý hồ sơ KHÔNG ghi được tiến độ theo trường (403)',
+  const doiA = await goi('PUT', `/admin/du-hoc/theo-truong-hs/${mA.id}`, 'saleA', { ket_qua: 'dau' });
+  dat('sale A đặt kết quả cho học sinh của mình -> 200', doiA.ma === 200, `${doiA.ma}`);
+  // Quản lý TRƯỜNG (thêm / đổi tên / xoá) chỉ quản trị.
+  const w1 = await goi('POST', '/admin/du-hoc/theo-truong', 'saleA', { ten: `Sale thu them ${MA}` });
+  const w2 = await goi('PUT', `/admin/du-hoc/theo-truong/${truongThu}`, 'saleA', { ten: `Doi ten ${MA}` });
+  const w3 = await goi('DELETE', `/admin/du-hoc/theo-truong/${truongThu}`, 'saleA');
+  const w4 = await goi('POST', '/admin/du-hoc/theo-truong', 'hoSo', { ten: `QL thu them ${MA}` });
+  const w5 = await goi('DELETE', `/admin/du-hoc/theo-truong/${truongThu}`, 'hoSo');
+  dat('sale / quản lý hồ sơ KHÔNG thêm - đổi tên - xoá TRƯỜNG được (403)',
     [w1, w2, w3, w4, w5].every((w) => w.ma === 403), [w1, w2, w3, w4, w5].map((w) => w.ma).join(','));
+
+  // Quản lý hồ sơ: thấy + tìm + thêm được MỌI học sinh (khác sale).
+  const qA = await goi('GET', '/admin/du-hoc/theo-truong', 'hoSo');
+  const idsQl = (qA.j?.truong || []).flatMap((t) => t.hoc_sinh.map((h) => h.ho_so_id));
+  dat('quản lý hồ sơ thấy học sinh của cả sale A và sale B trong tiến độ theo trường', idsQl.includes(hoSoA) && idsQl.includes(hoSoB));
+  const qT = await goi('GET', `/admin/du-hoc/theo-truong/tim-hoc-sinh?q=${MA}`, 'hoSo');
+  const idsQlTim = (qT.j?.ho_so || []).map((h) => h.id);
+  dat('quản lý hồ sơ tìm được học sinh của cả hai sale', idsQlTim.includes(hoSoA) && idsQlTim.includes(hoSoB), idsQlTim.join(','));
+  const qThem = await goi('POST', `/admin/du-hoc/theo-truong/${trRieng.insertId}/hoc-sinh`, 'hoSo', { ho_so_id: hoSoB });
+  dat('quản lý hồ sơ thêm học sinh của sale B vào trường -> 201', qThem.ma === 201, `${qThem.ma}`);
+  const qB = await goi('GET', '/admin/du-hoc/theo-truong', 'hoSo');
+  dat('quản lý hồ sơ không có quyền sửa TRƯỜNG (sua_duoc=false)', qB.j?.sua_duoc === false);
 }
 
 console.log('\n── 3. Không chuyển được hồ sơ sang tên người khác ───────');

@@ -210,9 +210,15 @@ const QUYEN = [
   { vai: NS, method: ['GET'], re: /^\/classes-options$/, qua: null },
 
   // --- HỒ SƠ DU HỌC: chỉ hồ sơ mình phụ trách ---
-  // `theo-truong` (tiến độ theo trường) tự lọc bằng dkOrg như tong-quan.
+  // `theo-truong` (tiến độ theo trường) tự lọc theo vai trò: sale chỉ học sinh của mình, quản lý hồ sơ thấy hết.
   { vai: NS, method: ['GET'], re: /^\/du-hoc\/(tong-quan|so-lieu|ho-so|nhan-su|hoc-vien|yeu-cau-sua|theo-truong)$/, qua: null },
   { vai: NS, method: ['POST'], re: /^\/du-hoc\/ho-so$/, qua: null },
+  // Tiến độ theo trường (2026-10-08): sale / quản lý hồ sơ được thêm - gỡ học sinh và đặt kết quả,
+  // KHÔNG được thêm / đổi tên / xoá trường (không có luật -> 403). Phạm vi học sinh do chính route
+  // kiểm (`dkPhamViTruong` ở du-hoc.js: sale chỉ hồ sơ mình, quản lý hồ sơ thấy hết) nên `qua: null`.
+  { vai: NS, method: ['GET'], re: /^\/du-hoc\/theo-truong\/tim-hoc-sinh$/, qua: null },
+  { vai: NS, method: ['POST'], re: /^\/du-hoc\/theo-truong\/(\d+)\/hoc-sinh$/, qua: null },
+  { vai: NS, method: ['PUT', 'DELETE'], re: /^\/du-hoc\/theo-truong-hs\/(\d+)$/, qua: null },
   { vai: NS, method: ['GET', 'POST', 'PUT', 'DELETE'], re: /^\/du-hoc\/ho-so\/(\d+)(\/.*)?$/, qua: 'hoso', nhom: 1 },
   { vai: NS, method: ['GET', 'PUT', 'DELETE'], re: /^\/du-hoc\/thu-tien\/(\d+)(\/anh)?$/, qua: 'thu-tien', nhom: 1 },
   { vai: NS, method: ['PUT', 'DELETE'], re: /^\/du-hoc\/giay-to\/(\d+)$/, qua: 'giay-to', nhom: 1 },

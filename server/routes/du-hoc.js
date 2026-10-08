@@ -563,12 +563,20 @@ router.get('/du-hoc/ho-so', async (req, res) => {
 // Một hồ sơ thuộc được NHIỀU trường; mỗi cặp (trường, hồ sơ) có kết quả riêng: cho | dau | truot.
 // Gỡ học sinh khỏi trường / xoá trường KHÔNG xoá hồ sơ (bảng liên kết ON DELETE CASCADE một chiều).
 //
-// ĐỌC (GET): quản trị thấy hết; sale / quản lý hồ sơ chỉ thấy học sinh thuộc hồ sơ mình phụ trách
-// (dkOrg). GHI (thêm / đổi tên / xoá trường, thêm / gỡ học sinh, đặt kết quả): CHỈ quản trị — không
-// có luật nào cho nhân sự ở middleware/roles.js nên họ tự nhận 403. `sua_duoc` báo cho giao diện
-// biết có hiện nút ghi hay không.
+// PHÂN QUYỀN RIÊNG CỦA MÀN NÀY (2026-10-08, khách yêu cầu):
+//   · quản trị + quản lý hồ sơ (ho_so): thấy và tìm được MỌI học sinh;
+//   · sale: chỉ thấy và tìm được học sinh thuộc hồ sơ MÌNH phụ trách (`tu_van_id`).
+//     Lưu ý: ở các khu khác (danh sách hồ sơ, chi tiết...) quản lý hồ sơ vẫn bị lọc như sale — chỉ
+//     màn này mở rộng, nên KHÔNG dùng `dkOrg` ở đây mà dùng `dkPhamViTruong`.
+//   · thêm / gỡ học sinh, đặt kết quả: cả ba vai trò, trong đúng phạm vi thấy được ở trên;
+//   · thêm / đổi tên / xoá TRƯỜNG: chỉ quản trị — không có luật nào cho nhân sự ở middleware/roles.js
+//     nên họ tự nhận 403.
+// `sua_duoc` (quản lý trường) báo cho giao diện biết có hiện nút trường hay không.
 // Chỉ lấy cột màn này cần — KHÔNG kéo CCCD, hộ chiếu, điện thoại, tiền.
 const KET_QUA_TRUONG = ['cho', 'dau', 'truot'];
+/** Phạm vi học sinh của màn này: chỉ sale bị lọc theo người phụ trách (xem đầu khối). Bí danh bảng hồ sơ phải là `h`. */
+const dkPhamViTruong = (req) => (req.role === 'sale' ? ' AND h.tu_van_id = ?' : '');
+const tsPhamViTruong = (req) => (req.role === 'sale' ? [req.userId] : []);
 
 router.get('/du-hoc/theo-truong', async (req, res) => {
   try {
@@ -580,9 +588,9 @@ router.get('/du-hoc/theo-truong', async (req, res) => {
            FROM du_hoc_truong_hs m
            JOIN du_hoc_ho_so h ON h.id = m.ho_so_id
            LEFT JOIN users u ON u.id = h.tu_van_id
-          WHERE 1=1${dkOrg(req)}
+          WHERE 1=1${dkPhamViTruong(req)}
           ORDER BY h.ho_ten, m.id`,
-        tsOrg(req)
+        tsPhamViTruong(req)
       ),
     ]);
     const theo = new Map(dsTruong.map((t) => [t.id, { ...t, cho: 0, dau: 0, truot: 0, hoc_sinh: [] }]));
@@ -595,7 +603,7 @@ router.get('/du-hoc/theo-truong', async (req, res) => {
     const truong = [...theo.values()].map((t) => ({ ...t, tong: t.hoc_sinh.length }));
     res.json({
       buoc: BUOC,
-      sua_duoc: !req.nhanSuId,
+      sua_duoc: !req.nhanSuId,   // quản lý TRƯỜNG: chỉ quản trị
       tong_luot: dsHs.length,
       truong,
     });
@@ -652,13 +660,34 @@ router.delete('/du-hoc/theo-truong/:id', async (req, res) => {
   }
 });
 
+/** Tìm hồ sơ để thêm vào trường — đúng phạm vi thấy được của người gọi (sale: hồ sơ mình phụ trách). */
+router.get('/du-hoc/theo-truong/tim-hoc-sinh', async (req, res) => {
+  const q = String(req.query.q || '').trim().slice(0, 100);
+  if (!q) return res.json({ ho_so: [], tong: 0 });
+  try {
+    const like = `%${q}%`;
+    const dk = `(h.ho_ten LIKE ? OR h.ma_hs LIKE ? OR h.phone LIKE ?)${dkPhamViTruong(req)}`;
+    const ts = [like, like, like, ...tsPhamViTruong(req)];
+    const [[dem], [rows]] = await Promise.all([
+      pool.query(`SELECT COUNT(*) AS n FROM du_hoc_ho_so h WHERE ${dk}`, ts),
+      pool.query(
+        `SELECT h.id, h.ma_hs, h.ho_ten, h.ky_nhap_hoc, h.nganh FROM du_hoc_ho_so h
+          WHERE ${dk} ORDER BY h.ho_ten LIMIT 10`, ts),
+    ]);
+    res.json({ ho_so: rows, tong: dem[0].n });
+  } catch (err) {
+    console.error('Lỗi tìm học sinh để thêm vào trường:', err);
+    res.status(500).json({ error: loiBang(err, 'Không tìm được học sinh.') });
+  }
+});
+
 router.post('/du-hoc/theo-truong/:id/hoc-sinh', async (req, res) => {
   const hoSoId = parseInt(req.body?.ho_so_id, 10);
   if (!Number.isFinite(hoSoId)) return res.status(400).json({ error: 'Chưa chọn học sinh.' });
   try {
     const [[tr], [hs]] = await Promise.all([
       pool.query('SELECT id FROM du_hoc_truong WHERE id = ?', [req.params.id]),
-      pool.query(`SELECT h.id FROM du_hoc_ho_so h WHERE h.id = ?${dkOrg(req)}`, [hoSoId, ...tsOrg(req)]),
+      pool.query(`SELECT h.id FROM du_hoc_ho_so h WHERE h.id = ?${dkPhamViTruong(req)}`, [hoSoId, ...tsPhamViTruong(req)]),
     ]);
     if (!tr.length) return res.status(404).json({ error: 'Không tìm thấy trường.' });
     if (!hs.length) return res.status(404).json({ error: 'Không tìm thấy hồ sơ học sinh.' });
@@ -675,7 +704,11 @@ router.put('/du-hoc/theo-truong-hs/:id', async (req, res) => {
   const kq = req.body?.ket_qua;
   if (!KET_QUA_TRUONG.includes(kq)) return res.status(400).json({ error: 'Kết quả không hợp lệ.' });
   try {
-    const [r] = await pool.query('UPDATE du_hoc_truong_hs SET ket_qua = ? WHERE id = ?', [kq, req.params.id]);
+    const [r] = await pool.query(
+      `UPDATE du_hoc_truong_hs m JOIN du_hoc_ho_so h ON h.id = m.ho_so_id
+          SET m.ket_qua = ? WHERE m.id = ?${dkPhamViTruong(req)}`,
+      [kq, req.params.id, ...tsPhamViTruong(req)]
+    );
     if (!r.affectedRows) return res.status(404).json({ error: 'Không tìm thấy học sinh trong trường.' });
     res.json({ message: 'Đã cập nhật kết quả.' });
   } catch (err) {
@@ -686,7 +719,11 @@ router.put('/du-hoc/theo-truong-hs/:id', async (req, res) => {
 
 router.delete('/du-hoc/theo-truong-hs/:id', async (req, res) => {
   try {
-    const [r] = await pool.query('DELETE FROM du_hoc_truong_hs WHERE id = ?', [req.params.id]);
+    const [r] = await pool.query(
+      `DELETE m FROM du_hoc_truong_hs m JOIN du_hoc_ho_so h ON h.id = m.ho_so_id
+        WHERE m.id = ?${dkPhamViTruong(req)}`,
+      [req.params.id, ...tsPhamViTruong(req)]
+    );
     if (!r.affectedRows) return res.status(404).json({ error: 'Không tìm thấy học sinh trong trường.' });
     res.json({ message: 'Đã gỡ học sinh khỏi trường.' });
   } catch (err) {
