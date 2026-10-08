@@ -16,6 +16,7 @@ import {
 import { LOAI_PV, BUOI_PV, tinhPhongVan, loaiPv } from '../shared/phong-van.js';
 import { HE_DU_HOC, MAX_HE, danhSachHe, chuoiHe, tenHe } from '../shared/he-du-hoc.js';
 // Push thông báo lên thiết bị của nhân viên (2026-09-28) — phần trình duyệt dùng chung với cổng học viên.
+import { nenAnhGiayTo } from './core/nen-anh.js';
 import { trangThaiPush, batPush, tatPush, dongBoPush, ngheDoiDangKy, NHAN_PUSH } from './core/push.js';
 // Tiến độ theo trường (2026-09-25) — khu con của Du học, cùng lối cầu nối như module trên.
 import {
@@ -4834,7 +4835,7 @@ async function dhUpAnhGiayTo(giayToId, input) {
   input.value = '';
   if (!f) return;
   try {
-    const anh = await dhNenAnh(f);
+    const anh = await nenAnhGiayTo(f);
     await apiPost(`/admin/du-hoc/giay-to/${giayToId}/anh`, { anh });
     toast('Đã lưu ảnh.');
     renderDuHoc(document.getElementById('admin-content'));

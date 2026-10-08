@@ -6,8 +6,11 @@
 // Mỗi nơi tự kiểm quyền sở hữu ở câu SELECT của nó, rồi mới gọi vào đây với `giayTo` đã được xác nhận.
 import pool from '../config/db.js';
 
-/** Cùng trần với ảnh chứng từ thu tiền (du-hoc.js `ANH_TOI_DA`): client nén ~400KB, chặn cứng ở đây. */
-export const ANH_GIAY_TO_TOI_DA = 900_000;
+/**
+ * Client nén ảnh giấy tờ xuống ≤ 250KB (src/core/nen-anh.js); chặn cứng ở 500KB để không ai đẩy
+ * thẳng ảnh gốc vào DB, mà vẫn chừa chỗ cho bản JS cũ còn nằm trong tab trình duyệt.
+ */
+export const ANH_GIAY_TO_TOI_DA = 500_000;
 
 /** Chuỗi lỗi nếu `anh` không hợp lệ, hoặc null. Bắt buộc có ảnh (khác chứng từ thu tiền: không có "gỡ bằng chuỗi rỗng"). */
 export function loiAnhGiayTo(anh) {

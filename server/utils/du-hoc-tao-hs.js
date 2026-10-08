@@ -26,7 +26,7 @@ export const GIAY_TO_MAC_DINH = [
   ['Bằng tốt nghiệp', true, 0],
   ['Hộ chiếu', true, 0],
   ['Ảnh thẻ (2 file khác nhau, nền trắng, tóc không che trán và tai)', true, 2],
-  ['Ảnh CCCD', true, 1],
+  ['Ảnh CCCD (mặt trước và mặt sau)', true, 2],
 ];
 
 /** Chép danh mục giấy tờ mặc định vào một hồ sơ vừa tạo. */

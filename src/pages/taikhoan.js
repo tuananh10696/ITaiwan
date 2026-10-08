@@ -13,6 +13,7 @@ import { app } from '../core/app.js';
 import { state, tkState } from '../core/state.js';
 import { tdEsc, toast, twPlayEnter, openDialog, closeDialog, khungXuongTrang } from '../core/ui.js';
 import api from '../api/client.js';
+import { nenAnhGiayTo } from '../core/nen-anh.js';
 import { quenBaiBiKhoa } from '../data/giaotrinh-kho.js';
 // Bước Phỏng vấn: trường / VP Đài Bắc / cả 2 — cùng quy tắc với server và cổng quản trị.
 import { tinhPhongVan } from '../../shared/phong-van.js';
@@ -67,7 +68,7 @@ const tkNgay = (x) => (x ? new Date(x).toLocaleString('vi-VN', {
  * server. 1400px là đủ đọc số tiền và nội dung chuyển khoản trên biên lai, đó là tất cả những
  * gì người duyệt cần nhìn.
  */
-function tkNenAnh(file, nguong = 0) {
+function tkNenAnh(file) {
   return new Promise((giai, tuChoi) => {
     const doc = new FileReader();
     doc.onerror = () => tuChoi(new Error('Không đọc được tệp ảnh.'));
@@ -81,11 +82,7 @@ function tkNenAnh(file, nguong = 0) {
         c.width = Math.round(img.width * ty);
         c.height = Math.round(img.height * ty);
         c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
-        let q = 0.8;
-        let out = c.toDataURL('image/jpeg', q);
-        // Có ngưỡng thì hạ dần chất lượng cho tới khi lọt (server chặn cứng ở 900KB).
-        while (nguong && out.length > nguong && q > 0.4) { q -= 0.1; out = c.toDataURL('image/jpeg', q); }
-        giai(out);
+        giai(c.toDataURL('image/jpeg', 0.8));
       };
       img.src = ev.target.result;
     };
@@ -933,7 +930,7 @@ async function dhUpAnhGt(giayToId, input) {
   if (!f) return;
   toast('Đang tải ảnh lên…');
   try {
-    const anh = await tkNenAnh(f, 420_000);
+    const anh = await nenAnhGiayTo(f);
     await api.taiAnhGiayTo(giayToId, anh);
     await dhLamMoiGiayTo();
     toast('Đã lưu ảnh.');

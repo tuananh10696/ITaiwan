@@ -40,11 +40,11 @@ try {
   const me = await G(A, 'GET', '/du-hoc/ho-so-cua-toi');
   const gt = me.j?.giay_to || [];
   kiem('Hồ sơ mới có đúng 5 giấy tờ mặc định', gt.length === 5, `${gt.length}: ${gt.map((g) => g.ten).join(' | ')}`);
-  kiem('Thứ tự + tên: Học bạ, Bằng tốt nghiệp, Hộ chiếu, Ảnh thẻ, Ảnh CCCD',
+  kiem('Thứ tự + tên: Học bạ, Bằng tốt nghiệp, Hộ chiếu, Ảnh thẻ, Ảnh CCCD (2 mặt)',
     /^Học bạ$/.test(gt[0]?.ten) && /^Bằng tốt nghiệp$/.test(gt[1]?.ten) && /^Hộ chiếu$/.test(gt[2]?.ten)
-    && /^Ảnh thẻ/.test(gt[3]?.ten) && /^Ảnh CCCD$/.test(gt[4]?.ten));
+    && /^Ảnh thẻ/.test(gt[3]?.ten) && /^Ảnh CCCD \(mặt trước và mặt sau\)$/.test(gt[4]?.ten));
   kiem('Cả 5 mục bắt buộc', gt.every((g) => g.bat_buoc));
-  kiem('Số ảnh tối đa: 0,0,0,2,1', gt.map((g) => g.so_anh_toi_da).join(',') === '0,0,0,2,1', gt.map((g) => g.so_anh_toi_da).join(','));
+  kiem('Số ảnh tối đa: 0,0,0,2,2', gt.map((g) => g.so_anh_toi_da).join(',') === '0,0,0,2,2', gt.map((g) => g.so_anh_toi_da).join(','));
   const [anhThe, cccd, hocBa] = [gt[3], gt[4], gt[0]];
 
   // 2. Tải ảnh
@@ -61,14 +61,16 @@ try {
   const c1 = await G(A, 'POST', `/du-hoc/giay-to/${cccd.id}/anh`, { anh: ANH });
   kiem('Tải ảnh CCCD -> 201', c1.s === 201, `${c1.s} ${c1.j?.error || ''}`);
   const c2 = await G(A, 'POST', `/du-hoc/giay-to/${cccd.id}/anh`, { anh: ANH });
-  kiem('Ảnh CCCD thứ 2 bị từ chối (tối đa 1)', c2.s === 409, `${c2.s}`);
+  kiem('Ảnh CCCD mặt sau (ảnh thứ 2) -> 201', c2.s === 201, `${c2.s} ${c2.j?.error || ''}`);
+  const c3 = await G(A, 'POST', `/du-hoc/giay-to/${cccd.id}/anh`, { anh: ANH });
+  kiem('Ảnh CCCD thứ 3 bị từ chối (tối đa 2)', c3.s === 409, `${c3.s}`);
 
   // 3. Từ chối đầu vào xấu
   const x1 = await G(A, 'POST', `/du-hoc/giay-to/${hocBa.id}/anh`, { anh: ANH });
   kiem('Học bạ (không nhận ảnh) -> 400', x1.s === 400, `${x1.s}`);
   const x2 = await G(A, 'POST', `/du-hoc/giay-to/${cccd.id}/anh`, { anh: 'data:text/html;base64,PGI+' });
   kiem('Không phải ảnh -> 400', x2.s === 400, `${x2.s}`);
-  const x3 = await G(A, 'POST', `/du-hoc/giay-to/${cccd.id}/anh`, { anh: 'data:image/jpeg;base64,' + 'A'.repeat(950_000) });
+  const x3 = await G(A, 'POST', `/du-hoc/giay-to/${cccd.id}/anh`, { anh: 'data:image/jpeg;base64,' + 'A'.repeat(550_000) });
   kiem('Ảnh quá lớn -> 413', x3.s === 413, `${x3.s}`);
 
   // 4. Phân quyền: học sinh khác không đụng được
@@ -88,7 +90,7 @@ try {
   const [[hs]] = await pool.query('SELECT id FROM du_hoc_ho_so WHERE user_id = ?', [ids.a]);
   const ct = await G(QT, 'GET', `/admin/du-hoc/ho-so/${hs.id}`);
   const gtAd = ct.j?.giay_to || [];
-  kiem('Admin thấy 2 ảnh ở Ảnh thẻ, 1 ở CCCD', gtAd[3]?.anh?.length === 2 && gtAd[4]?.anh?.length === 1);
+  kiem('Admin thấy 2 ảnh ở Ảnh thẻ, 2 ở CCCD', gtAd[3]?.anh?.length === 2 && gtAd[4]?.anh?.length === 2);
   const vAd = await G(QT, 'GET', `/admin/du-hoc/giay-to-anh/${anhA}`);
   kiem('Admin xem ảnh -> 200', vAd.s === 200 && vAd.j?.anh === ANH, `${vAd.s}`);
 
