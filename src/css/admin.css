@@ -1476,12 +1476,12 @@ html.tw-auth-checking .auth-splash {
    cùng tên selector thì khối sau đè chết khối trước (bài học 2 khối CSS game, CLAUDE.md 4.24). */
 
 .dh-sub { font-size: 12px; color: var(--admin-text-muted); font-weight: 400; }
-.dh-warn { font-size: 12px; color: var(--admin-danger); font-weight: 700; }
+.dh-warn { font-size: 12px; color: var(--admin-danger); font-weight: 600; }
 
 /* --- chip trạng thái bước --- */
 .dh-chip {
   display: inline-flex; align-items: center; gap: 5px;
-  padding: 3px 9px; border-radius: 999px; font-size: 12px; font-weight: 700; white-space: nowrap;
+  padding: 3px 9px; border-radius: 999px; font-size: 12px; font-weight: 600; white-space: nowrap;
   /* Nền 10% + chữ màu bước PHA ĐEN 35%: chữ đúng màu bước (vd. xám "Tạm dừng" 2,37:1, cam
      "Đóng tiền" 2,86:1) không đọc nổi; pha xong thấp nhất ~5:1 mà vẫn nhận ra màu của bước. */
   background: color-mix(in srgb, var(--c, #64748B) 10%, #fff);
@@ -1499,7 +1499,7 @@ html.tw-auth-checking .auth-splash {
 }
 .dh-viec-head {
   display: flex; align-items: center; gap: 7px;
-  font-size: 13px; font-weight: 800; margin-bottom: 8px;
+  font-size: 13px; font-weight: 600; margin-bottom: 8px;
 }
 .dh-viec-so {
   margin-left: auto; color: #fff; border-radius: 999px;
@@ -1579,7 +1579,7 @@ html.tw-auth-checking .auth-splash {
   display: flex; align-items: center; justify-content: center;
   background: var(--admin-bg); border: 1px solid var(--admin-border); font-size: 14px;
 }
-.dh-step-ten { font-size: 12px; font-weight: 700; text-align: center; line-height: 1.25; }
+.dh-step-ten { font-size: 12px; font-weight: 600; text-align: center; line-height: 1.25; }
 .dh-step.is-done { color: var(--admin-accent); }   /* --admin-success 4,14:1, accent 5,30:1 */
 .dh-step.is-done .dh-step-ic {
   background: var(--admin-success); border-color: var(--admin-success); color: #fff;
@@ -1591,7 +1591,7 @@ html.tw-auth-checking .auth-splash {
 .dh-step-endbtn {
   display: inline-flex; align-items: center; gap: 6px;
   padding: 6px 12px; border: 1px solid var(--admin-border); background: var(--admin-surface);
-  border-radius: 999px; font-size: 12px; font-weight: 700; color: var(--admin-text-muted);
+  border-radius: 999px; font-size: 12px; font-weight: 600; color: var(--admin-text-muted);
   cursor: pointer; font-family: inherit;
 }
 .dh-step-endbtn:hover { border-color: var(--admin-text-secondary); color: var(--admin-text-secondary); }
@@ -1601,13 +1601,27 @@ html.tw-auth-checking .auth-splash {
   display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 12px;
 }
 .dh-block-head h3 {
-  margin: 0; font-size: 15px; font-weight: 800;
+  margin: 0; font-size: 15px; font-weight: 600;
   display: flex; align-items: center; gap: 8px;
 }
-.dh-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 10px 18px; }
-.dh-f { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-.dh-f > span { font-size: 11px; font-weight: 700; color: var(--admin-text-muted); text-transform: uppercase; letter-spacing: .3px; }
-.dh-f > b { font-size: 14px; font-weight: 600; word-break: break-word; }
+/* Dòng "nhãn | giá trị": nhãn mờ + giá trị chữ thường, chỉ tiêu đề nhóm có chút đậm. Cố ý KHÔNG in
+   hoa / in đậm nhãn: màn hồ sơ có hàng chục ô, cái gì cũng nhấn thì không còn gì nổi lên. */
+.dh-rows { display: flex; flex-direction: column; }
+.dh-grp + .dh-grp { margin-top: 14px; }
+.dh-grp-ten {
+  margin: 0 0 2px; padding-bottom: 6px; border-bottom: 1px solid var(--admin-border);
+  font-size: 12.5px; font-weight: 600; color: var(--admin-primary);
+}
+.dh-r {
+  display: grid; grid-template-columns: minmax(150px, 40%) minmax(0, 1fr); gap: 2px 14px;
+  padding: 7px 0; border-bottom: 1px solid color-mix(in srgb, var(--admin-border) 55%, transparent);
+  font-size: 14px; line-height: 1.45;
+}
+.dh-r:last-child { border-bottom: 0; }
+.dh-r > span { font-size: 13px; color: var(--admin-text-muted); }
+.dh-r > div { min-width: 0; word-break: break-word; font-weight: 400; }
+.dh-para { margin: 8px 0 0; font-size: 14px; line-height: 1.5; white-space: pre-wrap; }
+@media (max-width: 480px) { .dh-r { grid-template-columns: minmax(0, 1fr); } }
 
 /* Icon + chữ trong container flex: nội dung SAU icon luôn bọc trong MỘT <span>, nếu không mỗi
    đoạn chữ xen giữa các thẻ con tự thành một "anonymous flex item" riêng và câu vỡ thành nhiều
@@ -1628,7 +1642,7 @@ html.tw-auth-checking .auth-splash {
    (chữ của .badge-warning), primary #2072AC (8,38), text-secondary #3D4C5C (7,23). KHÔNG dùng
    --admin-text-muted (≈3,5:1) cho chữ trạng thái — nó chỉ để làm chữ phụ. */
 .dh-step-phu {
-  font-size: 11px; font-weight: 800; padding: 1px 8px; border-radius: 999px;
+  font-size: 11px; font-weight: 600; padding: 1px 8px; border-radius: 999px;
   background: var(--admin-bg); color: var(--admin-text-secondary);
 }
 .dh-step.is-now .dh-step-phu { background: var(--c); color: #fff; }
@@ -1676,8 +1690,7 @@ html.tw-auth-checking .auth-splash {
 
 .dh-pv-ngay { display: flex; flex-direction: column; gap: 2px; }
 .dh-pv-ngay > span, .dh-pv-do > span {
-  font-size: 11px; font-weight: 700; color: var(--admin-text-secondary);
-  text-transform: uppercase; letter-spacing: .3px;
+  font-size: 12px; font-weight: 400; color: var(--admin-text-muted);
 }
 .dh-pv-ngay input, .dh-pv-do input {
   padding: 6px 9px; border: 1px solid var(--admin-border); border-radius: var(--admin-radius-sm);
@@ -1732,13 +1745,21 @@ html.tw-auth-checking .auth-splash {
 .dh-gt-item.is-nop { border-left-color: var(--admin-success); }
 .dh-gt-item.is-khong-can { opacity: .55; }
 /* Ảnh đính kèm (Ảnh thẻ, Ảnh CCCD): chiếm cả hàng dưới tên giấy tờ. */
-.dh-gt-anh { flex: 1 0 100%; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.dh-gt-anh { flex: 1 0 100%; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; order: 3; }
 .dh-gt-chip { display: inline-flex; align-items: stretch; border: 1px solid var(--admin-border); border-radius: 999px; overflow: hidden; background: #fff; }
 .dh-gt-chip button { background: none; border: 0; padding: 5px 11px; font: inherit; font-size: 12px; cursor: pointer; color: inherit; }
 .dh-gt-chip button.x { border-left: 1px solid var(--admin-border); color: #B91C1C; }
 .dh-gt-up { cursor: pointer; }
-.dh-gt-ten { flex: 1 1 170px; min-width: 0; font-size: 13px; font-weight: 600; }
-.dh-gt-act { display: flex; align-items: center; gap: 4px; flex: none; margin-left: auto; }
+.dh-gt-ten { flex: 1 1 170px; min-width: 0; font-size: 13px; font-weight: 500; }
+.dh-gt-act { display: flex; align-items: center; gap: 4px; flex: none; margin-left: auto; order: 2; }
+/* Nút icon (xoá giấy tờ / khoản thu / gỡ học sinh): viền nhạt, không để viền đen mặc định của <button>. */
+.dh-gt-act .btn-icon, .dh-tien-bang .btn-icon, .tdt-bang .btn-icon {
+  border: 1px solid var(--admin-border); background: var(--admin-surface); color: var(--admin-text-secondary);
+  cursor: pointer; display: inline-flex; align-items: center; justify-content: center;
+}
+.dh-gt-act .btn-icon:hover, .dh-tien-bang .btn-icon:hover, .tdt-bang .btn-icon:hover {
+  border-color: var(--admin-danger); color: var(--admin-danger);
+}
 /* Bảng sổ thu tiền trong chi tiết hồ sơ: tự cuộn trong khung, không đẩy cả lưới 2 cột rộng ra. */
 .dh-tien-bang { overflow-x: auto; margin-top: 12px; }
 .dh-tien-bang .dh-sub { white-space: normal; }
@@ -1750,7 +1771,7 @@ html.tw-auth-checking .auth-splash {
 /* --- tiền --- */
 .dh-tien-top { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 10px; }
 .dh-tien-top > div { display: flex; flex-direction: column; gap: 2px; }
-.dh-tien-top b { font-size: 16px; font-weight: 800; }
+.dh-tien-top b { font-size: 16px; font-weight: 600; }
 @media (max-width: 480px) { .dh-tien-top { grid-template-columns: 1fr; } }   /* 481-768 vẫn đủ chỗ 3 cột; đặt SAU luật gốc */
 .dh-bar { height: 7px; border-radius: 999px; background: var(--admin-border); overflow: hidden; }
 .dh-bar > i { display: block; height: 100%; background: var(--admin-success); border-radius: 999px; }
@@ -1811,7 +1832,7 @@ html.tw-auth-checking .auth-splash {
 
 /* --- nhóm trường trong form --- */
 .dh-form-sec {
-  font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .5px;
+  font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .5px;
   color: var(--admin-primary); margin: 18px 0 10px;
   padding-bottom: 6px; border-bottom: 1px solid var(--admin-border);
 }
@@ -1834,7 +1855,7 @@ html.tw-auth-checking .auth-splash {
    DU HỌC — chứng từ ảnh + yêu cầu sửa của học sinh (2026-09-16)
    ============================================================ */
 
-.dh-ok { font-size: 12px; color: var(--admin-accent); font-weight: 700; }
+.dh-ok { font-size: 12px; color: var(--admin-accent); font-weight: 600; }
 
 /* --- ảnh chứng từ --- */
 .dh-anh-xem { display: flex; align-items: center; gap: 10px; margin-top: 8px; font-size: 12.5px; }
@@ -1858,10 +1879,10 @@ html.tw-auth-checking .auth-splash {
 }
 .dh-yc-head {
   display: flex; align-items: center; gap: 8px;
-  font-weight: 800; color: #8A4513; margin-bottom: 12px;
+  font-weight: 600; color: #8A4513; margin-bottom: 12px;
 }
 .dh-yc-so {
-  background: #B85C1A; color: #fff; font-size: 11.5px; font-weight: 800;
+  background: #B85C1A; color: #fff; font-size: 11.5px; font-weight: 600;
   padding: 1px 8px; border-radius: 999px;
 }
 .dh-yc-i { border-top: 1px solid var(--admin-border-soft, #eef2f3); padding: 12px 0 4px; }

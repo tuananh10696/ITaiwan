@@ -4004,7 +4004,10 @@ function _dhVeChiTietHtml(el) {
     </div>`;
 
   // --- Thông tin hồ sơ ---
-  const o = (nhan, gt) => `<div class="dh-f"><span>${nhan}</span><b>${gt || '—'}</b></div>`;
+  // Một dòng "nhãn | giá trị". Trống thì hiện gạch mờ — không để chỗ trống trông như lỗi hiển thị.
+  const o = (nhan, gt) => `<div class="dh-r"><span>${nhan}</span><div>${gt || '<span class="dh-sub">—</span>'}</div></div>`;
+  // Nhóm các dòng dưới một tiêu đề nhỏ. Tên nhóm theo form khai của học sinh (taikhoan.js DH_NHOM).
+  const nhom = (ten, noiDung) => `<section class="dh-grp">${ten ? `<h4 class="dh-grp-ten">${ten}</h4>` : ''}${noiDung}</section>`;
   const hetHanGan = h.ho_chieu_het_han
     && new Date(h.ho_chieu_het_han) <= new Date(Date.now() + 182 * 864e5);
 
@@ -4028,35 +4031,40 @@ function _dhVeChiTietHtml(el) {
         <button class="btn btn-sm btn-outline" onclick="adminApp.dhFormHoSo(${h.id}, 'hs')">
           <i class="fa-solid fa-pen"></i> Sửa</button>
       </div>
-      <div class="dh-fields">
+      ${nhom('Thông tin cá nhân', `
         ${o('Họ tên tiếng Việt', esc(h.ho_ten || ''))}
         ${o('Họ tên tiếng Trung', esc(h.ten_trung || ''))}
         ${o('Ngày tháng năm sinh', _dhNgay(h.ngay_sinh))}
         ${o('Số CCCD', esc(h.cccd || ''))}
         ${o('Số hộ chiếu', h.ho_chieu ? `${esc(h.ho_chieu)}${h.ho_chieu_het_han
             ? ` <span class="${hetHanGan ? 'dh-warn' : 'dh-sub'}">(hết hạn ${_dhNgay(h.ho_chieu_het_han)}${hetHanGan ? ' ⚠' : ''})</span>` : ''}` : '')}
-        ${o('Địa chỉ theo hộ khẩu', esc(h.dia_chi || ''))}
+        ${o('Địa chỉ theo hộ khẩu', esc(h.dia_chi || ''))}`)}
+      ${nhom('Học vấn', `
         ${o('Điểm tổng kết lớp 10 · 11 · 12', diem.some(Boolean) ? diem.map((x) => (x ? esc(x) : '—')).join(' · ') : '')}
         ${o('Tên trường cấp 3', esc(h.truong_tn || ''))}
-        ${o('Chứng chỉ ngoại ngữ', esc(h.trinh_do_tieng || ''))}
+        ${o('Chứng chỉ ngoại ngữ', esc(h.trinh_do_tieng || ''))}`)}
+      ${nhom('Liên lạc', `
         ${o('Email liên lạc', esc(h.email || ''))}
-        ${o('Số điện thoại', esc(h.phone || ''))}
+        ${o('Số điện thoại', esc(h.phone || ''))}`)}
+      ${nhom('Bố mẹ', `
         ${o('Bố', nguoiThan('bo'))}
-        ${o('Mẹ', nguoiThan('me'))}
-        ${o('Quá trình làm việc', esc(h.qua_trinh_lam_viec || '').replace(/\n/g, '<br>'))}
-        ${o('Nguyện vọng', [
-          h.he_nguyen_vong ? `<b>Hệ:</b> ${esc(tenHe(h.he_nguyen_vong))}` : '',
-          h.nganh ? `<b>Ngành:</b> ${esc(h.nganh)}` : '',
-          ...[h.truong_nv1, h.truong_nv2, h.truong_nv3].map((t, i) => (t ? `<b>Trường ${i + 1}:</b> ${esc(t)}` : '')),
-        ].filter(Boolean).join('<br>'))}
+        ${o('Mẹ', nguoiThan('me'))}`)}
+      ${nhom('Quá trình làm việc', h.qua_trinh_lam_viec
+        ? `<p class="dh-para">${esc(h.qua_trinh_lam_viec).replace(/\n/g, '<br>')}</p>`
+        : '<p class="dh-para"><span class="dh-sub">—</span></p>')}
+      ${nhom('Nguyện vọng', `
+        ${o('Hệ nguyện vọng', h.he_nguyen_vong ? esc(tenHe(h.he_nguyen_vong)) : '')}
+        ${o('Ngành nguyện vọng', esc(h.nganh || ''))}
+        ${o('Trường nguyện vọng 1', esc(h.truong_nv1 || ''))}
+        ${o('Trường nguyện vọng 2', esc(h.truong_nv2 || ''))}
+        ${o('Trường nguyện vọng 3', esc(h.truong_nv3 || ''))}
         ${o('Đăng ký ký túc xá', h.ktx_dang_ky
             ? `${DH_KTX_DK[h.ktx_dang_ky] || ''}${h.ktx_loai ? ' · ' + esc(h.ktx_loai) : ''}`
               + `${h.ktx_ghi_chu ? `<div class="dh-sub">${esc(h.ktx_ghi_chu)}</div>` : ''}`
-            : '')}
-        ${o('Học sinh khai hồ sơ', h.hs_gui_luc
+            : '')}`)}
+      ${nhom('', o('Học sinh khai hồ sơ', h.hs_gui_luc
             ? `<span class="dh-ok">Đã gửi ${_dhNgay(h.hs_gui_luc)}</span>`
-            : (h.user_id ? '<span class="dh-warn">Chưa gửi</span>' : '<span class="dh-sub">chưa gắn tài khoản</span>'))}
-      </div>
+            : (h.user_id ? '<span class="dh-warn">Chưa gửi</span>' : '<span class="dh-sub">chưa gắn tài khoản</span>')))}
     </div>`;
 
   // --- Phỏng vấn: loại + từng buổi, bấm nhanh ngay trên màn chi tiết (2026-09-27) ---
@@ -4108,7 +4116,7 @@ function _dhVeChiTietHtml(el) {
         <button class="btn btn-sm btn-outline" onclick="adminApp.dhFormHoSo(${h.id}, 'vh')">
           <i class="fa-solid fa-pen"></i> Sửa</button>
       </div>
-      <div class="dh-fields">
+      <div class="dh-rows">
         ${o('Mã hồ sơ', esc(h.ma_hs || ''))}
         ${o('Tư vấn viên', esc(h.tu_van_ten || dhNhanSu.find((n) => n.id === h.tu_van_id)?.name || ''))}
         ${o('Nguồn khách', esc(h.nguon || ''))}
@@ -4217,7 +4225,7 @@ function _dhVeChiTietHtml(el) {
     <div class="data-table-wrapper" style="padding:16px">
       <div class="dh-block-head"><h3>Việc học trên hệ thống</h3></div>
       ${ht && ht.user ? `
-        <div class="dh-fields">
+        <div class="dh-rows">
           ${o('Tài khoản', `${esc(ht.user.name)}<div class="dh-sub">${esc(ht.user.email)}</div>`)}
           ${o('Lớp', ht.lop.length ? ht.lop.map((l) => esc(l.name)).join(', ') : '<span class="dh-sub">chưa xếp lớp</span>')}
           ${o('Bài đã làm', `${ht.so_bai} bài${ht.diem_tb != null ? ` · TB ${ht.diem_tb}%` : ''}`)}
