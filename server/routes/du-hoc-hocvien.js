@@ -29,6 +29,7 @@ import { chuoiHe } from '../../shared/he-du-hoc.js';
 import { baoHocSinh, chuaCoBangTb, LOAI_TB } from '../utils/du-hoc-thong-bao.js';
 import { guiPush, guiPushVaiTro, guiNgam } from '../utils/push.js';
 import { taoHoSoDuHocChoHocVien, SQL_LA_HOC_SINH_HOAC_ADMIN } from '../utils/du-hoc-tao-hs.js';
+import { ANH_GIAY_TO_TOI_DA, loiAnhGiayTo, themAnhGiayTo, anhTheoGiayTo } from '../utils/du-hoc-giay-to-anh.js';
 
 const router = Router();
 router.use(requireAuth);
@@ -222,7 +223,7 @@ router.get('/ho-so-cua-toi', async (req, res) => {
       // Cố ý KHÔNG trả `ghi_chu` của giấy tờ: đó là chỗ tư vấn viên ghi việc nội bộ
       // ("gọi 3 lần chưa nghe máy").
       pool.query(
-        `SELECT id, ten, trang_thai, bat_buoc FROM du_hoc_giay_to
+        `SELECT id, ten, trang_thai, bat_buoc, so_anh_toi_da FROM du_hoc_giay_to
           WHERE ho_so_id = ? ORDER BY sort_order, id`, [hs.id]),
       hs.tu_van_id
         ? pool.query('SELECT name, email, phone FROM users WHERE id = ?', [hs.tu_van_id])
@@ -241,6 +242,8 @@ router.get('/ho-so-cua-toi', async (req, res) => {
       `SELECT id, loai, khoan, so_tien, ngay_thu, hinh_thuc, (anh IS NOT NULL) AS co_anh
          FROM du_hoc_thu_tien WHERE ho_so_id = ? ORDER BY ngay_thu DESC, id DESC`, [hs.id]
     );
+
+    const anhGt = await anhTheoGiayTo(giayTo.map((g) => g.id));
 
     const daThu = Number(tien[0]?.da_thu || 0);
     const daHoan = Number(tien[0]?.da_hoan || 0);
@@ -286,7 +289,9 @@ router.get('/ho-so-cua-toi', async (req, res) => {
         con_lai: Math.max(0, Number(hs.tong_phi || 0) - (daThu - daHoan)),
         khoan: khoanThu.map((k) => ({ ...k, khoan_ten: NHAN_KHOAN[k.khoan] || 'Khác', co_anh: !!k.co_anh })),
       },
-      giay_to: giayTo.map((g) => ({ ...g, trang_thai_ten: NHAN_GIAY_TO[g.trang_thai] || g.trang_thai })),
+      giay_to: giayTo.map((g) => ({
+        ...g, trang_thai_ten: NHAN_GIAY_TO[g.trang_thai] || g.trang_thai, anh: anhGt.get(g.id) || [],
+      })),
       tu_van: tuVan[0] || null,
       thong_bao: thongBao.map((t) => ({ ...t, ...(LOAI_TB[t.loai] || { nhan: 'Thông báo', icon: 'fa-bell' }) })),
       yeu_cau_sua: ycSua.map((y) => ({ ...y, thay_doi: JSON.parse(y.thay_doi || '[]') })),
@@ -451,6 +456,88 @@ router.post('/yeu-cau-sua', async (req, res) => {
 // =============================================================
 // THÔNG BÁO
 // =============================================================
+// =============================================================
+// ẢNH GIẤY TỜ  (2026-10-08) — Ảnh thẻ, Ảnh CCCD
+// =============================================================
+// Học sinh tự tải ảnh lên mục giấy tờ của MÌNH (mục có `so_anh_toi_da` > 0). Khác phần khai báo,
+// ảnh giấy tờ KHÔNG bị khoá sau khi gửi hồ sơ — thiếu / sai ảnh thì bổ sung lúc nào cũng được.
+// Chỉ khoá khi trung tâm đã dịch công chứng hoặc đã nộp trường (đổi ảnh lúc đó là lệch với hồ sơ
+// đã đi), lúc ấy muốn đổi phải báo trung tâm.
+const TT_CON_SUA_ANH = ['chua', 'nhan'];
+
+/** Mục giấy tờ thuộc hồ sơ của CHÍNH người gọi (lọc user_id ngay trong SELECT). */
+async function giayToCuaToi(giayToId, userId) {
+  const [r] = await pool.query(
+    `SELECT g.id, g.ho_so_id, g.trang_thai, g.so_anh_toi_da
+       FROM du_hoc_giay_to g JOIN du_hoc_ho_so h ON h.id = g.ho_so_id JOIN users u ON u.id = h.user_id
+      WHERE g.id = ? AND h.user_id = ? AND ${SQL_LA_HOC_SINH_HOAC_ADMIN}`,
+    [giayToId, userId]
+  );
+  return r[0] || null;
+}
+
+router.post('/giay-to/:id/anh', async (req, res) => {
+  const anh = req.body?.anh;
+  const loiA = loiAnhGiayTo(anh);
+  if (loiA) return res.status(anh && anh.length > ANH_GIAY_TO_TOI_DA ? 413 : 400).json({ error: loiA });
+  try {
+    const gt = await giayToCuaToi(req.params.id, req.userId);
+    if (!gt) return res.status(404).json({ error: 'Không tìm thấy mục giấy tờ.' });
+    if (!gt.so_anh_toi_da) return res.status(400).json({ error: 'Mục giấy tờ này không nhận ảnh tải lên.' });
+    if (!TT_CON_SUA_ANH.includes(gt.trang_thai)) {
+      return res.status(409).json({ error: 'Giấy tờ này trung tâm đã xử lý — muốn đổi ảnh hãy báo tư vấn viên.' });
+    }
+    const kq = await themAnhGiayTo(gt, anh, req.userId);
+    if (!kq.ok) {
+      return res.status(409).json({ error: `Mục này chỉ nhận tối đa ${gt.so_anh_toi_da} ảnh — hãy xoá bớt ảnh cũ trước.` });
+    }
+    res.status(201).json({ id: kq.id, message: 'Đã lưu ảnh.' });
+  } catch (err) {
+    console.error('Lỗi học sinh tải ảnh giấy tờ:', err);
+    res.status(500).json({ error: 'Không lưu được ảnh.' });
+  }
+});
+
+router.get('/giay-to-anh/:id', async (req, res) => {
+  try {
+    const [r] = await pool.query(
+      `SELECT a.anh FROM du_hoc_giay_to_anh a
+         JOIN du_hoc_giay_to g ON g.id = a.giay_to_id JOIN du_hoc_ho_so h ON h.id = g.ho_so_id
+         JOIN users u ON u.id = h.user_id
+        WHERE a.id = ? AND h.user_id = ? AND ${SQL_LA_HOC_SINH_HOAC_ADMIN}`,
+      [req.params.id, req.userId]
+    );
+    if (!r.length) return res.status(404).json({ error: 'Không tìm thấy ảnh.' });
+    res.json({ anh: r[0].anh });
+  } catch (err) {
+    console.error('Lỗi học sinh xem ảnh giấy tờ:', err);
+    res.status(500).json({ error: 'Không tải được ảnh.' });
+  }
+});
+
+router.delete('/giay-to-anh/:id', async (req, res) => {
+  try {
+    const [r] = await pool.query(
+      `SELECT a.id, g.ho_so_id, g.trang_thai
+         FROM du_hoc_giay_to_anh a
+         JOIN du_hoc_giay_to g ON g.id = a.giay_to_id JOIN du_hoc_ho_so h ON h.id = g.ho_so_id
+         JOIN users u ON u.id = h.user_id
+        WHERE a.id = ? AND h.user_id = ? AND ${SQL_LA_HOC_SINH_HOAC_ADMIN}`,
+      [req.params.id, req.userId]
+    );
+    if (!r.length) return res.status(404).json({ error: 'Không tìm thấy ảnh.' });
+    if (!TT_CON_SUA_ANH.includes(r[0].trang_thai)) {
+      return res.status(409).json({ error: 'Giấy tờ này trung tâm đã xử lý — muốn đổi ảnh hãy báo tư vấn viên.' });
+    }
+    await pool.query('DELETE FROM du_hoc_giay_to_anh WHERE id = ?', [r[0].id]);
+    await pool.query('UPDATE du_hoc_ho_so SET updated_at = CURRENT_TIMESTAMP WHERE id = ?', [r[0].ho_so_id]);
+    res.json({ message: 'Đã xoá ảnh.' });
+  } catch (err) {
+    console.error('Lỗi học sinh xoá ảnh giấy tờ:', err);
+    res.status(500).json({ error: 'Không xoá được ảnh.' });
+  }
+});
+
 router.post('/thong-bao/:id/doc', async (req, res) => {
   try {
     // `user_id = ?` ngay trong WHERE là chỗ chặn quyền — không tra rồi so ở JS.

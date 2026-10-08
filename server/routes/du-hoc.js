@@ -18,6 +18,7 @@ import { baoHocSinh } from '../utils/du-hoc-thong-bao.js';
 import { dungBoGop, nhomTheoTruong, PHAM_VI } from '../utils/nhom-truong.js';
 import { LOAI_PV, MA_LOAI_PV, COT_PV, tinhPhongVan } from '../../shared/phong-van.js';
 import { chuoiHe } from '../../shared/he-du-hoc.js';
+import { ANH_GIAY_TO_TOI_DA, loiAnhGiayTo, themAnhGiayTo, anhTheoGiayTo } from '../utils/du-hoc-giay-to-anh.js';
 
 const router = Router();
 
@@ -59,7 +60,7 @@ const BUOC_DANG_CHAY = ['ho-so', 'dong-tien', 'hoc', 'nop-truong', 'phong-van', 
 const SQL_DANG_CHAY = BUOC_DANG_CHAY.map((b) => `'${b}'`).join(',');
 
 import {
-  GIAY_TO_MAC_DINH, laHocSinh, SQL_LA_HOC_SINH, sqlTuSinhChuaDung, xoaHoSoTuSinhChuaDung,
+  GIAY_TO_MAC_DINH, chenGiayToMacDinh, laHocSinh, SQL_LA_HOC_SINH, sqlTuSinhChuaDung, xoaHoSoTuSinhChuaDung,
 } from '../utils/du-hoc-tao-hs.js';
 export { GIAY_TO_MAC_DINH };
 
@@ -676,6 +677,7 @@ router.get('/du-hoc/ho-so/:id', async (req, res) => {
           WHERE ls.ho_so_id = ? ORDER BY ls.created_at DESC, ls.id DESC LIMIT 100`, [hs.id]),
     ]);
 
+    const anhGt = await anhTheoGiayTo(giayTo.map((g) => g.id));
     const daThu = thuTien.reduce((s, t) => s + (t.loai === 'hoan' ? -t.so_tien : t.so_tien), 0);
 
     // Hồ sơ đã gắn tài khoản học thì kèm luôn tình hình học tập — đó chính là lý do hai khu này
@@ -700,7 +702,7 @@ router.get('/du-hoc/ho-so/:id', async (req, res) => {
 
     res.json({
       ho_so: hs,
-      giay_to: giayTo,
+      giay_to: giayTo.map((g) => ({ ...g, anh: anhGt.get(g.id) || [] })),
       thu_tien: thuTien,
       lich_su: lichSu,
       tien: { tong_phi: hs.tong_phi, da_thu: daThu, con_thieu: Math.max(0, hs.tong_phi - daThu) },
@@ -800,10 +802,7 @@ router.post('/du-hoc/ho-so', async (req, res) => {
     if (!id) return res.status(500).json({ error: 'Không sinh được mã hồ sơ, thử lại giúp.' });
 
     // Checklist giấy tờ mặc định. Một câu INSERT nhiều hàng.
-    await pool.query(
-      `INSERT INTO du_hoc_giay_to (ho_so_id, ten, bat_buoc, sort_order) VALUES ${GIAY_TO_MAC_DINH.map(() => '(?, ?, ?, ?)').join(', ')}`,
-      GIAY_TO_MAC_DINH.flatMap(([ten, bb], i) => [id, ten, bb, (i + 1) * 10])
-    );
+    await chenGiayToMacDinh(id);
 
     await ghiNhatKy(id, 'he-thong', `Tạo hồ sơ ${maCuoi}`, req.userId, null, 'ho-so');
     res.status(201).json({ id, ma_hs: maCuoi, message: 'Đã tạo hồ sơ.' });
@@ -1307,6 +1306,68 @@ router.post('/du-hoc/ho-so/:id/giay-to', async (req, res) => {
   } catch (err) {
     console.error('Lỗi thêm giấy tờ du học:', err);
     res.status(500).json({ error: loiBang(err, 'Không thêm được giấy tờ.') });
+  }
+});
+
+// --- ảnh đính kèm giấy tờ (2026-10-08) ---
+// Chỉ mục có `so_anh_toi_da` > 0 (Ảnh thẻ, Ảnh CCCD) nhận ảnh. Logic dùng chung với cổng học sinh
+// nằm ở utils/du-hoc-giay-to-anh.js; ở đây chỉ kiểm quyền theo phạm vi hồ sơ (dkOrg).
+router.post('/du-hoc/giay-to/:id/anh', async (req, res) => {
+  const anh = req.body?.anh;
+  const loiA = loiAnhGiayTo(anh);
+  if (loiA) return res.status(anh && anh.length > ANH_GIAY_TO_TOI_DA ? 413 : 400).json({ error: loiA });
+  try {
+    const [r] = await pool.query(
+      `SELECT g.id, g.ho_so_id, g.trang_thai, g.so_anh_toi_da
+         FROM du_hoc_giay_to g JOIN du_hoc_ho_so h ON h.id = g.ho_so_id
+        WHERE g.id = ?${dkOrg(req)}`,
+      [req.params.id, ...tsOrg(req)]
+    );
+    if (!r.length) return res.status(404).json({ error: 'Không tìm thấy mục giấy tờ.' });
+    if (!r[0].so_anh_toi_da) return res.status(400).json({ error: 'Mục giấy tờ này không nhận ảnh tải lên.' });
+
+    const kq = await themAnhGiayTo(r[0], anh, req.userId);
+    if (!kq.ok) {
+      return res.status(409).json({ error: `Mục này chỉ nhận tối đa ${r[0].so_anh_toi_da} ảnh — hãy xoá bớt ảnh cũ trước.` });
+    }
+    res.status(201).json({ id: kq.id, message: 'Đã lưu ảnh.' });
+  } catch (err) {
+    console.error('Lỗi tải ảnh giấy tờ du học:', err);
+    res.status(500).json({ error: loiBang(err, 'Không lưu được ảnh.') });
+  }
+});
+
+router.get('/du-hoc/giay-to-anh/:id', async (req, res) => {
+  try {
+    const [r] = await pool.query(
+      `SELECT a.anh FROM du_hoc_giay_to_anh a
+         JOIN du_hoc_giay_to g ON g.id = a.giay_to_id JOIN du_hoc_ho_so h ON h.id = g.ho_so_id
+        WHERE a.id = ?${dkOrg(req)}`,
+      [req.params.id, ...tsOrg(req)]
+    );
+    if (!r.length) return res.status(404).json({ error: 'Không tìm thấy ảnh.' });
+    res.json({ anh: r[0].anh });
+  } catch (err) {
+    console.error('Lỗi xem ảnh giấy tờ du học:', err);
+    res.status(500).json({ error: loiBang(err, 'Không tải được ảnh.') });
+  }
+});
+
+router.delete('/du-hoc/giay-to-anh/:id', async (req, res) => {
+  try {
+    const [r] = await pool.query(
+      `SELECT a.id, g.ho_so_id FROM du_hoc_giay_to_anh a
+         JOIN du_hoc_giay_to g ON g.id = a.giay_to_id JOIN du_hoc_ho_so h ON h.id = g.ho_so_id
+        WHERE a.id = ?${dkOrg(req)}`,
+      [req.params.id, ...tsOrg(req)]
+    );
+    if (!r.length) return res.status(404).json({ error: 'Không tìm thấy ảnh.' });
+    await pool.query('DELETE FROM du_hoc_giay_to_anh WHERE id = ?', [r[0].id]);
+    await pool.query('UPDATE du_hoc_ho_so SET updated_at = CURRENT_TIMESTAMP WHERE id = ?', [r[0].ho_so_id]);
+    res.json({ message: 'Đã xoá ảnh.' });
+  } catch (err) {
+    console.error('Lỗi xoá ảnh giấy tờ du học:', err);
+    res.status(500).json({ error: loiBang(err, 'Không xoá được ảnh.') });
   }
 });
 

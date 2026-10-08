@@ -311,6 +311,10 @@ class ApiClient {
   async guiKhaiBaoDuHoc(data) { return this.post('/du-hoc/gui-khai-bao', data); }
   async guiYeuCauSuaDuHoc(thayDoi, lyDo) { return this.post('/du-hoc/yeu-cau-sua', { thay_doi: thayDoi, ly_do: lyDo }); }
   async docThongBaoDuHoc(id) { return this.post(`/du-hoc/thong-bao/${id}/doc`, {}); }
+  // Ảnh giấy tờ (Ảnh thẻ, Ảnh CCCD) — tải theo id GIẤY TỜ, xem / xoá theo id ẢNH.
+  async taiAnhGiayTo(giayToId, anh) { return this.post(`/du-hoc/giay-to/${giayToId}/anh`, { anh }); }
+  async xemAnhGiayTo(anhId) { return this.get(`/du-hoc/giay-to-anh/${anhId}`); }
+  async xoaAnhGiayTo(anhId) { return this.del(`/du-hoc/giay-to-anh/${anhId}`); }
 }
 
 // Singleton instance

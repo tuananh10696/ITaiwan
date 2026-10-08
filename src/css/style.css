@@ -14633,7 +14633,7 @@ ol.vh-list li::before {
 /* --- giấy tờ --- */
 .dh-gt { list-style: none; margin: 0; padding: 0; }
 .dh-gt li {
-  display: flex; align-items: center; gap: 10px;
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
   padding: 8px 0; border-bottom: 1px solid var(--line-soft, #eef2f3); font-size: 13.5px;
 }
 .dh-gt li:last-child { border-bottom: 0; }
@@ -14642,6 +14642,12 @@ ol.vh-list li::before {
 .dh-gt li.chua > i { color: var(--danger, #DC2626); }
 .dh-gt li.roi > i { color: #047857; }
 .dh-gt li.roi > span:nth-of-type(1) { color: var(--text-secondary); }
+/* Ảnh đính kèm (Ảnh thẻ, Ảnh CCCD): chiếm cả hàng dưới tên giấy tờ. */
+.dh-gt-anh { flex: 1 0 100%; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding-left: 21px; }
+.dh-gt-chip { display: inline-flex; align-items: stretch; border: 1px solid var(--line-soft, #d9e2e4); border-radius: 999px; overflow: hidden; }
+.dh-gt-chip button { background: none; border: 0; padding: 6px 12px; font: inherit; font-size: 13px; cursor: pointer; color: inherit; min-height: 34px; }
+.dh-gt-chip button.x { padding: 6px 10px; border-left: 1px solid var(--line-soft, #d9e2e4); color: #B91C1C; }
+.dh-gt-up { cursor: pointer; min-height: 36px; }
 
 /* --- người tư vấn --- */
 .dh-tv { margin-top: 18px; }

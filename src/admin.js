@@ -4140,13 +4140,23 @@ function _dhVeChiTietHtml(el) {
         <button class="btn btn-sm btn-outline" onclick="adminApp.dhThemGiayTo()">
           <i class="fa-solid fa-plus"></i> Thêm</button>
       </div>
-      <p class="dh-sub" style="margin:0 0 10px">Bản giấy vẫn lưu tại trung tâm — ở đây chỉ đánh dấu đã nhận tới đâu.</p>
+      <p class="dh-sub" style="margin:0 0 10px">Bản giấy vẫn lưu tại trung tâm — ở đây chỉ đánh dấu đã nhận tới đâu. Riêng Ảnh thẻ và Ảnh CCCD có thể tải ảnh lên trực tiếp.</p>
       <ul class="dh-gt">
         ${gt.map((g) => `
           <li class="dh-gt-item is-${g.trang_thai}">
             <div class="dh-gt-ten">${esc(g.ten)}
               ${g.bat_buoc ? '' : '<span class="dh-sub">(không bắt buộc)</span>'}
               ${g.ngay_nhan ? `<span class="dh-sub"> · ${_dhNgay(g.ngay_nhan)}</span>` : ''}</div>
+            ${g.so_anh_toi_da > 0 ? `<div class="dh-gt-anh">
+              ${(g.anh || []).map((a, i) => `<span class="dh-gt-chip">
+                <button type="button" onclick="adminApp.dhXemAnhGiayTo(${a.id})"><i class="fa-regular fa-image"></i> Ảnh ${i + 1}</button>
+                <button type="button" class="x" title="Xoá ảnh này" onclick="adminApp.dhXoaAnhGiayTo(${a.id})"><i class="fa-solid fa-xmark"></i></button>
+              </span>`).join('')}
+              ${(g.anh || []).length < g.so_anh_toi_da ? `<label class="btn btn-sm btn-outline dh-gt-up">
+                <i class="fa-solid fa-camera"></i> Tải ảnh (${(g.anh || []).length}/${g.so_anh_toi_da})
+                <input type="file" accept="image/*" hidden onchange="adminApp.dhUpAnhGiayTo(${g.id}, this)"></label>`
+                : `<span class="dh-sub">${(g.anh || []).length}/${g.so_anh_toi_da} ảnh</span>`}
+            </div>` : ''}
             <div class="dh-gt-act">
               <select onchange="adminApp.dhDoiGiayTo(${g.id}, this.value)">
                 ${Object.entries(DH_GIAY_TO_TT).map(([k, v]) =>
@@ -4818,6 +4828,37 @@ async function dhDoiGiayTo(id, trangThai) {
   }
 }
 
+// --- ảnh giấy tờ (Ảnh thẻ, Ảnh CCCD) ---
+async function dhUpAnhGiayTo(giayToId, input) {
+  const f = input.files?.[0];
+  input.value = '';
+  if (!f) return;
+  try {
+    const anh = await dhNenAnh(f);
+    await apiPost(`/admin/du-hoc/giay-to/${giayToId}/anh`, { anh });
+    toast('Đã lưu ảnh.');
+    renderDuHoc(document.getElementById('admin-content'));
+  } catch (err) { toast(err.message || 'Không lưu được ảnh.', 'error'); }
+}
+
+async function dhXemAnhGiayTo(anhId) {
+  try {
+    const r = await apiGet(`/admin/du-hoc/giay-to-anh/${anhId}`);
+    openModal('Ảnh giấy tờ', `<div class="dh-anh-to"><img src="${r.anh}" alt="Ảnh giấy tờ"></div>`,
+      `<button class="btn btn-outline" onclick="adminApp.closeModal()">Đóng</button>`);
+  } catch (err) { toast(err.message || 'Không tải được ảnh.', 'error'); }
+}
+
+function dhXoaAnhGiayTo(anhId) {
+  confirmDialog('Xoá ảnh giấy tờ', 'Xoá ảnh này khỏi hồ sơ?', async () => {
+    try {
+      await apiDel(`/admin/du-hoc/giay-to-anh/${anhId}`);
+      toast('Đã xoá.');
+      renderDuHoc(document.getElementById('admin-content'));
+    } catch (err) { toast(err.message || 'Không xoá được.', 'error'); }
+  });
+}
+
 function dhThemGiayTo() {
   openModal('Thêm giấy tờ', `
     <div class="form-group"><label>Tên giấy tờ <span style="color:#EF4444">*</span></label>
@@ -4942,6 +4983,7 @@ window.adminApp = {
   dhChonAnh, dhBoAnh, dhXemAnh,
   dhDuyetYc, dhTuChoiYc, dhTuChoiYcLuu,
   dhDoiGiayTo, dhThemGiayTo, dhLuuGiayTo, dhXoaGiayTo,
+  dhUpAnhGiayTo, dhXemAnhGiayTo, dhXoaAnhGiayTo,
   dhGhiChu, dhTimHocVien, dhGanHocVien, dhBoHocVien,
   dhPickTim, dhPickChon, dhPickBo,
   login, logout, navigate, closeModal,

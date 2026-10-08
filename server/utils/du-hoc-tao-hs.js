@@ -18,23 +18,25 @@
 //   • không quét gì lúc khởi động. Tạo bù cho học sinh cũ: `npm run du-hoc:tao-ho-so`.
 import pool from '../config/db.js';
 
+// Danh mục giấy tờ MẶC ĐỊNH của hồ sơ mới: [tên, bắt buộc, số ảnh tối đa cho tải lên (0 = chỉ tick)].
+// 2026-10-08 khách chốt còn 5 mục (trước là 15). Hồ sơ đã có GIỮ NGUYÊN danh sách cũ — danh mục
+// này chỉ được chép vào hồ sơ lúc nó được tạo (xem `chenGiayToMacDinh`).
 export const GIAY_TO_MAC_DINH = [
-  ['Hộ chiếu (bản sao)', true],
-  ['CCCD/CMND (công chứng)', true],
-  ['Ảnh thẻ 3.5×4.5 (6 ảnh)', true],
-  ['Bằng tốt nghiệp (công chứng + dịch)', true],
-  ['Học bạ / bảng điểm (công chứng + dịch)', true],
-  ['Giấy khai sinh (công chứng + dịch)', true],
-  ['Giấy khám sức khoẻ', true],
-  ['Lý lịch tư pháp số 2', true],
-  ['Chứng minh tài chính (sổ tiết kiệm)', true],
-  ['Giấy bảo lãnh tài chính của phụ huynh', true],
-  ['Đơn xin nhập học của trường', true],
-  ['Kế hoạch học tập (讀書計畫書)', true],
-  ['Thư giới thiệu', false],
-  ['Chứng chỉ tiếng (TOCFL / HSK / TOEFL)', false],
-  ['Sơ yếu lý lịch', false],
+  ['Học bạ', true, 0],
+  ['Bằng tốt nghiệp', true, 0],
+  ['Hộ chiếu', true, 0],
+  ['Ảnh thẻ (2 file khác nhau, nền trắng, tóc không che trán và tai)', true, 2],
+  ['Ảnh CCCD', true, 1],
 ];
+
+/** Chép danh mục giấy tờ mặc định vào một hồ sơ vừa tạo. */
+export function chenGiayToMacDinh(hoSoId) {
+  return pool.query(
+    `INSERT INTO du_hoc_giay_to (ho_so_id, ten, bat_buoc, so_anh_toi_da, sort_order)
+     VALUES ${GIAY_TO_MAC_DINH.map(() => '(?, ?, ?, ?, ?)').join(', ')}`,
+    GIAY_TO_MAC_DINH.flatMap(([ten, bb, soAnh], i) => [hoSoId, ten, bb, soAnh, (i + 1) * 10])
+  );
+}
 
 /** Mảnh SQL "u là học sinh" — dùng chung để mọi câu lọc cùng một định nghĩa. */
 export const SQL_LA_HOC_SINH =
@@ -83,6 +85,8 @@ export function sqlTuSinhChuaDung(a = 'h', { ktx = true } = {}) {
     AND NOT EXISTS (SELECT 1 FROM du_hoc_yeu_cau_sua ys WHERE ys.ho_so_id = ${a}.id)
     AND NOT EXISTS (SELECT 1 FROM du_hoc_giay_to g WHERE g.ho_so_id = ${a}.id
                      AND (g.trang_thai <> 'chua' OR g.ghi_chu IS NOT NULL OR g.ngay_nhan IS NOT NULL))
+    AND NOT EXISTS (SELECT 1 FROM du_hoc_giay_to_anh ga JOIN du_hoc_giay_to g2 ON g2.id = ga.giay_to_id
+                     WHERE g2.ho_so_id = ${a}.id)
     ${ktx ? `AND NOT EXISTS (SELECT 1 FROM ktx_o o WHERE o.ho_so_id = ${a}.id)` : ''})`;
 }
 
@@ -201,10 +205,7 @@ async function taoHoSo(uid, thongTin) {
 
     // Checklist giấy tờ mặc định
     try {
-      await pool.query(
-        `INSERT INTO du_hoc_giay_to (ho_so_id, ten, bat_buoc, sort_order) VALUES ${GIAY_TO_MAC_DINH.map(() => '(?, ?, ?, ?)').join(', ')}`,
-        GIAY_TO_MAC_DINH.flatMap(([ten, bb], i) => [hoSoId, ten, bb, (i + 1) * 10])
-      );
+      await chenGiayToMacDinh(hoSoId);
     } catch (errGiayTo) {
       console.warn('[du-hoc] Lỗi chèn checklist giấy tờ mặc định:', errGiayTo.message);
     }

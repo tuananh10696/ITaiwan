@@ -1731,6 +1731,12 @@ html.tw-auth-checking .auth-splash {
 .dh-gt-item.is-dich { border-left-color: var(--admin-primary); }
 .dh-gt-item.is-nop { border-left-color: var(--admin-success); }
 .dh-gt-item.is-khong-can { opacity: .55; }
+/* Ảnh đính kèm (Ảnh thẻ, Ảnh CCCD): chiếm cả hàng dưới tên giấy tờ. */
+.dh-gt-anh { flex: 1 0 100%; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.dh-gt-chip { display: inline-flex; align-items: stretch; border: 1px solid var(--admin-border); border-radius: 999px; overflow: hidden; background: #fff; }
+.dh-gt-chip button { background: none; border: 0; padding: 5px 11px; font: inherit; font-size: 12px; cursor: pointer; color: inherit; }
+.dh-gt-chip button.x { border-left: 1px solid var(--admin-border); color: #B91C1C; }
+.dh-gt-up { cursor: pointer; }
 .dh-gt-ten { flex: 1 1 170px; min-width: 0; font-size: 13px; font-weight: 600; }
 .dh-gt-act { display: flex; align-items: center; gap: 4px; flex: none; margin-left: auto; }
 /* Bảng sổ thu tiền trong chi tiết hồ sơ: tự cuộn trong khung, không đẩy cả lưới 2 cột rộng ra. */

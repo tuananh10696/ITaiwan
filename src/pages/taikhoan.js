@@ -67,7 +67,7 @@ const tkNgay = (x) => (x ? new Date(x).toLocaleString('vi-VN', {
  * server. 1400px là đủ đọc số tiền và nội dung chuyển khoản trên biên lai, đó là tất cả những
  * gì người duyệt cần nhìn.
  */
-function tkNenAnh(file) {
+function tkNenAnh(file, nguong = 0) {
   return new Promise((giai, tuChoi) => {
     const doc = new FileReader();
     doc.onerror = () => tuChoi(new Error('Không đọc được tệp ảnh.'));
@@ -81,7 +81,11 @@ function tkNenAnh(file) {
         c.width = Math.round(img.width * ty);
         c.height = Math.round(img.height * ty);
         c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
-        giai(c.toDataURL('image/jpeg', 0.8));
+        let q = 0.8;
+        let out = c.toDataURL('image/jpeg', q);
+        // Có ngưỡng thì hạ dần chất lượng cho tới khi lọt (server chặn cứng ở 900KB).
+        while (nguong && out.length > nguong && q > 0.4) { q -= 0.1; out = c.toDataURL('image/jpeg', q); }
+        giai(out);
       };
       img.src = ev.target.result;
     };
@@ -881,6 +885,23 @@ function dhTienHtml(d) {
     </div>`;
 }
 
+/** Ô ảnh của một mục giấy tờ (Ảnh thẻ, Ảnh CCCD): chip từng ảnh đã tải + nút tải thêm. */
+function dhAnhGtHtml(g) {
+  const ds = g.anh || [];
+  const mo = g.trang_thai === 'chua' || g.trang_thai === 'nhan';   // trùng TT_CON_SUA_ANH ở server
+  const conCho = ds.length < g.so_anh_toi_da;
+  return `<div class="dh-gt-anh">
+    ${ds.map((a, i) => `<span class="dh-gt-chip">
+      <button type="button" onclick="window.app.dhXemAnhGt(${a.id})"><i class="fa-regular fa-image"></i> Ảnh ${i + 1}</button>
+      ${mo ? `<button type="button" class="x" title="Xoá ảnh này" aria-label="Xoá ảnh ${i + 1}" onclick="window.app.dhXoaAnhGt(${a.id})"><i class="fa-solid fa-xmark"></i></button>` : ''}
+    </span>`).join('')}
+    ${mo && conCho ? `<label class="btn btn-outline btn-sm dh-gt-up">
+      <i class="fa-solid fa-camera"></i> Tải ảnh lên (${ds.length}/${g.so_anh_toi_da})
+      <input type="file" accept="image/*" hidden onchange="window.app.dhUpAnhGt(${g.id}, this)">
+    </label>` : `<span class="dh-sub">${ds.length}/${g.so_anh_toi_da} ảnh</span>`}
+  </div>`;
+}
+
 function dhGiayToHtml(d) {
   const ds = d.giay_to || [];
   const thieu = ds.filter((g) => g.bat_buoc && g.trang_thai === 'chua').length;
@@ -893,9 +914,52 @@ function dhGiayToHtml(d) {
           <i class="fa-solid ${g.trang_thai === 'chua' ? 'fa-circle' : 'fa-circle-check'}"></i>
           <span>${tdEsc(g.ten)}${g.bat_buoc ? '' : ' <span class="dh-sub">(không bắt buộc)</span>'}</span>
           <span class="dh-sub">${tdEsc(g.trang_thai_ten)}</span>
+          ${g.so_anh_toi_da > 0 ? dhAnhGtHtml(g) : ''}
         </li>`).join('')}</ul>` : '<p class="dh-sub">Trung tâm chưa lập danh sách giấy tờ.</p>'}
       ${thieu ? '<p class="dh-note"><i class="fa-solid fa-triangle-exclamation"></i><span>Mang các giấy tờ còn thiếu tới trung tâm để kịp tiến độ nhé.</span></p>' : ''}
     </div>`;
+}
+
+/** Lấy lại danh sách giấy tờ từ server rồi vẽ lại — KHÔNG đụng phần đang gõ dở của form khai báo. */
+async function dhLamMoiGiayTo() {
+  const moi = await api.hoSoDuHocCuaToi();
+  if (tkState.dh && moi?.co) tkState.dh.giay_to = moi.giay_to;
+  dhVe();
+}
+
+async function dhUpAnhGt(giayToId, input) {
+  const f = input.files?.[0];
+  input.value = '';
+  if (!f) return;
+  toast('Đang tải ảnh lên…');
+  try {
+    const anh = await tkNenAnh(f, 420_000);
+    await api.taiAnhGiayTo(giayToId, anh);
+    await dhLamMoiGiayTo();
+    toast('Đã lưu ảnh.');
+  } catch (e) {
+    toast(e.message || 'Không tải được ảnh.');
+  }
+}
+
+async function dhXemAnhGt(anhId) {
+  try {
+    const r = await api.xemAnhGiayTo(anhId);
+    openDialog('Ảnh giấy tờ', `<div style="text-align:center"><img src="${r.anh}" alt="Ảnh giấy tờ" style="max-width:100%;max-height:70vh;border-radius:8px"></div>`);
+  } catch (e) {
+    toast(e.message || 'Không tải được ảnh.');
+  }
+}
+
+async function dhXoaAnhGt(anhId) {
+  if (!window.confirm('Xoá ảnh này? Bạn có thể tải ảnh khác lên thay thế.')) return;
+  try {
+    await api.xoaAnhGiayTo(anhId);
+    await dhLamMoiGiayTo();
+    toast('Đã xoá ảnh.');
+  } catch (e) {
+    toast(e.message || 'Không xoá được ảnh.');
+  }
 }
 
 function dhTuVanHtml(d) {
@@ -1205,4 +1269,5 @@ export const handlers = {
   // Hồ sơ du học (2026-09-16). Thiếu một tên ở đây thì nút bấm im lặng không chạy — lỗi chỉ
   // hiện ở console (quy ước 4.4).
   dhGo, dhChonHe, dhLuuNhap, dhGui, dhTaiLai, dhMoSua, dhDongSua, dhGuiSua, dhDocTb,
+  dhUpAnhGt, dhXemAnhGt, dhXoaAnhGt,
 };

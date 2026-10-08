@@ -216,6 +216,9 @@ const QUYEN = [
   { vai: NS, method: ['GET', 'POST', 'PUT', 'DELETE'], re: /^\/du-hoc\/ho-so\/(\d+)(\/.*)?$/, qua: 'hoso', nhom: 1 },
   { vai: NS, method: ['GET', 'PUT', 'DELETE'], re: /^\/du-hoc\/thu-tien\/(\d+)(\/anh)?$/, qua: 'thu-tien', nhom: 1 },
   { vai: NS, method: ['PUT', 'DELETE'], re: /^\/du-hoc\/giay-to\/(\d+)$/, qua: 'giay-to', nhom: 1 },
+  // Ảnh đính kèm giấy tờ (2026-10-08): tải lên theo id GIẤY TỜ, xem / gỡ theo id ẢNH.
+  { vai: NS, method: ['POST'], re: /^\/du-hoc\/giay-to\/(\d+)\/anh$/, qua: 'giay-to', nhom: 1 },
+  { vai: NS, method: ['GET', 'DELETE'], re: /^\/du-hoc\/giay-to-anh\/(\d+)$/, qua: 'giay-to-anh', nhom: 1 },
   { vai: NS, method: ['POST'], re: /^\/du-hoc\/yeu-cau-sua\/(\d+)\/(duyet|tu-choi)$/, qua: 'yeu-cau', nhom: 1 },
 
   // --- SỔ THU CHI: chỉ phiếu do chính mình lập ---
@@ -347,6 +350,11 @@ async function duocPhep(qua, id, req) {
     }
     case 'giay-to': {
       const [r] = await pool.query('SELECT ho_so_id FROM du_hoc_giay_to WHERE id = ?', [id]);
+      return r.length ? hoSoThuocPhamVi(r[0].ho_so_id, req) : false;
+    }
+    case 'giay-to-anh': {
+      const [r] = await pool.query(
+        `SELECT g.ho_so_id FROM du_hoc_giay_to_anh a JOIN du_hoc_giay_to g ON g.id = a.giay_to_id WHERE a.id = ?`, [id]);
       return r.length ? hoSoThuocPhamVi(r[0].ho_so_id, req) : false;
     }
     case 'yeu-cau': {
