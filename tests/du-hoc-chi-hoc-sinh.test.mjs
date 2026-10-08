@@ -130,6 +130,16 @@ try {
   const [[hsAdm]] = await pool.query('SELECT id FROM du_hoc_ho_so WHERE user_id = ?', [ids.admin]);
   const gan2 = await G(QT, 'POST', '/admin/du-hoc/ho-so', { ho_ten: 'Gan Admin', user_id: ids.admin });
   kiem('Admin tạo hồ sơ gắn tài khoản ADMIN từ màn quản trị vẫn bị chặn (400)', gan2.s === 400, `${gan2.s} ${gan2.j?.error || ''}`);
+
+  // 14. Bộ lọc vai trò ở danh sách tài khoản (2026-10-08)
+  for (const vai of ['student', 'teacher', 'sale', 'ho_so', 'admin']) {
+    const l = await G(QT, 'GET', `/admin/users?role=${vai}&search=${MA}&limit=50`);
+    const em = (l.j?.users || []).map((x) => x.email);
+    kiem(`Lọc role=${vai} chỉ ra đúng tài khoản ${vai} của test`,
+      l.s === 200 && em.includes(mail(vai)) && em.every((e) => !['student', 'teacher', 'sale', 'ho_so', 'admin'].filter((v) => v !== vai).some((v) => e === mail(v))), em.join(','));
+  }
+  const lLa = await G(QT, 'GET', `/admin/users?role=abc'%20OR%201=1&search=${MA}&limit=50`);
+  kiem('role lạ bị bỏ qua (không lọc, không lỗi SQL)', lLa.s === 200 && (lLa.j?.users || []).length >= 5, `${lLa.s} ${(lLa.j?.users || []).length}`);
 } finally {
   const [us] = await pool.query('SELECT id FROM users WHERE email LIKE ?', [`%.${MA}@local.invalid`]);
   const dsId = us.map((u) => u.id);

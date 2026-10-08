@@ -509,6 +509,12 @@ router.get('/users', async (req, res) => {
       dk.push('(name LIKE ? OR email LIKE ?)');
       dkParams.push(`%${search}%`, `%${search}%`);
     }
+    // Lọc theo vai trò (2026-10-08). Chỉ nhận đúng 5 mã — mã lạ bị bỏ qua, không đưa vào SQL.
+    // 'admin' gồm cả cột cũ is_admin; 'student' thiếu role coi như học viên (khớp laHocSinh).
+    const vai = String(req.query.role || '');
+    if (vai === 'admin') dk.push("(role = 'admin' OR COALESCE(is_admin, 0) = 1)");
+    else if (vai === 'student') dk.push("(COALESCE(role, 'student') = 'student' AND COALESCE(is_admin, 0) = 0)");
+    else if (['teacher', 'sale', 'ho_so'].includes(vai)) { dk.push('role = ?'); dkParams.push(vai); }
     // Sale / quản lý hồ sơ chỉ thấy tài khoản do CHÍNH MÌNH tạo.
     if (req.nhanSuId) { dk.push('created_by = ?'); dkParams.push(req.nhanSuId); }
     const where = dk.length ? ` WHERE ${dk.join(' AND ')}` : '';

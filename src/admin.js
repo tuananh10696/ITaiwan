@@ -504,7 +504,7 @@ async function checkAuth() {
 //   #/lop-hoc/12/buoi-hoc                         danh sách buổi học của lớp 12
 //   #/lop-hoc/12/buoi-hoc/45/diem-danh            điểm danh buổi 45
 //   #/lop-hoc/12/hoc-vien/9                       chi tiết học viên 9 trong lớp 12
-//   #/nguoi-dung?tim=an&trang=2
+//   #/nguoi-dung?tim=an&vai-tro=sale&trang=2
 //   #/tu-vung?tim=&trang=3&sap-xep=hanzi&chieu=ASC
 //   #/cau-hoi-thi · #/hoi-thoai · #/blog
 //
@@ -536,6 +536,7 @@ function _queryForSection(section) {
   const q = new URLSearchParams();
   if (section === 'users') {
     if (userSearch) q.set('tim', userSearch);
+    if (userRole) q.set('vai-tro', userRole);
     if (userPage > 1) q.set('trang', userPage);
   }
   return q;
@@ -546,6 +547,7 @@ function _applyQueryToSection(section, q) {
   if (section === 'du-hoc-truong') tdtNapQuery(q);
   if (section === 'users') {
     userSearch = q.get('tim') || '';
+    userRole = VAI_LOC_USER.includes(q.get('vai-tro')) ? q.get('vai-tro') : '';
     userPage = Math.max(1, parseInt(q.get('trang') || '1', 10) || 1);
   }
 }
@@ -1569,13 +1571,15 @@ async function renderTongQuanGiaoVien(el) {
 // ============================================================
 let userPage = 1;
 let userSearch = '';
+let userRole = '';   // '' = tất cả vai trò
+const VAI_LOC_USER = ['student', 'teacher', 'sale', 'ho_so', 'admin'];
 
 async function renderUsers(el) {
   el.innerHTML = '<div style="text-align:center;padding:40px;color:var(--admin-text-muted)"><i class="fa-solid fa-spinner fa-spin" style="font-size:24px"></i></div>';
 
   const luot = el.dataset.luot;
   try {
-    const qs = `?page=${userPage}&limit=20${userSearch ? '&search=' + encodeURIComponent(userSearch) : ''}`;
+    const qs = `?page=${userPage}&limit=20${userSearch ? '&search=' + encodeURIComponent(userSearch) : ''}${userRole ? '&role=' + userRole : ''}`;
     const data = await apiGet('/admin/users' + qs);
     if (!conDungLuot(el, luot)) return;
 
@@ -1587,6 +1591,10 @@ async function renderUsers(el) {
           <div style="display:flex;gap:8px;flex:1;min-width:0">
             <input class="search-input" placeholder="Tìm kiếm người dùng..." value="${esc(userSearch)}" onkeydown="if(event.key==='Enter'){adminApp.userSearchFn(this.value)}" id="user-search-input">
             <button class="btn btn-sm btn-outline" onclick="adminApp.userSearchFn(document.getElementById('user-search-input').value)"><i class="fa-solid fa-search"></i></button>
+            <select class="search-input" style="flex:none;min-width:150px;cursor:pointer" aria-label="Lọc theo vai trò" onchange="adminApp.userRoleFn(this.value)">
+              <option value="">Tất cả vai trò</option>
+              ${VAI_LOC_USER.map((v) => `<option value="${v}"${userRole === v ? ' selected' : ''}>${NHAN_VAI_TRO_NGAN[v]}</option>`).join('')}
+            </select>
           </div>
           <button class="btn btn-sm btn-primary" style="margin-left:auto" onclick="adminApp.moFormTaoTaiKhoan()"><i class="fa-solid fa-user-plus"></i><span>Tạo tài khoản</span></button>
         </div>
@@ -1642,6 +1650,7 @@ async function renderUsers(el) {
 }
 
 function userSearchFn(val) { userSearch = val; userPage = 1; syncAdminUrl(true); renderUsers(document.getElementById('admin-content')); }
+function userRoleFn(val) { userRole = VAI_LOC_USER.includes(val) ? val : ''; userPage = 1; syncAdminUrl(true); renderUsers(document.getElementById('admin-content')); }
 function userPageFn(p) { userPage = p; syncAdminUrl(true); renderUsers(document.getElementById('admin-content')); }
 
 /**
@@ -4941,7 +4950,7 @@ window.adminApp = {
   // Dialogues
   // Blog
   // Users
-  openUserForm, saveUser, deleteUser, userSearchFn, userPageFn, approveUser, _doApprove,
+  openUserForm, saveUser, deleteUser, userSearchFn, userRoleFn, userPageFn, approveUser, _doApprove,
   moFormTaoTaiKhoan, luuTaiKhoanMoi,
   // Kinh doanh: trung tâm & quyền học (2026-09-09)
   // Quản lý giáo viên
