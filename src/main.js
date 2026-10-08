@@ -1279,6 +1279,11 @@ function navBooksHtml(item) {
   </div>`;
 }
 
+/** Tài khoản quản trị — được vào cả phần Hồ sơ du học của học sinh để tự kiểm (2026-10-08). */
+function laQuanTriVien() {
+  return !!state.user && (!!state.user.is_admin || state.user.role === 'admin');
+}
+
 /** Đang đăng nhập bằng tài khoản nhân sự (giáo viên / quản trị / sale / quản lý hồ sơ)? */
 function laNhanSu() {
   if (!state.isLoggedIn || !state.user) return false;
@@ -1324,8 +1329,8 @@ function renderSidebar() {
     if (item.type === 'group') {
       html += `<div class="nav-group-label">${item.label}</div>`;
     } else if (item.type === 'parent') {
-      // Hồ sơ du học chỉ dành cho HỌC SINH — giáo viên / quản trị / sale / quản lý hồ sơ không thấy mục này.
-      if (item.id === 'cat-duhoc' && laNhanSu()) return;
+      // Hồ sơ du học dành cho HỌC SINH và QUẢN TRỊ (tự kiểm) — giáo viên / sale / quản lý hồ sơ không thấy mục này.
+      if (item.id === 'cat-duhoc' && laNhanSu() && !laQuanTriVien()) return;
       // "Cài app (PWA)" vô nghĩa khi đang ở trong app native (Capacitor) hoặc PWA đã cài.
       const children = item.children.filter(c => !(c.id === 'guide-cai-app' && (laNative() || laStandalone())));
       if (!children.length) return;

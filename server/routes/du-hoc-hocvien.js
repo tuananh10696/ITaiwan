@@ -28,7 +28,7 @@ import { BUOC } from './du-hoc.js';
 import { chuoiHe } from '../../shared/he-du-hoc.js';
 import { baoHocSinh, chuaCoBangTb, LOAI_TB } from '../utils/du-hoc-thong-bao.js';
 import { guiPush, guiPushVaiTro, guiNgam } from '../utils/push.js';
-import { taoHoSoDuHocChoHocVien, SQL_LA_HOC_SINH } from '../utils/du-hoc-tao-hs.js';
+import { taoHoSoDuHocChoHocVien, SQL_LA_HOC_SINH_HOAC_ADMIN } from '../utils/du-hoc-tao-hs.js';
 
 const router = Router();
 router.use(requireAuth);
@@ -129,11 +129,12 @@ const NHAN_GIAY_TO = {
 
 const chuaCoBang = (err) => err && (err.code === 'ER_NO_SUCH_TABLE' || err.code === 'ER_BAD_FIELD_ERROR');
 
-/** Hồ sơ của CHÍNH người đang gọi. `null` nếu không phải học sinh du học (nhân sự luôn null). */
+/** Hồ sơ của CHÍNH người đang gọi. `null` nếu không phải học sinh du học hoặc quản trị
+ *  (giáo viên / sale / quản lý hồ sơ luôn null). Admin được vào để tự kiểm hồ sơ của mình. */
 async function hoSoCuaToi(userId) {
   const [r] = await pool.query(
     `SELECT h.* FROM du_hoc_ho_so h JOIN users u ON u.id = h.user_id
-      WHERE h.user_id = ? AND ${SQL_LA_HOC_SINH} ORDER BY h.id LIMIT 1`,
+      WHERE h.user_id = ? AND ${SQL_LA_HOC_SINH_HOAC_ADMIN} ORDER BY h.id LIMIT 1`,
     [userId]
   );
   return r[0] || null;
@@ -205,9 +206,9 @@ function nhanBuoc(ma) {
 // thêm 4 vòng mạng.
 router.get('/ho-so-cua-toi', async (req, res) => {
   try {
-    // Luôn đi qua helper: nó kiểm VAI TRÒ trước — nhân sự (giáo viên/quản trị/sale) trả null dù
-    // còn hồ sơ cũ (và KHÔNG đụng gì tới hồ sơ đó); học sinh đã duyệt mà chưa có thì tự tạo.
-    const hs = await taoHoSoDuHocChoHocVien(req.userId);
+    // Luôn đi qua helper: nó kiểm VAI TRÒ trước — giáo viên / sale / quản lý hồ sơ trả null dù
+    // còn hồ sơ cũ (và KHÔNG đụng gì tới hồ sơ đó); học sinh đã duyệt hoặc quản trị mà chưa có thì tự tạo.
+    const hs = await taoHoSoDuHocChoHocVien(req.userId, { choAdmin: true });
     if (!hs) return res.json({ co: false });
 
     // Mỗi phần tử của Promise.all là [rows, fields] của mysql2 — destructure đồng loạt `[x]`

@@ -115,12 +115,27 @@ try {
   // 12. Giáo viên gọi cổng học sinh
   const gv = await G(tok(ids.teacher), 'GET', '/du-hoc/ho-so-cua-toi');
   kiem('Tài khoản GV gọi /ho-so-cua-toi -> co:false', gv.j?.co === false);
+
+  // 13. Admin tự kiểm hồ sơ của mình qua cổng học sinh (2026-10-08); sale / quản lý hồ sơ vẫn không có
+  const adm = await G(tok(ids.admin), 'GET', '/du-hoc/ho-so-cua-toi');
+  kiem('Admin gọi /ho-so-cua-toi -> co:true, tự sinh đúng 1 hồ sơ', adm.j?.co === true && (await soHoSo(ids.admin)) === 1, JSON.stringify(adm.j).slice(0, 80));
+  await G(tok(ids.admin), 'GET', '/du-hoc/ho-so-cua-toi');
+  kiem('Admin mở lại -> vẫn 1 hồ sơ (không nhân đôi)', (await soHoSo(ids.admin)) === 1);
+  const luuAdm = await G(tok(ids.admin), 'PUT', '/du-hoc/khai-bao', { ho_ten: 'Admin Tu Kiem', nganh: 'Thu' });
+  kiem('Admin lưu nháp khai báo như học sinh -> 200', luuAdm.s === 200, JSON.stringify(luuAdm.j));
+  for (const vai of ['sale', 'ho_so']) {
+    const x = await G(tok(ids[vai]), 'GET', '/du-hoc/ho-so-cua-toi');
+    kiem(`${vai.toUpperCase()} gọi /ho-so-cua-toi -> co:false`, x.j?.co === false && (await soHoSo(ids[vai])) === 0);
+  }
+  const [[hsAdm]] = await pool.query('SELECT id FROM du_hoc_ho_so WHERE user_id = ?', [ids.admin]);
+  const gan2 = await G(QT, 'POST', '/admin/du-hoc/ho-so', { ho_ten: 'Gan Admin', user_id: ids.admin });
+  kiem('Admin tạo hồ sơ gắn tài khoản ADMIN từ màn quản trị vẫn bị chặn (400)', gan2.s === 400, `${gan2.s} ${gan2.j?.error || ''}`);
 } finally {
   const [us] = await pool.query('SELECT id FROM users WHERE email LIKE ?', [`%.${MA}@local.invalid`]);
   const dsId = us.map((u) => u.id);
   if (dsId.length) {
     await pool.query('DELETE FROM du_hoc_ho_so WHERE user_id IN (?)', [dsId]);
-    await pool.query("DELETE FROM du_hoc_ho_so WHERE ho_ten IN ('Gan GV', 'Tao Tay', 'Tao Tay 2')");
+    await pool.query("DELETE FROM du_hoc_ho_so WHERE ho_ten IN ('Gan GV', 'Tao Tay', 'Tao Tay 2', 'Gan Admin')");
     await pool.query('DELETE FROM users WHERE id IN (?)', [dsId]);
   }
   for (const k of ketQua) console.log(`${k.dat ? '✅' : '❌'} ${k.ten}${k.dat ? '' : '  -> ' + k.chiTiet}`);

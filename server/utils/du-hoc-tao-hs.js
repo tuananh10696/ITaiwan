@@ -40,6 +40,17 @@ export const GIAY_TO_MAC_DINH = [
 export const SQL_LA_HOC_SINH =
   "(COALESCE(u.role, 'student') = 'student' AND COALESCE(u.is_admin, 0) = 0)";
 
+/** Mảnh SQL "u là học sinh HOẶC quản trị" — chỉ cổng học sinh (/du-hoc/ho-so-cua-toi...) dùng, để
+ *  admin tự kiểm hồ sơ của chính mình như một học sinh (2026-10-08). Mọi nơi khác vẫn dùng
+ *  SQL_LA_HOC_SINH: sale / giáo viên / quản lý hồ sơ không có hồ sơ cá nhân. */
+export const SQL_LA_HOC_SINH_HOAC_ADMIN =
+  "((COALESCE(u.role, 'student') = 'student' AND COALESCE(u.is_admin, 0) = 0) OR u.role = 'admin' OR COALESCE(u.is_admin, 0) = 1)";
+
+/** Tài khoản quản trị (role 'admin' hoặc cột cũ is_admin). */
+export function laQuanTri(u) {
+  return !!u && (!!u.is_admin || String(u.role || '').toLowerCase() === 'admin');
+}
+
 /** Tài khoản (bản ghi users) có phải học sinh không. Thiếu role coi như học sinh (mặc định DB). */
 export function laHocSinh(u) {
   if (!u) return false;
@@ -140,13 +151,16 @@ async function taoHoSo(uid, thongTin) {
     );
     if (!uRows.length) return null;
     const u = uRows[0];
-    if (!laHocSinh(u)) return null;
+    // Admin chỉ được tạo khi chính cổng học sinh gọi (`choAdmin`) — các đường khác (duyệt tài khoản,
+    // nhập lớp, đồng bộ vai trò) vẫn chỉ tạo cho học sinh.
+    const laAdminTuKiem = !!thongTin.choAdmin && laQuanTri(u);
+    if (!laHocSinh(u) && !laAdminTuKiem) return null;
 
     // Đã có hồ sơ -> trả luôn. ORDER BY để lần nào cũng ra cùng một hồ sơ nếu lỡ có hai.
     const [co] = await pool.query('SELECT * FROM du_hoc_ho_so WHERE user_id = ? ORDER BY id LIMIT 1', [uid]);
     if (co.length > 0) return co[0];
 
-    if (!u.is_approved) return null;
+    if (!u.is_approved && !laAdminTuKiem) return null;
 
     const orgId = thongTin.orgId || u.org_id || 1;
     const hoTen = String(thongTin.name || u.name || '').trim() || 'Học viên';
@@ -200,7 +214,7 @@ async function taoHoSo(uid, thongTin) {
       await pool.query(
         `INSERT INTO du_hoc_lich_su (ho_so_id, loai, noi_dung, nguoi_id, buoc_cu, buoc_moi)
          VALUES (?, 'he-thong', ?, ?, NULL, 'ho-so')`,
-        [hoSoId, `Tự động tạo hồ sơ ${maCuoi} khi có tài khoản học sinh`, nguoiId]
+        [hoSoId, `Tự động tạo hồ sơ ${maCuoi} khi có tài khoản ${laAdminTuKiem ? 'quản trị tự kiểm' : 'học sinh'}`, nguoiId]
       );
     } catch (_) {}
 
