@@ -39,6 +39,7 @@ import {
   daNap, layNgay, tdKhongDau, coChuHan, tdAudio, tdGiaiNhan, tdNhomTuLoai,
   tdTimTrong, tdTraTu, tdTuBatDau, tdManhSangHang,
 } from './data/tudien-kho.js';
+import { bdtHtml, bdtKhoiTao } from './pages/ban-do-truong.js';
 import api from './api/client.js';
 // Push thông báo (2026-09-28): đồng bộ đăng ký khi mở app / đổi tài khoản — xem src/core/push.js.
 import { dongBoPush, ngheDoiDangKy } from './core/push.js';
@@ -2471,7 +2472,8 @@ function tcTienDoHtml(d, daHoc) {
 // ------------------------------------------------------------------ điểm vào
 
 function renderDashboard(el) {
-  el.innerHTML = state.isLoggedIn ? tcHocVienHtml() : tcKhachHtml();
+  el.innerHTML = (state.isLoggedIn ? tcHocVienHtml() : tcKhachHtml()) + bdtHtml();
+  bdtKhoiTao();
   if (state.isLoggedIn) {
     loadMyAssignments();
     tcNapSoLieu();

@@ -1,0 +1,173 @@
+// =============================================================
+// BẢN ĐỒ TRƯỜNG — phần NẶNG, tải lười (xem ban-do-truong.js)
+// =============================================================
+// Leaflet (bản đồ + marker + gom cụm) cộng nền vector OpenFreeMap vẽ bằng MapLibre GL.
+//   · Nền mặc định: OpenFreeMap "liberty" — có màu, đủ chi tiết (khách yêu cầu 2026-10-09).
+//     Miễn phí, KHÔNG cần khoá API, không giới hạn lượt. (CARTO đã bắt buộc API key nên bỏ.)
+//   · CSP của site không có `worker-src` nên worker dạng blob: của MapLibre bị chặn. Dùng bản worker
+//     CSP phục vụ từ chính origin mình (`?url` -> file có hash trong dist) và trỏ `setWorkerUrl` vào
+//     đó — nhờ vậy KHÔNG phải sửa cấu hình nginx / vercel.
+//   · markercluster đọc `L` ở phạm vi toàn cục, nên phải gán window.L TRƯỚC khi nạp nó.
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+import 'leaflet.markercluster/dist/MarkerCluster.css';
+import maplibregl from 'maplibre-gl';
+import 'maplibre-gl/dist/maplibre-gl.css';
+import workerUrl from 'maplibre-gl/dist/maplibre-gl-csp-worker.js?url';
+import { tdEsc } from '../core/ui.js';
+
+const MIEN = { bac: 'Miền Bắc', trung: 'Miền Trung', nam: 'Miền Nam', dong: 'Miền Đông' };
+const boDau = (s) => String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/đ/g, 'd').toLowerCase();
+const ngoai = (u) => (u ? `<a href="${tdEsc(u)}" target="_blank" rel="noopener noreferrer">${tdEsc(u.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, ''))}</a>` : '');
+
+let mapHienTai = null;   // bản đồ đang sống — dashboard vẽ lại thì phải huỷ cái cũ (giới hạn số WebGL context)
+
+export async function khoiTao(khung) {
+  window.L = L;
+  maplibregl.setWorkerUrl(workerUrl);
+  await import('leaflet.markercluster');
+  await import('@maplibre/maplibre-gl-leaflet');
+  const DS = await (await fetch('/data/truong/truong.json')).json();
+  if (!khung.isConnected) return;   // người dùng đã rời trang chủ trong lúc tải
+  if (mapHienTai) { try { mapHienTai.remove(); } catch { /* đã gỡ */ } mapHienTai = null; }
+  DS.forEach((u) => { u._k = boDau([u.ten, u.ten_en, u.dia_chi].join(' ')); });
+
+  khung.innerHTML = `
+    <div class="bdt-the">
+      <aside class="bdt-bang" aria-label="Danh sách trường">
+        <div class="bdt-cu">
+          <input type="search" class="bdt-tim" placeholder="Tìm trường theo tên hoặc địa chỉ…" aria-label="Tìm trường">
+          <div class="bdt-chips" role="group" aria-label="Khu vực">
+            ${[['', 'Tất cả'], ...Object.entries(MIEN)].map(([k, v]) => `<button type="button" class="bdt-chip" data-m="${k}" aria-pressed="${k === ''}">${v}</button>`).join('')}
+          </div>
+          <label class="bdt-opt"><input type="checkbox" class="bdt-khung-cb"> Chỉ hiện trường trong khung bản đồ</label>
+          <div class="bdt-dem" aria-live="polite"></div>
+        </div>
+        <div class="bdt-ds"></div>
+      </aside>
+      <div class="bdt-mapwrap">
+        <div class="bdt-map" role="application" aria-label="Bản đồ các trường"></div>
+        <aside class="bdt-ct" aria-label="Chi tiết trường" aria-hidden="true">
+          <button type="button" class="bdt-dong" aria-label="Đóng chi tiết"><i class="fa-solid fa-xmark"></i></button>
+          <div class="bdt-ct-than"></div>
+        </aside>
+      </div>
+    </div>`;
+  const $ = (s) => khung.querySelector(s);
+  const dsEl = $('.bdt-ds'), demEl = $('.bdt-dem'), ctEl = $('.bdt-ct'), ctThan = $('.bdt-ct-than');
+
+  // ------------------------------------------------ bản đồ
+  const map = L.map($('.bdt-map'), { minZoom: 6, maxZoom: 18, zoomControl: true, attributionControl: true });
+  mapHienTai = map;
+  const lopChiTiet = L.maplibreGL({ style: 'https://tiles.openfreemap.org/styles/liberty' }).addTo(map);
+  const lopSang = L.maplibreGL({ style: 'https://tiles.openfreemap.org/styles/positron' });
+  const lopOsm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>' });
+  L.control.layers({ 'Nền chi tiết (có màu)': lopChiTiet, 'Nền sáng': lopSang, 'OpenStreetMap': lopOsm }, null, { position: 'topright', collapsed: true }).addTo(map);
+
+  // Cuộn trang qua bản đồ không được vô tình phóng to: chỉ bật lăn chuột sau khi bấm vào bản đồ.
+  map.scrollWheelZoom.disable();
+  map.on('click', () => map.scrollWheelZoom.enable());
+  map.on('mouseout', () => map.scrollWheelZoom.disable());
+
+  const cum = L.markerClusterGroup({
+    maxClusterRadius: 46, showCoverageOnHover: false, spiderfyOnMaxZoom: true,
+    iconCreateFunction: (c) => L.divIcon({ html: `<div class="bdt-cum">${c.getChildCount()}</div>`, className: '', iconSize: [42, 42] }),
+  });
+  map.addLayer(cum);
+
+  const pin = (u, sel) => L.divIcon({
+    className: '', iconSize: [42, 42], iconAnchor: [21, 21],
+    html: `<div class="bdt-pin${sel ? ' sel' : ''}">${u.logo ? `<img src="/${tdEsc(u.logo)}" alt="" width="42" height="42">` : `<span>${tdEsc(u.ten.replace(/^(Đại học|Học viện)\s+/i, '').charAt(0))}</span>`}</div>`,
+  });
+  const marker = new Map();
+  let dangChon = null;
+  DS.forEach((u) => {
+    const m = L.marker([u.lat, u.lng], { icon: pin(u, false), title: u.ten, riseOnHover: true });
+    m.bindPopup(() => popup(u), { closeButton: false, offset: [0, -16], className: 'bdt-popup' });
+    m.on('click', () => chon(u.id, { bay: false }));
+    marker.set(u.id, m);
+  });
+  const popup = (u) => {
+    const d = document.createElement('div');
+    d.className = 'bdt-pop';
+    d.innerHTML = `${u.anh ? `<img class="bdt-pop-anh" src="/${tdEsc(u.anh)}" alt="">` : ''}
+      <div class="bdt-pop-ct"><b>${tdEsc(u.ten)}</b>${u.ten_en ? `<small>${tdEsc(u.ten_en)}</small>` : ''}<button type="button">Xem chi tiết</button></div>`;
+    d.querySelector('button').onclick = () => moChiTiet(u);
+    return d;
+  };
+  map.fitBounds(L.latLngBounds(DS.map((u) => [u.lat, u.lng])), { padding: [24, 24] });
+
+  // ------------------------------------------------ lọc + danh sách
+  let mien = '', tuKhoa = '', trongKhung = false;
+  khung.querySelectorAll('.bdt-chip').forEach((b) => b.addEventListener('click', () => {
+    mien = b.dataset.m;
+    khung.querySelectorAll('.bdt-chip').forEach((c) => c.setAttribute('aria-pressed', String(c === b)));
+    ve(true);
+  }));
+  $('.bdt-tim').addEventListener('input', (e) => { tuKhoa = boDau(e.target.value.trim()); ve(true); });
+  $('.bdt-khung-cb').addEventListener('change', (e) => { trongKhung = e.target.checked; ve(false); });
+  map.on('moveend', () => { if (trongKhung) ve(false); });
+
+  const lg = (u) => (u.logo
+    ? `<span class="bdt-lg"><img src="/${tdEsc(u.logo)}" alt="" loading="lazy"></span>`
+    : `<span class="bdt-lg bdt-lg-chu">${tdEsc(u.ten.charAt(0))}</span>`);
+  function ve(fit) {
+    const kh = map.getBounds();
+    const hien = DS.filter((u) => (!mien || u.mien === mien) && (!tuKhoa || u._k.includes(tuKhoa)) && (!trongKhung || kh.contains([u.lat, u.lng])));
+    cum.clearLayers();
+    cum.addLayers(hien.map((u) => marker.get(u.id)));
+    demEl.textContent = `${hien.length} / ${DS.length} trường`;
+    dsEl.innerHTML = hien.length ? hien.map((u) => `
+      <button type="button" class="bdt-it${u.id === dangChon ? ' on' : ''}" data-id="${u.id}">
+        ${lg(u)}
+        <span class="bdt-it-ct"><span class="bdt-it-ten">${tdEsc(u.ten)}</span><span class="bdt-it-phu">${tdEsc(u.ten_en || u.dia_chi)}</span></span>
+      </button>`).join('') : '<div class="bdt-rong">Không có trường nào khớp.</div>';
+    if (fit && hien.length && (mien || tuKhoa)) {
+      map.fitBounds(L.latLngBounds(hien.map((u) => [u.lat, u.lng])), { padding: [40, 40], maxZoom: 13 });
+    }
+  }
+  dsEl.addEventListener('click', (e) => { const b = e.target.closest('.bdt-it'); if (b) chon(Number(b.dataset.id), { bay: true, mo: true }); });
+
+  // ------------------------------------------------ chọn + chi tiết
+  function chon(id, { bay = true, mo = false } = {}) {
+    const u = DS.find((x) => x.id === id);
+    if (!u) return;
+    if (dangChon != null && marker.has(dangChon)) marker.get(dangChon).setIcon(pin(DS.find((x) => x.id === dangChon), false));
+    dangChon = id;
+    marker.get(id).setIcon(pin(u, true));
+    dsEl.querySelectorAll('.bdt-it').forEach((i) => i.classList.toggle('on', Number(i.dataset.id) === id));
+    dsEl.querySelector('.bdt-it.on')?.scrollIntoView({ block: 'nearest' });
+    if (bay) cum.zoomToShowLayer(marker.get(id), () => map.flyTo([u.lat, u.lng], Math.max(map.getZoom(), 14), { duration: 0.8 }));
+    if (mo) moChiTiet(u);
+  }
+  function moChiTiet(u) {
+    map.closePopup();
+    const dong = [
+      ['Địa chỉ', tdEsc(u.dia_chi)],
+      u.xep_hang && ['Xếp hạng', tdEsc(u.xep_hang)],
+      u.so_sv && ['Sinh viên', tdEsc(u.so_sv)],
+      u.so_sv_qt && ['Sinh viên quốc tế', tdEsc(u.so_sv_qt)],
+      u.so_gv && ['Giảng viên', tdEsc(u.so_gv)],
+      u.web && ['Website', ngoai(u.web)],
+    ].filter(Boolean);
+    ctThan.innerHTML = `
+      <div class="bdt-hero${u.anh ? '' : ' khong'}"${u.anh ? ` style="background-image:url('/${tdEsc(u.anh)}')"` : ''}>${lg(u)}</div>
+      <div class="bdt-nd">
+        <h3>${tdEsc(u.ten)}</h3>
+        ${u.ten_en ? `<div class="bdt-en">${tdEsc(u.ten_en)}</div>` : ''}
+        <div class="bdt-tags"><span>${MIEN[u.mien]}</span></div>
+        <dl class="bdt-kv">${dong.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>
+        <a class="bdt-chi" href="https://www.google.com/maps/search/?api=1&query=${u.lat},${u.lng}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-location-dot"></i> Chỉ đường</a>
+      </div>`;
+    ctEl.classList.add('open');
+    ctEl.setAttribute('aria-hidden', 'false');
+    if (dangChon !== u.id) chon(u.id, { bay: false });
+  }
+  const dongCT = () => { ctEl.classList.remove('open'); ctEl.setAttribute('aria-hidden', 'true'); };
+  $('.bdt-dong').addEventListener('click', dongCT);
+  khung.addEventListener('keydown', (e) => { if (e.key === 'Escape') dongCT(); });
+
+  ve(false);
+  // Khối nằm trong trang chủ có thể bị vẽ lại (đổi tài khoản, về trang chủ...): kích thước đổi thì Leaflet cần biết.
+  new ResizeObserver(() => map.invalidateSize()).observe($('.bdt-mapwrap'));
+}

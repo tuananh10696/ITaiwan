@@ -177,3 +177,24 @@ tự bỏ các clip đó.
 `audio` (bản thu thật), không dùng giọng máy. Chỉ trang Bài tập giáo trình bật: kiểm tra từ vựng
 TOCFL có renderer riêng chưa biết vẽ nút nghe. Câu nghe hội thoại lấy ĐÁP ÁN là nghĩa tiếng Việt
 vì chữ Hán của bài khoá bóc bằng nhận dạng giọng nói, còn sai chữ (宜文 → 疑問).
+
+---
+
+## Bản đồ trường ở trang chủ (2026-10-09)
+
+Khối cuối trang chủ (`src/pages/ban-do-truong.js` nhẹ + `ban-do-truong-map.js` nặng, tải lười khi cuộn tới).
+Dữ liệu 93 trường là bản chép từ API công khai của duhocdaongoc.vn: `node scripts/lay-danh-sach-truong.mjs`
+(cần macOS vì dùng `sips`) ghi `public/data/truong/truong.json` + logo/ảnh vào `public/images/truong/` (ảnh nằm
+trên server mình). Nguồn KHÔNG có chương trình / ngành / ưu đãi. Bốn tên sai chính tả của nguồn được sửa tay
+trong bảng `SUA_TEN` của script — chạy lại script không làm mất các sửa đó. Logo và ảnh thuộc bên thứ ba, xem lại
+bản quyền trước khi dùng thương mại.
+
+- Nền bản đồ: OpenFreeMap "liberty" (có màu) làm mặc định; miễn phí, không khoá API. **Đừng dùng CARTO** — tile
+  của nó nay phủ chữ "API KEY REQUIRED".
+- CSP không có `worker-src`, nên MapLibre phải dùng worker dạng file từ chính origin (`maplibregl.setWorkerUrl`
+  với `maplibre-gl-csp-worker.js?url`). Dùng worker blob mặc định là bị chặn mà bản đồ chỉ trắng trơn.
+- `leaflet.markercluster` đọc `L` toàn cục: phải gán `window.L = L` TRƯỚC khi `import('leaflet.markercluster')`.
+- Service worker cache-first `/data/**` và `/images/**`: đổi `truong.json` mà khách cũ vẫn thấy bản cũ cho tới khi
+  cache được đổi phiên bản.
+- Demo tĩnh độc lập (dữ liệu Wikidata) ở `demo/truong-map/`, không nằm trong build.
+
