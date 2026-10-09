@@ -13,7 +13,7 @@ export function bdtHtml() {
     <div class="dash-wide">
       <section class="bdt" id="bdt" aria-labelledby="bdt-tieude">
         <div class="section-header">
-          <h2 id="bdt-tieude"><span class="section-icon"><i class="fa-solid fa-school"></i></span>Bản đồ trường đại học Đài Loan</h2>
+          <h2 id="bdt-tieude"><span class="section-icon"><i class="fa-solid fa-school"></i></span>Bản Đồ Trường</h2>
         </div>
         <div class="bdt-khung" id="bdt-khung">
           <div class="bdt-cho"><i class="fa-solid fa-circle-notch fa-spin"></i> Đang tải bản đồ…</div>
