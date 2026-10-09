@@ -120,7 +120,7 @@ export async function khoiTao(khung) {
     dsEl.innerHTML = hien.length ? hien.map((u) => `
       <button type="button" class="bdt-it${u.id === dangChon ? ' on' : ''}" data-id="${u.id}">
         ${lg(u)}
-        <span class="bdt-it-ct"><span class="bdt-it-ten">${tdEsc(u.ten)}</span><span class="bdt-it-phu">${tdEsc(u.ten_en || u.dia_chi)}</span></span>
+        <span class="bdt-it-ct"><span class="bdt-it-ten">${tdEsc(u.ten)}</span><span class="bdt-it-phu">${tdEsc(u.dia_chi)}</span></span>
       </button>`).join('') : '<div class="bdt-rong">Không có trường nào khớp.</div>';
     if (fit && hien.length && (mien || tuKhoa)) {
       map.fitBounds(L.latLngBounds(hien.map((u) => [u.lat, u.lng])), { padding: [40, 40], maxZoom: 13 });
@@ -143,21 +143,19 @@ export async function khoiTao(khung) {
   function moChiTiet(u) {
     map.closePopup();
     const dong = [
+      u.web && ['Website', ngoai(u.web)],
       ['Địa chỉ', tdEsc(u.dia_chi)],
       u.xep_hang && ['Xếp hạng', tdEsc(u.xep_hang)],
-      u.so_sv && ['Sinh viên', tdEsc(u.so_sv)],
+      u.so_sv && ['Số sinh viên', tdEsc(u.so_sv)],
       u.so_sv_qt && ['Sinh viên quốc tế', tdEsc(u.so_sv_qt)],
-      u.so_gv && ['Giảng viên', tdEsc(u.so_gv)],
-      u.web && ['Website', ngoai(u.web)],
+      u.so_gv && ['Số giảng viên', tdEsc(u.so_gv)],
     ].filter(Boolean);
     ctThan.innerHTML = `
       <div class="bdt-hero${u.anh ? '' : ' khong'}"${u.anh ? ` style="background-image:url('/${tdEsc(u.anh)}')"` : ''}>${lg(u)}</div>
       <div class="bdt-nd">
         <h3>${tdEsc(u.ten)}</h3>
         ${u.ten_en ? `<div class="bdt-en">${tdEsc(u.ten_en)}</div>` : ''}
-        <div class="bdt-tags"><span>${MIEN[u.mien]}</span></div>
         <dl class="bdt-kv">${dong.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>
-        <a class="bdt-chi" href="https://www.google.com/maps/search/?api=1&query=${u.lat},${u.lng}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-location-dot"></i> Chỉ đường</a>
       </div>`;
     ctEl.classList.add('open');
     ctEl.setAttribute('aria-hidden', 'false');
