@@ -1,8 +1,8 @@
 // =============================================================
 // BẢN ĐỒ TRƯỜNG — phần NẶNG, tải lười (xem ban-do-truong.js)
 // =============================================================
-// Leaflet (bản đồ + marker + gom cụm). Ba kiểu nền, MẶC ĐỊNH là vệ tinh (khách yêu cầu 2026-10-10):
-//   · "Vệ tinh (có nhãn)" và "Vệ tinh": ảnh hàng không của Cục Đo đạc Quốc gia Đài Loan (NLSC, dữ liệu
+// Leaflet (bản đồ + marker + gom cụm). Ba kiểu nền, MẶC ĐỊNH là "Vệ tinh" thuần (khách yêu cầu 2026-10-10, bản đầu để "có nhãn" rồi đổi):
+//   · "Vệ tinh" và "Vệ tinh (có nhãn)": ảnh hàng không của Cục Đo đạc Quốc gia Đài Loan (NLSC, dữ liệu
 //     mở của chính phủ), WMTS raster, không cần khoá API, zoom 6-20, chỉ phủ Đài Loan (đúng phạm vi
 //     của mọi trường ở đây). Lỗi tải tile thì Leaflet chỉ để ô trống, không làm hỏng trang.
 //   · "Bản đồ (có màu)": OpenFreeMap "liberty" (vector, MapLibre GL). Miễn phí, không khoá API. Phần này
@@ -68,8 +68,8 @@ export async function khoiTao(khung) {
   mapHienTai = map;
   const NLSC = 'https://wmts.nlsc.gov.tw/wmts';
   const ghiNguon = '&copy; <a href="https://maps.nlsc.gov.tw/" target="_blank" rel="noopener">內政部國土測繪中心</a>';
-  const lopVeTinhNhan = L.tileLayer(`${NLSC}/PHOTO_MIX/default/GoogleMapsCompatible/{z}/{y}/{x}`, { maxZoom: 19, maxNativeZoom: 19, attribution: ghiNguon }).addTo(map);
-  const lopVeTinh = L.tileLayer(`${NLSC}/PHOTO2/default/GoogleMapsCompatible/{z}/{y}/{x}`, { maxZoom: 19, maxNativeZoom: 19, attribution: ghiNguon });
+  const lopVeTinh = L.tileLayer(`${NLSC}/PHOTO2/default/GoogleMapsCompatible/{z}/{y}/{x}`, { maxZoom: 19, maxNativeZoom: 19, attribution: ghiNguon }).addTo(map);   // MẶC ĐỊNH: vệ tinh thuần
+  const lopVeTinhNhan = L.tileLayer(`${NLSC}/PHOTO_MIX/default/GoogleMapsCompatible/{z}/{y}/{x}`, { maxZoom: 19, maxNativeZoom: 19, attribution: ghiNguon });
   // Nền vector: nhóm rỗng, MapLibre chỉ được nạp lần đầu người dùng chọn nền này.
   const lopCoMau = L.layerGroup();
   let coMauDaNap = false;
@@ -84,10 +84,10 @@ export async function khoiTao(khung) {
     } catch (err) {
       coMauDaNap = false;   // cho thử lại lần chọn sau
       console.error('Không nạp được bản đồ có màu:', err);
-      lopVeTinhNhan.addTo(map);
+      lopVeTinh.addTo(map);
     }
   });
-  L.control.layers({ 'Vệ tinh (có nhãn)': lopVeTinhNhan, 'Vệ tinh': lopVeTinh, 'Bản đồ (có màu)': lopCoMau }, null, { position: 'topright', collapsed: true }).addTo(map);
+  L.control.layers({ 'Vệ tinh': lopVeTinh, 'Vệ tinh (có nhãn)': lopVeTinhNhan, 'Bản đồ (có màu)': lopCoMau }, null, { position: 'topright', collapsed: true }).addTo(map);
 
   // Cuộn trang qua bản đồ không được vô tình phóng to: chỉ bật lăn chuột sau khi bấm vào bản đồ.
   map.scrollWheelZoom.disable();

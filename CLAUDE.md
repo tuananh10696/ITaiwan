@@ -189,9 +189,9 @@ trên server mình). Nguồn KHÔNG có chương trình / ngành / ưu đãi. B�
 trong bảng `SUA_TEN` của script — chạy lại script không làm mất các sửa đó. Logo và ảnh thuộc bên thứ ba, xem lại
 bản quyền trước khi dùng thương mại.
 
-- Nền bản đồ (2026-10-10): MẶC ĐỊNH là vệ tinh "có nhãn" — ảnh hàng không NLSC (Cục Đo đạc Quốc gia Đài Loan,
-  `wmts.nlsc.gov.tw/wmts/PHOTO_MIX`, dữ liệu mở, không khoá API, zoom 6-20, chỉ phủ Đài Loan). Hai nền còn lại:
-  "Vệ tinh" (`PHOTO2`) và "Bản đồ (có màu)" = OpenFreeMap "liberty". **Đừng dùng CARTO** — tile của nó nay phủ
+- Nền bản đồ (2026-10-10): MẶC ĐỊNH là "Vệ tinh" thuần — ảnh hàng không NLSC (Cục Đo đạc Quốc gia Đài Loan,
+  `wmts.nlsc.gov.tw/wmts/PHOTO2`, dữ liệu mở, không khoá API, zoom 6-20, chỉ phủ Đài Loan). Hai nền còn lại:
+  "Vệ tinh (có nhãn)" (`PHOTO_MIX`) và "Bản đồ (có màu)" = OpenFreeMap "liberty". **Đừng dùng CARTO** — tile của nó nay phủ
   chữ "API KEY REQUIRED". MapLibre (≈1MB) chỉ được nạp khi người dùng chọn nền có màu, nên mặc định nhẹ.
 - CSP không có `worker-src`, nên MapLibre phải dùng worker dạng file từ chính origin (`maplibregl.setWorkerUrl`
   với `maplibre-gl-csp-worker.js?url`). Dùng worker blob mặc định là bị chặn mà bản đồ chỉ trắng trơn.
