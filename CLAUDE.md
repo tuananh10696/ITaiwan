@@ -189,10 +189,14 @@ trên server mình). Nguồn KHÔNG có chương trình / ngành / ưu đãi. B�
 trong bảng `SUA_TEN` của script — chạy lại script không làm mất các sửa đó. Logo và ảnh thuộc bên thứ ba, xem lại
 bản quyền trước khi dùng thương mại.
 
-- Nền bản đồ: OpenFreeMap "liberty" (có màu) làm mặc định; miễn phí, không khoá API. **Đừng dùng CARTO** — tile
-  của nó nay phủ chữ "API KEY REQUIRED".
+- Nền bản đồ (2026-10-10): MẶC ĐỊNH là vệ tinh "có nhãn" — ảnh hàng không NLSC (Cục Đo đạc Quốc gia Đài Loan,
+  `wmts.nlsc.gov.tw/wmts/PHOTO_MIX`, dữ liệu mở, không khoá API, zoom 6-20, chỉ phủ Đài Loan). Hai nền còn lại:
+  "Vệ tinh" (`PHOTO2`) và "Bản đồ (có màu)" = OpenFreeMap "liberty". **Đừng dùng CARTO** — tile của nó nay phủ
+  chữ "API KEY REQUIRED". MapLibre (≈1MB) chỉ được nạp khi người dùng chọn nền có màu, nên mặc định nhẹ.
 - CSP không có `worker-src`, nên MapLibre phải dùng worker dạng file từ chính origin (`maplibregl.setWorkerUrl`
   với `maplibre-gl-csp-worker.js?url`). Dùng worker blob mặc định là bị chặn mà bản đồ chỉ trắng trơn.
+- Điện thoại: bản đồ tắt `dragging` trên màn cảm ứng (một ngón cuộn TRANG, hai ngón mới kéo bản đồ), tờ chi tiết
+  được đưa ra `<body>` — để trong khung cuộn của app thì thanh điều hướng dưới đè lên che mất nội dung.
 - `leaflet.markercluster` đọc `L` toàn cục: phải gán `window.L = L` TRƯỚC khi `import('leaflet.markercluster')`.
 - Service worker cache-first `/data/**` và `/images/**`: đổi `truong.json` mà khách cũ vẫn thấy bản cũ cho tới khi
   cache được đổi phiên bản.

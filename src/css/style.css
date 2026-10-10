@@ -15640,11 +15640,40 @@ html.tw-standalone {
 .bdt-kv dd { margin: 0; word-break: break-word; font-weight: 400; color: var(--text-primary); }
 .bdt-kv a { color: var(--primary-dark); }
 
+/* Lớp nền mờ sau tờ chi tiết (chỉ điện thoại; JS đưa nó ra <body>) */
+.bdt-lop { display: none; }
 @media (max-width: 860px) {
-  .bdt-the { grid-template-columns: 1fr; grid-template-rows: 380px minmax(0, 420px); height: auto; }
+  .bdt-lop { display: block; position: fixed; inset: 0; z-index: 2999; background: rgba(17, 28, 43, .4); opacity: 0; pointer-events: none; transition: opacity .2s; }
+  .bdt-lop.hien { opacity: 1; pointer-events: auto; }
+}
+/* Gợi ý "hai ngón tay" trên màn cảm ứng */
+.bdt-goiy { position: absolute; left: 50%; top: 50%; z-index: 900; transform: translate(-50%, -50%); background: rgba(17, 28, 43, .82); color: #fff; padding: 10px 16px; border-radius: 12px; font-size: 14px; text-align: center; pointer-events: none; opacity: 0; transition: opacity .2s; max-width: 80%; }
+.bdt-goiy.hien { opacity: 1; }
+.bdt-map { touch-action: pan-y; }
+@media (pointer: coarse) { .bdt-map .leaflet-control-zoom a, .bdt-map .leaflet-control-layers-toggle { width: 40px; height: 40px; line-height: 40px; } }
+
+@media (max-width: 860px) {
+  .bdt-khung { border-radius: 14px; }
+  .bdt-the { grid-template-columns: 1fr; grid-template-rows: clamp(300px, 46dvh, 440px) auto; height: auto; }
   .bdt-mapwrap { order: -1; }
   .bdt-bang { border-right: 0; border-top: 1px solid var(--border); }
-  .bdt-ct { position: fixed; top: auto; left: 0; right: 0; bottom: 0; width: 100%; height: 82vh; border-radius: 18px 18px 0 0; transform: translateY(105%); z-index: 3000; }
+  .bdt-cu { padding: 12px 12px 8px; gap: 8px; }
+  /* 16px: dưới mức này iOS tự phóng to trang khi bấm vào ô nhập */
+  .bdt-tim { font-size: 16px; padding: 11px 12px; }
+  /* Một hàng chip cuộn ngang thay vì xuống 2-3 dòng chiếm chỗ của danh sách */
+  .bdt-chips { flex-wrap: nowrap; overflow-x: auto; margin: 0 -12px; padding: 0 12px 2px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .bdt-chips::-webkit-scrollbar { display: none; }
+  .bdt-chip { flex: none; padding: 8px 14px; font-size: 14px; }
+  .bdt-opt { display: none; }   /* "chỉ trong khung bản đồ": bản đồ nhỏ, bật tính năng này dễ làm danh sách rỗng khó hiểu */
+  .bdt-ds { max-height: 460px; overscroll-behavior: contain; }
+  .bdt-it { padding: 10px; }
+  .bdt-it-phu { -webkit-line-clamp: 2; }
+  /* Ngăn chi tiết thành tờ giấy kéo từ dưới lên, phủ cả thanh điều hướng dưới */
+  .bdt-ct { position: fixed; top: auto; left: 0; right: 0; bottom: 0; width: 100%; height: auto; max-height: 86dvh; border-radius: 18px 18px 0 0; transform: translateY(105%); z-index: 3000; padding-bottom: env(safe-area-inset-bottom, 0px); }
   .bdt-ct.open { transform: none; }
+  .bdt-ct-than { overscroll-behavior: contain; }
+  .bdt-ct::before { content: ''; position: absolute; top: 8px; left: 50%; width: 40px; height: 4px; margin-left: -20px; border-radius: 4px; background: rgba(255, 255, 255, .9); z-index: 3; box-shadow: 0 0 4px rgba(0, 0, 0, .3); }
+  .bdt-dong { width: 40px; height: 40px; }
   .bdt-hero { height: 150px; }
+  .bdt-kv { grid-template-columns: 104px minmax(0, 1fr); }
 }

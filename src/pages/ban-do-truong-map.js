@@ -1,18 +1,21 @@
 // =============================================================
 // BẢN ĐỒ TRƯỜNG — phần NẶNG, tải lười (xem ban-do-truong.js)
 // =============================================================
-// Leaflet (bản đồ + marker + gom cụm) cộng nền vector OpenFreeMap vẽ bằng MapLibre GL.
-//   · Nền mặc định: OpenFreeMap "liberty" — có màu, đủ chi tiết (khách yêu cầu 2026-10-09).
-//     Miễn phí, KHÔNG cần khoá API, không giới hạn lượt. (CARTO đã bắt buộc API key nên bỏ.)
-//   · CSP của site không có `worker-src` nên worker dạng blob: của MapLibre bị chặn. Dùng bản worker
-//     CSP phục vụ từ chính origin mình (`?url` -> file có hash trong dist) và trỏ `setWorkerUrl` vào
-//     đó — nhờ vậy KHÔNG phải sửa cấu hình nginx / vercel.
-//   · markercluster đọc `L` ở phạm vi toàn cục, nên phải gán window.L TRƯỚC khi nạp nó.
+// Leaflet (bản đồ + marker + gom cụm). Ba kiểu nền, MẶC ĐỊNH là vệ tinh (khách yêu cầu 2026-10-10):
+//   · "Vệ tinh (có nhãn)" và "Vệ tinh": ảnh hàng không của Cục Đo đạc Quốc gia Đài Loan (NLSC, dữ liệu
+//     mở của chính phủ), WMTS raster, không cần khoá API, zoom 6-20, chỉ phủ Đài Loan (đúng phạm vi
+//     của mọi trường ở đây). Lỗi tải tile thì Leaflet chỉ để ô trống, không làm hỏng trang.
+//   · "Bản đồ (có màu)": OpenFreeMap "liberty" (vector, MapLibre GL). Miễn phí, không khoá API. Phần này
+//     NẶNG (≈1MB) nên chỉ nạp khi người dùng đổi sang nó — mặc định là raster nên điện thoại không phải
+//     tải MapLibre. (CARTO đã bắt buộc API key — đừng dùng.)
+//   · CSP của site không có `worker-src`, nên worker blob của MapLibre bị chặn: dùng bản worker CSP phục
+//     vụ từ chính origin (`?url` -> file có hash trong dist) + `setWorkerUrl`, khỏi sửa nginx / vercel.
+//   · markercluster đọc `L` toàn cục, nên phải gán window.L TRƯỚC khi nạp nó.
+//   · Điện thoại: kéo một ngón phải cuộn TRANG chứ không kéo bản đồ (nếu không bản đồ nuốt mất thao tác
+//     cuộn). Hai ngón mới di chuyển / phóng to bản đồ, giống Google Maps nhúng ("cooperative gestures").
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet.markercluster/dist/MarkerCluster.css';
-import maplibregl from 'maplibre-gl';
-import 'maplibre-gl/dist/maplibre-gl.css';
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-csp-worker.js?url';
 import { tdEsc } from '../core/ui.js';
 
@@ -24,11 +27,11 @@ let mapHienTai = null;   // bản đồ đang sống — dashboard vẽ lại th
 
 export async function khoiTao(khung) {
   window.L = L;
-  maplibregl.setWorkerUrl(workerUrl);
   await import('leaflet.markercluster');
-  await import('@maplibre/maplibre-gl-leaflet');
   const DS = await (await fetch('/data/truong/truong.json')).json();
   if (!khung.isConnected) return;   // người dùng đã rời trang chủ trong lúc tải
+  // Ngăn chi tiết / lớp nền mờ của lần dựng trước trên điện thoại nằm ở <body> (xem `moChiTiet`) — dọn đi.
+  document.querySelectorAll('body > .bdt-ct, body > .bdt-lop').forEach((e) => e.remove());
   if (mapHienTai) { try { mapHienTai.remove(); } catch { /* đã gỡ */ } mapHienTai = null; }
   DS.forEach((u) => { u._k = boDau([u.ten, u.ten_en, u.dia_chi].join(' ')); });
 
@@ -57,17 +60,54 @@ export async function khoiTao(khung) {
   const dsEl = $('.bdt-ds'), demEl = $('.bdt-dem'), ctEl = $('.bdt-ct'), ctThan = $('.bdt-ct-than');
 
   // ------------------------------------------------ bản đồ
-  const map = L.map($('.bdt-map'), { minZoom: 6, maxZoom: 18, zoomControl: true, attributionControl: true });
+  const camUng = L.Browser.mobile || window.matchMedia('(pointer: coarse)').matches;   // màn cảm ứng
+  const map = L.map($('.bdt-map'), {
+    minZoom: 6, maxZoom: 19, zoomControl: true, attributionControl: true,
+    dragging: !camUng,   // cảm ứng: một ngón cuộn trang, hai ngón mới kéo bản đồ (xem đầu file)
+  });
   mapHienTai = map;
-  const lopChiTiet = L.maplibreGL({ style: 'https://tiles.openfreemap.org/styles/liberty' }).addTo(map);
-  const lopSang = L.maplibreGL({ style: 'https://tiles.openfreemap.org/styles/positron' });
-  const lopOsm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>' });
-  L.control.layers({ 'Nền chi tiết (có màu)': lopChiTiet, 'Nền sáng': lopSang, 'OpenStreetMap': lopOsm }, null, { position: 'topright', collapsed: true }).addTo(map);
+  const NLSC = 'https://wmts.nlsc.gov.tw/wmts';
+  const ghiNguon = '&copy; <a href="https://maps.nlsc.gov.tw/" target="_blank" rel="noopener">內政部國土測繪中心</a>';
+  const lopVeTinhNhan = L.tileLayer(`${NLSC}/PHOTO_MIX/default/GoogleMapsCompatible/{z}/{y}/{x}`, { maxZoom: 19, maxNativeZoom: 19, attribution: ghiNguon }).addTo(map);
+  const lopVeTinh = L.tileLayer(`${NLSC}/PHOTO2/default/GoogleMapsCompatible/{z}/{y}/{x}`, { maxZoom: 19, maxNativeZoom: 19, attribution: ghiNguon });
+  // Nền vector: nhóm rỗng, MapLibre chỉ được nạp lần đầu người dùng chọn nền này.
+  const lopCoMau = L.layerGroup();
+  let coMauDaNap = false;
+  map.on('baselayerchange', async (e) => {
+    if (e.layer !== lopCoMau || coMauDaNap) return;
+    coMauDaNap = true;
+    try {
+      const [{ default: maplibregl }] = await Promise.all([import('maplibre-gl'), import('maplibre-gl/dist/maplibre-gl.css')]);
+      maplibregl.setWorkerUrl(workerUrl);
+      await import('@maplibre/maplibre-gl-leaflet');
+      lopCoMau.addLayer(L.maplibreGL({ style: 'https://tiles.openfreemap.org/styles/liberty' }));
+    } catch (err) {
+      coMauDaNap = false;   // cho thử lại lần chọn sau
+      console.error('Không nạp được bản đồ có màu:', err);
+      lopVeTinhNhan.addTo(map);
+    }
+  });
+  L.control.layers({ 'Vệ tinh (có nhãn)': lopVeTinhNhan, 'Vệ tinh': lopVeTinh, 'Bản đồ (có màu)': lopCoMau }, null, { position: 'topright', collapsed: true }).addTo(map);
 
   // Cuộn trang qua bản đồ không được vô tình phóng to: chỉ bật lăn chuột sau khi bấm vào bản đồ.
   map.scrollWheelZoom.disable();
   map.on('click', () => map.scrollWheelZoom.enable());
   map.on('mouseout', () => map.scrollWheelZoom.disable());
+
+  // Gợi ý cho màn cảm ứng khi người dùng đặt MỘT ngón lên bản đồ (và thấy nó không kéo).
+  if (camUng) {
+    const goiY = document.createElement('div');
+    goiY.className = 'bdt-goiy';
+    goiY.textContent = 'Dùng hai ngón tay để di chuyển bản đồ';
+    $('.bdt-mapwrap').appendChild(goiY);
+    let hen = null;
+    $('.bdt-map').addEventListener('touchstart', (e) => {
+      if (e.touches.length !== 1) return;
+      goiY.classList.add('hien');
+      clearTimeout(hen);
+      hen = setTimeout(() => goiY.classList.remove('hien'), 1600);
+    }, { passive: true });
+  }
 
   const cum = L.markerClusterGroup({
     maxClusterRadius: 46, showCoverageOnHover: false, spiderfyOnMaxZoom: true,
@@ -137,11 +177,24 @@ export async function khoiTao(khung) {
     marker.get(id).setIcon(pin(u, true));
     dsEl.querySelectorAll('.bdt-it').forEach((i) => i.classList.toggle('on', Number(i.dataset.id) === id));
     dsEl.querySelector('.bdt-it.on')?.scrollIntoView({ block: 'nearest' });
+    // Điện thoại: bản đồ nằm TRÊN danh sách — bấm một trường ở dưới mà bản đồ vẫn khuất thì bay tới đâu cũng không thấy.
+    if (mo && window.matchMedia('(max-width: 860px)').matches) $('.bdt-mapwrap').scrollIntoView({ behavior: 'smooth', block: 'start' });
     if (bay) cum.zoomToShowLayer(marker.get(id), () => map.flyTo([u.lat, u.lng], Math.max(map.getZoom(), 14), { duration: 0.8 }));
     if (mo) moChiTiet(u);
   }
+  const laMobile = () => window.matchMedia('(max-width: 860px)').matches;
+  // Điện thoại: tờ chi tiết phải ở <body>. Nằm trong khung cuộn của app thì thanh điều hướng dưới (một
+  // phần tử CÙNG CẤP, vẽ sau) đè lên nó và che mất phần cuối. Máy tính: giữ trong khung bản đồ.
+  const lop = document.createElement('div');
+  lop.className = 'bdt-lop';
+  lop.addEventListener('click', () => dongCT());
+  function datCho() {
+    if (laMobile()) { if (ctEl.parentElement !== document.body) { document.body.appendChild(lop); document.body.appendChild(ctEl); } }
+    else if (ctEl.parentElement !== khung.querySelector('.bdt-mapwrap')) { lop.remove(); khung.querySelector('.bdt-mapwrap').appendChild(ctEl); }
+  }
   function moChiTiet(u) {
     map.closePopup();
+    datCho();
     const dong = [
       u.web && ['Website', ngoai(u.web)],
       ['Địa chỉ', tdEsc(u.dia_chi)],
@@ -158,12 +211,13 @@ export async function khoiTao(khung) {
         <dl class="bdt-kv">${dong.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>
       </div>`;
     ctEl.classList.add('open');
+    lop.classList.add('hien');
     ctEl.setAttribute('aria-hidden', 'false');
     if (dangChon !== u.id) chon(u.id, { bay: false });
   }
-  const dongCT = () => { ctEl.classList.remove('open'); ctEl.setAttribute('aria-hidden', 'true'); };
+  function dongCT() { ctEl.classList.remove('open'); lop.classList.remove('hien'); ctEl.setAttribute('aria-hidden', 'true'); }
   $('.bdt-dong').addEventListener('click', dongCT);
-  khung.addEventListener('keydown', (e) => { if (e.key === 'Escape') dongCT(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && ctEl.classList.contains('open')) dongCT(); });
 
   ve(false);
   // Khối nằm trong trang chủ có thể bị vẽ lại (đổi tài khoản, về trang chủ...): kích thước đổi thì Leaflet cần biết.
