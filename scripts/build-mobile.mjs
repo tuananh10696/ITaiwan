@@ -35,7 +35,9 @@ console.log('└─');
 execFileSync('npx', ['vite', 'build'], {
   cwd: GOC,
   stdio: 'inherit',
-  env: { ...process.env, TW_MOBILE: '1', TW_MOBILE_OUT: RA, VITE_API_BASE: API, VITE_CDN_BASE: CDN },
+  // NODE_ENV ép 'production': .env local có NODE_ENV=development (cho server) mà Vite đọc cả nó,
+  // build ra bundle import.meta.env.DEV = true.
+  env: { ...process.env, NODE_ENV: 'production', TW_MOBILE: '1', TW_MOBILE_OUT: RA, VITE_API_BASE: API, VITE_CDN_BASE: CDN },
 });
 
 // ---- Kiểm tra lại kết quả, đừng tin là build xong nghĩa là đúng ----

@@ -9,8 +9,10 @@
  *                         mỗi lần deploy (trỏ sang assets hash mới) nên không được cache lâu.
  *  - /assets/**         : CACHE TRƯỚC — tên file có hash, nội dung bất biến (vercel.json cũng đặt
  *                         immutable 1 năm).
- *  - /audio/** /fa/** /images/** /icons/** /data/** : cache trước, có trần số mục; chỉ cache
+ *  - /audio/** /fa/** /images/** /icons/** : cache trước, có trần số mục; chỉ cache
  *                         phản hồi 200 cùng origin (bỏ 206 của request Range, bỏ opaque từ CDN).
+ *  - /data/**           : trả bản cache ngay rồi làm mới ngầm (sửa JSON xong khách cũ vẫn nhận được).
+ *  - manifest           : KHÔNG đụng — server đặt no-cache, app đã cài phải nhận được bản mới.
  *  - Đổi VERSION là xoá sạch cache cũ ở bước activate.
  */
 // v2 (2026-09-28): khung app tách riêng cổng học viên / cổng quản trị + push thông báo.
@@ -21,7 +23,7 @@ const CACHE_ASSETS = `${VERSION}-assets`;
 const CACHE_STATIC = `${VERSION}-static`;
 const CACHE_AUDIO = `${VERSION}-audio`;
 const TRAN = { [CACHE_STATIC]: 300, [CACHE_AUDIO]: 400, [CACHE_ASSETS]: 80 };
-const SHELL = ['/', '/manifest.webmanifest', '/icons/icon-192.png'];
+const SHELL = ['/', '/icons/icon-192.png'];
 /** Khung app của trang đang mở: cổng quản trị có khung RIÊNG, không được đè khung cổng học viên. */
 const khoaKhung = (url) => (url.pathname.startsWith('/admin') ? '/admin.html' : '/');
 
@@ -68,6 +70,22 @@ async function cacheTruoc(req, cacheName) {
   return res;
 }
 
+/** Trả bản cache ngay (nhanh, chạy được khi mất mạng) rồi tải lại NGẦM để lần sau có bản mới.
+ *  Dùng cho /data/**: cache-first thuần thì sửa JSON xong khách cũ không bao giờ thấy bản mới cho
+ *  tới khi đổi VERSION. Lượt tải ngầm vẫn qua HTTP cache (nginx đặt /data/ max-age=3600) nên rẻ. */
+async function cacheRoiLamMoi(req, cacheName, e) {
+  const c = await caches.open(cacheName);
+  const hit = await c.match(req);
+  const moi = fetch(req).then((res) => {
+    if (res && res.status === 200 && res.type === 'basic') {
+      c.put(req, res.clone()).then(() => catBot(cacheName)).catch(() => {});
+    }
+    return res;
+  });
+  if (hit) { e.waitUntil(moi.catch(() => {})); return hit; }
+  return moi;
+}
+
 async function mangTruocHtml(req) {
   const khoa = khoaKhung(new URL(req.url));
   try {
@@ -101,8 +119,11 @@ self.addEventListener('fetch', (e) => {
   const p = url.pathname;
   if (p.startsWith('/assets/')) { e.respondWith(cacheTruoc(req, CACHE_ASSETS)); return; }
   if (p.startsWith('/audio/')) { e.respondWith(cacheTruoc(req, CACHE_AUDIO)); return; }
-  if (p.startsWith('/fa/') || p.startsWith('/images/') || p.startsWith('/icons/') || p.startsWith('/data/')
-      || p === '/favicon.png' || p === '/banner.jpg' || p === '/banner.webp' || p === '/manifest.webmanifest') {
+  if (p.startsWith('/data/')) { e.respondWith(cacheRoiLamMoi(req, CACHE_STATIC, e)); return; }
+  // manifest KHÔNG cache ở đây: cache-first thì app đã cài không bao giờ nhận manifest mới (shortcut,
+  // tên, icon) — server đã đặt no-cache cho nó.
+  if (p.startsWith('/fa/') || p.startsWith('/images/') || p.startsWith('/icons/')
+      || p === '/favicon.png' || p === '/banner.jpg' || p === '/banner.webp') {
     e.respondWith(cacheTruoc(req, CACHE_STATIC)); return;
   }
   // còn lại (src/* lúc dev, file lạ): không can thiệp

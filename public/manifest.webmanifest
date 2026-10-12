@@ -2,7 +2,7 @@
   "id": "/",
   "name": "ITaiwan — Học tiếng Trung & Luyện thi TOCFL",
   "short_name": "ITaiwan",
-  "description": "Học tiếng Trung Phồn thể theo giáo trình Đương Đại và Thời Đại: 324 bài, 10.562 từ vựng có giọng đọc thật, luyện phát âm, thi thử TOCFL.",
+  "description": "Trung Tâm Itaiwan - Du Học Đài Loan. Săn học bổng du học Đài Loan, học tiếng Trung Phồn thể theo giáo trình Thời Đại và thi thử TOCFL trực tuyến.",
   "lang": "vi",
   "dir": "ltr",
   "start_url": "/",
@@ -73,7 +73,7 @@
     {
       "name": "Từ điển Trung-Việt",
       "short_name": "Từ điển",
-      "url": "/tu-vung/tu-dien"
+      "url": "/tocfl/tu-vung/tu-dien"
     }
   ]
 }

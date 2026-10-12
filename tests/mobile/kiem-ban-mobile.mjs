@@ -72,25 +72,25 @@ pg.on('request', (r) => { const u = r.url(); if (!u.includes('localhost:4599')) 
 
 const TRANG = [
   ['Trang chủ', '/'],
-  ['Học phát âm — thanh mẫu', '/hoc-phat-am/thanh-mau'],
-  ['Đương đại 1.1 Từ vựng', '/tocfl/giao-trinh-duong-dai/bai-1-1/tu-vung'],
-  ['Đương đại 1.1 Flashcard', '/tocfl/giao-trinh-duong-dai/bai-1-1/flashcard'],
-  ['Đương đại 1.1 Ngữ pháp', '/tocfl/giao-trinh-duong-dai/bai-1-1/ngu-phap'],
-  ['Đương đại 1.2 Bài tập', '/tocfl/giao-trinh-duong-dai/bai-1-2/bai-tap'],
-  ['Đương đại 1.1 Game', '/tocfl/giao-trinh-duong-dai/bai-1-1/game'],
+  ['Học phát âm — thanh mẫu', '/tocfl/hoc-phat-am/thanh-mau'],
+  ['Thời Đại 1.1 Từ vựng', '/tocfl/giao-trinh-thoi-dai/quyen-1/bai-1-1/tu-vung'],
+  ['Thời Đại 1.1 Flashcard', '/tocfl/giao-trinh-thoi-dai/quyen-1/bai-1-1/flashcard'],
+  ['Thời Đại 1.1 Ngữ pháp', '/tocfl/giao-trinh-thoi-dai/quyen-1/bai-1-1/ngu-phap'],
+  ['Thời Đại 1.2 Bài tập', '/tocfl/giao-trinh-thoi-dai/quyen-1/bai-1-2/bai-tap'],
+  ['Thời Đại 1.1 Game', '/tocfl/giao-trinh-thoi-dai/quyen-1/bai-1-1/game'],
   ['Thi thử TOCFL', '/tocfl/thi-thu'],
-  ['Bảng phiên âm', '/hoc-phat-am/bang-phien-am'],
-  // Hai trang NẠP ĐỘNG (4.40) — đủ để bắt lỗi "chunk không tải được trong WebView".
-  // ⚠️ Module thứ ba (`lotrinh`) KHÔNG có trang nào công khai nên bộ kiểm chạy không đăng nhập
+  ['Bảng phiên âm', '/tocfl/hoc-phat-am/bang-phien-am'],
+  // Trang NẠP ĐỘNG (4.40) — đủ để bắt lỗi "chunk không tải được trong WebView".
+  // ⚠️ Module `lotrinh` KHÔNG có trang nào công khai nên bộ kiểm chạy không đăng nhập
   //    này chỉ thấy trang chủ; nó được phủ bởi bộ kiểm riêng có token thật.
-  ['Từ điển (module tuvung)', '/tu-vung/tu-dien'],
-  ['Cộng đồng (module congdong)', '/cong-dong/thao-luan'],
+  ['Từ điển (module tuvung)', '/tocfl/tu-vung/tu-dien'],
 ];
 
 console.log(`Engine: ${TEN_ENGINE}\n`);
 console.log('TRANG'.padEnd(32), 'KÝ TỰ'.padStart(7), 'DOM'.padStart(6), '  LỖI JS');
 console.log('─'.repeat(66));
 let tong = 0;
+const trang404 = [];
 for (const [ten, url] of TRANG) {
   const truoc = loi.length;
   await pg.goto('http://localhost:4599' + url, { waitUntil: 'networkidle' }).catch(() => {});
@@ -101,11 +101,14 @@ for (const [ten, url] of TRANG) {
     // một kiểu — cùng một trang từ vựng cho 9009 ký tự trên Chromium nhưng 1572 trên WebKit,
     // trong khi textContent bằng nhau đúng 31.199 ở cả hai. Dùng innerText thì mỗi lần đổi engine
     // lại tưởng app hỏng.
-    return { chu: (el?.textContent || '').length, dom: el?.querySelectorAll('*').length || 0 };
+    return { chu: (el?.textContent || '').length, dom: el?.querySelectorAll('*').length || 0,
+      la404: /Không tìm thấy trang/.test(el?.textContent || '') };
   });
   const n = loi.length - truoc;
   tong += n;
-  const co = r.chu > 200 ? '' : '  ⚠️ NỘI DUNG TRỐNG';
+  // Trang 404 của app không sinh lỗi JS nào — phải bắt riêng, nếu không URL sai vẫn "xanh".
+  if (r.la404) trang404.push(url);
+  const co = r.la404 ? '  ❌ TRANG 404' : r.chu > 200 ? '' : '  ⚠️ NỘI DUNG TRỐNG';
   console.log(ten.padEnd(32), String(r.chu).padStart(7), String(r.dom).padStart(6), '  ' + (n || '-') + co);
 }
 
@@ -131,7 +134,8 @@ if (saiApi.length) {
   console.log('   Trong app thật đây là 404 câm. Kiểm tra apiBase() ở src/utils/env.js.');
 }
 console.log('\nTổng lỗi JS:', tong);
+if (trang404.length) console.log('Trang 404  :', trang404.join(', '));
 if (loi.length) { console.log('\n── Chi tiết lỗi ──'); [...new Set(loi)].slice(0, 12).forEach(l => console.log(' •', l.slice(0, 180))); }
 
 await b.close(); sv.close();
-process.exit(tong > 0 || saiApi.length ? 1 : 0);
+process.exit(tong > 0 || saiApi.length || trang404.length ? 1 : 0);

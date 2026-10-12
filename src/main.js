@@ -1130,6 +1130,18 @@ function legacyHashToPath() {
   return buildPath(page, { segs: parts.slice(1) });
 }
 
+/**
+ * Đường dẫn cũ, từ trước khi "Học phát âm" và "Từ vựng & Hán tự" vào nhóm TOCFL:
+ * /hoc-phat-am/thanh-mau -> /tocfl/hoc-phat-am/thanh-mau. sitemap.xml cũ, shortcut của PWA đã cài và
+ * link đã chia sẻ vẫn trỏ dạng cũ — thiếu bước này là ra trang 404. null nếu không phải link cũ.
+ */
+const DUONG_DAN_CU = ['/hoc-phat-am', '/tu-vung'];
+function legacyPathToPath() {
+  const p = location.pathname;
+  if (!DUONG_DAN_CU.some((g) => p === g || p.startsWith(g + '/'))) return null;
+  return '/tocfl' + p + location.search;
+}
+
 /** Ghi lại URL theo state hiện tại — gọi sau khi đổi filter / tab / bài */
 function updateUrl(opts) {
   const page = state.currentPage;
@@ -1412,8 +1424,9 @@ function updateNavBooks() {
 // ============================================================
 /** Khởi động router: xử lý link hash cũ, render trang đầu, lắng nghe Back/Forward */
 function bootRouter() {
-  // Link hash cũ (#pron-vanmau, #tocfl-duongdai/5.2/flashcard) -> đổi sang path mới
-  const legacy = legacyHashToPath();
+  // Link hash cũ (#pron-vanmau, #tocfl-duongdai/5.2/flashcard) hoặc đường dẫn cũ (/tu-vung/tu-dien)
+  // -> đổi sang path mới
+  const legacy = legacyHashToPath() || legacyPathToPath();
   if (legacy) {
     history.replaceState(null, '', legacy);
   } else if (location.hash) {

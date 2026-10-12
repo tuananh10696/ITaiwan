@@ -34,27 +34,34 @@ const pg = await ctx.newPage();
 pg.on('console', (m) => { if (m.type() === 'error') loi.push(m.text()); });
 pg.on('pageerror', (e) => loi.push('PAGEERROR: ' + e.message));
 
-const TRANG = [['Trang chủ', '/'], ['Phát âm', '/hoc-phat-am/thanh-mau'],
-  ['Bảng phiên âm', '/hoc-phat-am/bang-phien-am'],
+const TRANG = [['Trang chủ', '/'], ['Phát âm', '/tocfl/hoc-phat-am/thanh-mau'],
+  ['Bảng phiên âm', '/tocfl/hoc-phat-am/bang-phien-am'],
   ['Thời Đại 1.1', '/tocfl/giao-trinh-thoi-dai/bai-1-1/tu-vung'],
   ['TOCFL Band', '/tocfl/tu-vung-theo-band'],
   // Hai trang NẠP ĐỘNG — bắt lỗi tách route trên bản WEB. Module `lotrinh` cần đăng
   // nhập nên không đưa vào đây (bộ kiểm này chạy với tư cách khách).
-  ['Từ điển', '/tu-vung/tu-dien'],
-  ['Bộ thủ Hán tự', '/tu-vung/bo-thu-han-tu'],
+  ['Từ điển', '/tocfl/tu-vung/tu-dien'],
+  ['Bộ thủ Hán tự', '/tocfl/tu-vung/bo-thu-han-tu'],
   // Hướng dẫn (2026-10-05) — nạp động, mở cho khách. Trang tạo tài khoản phải có nút đăng ký.
-  ['Cài app', '/huong-dan/cai-app'], ['Tạo tài khoản', '/huong-dan/dang-ky-tai-khoan']];
+  ['Cài app', '/huong-dan/cai-app'], ['Tạo tài khoản', '/huong-dan/dang-ky-tai-khoan'],
+  // Đường dẫn CŨ (trước khi vào nhóm TOCFL) — sitemap cũ và shortcut PWA đã cài vẫn trỏ tới.
+  ['Link cũ: từ điển', '/tu-vung/tu-dien']];
 
 console.log('TRANG'.padEnd(20), 'KÝ TỰ'.padStart(7), '  LỖI');
 console.log('─'.repeat(40));
 let tong = 0;
+const trang404 = [];
 for (const [ten, url] of TRANG) {
   const truoc = loi.length;
   await pg.goto('http://localhost:4601' + url, { waitUntil: 'networkidle' }).catch(() => {});
   await pg.waitForTimeout(600);
   const chu = await pg.evaluate(() => (document.getElementById('page-content')?.innerText || '').length);
+  // Trang 404 của app KHÔNG có lỗi JS nào — chỉ đếm lỗi JS thì URL sai vẫn "xanh" (từng xảy ra với
+  // 4/9 trang ở đây sau khi Học phát âm + Từ vựng vào nhóm TOCFL).
+  const la404 = await pg.evaluate(() => /Không tìm thấy trang/.test(document.getElementById('page-content')?.innerText || ''));
+  if (la404) trang404.push(url);
   const n = loi.length - truoc; tong += n;
-  console.log(ten.padEnd(20), String(chu).padStart(7), '  ' + (n || '-'));
+  console.log(ten.padEnd(20), String(chu).padStart(7), '  ' + (n || '-') + (la404 ? '  ❌ TRANG 404' : ''));
 }
 
 // Khách mở "Cách tạo tài khoản" phải thấy nút đăng ký — từng bị ẩn vì điều kiện hỏi `state.user`
@@ -71,9 +78,10 @@ console.log('\nclass trên <html>   :', cls || '(trống — đúng, web không 
 console.log('API gọi tương đối   :', tuongDoi ? 'ĐÚNG' : 'SAI — ' + [...new Set(goiApi.map(u => new URL(u).origin))].join(', '));
 console.log('Số lời gọi API      :', goiApi.length);
 console.log('Lỗi JS              :', tong);
+console.log('Trang 404           :', trang404.length ? trang404.join(', ') : 0);
 if (loi.length) [...new Set(loi)].slice(0, 6).forEach((l) => console.log('  •', l.slice(0, 150)));
 
-const hong = tong > 0 || !tuongDoi || cls.includes('tw-native') || !coNutDangKy;
+const hong = tong > 0 || trang404.length > 0 || !tuongDoi || cls.includes('tw-native') || !coNutDangKy;
 console.log(hong ? '\n❌ BẢN WEB CÓ VẤN ĐỀ' : '\n✅ Bản web không bị ảnh hưởng');
 await b.close(); sv.close();
 process.exit(hong ? 1 : 0);

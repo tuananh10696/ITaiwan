@@ -66,7 +66,7 @@ chưa có dữ liệu…) để không màn hình nào rơi vào cảnh "ai cũn
 | `npm run demo:day-du` | Dựng lại dữ liệu thử (xem mục trên) |
 | `npm run db:migrate:prod` | Chạy migration lên production (có sao lưu trước) |
 | `npm run db:diff` | So schema local với production |
-| `npm run test:quyen` · `test:du-hoc` · `test:quy-ktx-de` … | Bộ kiểm thử API |
+| `npm test` · `test:du-hoc` · `test:vai-tro` · `test:push` … | Bộ kiểm thử API |
 
 ---
 

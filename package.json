@@ -11,7 +11,7 @@
     "audio:pron": "node scripts/download-pron-audio.mjs",
     "audio:pron-sgk": "scripts/.venv/bin/python scripts/cat-phat-am-sgk.py && node scripts/gen-pron-sgk.mjs",
     "sbt:nghe": "node scripts/gen-sbt-nghe.mjs",
-    "build": "vite build",
+    "build": "NODE_ENV=production vite build",
     "build:mobile": "node scripts/build-mobile.mjs",
     "mobile:sync": "node scripts/build-mobile.mjs && npx cap sync",
     "mobile:android": "node scripts/build-mobile.mjs && npx cap sync android && npx cap open android",

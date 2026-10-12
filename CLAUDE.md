@@ -71,10 +71,18 @@ Hồ sơ du học cũng chỉ mở (và chỉ được tạo) sau khi duyệt.
 npm run server:test                  # backend cho bộ test (tắt giới hạn tần suất)
 npm run test:quyen                   # ma trận phân quyền
 npm run test:du-hoc                  # vòng đời hồ sơ du học
-npm run test:quy-ktx-de              # sổ thu chi · ký túc xá · đề bài
+npm test                             # phân quyền + trung tâm + giáo viên–học viên + chống cày điểm
+npm run test:hoc-thu                 # học thử khi chưa duyệt
+npm run test:vai-tro                 # vai trò sale / quản lý hồ sơ
+npm run test:so-lieu                 # số liệu du học theo vai trò (gồm sổ thu chi)
+npm run test:phong-van               # bước phỏng vấn
 npm run test:push                    # push thông báo — tự dựng backend + dịch vụ push giả, KHÔNG cần server:test
-node tests/mobile/kiem-web-khong-hong.mjs
+npm run build && node tests/mobile/kiem-web-khong-hong.mjs   # đọc dist/, coi trang 404 là LỖI
 ```
+
+`.env` local có `NODE_ENV=development` cho server, mà Vite đọc cả biến đó: `vite build` trần ra
+bundle `import.meta.env.DEV = true` (service worker không bao giờ đăng ký). `npm run build` đã ép
+`NODE_ENV=production` — đừng gọi `npx vite build` trực tiếp.
 
 Kiểm push bằng trình duyệt thật: Playwright mặc định (chromium headless-shell) luôn báo
 `Notification.permission = 'denied'`, còn `browser.newContext()` là ẩn danh — Chrome **không có

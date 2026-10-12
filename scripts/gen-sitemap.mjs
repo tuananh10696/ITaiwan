@@ -28,29 +28,28 @@ const congKhai = new Set(
 );
 if (!congKhai.size) throw new Error('Không đọc được PUBLIC_PAGES trong src/main.js — đổi cách khai báo thì sửa regex ở đây.');
 
-// Bóc navConfig để lấy path
-const navSrc = src.slice(src.indexOf('const navConfig = ['), src.indexOf('\n];', src.indexOf('const navConfig = [')));
+// Bóc navConfig (mảng literal thuần, không gọi hàm nào) rồi dựng path ĐÚNG như registerPath() của
+// main.js — kể cả nhóm `subparent` (/tocfl/hoc-phat-am/thanh-mau). Bản cũ bóc theo từng dòng, không
+// biết subparent, nên sitemap ghi /hoc-phat-am/... và /tocfl/bo-thu-han-tu/... — toàn trang 404.
+const navDau = src.indexOf('const navConfig = [');
+const navSrc = src.slice(src.indexOf('[', navDau), src.indexOf('\n];', navDau)) + '\n]';
+const navConfig = new Function(`return ${navSrc};`)();
 const urls = [];
 
-let currentParent = '';
-for (const line of navSrc.split('\n')) {
-  const parent = line.match(/type: 'parent', id: '([^']+)', path: '([^']*)'/);
-  if (parent) { currentParent = parent[2]; continue; }
-  const m = line.match(/\{\s*id: '([^']+)', path: '([^']*)'/);
-  if (!m) continue;
-  const [, id, slug] = m;
-  if (!implemented.has(id)) continue;
+const ghep = (...p) => '/' + p.join('/').split('/').filter(Boolean).join('/');
+function themTrang(id, loc) {
+  if (!implemented.has(id)) return;
   // Trang cần đăng nhập: khách (và Googlebot) mở ra là bị đá về trang chủ -> soft-404.
-  if (!congKhai.has(id)) continue;
-  const isTop = /^\s*\{ id:/.test(line) && !line.includes('nav-child');
-  const full = currentParent && !isTopLevel(navSrc, id) ? `${currentParent}/${slug}` : slug;
-  urls.push({ id, loc: '/' + full.split('/').filter(Boolean).join('/') });
+  if (!congKhai.has(id)) return;
+  urls.push({ id, loc });
 }
-
-function isTopLevel(nav, id) {
-  // entry cấp 1 nằm ngay dưới navConfig, không thụt vào trong children
-  const re = new RegExp(`^  \\{ id: '${id}'`, 'm');
-  return re.test(nav);
+for (const item of navConfig) {
+  if (item.type !== 'parent') { if (item.id) themTrang(item.id, ghep(item.path || '')); continue; }
+  for (const c of item.children) {
+    if (c.type === 'group') continue;
+    if (c.type === 'subparent') c.children.forEach((cc) => themTrang(cc.id, ghep(item.path, c.path, cc.path)));
+    else themTrang(c.id, ghep(item.path, c.path));
+  }
 }
 
 // Bài con Giáo trình Thời Đại — cùng nguyên tắc: chỉ bài ĐÃ CÓ từ vựng. Số phần mỗi bài không
