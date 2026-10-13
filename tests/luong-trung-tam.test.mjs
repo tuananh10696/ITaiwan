@@ -76,7 +76,10 @@ try {
     { ho_ten: `Học sinh ${MA}`, phone: '0900000000', ngay_sinh: '2006-01-01' }), [200, 201]);
   hoSoId = r.j?.id ?? r.j?.ho_so?.id;
   kiem('Hồ sơ có id', typeof hoSoId, 'number');
-  ghi('Giáo viên KHÔNG xem được hồ sơ du học', await G(gvTok, 'GET', '/admin/du-hoc/ho-so'), 403);
+  // Giáo viên xem được danh sách hồ sơ du học — toàn trung tâm, không tiền (2026-10-13, khách
+  // yêu cầu). Chi tiết hơn ở tests/du-hoc-so-lieu-vai-tro.test.mjs.
+  ghi('Giáo viên xem được hồ sơ du học (không tiền)', await G(gvTok, 'GET', '/admin/du-hoc/ho-so'), 200);
+  ghi('Giáo viên vẫn KHÔNG sửa được hồ sơ du học', await G(gvTok, 'PUT', `/admin/du-hoc/ho-so/${hoSoId}`, { ghi_chu: 'x' }), 403);
   ghi('Chuyển bước hồ sơ', await G(QT, 'POST', `/admin/du-hoc/ho-so/${hoSoId}/buoc`, { buoc: 'dong-tien' }), [200, 201]);
   ghi('Ghi một khoản thu', await G(QT, 'POST', `/admin/du-hoc/ho-so/${hoSoId}/thu-tien`,
     { loai: 'thu', so_tien: 5000000, ngay_thu: '2026-09-22', noi_dung: 'Đặt cọc' }), [200, 201]);

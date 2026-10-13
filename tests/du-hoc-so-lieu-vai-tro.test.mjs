@@ -6,7 +6,9 @@
 // Trả lời ba câu hỏi của khách:
 //   1. Bốn ô số liệu đầu màn Hồ sơ du học: ai thấy gì, và có RÒ tiền / số của người khác không?
 //      admin = cả trung tâm · quản lý hồ sơ = chỉ ô "đang xử lý" · sale = hồ sơ mình phụ trách ·
-//      giáo viên = học sinh lớp mình. Mục tiêu cuối: chỉ admin nhìn được tiền ra vào của TRUNG TÂM.
+//      giáo viên = chỉ ô "đang xử lý", đếm TOÀN trung tâm (2026-10-13, sửa lại — không còn giới
+//      hạn theo lớp mình dạy). Mục tiêu cuối: chỉ admin (và sale cho phần của mình) nhìn được tiền;
+//      giáo viên và quản lý hồ sơ không thấy tiền ở đâu trong khu du học.
 //   2. Bước mới "Tiến độ hồ sơ trường" nằm giữa "Học" và "Phỏng vấn", chuyển được và được tính là
 //      "đang xử lý".
 //   3. Sale / quản lý hồ sơ duyệt tài khoản và xếp lớp được, cả ở form Sửa (trước đây ô chọn lớp bị 403 / bị ẩn).
@@ -146,27 +148,47 @@ try {
     dat('...và không có danh sách "còn nợ" kèm số tiền', (j?.viec?.cong_no || []).length === 0);
   }
 
-  console.log('\n── 5. GIÁO VIÊN: 4 ô, chỉ học sinh lớp mình ─────────────');
+  console.log('\n── 5. GIÁO VIÊN: toàn trung tâm, KHÔNG tiền (2026-10-13) ─');
   {
     const { ma, j } = await goi('GET', '/admin/du-hoc/so-lieu', 'gvX');
     dat(`giáo viên X gọi được (${ma})`, ma === 200);
-    dat('GV X đang xử lý = 1 (em trong lớp mình)', j?.dang_chay === 1);
-    dat('GV X đã thu = 2.000.000, còn phải thu = 18.000.000', j?.tien?.da_thu === 2_000_000 && j?.tien?.con_thieu === 18_000_000);
+    dat('GV X đang xử lý = TOÀN trung tâm, không riêng lớp mình (>= 4 hồ sơ thử)', j?.dang_chay >= 4);
+    dat('GV X KHÔNG nhận ô tiền (server không gửi)', j?.hien_tien === false && j?.tien === null);
   }
   {
     const { j } = await goi('GET', '/admin/du-hoc/so-lieu', 'gvY');
-    dat('GV Y (lớp khác, không có học sinh) thấy 0 và 0đ — không dính số của GV X',
-      j?.dang_chay === 0 && j?.tien?.da_thu === 0);
+    dat('GV Y thấy CÙNG số đang xử lý với GV X — không còn tính theo lớp',
+      j?.dang_chay >= 4 && j?.hien_tien === false && j?.tien === null);
+  }
+  {
+    // Lọc theo mã test (`tim`) để không phụ thuộc trang/thứ tự khi DB có nhiều hồ sơ khác.
+    const { ma, j } = await goi('GET', `/admin/du-hoc/ho-so?tim=${MA}&moi_trang=100`, 'gvX');
+    const ids = (j?.ho_so || []).map((h) => h.id);
+    dat(`giáo viên xem được danh sách hồ sơ (${ma})`, ma === 200);
+    dat('giáo viên thấy cả hồ sơ KHÔNG do mình dạy/phụ trách (hsB của sale B)', ids.includes(hsB));
+    dat('danh sách không có cột tiền (tong_phi / da_thu)',
+      (j?.ho_so || []).every((h) => !('tong_phi' in h) && !('da_thu' in h)));
+  }
+  {
+    const { ma, j } = await goi('GET', `/admin/du-hoc/ho-so/${hsLop}`, 'gvX');
+    dat(`giáo viên xem được chi tiết hồ sơ (${ma})`, ma === 200);
+    dat('chi tiết không tiền: tien=null, không tong_phi trong ho_so, thu_tien rỗng',
+      j?.tien === null && !('tong_phi' in (j?.ho_so || {})) && Array.isArray(j?.thu_tien) && j.thu_tien.length === 0);
+    dat('lịch sử không còn dòng loại "tien" (có ghi số tiền trong nội dung)',
+      (j?.lich_su || []).every((l) => l.loai !== 'tien'));
   }
   for (const [method, duong] of [
     ['GET', '/admin/du-hoc/tong-quan'],
-    ['GET', '/admin/du-hoc/ho-so'],
-    ['GET', `/admin/du-hoc/ho-so/${hsLop}`],
     ['GET', '/admin/du-hoc/theo-truong'],
     ['GET', '/admin/du-hoc/hoc-vien'],
   ]) {
     const { ma } = await goi(method, duong, 'gvX');
     dat(`giáo viên vẫn bị chặn ${method} ${duong} (${ma})`, ma === 403);
+  }
+  {
+    // Sửa/xoá hồ sơ vẫn không mở cho giáo viên — chỉ xem.
+    const sua = await goi('PUT', `/admin/du-hoc/ho-so/${hsLop}`, 'gvX', { ghi_chu: 'x' });
+    dat(`giáo viên sửa hồ sơ -> chặn (${sua.ma})`, sua.ma === 403);
   }
 
   console.log('\n── 6. Tổng quan: tiền & thu chi CHỈ admin ───────────────');

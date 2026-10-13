@@ -246,6 +246,9 @@ function vaiTro(u) {
 const laAdmin = (u) => vaiTro(u) === 'admin';
 /** Quản trị viên: admin nền tảng HOẶC quản trị trung tâm. */
 const laQuanTri = (u) => ['admin', 'org_admin'].includes(vaiTro(u));
+/** Được TẠO lớp: quản trị, hoặc giáo viên (2026-10-13, khách yêu cầu). Sửa/xoá lớp vẫn chỉ
+ *  quản trị — backend chưa mở PUT/DELETE /classes/:id cho giáo viên. */
+const duocTaoLop = (u) => laQuanTri(u) || vaiTro(u) === 'teacher';
 /** Sale hoặc quản lý hồ sơ — hai vai trò có cùng bộ quyền, khác nhãn. */
 const laNhanSuHoSo = (u) => ['sale', 'ho_so'].includes(vaiTro(u));
 /**
@@ -313,7 +316,8 @@ const VAI_CUA_KHU = {
   'de-bai': ['admin', 'teacher'],
   teachers: ['admin'],
   users: ['admin', 'ho_so', 'sale'],
-  // Giáo viên chỉ thấy bốn ô số liệu của học sinh lớp mình (renderDuHoc rẽ nhánh theo vai trò).
+  // Giáo viên xem được danh sách + chi tiết (toàn trung tâm, không riêng lớp mình), chỉ không có
+  // tiền và không sửa được (xem comment đầu khối "HỒ SƠ DU HỌC" + `dhChiXem()`).
   'du-hoc': ['admin', 'ho_so', 'sale', 'teacher'],
   'du-hoc-truong': ['admin', 'ho_so', 'sale'],
   ktx: ['admin', 'ho_so', 'sale'],
@@ -1910,12 +1914,12 @@ async function renderClassesList(el) {
       <div class="data-table-wrapper">
         <div class="table-toolbar">
           <h3 style="font-size:14px;font-weight:700;flex:1">${data.classes.length} lớp học</h3>
-          ${laQuanTri() ? '<button class="btn btn-sm btn-primary" onclick="adminApp.openClassForm()"><i class="fa-solid fa-plus"></i> Tạo lớp mới</button>' : ''}
+          ${duocTaoLop() ? '<button class="btn btn-sm btn-primary" onclick="adminApp.openClassForm()"><i class="fa-solid fa-plus"></i> Tạo lớp mới</button>' : ''}
         </div>
         <table class="data-table">
           <thead><tr><th>ID</th><th>Tên lớp</th><th>Giáo viên</th><th>Học viên</th><th>Buổi học</th><th>Trạng thái</th>${laQuanTri() ? '<th style="width:100px">Thao tác</th>' : ''}</tr></thead>
           <tbody>
-            ${data.classes.length === 0 ? `<tr><td colspan="7"><div class="empty-state"><p>${laQuanTri()
+            ${data.classes.length === 0 ? `<tr><td colspan="7"><div class="empty-state"><p>${duocTaoLop()
                 ? 'Chưa có lớp học nào. Bấm <strong>Tạo lớp mới</strong> để mở lớp đầu tiên.'
                 : 'Bạn chưa được phân công lớp nào. Liên hệ quản trị viên để được gán lớp.'}</p></div></td></tr>` : ''}
             ${data.classes.map(c => `
@@ -1954,8 +1958,9 @@ async function openClassForm(id, name, description, isActive, teacherId) {
       console.error(e);
     }
   }
-  // Danh sách giáo viên để chọn người phụ trách. Chỉ admin gọi được route này; giáo viên không
-  // vào được form lớp nên không cần xử lý nhánh 403.
+  // Danh sách giáo viên để chọn người phụ trách. Admin và giáo viên đều gọi được route này
+  // (2026-10-13, server/middleware/roles.js) — giáo viên cũng tạo lớp và chọn người phụ trách
+  // như admin (có thể chọn chính mình hoặc đồng nghiệp).
   let giaoViens = [];
   try {
     const t = await apiGet('/admin/teachers-options');
@@ -3516,12 +3521,15 @@ let _dragState = { table: null, dragIdx: null, items: [] };
 // ============================================================
 
 // ============================================================
-// HỒ SƠ DU HỌC (2026-09-15) — chỉ quản trị trung tâm
+// HỒ SƠ DU HỌC (2026-09-15) — quản trị trung tâm, sửa được mọi thứ
 // ============================================================
 // Luồng: Nhận hồ sơ -> Đóng tiền -> Học -> Tiến độ hồ sơ trường -> Phỏng vấn -> Xin visa -> Chốt lịch bay.
 // "Phỏng vấn" gồm phỏng vấn trường và/hoặc phỏng vấn VP Đài Bắc (shared/phong-van.js).
-// Backend: server/routes/du-hoc.js. Giáo viên chỉ thấy bốn ô số liệu (`_dhVeSoLieuGiaoVien`), không vào được
-// danh sách hay chi tiết hồ sơ (có CCCD, hộ chiếu, tiền).
+// Backend: server/routes/du-hoc.js. Giáo viên (2026-10-13, khách yêu cầu) vào được CẢ danh sách và
+// chi tiết — toàn trung tâm, không riêng lớp mình dạy — nhưng CHỈ XEM và KHÔNG có gì liên quan
+// tiền (`dhChiXem()`/`chiXem` ẩn/khoá mọi nút sửa trong hai hàm `_dhVeDanhSachHtml` và
+// `_dhVeChiTietHtml`; server cũng tự ẩn `tong_phi`/`thu_tien`/`tien` và chặn mọi route POST/PUT/
+// DELETE cho giáo viên — xem roles.js).
 //
 // Hai màn, đổi bằng `dhView` giống cách Quản lý lớp làm: danh sách -> chi tiết một hồ sơ.
 
@@ -3614,11 +3622,15 @@ function _dhChipBuoc(ma) {
 
 // ------------------------------------------------------------------ điều phối
 
+/** Giáo viên: CHỈ XEM (toàn trung tâm, không có tiền) — xem roles.js + server/routes/du-hoc.js. */
+const dhChiXem = () => vaiTro() === 'teacher';
+
 async function renderDuHoc(el) {
-  // Giáo viên không có danh sách / chi tiết hồ sơ — kể cả khi gõ tay URL #/du-hoc/12 (server cũng 403).
-  if (vaiTro() === 'teacher') return _dhVeSoLieuGiaoVien(el);
   if (dhView === 'detail' && dhId) return _dhVeChiTiet(el);
   const r = await _dhVeDanhSach(el);
+  // Hàng chờ duyệt yêu cầu sửa + nhân sự để gán tư vấn viên: cả hai route chỉ admin/sale/ho_so
+  // gọi được (roles.js) — giáo viên gọi là 403, các hàm này tự bỏ qua lặng lẽ (try/catch), không
+  // cần tách nhánh riêng ở đây.
   dhNapYeuCau();     // nạp sau, không chặn cả màn vì một request phụ
   return r;
 }
@@ -3739,8 +3751,11 @@ async function _dhVeDanhSach(el) {
 
     // Hai request song song: tổng quan (số liệu + việc cần làm) và danh sách đã lọc. Gộp làm một
     // endpoint thì mỗi lần gõ ô tìm kiếm lại tính lại toàn bộ số liệu — tốn mà không đổi gì.
+    // Giáo viên KHÔNG gọi được /du-hoc/tong-quan (403 — khối "việc cần làm" lộ CCCD/tiền của học
+    // sinh khác), chỉ /du-hoc/so-lieu (4 ô, không tiền). Gọi nhầm route tong-quan thì Promise.all
+    // reject và cả màn báo lỗi dù danh sách hồ sơ vẫn tải được — đã từng bị vậy trước khi sửa.
     const [tq, ds] = await Promise.all([
-      apiGet('/admin/du-hoc/tong-quan'),
+      apiGet(dhChiXem() ? '/admin/du-hoc/so-lieu' : '/admin/du-hoc/tong-quan'),
       apiGet('/admin/du-hoc/ho-so?' + q.toString()),
     ]);
     if (!conDungLuot(el, luot)) return;
@@ -3752,9 +3767,9 @@ async function _dhVeDanhSach(el) {
 }
 
 /**
- * Bốn ô số liệu đầu màn Hồ sơ du học, theo vai trò (2026-10-05, khách chốt):
- *   admin — đủ 4 ô, cả trung tâm · quản lý hồ sơ — CHỈ ô "Hồ sơ đang xử lý" (toàn trung tâm) ·
- *   sale / giáo viên — đủ 4 ô nhưng chỉ tính học sinh mình phụ trách.
+ * Bốn ô số liệu đầu màn Hồ sơ du học, theo vai trò:
+ *   admin — đủ 4 ô, cả trung tâm · sale — đủ 4 ô nhưng chỉ tính hồ sơ mình phụ trách ·
+ *   quản lý hồ sơ / giáo viên (2026-10-13) — CHỈ ô "Hồ sơ đang xử lý" (toàn trung tâm), không tiền.
  * Server là nơi quyết định (`tq.hien_tien`, `tq.pham_vi` — du-hoc.js `phamViSoLieu`): ô tiền mà vai
  * trò đó không được thấy thì server không tính và không gửi, nên ở đây chỉ việc vẽ cái nhận được.
  */
@@ -3763,11 +3778,11 @@ function _dhSoLieuHtml(tq) {
   const the = (mau, icon, so, nhan, laTien) => `
       <div class="stat-card"><div class="stat-icon" style="background:${mau}1a;color:${mau}"><i class="fa-solid ${icon}"></i></div>
         <div><div class="stat-value${laTien ? ' stat-tien' : ''}">${so}</div><div class="stat-label">${nhan}</div></div></div>`;
-  const ghiChu = {
-    'ca-nhan': 'Số liệu chỉ tính hồ sơ bạn phụ trách, tư vấn.',
-    'hoc-sinh-lop': 'Số liệu chỉ tính học sinh trong lớp bạn phụ trách.',
-  }[tq.pham_vi] || (tq.vai === 'ho_so'
-    ? 'Số hồ sơ đang xử lý tính trên toàn trung tâm; danh sách bên dưới chỉ gồm hồ sơ bạn phụ trách.' : '');
+  const ghiChu = { 'ca-nhan': 'Số liệu chỉ tính hồ sơ bạn phụ trách, tư vấn.' }[tq.pham_vi]
+    || (tq.vai === 'ho_so'
+      ? 'Số hồ sơ đang xử lý tính trên toàn trung tâm; danh sách bên dưới chỉ gồm hồ sơ bạn phụ trách.'
+      : tq.vai === 'teacher'
+        ? 'Số hồ sơ đang xử lý tính trên toàn trung tâm. Không hiển thị thông tin học phí.' : '');
   return `
     <div class="stats-grid stats-grid--4">
       ${the('#265648', 'fa-folder-open', tq.dang_chay || 0, 'Hồ sơ đang xử lý')}
@@ -3779,30 +3794,8 @@ function _dhSoLieuHtml(tq) {
     ${ghiChu ? `<p class="dh-sub" style="margin:-8px 0 16px">${ghiChu}</p>` : ''}`;
 }
 
-/** Màn Hồ sơ du học của GIÁO VIÊN: chỉ bốn ô số liệu, không danh sách / chi tiết (có CCCD, hộ chiếu). */
-async function _dhVeSoLieuGiaoVien(el) {
-  const luot = el.dataset.luot;
-  el.innerHTML = '<div style="text-align:center;padding:40px;color:var(--admin-text-muted)"><i class="fa-solid fa-spinner fa-spin" style="font-size:24px"></i></div>';
-  try {
-    const sl = await apiGet('/admin/du-hoc/so-lieu');
-    if (!conDungLuot(el, luot)) return;
-    el.innerHTML = `
-      <div class="table-toolbar">
-        <div style="flex:1;min-width:0">
-          <h2 style="margin:0">Hồ sơ du học</h2>
-          <p style="margin:4px 0 0;font-size:13px;color:var(--admin-text-muted)">
-            Tình hình hồ sơ du học của học sinh trong lớp bạn phụ trách.</p>
-        </div>
-      </div>
-      ${sl.chua_migrate ? '<div class="alert alert-warning">Chưa chạy migration hồ sơ du học.</div>' : ''}
-      ${_dhSoLieuHtml(sl)}
-      <p class="dh-sub">Chi tiết từng hồ sơ do sale / quản lý hồ sơ phụ trách và chỉ họ xem được.</p>`;
-  } catch (err) {
-    el.innerHTML = `<div class="empty-state"><p>${_escHtml(err.message || 'Không tải được số liệu hồ sơ du học.')}</p></div>`;
-  }
-}
-
 function _dhVeDanhSachHtml(el, tq, ds) {
+  const chiXem = dhChiXem();
   const chuaMigrate = (tq.chua_migrate || ds.chua_migrate)
     ? `<div class="alert alert-warning">Chưa chạy <code>migration-du-hoc.sql</code>.
        Chạy <code>npm run db:migrate:prod</code> để bật khu Hồ sơ du học.</div>` : '';
@@ -3864,7 +3857,11 @@ function _dhVeDanhSachHtml(el, tq, ds) {
       <td>${h.truong_nv1 ? esc(h.truong_nv1) : '<span class="dh-sub">—</span>'}
         <div class="dh-sub">${[h.nganh && esc(h.nganh), h.truong_do && 'Đỗ: ' + esc(h.truong_do)].filter(Boolean).join(' · ')}</div></td>
       <td style="white-space:nowrap">
-        ${h.tong_phi
+        ${chiXem
+          // Server không gửi tong_phi/da_thu cho giáo viên (xem du-hoc.js) — đừng hiểu "không có
+          // tiền trong đó" thành "chưa chốt phí", dễ hiểu nhầm là hồ sơ chưa làm xong khâu tiền.
+          ? '<span class="dh-sub">không hiển thị</span>'
+          : h.tong_phi
           ? `${_tien(h.da_thu)}<span class="dh-sub"> / ${_tien(h.tong_phi)}</span>
              ${!thieu ? '<div class="dh-sub" style="color:var(--admin-accent);font-weight:700">đủ</div>'
                : h.buoc === 'huy'
@@ -3888,7 +3885,8 @@ function _dhVeDanhSachHtml(el, tq, ds) {
     <div class="empty-state">
       <i class="fa-solid fa-folder-open" style="font-size:32px;color:var(--admin-text-muted)"></i>
       <h3>${dhLoc.tim || dhLoc.buoc || dhLoc.ky ? 'Không có hồ sơ nào khớp bộ lọc.' : 'Chưa có hồ sơ du học nào.'}</h3>
-      <p>Bấm <b>Thêm hồ sơ</b> để nhận hồ sơ đầu tiên. Học sinh chưa có tài khoản trên hệ thống vẫn tạo được.</p>
+      <p>${chiXem ? 'Trung tâm chưa nhận hồ sơ du học nào.'
+          : 'Bấm <b>Thêm hồ sơ</b> để nhận hồ sơ đầu tiên. Học sinh chưa có tài khoản trên hệ thống vẫn tạo được.'}</p>
     </div>`;
 
   el.innerHTML = `
@@ -3898,9 +3896,9 @@ function _dhVeDanhSachHtml(el, tq, ds) {
         <p style="margin:4px 0 0;font-size:13px;color:var(--admin-text-muted)">
           Nhận hồ sơ → Đóng tiền → Học → Tiến độ hồ sơ trường → Phỏng vấn → Xin visa → Chốt lịch bay.</p>
       </div>
-      <button class="btn btn-primary" onclick="adminApp.dhFormHoSo()">
+      ${chiXem ? '' : `<button class="btn btn-primary" onclick="adminApp.dhFormHoSo()">
         <i class="fa-solid fa-plus"></i> Thêm hồ sơ
-      </button>
+      </button>`}
     </div>
     ${chuaMigrate}
     ${soLieu}
@@ -3971,6 +3969,9 @@ function _dhVeChiTietHtml(el) {
   const d = dhChiTiet;
   const h = d.ho_so;
   const t = d.tien || {};
+  // Giáo viên: CHỈ XEM màn này — mọi nút đổi dữ liệu đều ẩn/khoá, server cũng 403 nếu cố gọi
+  // (chỉ hai route GET đã mở cho GV ở roles.js, không route POST/PUT/DELETE nào).
+  const chiXem = dhChiXem();
 
   const pv = tinhPhongVan(h);
 
@@ -3986,7 +3987,7 @@ function _dhVeChiTietHtml(el) {
         return `
         <button class="dh-step ${nay ? 'is-now' : qua ? 'is-done' : ''}"
                 style="${nay ? `--c:${b.mau}` : ''}"
-                onclick="adminApp.dhChuyenBuoc('${b.ma}')" title="Chuyển sang bước này">
+                ${chiXem ? 'disabled' : `onclick="adminApp.dhChuyenBuoc('${b.ma}')"`} title="Chuyển sang bước này">
           <span class="dh-step-ic"><i class="fa-solid ${qua ? 'fa-check' : b.icon}"></i></span>
           <span class="dh-step-ten">${esc(b.ten)}</span>
           ${b.ma === 'phong-van' && pv.tong ? `<span class="dh-step-phu">Đậu ${pv.dau}/${pv.tong}</span>` : ''}
@@ -3998,7 +3999,7 @@ function _dhVeChiTietHtml(el) {
         const b = _dhBuoc(m);
         return `<button class="dh-step-endbtn ${h.buoc === m ? 'active' : ''}"
           style="${h.buoc === m ? `background:color-mix(in srgb, ${b.mau} 70%, #000);border-color:transparent;color:#fff` : ''}"
-          onclick="adminApp.dhChuyenBuoc('${m}')"><i class="fa-solid ${b.icon}"></i> ${esc(b.ten)}</button>`;
+          ${chiXem ? 'disabled' : `onclick="adminApp.dhChuyenBuoc('${m}')"`}><i class="fa-solid ${b.icon}"></i> ${esc(b.ten)}</button>`;
       }).join('')}
       ${h.buoc_tu ? `<span class="dh-sub" style="margin-left:auto">Ở bước hiện tại từ ${_dhNgay(h.buoc_tu)}</span>` : ''}
     </div>`;
@@ -4028,8 +4029,8 @@ function _dhVeChiTietHtml(el) {
     <div class="data-table-wrapper" style="padding:16px">
       <div class="dh-block-head">
         <h3>Thông tin học sinh</h3>
-        <button class="btn btn-sm btn-outline" onclick="adminApp.dhFormHoSo(${h.id}, 'hs')">
-          <i class="fa-solid fa-pen"></i> Sửa</button>
+        ${chiXem ? '' : `<button class="btn btn-sm btn-outline" onclick="adminApp.dhFormHoSo(${h.id}, 'hs')">
+          <i class="fa-solid fa-pen"></i> Sửa</button>`}
       </div>
       ${nhom('Thông tin cá nhân', `
         ${o('Họ tên tiếng Việt', esc(h.ho_ten || ''))}
@@ -4071,7 +4072,7 @@ function _dhVeChiTietHtml(el) {
   // Đặt ngay dưới thanh bước, trải hết bề ngang: đây là chỗ hồ sơ hay kẹt lâu nhất, phải nhìn
   // một cái là biết còn buổi nào chưa có kết quả. Mỗi thao tác lưu ngay (PUT), không mở form.
   const kqNut = (b) => ['cho', 'dau', 'truot'].map((k) => `
-      <button type="button" class="k-${k} ${b.kq === k ? 'active' : ''}" aria-pressed="${b.kq === k}"
+      <button type="button" class="k-${k} ${b.kq === k ? 'active' : ''}" aria-pressed="${b.kq === k}" ${chiXem ? 'disabled' : ''}
               onclick="adminApp.dhPvKq('${b.ma}','${k}')">${DH_KET_QUA[k]}</button>`).join('');
   const pvTomTat = !pv.loai ? ['fa-circle-question', 'Chọn loại phỏng vấn cho hồ sơ này.']
     : pv.du ? ['fa-circle-check', h.buoc === 'phong-van' || ['ho-so', 'dong-tien', 'hoc', 'nop-truong'].includes(h.buoc)
@@ -4085,7 +4086,7 @@ function _dhVeChiTietHtml(el) {
         <h3>Phỏng vấn${pv.tong ? ` <span class="badge ${pv.du ? 'badge-success' : pv.truot ? 'badge-danger' : 'badge-gray'}">Đậu ${pv.dau}/${pv.tong}</span>` : ''}</h3>
       </div>
       <div class="dh-pv-loai" role="group" aria-label="Loại phỏng vấn">
-        ${LOAI_PV.map((l) => `<button type="button" class="dh-pv-loai-btn ${pv.loai === l.ma ? 'active' : ''}"
+        ${LOAI_PV.map((l) => `<button type="button" class="dh-pv-loai-btn ${pv.loai === l.ma ? 'active' : ''}" ${chiXem ? 'disabled' : ''}
             aria-pressed="${pv.loai === l.ma}" onclick="adminApp.dhPvLoai('${l.ma}')">${esc(l.ten)}</button>`).join('')}
       </div>
       ${pv.buoi.map((b) => `
@@ -4093,12 +4094,12 @@ function _dhVeChiTietHtml(el) {
           <span class="dh-pv-ic"><i class="fa-solid ${DH_PV_TT[b.trang_thai].icon}"></i></span>
           <div class="dh-pv-ten"><b>${esc(b.ten)}</b><span>${_dhPvChu(b)}</span></div>
           <label class="dh-pv-ngay"><span>Ngày phỏng vấn</span>
-            <input type="date" value="${_dhNgayInput(b.ngay)}" onchange="adminApp.dhPvNgay('${b.ma}', this.value)"></label>
+            <input type="date" value="${_dhNgayInput(b.ngay)}" ${chiXem ? 'disabled' : ''} onchange="adminApp.dhPvNgay('${b.ma}', this.value)"></label>
           <div class="dh-pv-kq" role="group" aria-label="Kết quả ${esc(b.ten)}">${kqNut(b)}</div>
         </div>`).join('')}
       ${pv.loai ? `
         <label class="dh-pv-do"><span>Trường đã đậu</span>
-          <input type="text" value="${esc(h.truong_do || '')}" placeholder="—"
+          <input type="text" value="${esc(h.truong_do || '')}" placeholder="—" ${chiXem ? 'disabled' : ''}
                  onchange="adminApp.dhPvTruongDo(this.value)"></label>` : ''}
       <div class="dh-pv-tomtat"><i class="fa-solid ${pvTomTat[0]}"></i><span>${esc(pvTomTat[1])}</span></div>
     </div>`;
@@ -4113,8 +4114,8 @@ function _dhVeChiTietHtml(el) {
     <div class="data-table-wrapper" style="padding:16px">
       <div class="dh-block-head">
         <h3>Vận hành hồ sơ</h3>
-        <button class="btn btn-sm btn-outline" onclick="adminApp.dhFormHoSo(${h.id}, 'vh')">
-          <i class="fa-solid fa-pen"></i> Sửa</button>
+        ${chiXem ? '' : `<button class="btn btn-sm btn-outline" onclick="adminApp.dhFormHoSo(${h.id}, 'vh')">
+          <i class="fa-solid fa-pen"></i> Sửa</button>`}
       </div>
       <div class="dh-rows">
         ${o('Mã hồ sơ', esc(h.ma_hs || ''))}
@@ -4146,8 +4147,8 @@ function _dhVeChiTietHtml(el) {
         <h3>Giấy tờ
           ${thieu ? `<span class="badge badge-warning">thiếu ${thieu}</span>`
                   : '<span class="badge badge-success">đủ giấy bắt buộc</span>'}</h3>
-        <button class="btn btn-sm btn-outline" onclick="adminApp.dhThemGiayTo()">
-          <i class="fa-solid fa-plus"></i> Thêm</button>
+        ${chiXem ? '' : `<button class="btn btn-sm btn-outline" onclick="adminApp.dhThemGiayTo()">
+          <i class="fa-solid fa-plus"></i> Thêm</button>`}
       </div>
       <p class="dh-sub" style="margin:0 0 10px">Bản giấy vẫn lưu tại trung tâm — ở đây chỉ đánh dấu đã nhận tới đâu. Riêng Ảnh thẻ và Ảnh CCCD có thể tải ảnh lên trực tiếp.</p>
       <ul class="dh-gt">
@@ -4159,20 +4160,20 @@ function _dhVeChiTietHtml(el) {
             ${g.so_anh_toi_da > 0 ? `<div class="dh-gt-anh">
               ${(g.anh || []).map((a, i) => `<span class="dh-gt-chip">
                 <button type="button" onclick="adminApp.dhXemAnhGiayTo(${a.id})"><i class="fa-regular fa-image"></i> Ảnh ${i + 1}</button>
-                <button type="button" class="x" title="Xoá ảnh này" onclick="adminApp.dhXoaAnhGiayTo(${a.id})"><i class="fa-solid fa-xmark"></i></button>
+                ${chiXem ? '' : `<button type="button" class="x" title="Xoá ảnh này" onclick="adminApp.dhXoaAnhGiayTo(${a.id})"><i class="fa-solid fa-xmark"></i></button>`}
               </span>`).join('')}
-              ${(g.anh || []).length < g.so_anh_toi_da ? `<label class="btn btn-sm btn-outline dh-gt-up">
+              ${chiXem ? '' : (g.anh || []).length < g.so_anh_toi_da ? `<label class="btn btn-sm btn-outline dh-gt-up">
                 <i class="fa-solid fa-camera"></i> Tải ảnh (${(g.anh || []).length}/${g.so_anh_toi_da})
                 <input type="file" accept="image/*" hidden onchange="adminApp.dhUpAnhGiayTo(${g.id}, this)"></label>`
                 : `<span class="dh-sub">${(g.anh || []).length}/${g.so_anh_toi_da} ảnh</span>`}
             </div>` : ''}
             <div class="dh-gt-act">
-              <select onchange="adminApp.dhDoiGiayTo(${g.id}, this.value)">
+              <select ${chiXem ? 'disabled' : ''} onchange="adminApp.dhDoiGiayTo(${g.id}, this.value)">
                 ${Object.entries(DH_GIAY_TO_TT).map(([k, v]) =>
                   `<option value="${k}" ${g.trang_thai === k ? 'selected' : ''}>${v}</option>`).join('')}
               </select>
-              <button class="btn-icon" title="Xoá mục này" onclick="adminApp.dhXoaGiayTo(${g.id})">
-                <i class="fa-solid fa-trash"></i></button>
+              ${chiXem ? '' : `<button class="btn-icon" title="Xoá mục này" onclick="adminApp.dhXoaGiayTo(${g.id})">
+                <i class="fa-solid fa-trash"></i></button>`}
             </div>
           </li>`).join('')}
       </ul>
@@ -4185,20 +4186,22 @@ function _dhVeChiTietHtml(el) {
     <div class="data-table-wrapper" style="padding:16px">
       <div class="dh-block-head">
         <h3>Học phí &amp; công nợ</h3>
-        <button class="btn btn-sm btn-primary" onclick="adminApp.dhFormThu()">
-          <i class="fa-solid fa-plus"></i> Ghi khoản thu</button>
+        ${chiXem ? '' : `<button class="btn btn-sm btn-primary" onclick="adminApp.dhFormThu()">
+          <i class="fa-solid fa-plus"></i> Ghi khoản thu</button>`}
       </div>
-      ${h.tong_phi > 0 ? `
+      ${chiXem
+        // Server không gửi tong_phi/thu_tien/tien cho giáo viên (du-hoc.js) — không phải là
+        // "chưa chốt phí dịch vụ", chỉ là ẩn, nên không dùng chung thông báo với trường hợp đó.
+        ? '<p class="dh-sub" style="margin:0 0 12px">Không hiển thị thông tin học phí.</p>'
+        : h.tong_phi > 0 ? `
         <div class="dh-tien-top">
           <div><span class="dh-sub">Tổng phí</span><b>${_tien(h.tong_phi)}</b></div>
           <div><span class="dh-sub">Đã thu</span><b style="color:var(--admin-accent)">${_tien(t.da_thu)}</b></div>
           <div><span class="dh-sub">Còn thiếu</span>
             <b style="color:${t.con_thieu ? '#8A4513' : 'var(--admin-accent)'}">${_tien(t.con_thieu)}</b></div>
         </div>
-        <div class="dh-bar"><i style="width:${pct}%"></i></div>`
-      : `<p class="dh-sub" style="margin:0 0 12px">Chưa chốt tổng phí dịch vụ.
-           Bấm <b>Sửa</b> ở khối <b>Vận hành hồ sơ</b> để nhập, khi đó mới tính được công nợ.</p>`}
-      ${tt.length ? `
+        <div class="dh-bar"><i style="width:${pct}%"></i></div>
+        ${tt.length ? `
         <div class="dh-tien-bang"><table class="data-table">
           <thead><tr><th>Ngày</th><th>Khoản</th><th style="text-align:right">Số tiền</th><th></th></tr></thead>
           <tbody>${tt.map((x) => `
@@ -4216,7 +4219,9 @@ function _dhVeChiTietHtml(el) {
                 <button class="btn-icon" title="Xoá khoản này" onclick="adminApp.dhXoaThu(${x.id})">
                 <i class="fa-solid fa-trash"></i></button></td>
             </tr>`).join('')}</tbody>
-        </table></div>` : '<p class="dh-sub" style="margin:12px 0 0">Chưa có khoản thu nào.</p>'}
+        </table></div>` : '<p class="dh-sub" style="margin:12px 0 0">Chưa có khoản thu nào.</p>'}`
+      : `<p class="dh-sub" style="margin:0 0 12px">Chưa chốt tổng phí dịch vụ.
+           Bấm <b>Sửa</b> ở khối <b>Vận hành hồ sơ</b> để nhập, khi đó mới tính được công nợ.</p>`}
     </div>`;
 
   // --- Học tập (chỉ khi hồ sơ đã gắn tài khoản học) ---
@@ -4231,8 +4236,10 @@ function _dhVeChiTietHtml(el) {
           ${o('Bài đã làm', `${ht.so_bai} bài${ht.diem_tb != null ? ` · TB ${ht.diem_tb}%` : ''}`)}
           ${o('Hoạt động gần nhất', _dhNgay(ht.user.last_active))}
         </div>
-        <button class="btn btn-sm btn-outline" onclick="adminApp.dhBoHocVien()">Bỏ liên kết tài khoản</button>`
-      : `<p class="dh-sub" style="margin:0 0 10px">Hồ sơ chưa gắn với tài khoản học nào.
+        ${chiXem ? '' : '<button class="btn btn-sm btn-outline" onclick="adminApp.dhBoHocVien()">Bỏ liên kết tài khoản</button>'}`
+      : chiXem
+        ? '<p class="dh-sub" style="margin:0">Hồ sơ chưa gắn với tài khoản học nào.</p>'
+        : `<p class="dh-sub" style="margin:0 0 10px">Hồ sơ chưa gắn với tài khoản học nào.
            Gắn vào thì xem được luôn lớp, điểm danh và điểm bài tập của em ngay tại đây.</p>
          <div class="dh-link-hv">
            <input type="search" id="dh-hv-tim" placeholder="Gõ tên hoặc email học viên…"
@@ -4247,11 +4254,11 @@ function _dhVeChiTietHtml(el) {
   const nhatKy = `
     <div class="data-table-wrapper" style="padding:16px">
       <div class="dh-block-head"><h3>Nhật ký chăm sóc</h3></div>
-      <div class="dh-ghi">
+      ${chiXem ? '' : `<div class="dh-ghi">
         <input type="text" id="dh-ghi-chu" placeholder="Đã gọi nhắc em nộp bằng tốt nghiệp…"
                onkeydown="if(event.key==='Enter')adminApp.dhGhiChu()">
         <button class="btn btn-sm btn-primary" onclick="adminApp.dhGhiChu()">Ghi</button>
-      </div>
+      </div>`}
       ${ls.length ? `<ul class="dh-ls">${ls.map((x) => `
         <li>
           <i class="fa-solid ${icLoai[x.loai] || 'fa-circle'}"></i>
@@ -4269,10 +4276,10 @@ function _dhVeChiTietHtml(el) {
         <h2 style="margin:8px 0 0">${esc(h.ho_ten)}
           <span class="dh-sub" style="font-weight:500">${esc(h.ma_hs)}</span></h2>
       </div>
-      <div style="display:flex;gap:8px">
+      ${chiXem ? '' : `<div style="display:flex;gap:8px">
         <button class="btn btn-outline" onclick="adminApp.dhFormHoSo(${h.id})"><i class="fa-solid fa-pen"></i> Sửa</button>
         <button class="btn btn-danger btn-sm" onclick="adminApp.dhXoaHoSo()"><i class="fa-solid fa-trash"></i></button>
-      </div>
+      </div>`}
     </div>
     ${thanhBuoc}
     ${pvCard}

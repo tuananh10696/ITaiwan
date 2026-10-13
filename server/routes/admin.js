@@ -887,12 +887,17 @@ router.get('/classes', async (req, res) => {
   }
 });
 
+// Giáo viên cũng gọi được route này (2026-10-13, khách yêu cầu — xem roles.js). Không tự gán
+// teacher_id = chính người tạo: giáo viên vẫn chọn người phụ trách qua dropdown như admin (có
+// thể là chính mình, hoặc đồng nghiệp), `kiemTraGiaoVien()` chỉ kiểm người được chọn là tài khoản
+// giáo viên/admin hợp lệ, không kiểm ai đang tạo.
 router.post('/classes', async (req, res) => {
   try {
     const { name, description, copy_from_class_id, teacher_id } = req.body;
     if (!name) return res.status(400).json({ error: 'Vui lòng nhập tên lớp.' });
     // Trước đây gán cứng teacher_id = người tạo, nên mọi lớp đều thuộc về admin và không có
-    // đường nào đổi. Nay admin chọn rõ giáo viên phụ trách; để trống thì lớp chưa có giáo viên.
+    // đường nào đổi. Nay admin (và giáo viên, từ 2026-10-13) chọn rõ giáo viên phụ trách; để
+    // trống thì lớp chưa có giáo viên.
     const gvPhuTrach = await kiemTraGiaoVien(teacher_id, req);
     if (gvPhuTrach === false) return res.status(400).json({ error: 'Người được chọn không phải tài khoản giáo viên.' });
     const inviteCode = crypto.randomBytes(4).toString('hex').toUpperCase();
@@ -1076,6 +1081,9 @@ router.post('/exam-results/:id/review', async (req, res) => {
 });
 
 // -- Tìm user chưa thuộc lớp (để thêm bằng tài khoản đã có sẵn) --
+// Mở cho giáo viên (2026-10-13, khách yêu cầu, xem roles.js): họ cần tự tìm học viên để thêm vào
+// lớp mình dạy, không chỉ tick từ sẵn. Route vẫn trả TOÀN BỘ người dùng của tổ chức (không riêng
+// học viên lớp mình) — đây là lựa chọn đã chốt với khách, không phải sơ suất.
 router.get('/classes/:id/available-students', async (req, res) => {
   try {
     const { search } = req.query;

@@ -6,10 +6,12 @@
 // Mount ở /api/admin nên đường dẫn thật là /api/admin/du-hoc/...
 // Tách khỏi routes/admin.js (đã ~2.100 dòng) theo quy ước "route mới thì file mới" trong CLAUDE.md.
 //
-// PHÂN QUYỀN — chỉ QUẢN TRỊ. Giáo viên KHÔNG khai trong bảng QUYEN
-// nên tự nhận 403: hồ sơ ở đây có CCCD, hộ chiếu, địa chỉ, tiền nong — giáo viên dạy lớp không
-// cần và không nên thấy. Bảng QUYEN là lưới thứ nhất; mọi truy vấn bên dưới vẫn phải kèm
-// `dkOrg(req)` làm lưới thứ hai, đúng lối teachers.js đang làm.
+// PHÂN QUYỀN — chủ yếu QUẢN TRỊ (sửa/xoá, thu tiền, giấy tờ...). Giáo viên không khai trong bảng
+// QUYEN cho các route đó nên tự nhận 403. NGOẠI LỆ (2026-10-13, khách yêu cầu): giáo viên xem được
+// (chỉ GET) danh sách + chi tiết hồ sơ của CẢ TRUNG TÂM ở `/du-hoc/so-lieu`, `/du-hoc/ho-so` và
+// `/du-hoc/ho-so/:id` — nhưng KHÔNG thấy gì liên quan tiền (`tong_phi`, `thu_tien`, `tien` bị ẩn
+// khi `req.role === 'teacher'`, xem các route đó). Bảng QUYEN là lưới thứ nhất; mọi truy vấn bên
+// dưới vẫn phải kèm `dkOrg(req)` làm lưới thứ hai, đúng lối teachers.js đang làm.
 import { Router } from 'express';
 import pool from '../config/db.js';
 import { requireAuth } from '../middleware/auth.js';
@@ -281,27 +283,19 @@ function locThanHoSo(body, req) {
 //   admin       — tổng thể cả trung tâm, đủ 4 ô.
 //   ho_so       — (quản lý hồ sơ) CHỈ ô "Hồ sơ đang xử lý", đếm TOÀN trung tâm, không có tiền.
 //   sale        — đủ 4 ô nhưng chỉ tính hồ sơ mình phụ trách (`tu_van_id`).
-//   teacher     — đủ 4 ô, tính hồ sơ của học sinh trong lớp mình dạy (và hồ sơ mình tư vấn nếu có).
-// Mục tiêu cuối: chỉ admin nhìn được tiền ra vào CỦA TRUNG TÂM. Số tiền của sale/giáo viên ở đây
-// chỉ là của những em họ phụ trách, không phải dòng tiền toàn trung tâm.
+//   teacher     — (2026-10-13, sửa lại theo yêu cầu khách) CHỈ ô "Hồ sơ đang xử lý", đếm TOÀN
+//                 trung tâm như ho_so — không còn giới hạn theo lớp mình dạy, và KHÔNG có tiền.
+// Mục tiêu cuối: chỉ admin (và sale cho phần của mình) nhìn được tiền. Giáo viên và quản lý hồ sơ
+// không thấy tiền ở đâu trong khu này.
 // Việc lọc nằm ở SERVER: ô nào vai trò đó không được thấy thì KHÔNG tính và không gửi về — ẩn bằng
 // giao diện thì bấm F12 là thấy.
 function phamViSoLieu(req) {
   const org = req.locOrg ? ' AND h.org_id = ?' : '';
   const tsOrg_ = req.locOrg ? [req.orgId] : [];
-  if (req.role === 'teacher') {
-    return {
-      pham_vi: 'hoc-sinh-lop', tien: true,
-      sql: `${org} AND (h.tu_van_id = ? OR h.user_id IN (
-              SELECT ce.user_id FROM class_enrollments ce JOIN classes c ON c.id = ce.class_id
-               WHERE c.teacher_id = ?))`,
-      ts: [...tsOrg_, req.userId, req.userId],
-    };
-  }
   if (req.role === 'sale') {
     return { pham_vi: 'ca-nhan', tien: true, sql: `${org} AND h.tu_van_id = ?`, ts: [...tsOrg_, req.userId] };
   }
-  if (req.role === 'ho_so') {
+  if (req.role === 'ho_so' || req.role === 'teacher') {
     return { pham_vi: 'toan-bo', tien: false, sql: org, ts: tsOrg_ };
   }
   return { pham_vi: 'toan-bo', tien: true, sql: org, ts: tsOrg_ };
@@ -350,9 +344,158 @@ router.get('/du-hoc/so-lieu', async (req, res) => {
   try {
     res.json(await tinhSoLieu(req));
   } catch (err) {
-    if (chuaCoBang(err)) return res.json({ ...SO_LIEU_RONG, hien_tien: req.role !== 'ho_so', chua_migrate: true });
+    if (chuaCoBang(err)) return res.json({ ...SO_LIEU_RONG, hien_tien: !['ho_so', 'teacher'].includes(req.role), chua_migrate: true });
     console.error('Lỗi số liệu du học:', err);
     res.status(500).json({ error: loiBang(err, 'Không tải được số liệu hồ sơ du học.') });
+  }
+});
+
+// =============================================================
+// DANH SÁCH + CHI TIẾT HỒ SƠ — mở thêm cho GIÁO VIÊN (2026-10-13, khách yêu cầu)
+// =============================================================
+// Hai route GET dưới đây vốn nằm Ở DƯỚI, sau `router.use(requireHoSoStaff)` (chỉ admin/sale/
+// ho_so). Chuyển lên đây — giống cách `/du-hoc/so-lieu` đã làm — để bảng QUYEN ở roles.js (đã
+// khai GV cho đúng hai route này, `qua: null`) thật sự có hiệu lực; để nguyên vị trí cũ thì
+// `requireHoSoStaff` vẫn chặn trước khi QUYEN được tính tới.
+// Giáo viên xem được TOÀN TRUNG TÂM (không giới hạn lớp mình dạy — khác hẳn `/so-lieu`), NHƯNG
+// mọi thứ liên quan tiền phải ẩn: cột `tong_phi`/`da_thu` trong danh sách, object `tien` và toàn
+// bộ `thu_tien` trong chi tiết, và dòng lịch sử loại 'tien' (ghi số tiền thu/hoàn trong `noi_dung`).
+// Route POST/PUT/DELETE lên hồ sơ (/du-hoc/ho-so, /du-hoc/ho-so/:id, /thu-tien, /giay-to...) KHÔNG
+// nằm trong ngoại lệ này — chúng vẫn ở dưới `requireHoSoStaff` nên giáo viên vẫn bị 403: màn này
+// chỉ XEM, không sửa.
+router.get('/du-hoc/ho-so', async (req, res) => {
+  try {
+    const dk = ['1=1'];
+    const ts = [];
+    if (req.locOrg) { dk.push('h.org_id = ?'); ts.push(req.orgId); }
+    // Sale / quản lý hồ sơ: chỉ hồ sơ mình phụ trách. Đặt TRƯỚC bộ lọc `tu_van` của giao diện
+    // để bộ lọc đó không nới rộng được phạm vi (?tu_van=<id người khác> chỉ làm hẹp thêm).
+    // (Giáo viên: req.nhanSuId luôn null -> không lọc, xem toàn trung tâm theo đúng chủ ý.)
+    if (req.nhanSuId) { dk.push('h.tu_van_id = ?'); ts.push(req.nhanSuId); }
+
+    if (req.query.buoc && MA_BUOC.has(req.query.buoc)) { dk.push('h.buoc = ?'); ts.push(req.query.buoc); }
+    else if (req.query.buoc === 'dang-chay') { dk.push(`h.buoc IN (${SQL_DANG_CHAY})`); }
+
+    const tv = parseInt(req.query.tu_van || '', 10);
+    if (Number.isFinite(tv)) { dk.push('h.tu_van_id = ?'); ts.push(tv); }
+
+    if (req.query.ky) { dk.push('h.ky_nhap_hoc = ?'); ts.push(String(req.query.ky).slice(0, 40)); }
+
+    const tim = String(req.query.tim || '').trim();
+    if (tim) {
+      dk.push('(h.ho_ten LIKE ? OR h.ma_hs LIKE ? OR h.phone LIKE ? OR h.email LIKE ? OR h.cccd LIKE ?)');
+      const q = `%${tim}%`;
+      ts.push(q, q, q, q, q);
+    }
+
+    const trang = Math.max(1, parseInt(req.query.trang || '1', 10) || 1);
+    const moiTrang = Math.min(100, Math.max(10, parseInt(req.query.moi_trang || '25', 10) || 25));
+    const where = dk.join(' AND ');
+
+    const [dem] = await pool.query(`SELECT COUNT(*) AS so FROM du_hoc_ho_so h WHERE ${where}`, ts);
+
+    // Số đã thu tính bằng subquery tương quan: hồ sơ chưa thu đồng nào vẫn phải có mặt trong danh
+    // sách (JOIN + GROUP BY sẽ đánh rơi chúng, mà đó đúng là nhóm cần đòi tiền nhất).
+    const [rows] = await pool.query(
+      `SELECT h.id, h.ma_hs, h.ho_ten, h.phone, h.email, h.buoc, h.buoc_tu, h.ky_nhap_hoc,
+              h.truong_nv1, h.nganh, h.truong_do, h.loai_hinh, h.ngay_phong_van, h.kq_phong_van, h.ngay_nop_visa,
+              h.loai_phong_van, h.ngay_pv_vp, h.kq_pv_vp,
+              h.kq_visa, h.ngay_bay, h.tong_phi, h.user_id, h.ho_chieu_het_han, h.created_at,
+              u.name AS tu_van_ten,
+              (SELECT COALESCE(SUM(CASE WHEN tt.loai = 'hoan' THEN -tt.so_tien ELSE tt.so_tien END), 0)
+                 FROM du_hoc_thu_tien tt WHERE tt.ho_so_id = h.id) AS da_thu,
+              (SELECT COUNT(*) FROM du_hoc_giay_to g
+                WHERE g.ho_so_id = h.id AND g.bat_buoc = TRUE AND g.trang_thai = 'chua') AS thieu_giay_to
+         FROM du_hoc_ho_so h
+         LEFT JOIN users u ON u.id = h.tu_van_id
+        WHERE ${where}
+        ORDER BY h.updated_at DESC
+        LIMIT ? OFFSET ?`,
+      [...ts, moiTrang, (trang - 1) * moiTrang]
+    );
+
+    // Bộ lọc "kỳ nhập học" phải liệt kê được các kỳ đang có — trung tâm không nhớ mình đã gõ gì.
+    const [kyList] = await pool.query(
+      `SELECT DISTINCT h.ky_nhap_hoc FROM du_hoc_ho_so h
+        WHERE h.ky_nhap_hoc IS NOT NULL AND h.ky_nhap_hoc <> ''${dkOrg(req)}
+        ORDER BY h.ky_nhap_hoc`,
+      tsOrg(req)
+    );
+
+    res.json({
+      ho_so: req.role === 'teacher' ? rows.map((r) => ({ ...r, tong_phi: undefined, da_thu: undefined })) : rows,
+      tong: dem[0].so,
+      trang,
+      so_trang: Math.max(1, Math.ceil(dem[0].so / moiTrang)),
+      buoc: BUOC,
+      ky_list: kyList.map((k) => k.ky_nhap_hoc),
+    });
+  } catch (err) {
+    if (chuaCoBang(err)) {
+      return res.json({ ho_so: [], tong: 0, trang: 1, so_trang: 1, buoc: BUOC, ky_list: [], chua_migrate: true });
+    }
+    console.error('Lỗi danh sách hồ sơ du học:', err);
+    res.status(500).json({ error: loiBang(err, 'Không tải được danh sách hồ sơ.') });
+  }
+});
+
+router.get('/du-hoc/ho-so/:id', async (req, res) => {
+  try {
+    const hs = await layHoSo(req.params.id, req);
+    if (!hs) return res.status(404).json({ error: 'Không tìm thấy hồ sơ.' });
+
+    const [[giayTo], [thuTien], [lichSu]] = await Promise.all([
+      pool.query('SELECT * FROM du_hoc_giay_to WHERE ho_so_id = ? ORDER BY sort_order, id', [hs.id]),
+      pool.query(
+        // KHÔNG dùng `tt.*`: cột `anh` là MEDIUMTEXT base64, kéo cả danh sách về là vài MB cho
+        // một bảng 20 dòng. Chỉ báo CÓ ảnh hay không; ảnh lấy riêng ở /thu-tien/:id/anh.
+        `SELECT tt.id, tt.loai, tt.khoan, tt.so_tien, tt.ngay_thu, tt.hinh_thuc, tt.chung_tu,
+                tt.ghi_chu, tt.created_at, (tt.anh IS NOT NULL) AS co_anh,
+                u.name AS nguoi_thu_ten
+           FROM du_hoc_thu_tien tt LEFT JOIN users u ON u.id = tt.nguoi_thu_id
+          WHERE tt.ho_so_id = ? ORDER BY tt.ngay_thu DESC, tt.id DESC`, [hs.id]),
+      pool.query(
+        `SELECT ls.*, u.name AS nguoi_ten
+           FROM du_hoc_lich_su ls LEFT JOIN users u ON u.id = ls.nguoi_id
+          WHERE ls.ho_so_id = ? ORDER BY ls.created_at DESC, ls.id DESC LIMIT 100`, [hs.id]),
+    ]);
+
+    const anhGt = await anhTheoGiayTo(giayTo.map((g) => g.id));
+    const daThu = thuTien.reduce((s, t) => s + (t.loai === 'hoan' ? -t.so_tien : t.so_tien), 0);
+
+    // Hồ sơ đã gắn tài khoản học thì kèm luôn tình hình học tập — đó chính là lý do hai khu này
+    // nằm trong cùng một hệ thống thay vì hai phần mềm rời.
+    let hocTap = null;
+    if (hs.user_id) {
+      try {
+        const [[u], [lop], [bt]] = await Promise.all([
+          pool.query('SELECT id, name, email, level_label, points, streak, last_active FROM users WHERE id = ?', [hs.user_id]),
+          pool.query(
+            `SELECT c.id, c.name FROM class_enrollments ce JOIN classes c ON c.id = ce.class_id
+              WHERE ce.user_id = ?`, [hs.user_id]),
+          pool.query(
+            `SELECT COUNT(*) AS so_bai, ROUND(AVG(score_percent)) AS diem_tb
+               FROM exercise_results WHERE user_id = ?`, [hs.user_id]),
+        ]);
+        hocTap = { user: u[0] || null, lop, so_bai: bt[0]?.so_bai || 0, diem_tb: bt[0]?.diem_tb ?? null };
+      } catch (e) {
+        hocTap = null;   // thiếu bảng học tập không được làm hỏng cả trang hồ sơ
+      }
+    }
+
+    res.json({
+      ho_so: req.role === 'teacher' ? { ...hs, tong_phi: undefined } : hs,
+      giay_to: giayTo.map((g) => ({ ...g, anh: anhGt.get(g.id) || [] })),
+      thu_tien: req.role === 'teacher' ? [] : thuTien,
+      lich_su: req.role === 'teacher' ? lichSu.filter((l) => l.loai !== 'tien') : lichSu,
+      tien: req.role === 'teacher' ? null : { tong_phi: hs.tong_phi, da_thu: daThu, con_thieu: Math.max(0, hs.tong_phi - daThu) },
+      hoc_tap: hocTap,
+      buoc: BUOC,
+      loai_pv: LOAI_PV,
+    });
+  } catch (err) {
+    console.error('Lỗi chi tiết hồ sơ du học:', err);
+    res.status(500).json({ error: loiBang(err, 'Không tải được hồ sơ.') });
   }
 });
 
@@ -472,84 +615,6 @@ router.get('/du-hoc/tong-quan', async (req, res) => {
     }
     console.error('Lỗi tổng quan du học:', err);
     res.status(500).json({ error: loiBang(err, 'Không tải được tổng quan du học.') });
-  }
-});
-
-// =============================================================
-// DANH SÁCH HỒ SƠ
-// =============================================================
-router.get('/du-hoc/ho-so', async (req, res) => {
-  try {
-    const dk = ['1=1'];
-    const ts = [];
-    if (req.locOrg) { dk.push('h.org_id = ?'); ts.push(req.orgId); }
-    // Sale / quản lý hồ sơ: chỉ hồ sơ mình phụ trách. Đặt TRƯỚC bộ lọc `tu_van` của giao diện
-    // để bộ lọc đó không nới rộng được phạm vi (?tu_van=<id người khác> chỉ làm hẹp thêm).
-    if (req.nhanSuId) { dk.push('h.tu_van_id = ?'); ts.push(req.nhanSuId); }
-
-    if (req.query.buoc && MA_BUOC.has(req.query.buoc)) { dk.push('h.buoc = ?'); ts.push(req.query.buoc); }
-    else if (req.query.buoc === 'dang-chay') { dk.push(`h.buoc IN (${SQL_DANG_CHAY})`); }
-
-    const tv = parseInt(req.query.tu_van || '', 10);
-    if (Number.isFinite(tv)) { dk.push('h.tu_van_id = ?'); ts.push(tv); }
-
-    if (req.query.ky) { dk.push('h.ky_nhap_hoc = ?'); ts.push(String(req.query.ky).slice(0, 40)); }
-
-    const tim = String(req.query.tim || '').trim();
-    if (tim) {
-      dk.push('(h.ho_ten LIKE ? OR h.ma_hs LIKE ? OR h.phone LIKE ? OR h.email LIKE ? OR h.cccd LIKE ?)');
-      const q = `%${tim}%`;
-      ts.push(q, q, q, q, q);
-    }
-
-    const trang = Math.max(1, parseInt(req.query.trang || '1', 10) || 1);
-    const moiTrang = Math.min(100, Math.max(10, parseInt(req.query.moi_trang || '25', 10) || 25));
-    const where = dk.join(' AND ');
-
-    const [dem] = await pool.query(`SELECT COUNT(*) AS so FROM du_hoc_ho_so h WHERE ${where}`, ts);
-
-    // Số đã thu tính bằng subquery tương quan: hồ sơ chưa thu đồng nào vẫn phải có mặt trong danh
-    // sách (JOIN + GROUP BY sẽ đánh rơi chúng, mà đó đúng là nhóm cần đòi tiền nhất).
-    const [rows] = await pool.query(
-      `SELECT h.id, h.ma_hs, h.ho_ten, h.phone, h.email, h.buoc, h.buoc_tu, h.ky_nhap_hoc,
-              h.truong_nv1, h.nganh, h.truong_do, h.loai_hinh, h.ngay_phong_van, h.kq_phong_van, h.ngay_nop_visa,
-              h.loai_phong_van, h.ngay_pv_vp, h.kq_pv_vp,
-              h.kq_visa, h.ngay_bay, h.tong_phi, h.user_id, h.ho_chieu_het_han, h.created_at,
-              u.name AS tu_van_ten,
-              (SELECT COALESCE(SUM(CASE WHEN tt.loai = 'hoan' THEN -tt.so_tien ELSE tt.so_tien END), 0)
-                 FROM du_hoc_thu_tien tt WHERE tt.ho_so_id = h.id) AS da_thu,
-              (SELECT COUNT(*) FROM du_hoc_giay_to g
-                WHERE g.ho_so_id = h.id AND g.bat_buoc = TRUE AND g.trang_thai = 'chua') AS thieu_giay_to
-         FROM du_hoc_ho_so h
-         LEFT JOIN users u ON u.id = h.tu_van_id
-        WHERE ${where}
-        ORDER BY h.updated_at DESC
-        LIMIT ? OFFSET ?`,
-      [...ts, moiTrang, (trang - 1) * moiTrang]
-    );
-
-    // Bộ lọc "kỳ nhập học" phải liệt kê được các kỳ đang có — trung tâm không nhớ mình đã gõ gì.
-    const [kyList] = await pool.query(
-      `SELECT DISTINCT h.ky_nhap_hoc FROM du_hoc_ho_so h
-        WHERE h.ky_nhap_hoc IS NOT NULL AND h.ky_nhap_hoc <> ''${dkOrg(req)}
-        ORDER BY h.ky_nhap_hoc`,
-      tsOrg(req)
-    );
-
-    res.json({
-      ho_so: rows,
-      tong: dem[0].so,
-      trang,
-      so_trang: Math.max(1, Math.ceil(dem[0].so / moiTrang)),
-      buoc: BUOC,
-      ky_list: kyList.map((k) => k.ky_nhap_hoc),
-    });
-  } catch (err) {
-    if (chuaCoBang(err)) {
-      return res.json({ ho_so: [], tong: 0, trang: 1, so_trang: 1, buoc: BUOC, ky_list: [], chua_migrate: true });
-    }
-    console.error('Lỗi danh sách hồ sơ du học:', err);
-    res.status(500).json({ error: loiBang(err, 'Không tải được danh sách hồ sơ.') });
   }
 });
 
@@ -729,69 +794,6 @@ router.delete('/du-hoc/theo-truong-hs/:id', async (req, res) => {
   } catch (err) {
     console.error('Lỗi gỡ học sinh khỏi trường:', err);
     res.status(500).json({ error: loiBang(err, 'Không gỡ được học sinh.') });
-  }
-});
-
-// =============================================================
-// CHI TIẾT MỘT HỒ SƠ
-// =============================================================
-router.get('/du-hoc/ho-so/:id', async (req, res) => {
-  try {
-    const hs = await layHoSo(req.params.id, req);
-    if (!hs) return res.status(404).json({ error: 'Không tìm thấy hồ sơ.' });
-
-    const [[giayTo], [thuTien], [lichSu]] = await Promise.all([
-      pool.query('SELECT * FROM du_hoc_giay_to WHERE ho_so_id = ? ORDER BY sort_order, id', [hs.id]),
-      pool.query(
-        // KHÔNG dùng `tt.*`: cột `anh` là MEDIUMTEXT base64, kéo cả danh sách về là vài MB cho
-        // một bảng 20 dòng. Chỉ báo CÓ ảnh hay không; ảnh lấy riêng ở /thu-tien/:id/anh.
-        `SELECT tt.id, tt.loai, tt.khoan, tt.so_tien, tt.ngay_thu, tt.hinh_thuc, tt.chung_tu,
-                tt.ghi_chu, tt.created_at, (tt.anh IS NOT NULL) AS co_anh,
-                u.name AS nguoi_thu_ten
-           FROM du_hoc_thu_tien tt LEFT JOIN users u ON u.id = tt.nguoi_thu_id
-          WHERE tt.ho_so_id = ? ORDER BY tt.ngay_thu DESC, tt.id DESC`, [hs.id]),
-      pool.query(
-        `SELECT ls.*, u.name AS nguoi_ten
-           FROM du_hoc_lich_su ls LEFT JOIN users u ON u.id = ls.nguoi_id
-          WHERE ls.ho_so_id = ? ORDER BY ls.created_at DESC, ls.id DESC LIMIT 100`, [hs.id]),
-    ]);
-
-    const anhGt = await anhTheoGiayTo(giayTo.map((g) => g.id));
-    const daThu = thuTien.reduce((s, t) => s + (t.loai === 'hoan' ? -t.so_tien : t.so_tien), 0);
-
-    // Hồ sơ đã gắn tài khoản học thì kèm luôn tình hình học tập — đó chính là lý do hai khu này
-    // nằm trong cùng một hệ thống thay vì hai phần mềm rời.
-    let hocTap = null;
-    if (hs.user_id) {
-      try {
-        const [[u], [lop], [bt]] = await Promise.all([
-          pool.query('SELECT id, name, email, level_label, points, streak, last_active FROM users WHERE id = ?', [hs.user_id]),
-          pool.query(
-            `SELECT c.id, c.name FROM class_enrollments ce JOIN classes c ON c.id = ce.class_id
-              WHERE ce.user_id = ?`, [hs.user_id]),
-          pool.query(
-            `SELECT COUNT(*) AS so_bai, ROUND(AVG(score_percent)) AS diem_tb
-               FROM exercise_results WHERE user_id = ?`, [hs.user_id]),
-        ]);
-        hocTap = { user: u[0] || null, lop, so_bai: bt[0]?.so_bai || 0, diem_tb: bt[0]?.diem_tb ?? null };
-      } catch (e) {
-        hocTap = null;   // thiếu bảng học tập không được làm hỏng cả trang hồ sơ
-      }
-    }
-
-    res.json({
-      ho_so: hs,
-      giay_to: giayTo.map((g) => ({ ...g, anh: anhGt.get(g.id) || [] })),
-      thu_tien: thuTien,
-      lich_su: lichSu,
-      tien: { tong_phi: hs.tong_phi, da_thu: daThu, con_thieu: Math.max(0, hs.tong_phi - daThu) },
-      hoc_tap: hocTap,
-      buoc: BUOC,
-      loai_pv: LOAI_PV,
-    });
-  } catch (err) {
-    console.error('Lỗi chi tiết hồ sơ du học:', err);
-    res.status(500).json({ error: loiBang(err, 'Không tải được hồ sơ.') });
   }
 });
 

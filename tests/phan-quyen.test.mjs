@@ -51,8 +51,9 @@ const ROUTES = [
   // Hồ sơ một giáo viên: từng trả 500 ở mọi nơi vì route đọc cột `note`/`author_id` trong khi DB
   // (init-db.js) là `noi_dung`/`nguoi_ghi`/`nguoi_cham`. Giữ dòng này để lỗi đó không quay lại.
   ['GET', `/admin/teachers/${gvId}`,               { admin: 200, teacher: 403, student: 403, khach: 401 }],
-  // Hồ sơ du học / ký túc xá: giáo viên KHÔNG thấy (có CCCD, hộ chiếu, tiền nong).
-  ['GET', '/admin/du-hoc/ho-so',                   { admin: 200, teacher: 403, student: 403, khach: 401 }],
+  // Hồ sơ du học: giáo viên xem được danh sách (2026-10-13) — không tiền, kiểm chi tiết hơn ở
+  // tests/du-hoc-so-lieu-vai-tro.test.mjs. Ký túc xá / tiến độ theo trường vẫn chặn hẳn.
+  ['GET', '/admin/du-hoc/ho-so',                   { admin: 200, teacher: 200, student: 403, khach: 401 }],
   ['GET', '/admin/du-hoc/theo-truong',             { admin: 200, teacher: 403, student: 403, khach: 401 }],
   // Sổ thu chi: giáo viên lập được phiếu của MÌNH (2026-10-05) nên đọc được danh mục; sửa danh mục vẫn 403.
   ['GET', '/admin/quy/danh-muc',                   { admin: 200, teacher: 200, student: 403, khach: 401 }],
@@ -61,7 +62,9 @@ const ROUTES = [
   // Đề bài: giáo viên CÓ quyền (họ là người ra đề).
   ['GET', '/admin/de-bai',                         { admin: 200, teacher: 200, student: 403, khach: 401 }],
   ['DELETE', `/admin/classes/${lopGv.insertId}`,   { teacher: 403, student: 403, khach: 401 }],
-  ['POST', '/admin/classes',                       { teacher: 403, student: 403, khach: 401 }],
+  // Tạo lớp: giáo viên ĐƯỢC (2026-10-13) — body rỗng '{}' nên thiếu `name` -> 400 (qua được cổng
+  // quyền, rơi vào validate), khác với 403 "không có quyền".
+  ['POST', '/admin/classes',                       { teacher: 400, student: 403, khach: 401 }],
   ['GET', '/exercise/notifications',               { admin: 200, teacher: 200, student: 200, khach: 401 }],
   ['GET', '/exercise/my-assignments',              { admin: 200, teacher: 200, student: 200, khach: 401 }],
   ['GET', '/profile/stats',                        { admin: 200, teacher: 200, student: 200, khach: 401 }],

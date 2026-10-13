@@ -8,7 +8,10 @@
 //   ho_so   — quản lý hồ sơ. Chỉ phần du học của RIÊNG mình: hồ sơ mình phụ trách, tài khoản
 //             mình tạo, khoản thu của hồ sơ đó, chỗ ở ký túc xá của hồ sơ đó.
 //   sale    — y hệt `ho_so` về quyền, tách vai trò để báo cáo và phân công đọc được ai là ai.
-//   teacher — chỉ thao tác trên lớp mình phụ trách (classes.teacher_id = mình).
+//   teacher — chỉ thao tác trên lớp mình phụ trách (classes.teacher_id = mình). Từ 2026-10-13
+//             (khách yêu cầu) cũng TẠO được lớp mới (chọn giáo viên phụ trách như admin) và xem
+//             được danh sách + chi tiết HỒ SƠ DU HỌC của toàn trung tâm — trừ mọi thứ liên quan
+//             tiền (xem du-hoc.js).
 //   student — không vào được khu này.
 //
 // PHẠM VI của sale / quản lý hồ sơ suy ra từ ba cột đã có sẵn, không có bảng phân công riêng:
@@ -116,13 +119,11 @@ const NS = [SALE, HOSO];
 // liệu: chúng ghi lại route nào vốn dành riêng cho quản trị. Giáo viên thì phải khớp luật.
 const QT = 'admin';
 
-// Ngoại lệ nằm TRONG khu được phép nhưng vẫn phải cấm — xét TRƯỚC bảng cho phép.
-// /classes/:id/available-students tìm trong toàn bộ người dùng để chọn thêm vào lớp; giáo viên
-// dùng được là dò ra tên/email của mọi học viên, kể cả lớp người khác. Quản trị trung tâm thì
-// được — nhưng route phải tự lọc theo org (xem admin.js).
-const CAM = [
-  { vai: [GV], re: /^\/classes\/\d+\/available-students$/ },
-];
+// Không còn luật cấm riêng nào ở đây. /classes/:id/available-students từng bị chặn với giáo viên
+// (dò tên/email của mọi học viên trung tâm) nhưng đã MỞ lại (2026-10-13, khách yêu cầu): giáo
+// viên cần tự tìm học viên để thêm vào lớp mình dạy, như admin. Route vẫn tự lọc theo org khi
+// admin gọi (xem admin.js); CAM giữ lại làm chỗ khai báo cho các lệnh cấm trong-phạm-vi về sau.
+const CAM = [];
 
 const QUYEN = [
   // --- xem chung ---
@@ -134,8 +135,11 @@ const QUYEN = [
   { vai: [GV, QT], method: ['GET'], re: /^\/classes$/, qua: null },
   { vai: [GV, QT], method: ['GET'], re: /^\/classes\/(\d+)$/, qua: 'lop', nhom: 1 },
 
-  // --- vòng đời LỚP: chỉ quản trị trung tâm. Giáo viên dạy lớp, không mở/xoá lớp. ---
-  { vai: [QT], method: ['POST'], re: /^\/classes$/, qua: null },
+  // --- vòng đời LỚP ---
+  // Tạo lớp: quản trị, và từ 2026-10-13 (khách yêu cầu) cả giáo viên — vẫn chọn giáo viên phụ
+  // trách qua `teacher_id` như admin (admin.js `kiemTraGiaoVien`), không tự gán cứng về mình.
+  // Mở/xoá (PUT/DELETE) lớp đã có thì vẫn CHỈ quản trị.
+  { vai: [GV, QT], method: ['POST'], re: /^\/classes$/, qua: null },
   { vai: [QT], method: ['PUT', 'DELETE'], re: /^\/classes\/(\d+)$/, qua: 'lop', nhom: 1 },
 
   // --- mọi thứ BÊN TRONG lớp: buổi học, điểm danh, bài giao, học viên, báo cáo, lỗi sai ---
@@ -149,23 +153,33 @@ const QUYEN = [
 
   // --- QUẢN LÝ GIÁO VIÊN trong tổ chức: chỉ quản trị trung tâm ---
   { vai: [QT], method: ['GET', 'POST'], re: /^\/teachers$/, qua: null },
-  { vai: [QT], method: ['GET'], re: /^\/teachers-options$/, qua: null },
+  // Danh sách rút gọn (id/tên/email) để đổ vào ô chọn "giáo viên phụ trách" ở form lớp. Mở thêm
+  // cho GV (2026-10-13): họ cũng tạo lớp và cần chọn người phụ trách như admin — xem roles.js
+  // dòng POST /classes. Không có gì nhạy cảm hơn "ai đang là giáo viên/admin ở trung tâm".
+  { vai: [GV, QT], method: ['GET'], re: /^\/teachers-options$/, qua: null },
   { vai: [QT], method: ['GET', 'PUT', 'DELETE', 'POST'], re: /^\/teachers\/(\d+)(\/.*)?$/, qua: 'giaovien', nhom: 1 },
   { vai: [QT], method: ['DELETE'], re: /^\/teacher-notes\/(\d+)$/, qua: null },
   { vai: [QT], method: ['DELETE'], re: /^\/teacher-reviews\/(\d+)$/, qua: null },
 
   // --- HỒ SƠ DU HỌC (2026-09-15) ---
-  // CHỈ quản trị trung tâm. Giáo viên cố ý KHÔNG có mặt ở đây: hồ sơ chứa CCCD, hộ chiếu, địa chỉ
-  // và toàn bộ tiền nong của học sinh — người dạy lớp không cần thấy. Thêm GV vào đây thì phải
-  // tách riêng phần tiền trước, đừng mở cả cụm.
+  // CHỈ quản trị trung tâm cho vòng đời đầy đủ (tạo/sửa/xoá + mọi khu con: thu tiền, giấy tờ, yêu
+  // cầu sửa, theo-truong...). Giáo viên KHÔNG có ở đây — hồ sơ chứa CCCD, hộ chiếu, địa chỉ và
+  // tiền nong, người dạy lớp không cần sửa.
   // Không dùng `qua` để kiểm sở hữu: mọi route trong du-hoc.js đã tự lọc `org_id` ngay trong câu
   // SELECT (kể cả khi tra qua id khoản thu / id giấy tờ), nên thêm một vòng truy vấn nữa ở đây chỉ
   // tốn công mà không chặn thêm được gì.
   { vai: [QT], method: ['GET', 'POST', 'PUT', 'DELETE'], re: /^\/du-hoc(\/.*)?$/, qua: null },
-  // NGOẠI LỆ DUY NHẤT cho giáo viên (2026-10-05, khách yêu cầu): bốn ô số liệu đầu màn Hồ sơ du học,
-  // tính trên học sinh trong lớp mình dạy. Route chỉ trả vài con số (không tên, không CCCD) và tự lọc
-  // theo giáo viên ở du-hoc.js (`phamViSoLieu`). Đừng mở thêm route du-hoc nào khác cho GV ở đây.
+  // NGOẠI LỆ cho giáo viên — CHỈ XEM, không sửa:
+  //   · /du-hoc/so-lieu (2026-10-05): bốn ô số liệu đầu màn, không tên/CCCD.
+  //   · /du-hoc/ho-so (danh sách) + /du-hoc/ho-so/:id (chi tiết) (2026-10-13, khách yêu cầu): xem
+  //     được hồ sơ của CẢ TRUNG TÂM (không chỉ học sinh lớp mình), nhưng KHÔNG có bất kỳ số tiền
+  //     nào — du-hoc.js tự ẩn `tong_phi` / `thu_tien` / `tien` khi req.role === 'teacher'.
+  // Không khai `qua: 'hoso'` cho hai route này: phạm vi của giáo viên ở đây cố ý là TOÀN trung tâm,
+  // không giới hạn theo lớp/hồ sơ mình phụ trách.
+  // Đừng mở thêm route du-hoc nào khác cho GV ở đây mà quên tách phần tiền trước.
   { vai: [GV], method: ['GET'], re: /^\/du-hoc\/so-lieu$/, qua: null },
+  { vai: [GV], method: ['GET'], re: /^\/du-hoc\/ho-so$/, qua: null },
+  { vai: [GV], method: ['GET'], re: /^\/du-hoc\/ho-so\/(\d+)$/, qua: null },
 
   // --- Đề bài tập / bài kiểm tra tự soạn (2026-09-17) ---
   // Chủ dự án chốt: GIÁO VIÊN tạo được đề, nhưng chỉ giao cho lớp mình phụ trách.
