@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bản đồ trường đại học Đài Loan — demo</title>
+<link rel="stylesheet" href="vendor/leaflet.css">
+<link rel="stylesheet" href="vendor/MarkerCluster.css">
+<link rel="stylesheet" href="vendor/maplibre-gl.css">
+<style>
+  :root {
+    --primary: #2072AC; --primary-dark: #15517A; --navy: #111C2B;
+    --bg: #EEF3EF; --card: #fff; --line: #DCE4DE; --muted: #5B6B78; --text: #1B2733;
+    --bac: #2072AC; --trung: #1F7A52; --nam: #B85C1A; --dong: #7C3AED;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+         background: var(--bg); color: var(--text); display: flex; flex-direction: column; font-size: 15px; }
+  header { padding: 14px 20px; background: var(--card); border-bottom: 1px solid var(--line); display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  header h1 { margin: 0; font-size: 18px; font-weight: 600; }
+  header span { color: var(--muted); font-size: 13px; }
+  .demo-tag { margin-left: auto; font-size: 12px; background: #FBEEDF; color: #8A4513; padding: 3px 10px; border-radius: 999px; }
+
+  main { flex: 1; min-height: 0; display: grid; grid-template-columns: 380px minmax(0, 1fr); }
+  #panel { display: flex; flex-direction: column; min-height: 0; background: var(--card); border-right: 1px solid var(--line); }
+  .tools { padding: 14px 16px 10px; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 10px; }
+  .tools input[type=search] { width: 100%; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; font: inherit; }
+  .tools input[type=search]:focus { outline: 2px solid var(--primary); outline-offset: 1px; border-color: transparent; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { border: 1px solid var(--line); background: #fff; color: var(--text); border-radius: 999px; padding: 5px 12px; font: inherit; font-size: 13px; cursor: pointer; }
+  .chip[aria-pressed=true] { background: var(--primary); border-color: var(--primary); color: #fff; }
+  .opt { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+  .dem { font-size: 13px; color: var(--muted); }
+  #list { flex: 1; min-height: 0; overflow-y: auto; padding: 8px 10px 16px; display: flex; flex-direction: column; gap: 6px; }
+  .item { display: grid; grid-template-columns: 48px minmax(0, 1fr); gap: 12px; align-items: center; padding: 10px; border: 1px solid transparent; border-radius: 12px; cursor: pointer; background: transparent; text-align: left; font: inherit; color: inherit; width: 100%; }
+  .item:hover { background: #F5F8F6; }
+  .item:focus-visible { outline: 2px solid var(--primary); }
+  .item.on { background: #E8F1F8; border-color: #BCD7EA; }
+  .item h3 { margin: 0; font-size: 14px; font-weight: 500; line-height: 1.35; }
+  .item p { margin: 2px 0 0; font-size: 12.5px; color: var(--muted); }
+  .rong { padding: 30px 16px; text-align: center; color: var(--muted); }
+
+  /* huy hiệu / logo tròn dùng chung cho danh sách, marker, chi tiết */
+  .lg { width: 48px; height: 48px; border-radius: 50%; background: #fff; border: 1px solid var(--line); display: grid; place-items: center; overflow: hidden; flex: none; }
+  .lg img { width: 100%; height: 100%; object-fit: contain; padding: 4px; }
+  .lg.mono { color: #fff; font-weight: 600; font-size: 13px; letter-spacing: .3px; border: 0; }
+  .m-bac { background: var(--bac); } .m-trung { background: var(--trung); } .m-nam { background: var(--nam); } .m-dong { background: var(--dong); }
+
+  #mapwrap { position: relative; min-height: 0; }
+  #map { position: absolute; inset: 0; background: #E5E9E6; }
+  .pin { width: 40px; height: 40px; border-radius: 50%; background: #fff; border: 2px solid #fff; box-shadow: 0 2px 8px rgba(17,28,43,.35); display: grid; place-items: center; overflow: hidden; transition: transform .15s; }
+  .pin img { width: 100%; height: 100%; object-fit: contain; padding: 3px; }
+  .pin.mono { color: #fff; font-size: 11px; font-weight: 600; }
+  .pin.mono.m-bac { background: var(--bac); } .pin.mono.m-trung { background: var(--trung); } .pin.mono.m-nam { background: var(--nam); } .pin.mono.m-dong { background: var(--dong); }
+  .pin.sel { transform: scale(1.3); box-shadow: 0 0 0 3px var(--primary), 0 4px 12px rgba(17,28,43,.4); }
+  .leaflet-marker-icon:hover .pin { transform: scale(1.12); }
+  .cum { width: 44px; height: 44px; border-radius: 50%; background: var(--navy); color: #fff; display: grid; place-items: center; font-weight: 600; font-size: 14px; border: 3px solid rgba(255,255,255,.9); box-shadow: 0 2px 8px rgba(17,28,43,.4); }
+  .leaflet-popup-content-wrapper { border-radius: 14px; padding: 0; overflow: hidden; }
+  .leaflet-popup-content { margin: 0; width: 230px !important; }
+  .pop img.anh { display: block; width: 100%; height: 110px; object-fit: cover; }
+  .pop .ct { padding: 10px 12px 12px; }
+  .pop b { display: block; font-weight: 500; font-size: 14px; line-height: 1.35; }
+  .pop small { color: var(--muted); }
+  .pop button { margin-top: 8px; width: 100%; background: var(--primary); color: #fff; border: 0; border-radius: 8px; padding: 7px; font: inherit; font-size: 13px; cursor: pointer; }
+
+  /* ngăn chi tiết: trượt từ phải, nằm TRONG khung bản đồ nên không che menu của trang */
+  #detail { position: absolute; top: 0; right: 0; bottom: 0; width: min(400px, 100%); background: var(--card); box-shadow: -6px 0 24px rgba(17,28,43,.18); transform: translateX(105%); transition: transform .25s ease; z-index: 1000; display: flex; flex-direction: column; }
+  #detail.open { transform: none; }
+  #detail .dong { position: absolute; top: 10px; right: 10px; z-index: 2; width: 36px; height: 36px; border-radius: 50%; border: 0; background: rgba(255,255,255,.95); box-shadow: 0 1px 6px rgba(0,0,0,.25); cursor: pointer; font-size: 18px; }
+  #detail .body { overflow-y: auto; flex: 1; }
+  .hero { height: 190px; background: #D9E3DC center/cover; position: relative; }
+  .hero.khong { background: linear-gradient(135deg, #2072AC, #15517A); }
+  .hero .lg { position: absolute; left: 20px; bottom: -28px; width: 68px; height: 68px; border: 3px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,.2); }
+  .hero .lg.mono { font-size: 17px; }
+  .noidung { padding: 42px 20px 24px; }
+  .noidung h2 { margin: 0; font-size: 19px; font-weight: 600; line-height: 1.3; }
+  .noidung .zh { margin-top: 2px; color: var(--muted); font-size: 15px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; }
+  .tag { font-size: 12.5px; padding: 3px 10px; border-radius: 999px; background: #EEF3EF; color: var(--text); }
+  .kv { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 8px 12px; margin: 14px 0; font-size: 14px; }
+  .kv dt { color: var(--muted); } .kv dd { margin: 0; word-break: break-word; }
+  .kv a, .links a { color: var(--primary-dark); }
+  .links { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 4px; font-size: 14px; }
+  .hold { margin-top: 18px; padding: 14px; border: 1px dashed #B7C4BC; border-radius: 12px; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+  .hold b { color: var(--text); font-weight: 500; }
+  .nguon { margin-top: 18px; font-size: 12px; color: var(--muted); }
+
+  @media (max-width: 800px) {
+    main { grid-template-columns: 1fr; grid-template-rows: 52vh minmax(0, 1fr); }
+    #mapwrap { order: -1; }
+    #panel { border-right: 0; border-top: 1px solid var(--line); }
+    #detail { position: fixed; top: auto; height: 82vh; width: 100%; transform: translateY(105%); border-radius: 18px 18px 0 0; z-index: 3000; }
+    #detail.open { transform: none; }
+    .hero { height: 150px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Bản đồ trường đại học Đài Loan</h1>
+  <span id="tong"></span>
+  <span class="demo-tag">Bản demo tĩnh — dữ liệu mở Wikidata / Wikimedia Commons</span>
+</header>
+<main>
+  <section id="panel" aria-label="Danh sách trường">
+    <div class="tools">
+      <input type="search" id="q" placeholder="Tìm trường (tiếng Việt, Anh, Trung)…" aria-label="Tìm trường">
+      <div class="chips" id="chips" role="group" aria-label="Khu vực"></div>
+      <label class="opt"><input type="checkbox" id="trongKhung"> Chỉ hiện trường trong khung bản đồ</label>
+      <div class="dem" id="dem" aria-live="polite"></div>
+    </div>
+    <div id="list"></div>
+  </section>
+  <section id="mapwrap">
+    <div id="map" role="application" aria-label="Bản đồ các trường"></div>
+    <aside id="detail" aria-label="Chi tiết trường" aria-hidden="true">
+      <button class="dong" id="dong" aria-label="Đóng chi tiết">×</button>
+      <div class="body" id="body"></div>
+    </aside>
+  </section>
+</main>
+
+<script src="vendor/leaflet.js"></script>
+<script src="vendor/leaflet.markercluster.js"></script>
+<script src="vendor/maplibre-gl.js"></script>
+<script src="vendor/leaflet-maplibre-gl.js"></script>
+<script>
+(async function () {
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const MIEN = { 'Miền Bắc': 'm-bac', 'Miền Trung': 'm-trung', 'Miền Nam': 'm-nam', 'Miền Đông': 'm-dong' };
+  const boDau = (s) => String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/đ/g, 'd').toLowerCase();
+
+  const DS = await (await fetch('data.json')).json();
+  const ten = (u) => u.vi || u.en || u.zh;
+  DS.forEach((u) => { u._k = boDau([u.vi, u.en, u.zh, u.thanhpho].join(' ')); });
+  document.getElementById('tong').textContent = DS.length + ' trường';
+
+  // ------------------------------------------------ bản đồ
+  const map = L.map('map', { zoomControl: true, minZoom: 6, maxZoom: 18 });
+  // Nền bản đồ: OpenFreeMap (vector, miễn phí, KHÔNG cần khoá API) là mặc định. CARTO đã đổi sang
+  // bắt buộc API key (tile hiện chữ "API KEY REQUIRED"), nên bỏ.
+  const ofmChiTiet = L.maplibreGL({ style: 'https://tiles.openfreemap.org/styles/liberty' }).addTo(map);   // mặc định: nền chi tiết, có màu
+  const ofmSang = L.maplibreGL({ style: 'https://tiles.openfreemap.org/styles/positron' });
+  const osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 });
+  L.control.layers({ 'Nền chi tiết - có màu (OpenFreeMap)': ofmChiTiet, 'Nền sáng (OpenFreeMap)': ofmSang, 'OpenStreetMap (ảnh raster)': osm }, null, { position: 'topright', collapsed: true }).addTo(map);
+
+  const cum = L.markerClusterGroup({
+    maxClusterRadius: 48, showCoverageOnHover: false, spiderfyOnMaxZoom: true,
+    iconCreateFunction: (c) => L.divIcon({ html: `<div class="cum">${c.getChildCount()}</div>`, className: '', iconSize: [44, 44] }),
+  });
+  map.addLayer(cum);
+
+  const pinHtml = (u, sel) => u.logo
+    ? `<div class="pin${sel ? ' sel' : ''}"><img src="${esc(u.logo)}" alt=""></div>`
+    : `<div class="pin mono ${MIEN[u.mien]}${sel ? ' sel' : ''}">${esc(u.vt || '?')}</div>`;
+  const marker = new Map();
+  DS.forEach((u) => {
+    const m = L.marker([u.lat, u.lng], { icon: L.divIcon({ html: pinHtml(u), className: '', iconSize: [40, 40], iconAnchor: [20, 20] }), title: ten(u), riseOnHover: true });
+    m.bindPopup(() => popup(u), { closeButton: false, offset: [0, -14] });
+    m.on('click', () => chon(u.id, { bay: false }));
+    marker.set(u.id, m);
+  });
+  const popup = (u) => {
+    const d = document.createElement('div'); d.className = 'pop';
+    d.innerHTML = `${u.anh ? `<img class="anh" src="${esc(u.anh)}" alt="">` : ''}<div class="ct"><b>${esc(ten(u))}</b><small>${esc(u.zh || '')}</small><button type="button">Xem chi tiết</button></div>`;
+    d.querySelector('button').onclick = () => moChiTiet(u);
+    return d;
+  };
+  const bounds = L.latLngBounds(DS.map((u) => [u.lat, u.lng]));
+  map.fitBounds(bounds, { padding: [30, 30] });
+
+  // ------------------------------------------------ lọc + danh sách
+  let mien = '', tuKhoa = '', trongKhung = false, dangChon = null;
+  const MIEN_DS = ['', 'Miền Bắc', 'Miền Trung', 'Miền Nam', 'Miền Đông'];
+  const chips = document.getElementById('chips');
+  chips.innerHTML = MIEN_DS.map((m) => `<button class="chip" type="button" data-m="${m}" aria-pressed="${m === mien}">${m || 'Tất cả'}</button>`).join('');
+  chips.onclick = (e) => { const b = e.target.closest('.chip'); if (!b) return; mien = b.dataset.m; chips.querySelectorAll('.chip').forEach((c) => c.setAttribute('aria-pressed', c.dataset.m === mien)); ve(true); };
+  document.getElementById('q').oninput = (e) => { tuKhoa = boDau(e.target.value.trim()); ve(true); };
+  document.getElementById('trongKhung').onchange = (e) => { trongKhung = e.target.checked; ve(false); };
+  map.on('moveend', () => { if (trongKhung) ve(false); });
+
+  const lgHtml = (u) => u.logo ? `<span class="lg"><img src="${esc(u.logo)}" alt="" loading="lazy"></span>` : `<span class="lg mono ${MIEN[u.mien]}">${esc(u.vt || '?')}</span>`;
+  const list = document.getElementById('list');
+  let hienTai = DS;
+  function ve(fit) {
+    const kh = map.getBounds();
+    hienTai = DS.filter((u) => (!mien || u.mien === mien) && (!tuKhoa || u._k.includes(tuKhoa)) && (!trongKhung || kh.contains([u.lat, u.lng])));
+    cum.clearLayers();
+    cum.addLayers(hienTai.map((u) => marker.get(u.id)));
+    document.getElementById('dem').textContent = hienTai.length + ' / ' + DS.length + ' trường';
+    list.innerHTML = hienTai.length ? hienTai.map((u) => `
+      <button class="item${u.id === dangChon ? ' on' : ''}" type="button" data-id="${u.id}">
+        ${lgHtml(u)}
+        <span><h3>${esc(ten(u))}</h3><p>${esc([u.zh, u.thanhpho].filter(Boolean).join(' · '))}</p></span>
+      </button>`).join('') : '<div class="rong">Không có trường nào khớp.</div>';
+    if (fit && hienTai.length && (mien || tuKhoa)) map.fitBounds(L.latLngBounds(hienTai.map((u) => [u.lat, u.lng])), { padding: [50, 50], maxZoom: 13 });
+  }
+  list.onclick = (e) => { const b = e.target.closest('.item'); if (b) chon(b.dataset.id, { bay: true, mo: true }); };
+
+  // ------------------------------------------------ chọn + chi tiết
+  function chon(id, { bay = true, mo = false } = {}) {
+    const u = DS.find((x) => x.id === id); if (!u) return;
+    if (dangChon && marker.has(dangChon)) marker.get(dangChon).setIcon(L.divIcon({ html: pinHtml(DS.find((x) => x.id === dangChon), false), className: '', iconSize: [40, 40], iconAnchor: [20, 20] }));
+    dangChon = id;
+    marker.get(id).setIcon(L.divIcon({ html: pinHtml(u, true), className: '', iconSize: [40, 40], iconAnchor: [20, 20] }));
+    list.querySelectorAll('.item').forEach((i) => i.classList.toggle('on', i.dataset.id === id));
+    list.querySelector('.item.on')?.scrollIntoView({ block: 'nearest' });
+    history.replaceState(null, '', '#' + id);
+    if (bay) {
+      cum.zoomToShowLayer(marker.get(id), () => { map.flyTo([u.lat, u.lng], Math.max(map.getZoom(), 14), { duration: .8 }); });
+    }
+    if (mo) moChiTiet(u);
+  }
+  const detail = document.getElementById('detail'), body = document.getElementById('body');
+  function moChiTiet(u) {
+    map.closePopup();
+    const dong = [
+      u.nam && ['Thành lập', esc(u.nam)],
+      u.thanhpho && ['Khu vực', esc(u.thanhpho)],
+      u.sv && ['Số sinh viên', Number(u.sv).toLocaleString('vi-VN')],
+      u.web && ['Website', `<a href="${esc(u.web)}" target="_blank" rel="noopener">${esc(u.web.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, ''))}</a>`],
+    ].filter(Boolean);
+    body.innerHTML = `
+      <div class="hero${u.anh ? '' : ' khong'}" ${u.anh ? `style="background-image:url('${esc(u.anh)}')"` : ''}>${lgHtml(u)}</div>
+      <div class="noidung">
+        <h2>${esc(ten(u))}</h2>
+        ${u.zh ? `<div class="zh">${esc(u.zh)}</div>` : ''}
+        <div class="tags"><span class="tag">${esc(u.mien)}</span>${u.en && u.vi ? `<span class="tag">${esc(u.en)}</span>` : ''}</div>
+        <dl class="kv">${dong.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>
+        <div class="links">
+          ${u.viwiki ? `<a href="${esc(u.viwiki)}" target="_blank" rel="noopener">Wikipedia (Việt)</a>` : ''}
+          ${u.enwiki ? `<a href="${esc(u.enwiki)}" target="_blank" rel="noopener">Wikipedia (Anh)</a>` : ''}
+          <a href="https://www.google.com/maps/search/?api=1&query=${u.lat},${u.lng}" target="_blank" rel="noopener">Chỉ đường</a>
+        </div>
+        <div class="hold"><b>Chương trình, ngành học, ưu đãi, học phí</b><br>
+          Dữ liệu mở không có các thông tin này. Ở bản chính thức, quản trị sẽ nhập ngay trong trang quản lý trường — chỗ này sẽ hiện thành các tab theo hệ (1+4, ngôn ngữ, thạc sĩ…) và nút tư vấn.</div>
+        <div class="nguon">Nguồn: Wikidata (CC0), ảnh/logo từ Wikimedia Commons — mỗi file có giấy phép riêng, dùng chính thức phải kiểm lại.</div>
+      </div>`;
+    detail.classList.add('open'); detail.setAttribute('aria-hidden', 'false');
+    if (dangChon !== u.id) chon(u.id, { bay: false });
+  }
+  const dongCT = () => { detail.classList.remove('open'); detail.setAttribute('aria-hidden', 'true'); };
+  document.getElementById('dong').onclick = dongCT;
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') dongCT(); });
+
+  ve(false);
+  const id0 = location.hash.slice(1);
+  if (id0 && DS.some((u) => u.id === id0)) chon(id0, { bay: true, mo: true });
+})();
+</script>
+</body>
+</html>
