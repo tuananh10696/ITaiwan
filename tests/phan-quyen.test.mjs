@@ -65,6 +65,11 @@ const ROUTES = [
   // Tạo lớp: giáo viên ĐƯỢC (2026-10-13) — body rỗng '{}' nên thiếu `name` -> 400 (qua được cổng
   // quyền, rơi vào validate), khác với 403 "không có quyền".
   ['POST', '/admin/classes',                       { teacher: 400, student: 403, khach: 401 }],
+  // Thêm học viên vào lớp (2026-10-30): giáo viên ĐƯỢC với lớp MÌNH (body rỗng -> 400 qua cổng
+  // quyền), lớp của người khác -> 403. Form còn gọi /users-unassigned trước — từng 403 với giáo viên.
+  ['GET', '/admin/users-unassigned',               { admin: 200, teacher: 200, student: 403, khach: 401 }],
+  ['POST', `/admin/classes/${lopGv.insertId}/students`,    { admin: 400, teacher: 400, student: 403, khach: 401 }],
+  ['POST', `/admin/classes/${lopNgoai.insertId}/students`, { admin: 400, teacher: 403, student: 403, khach: 401 }],
   ['GET', '/exercise/notifications',               { admin: 200, teacher: 200, student: 200, khach: 401 }],
   ['GET', '/exercise/my-assignments',              { admin: 200, teacher: 200, student: 200, khach: 401 }],
   ['GET', '/profile/stats',                        { admin: 200, teacher: 200, student: 200, khach: 401 }],
@@ -90,6 +95,20 @@ try {
       else bad.push(`${m} ${path} · ${vai}: mong ${expect}, thực tế ${st}`);
     }
   }
+  // Thêm THẬT: giáo viên đưa học viên vào lớp mình (userIds) và tạo mới bằng email; lớp ngoài bị chặn.
+  const goi = async (vai, path, body) => {
+    const r = await fetch(B + path, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${T[vai]}` }, body: JSON.stringify(body) });
+    return { st: r.status, j: await r.json().catch(() => ({})) };
+  };
+  const kiem = (ten, dung) => { if (dung) ok++; else bad.push(ten); };
+  let r = await goi('teacher', `/admin/classes/${lopGv.insertId}/students`, { userIds: [hvId] });
+  kiem('GV thêm userIds vào lớp mình: mong 200 + status ok', r.st === 200 && r.j.results?.[0]?.status === 'ok');
+  const [[dk]] = await pool.query('SELECT COUNT(*) n FROM class_enrollments WHERE class_id=? AND user_id=?', [lopGv.insertId, hvId]);
+  kiem('GV thêm userIds: bản ghi class_enrollments phải có', dk.n === 1);
+  r = await goi('teacher', `/admin/classes/${lopGv.insertId}/students`, { emails: [`moi.${MA}@local.invalid`] });
+  kiem('GV thêm bằng email mới: mong 200 + status ok', r.st === 200 && r.j.results?.[0]?.status === 'ok');
+  r = await goi('teacher', `/admin/classes/${lopNgoai.insertId}/students`, { userIds: [hvId] });
+  kiem('GV thêm vào lớp của người khác: mong 403', r.st === 403);
 } finally {
   await pool.query('DELETE FROM classes WHERE name LIKE ?', [`%${MA}`]);
   await pool.query('DELETE FROM users WHERE email LIKE ?', [`%${MA}@local.invalid`]);

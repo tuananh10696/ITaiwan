@@ -26,8 +26,8 @@ router.use(requireAuth, loadRole, requireStaff, phamViQuanTri);
 // Lớp bảo vệ THỨ HAI cho các khu chỉ dành cho admin. teacherScope ở trên vốn đã chặn (mặc định
 // cấm), nhưng những khu này mà lọt thì hậu quả nặng — sửa từ vựng cả hệ thống, xoá tài khoản
 // người khác — nên chặn thêm một lần nữa ngay tại tiền tố đường dẫn.
-// '/users-unassigned' CỐ Ý không nằm đây: quản trị trung tâm cần nó để thêm học viên vào lớp
-// (nút "Thêm học viên" của họ 403 sạch trước 2026-09-13). Nó được khai riêng trong QUYEN và TỰ
+// '/users-unassigned' CỐ Ý không nằm đây: quản trị trung tâm và giáo viên cần nó để thêm học viên
+// vào lớp (nút "Thêm học viên" của họ 403 sạch trước 2026-09-13; giáo viên từ 2026-10-30). Nó được khai riêng trong QUYEN và TỰ
 // lọc theo `req.orgId` ngay bên dưới — mở mà quên lọc thì trung tâm này dò ra học viên trung tâm kia.
 for (const khu of ['/vocabulary', '/exam-questions',
   '/dialogues', '/dialogue-lines', '/blog', '/reorder', '/swap', '/seed']) {

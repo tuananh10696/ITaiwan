@@ -128,10 +128,11 @@ const CAM = [];
 const QUYEN = [
   // --- xem chung ---
   { vai: [GV, QT], method: ['GET'], re: /^\/stats$/, qua: null },
-  // Danh sách học viên chưa xếp lớp: CHỈ quản trị trung tâm, không cho giáo viên — cùng lý do
-  // với /available-students ở bảng CAM trên (giáo viên dò được cả danh bạ học viên của trung tâm).
-  // Route tự lọc theo req.orgId.
-  { vai: [QT], method: ['GET'], re: /^\/users-unassigned$/, qua: null },
+  // Danh sách học viên chưa xếp lớp: mở cho giáo viên (2026-10-30) — nút "Thêm học viên" ở màn
+  // chi tiết lớp gọi route này TRƯỚC khi hiện form, nên chặn là giáo viên 403 và không thêm được
+  // ai dù POST /classes/:id/students đã mở. Chỉ trả học viên CHƯA thuộc lớp nào (id/tên/email),
+  // hẹp hơn /available-students đã mở từ 2026-10-13. Route tự lọc theo req.orgId.
+  { vai: [GV, QT], method: ['GET'], re: /^\/users-unassigned$/, qua: null },
   { vai: [GV, QT], method: ['GET'], re: /^\/classes$/, qua: null },
   { vai: [GV, QT], method: ['GET'], re: /^\/classes\/(\d+)$/, qua: 'lop', nhom: 1 },
 
