@@ -45,7 +45,10 @@ const ROUTES = [
   ['GET', '/admin/classes',                        { admin: 200, teacher: 200, student: 403, khach: 401 }],
   ['GET', `/admin/classes/${lopGv.insertId}`,      { admin: 200, teacher: 200, student: 403, khach: 401 }],
   // Lớp KHÔNG phải của giáo viên này -> 403, dù cùng hệ thống.
-  ['GET', `/admin/classes/${lopNgoai.insertId}`,   { admin: 200, teacher: 403, student: 403, khach: 401 }],
+  // Từ 2026-10-30 giáo viên XEM được lớp đồng nghiệp (để thêm học viên); khu con vẫn 403 ở dưới.
+  ['GET', `/admin/classes/${lopNgoai.insertId}`,   { admin: 200, teacher: 200, student: 403, khach: 401 }],
+  ['GET', `/admin/classes/${lopNgoai.insertId}/sessions`,    { admin: 200, teacher: 403, student: 403, khach: 401 }],
+  ['GET', `/admin/classes/${lopNgoai.insertId}/assignments`, { admin: 200, teacher: 403, student: 403, khach: 401 }],
   ['GET', '/admin/users',                          { admin: 200, teacher: 403, student: 403, khach: 401 }],
   ['GET', '/admin/teachers',                       { admin: 200, teacher: 403, student: 403, khach: 401 }],
   // Hồ sơ một giáo viên: từng trả 500 ở mọi nơi vì route đọc cột `note`/`author_id` trong khi DB
@@ -69,7 +72,9 @@ const ROUTES = [
   // quyền), lớp của người khác -> 403. Form còn gọi /users-unassigned trước — từng 403 với giáo viên.
   ['GET', '/admin/users-unassigned',               { admin: 200, teacher: 200, student: 403, khach: 401 }],
   ['POST', `/admin/classes/${lopGv.insertId}/students`,    { admin: 400, teacher: 400, student: 403, khach: 401 }],
-  ['POST', `/admin/classes/${lopNgoai.insertId}/students`, { admin: 400, teacher: 403, student: 403, khach: 401 }],
+  ['POST', `/admin/classes/${lopNgoai.insertId}/students`, { admin: 400, teacher: 400, student: 403, khach: 401 }],
+  ['GET', `/admin/classes/${lopNgoai.insertId}/available-students`, { admin: 200, teacher: 200, student: 403, khach: 401 }],
+  ['PUT', `/admin/classes/${lopNgoai.insertId}`,           { teacher: 403, student: 403, khach: 401 }],
   ['GET', '/exercise/notifications',               { admin: 200, teacher: 200, student: 200, khach: 401 }],
   ['GET', '/exercise/my-assignments',              { admin: 200, teacher: 200, student: 200, khach: 401 }],
   ['GET', '/profile/stats',                        { admin: 200, teacher: 200, student: 200, khach: 401 }],
@@ -107,8 +112,17 @@ try {
   kiem('GV thêm userIds: bản ghi class_enrollments phải có', dk.n === 1);
   r = await goi('teacher', `/admin/classes/${lopGv.insertId}/students`, { emails: [`moi.${MA}@local.invalid`] });
   kiem('GV thêm bằng email mới: mong 200 + status ok', r.st === 200 && r.j.results?.[0]?.status === 'ok');
+  // Lớp của người khác: ĐƯỢC thêm như quản trị (2026-10-30), nhưng vẫn không xoá học viên khỏi đó.
   r = await goi('teacher', `/admin/classes/${lopNgoai.insertId}/students`, { userIds: [hvId] });
-  kiem('GV thêm vào lớp của người khác: mong 403', r.st === 403);
+  kiem('GV thêm vào lớp đồng nghiệp: mong 200 + status ok', r.st === 200 && r.j.results?.[0]?.status === 'ok');
+  const [[dk2]] = await pool.query('SELECT COUNT(*) n FROM class_enrollments WHERE class_id=? AND user_id=?', [lopNgoai.insertId, hvId]);
+  kiem('GV thêm vào lớp đồng nghiệp: bản ghi phải có', dk2.n === 1);
+  const gt = async (path) => (await fetch(B + path, { headers: { Authorization: `Bearer ${T.teacher}` } })).json();
+  const ids = (j) => (j.classes || []).map(c => c.id);
+  kiem('GET /classes (không cờ): GV chỉ thấy lớp mình', ids(await gt('/admin/classes')).includes(lopGv.insertId) && !ids(await gt('/admin/classes')).includes(lopNgoai.insertId));
+  kiem('GET /classes?tatca=1: GV thấy cả lớp đồng nghiệp', ids(await gt('/admin/classes?tatca=1')).includes(lopNgoai.insertId));
+  const xoa = await fetch(B + `/admin/classes/${lopNgoai.insertId}/students/${hvId}`, { method: 'DELETE', headers: { Authorization: `Bearer ${T.teacher}` } });
+  kiem('GV xoá học viên khỏi lớp đồng nghiệp: mong 403', xoa.status === 403);
 } finally {
   await pool.query('DELETE FROM classes WHERE name LIKE ?', [`%${MA}`]);
   await pool.query('DELETE FROM users WHERE email LIKE ?', [`%${MA}@local.invalid`]);

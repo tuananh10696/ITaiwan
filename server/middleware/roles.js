@@ -134,7 +134,14 @@ const QUYEN = [
   // hẹp hơn /available-students đã mở từ 2026-10-13. Route tự lọc theo req.orgId.
   { vai: [GV, QT], method: ['GET'], re: /^\/users-unassigned$/, qua: null },
   { vai: [GV, QT], method: ['GET'], re: /^\/classes$/, qua: null },
-  { vai: [GV, QT], method: ['GET'], re: /^\/classes\/(\d+)$/, qua: 'lop', nhom: 1 },
+  // Xem chi tiết lớp: giáo viên xem được MỌI lớp của trung tâm (2026-10-30, khách yêu cầu) để vào
+  // đó thêm học viên. Các khu con (buổi học, bài giao, điểm danh...) vẫn kiểm 'lop' ở dòng /classes/:id/.+
+  // bên dưới, nên lớp của người khác chỉ xem + thêm học viên chứ không sửa được gì khác.
+  { vai: [GV, QT], method: ['GET'], re: /^\/classes\/(\d+)$/, qua: null },
+  // Thêm học viên vào BẤT KỲ lớp nào như quản trị (2026-10-30): tick người chưa có lớp, tìm theo
+  // tên/email, hoặc dán email để tạo mới. PHẢI đứng trước dòng /classes/:id/.+ (khớp đầu tiên thắng).
+  { vai: [GV, QT], method: ['GET'], re: /^\/classes\/(\d+)\/available-students$/, qua: null },
+  { vai: [GV, QT], method: ['POST'], re: /^\/classes\/(\d+)\/students$/, qua: null },
 
   // --- vòng đời LỚP ---
   // Tạo lớp: quản trị, và từ 2026-10-13 (khách yêu cầu) cả giáo viên — vẫn chọn giáo viên phụ

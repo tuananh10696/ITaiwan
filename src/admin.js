@@ -251,6 +251,9 @@ const laQuanTri = (u) => ['admin', 'org_admin'].includes(vaiTro(u));
 const duocTaoLop = (u) => laQuanTri(u) || vaiTro(u) === 'teacher';
 /** Sale hoặc quản lý hồ sơ — hai vai trò có cùng bộ quyền, khác nhãn. */
 const laNhanSuHoSo = (u) => ['sale', 'ho_so'].includes(vaiTro(u));
+/** Lớp này giáo viên có được thao tác đầy đủ không? Quản trị: mọi lớp. Giáo viên: lớp mình phụ trách.
+ *  Lớp đồng nghiệp chỉ xem + thêm học viên (server chặn phần còn lại). */
+const laLopCuaToi = (c) => vaiTro() !== 'teacher' || Number(c.teacher_id) === Number(adminUser?.id);
 /**
  * Ai được vào cổng quản trị. Danh sách này phải khớp `requireStaff` ở server/middleware/roles.js
  * — thiếu một vai trò ở đây thì người đó đăng nhập đúng mật khẩu vẫn nhận "Tài khoản này không
@@ -1908,7 +1911,7 @@ async function renderClassesList(el) {
   const luot = el.dataset.luot;
   el.innerHTML = '<div style="text-align:center;padding:40px;color:var(--admin-text-muted)"><i class="fa-solid fa-spinner fa-spin" style="font-size:24px"></i></div>';
   try {
-    const data = await apiGet('/admin/classes');
+    const data = await apiGet('/admin/classes?tatca=1');   // giáo viên cũng thấy lớp đồng nghiệp để thêm học viên
     if (!conDungLuot(el, luot)) return;
     el.innerHTML = `
       <div class="data-table-wrapper">
@@ -1925,7 +1928,7 @@ async function renderClassesList(el) {
             ${data.classes.map(c => `
               <tr style="cursor:pointer" onclick="adminApp.openClassDetail(${c.id}, '${(c.name || '').replace(/'/g, "\\'")}')">
                 <td>#${c.id}</td>
-                <td style="font-weight:700">${c.name}</td>
+                <td style="font-weight:700">${c.name}${vaiTro() === 'teacher' && laLopCuaToi(c) ? ' <span class="badge badge-primary">Lớp của bạn</span>' : ''}</td>
                 <td>${c.teacher_name || '—'}</td>
                 <td><span class="badge badge-primary">${c.student_count} học viên</span></td>
                 <td>${c.session_count} buổi</td>
@@ -2052,6 +2055,7 @@ async function renderClassDetail(el) {
     const data = await apiGet(`/admin/classes/${currentClassId}`);
     const cls = data.class;
     currentClassName = cls.name;
+    const lopCuaToi = laLopCuaToi(cls);
     el.innerHTML = `
       <div style="margin-bottom:16px">
         <button class="btn btn-sm btn-outline" onclick="adminApp.backToClassesList()"><i class="fa-solid fa-arrow-left"></i> Danh sách lớp</button>
@@ -2065,13 +2069,14 @@ async function renderClassDetail(el) {
           <!-- Năm nút gom một hàng tự xuống dòng: để trần làm con của .table-toolbar thì ở ≤768
                (toolbar đổi sang cột + stretch) mỗi nút chiếm trọn một hàng, thẻ cao 280-316px. -->
           <div style="display:flex;gap:8px;flex-wrap:wrap">
-            <button class="btn btn-sm btn-outline" onclick="adminApp.goToSessions()"><i class="fa-solid fa-calendar-days"></i> Buổi học &amp; điểm danh</button>
-            <button class="btn btn-sm btn-outline" onclick="adminApp.goToAssignments()"><i class="fa-solid fa-list-check"></i> Bài tập đã giao</button>
-            <button class="btn btn-sm btn-outline" onclick="adminApp.goToMistakes()"><i class="fa-solid fa-triangle-exclamation"></i> Lỗi sai của lớp</button>
-            <button class="btn btn-sm btn-outline" onclick="adminApp.openReportForm()"><i class="fa-solid fa-file-arrow-down"></i> Xuất báo cáo</button>
+            ${lopCuaToi ? `<button class="btn btn-sm btn-outline" onclick="adminApp.goToSessions()"><i class="fa-solid fa-calendar-days"></i> Buổi học &amp; điểm danh</button>` : ''}
+            ${lopCuaToi ? `<button class="btn btn-sm btn-outline" onclick="adminApp.goToAssignments()"><i class="fa-solid fa-list-check"></i> Bài tập đã giao</button>` : ''}
+            ${lopCuaToi ? `<button class="btn btn-sm btn-outline" onclick="adminApp.goToMistakes()"><i class="fa-solid fa-triangle-exclamation"></i> Lỗi sai của lớp</button>` : ''}
+            ${lopCuaToi ? `<button class="btn btn-sm btn-outline" onclick="adminApp.openReportForm()"><i class="fa-solid fa-file-arrow-down"></i> Xuất báo cáo</button>` : ''}
             <button class="btn btn-sm btn-primary" onclick="adminApp.openBulkAddForm()"><i class="fa-solid fa-user-plus"></i> Thêm học viên</button>
           </div>
         </div>
+        ${lopCuaToi ? '' : '<p style="font-size:13px;color:var(--admin-text-muted);margin-top:10px">Lớp của giáo viên khác — bạn chỉ xem danh sách và thêm học viên vào lớp.</p>'}
       </div>
       <div class="data-table-wrapper">
         <div class="table-toolbar"><h3 style="font-size:14px;font-weight:700;flex:1">${data.students.length} học viên</h3></div>
@@ -2080,7 +2085,7 @@ async function renderClassDetail(el) {
           <tbody>
             ${data.students.length === 0 ? '<tr><td colspan="7"><div class="empty-state"><p>Chưa có học viên nào. Bấm "Thêm học viên" để thêm.</p></div></td></tr>' : ''}
             ${data.students.map(s => `
-              <tr style="cursor:pointer" onclick="adminApp.openStudentDetail(${s.id})">
+              <tr ${lopCuaToi ? `style="cursor:pointer" onclick="adminApp.openStudentDetail(${s.id})"` : ''}>
                 <td style="font-weight:700">${s.name}</td>
                 <td>${s.email}</td>
                 <td>${s.attended_count}/${s.total_sessions} <span style="color:var(--admin-text-muted)">(vắng ${s.absent_count})</span></td>
@@ -2088,7 +2093,7 @@ async function renderClassDetail(el) {
                 <td>${s.early_leave_count > 0 ? `<span class="badge badge-warning">${s.early_leave_count}</span>` : '—'}</td>
                 <td><span class="badge badge-primary">${s.exercises_done} bài</span></td>
                 <td onclick="event.stopPropagation()">
-                  <button class="btn btn-icon btn-outline" onclick="adminApp.removeStudentFromClass(${s.id}, '${(s.name || '').replace(/'/g, "\\'")}')" title="Xóa khỏi lớp" style="color:var(--admin-danger)"><i class="fa-solid fa-user-minus"></i></button>
+                  ${lopCuaToi ? `<button class="btn btn-icon btn-outline" onclick="adminApp.removeStudentFromClass(${s.id}, '${(s.name || '').replace(/'/g, "\\'")}')" title="Xóa khỏi lớp" style="color:var(--admin-danger)"><i class="fa-solid fa-user-minus"></i></button>` : ''}
                 </td>
               </tr>
             `).join('')}

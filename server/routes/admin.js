@@ -869,17 +869,23 @@ async function kiemTraGiaoVien(teacher_id, req = null) {
   return r.length ? id : false;
 }
 
+// `?tatca=1`: giáo viên xem MỌI lớp của trung tâm (2026-10-30) để thêm học viên vào lớp đồng
+// nghiệp. Chỉ màn "Lớp học" gửi cờ này — các nơi khác (giao bài, sao chép lớp...) vẫn nhận đúng
+// lớp mình phụ trách, vì lớp của người khác ở đó chỉ dẫn tới 403.
 router.get('/classes', async (req, res) => {
   try {
+    const xemTatCa = req.query.tatca === '1';
+    const loc = xemTatCa ? (req.locOrg ? ' AND c.org_id = ?' : '') : locPhamVi(req);
+    const tham = xemTatCa ? (req.locOrg ? [req.orgId] : []) : thamSoPhamVi(req);
     const [rows] = await pool.query(`
       SELECT c.*, u.name AS teacher_name,
         (SELECT COUNT(*) FROM class_enrollments ce WHERE ce.class_id = c.id) AS student_count,
         (SELECT COUNT(*) FROM class_sessions cs WHERE cs.class_id = c.id) AS session_count
       FROM classes c
       LEFT JOIN users u ON u.id = c.teacher_id
-      WHERE 1 = 1${locPhamVi(req)}
+      WHERE 1 = 1${loc}
       ORDER BY c.created_at DESC
-    `, thamSoPhamVi(req));
+    `, tham);
     res.json({ classes: rows });
   } catch (err) {
     console.error('Admin classes error:', err);
